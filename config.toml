@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "http://ltan.me"
 languageCode = "en-us"
 theme = "terminal"
 paginate = 5
@@ -13,7 +13,7 @@ publishDir = "docs"
   themeColor = "orange"
 
   # if you set this to 0, only submenu trigger will be visible
-  showMenuItems = 2
+  showMenuItems = 5
 
   # show selector to switch language
   showLanguageSelector = false
@@ -66,10 +66,22 @@ publishDir = "docs"
 
     [languages.en.menu]
       [[languages.en.menu.main]]
+        name = "Home"
+        identifier = "home"
+        weight = 10
+        url = "/"
+      [[languages.en.menu.main]]
+        name = "Archives"
+        identifier = "archives"
+        weight = 20
+        url = "/post/"
+      [[languages.en.menu.main]]
+        name = "Tags"
+        identifier = "tags"
+        weight = 30
+        url = "/tags/"
+      [[languages.en.menu.main]]
         identifier = "about"
         name = "About"
+        weight = 50
         url = "/about/"
-      [[languages.en.menu.main]]
-        identifier = "showcase"
-        name = "Showcase"
-        url = "/showcase"
