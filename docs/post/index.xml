@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Terminal</title>
-    <link>/</link>
-    <description>Recent content on Terminal</description>
+    <title>Posts on Terminal</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 May 2021 17:47:39 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 May 2021 17:47:39 +0800</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Lua Language Parsing Private Protocol Package</title>
       <link>/post/lua-language-parsing-private-protocol-package/</link>
@@ -62,20 +62,6 @@ while true do
 end
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;通过客户端链接后发送tcp私有协议包的一模拟效果&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../../images/lua-language-parsing-private-protocol-package.assets/image-20210508175828796.png&#34; alt=&#34;image-20210508175828796&#34;&gt;&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>/about/</link>
-      <pubDate>Sat, 08 May 2021 16:40:17 +0800</pubDate>
-      
-      <guid>/about/</guid>
-      <description>about me 10年软件开发相关工作经验，生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Unix/Linux/Windows。做过大型门户网站，做过企业中台管理，做过企业DMP系统，规则引擎等项目。 个人爱好喜欢折腾新事物，热爱自驾游。徒步登山等户外运动</description>
-      <content>&lt;h2 id=&#34;heading&#34;&gt;&lt;/h2&gt;
-&lt;h1 id=&#34;about-me&#34;&gt;about me&lt;/h1&gt;
-&lt;p&gt;10年软件开发相关工作经验，生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Unix/Linux/Windows。做过大型门户网站，做过企业中台管理，做过企业DMP系统，规则引擎等项目。 
-个人爱好喜欢折腾新事物，热爱自驾游。徒步登山等户外运动&lt;/p&gt;
 </content>
     </item>
     
