@@ -2,14 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/about/</loc>
-    <priority>0</priority>
-  </url><url>
-    <loc>/post/solve-the-problem-of-maven-packaging-static-resource-coding/</loc>
-  </url><url>
     <loc>/categories/</loc>
-  </url><url>
-    <loc>/post/</loc>
   </url><url>
     <loc>/tags/</loc>
   </url><url>
