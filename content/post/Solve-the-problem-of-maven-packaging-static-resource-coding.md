@@ -55,4 +55,4 @@ draft: true
 
 打包后可以对比一下字体md5文件，就知道mvn在编译打包时，损坏了font
 
-![image-20210507173743715](../../static/images/image-20210507173743715.png)
+![image-20210508170557174](../../images/solve-the-problem-of-maven-packaging-static-resource-coding.assets/image-20210508170557174.png)
