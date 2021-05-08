@@ -2,10 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>/post/lua-language-parsing-private-protocol-package/</loc>
+    <lastmod>2021-05-08T17:47:39+08:00</lastmod>
+  </url><url>
+    <loc>/post/</loc>
+    <lastmod>2021-05-08T17:47:39+08:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2021-05-08T17:47:39+08:00</lastmod>
+  </url><url>
+    <loc>/about/</loc>
+    <lastmod>2021-05-08T16:40:17+08:00</lastmod>
+  </url><url>
+    <loc>/post/solve-the-problem-of-maven-packaging-static-resource-coding/</loc>
+    <lastmod>2021-05-08T16:39:39+08:00</lastmod>
+  </url><url>
     <loc>/categories/</loc>
   </url><url>
     <loc>/tags/</loc>
-  </url><url>
-    <loc>/</loc>
   </url>
 </urlset>
