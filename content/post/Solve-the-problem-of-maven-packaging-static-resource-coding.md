@@ -1,3 +1,8 @@
+---
+title: "Solve the Problem of Maven Packaging Static Resource Coding"
+date: 2021-05-08T16:39:39+08:00
+draft: true
+---
 # 解决maven生成jar包时字体不能正常显示
 
 由于前端人手不够，今天做了一个小项目，这个项目是用spring boot  + layui 构建的后台管理系统。就没有用到前后端分离的方式去开发

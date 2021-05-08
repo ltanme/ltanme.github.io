@@ -6,75 +6,5 @@
     <description>Recent content on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title></title>
-      <link>/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/about/</guid>
-      <description>about me 10年软件开发相关工作经验，生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Unix/Linux/Windows。做过大型门户网站，做过企业中台管理，做过企业DMP系统，规则引擎等项目。 个人爱好喜欢折腾新事物，热爱自驾游。徒步登山等户外运动</description>
-      <content>&lt;h2 id=&#34;heading&#34;&gt;&lt;/h2&gt;
-&lt;h1 id=&#34;about-me&#34;&gt;about me&lt;/h1&gt;
-&lt;p&gt;10年软件开发相关工作经验，生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Unix/Linux/Windows。做过大型门户网站，做过企业中台管理，做过企业DMP系统，规则引擎等项目。 
-个人爱好喜欢折腾新事物，热爱自驾游。徒步登山等户外运动&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>/post/solve-the-problem-of-maven-packaging-static-resource-coding/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/post/solve-the-problem-of-maven-packaging-static-resource-coding/</guid>
-      <description>解决maven生成jar包时字体不能正常显示 由于前端人手不够，今天做了一个小项目，这个项目是用spring boot + layui 构建的后台管理系统。就没有用到前后端分离的方式去开发
-项目做完后在打包时运行时发现浏览器显示字体损坏，导致网站icon图标不能正常显示
-解决方法： 在pom.xml 里找到build 区块用下面代码替换它
- &amp;lt;build&amp;gt;&amp;lt;finalName&amp;gt;ivy-admin&amp;lt;/finalName&amp;gt;&amp;lt;resources&amp;gt;&amp;lt;resource&amp;gt;&amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt;&amp;lt;filtering&amp;gt;true&amp;lt;/filtering&amp;gt;&amp;lt;excludes&amp;gt;&amp;lt;exclude&amp;gt;static/layui/font/**&amp;lt;/exclude&amp;gt;&amp;lt;exclude&amp;gt;static/admin/font/**&amp;lt;/exclude&amp;gt;&amp;lt;exclude&amp;gt;static/admin/fonts/**&amp;lt;/exclude&amp;gt;&amp;lt;/excludes&amp;gt;&amp;lt;/resource&amp;gt;&amp;lt;resource&amp;gt;&amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt;&amp;lt;filtering&amp;gt;false&amp;lt;/filtering&amp;gt;&amp;lt;includes&amp;gt;&amp;lt;include&amp;gt;static/layui/font/**&amp;lt;/include&amp;gt;&amp;lt;include&amp;gt;static/admin/font/**&amp;lt;/include&amp;gt;&amp;lt;include&amp;gt;static/admin/fonts/**&amp;lt;/include&amp;gt;&amp;lt;/includes&amp;gt;&amp;lt;/resource&amp;gt;&amp;lt;/resources&amp;gt;&amp;lt;plugins&amp;gt;&amp;lt;plugin&amp;gt;&amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;&amp;lt;artifactId&amp;gt;spring-boot-maven-plugin&amp;lt;/artifactId&amp;gt;&amp;lt;configuration&amp;gt;&amp;lt;executable&amp;gt;true&amp;lt;/executable&amp;gt;&amp;lt;/configuration&amp;gt;&amp;lt;/plugin&amp;gt;&amp;lt;/plugins&amp;gt;&amp;lt;/build&amp;gt;问题原因: 经过发现在不加上面打包代码时，不排除font 字体目录时，发现maven在打包复制时，对其font字体文件编译，导致文件被改写，编码和原来的字体文件不一样，导致打包前，打包前文件md5不一样，font 字体损坏，最终浏览器显示字体损坏
-打包后可以对比一下字体md5文件，就知道mvn在编译打包时，损坏了font</description>
-      <content>&lt;h1 id=&#34;解决maven生成jar包时字体不能正常显示&#34;&gt;解决maven生成jar包时字体不能正常显示&lt;/h1&gt;
-&lt;p&gt;由于前端人手不够，今天做了一个小项目，这个项目是用spring boot  + layui 构建的后台管理系统。就没有用到前后端分离的方式去开发&lt;/p&gt;
-&lt;p&gt;项目做完后在打包时运行时发现浏览器显示字体损坏，导致网站icon图标不能正常显示&lt;/p&gt;
-&lt;h2 id=&#34;解决方法&#34;&gt;解决方法：&lt;/h2&gt;
-&lt;p&gt;在pom.xml 里找到build 区块用下面代码替换它&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;    &amp;lt;build&amp;gt;
-        &amp;lt;finalName&amp;gt;ivy-admin&amp;lt;/finalName&amp;gt;
-        &amp;lt;resources&amp;gt;
-            &amp;lt;resource&amp;gt;
-                &amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt;
-                &amp;lt;filtering&amp;gt;true&amp;lt;/filtering&amp;gt;
-                &amp;lt;excludes&amp;gt;
-                    &amp;lt;exclude&amp;gt;static/layui/font/**&amp;lt;/exclude&amp;gt;
-                    &amp;lt;exclude&amp;gt;static/admin/font/**&amp;lt;/exclude&amp;gt;
-                    &amp;lt;exclude&amp;gt;static/admin/fonts/**&amp;lt;/exclude&amp;gt;
-                &amp;lt;/excludes&amp;gt;
-            &amp;lt;/resource&amp;gt;
-            &amp;lt;resource&amp;gt;
-                &amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt;
-                &amp;lt;filtering&amp;gt;false&amp;lt;/filtering&amp;gt;
-                &amp;lt;includes&amp;gt;
-                    &amp;lt;include&amp;gt;static/layui/font/**&amp;lt;/include&amp;gt;
-                    &amp;lt;include&amp;gt;static/admin/font/**&amp;lt;/include&amp;gt;
-                    &amp;lt;include&amp;gt;static/admin/fonts/**&amp;lt;/include&amp;gt;
-                &amp;lt;/includes&amp;gt;
-            &amp;lt;/resource&amp;gt;
-        &amp;lt;/resources&amp;gt;
-        &amp;lt;plugins&amp;gt;
-            &amp;lt;plugin&amp;gt;
-                &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
-                &amp;lt;artifactId&amp;gt;spring-boot-maven-plugin&amp;lt;/artifactId&amp;gt;
-                &amp;lt;configuration&amp;gt;
-                    &amp;lt;executable&amp;gt;true&amp;lt;/executable&amp;gt;
-                &amp;lt;/configuration&amp;gt;
-            &amp;lt;/plugin&amp;gt;
-        &amp;lt;/plugins&amp;gt;
-    &amp;lt;/build&amp;gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;问题原因&#34;&gt;问题原因:&lt;/h2&gt;
-&lt;p&gt;经过发现在不加上面打包代码时，不排除font 字体目录时，发现maven在打包复制时，对其font字体文件编译，导致文件被改写，编码和原来的字体文件不一样，导致打包前，打包前文件md5不一样，font 字体损坏，最终浏览器显示字体损坏&lt;/p&gt;
-&lt;p&gt;打包后可以对比一下字体md5文件，就知道mvn在编译打包时，损坏了font&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../../static/images/image-20210507173743715.png&#34; alt=&#34;image-20210507173743715&#34;&gt;&lt;/p&gt;
-</content>
-    </item>
-    
   </channel>
 </rss>
