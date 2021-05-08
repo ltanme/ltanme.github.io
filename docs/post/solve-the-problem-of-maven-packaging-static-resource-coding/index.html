@@ -13,21 +13,21 @@
 打包后可以对比一下字体md5文件，就知道mvn在编译打包时，损坏了font" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="/post/solve-the-problem-of-maven-packaging-static-resource-coding/" />
+<link rel="canonical" href="http://ltan.me/post/solve-the-problem-of-maven-packaging-static-resource-coding/" />
 
 
 
 
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="http://ltan.me/assets/style.css">
 
 
 
 
 
 
-<link rel="apple-touch-icon" href="/img/apple-touch-icon-192x192.png">
+<link rel="apple-touch-icon" href="http://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="/img/favicon/orange.png">
+  <link rel="shortcut icon" href="http://ltan.me/img/favicon/orange.png">
 
 
 
@@ -48,11 +48,11 @@
 解决方法： 在pom.xml 里找到build 区块用下面代码替换它
  &amp;lt;build&amp;gt; &amp;lt;finalName&amp;gt;ivy-admin&amp;lt;/finalName&amp;gt; &amp;lt;resources&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt; &amp;lt;filtering&amp;gt;true&amp;lt;/filtering&amp;gt; &amp;lt;excludes&amp;gt; &amp;lt;exclude&amp;gt;static/layui/font/**&amp;lt;/exclude&amp;gt; &amp;lt;exclude&amp;gt;static/admin/font/**&amp;lt;/exclude&amp;gt; &amp;lt;exclude&amp;gt;static/admin/fonts/**&amp;lt;/exclude&amp;gt; &amp;lt;/excludes&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt; &amp;lt;filtering&amp;gt;false&amp;lt;/filtering&amp;gt; &amp;lt;includes&amp;gt; &amp;lt;include&amp;gt;static/layui/font/**&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;static/admin/font/**&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;static/admin/fonts/**&amp;lt;/include&amp;gt; &amp;lt;/includes&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;/resources&amp;gt; &amp;lt;plugins&amp;gt; &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;executable&amp;gt;true&amp;lt;/executable&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;/plugin&amp;gt; &amp;lt;/plugins&amp;gt; &amp;lt;/build&amp;gt; 问题原因: 经过发现在不加上面打包代码时，不排除font 字体目录时，发现maven在打包复制时，对其font字体文件编译，导致文件被改写，编码和原来的字体文件不一样，导致打包前，打包前文件md5不一样，font 字体损坏，最终浏览器显示字体损坏
 打包后可以对比一下字体md5文件，就知道mvn在编译打包时，损坏了font" />
-<meta property="og:url" content="/post/solve-the-problem-of-maven-packaging-static-resource-coding/" />
+<meta property="og:url" content="http://ltan.me/post/solve-the-problem-of-maven-packaging-static-resource-coding/" />
 <meta property="og:site_name" content="Terminal" />
 
   
-    <meta property="og:image" content="/img/favicon/orange.png">
+    <meta property="og:image" content="http://ltan.me/img/favicon/orange.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -98,11 +98,19 @@
     
       
         
-          <li><a href="/about">About</a></li>
+          <li><a href="/">Home</a></li>
         
       
         
-          <li><a href="/showcase">Showcase</a></li>
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
         
       
       
@@ -114,11 +122,19 @@
   <ul class="menu__inner menu__inner--mobile">
     
       
-        <li><a href="/about">About</a></li>
+        <li><a href="/">Home</a></li>
       
     
       
-        <li><a href="/showcase">Showcase</a></li>
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
       
     
     
@@ -133,7 +149,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="/post/solve-the-problem-of-maven-packaging-static-resource-coding/">Solve the Problem of Maven Packaging Static Resource Coding</a></h1>
+    <a href="http://ltan.me/post/solve-the-problem-of-maven-packaging-static-resource-coding/">Solve the Problem of Maven Packaging Static Resource Coding</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -215,8 +231,8 @@
   </div>
 </footer>
 
-<script src="/assets/main.js"></script>
-<script src="/assets/prism.js"></script>
+<script src="http://ltan.me/assets/main.js"></script>
+<script src="http://ltan.me/assets/prism.js"></script>
 
 
 
