@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://ltan.me/post/lua-language-parsing-private-protocol-package/</loc>
+    <loc>https://ltan.me/post/lua-language-parsing-private-protocol-package/</loc>
     <lastmod>2021-05-08T17:47:39+08:00</lastmod>
   </url><url>
-    <loc>http://ltan.me/post/</loc>
+    <loc>https://ltan.me/post/</loc>
     <lastmod>2021-05-08T17:47:39+08:00</lastmod>
   </url><url>
-    <loc>http://ltan.me/</loc>
+    <loc>https://ltan.me/</loc>
     <lastmod>2021-05-08T17:47:39+08:00</lastmod>
   </url><url>
-    <loc>http://ltan.me/about/</loc>
+    <loc>https://ltan.me/about/</loc>
     <lastmod>2021-05-08T16:40:17+08:00</lastmod>
   </url><url>
-    <loc>http://ltan.me/post/solve-the-problem-of-maven-packaging-static-resource-coding/</loc>
+    <loc>https://ltan.me/post/solve-the-problem-of-maven-packaging-static-resource-coding/</loc>
     <lastmod>2021-05-08T16:39:39+08:00</lastmod>
   </url><url>
-    <loc>http://ltan.me/categories/</loc>
+    <loc>https://ltan.me/categories/</loc>
   </url><url>
-    <loc>http://ltan.me/tags/</loc>
+    <loc>https://ltan.me/tags/</loc>
   </url>
 </urlset>
