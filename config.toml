@@ -1,4 +1,4 @@
-baseurl = "http://ltan.me"
+baseurl = "https://ltan.me"
 languageCode = "en-us"
 theme = "terminal"
 paginate = 5
