@@ -8,7 +8,15 @@ draft: true
 
 
 
+> 为什么需要lua来解析tcp 私有协议包？
+>
+>  因为lua语言生态内，有强大的openresty 技术可使用，而openresty可以提供强劲的web 并发性能，能提供tcp 长链接通道 技术
+
+
+
 ## 首先需要lapck包对其解析
+
+
 
 ```
 git clone  https://github.com/Kong/lua-pack 
