@@ -83,7 +83,7 @@ end
 php, python, web前端
 NAS 使用经验分享
 10年软件开发相关工作经验，生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Unix/Linux/Windows。做过大型门户网站，做过企业中台管理，做过企业DMP系统，规则引擎等大型项目。
-关于此博客 博客主要用是记录生活，工作中遇到的问题，及解决方法和心得
+关于此博客 博客主要用于记录生活，工作中遇到的问题，及解决方法和心得
 此博客基于 Hugo 构建
 当前主题 terminal 修改自 panr/hugo-theme-terminal</description>
       <content>&lt;h1 id=&#34;about-me&#34;&gt;About me&lt;/h1&gt;
@@ -94,7 +94,7 @@ NAS 使用经验分享
 &lt;p&gt;NAS 使用经验分享&lt;/p&gt;
 &lt;p&gt;10年软件开发相关工作经验，生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Unix/Linux/Windows。做过大型门户网站，做过企业中台管理，做过企业DMP系统，规则引擎等大型项目。&lt;/p&gt;
 &lt;h2 id=&#34;关于此博客&#34;&gt;关于此博客&lt;/h2&gt;
-&lt;p&gt;博客主要用是记录生活，工作中遇到的问题，及解决方法和心得&lt;/p&gt;
+&lt;p&gt;博客主要用于记录生活，工作中遇到的问题，及解决方法和心得&lt;/p&gt;
 &lt;p&gt;此博客基于 &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; 构建&lt;/p&gt;
 &lt;p&gt;当前主题 &lt;a href=&#34;https://github.com/ttys3/hugo-theme-terminal/tree/ttys3&#34;&gt;terminal&lt;/a&gt; 修改自 &lt;a href=&#34;https://github.com/panr/hugo-theme-terminal&#34;&gt;panr/hugo-theme-terminal&lt;/a&gt;&lt;/p&gt;
 </content>
