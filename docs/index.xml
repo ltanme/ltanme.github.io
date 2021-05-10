@@ -77,7 +77,7 @@ end
       <pubDate>Sat, 08 May 2021 16:40:17 +0800</pubDate>
       
       <guid>https://ltan.me/about/</guid>
-      <description>About me 专注于 Java, Golang, lua
+      <description>专注于 Java, Golang, lua
 专注于 docker
 分享 centos/ linux windows 相关技术
 php, python, web前端
@@ -86,8 +86,7 @@ NAS 使用经验分享
 关于此博客 博客主要用于记录生活，工作中遇到的问题，及解决方法和心得
 此博客基于 Hugo 构建
 当前主题 terminal 修改自 panr/hugo-theme-terminal</description>
-      <content>&lt;h1 id=&#34;about-me&#34;&gt;About me&lt;/h1&gt;
-&lt;p&gt;专注于 Java, Golang, lua&lt;/p&gt;
+      <content>&lt;p&gt;专注于 Java, Golang, lua&lt;/p&gt;
 &lt;p&gt;专注于 docker&lt;/p&gt;
 &lt;p&gt;分享 centos/ linux windows 相关技术&lt;/p&gt;
 &lt;p&gt;php, python, web前端&lt;/p&gt;
