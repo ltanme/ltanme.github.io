@@ -3,9 +3,6 @@ title: "About"
 date: 2021-05-08T16:40:17+08:00
 draft: true
 ---
- 
-
-# About me
 
 专注于 Java, Golang, lua
 
