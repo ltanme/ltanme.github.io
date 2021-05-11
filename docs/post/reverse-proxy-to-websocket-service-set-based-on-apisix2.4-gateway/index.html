@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title> :: Terminal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="基于apisix2.4网关反向代理到websocket服务集节点 问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点
+apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等
+本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟
+ 整体的环境说明：如下图
+  搭建环境
+docker pull django   运行python 容器
+docker run -itd --name py3 -v /i:/i -v /d:/d django /bin/bash   进入容器，检查容器环境是否正常
+docker exec -it c5d2369adde2 /bin/bashdocker exec -it 58e1c95fea73 /bin/sh  安装websocket
+pip install websocket pip install stomp.py   启动后端 java websocket 环境
+进入java 容器，设置同一个网络环境，同一个网段
+  docker run --name s1 --network app-tier -d -v /i:/i -v /d:/d -p 8081:8080 ltjsj/super-dev-env:v1." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="">
+<meta property="og:description" content="基于apisix2.4网关反向代理到websocket服务集节点 问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点
+apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等
+本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟
+ 整体的环境说明：如下图
+  搭建环境
+docker pull django   运行python 容器
+docker run -itd --name py3 -v /i:/i -v /d:/d django /bin/bash   进入容器，检查容器环境是否正常
+docker exec -it c5d2369adde2 /bin/bashdocker exec -it 58e1c95fea73 /bin/sh  安装websocket
+pip install websocket pip install stomp.py   启动后端 java websocket 环境
+进入java 容器，设置同一个网络环境，同一个网段
+  docker run --name s1 --network app-tier -d -v /i:/i -v /d:/d -p 8081:8080 ltjsj/super-dev-env:v1." />
+<meta property="og:url" content="https://ltan.me/post/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/" />
+<meta property="og:site_name" content="Terminal" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Terminal
+  </div>
+</a>
+
+    </div>
+    
+      <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/"></a></h1>
+  <div class="post-meta">
+    
+    
+  </div>
+
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="基于apisix24网关反向代理到websocket服务集节点">基于apisix2.4网关反向代理到websocket服务集节点<a href="#基于apisix24网关反向代理到websocket服务集节点" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点</p>
+<p>apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等</p>
+<p>本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟</p>
+<hr>
+<p>整体的环境说明：如下图</p>
+<p><img src="../../images/Untitled.assets/image-20210511150518389.png" alt="image-20210511150518389"></p>
+<ul>
+<li>
+<p><input disabled="" type="checkbox"> 搭建环境</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker pull django
+</code></pre></div></li>
+<li>
+<p><input disabled="" type="checkbox"> 运行python 容器</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker run -itd --name py3 -v /i:/i -v /d:/d django /bin/bash
+</code></pre></div></li>
+<li>
+<p><input disabled="" type="checkbox"> 进入容器，检查容器环境是否正常</p>
+<pre><code class="language-shel" data-lang="shel">docker exec -it  c5d2369adde2 /bin/bash
+  
+docker exec -it 58e1c95fea73 /bin/sh
+</code></pre><p><img src="../../images/Untitled.assets/image-20210511150600898.png" alt="image-20210511150600898"></p>
+</li>
+<li>
+<p><input disabled="" type="checkbox"> 安装websocket</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> pip install websocket 
+  
+ pip install stomp.py
+</code></pre></div></li>
+<li>
+<p><input disabled="" type="checkbox"> 启动后端 java websocket 环境</p>
+<p>进入java 容器，设置同一个网络环境，同一个网段</p>
+</li>
+</ul>
+<pre><code class="language-she" data-lang="she">    docker run --name s1 --network app-tier -d -v /i:/i -v /d:/d -p 8081:8080 ltjsj/super-dev-env:v1.1 
+
+​      docker exec -it s1 /bin/bash
+
+​      java -jar /i/path/to/websocket.jar 
+
+​       docker inspect s1 | findstr IPAddress # 查看容器ip， 准备填入apisix 节点 
+</code></pre><ul>
+<li>
+<p><input disabled="" type="checkbox"> 配置apisix</p>
+<p>路由代理，配置上游</p>
+<p><img src="../../images/Untitled.assets/image-20210511150841820.png" alt="image-20210511150841820"></p>
+</li>
+<li>
+<p><input disabled="" type="checkbox"> 编写python 脚本测试代码</p>
+<pre><code class="language-pytho" data-lang="pytho">#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time    : 2021/03/31 下午03:21
+# @Author  : ltan.me
+   
+from stomp_ws import Stomp
+import time
+   
+def do_thing_a(msg):
+    print(&quot;MESSAGE: &quot; + msg)
+   
+if __name__ == &quot;__main__&quot;:
+   
+    for i in range(0,10):
+        #为了模拟设备id,激活id,采用id为作为通信参数，生成10个id分别请求websocket服务器域名
+        url = &quot;test.xxxx.com/stompServer/websocket?id=%s&amp;activeId=416&amp;deviceId=3657dc0cfede992b97d2135fd0514c6c&amp;userId=1&amp;&amp;connectType=0&amp;token=9d3b7282d295eefe9e9b959f63134dee&quot; % str(i)
+        print(url)
+        stomp = Stomp(url, sockjs=True, wss=False)
+        stomp.connect()
+        stomp.subscribe(&quot;/user/1_416/command&quot;, do_thing_a)
+        time.sleep(2)
+        stomp.send(&quot;/web2client_term&quot;, '{&quot;userId&quot;:1,&quot;activeId&quot;:416,&quot;cmdType&quot;:18,&quot;content&quot;:&quot;python-hahah&quot;}')
+</code></pre></li>
+<li>
+<p><input disabled="" type="checkbox"> 最终运行效果</p>
+<p><img src="../../images/Untitled.assets/image-20210511151138269.png" alt="image-20210511151138269"></p>
+<p><img src="../../images/Untitled.assets/image-20210511151206802.png" alt="image-20210511151206802"></p>
+</li>
+</ul>
+
+      </div></div>
+
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
