@@ -1,3 +1,8 @@
+---
+title: "Reverse proxy to websocket service set based on apisix2.4 gateway"
+date: 2021-05-11T17:47:39+08:00
+draft: true
+---
 # 基于apisix2.4网关反向代理到websocket服务集节点
 
 问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点
