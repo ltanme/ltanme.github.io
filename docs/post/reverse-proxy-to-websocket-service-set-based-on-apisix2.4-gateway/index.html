@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title> :: Terminal</title>
+    <title>Reverse Proxy to Websocket Service Set Based on Apisix2 :: Terminal</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,7 @@ apisix就是基于openresty开发分布式网关集群平台，优势现阶段�
   搭建环境
 docker pull django   运行python 容器
 docker run -itd --name py3 -v /i:/i -v /d:/d django /bin/bash   进入容器，检查容器环境是否正常
-docker exec -it c5d2369adde2 /bin/bashdocker exec -it 58e1c95fea73 /bin/sh  安装websocket
+docker exec -it c5d2369adde2 /bin/bash docker exec -it 58e1c95fea73 /bin/sh   安装websocket
 pip install websocket pip install stomp.py   启动后端 java websocket 环境
 进入java 容器，设置同一个网络环境，同一个网段
   docker run --name s1 --network app-tier -d -v /i:/i -v /d:/d -p 8081:8080 ltjsj/super-dev-env:v1." />
@@ -48,7 +48,7 @@ pip install websocket pip install stomp.py   启动后端 java websocket 环境
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="">
+<meta property="og:title" content="Reverse Proxy to Websocket Service Set Based on Apisix2">
 <meta property="og:description" content="基于apisix2.4网关反向代理到websocket服务集节点 问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点
 apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等
 本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟
@@ -56,7 +56,7 @@ apisix就是基于openresty开发分布式网关集群平台，优势现阶段�
   搭建环境
 docker pull django   运行python 容器
 docker run -itd --name py3 -v /i:/i -v /d:/d django /bin/bash   进入容器，检查容器环境是否正常
-docker exec -it c5d2369adde2 /bin/bashdocker exec -it 58e1c95fea73 /bin/sh  安装websocket
+docker exec -it c5d2369adde2 /bin/bash docker exec -it 58e1c95fea73 /bin/sh   安装websocket
 pip install websocket pip install stomp.py   启动后端 java websocket 环境
 进入java 容器，设置同一个网络环境，同一个网段
   docker run --name s1 --network app-tier -d -v /i:/i -v /d:/d -p 8081:8080 ltjsj/super-dev-env:v1." />
@@ -70,6 +70,8 @@ pip install websocket pip install stomp.py   启动后端 java websocket 环境
 <meta property="og:image:width" content="2048">
 <meta property="og:image:height" content="1024">
 
+
+  <meta property="article:published_time" content="2021-05-11 15:39:09 &#43;0800 CST" />
 
 
 
@@ -159,8 +161,12 @@ pip install websocket pip install stomp.py   启动后端 java websocket 环境
     
 <div class="post">
   <h1 class="post-title">
-    <a href="https://ltan.me/post/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/"></a></h1>
+    <a href="https://ltan.me/post/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/">Reverse Proxy to Websocket Service Set Based on Apisix2</a></h1>
   <div class="post-meta">
+    
+      <span class="post-date">
+        2021-05-11 
+      </span>
     
     
   </div>
