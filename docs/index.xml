@@ -6,7 +6,89 @@
     <description>Recent content on Terminal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 May 2021 15:39:09 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 12 May 2021 19:36:48 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Do Not Release Resources After Uploading the Zip Package in Java</title>
+      <link>https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</link>
+      <pubDate>Wed, 12 May 2021 19:36:48 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</guid>
+      <description>在windows系统中检验一个上传文件程序是否有bug另一种姿势  某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记较一下过程
+在windows系统调试一个文件上传程序，手贱想重新删除原文件，重新上传，结果这一删除发现windows 弹窗，报窗
+文件正常使用 错误提示。
+ 这个程序需求就是把一个zip包上传到ftp当中，流程是先上传到服务器本地，然后同步到ftp当中
+在windows 调试过程重新删除了己上传的文件，但发现不能删除的，这个问题也找了很久。
+于是就重新梳理一下上传的流程。
+发现以下问题
+来调试代码
+下面这段代码，上传zip后先保存到本地
+接下来是解压zip
+最后增加zipFile.close() 解决，增加in.close() 解决
+问题总结：
+​ 论代码review 重要性，前期需要多多测试。</description>
+      <content>&lt;h1 id=&#34;在windows系统中检验一个上传文件程序是否有bug另一种姿势&#34;&gt;在windows系统中检验一个上传文件程序是否有bug另一种姿势&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记较一下过程&lt;/p&gt;
+&lt;p&gt;在windows系统调试一个文件上传程序，手贱想重新删除原文件，重新上传，结果这一删除发现windows 弹窗，报窗&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;文件正常使用&lt;/em&gt;    错误提示。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这个程序需求就是把一个zip包上传到ftp当中，流程是先上传到服务器本地，然后同步到ftp当中&lt;/p&gt;
+&lt;p&gt;在windows 调试过程重新删除了己上传的文件，但发现不能删除的，这个问题也找了很久。&lt;/p&gt;
+&lt;p&gt;于是就重新梳理一下上传的流程。&lt;/p&gt;
+&lt;p&gt;发现以下问题&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../../../images/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java.assets/image-20210512194748766.png&#34; alt=&#34;image-20210512194748766&#34;&gt;&lt;/p&gt;
+&lt;p&gt;来调试代码&lt;/p&gt;
+&lt;p&gt;下面这段代码，上传zip后先保存到本地&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../../../images/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java.assets/image-20210512194834905.png&#34; alt=&#34;image-20210512194834905&#34;&gt;&lt;/p&gt;
+&lt;p&gt;接下来是解压zip&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../../../images/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java.assets/image-20210512194951003.png&#34; alt=&#34;image-20210512194951003&#34;&gt;&lt;/p&gt;
+&lt;p&gt;最后增加zipFile.close() 解决，增加in.close() 解决&lt;/p&gt;
+&lt;p&gt;问题总结：&lt;/p&gt;
+&lt;p&gt;​    论代码review 重要性，前期需要多多测试。&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>A Bug That Displays Abnormally After Uploading an Image</title>
+      <link>https://ltan.me/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/</link>
+      <pubDate>Wed, 12 May 2021 19:11:15 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/</guid>
+      <description>记一次解决图片上传后在浏览器不能正常显示的问题  原来这个项目是比较老，采用的是spirng mvc +ftp 技术搭建的上传功能，通过把一个静态资源h5页，打包成一个zip上传到后台
+后台再对其zip包进行解压上传到cdn服务器，以域名访问该静态资源页面，其静态资源包含html,js, jpg。 然后设计师大部分以图片形式排版，组成的html5 幻灯显示页面，难后在上传过程有偶发性的遇到图片打不开，显示不正常等问题，bug是随机复现。于是找了很久才找到这个问题根源，下面对其记录一下
+问题主要原因：从本地上传到ftp服务器传输读写编码不一至导致的，对于二进制图片，应采用二进制上传，开启ftp被动模式,编码为ASCII，
+ 对于文本文件如css,txt,js文件应采用utf8或者ascii都可以，关键是在文件读写时需要保持编码前后一致即可
+意思就是在本地解压zip后，需要把zip包静态资源按照 目录格式同步 ftp 服务器当中，关键是文件在上传前后读写需要保持编码一至就不会出现这个问题
+下面开始详细分析调式
+当设置uft8编码上传图片文件后，每个文件上传后会少很多的字节内容
+该图片文件默认在上传前编码格式为 ANSI
+然后从同步到ftp 服务器后，下载到本地打开发现，编码变成了GB2312 格式的
+当然变成GB2312编码上传后的图片文件，文件md5值是一样的，浏览器不能正常显示图片文件，因为图片文件被编码破坏了
+原老项目采用apache commons net 包下的ftp client，不知道为什么设置了编码也没有解决问题，说是同步到ftp工具用apache camel 组件代替 apache commons net 的ftp client, 替换之前尝试把编码设置成uft-8,果然很容易复现问题
+最终用apache camel 代替了 ftpclient 解决ftp 同步图片后偶发性打不开的问题</description>
+      <content>&lt;h1 id=&#34;记一次解决图片上传后在浏览器不能正常显示的问题&#34;&gt;记一次解决图片上传后在浏览器不能正常显示的问题&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;原来这个项目是比较老，采用的是spirng mvc +ftp 技术搭建的上传功能，通过把一个静态资源h5页，打包成一个zip上传到后台&lt;/p&gt;
+&lt;p&gt;后台再对其zip包进行解压上传到cdn服务器，以域名访问该静态资源页面，其静态资源包含html,js, jpg。 然后设计师大部分以图片形式排版，组成的html5 幻灯显示页面，难后在上传过程有偶发性的遇到图片打不开，显示不正常等问题，bug是随机复现。于是找了很久才找到这个问题根源，下面对其记录一下&lt;/p&gt;
+&lt;p&gt;问题主要原因：从本地上传到ftp服务器传输读写编码不一至导致的，对于二进制图片，应采用二进制上传，开启ftp被动模式,编码为ASCII，&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;对于文本文件如css,txt,js文件应采用utf8或者ascii都可以，关键是在文件读写时需要保持编码前后一致即可&lt;/p&gt;
+&lt;p&gt;意思就是在本地解压zip后，需要把zip包静态资源按照 目录格式同步 ftp 服务器当中，关键是文件在上传前后读写需要保持编码一至就不会出现这个问题&lt;/p&gt;
+&lt;p&gt;下面开始详细分析调式&lt;/p&gt;
+&lt;p&gt;当设置uft8编码上传图片文件后，每个文件上传后会少很多的字节内容&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../../../images/a-bug-that-displays-abnormally-after-uploading-an-image.assets/image-20210512192524181.png&#34; alt=&#34;image-20210512192524181&#34;&gt;&lt;/p&gt;
+&lt;p&gt;该图片文件默认在上传前编码格式为 ANSI&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../../../images/a-bug-that-displays-abnormally-after-uploading-an-image.assets/image-20210512192650863.png&#34; alt=&#34;image-20210512192650863&#34;&gt;&lt;/p&gt;
+&lt;p&gt;然后从同步到ftp 服务器后，下载到本地打开发现，编码变成了GB2312 格式的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../../../images/a-bug-that-displays-abnormally-after-uploading-an-image.assets/image-20210512192804222.png&#34; alt=&#34;image-20210512192804222&#34;&gt;&lt;/p&gt;
+&lt;p&gt;当然变成GB2312编码上传后的图片文件，文件md5值是一样的，浏览器不能正常显示图片文件，因为图片文件被编码破坏了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../../../images/a-bug-that-displays-abnormally-after-uploading-an-image.assets/image-20210512192847433.png&#34; alt=&#34;image-20210512192847433&#34;&gt;&lt;/p&gt;
+&lt;p&gt;原老项目采用apache commons net 包下的ftp client，不知道为什么设置了编码也没有解决问题，说是同步到ftp工具用apache camel 组件代替 apache commons net 的ftp  client,  替换之前尝试把编码设置成uft-8,果然很容易复现问题&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../../../images/a-bug-that-displays-abnormally-after-uploading-an-image.assets/image-20210512193353856.png&#34; alt=&#34;image-20210512193353856&#34;&gt;&lt;/p&gt;
+&lt;p&gt;最终用apache camel 代替了 ftpclient 解决ftp 同步图片后偶发性打不开的问题&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Reverse Proxy to Websocket Service Set Based on Apisix2</title>
       <link>https://ltan.me/post/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</link>
