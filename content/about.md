@@ -24,7 +24,25 @@ NAS 使用经验分享
 
 当前主题 [terminal](https://github.com/ttys3/hugo-theme-terminal/tree/ttys3) 修改自 [panr/hugo-theme-terminal](https://github.com/panr/hugo-theme-terminal)
 
+# 链接收藏
 
+灰狐（https://www.huihoo.com/）
+
+https://zeef.com/ 
+
+图书类
+
+http://it-ebooks.info/
+
+http://www.foxebook.net/
+
+http://bestcbooks.com/
+
+https://avxhm.se/
+
+计算机电子书(http://it-ebooks.flygon.net/)
+
+免费的计算机编程类中文书籍（https://github.com/justjavac/free-programming-books-zh_CN）
 
 
 
