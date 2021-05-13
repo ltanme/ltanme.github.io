@@ -47,7 +47,7 @@ publishDir = "docs"
 [languages]
   [languages.en]
     languageName = "English"
-    title = "Terminal"
+    title = "LTAN.ME"
     subtitle = "A simple, retro theme for Hugo"
     owner = ""
     keywords = ""
@@ -61,7 +61,7 @@ publishDir = "docs"
     missingBackButtonLabel = "Back to home page"
 
     [languages.en.params.logo]
-      logoText = "Terminal"
+      logoText = "LTAN.ME"
       logoHomeLink = "/"
 
     [languages.en.menu]
