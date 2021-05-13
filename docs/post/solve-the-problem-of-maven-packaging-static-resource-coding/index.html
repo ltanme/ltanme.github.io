@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>Solve the Problem of Maven Packaging Static Resource Coding :: Terminal</title>
+    <title>Solve the Problem of Maven Packaging Static Resource Coding :: LTAN.ME</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,7 +49,7 @@
  &amp;lt;build&amp;gt; &amp;lt;finalName&amp;gt;ivy-admin&amp;lt;/finalName&amp;gt; &amp;lt;resources&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt; &amp;lt;filtering&amp;gt;true&amp;lt;/filtering&amp;gt; &amp;lt;excludes&amp;gt; &amp;lt;exclude&amp;gt;static/layui/font/**&amp;lt;/exclude&amp;gt; &amp;lt;exclude&amp;gt;static/admin/font/**&amp;lt;/exclude&amp;gt; &amp;lt;exclude&amp;gt;static/admin/fonts/**&amp;lt;/exclude&amp;gt; &amp;lt;/excludes&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt; &amp;lt;filtering&amp;gt;false&amp;lt;/filtering&amp;gt; &amp;lt;includes&amp;gt; &amp;lt;include&amp;gt;static/layui/font/**&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;static/admin/font/**&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;static/admin/fonts/**&amp;lt;/include&amp;gt; &amp;lt;/includes&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;/resources&amp;gt; &amp;lt;plugins&amp;gt; &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;executable&amp;gt;true&amp;lt;/executable&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;/plugin&amp;gt; &amp;lt;/plugins&amp;gt; &amp;lt;/build&amp;gt; 问题原因: 经过发现在不加上面打包代码时，不排除font 字体目录时，发现maven在打包复制时，对其font字体文件编译，导致文件被改写，编码和原来的字体文件不一样，导致打包前，打包前文件md5不一样，font 字体损坏，最终浏览器显示字体损坏
 打包后可以对比一下字体md5文件，就知道mvn在编译打包时，损坏了font" />
 <meta property="og:url" content="https://ltan.me/post/solve-the-problem-of-maven-packaging-static-resource-coding/" />
-<meta property="og:site_name" content="Terminal" />
+<meta property="og:site_name" content="LTAN.ME" />
 
   
     <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
@@ -83,7 +83,7 @@
     <div class="header__logo">
       <a href="/">
   <div class="logo">
-    Terminal
+    LTAN.ME
   </div>
 </a>
 
