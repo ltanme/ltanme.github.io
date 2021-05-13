@@ -144,6 +144,43 @@
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="https://ltan.me/post/2021/05/how-to-run-spring-boot-program-on-windows-server/">How to Run Spring Boot Program on Windows Server</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-05-13
+          </span>
+          
+        </div>
+
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          spring boot程序如何正确运行在Windows服务器上面  一次项目开发中，要求服务器是windows环境，一般我们都是用java sprint boot 开发的程序运行在linux 环境中，通过supervisor程序来守护，设置开机启动之类的操作命令， 很少有人用windows server, 这次机会遇到这个问题需要解决，好在记的我在几年前用过java service wapper（简称jsw）这个程序 ，对jsw 有一些了解,于是找一相当资料看一下
+官网资料介绍在这里：https://wrapper.tanukisoftware.com/doc/english/launch-win.html
+ 我在这里简单介绍一下jsw，通过官网介绍，我了解到。
+他可以替代supervisor 做程序守护，开机启动等相关设置，如果是需要把jar包跑在windows 服务器当中。我需要通过sc 命令来注册服务指令
+目前我暂时用到服务守护，和服务注册，等特点，其他特性还没有研究。以下是记录一下我在spring boot 项目中如何使用它来打包成 jsw 服务。
+​ 首先看一下我的项目结构图
+ 需要在pom.xml 加入maven 打外插件， 插件名为：maven-assembly-plugin  &lt;build&gt; &lt;finalName&gt;upgrade-admin&lt;/finalName&gt; &lt;plugins&gt; &lt;plugin&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt; &lt;configuration&gt; &lt;executable&gt;true&lt;/executable&gt; &lt;/configuration&gt; &lt;/plugin&gt; &lt;!--主要是以下插件配置--&gt; &lt;plugin&gt; &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt; &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt; &lt;version&gt;3.0.0&lt;/version&gt; &lt;configuration&gt; &lt;descriptors&gt; &lt;!--通过service-assembly.xml 描述该项目打包的配置信息--&gt; &lt;descriptor&gt;${project.basedir}/src/assembly/service-assembly.xml&lt;/descriptor&gt; &lt;/descriptors&gt; &lt;/configuration&gt; &lt;executions&gt; &lt;execution&gt; &lt;id&gt;service-assembly&lt;/id&gt; &lt;phase&gt;package&lt;/phase&gt; &lt;goals&gt; &lt;goal&gt;single&lt;/goal&gt; &lt;/goals&gt; &lt;/execution&gt; &lt;/executions&gt; &lt;/plugin&gt; &lt;/plugins&gt; &lt;/build&gt;  配置服务jsw 打包描述信息
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2021/05/how-to-run-spring-boot-program-on-windows-server/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/">How to Do Not Release Resources After Uploading the Zip Package in Java</a>
         </h1>
         <div class="post-meta">
@@ -308,6 +345,13 @@ pip install websocket pip install stomp.py   启动后端 java websocket 环境
     <div class="pagination">
   <div class="pagination__buttons">
     
+    
+      <span class="button next">
+        <a href="/post/page/2/">
+          <span class="button__text">Older posts</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
     
   </div>
 </div>
