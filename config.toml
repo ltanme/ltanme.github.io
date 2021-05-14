@@ -3,7 +3,8 @@ languageCode = "en-us"
 theme = "terminal"
 paginate = 5
 publishDir = "docs"
-
+[author]
+  name = "LTAN"
 [taxonomies]
   tag = "tags"
 [params]
