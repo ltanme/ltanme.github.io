@@ -2,6 +2,7 @@
 title: "Solve the Problem of Maven Packaging Static Resource Coding"
 date: 2021-05-08T16:39:39+08:00
 draft: true
+tags: ["layui fonts","spring-boot-maven-plugin"]
 ---
 # 解决maven生成jar包时字体不能正常显示
 

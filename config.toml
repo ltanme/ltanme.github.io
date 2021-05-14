@@ -4,6 +4,8 @@ theme = "terminal"
 paginate = 5
 publishDir = "docs"
 
+[taxonomies]
+  tag = "tags"
 [params]
   # dir name of your main content (default is `content/posts`).
   # the list of set content will show up on your index page (baseurl).
@@ -31,7 +33,7 @@ publishDir = "docs"
   # If you use git, you can set `enableGitInfo` to `true` and then post will automatically get the last updated
   showLastUpdated = false
   # Provide a string as a prefix for the last update date. By default, it looks like this: 2020-xx-xx [Updated: 2020-xx-xx] :: Author
-  # updatedDatePrefix = "Updated"
+  updatedDatePrefix = "Mod"
 
   # set all headings to their default size (depending on browser settings)
   # it's set to `true` by default
@@ -85,3 +87,8 @@ publishDir = "docs"
         name = "About"
         weight = 50
         url = "/about/"
+      [[languages.en.menu.main]]
+        identifier = "rss"
+        name = "RSS"
+        weight = 50
+        url = "/index.xml"

@@ -1,0 +1,13 @@
+---
+baseurl: "https://ltan.me"
+DefaultContentLanguage: "zh-cn"
+hasCJKLanguage: true
+languageCode: "en-us"
+title: "LTAN.ME"
+theme: "terminal"
+metaDataFormat: "yaml"
+algolia:
+  index: "ltanme"
+  key: "7703393be15fd8cf3ff4e64476ab1cea55"
+  appID: "99VUIDQLPV00"
+---
