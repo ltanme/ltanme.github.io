@@ -2,6 +2,7 @@
 title: "How to Do Not Release Resources After Uploading the Zip Package in Java"
 date: 2021-05-12T19:36:48+08:00
 draft: true
+tags: ["zipFile","java"] 
 ---
 
 # 在windows系统中检验一个上传文件程序是否有bug另一种姿势

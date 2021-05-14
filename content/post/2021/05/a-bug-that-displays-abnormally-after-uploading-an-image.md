@@ -2,6 +2,7 @@
 title: "A Bug That Displays Abnormally After Uploading an Image"
 date: 2021-05-12T19:11:15+08:00
 draft: true
+tags: ["camel ftp","ftpClient"] 
 ---
 
 # 记一次解决图片上传后在浏览器不能正常显示的问题
