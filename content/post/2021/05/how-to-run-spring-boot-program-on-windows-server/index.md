@@ -19,7 +19,7 @@ tags: ["java service wapper","spring boot"]
 
 ​    首先看一下我的项目结构图
 
-![image-20210513163512015](../../../../images/how-to-run-spring-boot-program-on-windows-server.assets/image-20210513163512015.png)
+![image-20210513163512015](./image-20210513163512015.png)
 
 1.  需要在pom.xml 加入maven 打外插件，
      插件名为：maven-assembly-plugin
@@ -89,7 +89,7 @@ tags: ["java service wapper","spring boot"]
 
    
 
-   ![image-20210513163836081](../../../../images/how-to-run-spring-boot-program-on-windows-server.assets/image-20210513163836081.png)
+   ![image-20210513163836081](./image-20210513163836081.png)
 
 
 
@@ -124,13 +124,13 @@ tags: ["java service wapper","spring boot"]
 
  该文件的目录位置如下
 
-![image-20210513164413150](../../../../images/how-to-run-spring-boot-program-on-windows-server.assets/image-20210513164413150.png)
+![image-20210513164413150](./image-20210513164413150.png)
 
 3.   执行打包 mvn package 命令
-   ![image-20210513164650797](../../../../images/how-to-run-spring-boot-program-on-windows-server.assets/image-20210513164650797.png)
+   ![image-20210513164650797](./image-20210513164650797.png)
 
 4.  部署程序，降upgrade-admin-service.zip包 复制到一个正式的目录下解压后下图就是解压后zip后的效果
-    ![image-20210513164952742](../../../../images/how-to-run-spring-boot-program-on-windows-server.assets/image-20210513164952742.png)
+    ![image-20210513164952742](./image-20210513164952742.png)
 
    1. 先安装windows 服务指令，上图install.bat是我之前写好的，该文件就是用来install Windows 服务脚本
       install.bat
@@ -191,7 +191,7 @@ tags: ["java service wapper","spring boot"]
 
       设置开机启动该服务都可以在windows 这边设置
 
-      ![image-20210513165843939](../../../../images/how-to-run-spring-boot-program-on-windows-server.assets/image-20210513165843939.png)
+      ![image-20210513165843939](./image-20210513165843939.png)
 
      
 
