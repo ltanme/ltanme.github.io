@@ -13,11 +13,7 @@
       <pubDate>Sat, 08 May 2021 16:39:39 +0800</pubDate>
       
       <guid>https://ltan.me/post/2021/05/solve-the-problem-of-maven-packaging-static-resource-coding/</guid>
-      <description>解决maven生成jar包时字体不能正常显示 由于前端人手不够，今天做了一个小项目，这个项目是用spring boot + layui 构建的后台管理系统。就没有用到前后端分离的方式去开发
-项目做完后在打包时运行时发现浏览器显示字体损坏，导致网站icon图标不能正常显示
-解决方法： 在pom.xml 里找到build 区块用下面代码替换它
- &amp;lt;build&amp;gt; &amp;lt;finalName&amp;gt;ivy-admin&amp;lt;/finalName&amp;gt; &amp;lt;resources&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt; &amp;lt;filtering&amp;gt;true&amp;lt;/filtering&amp;gt; &amp;lt;excludes&amp;gt; &amp;lt;exclude&amp;gt;static/layui/font/**&amp;lt;/exclude&amp;gt; &amp;lt;exclude&amp;gt;static/admin/font/**&amp;lt;/exclude&amp;gt; &amp;lt;exclude&amp;gt;static/admin/fonts/**&amp;lt;/exclude&amp;gt; &amp;lt;/excludes&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt; &amp;lt;filtering&amp;gt;false&amp;lt;/filtering&amp;gt; &amp;lt;includes&amp;gt; &amp;lt;include&amp;gt;static/layui/font/**&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;static/admin/font/**&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;static/admin/fonts/**&amp;lt;/include&amp;gt; &amp;lt;/includes&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;/resources&amp;gt; &amp;lt;plugins&amp;gt; &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;executable&amp;gt;true&amp;lt;/executable&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;/plugin&amp;gt; &amp;lt;/plugins&amp;gt; &amp;lt;/build&amp;gt; 问题原因: 经过发现在不加上面打包代码时，不排除font 字体目录时，发现maven在打包复制时，对其font字体文件编译，导致文件被改写，编码和原来的字体文件不一样，导致打包前，打包前文件md5不一样，font 字体损坏，最终浏览器显示字体损坏
-打包后可以对比一下字体md5文件，就知道mvn在编译打包时，损坏了font</description>
+      <description>解决maven生成jar包时字体不能正常显示 由于前端人手不够，今天做了一个小项目，这个项目是用spring boot + layui 构建的后台管理系统。就没有用到前后端分离的方式去开发 项目做完后在打包时运行时发现浏览器显</description>
       <content>&lt;h1 id=&#34;解决maven生成jar包时字体不能正常显示&#34;&gt;解决maven生成jar包时字体不能正常显示&lt;/h1&gt;
 &lt;p&gt;由于前端人手不够，今天做了一个小项目，这个项目是用spring boot  + layui 构建的后台管理系统。就没有用到前后端分离的方式去开发&lt;/p&gt;
 &lt;p&gt;项目做完后在打包时运行时发现浏览器显示字体损坏，导致网站icon图标不能正常显示&lt;/p&gt;

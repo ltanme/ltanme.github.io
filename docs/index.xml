@@ -23,13 +23,7 @@
       <pubDate>Thu, 13 May 2021 16:22:51 +0800</pubDate>
       
       <guid>https://ltan.me/post/2021/05/how-to-run-spring-boot-program-on-windows-server/</guid>
-      <description>spring boot程序如何正确运行在Windows服务器上面  一次项目开发中，要求服务器是windows环境，一般我们都是用java sprint boot 开发的程序运行在linux 环境中，通过supervisor程序来守护，设置开机启动之类的操作命令， 很少有人用windows server, 这次机会遇到这个问题需要解决，好在记的我在几年前用过java service wapper（简称jsw）这个程序 ，对jsw 有一些了解,于是找一相当资料看一下
-官网资料介绍在这里：https://wrapper.tanukisoftware.com/doc/english/launch-win.html
- 我在这里简单介绍一下jsw，通过官网介绍，我了解到。
-他可以替代supervisor 做程序守护，开机启动等相关设置，如果是需要把jar包跑在windows 服务器当中。我需要通过sc 命令来注册服务指令
-目前我暂时用到服务守护，和服务注册，等特点，其他特性还没有研究。以下是记录一下我在spring boot 项目中如何使用它来打包成 jsw 服务。
-​ 首先看一下我的项目结构图
- 需要在pom.xml 加入maven 打外插件， 插件名为：maven-assembly-plugin  &amp;lt;build&amp;gt; &amp;lt;finalName&amp;gt;upgrade-admin&amp;lt;/finalName&amp;gt; &amp;lt;plugins&amp;gt; &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;executable&amp;gt;true&amp;lt;/executable&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;/plugin&amp;gt; &amp;lt;!--主要是以下插件配置--&amp;gt; &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;maven-assembly-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.0.0&amp;lt;/version&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;descriptors&amp;gt; &amp;lt;!--通过service-assembly.xml 描述该项目打包的配置信息--&amp;gt; &amp;lt;descriptor&amp;gt;${project.basedir}/src/assembly/service-assembly.xml&amp;lt;/descriptor&amp;gt; &amp;lt;/descriptors&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;executions&amp;gt; &amp;lt;execution&amp;gt; &amp;lt;id&amp;gt;service-assembly&amp;lt;/id&amp;gt; &amp;lt;phase&amp;gt;package&amp;lt;/phase&amp;gt; &amp;lt;goals&amp;gt; &amp;lt;goal&amp;gt;single&amp;lt;/goal&amp;gt; &amp;lt;/goals&amp;gt; &amp;lt;/execution&amp;gt; &amp;lt;/executions&amp;gt; &amp;lt;/plugin&amp;gt; &amp;lt;/plugins&amp;gt; &amp;lt;/build&amp;gt;  配置服务jsw 打包描述信息</description>
+      <description>spring boot程序如何正确运行在Windows服务器上面 一次项目开发中，要求服务器是windows环境，一般我们都是用java sprint boot 开发的程序运行在linux 环境中，通过supervisor程序来守护，设置</description>
       <content>&lt;h1 id=&#34;spring-boot程序如何正确运行在windows服务器上面&#34;&gt;spring boot程序如何正确运行在Windows服务器上面&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;一次项目开发中，要求服务器是windows环境，一般我们都是用java sprint boot 开发的程序运行在linux 环境中，通过supervisor程序来守护，设置开机启动之类的操作命令， 很少有人用windows server, 这次机会遇到这个问题需要解决，好在记的我在几年前用过java service wapper（简称jsw）这个程序 ，对jsw 有一些了解,于是找一相当资料看一下&lt;/p&gt;
@@ -39,7 +33,7 @@
 &lt;p&gt;他可以替代supervisor 做程序守护，开机启动等相关设置，如果是需要把jar包跑在windows 服务器当中。我需要通过sc 命令来注册服务指令&lt;/p&gt;
 &lt;p&gt;目前我暂时用到服务守护，和服务注册，等特点，其他特性还没有研究。以下是记录一下我在spring boot 项目中如何使用它来打包成 jsw 服务。&lt;/p&gt;
 &lt;p&gt;​    首先看一下我的项目结构图&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../../../../images/how-to-run-spring-boot-program-on-windows-server.assets/image-20210513163512015.png&#34; alt=&#34;image-20210513163512015&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./image-20210513163512015.png&#34; alt=&#34;image-20210513163512015&#34;&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;需要在pom.xml 加入maven 打外插件，
 插件名为：maven-assembly-plugin&lt;/li&gt;
@@ -101,7 +95,7 @@ description：  服务描述
 executable ： 执行bin 名称
 arguments： 执行参数
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;../../../../images/how-to-run-spring-boot-program-on-windows-server.assets/image-20210513163836081.png&#34; alt=&#34;image-20210513163836081&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./image-20210513163836081.png&#34; alt=&#34;image-20210513163836081&#34;&gt;&lt;/p&gt;
 &lt;p&gt;​      service-assembly.xml 文件  这是打包核心配置核心文件&lt;/p&gt;
 &lt;p&gt;​     主是用于告诉maven 需要打包的文件在哪 里，如何打包，打成什么格式的包&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;assembly&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http://maven.apache.org/ASSEMBLY/2.0.0&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xmlns:xsi=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&lt;/span&gt;
@@ -127,15 +121,15 @@ arguments： 执行参数
     &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/fileSets&amp;gt;&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/assembly&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;该文件的目录位置如下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../../../../images/how-to-run-spring-boot-program-on-windows-server.assets/image-20210513164413150.png&#34; alt=&#34;image-20210513164413150&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./image-20210513164413150.png&#34; alt=&#34;image-20210513164413150&#34;&gt;&lt;/p&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;执行打包 mvn package 命令
-&lt;img src=&#34;../../../../images/how-to-run-spring-boot-program-on-windows-server.assets/image-20210513164650797.png&#34; alt=&#34;image-20210513164650797&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;./image-20210513164650797.png&#34; alt=&#34;image-20210513164650797&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;部署程序，降upgrade-admin-service.zip包 复制到一个正式的目录下解压后下图就是解压后zip后的效果
-&lt;img src=&#34;../../../../images/how-to-run-spring-boot-program-on-windows-server.assets/image-20210513164952742.png&#34; alt=&#34;image-20210513164952742&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;./image-20210513164952742.png&#34; alt=&#34;image-20210513164952742&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;先安装windows 服务指令，上图install.bat是我之前写好的，该文件就是用来install Windows 服务脚本
@@ -187,7 +181,7 @@ pause
 &lt;p&gt;查看windows运行效果&lt;/p&gt;
 &lt;p&gt;按win+R 快捷键，输入&lt;em&gt;services.msc&lt;/em&gt;  命令，回车，&lt;/p&gt;
 &lt;p&gt;设置开机启动该服务都可以在windows 这边设置&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;../../../../images/how-to-run-spring-boot-program-on-windows-server.assets/image-20210513165843939.png&#34; alt=&#34;image-20210513165843939&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./image-20210513165843939.png&#34; alt=&#34;image-20210513165843939&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 </content>
@@ -199,19 +193,7 @@ pause
       <pubDate>Wed, 12 May 2021 19:36:48 +0800</pubDate>
       
       <guid>https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</guid>
-      <description>在windows系统中检验一个上传文件程序是否有bug另一种姿势  某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程
-在windows系统调试一个文件上传程序，手贱想重新删除原文件，重新上传，结果这一删除发现windows 弹窗，报窗
-文件正常使用 错误提示。
- 这个程序需求就是把一个zip包上传到ftp当中，流程是先上传到服务器本地，然后同步到ftp当中
-在windows 调试过程重新删除了己上传的文件，但发现不能删除的，这个问题也找了很久。
-于是就重新梳理一下上传的流程。
-发现以下问题
-来调试代码
-下面这段代码，上传zip后先保存到本地
-接下来是解压zip
-最后增加zipFile.close() 解决，增加in.close() 解决
-问题总结：
-​ 论代码review 重要性，前期需要多多测试。</description>
+      <description>在windows系统中检验一个上传文件程序是否有bug另一种姿势 某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程 在windows系统调试一个文件上传程</description>
       <content>&lt;h1 id=&#34;在windows系统中检验一个上传文件程序是否有bug另一种姿势&#34;&gt;在windows系统中检验一个上传文件程序是否有bug另一种姿势&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程&lt;/p&gt;
@@ -240,18 +222,7 @@ pause
       <pubDate>Wed, 12 May 2021 19:11:15 +0800</pubDate>
       
       <guid>https://ltan.me/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/</guid>
-      <description>记一次解决图片上传后在浏览器不能正常显示的问题  原来这个项目是比较老，采用的是spirng mvc +ftp 技术搭建的上传功能，通过把一个静态资源h5页，打包成一个zip上传到后台
-后台再对其zip包进行解压上传到cdn服务器，以域名访问该静态资源页面，其静态资源包含html,js, jpg。 然后设计师大部分以图片形式排版，组成的html5 幻灯显示页面，难后在上传过程有偶发性的遇到图片打不开，显示不正常等问题，bug是随机复现。于是找了很久才找到这个问题根源，下面对其记录一下
-问题主要原因：从本地上传到ftp服务器传输读写编码不一至导致的，对于二进制图片，应采用二进制上传，开启ftp被动模式,编码为ASCII，
- 对于文本文件如css,txt,js文件应采用utf8或者ascii都可以，关键是在文件读写时需要保持编码前后一致即可
-意思就是在本地解压zip后，需要把zip包静态资源按照 目录格式同步 ftp 服务器当中，关键是文件在上传前后读写需要保持编码一至就不会出现这个问题
-下面开始详细分析调式
-当设置uft8编码上传图片文件后，每个文件上传后会少很多的字节内容
-该图片文件默认在上传前编码格式为 ANSI
-然后从同步到ftp 服务器后，下载到本地打开发现，编码变成了GB2312 格式的
-当然变成GB2312编码上传后的图片文件，文件md5值是一样的，浏览器不能正常显示图片文件，因为图片文件被编码破坏了
-原老项目采用apache commons net 包下的ftp client，不知道为什么设置了编码也没有解决问题，说是同步到ftp工具用apache camel 组件代替 apache commons net 的ftp client, 替换之前尝试把编码设置成uft-8,果然很容易复现问题
-最终用apache camel 代替了 ftpclient 解决ftp 同步图片后偶发性打不开的问题</description>
+      <description>记一次解决图片上传后在浏览器不能正常显示的问题 原来这个项目是比较老，采用的是spirng mvc +ftp 技术搭建的上传功能，通过把一个静态资源h5页，打包成一个zip上传到后台 后台再对其zip包进行解压上传到cd</description>
       <content>&lt;h1 id=&#34;记一次解决图片上传后在浏览器不能正常显示的问题&#34;&gt;记一次解决图片上传后在浏览器不能正常显示的问题&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;原来这个项目是比较老，采用的是spirng mvc +ftp 技术搭建的上传功能，通过把一个静态资源h5页，打包成一个zip上传到后台&lt;/p&gt;
@@ -281,17 +252,7 @@ pause
       <pubDate>Tue, 11 May 2021 15:39:09 +0800</pubDate>
       
       <guid>https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</guid>
-      <description>基于apisix2.4网关反向代理到websocket服务集节点 问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点
-apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等
-本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟
- 整体的环境说明：如下图
-  搭建环境
-docker pull django   运行python 容器
-docker run -itd --name py3 -v /i:/i -v /d:/d django /bin/bash   进入容器，检查容器环境是否正常
-docker exec -it c5d2369adde2 /bin/bash docker exec -it 58e1c95fea73 /bin/sh   安装websocket
-pip install websocket pip install stomp.py   启动后端 java websocket 环境
-进入java 容器，设置同一个网络环境，同一个网段
-  docker run --name s1 --network app-tier -d -v /i:/i -v /d:/d -p 8081:8080 ltjsj/super-dev-env:v1.</description>
+      <description>基于apisix2.4网关反向代理到websocket服务集节点 问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点 apisix就是基于open</description>
       <content>&lt;h1 id=&#34;基于apisix24网关反向代理到websocket服务集节点&#34;&gt;基于apisix2.4网关反向代理到websocket服务集节点&lt;/h1&gt;
 &lt;p&gt;问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点&lt;/p&gt;
 &lt;p&gt;apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等&lt;/p&gt;
@@ -379,11 +340,7 @@ if __name__ == &amp;quot;__main__&amp;quot;:
       <pubDate>Sat, 08 May 2021 17:47:39 +0800</pubDate>
       
       <guid>https://ltan.me/post/2021/05/lua-language-parsing-private-protocol-package/</guid>
-      <description>使用lua语言解析tcp私有协议包示例  为什么需要lua来解析tcp 私有协议包？
-因为lua语言生态内，有强大的openresty 技术可使用，而openresty可以提供强劲的web 并发性能，能提供tcp 长链接通道 技术
- 首先需要lapck包对其解析 git clone https://github.com/Kong/lua-pack 或 git clone https://github.com/lilien1010/lpack 安装lapck包需要编译  在编译时遇到 lua.h No such file or directory #include &amp;quot; lua.h&amp;quot; ？ 问题时，需要遇增加如下参数
--DLUA_INCLUDE_DIR=/usr/local/openresty/luajit/include/luajit-2.1/ 最终编译命令如下：
-#DLUA_INCLUDE_DIR 表示lua.h 存放的位置 LUA_LIBRARY指定luajit库，so文件， cmake ./ -DLUA_INCLUDE_DIR=/usr/local/openresty/luajit/include/luajit-2.1/ -DLUA_LIBRARY=/usr/local/lib/libluajit-5.1.so make #编译成so文件，得到pack.so 详细解析tcp私有代码如下 require(&amp;quot;pack&amp;quot;) local mypack = string.pack local myunpack = string.unpack local sock = ngx.req.socket(true) if sock then ngx.say(&amp;quot;got the request socket&amp;quot;) else ngx.say(&amp;quot;failed to get the request socket: &amp;quot;, err) return end while true do --先尝试读取固定头 6个字节 local data, err = sock:receive(6) --如果遇到timeout,或者close的情况，则break 本次循环读取，继续下一条读取 if err==&#39;timeout&#39; or err ==&#39;close&#39; then break end --按pmtp协议读取返回的参数，type1为消息类型，ver2为pmtp协议版本号，time待命时间，len4为消息体的长度，不包含头的长度 --默认字节顺序为 大端，&amp;gt;ccHH local succ,succLen,type1,Ver2,Time3,Len4 = pcall(myunpack,data,&amp;quot;&amp;gt;ccHH&amp;quot;) --读取剩余的消息体长度内容 local body, err = sock:receive(Len4) --如果读取body为空，则退出 if body == nil then break end --打印body消息内容 ngx.</description>
+      <description>使用lua语言解析tcp私有协议包示例 为什么需要lua来解析tcp 私有协议包？ 因为lua语言生态内，有强大的openresty 技术可使用，而openresty可以提供强劲的web 并发性能，能提供tcp</description>
       <content>&lt;h1 id=&#34;使用lua语言解析tcp私有协议包示例&#34;&gt;使用lua语言解析tcp私有协议包示例&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;为什么需要lua来解析tcp 私有协议包？&lt;/p&gt;
@@ -443,24 +400,7 @@ end
       <pubDate>Sat, 08 May 2021 16:40:17 +0800</pubDate>
       
       <guid>https://ltan.me/about/</guid>
-      <description>专注于 Java, Golang, lua
-专注于 docker
-分享 centos/ linux windows 相关技术
-php, python, web前端
-NAS 使用经验分享
-10年软件开发相关工作经验，生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Unix/Linux/Windows。做过大型门户网站，做过企业中台管理，做过企业DMP系统，规则引擎等大型项目。
-关于此博客 博客主要用于记录生活，工作中遇到的问题，及解决方法和心得
-此博客基于 Hugo 构建
-当前主题 terminal 修改自 panr/hugo-theme-terminal
-链接收藏 灰狐（https://www.huihoo.com/）
-https://zeef.com/
-图书类
-http://it-ebooks.info/
-http://www.foxebook.net/
-http://bestcbooks.com/
-https://avxhm.se/
-计算机电子书(http://it-ebooks.flygon.net/)
-免费的计算机编程类中文书籍（https://github.com/justjavac/free-programming-books-zh_CN）</description>
+      <description>专注于 Java, Golang, lua 专注于 docker 分享 centos/ linux windows 相关技术 php, python, web前端 NAS 使用经验分享 10年软件开发相关工作经验，生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Uni</description>
       <content>&lt;p&gt;专注于 Java, Golang, lua&lt;/p&gt;
 &lt;p&gt;专注于 docker&lt;/p&gt;
 &lt;p&gt;分享 centos/ linux windows 相关技术&lt;/p&gt;
@@ -490,11 +430,7 @@ https://avxhm.se/
       <pubDate>Sat, 08 May 2021 16:39:39 +0800</pubDate>
       
       <guid>https://ltan.me/post/2021/05/solve-the-problem-of-maven-packaging-static-resource-coding/</guid>
-      <description>解决maven生成jar包时字体不能正常显示 由于前端人手不够，今天做了一个小项目，这个项目是用spring boot + layui 构建的后台管理系统。就没有用到前后端分离的方式去开发
-项目做完后在打包时运行时发现浏览器显示字体损坏，导致网站icon图标不能正常显示
-解决方法： 在pom.xml 里找到build 区块用下面代码替换它
- &amp;lt;build&amp;gt; &amp;lt;finalName&amp;gt;ivy-admin&amp;lt;/finalName&amp;gt; &amp;lt;resources&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt; &amp;lt;filtering&amp;gt;true&amp;lt;/filtering&amp;gt; &amp;lt;excludes&amp;gt; &amp;lt;exclude&amp;gt;static/layui/font/**&amp;lt;/exclude&amp;gt; &amp;lt;exclude&amp;gt;static/admin/font/**&amp;lt;/exclude&amp;gt; &amp;lt;exclude&amp;gt;static/admin/fonts/**&amp;lt;/exclude&amp;gt; &amp;lt;/excludes&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;resource&amp;gt; &amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt; &amp;lt;filtering&amp;gt;false&amp;lt;/filtering&amp;gt; &amp;lt;includes&amp;gt; &amp;lt;include&amp;gt;static/layui/font/**&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;static/admin/font/**&amp;lt;/include&amp;gt; &amp;lt;include&amp;gt;static/admin/fonts/**&amp;lt;/include&amp;gt; &amp;lt;/includes&amp;gt; &amp;lt;/resource&amp;gt; &amp;lt;/resources&amp;gt; &amp;lt;plugins&amp;gt; &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;executable&amp;gt;true&amp;lt;/executable&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;/plugin&amp;gt; &amp;lt;/plugins&amp;gt; &amp;lt;/build&amp;gt; 问题原因: 经过发现在不加上面打包代码时，不排除font 字体目录时，发现maven在打包复制时，对其font字体文件编译，导致文件被改写，编码和原来的字体文件不一样，导致打包前，打包前文件md5不一样，font 字体损坏，最终浏览器显示字体损坏
-打包后可以对比一下字体md5文件，就知道mvn在编译打包时，损坏了font</description>
+      <description>解决maven生成jar包时字体不能正常显示 由于前端人手不够，今天做了一个小项目，这个项目是用spring boot + layui 构建的后台管理系统。就没有用到前后端分离的方式去开发 项目做完后在打包时运行时发现浏览器显</description>
       <content>&lt;h1 id=&#34;解决maven生成jar包时字体不能正常显示&#34;&gt;解决maven生成jar包时字体不能正常显示&lt;/h1&gt;
 &lt;p&gt;由于前端人手不够，今天做了一个小项目，这个项目是用spring boot  + layui 构建的后台管理系统。就没有用到前后端分离的方式去开发&lt;/p&gt;
 &lt;p&gt;项目做完后在打包时运行时发现浏览器显示字体损坏，导致网站icon图标不能正常显示&lt;/p&gt;
