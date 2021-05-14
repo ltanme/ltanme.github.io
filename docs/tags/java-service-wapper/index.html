@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>java service wapper :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/tags/java-service-wapper/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="java service wapper">
+<meta property="og:description" content="" />
+<meta property="og:url" content="https://ltan.me/tags/java-service-wapper/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+
+
+
+  <link href="/tags/java-service-wapper/index.xml" rel="alternate" type="application/rss+xml" title="LTAN.ME" />
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+      <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+        
+          <li><a href="/index.xml">RSS</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+      
+        <li><a href="/index.xml">RSS</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+  
+  <div class="posts">
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2021/05/how-to-run-spring-boot-program-on-windows-server/">How to Run Spring Boot Program on Windows Server</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-05-13
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/java-service-wapper/">java service wapper</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/spring-boot/">spring boot</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          spring boot程序如何正确运行在Windows服务器上面  一次项目开发中，要求服务器是windows环境，一般我们都是用java sprint boot 开发的程序运行在linux 环境中，通过supervisor程序来守护，设置开机启动之类的操作命令， 很少有人用windows server, 这次机会遇到这个问题需要解决，好在记的我在几年前用过java service wapper（简称jsw）这个程序 ，对jsw 有一些了解,于是找一相当资料看一下
+官网资料介绍在这里：https://wrapper.tanukisoftware.com/doc/english/launch-win.html
+ 我在这里简单介绍一下jsw，通过官网介绍，我了解到。
+他可以替代supervisor 做程序守护，开机启动等相关设置，如果是需要把jar包跑在windows 服务器当中。我需要通过sc 命令来注册服务指令
+目前我暂时用到服务守护，和服务注册，等特点，其他特性还没有研究。以下是记录一下我在spring boot 项目中如何使用它来打包成 jsw 服务。
+​ 首先看一下我的项目结构图
+ 需要在pom.xml 加入maven 打外插件， 插件名为：maven-assembly-plugin  &lt;build&gt; &lt;finalName&gt;upgrade-admin&lt;/finalName&gt; &lt;plugins&gt; &lt;plugin&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt; &lt;configuration&gt; &lt;executable&gt;true&lt;/executable&gt; &lt;/configuration&gt; &lt;/plugin&gt; &lt;!--主要是以下插件配置--&gt; &lt;plugin&gt; &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt; &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt; &lt;version&gt;3.0.0&lt;/version&gt; &lt;configuration&gt; &lt;descriptors&gt; &lt;!--通过service-assembly.xml 描述该项目打包的配置信息--&gt; &lt;descriptor&gt;${project.basedir}/src/assembly/service-assembly.xml&lt;/descriptor&gt; &lt;/descriptors&gt; &lt;/configuration&gt; &lt;executions&gt; &lt;execution&gt; &lt;id&gt;service-assembly&lt;/id&gt; &lt;phase&gt;package&lt;/phase&gt; &lt;goals&gt; &lt;goal&gt;single&lt;/goal&gt; &lt;/goals&gt; &lt;/execution&gt; &lt;/executions&gt; &lt;/plugin&gt; &lt;/plugins&gt; &lt;/build&gt;  配置服务jsw 打包描述信息
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2021/05/how-to-run-spring-boot-program-on-windows-server/">Read more →</a>
+        </div>
+        
+      </div>
+    
+    <div class="pagination">
+  <div class="pagination__buttons">
+    
+    
+  </div>
+</div>
+
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>
