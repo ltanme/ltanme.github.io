@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>openresty on LTAN.ME</title>
-    <link>https://ltan.me/tags/openresty/</link>
-    <description>Recent content in openresty on LTAN.ME</description>
+    <title>lpack on LTAN.ME</title>
+    <link>https://ltan.me/tags/lpack/</link>
+    <description>Recent content in lpack on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 May 2021 17:37:04 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/openresty/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 May 2021 17:37:04 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/lpack/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Customize Load Balancing Logic Based on Openresty</title>
       <link>https://ltan.me/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/</link>
@@ -95,154 +95,6 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如下图，左边是设备，中间是tcp 流量转发器，  右 边是消息处理服务器，  设备需要和消息处理服务器 建立tcp长链接，并维持不间断时间心跳，总之采用openresty 来完现流量分发具有强性能，只需要在原来的netty消息层外层加个流量处理网关即可。&lt;/p&gt;
 &lt;p&gt;但我们在实际环境不推荐这样做，除非小项目，大项目还是推荐apisix 网关来处理很方便&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;image-20210519191548391.png&#34; alt=&#34;image-20210519191548391&#34;&gt;&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>Reverse Proxy to Websocket Service Set Based on Apisix2</title>
-      <link>https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</link>
-      <pubDate>Tue, 11 May 2021 15:39:09 +0800</pubDate>
-      
-      <guid>https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</guid>
-      <description>基于apisix2.4网关反向代理到websocket服务集节点 问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点 apisix就是基于open</description>
-      <content>&lt;h1 id=&#34;基于apisix24网关反向代理到websocket服务集节点&#34;&gt;基于apisix2.4网关反向代理到websocket服务集节点&lt;/h1&gt;
-&lt;p&gt;问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点&lt;/p&gt;
-&lt;p&gt;apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等&lt;/p&gt;
-&lt;p&gt;本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;整体的环境说明：如下图&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210511150518389.png&#34; alt=&#34;image-20210511150518389&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 搭建环境&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;docker pull django
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 运行python 容器&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;docker run -itd --name py3 -v /i:/i -v /d:/d django /bin/bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 进入容器，检查容器环境是否正常&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-shel&#34; data-lang=&#34;shel&#34;&gt;docker exec -it  c5d2369adde2 /bin/bash
-  
-docker exec -it 58e1c95fea73 /bin/sh
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;./image-20210511150600898.png&#34; alt=&#34;image-20210511150600898&#34;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 安装websocket&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt; pip install websocket 
-  
- pip install stomp.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 启动后端 java websocket 环境&lt;/p&gt;
-&lt;p&gt;进入java 容器，设置同一个网络环境，同一个网段&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-she&#34; data-lang=&#34;she&#34;&gt;    docker run --name s1 --network app-tier -d -v /i:/i -v /d:/d -p 8081:8080 ltjsj/super-dev-env:v1.1 
-
-​      docker exec -it s1 /bin/bash
-
-​      java -jar /i/path/to/websocket.jar 
-
-​       docker inspect s1 | findstr IPAddress # 查看容器ip， 准备填入apisix 节点 
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 配置apisix&lt;/p&gt;
-&lt;p&gt;路由代理，配置上游&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210511150841820.png&#34; alt=&#34;image-20210511150841820&#34;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 编写python 脚本测试代码&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-pytho&#34; data-lang=&#34;pytho&#34;&gt;#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Time    : 2021/03/31 下午03:21
-# @Author  : ltan.me
-   
-from stomp_ws import Stomp
-import time
-   
-def do_thing_a(msg):
-    print(&amp;quot;MESSAGE: &amp;quot; + msg)
-   
-if __name__ == &amp;quot;__main__&amp;quot;:
-   
-    for i in range(0,10):
-        #为了模拟设备id,激活id,采用id为作为通信参数，生成10个id分别请求websocket服务器域名
-        url = &amp;quot;test.xxxx.com/stompServer/websocket?id=%s&amp;amp;activeId=416&amp;amp;deviceId=3657dc0cfede992b97d2135fd0514c6c&amp;amp;userId=1&amp;amp;&amp;amp;connectType=0&amp;amp;token=9d3b7282d295eefe9e9b959f63134dee&amp;quot; % str(i)
-        print(url)
-        stomp = Stomp(url, sockjs=True, wss=False)
-        stomp.connect()
-        stomp.subscribe(&amp;quot;/user/1_416/command&amp;quot;, do_thing_a)
-        time.sleep(2)
-        stomp.send(&amp;quot;/web2client_term&amp;quot;, &#39;{&amp;quot;userId&amp;quot;:1,&amp;quot;activeId&amp;quot;:416,&amp;quot;cmdType&amp;quot;:18,&amp;quot;content&amp;quot;:&amp;quot;python-hahah&amp;quot;}&#39;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 最终运行效果&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210511151138269.png&#34; alt=&#34;image-20210511151138269&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210511151206802.png&#34; alt=&#34;image-20210511151206802&#34;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>Lua Language Parsing Private Protocol Package</title>
-      <link>https://ltan.me/post/2021/05/lua-language-parsing-private-protocol-package/</link>
-      <pubDate>Sat, 08 May 2021 17:47:39 +0800</pubDate>
-      
-      <guid>https://ltan.me/post/2021/05/lua-language-parsing-private-protocol-package/</guid>
-      <description>使用lua语言解析tcp私有协议包示例 为什么需要lua来解析tcp 私有协议包？ 因为lua语言生态内，有强大的openresty 技术可使用，而openresty可以提供强劲的web 并发性能，能提供tcp</description>
-      <content>&lt;h1 id=&#34;使用lua语言解析tcp私有协议包示例&#34;&gt;使用lua语言解析tcp私有协议包示例&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;为什么需要lua来解析tcp 私有协议包？&lt;/p&gt;
-&lt;p&gt;因为lua语言生态内，有强大的openresty 技术可使用，而openresty可以提供强劲的web 并发性能，能提供tcp 长链接通道 技术&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;首先需要lapck包对其解析&#34;&gt;首先需要lapck包对其解析&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;git clone  https://github.com/Kong/lua-pack 
-或
-git clone https://github.com/lilien1010/lpack
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装lapck包需要编译&#34;&gt;安装lapck包需要编译&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210508175332849.png&#34; alt=&#34;image-20210508175332849&#34;&gt;&lt;/p&gt;
-&lt;h1 id=&#34;--编译时找不到luah头文件需要增加以下参数其目的是让编译是找到luajit-luah头文件--&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/h1&gt;
-&lt;p&gt;在编译时遇到 lua.h No such file or directory #include &amp;quot; lua.h&amp;quot; ？ 问题时，需要遇增加如下参数&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;-DLUA_INCLUDE_DIR=/usr/local/openresty/luajit/include/luajit-2.1/ 
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最终编译命令如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;#DLUA_INCLUDE_DIR 表示lua.h 存放的位置 LUA_LIBRARY指定luajit库，so文件，
-cmake ./  -DLUA_INCLUDE_DIR=/usr/local/openresty/luajit/include/luajit-2.1/  -DLUA_LIBRARY=/usr/local/lib/libluajit-5.1.so
-make  #编译成so文件，得到pack.so
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;详细解析tcp私有代码如下&#34;&gt;详细解析tcp私有代码如下&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;require(&amp;quot;pack&amp;quot;)
-local mypack    = string.pack
-local myunpack    = string.unpack
-local sock = ngx.req.socket(true)
-if sock then
-    ngx.say(&amp;quot;got the request socket&amp;quot;)
-else
-    ngx.say(&amp;quot;failed to get the request socket: &amp;quot;, err)
-    return
-end
-while true do
-    --先尝试读取固定头 6个字节
-    local data, err = sock:receive(6)
-    --如果遇到timeout,或者close的情况，则break 本次循环读取，继续下一条读取
-    if err==&#39;timeout&#39; or err ==&#39;close&#39; then
-        break
-    end
-    --按pmtp协议读取返回的参数，type1为消息类型，ver2为pmtp协议版本号，time待命时间，len4为消息体的长度，不包含头的长度
-    --默认字节顺序为 大端，&amp;gt;ccHH
-    local succ,succLen,type1,Ver2,Time3,Len4 = pcall(myunpack,data,&amp;quot;&amp;gt;ccHH&amp;quot;)
-    --读取剩余的消息体长度内容
-    local body, err = sock:receive(Len4)
-    --如果读取body为空，则退出
-    if body == nil then
-        break
-    end
-    --打印body消息内容
-    ngx.log(ngx.ERR, &amp;quot;------bdy &amp;quot;, body)
-end
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;通过客户端链接后发送tcp私有协议包的一模拟效果&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210508175828796.png&#34; alt=&#34;image-20210508175828796&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
