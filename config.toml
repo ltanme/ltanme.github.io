@@ -49,6 +49,12 @@ publishDir = "docs"
   # do not include @
   creator = ""
   site = ""
+## 配置 utteranc评论,教程参考 https://utteranc.es/
+[params.utteranc]
+  enable = true
+  repo = "ltanme/ltanme.github.io"
+  issueTerm = "pathname"
+  theme = "github-dark-orange"
 
 [languages]
   [languages.en]
@@ -91,8 +97,3 @@ publishDir = "docs"
         name = "About"
         weight = 50
         url = "/about/"
-      [[languages.en.menu.main]]
-        identifier = "rss"
-        name = "RSS"
-        weight = 50
-        url = "/index.xml"
