@@ -42,7 +42,7 @@ https://avxhm.se/
 
 计算机电子书(http://it-ebooks.flygon.net/)
 
-免费的计算机编程类中文书籍（https://github.com/justjavac/free-programming-books-zh_CN）
+免费的计算机编程类中文书籍(https://github.com/justjavac/free-programming-books-zh_CN)。
 
 
 
