@@ -26,7 +26,7 @@ NAS 使用经验分享
 
 # 链接收藏
 
-灰狐（https://www.huihoo.com/）
+灰狐(https://www.huihoo.com/)
 
 https://zeef.com/ 
 
