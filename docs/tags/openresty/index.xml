@@ -6,7 +6,21 @@
     <description>Recent content in openresty on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 May 2021 17:37:04 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/openresty/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 May 2021 12:46:19 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/openresty/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Application Based on lua-resty-balancer</title>
+      <link>https://ltan.me/post/2021/05/application-based-on-lua-resty-balancer/</link>
+      <pubDate>Sun, 30 May 2021 12:46:19 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/05/application-based-on-lua-resty-balancer/</guid>
+      <description>基于openresty lua-resty-balancer 模块实现自定义分流功能 该模块为提供分流算法，抽离了hash算法, roundrobin轮询</description>
+      <content>&lt;h1 id=&#34;基于openresty-lua-resty-balancer-模块实现自定义分流功能&#34;&gt;基于openresty lua-resty-balancer 模块实现自定义分流功能&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;该模块为提供分流算法，抽离了hash算法, roundrobin轮询&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    </item>
+    
     <item>
       <title>How to Customize Load Balancing Logic Based on Openresty</title>
       <link>https://ltan.me/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/</link>
