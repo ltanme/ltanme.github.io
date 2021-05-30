@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Application Based on lua-resty-balancer :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="基于openresty lua-resty-balancer 模块实现自定义分流功能 该模块为提供分流算法，抽离了hash算法, roundrobin轮询等，好处使业务灵活调用算法而分配对像。该对像不一定指服务器，也可以是数据对像或文件对像等" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2021/05/application-based-on-lua-resty-balancer/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Application Based on lua-resty-balancer">
+<meta property="og:description" content="基于openresty lua-resty-balancer 模块实现自定义分流功能 该模块为提供分流算法，抽离了hash算法, roundrobin轮询等，好处使业务灵活调用算法而分配对像。该对像不一定指服务器，也可以是数据对像或文件对像等" />
+<meta property="og:url" content="https://ltan.me/post/2021/05/application-based-on-lua-resty-balancer/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-05-30 12:46:19 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+      <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2021/05/application-based-on-lua-resty-balancer/">Application Based on lua-resty-balancer</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-05-30 [Mod: 2021-05-30]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/openresty/">openresty</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/lua-rest-balancer/">lua-rest-balancer</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/librestychash/">librestychash</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/gcc/">gcc</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="基于openresty--lua-resty-balancer-模块实现自定义分流功能">基于openresty  lua-resty-balancer 模块实现自定义分流功能<a href="#基于openresty--lua-resty-balancer-模块实现自定义分流功能" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>该模块为提供分流算法，抽离了hash算法, roundrobin轮询等，好处使业务灵活调用算法而分配对像。该对像不一定指服务器，也可以是数据对像或文件对像等等</p>
+</blockquote>
+<p>1，下载https://github.com/openresty/lua-resty-balancer</p>
+<p>编译安装balancer</p>
+<p>在<a href="https://github.com/openresty/lua-resty-balancer">lua-resty-balancer</a>目录下执行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> gcc -O2 -fPIC -I/usr/local/include -c chash.c -o chash.o
+
+ gcc -shared -o librestychash.so chash.o
+</code></pre></div><p>将编译后的so文件存放在openresty 安装目录下的lualib 文件夹下即可，</p>
+<p>把 chash.lua   roundrobin.lua    两个文件复制到lualib/resty 目录下即可</p>
+<p>2，应用业务代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#66d9ef">worker_processes</span>  <span style="color:#ae81ff">1</span>;
+<span style="color:#66d9ef">error_log</span> <span style="color:#e6db74">logs/error.log</span> <span style="color:#e6db74">debug</span>;
+<span style="color:#66d9ef">events</span> {
+    <span style="color:#f92672">worker_connections</span> <span style="color:#ae81ff">1024</span>;
+}
+
+<span style="color:#66d9ef">http</span> {
+    <span style="color:#f92672">init_by_lua_block</span> {
+	    <span style="color:#f92672">local</span> <span style="color:#e6db74">resty_chash</span> = <span style="color:#e6db74">require</span> <span style="color:#e6db74">&#34;resty.chash&#34;</span>
+		<span style="color:#e6db74">local</span> <span style="color:#e6db74">cjson</span> = <span style="color:#e6db74">require(&#34;cjson.safe&#34;)</span>
+        <span style="color:#e6db74">local</span> <span style="color:#e6db74">object_list_1999</span> = {
+            <span style="color:#f92672">[&#34;1985&#34;]</span> = <span style="color:#ae81ff">50</span><span style="color:#e6db74">,</span>
+            <span style="color:#e6db74">[&#34;1986&#34;]</span> = <span style="color:#ae81ff">50</span>
+        <span style="color:#960050;background-color:#1e0010">}</span>
+        <span style="color:#e6db74">local</span> <span style="color:#e6db74">str_null</span> = <span style="color:#e6db74">string.char(0)</span>
+        <span style="color:#e6db74">local</span> <span style="color:#e6db74">pids,</span> <span style="color:#e6db74">nodes</span> = {}<span style="color:#f92672">,</span> {}
+        <span style="color:#f92672">for</span> <span style="color:#e6db74">pid,</span> <span style="color:#e6db74">weight</span> <span style="color:#e6db74">in</span> <span style="color:#e6db74">pairs(object_list_1999)</span> <span style="color:#e6db74">do</span>
+            <span style="color:#e6db74">local</span> <span style="color:#e6db74">id</span> = <span style="color:#e6db74">string.gsub(pid,</span> <span style="color:#e6db74">&#34;:&#34;,</span> <span style="color:#e6db74">str_null)</span> 
+            <span style="color:#e6db74">pids[id]</span> = <span style="color:#e6db74">pid</span>
+            <span style="color:#e6db74">nodes[id]</span> = <span style="color:#e6db74">weight</span>
+        <span style="color:#e6db74">end</span>
+        <span style="color:#e6db74">local</span> <span style="color:#e6db74">chash_up</span> = <span style="color:#e6db74">resty_chash:new(nodes)</span>
+        <span style="color:#e6db74">package.loaded.my_chash_up_1999</span> = <span style="color:#e6db74">chash_up</span>
+        <span style="color:#e6db74">package.loaded.my_ids_1999</span> = <span style="color:#e6db74">pids</span>
+	<span style="color:#960050;background-color:#1e0010">}</span>
+    <span style="color:#e6db74">server</span> {
+        <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+		<span style="color:#f92672">charset</span> <span style="color:#e6db74">utf-8</span>;
+        <span style="color:#f92672">location</span> <span style="color:#e6db74">/fpId</span> {
+		    <span style="color:#f92672">default_type</span> <span style="color:#e6db74">text/html</span>;
+			<span style="color:#f92672">content_by_lua_block</span> {
+				<span style="color:#f92672">local</span> <span style="color:#e6db74">args,</span> <span style="color:#e6db74">err</span> = <span style="color:#e6db74">ngx.req.get_uri_args()</span>
+				<span style="color:#e6db74">local</span> <span style="color:#e6db74">userId</span>  = <span style="color:#e6db74">args[&#34;userId&#34;]</span>
+				<span style="color:#e6db74">local</span> <span style="color:#e6db74">chash_up</span> = <span style="color:#e6db74">package.loaded.my_chash_up_1999</span>
+				<span style="color:#e6db74">local</span> <span style="color:#e6db74">pid</span> = <span style="color:#e6db74">package.loaded.my_ids_1999</span>
+				<span style="color:#e6db74">local</span> <span style="color:#e6db74">id</span> = <span style="color:#e6db74">chash_up:find(userId)</span>
+				<span style="color:#e6db74">local</span> <span style="color:#e6db74">hit_id</span> = <span style="color:#e6db74">pid[id]</span>
+				<span style="color:#e6db74">ngx.say(&#34;用户ID:&#34;..userId..</span> <span style="color:#e6db74">&#34;命中了:&#34;..hit_id)</span>
+			<span style="color:#960050;background-color:#1e0010">}</span>
+        <span style="color:#960050;background-color:#1e0010">}</span>
+    <span style="color:#960050;background-color:#1e0010">}</span>
+<span style="color:#960050;background-color:#1e0010">}</span>
+</code></pre></div>
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>
