@@ -2,6 +2,8 @@
 title: "Abacus Mental Arithmetic Problem Generation"
 date: 2021-06-01T09:33:32+08:00
 draft: true
+tags: ["recursive","python2.7"] 
+featured: true
 ---
 
 # 珠心算二笔、三笔、五笔、十笔一位加减混合计算题自动生成 
