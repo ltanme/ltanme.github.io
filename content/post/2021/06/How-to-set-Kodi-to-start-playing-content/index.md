@@ -2,7 +2,7 @@
 title: "How to Set Kodi to Start Playing Content"
 date: 2021-06-13T07:09:39+08:00
 draft: true 
-tags: ["kodi","coreelec"] 
+tags: ["kodi","coreelec","N1"] 
 featured: true
 ---
 
@@ -35,3 +35,7 @@ xbmc.executebuiltin("PlayerControl(repeatall)") #PlayerControl(repeatall)  这�
 
 
 ![image-20210613072200142](image-20210613072200142.png)
+
+设备实际播放效果图：
+
+![image-20210613072552887](image-20210613072552887.png)
