@@ -1,7 +1,7 @@
 ---
 title: "How to Run Spring Boot Program on Windows Server"
 date: 2021-05-13T16:22:51+08:00
-draft: true
+draft: false
 tags: ["java service wapper","spring boot"] 
 ---
 

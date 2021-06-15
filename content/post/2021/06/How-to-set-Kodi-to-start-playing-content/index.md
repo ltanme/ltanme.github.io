@@ -1,7 +1,7 @@
 ---
 title: "How to Set Kodi to Start Playing Content"
 date: 2021-06-13T07:09:39+08:00
-draft: true 
+draft: false
 tags: ["kodi","coreelec","N1"] 
 featured: true
 ---

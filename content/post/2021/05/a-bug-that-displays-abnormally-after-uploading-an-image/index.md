@@ -1,7 +1,7 @@
 ---
 title: "A Bug That Displays Abnormally After Uploading an Image"
 date: 2021-05-12T19:11:15+08:00
-draft: true
+draft: false
 tags: ["camel ftp","ftpClient"] 
 featured: true
 ---
