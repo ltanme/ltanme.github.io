@@ -1,7 +1,7 @@
 ---
 title: "How to Do Not Release Resources After Uploading the Zip Package in Java"
 date: 2021-05-12T19:36:48+08:00
-draft: true
+draft: false
 tags: ["zipFile","java"]
 featured: true
 ---

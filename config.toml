@@ -5,6 +5,7 @@ hasCJKLanguage = "true"  # 截取正文的前70字显示在列表页面
 theme = "terminal"
 paginate = 5
 publishDir = "docs"
+buildDrafts = false
 [author]
   name = "LTAN"
 [taxonomies]
