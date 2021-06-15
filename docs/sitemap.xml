@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ltan.me/</loc>
+    <lastmod>2021-06-15T16:06:18+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/n1/</loc>
+    <lastmod>2021-06-15T16:06:18+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2021-06-15T16:06:18+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2021/06/solve-the-startup-problem-of-nano-disk-manager-zerotier/</loc>
+    <lastmod>2021-06-15T16:06:18+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2021-06-15T16:06:18+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/zerotier/</loc>
+    <lastmod>2021-06-15T16:06:18+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/%E8%B4%9D%E5%A3%B3%E4%BA%91/</loc>
+    <lastmod>2021-06-15T16:06:18+08:00</lastmod>
+  </url><url>
     <loc>https://ltan.me/tags/coreelec/</loc>
     <lastmod>2021-06-13T07:09:39+08:00</lastmod>
   </url><url>
@@ -9,18 +30,6 @@
     <lastmod>2021-06-13T07:09:39+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/kodi/</loc>
-    <lastmod>2021-06-13T07:09:39+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/</loc>
-    <lastmod>2021-06-13T07:09:39+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/n1/</loc>
-    <lastmod>2021-06-13T07:09:39+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/post/</loc>
-    <lastmod>2021-06-13T07:09:39+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2021-06-13T07:09:39+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2021/06/abacus-mental-arithmetic-problem-generation/</loc>
