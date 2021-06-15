@@ -2,7 +2,7 @@
 title: "Solve the Startup Problem of Nano Disk Manager Zerotier"
 date: 2021-06-15T16:06:18+08:00
 draft: true
-tags: ["zerotier","N1","贝壳云"] 
+tags: ["zerotier","N1"] 
 ---
 
 # 解决[贝壳云]小刚炮系统（Nano Disk Manager） zerotier 开机启动问题
