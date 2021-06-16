@@ -1,8 +1,18 @@
-<header class="header">
+<header class="header"  style="
+    background-image: url(http://localhost:1313/images/banner-1.jpg);
+    background-position:50%;
+    background-repeat:no-repeat;
+    background-size:cover;
+">
   <div class="header__inner">
-    <div class="header__logo">
-      {{ partial "logo.html" . }}
-    </div>
+    <div style="flex: 1;
+    align-items: center;
+    text-decoration: none;
+    color: #e3e3e3;
+    font-size: 2em;
+    text-align: center;
+    padding: 5px 10px;">&nbsp;&nbsp;</div>
+
     {{ if len $.Site.Menus }}
       <div class="menu-trigger">menu</div>
     {{ end }}
