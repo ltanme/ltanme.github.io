@@ -3,6 +3,7 @@
 title: "Phicomm Router Upgrade System to Openwrt"
 date: 2021-07-02T14:40:17+08:00
 draft: true
+tags: ["k2p","openwrt","lede","padavan"]
 ---
 
 # OpenWrt Lede 系统 刷入 k2p 路由器
