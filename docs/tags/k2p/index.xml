@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>k2p on LTAN.ME</title>
+    <link>https://ltan.me/tags/k2p/</link>
+    <description>Recent content in k2p on LTAN.ME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 02 Jul 2021 14:40:17 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/k2p/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Phicomm Router Upgrade System to Openwrt</title>
+      <link>https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/</link>
+      <pubDate>Fri, 02 Jul 2021 14:40:17 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/</guid>
+      <description>OpenWrt Lede 系统 刷入 k2p 路由器 记录一下，过去经常用的k2p 刷入老毛子系统【padavan】 不用选闪存布局，分分钟成功刷入。但这次刷入OpenWrt 时发现死活进去路由器登录界面。经过在恩山发贴求助终于解决，感谢恩</description>
+      <content>&lt;h1 id=&#34;openwrt-lede-系统-刷入-k2p-路由器&#34;&gt;OpenWrt Lede 系统 刷入 k2p 路由器&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;记录一下，过去经常用的k2p 刷入老毛子系统【padavan】 不用选闪存布局，分分钟成功刷入。但这次刷入OpenWrt 时发现死活进去路由器登录界面。经过在恩山发贴求助终于解决，感谢恩山大神们，真的很厉害！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;登录界面如下图, 打开 http://192.168.10.10 就可以进入，如果找不到ip是多少，可以用ipconfig查看，必须是电脑 网线有线连接到 k2p lan口&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;image-20210702144843102.png&#34; alt=&#34;image-20210702144843102&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;默认用户名 &lt;code&gt;root&lt;/code&gt;   密码 &lt;code&gt;password&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;image-20210702144651741.png&#34; alt=&#34;image-20210702144651741&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;刷入失败导致路由器不能工作，重新解决步骤   记录一下&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;image-20210702145346377.png&#34; alt=&#34;image-20210702145346377&#34;&gt;&lt;/p&gt;
+&lt;p&gt;我刷入步骤是都先复位的，长按复位键 8到10秒，松开，
+然后上传&lt;code&gt;openwrt-ramips-mt7621-phicomm_k2p-initramfs-kernel.binn &lt;/code&gt;文件，
+然后点击更新，重启，就是不能进入&lt;code&gt;openwrt&lt;/code&gt; 系统路由系统，关键是&lt;code&gt;openwrt wifi ssid &lt;/code&gt;搜索不到，没看到， 说明刷入不成功，我用网线链接电脑 ，电脑网线插上都不能有正常的&lt;code&gt;ip&lt;/code&gt; 获取到&lt;/p&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

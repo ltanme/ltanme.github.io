@@ -2,7 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ltan.me/tags/k2p/</loc>
+    <lastmod>2021-07-02T14:40:17+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/lede/</loc>
+    <lastmod>2021-07-02T14:40:17+08:00</lastmod>
+  </url><url>
     <loc>https://ltan.me/</loc>
+    <lastmod>2021-07-02T14:40:17+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/openwrt/</loc>
+    <lastmod>2021-07-02T14:40:17+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/padavan/</loc>
     <lastmod>2021-07-02T14:40:17+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/</loc>
@@ -11,13 +23,13 @@
     <loc>https://ltan.me/post/</loc>
     <lastmod>2021-07-02T14:40:17+08:00</lastmod>
   </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2021-07-02T14:40:17+08:00</lastmod>
+  </url><url>
     <loc>https://ltan.me/tags/n1/</loc>
     <lastmod>2021-06-15T16:06:18+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2021/06/solve-the-startup-problem-of-nano-disk-manager-zerotier/</loc>
-    <lastmod>2021-06-15T16:06:18+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2021-06-15T16:06:18+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/zerotier/</loc>
