@@ -1,7 +1,7 @@
 ---
 title: "Solve the Startup Problem of Nano Disk Manager Zerotier"
 date: 2021-06-15T16:06:18+08:00
-draft: true
+draft: false
 tags: ["zerotier","N1"] 
 ---
 
@@ -29,3 +29,4 @@ fi
 
 > ##### 在小刚炮系统后台，打开任务执行菜单栏，添加 计划任务为每隔2分钟启动该脚本即可
 
+![image-20210702145944040](image-20210702145944040.png)
