@@ -2,7 +2,7 @@
 
 title: "Phicomm Router Upgrade System to Openwrt"
 date: 2021-07-02T14:40:17+08:00
-draft: true
+draft: false
 tags: ["k2p","openwrt","lede","padavan"]
 ---
 
