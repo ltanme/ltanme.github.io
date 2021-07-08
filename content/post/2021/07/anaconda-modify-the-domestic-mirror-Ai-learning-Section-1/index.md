@@ -1,7 +1,7 @@
 ---
 title: "Anaconda Modify the Domestic Mirror Ai Learning Section 1"
 date: 2021-07-08T20:58:37+08:00
-draft: true
+draft: false
 tags: ["Anaconda"]
 ---
 
