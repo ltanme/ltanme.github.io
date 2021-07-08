@@ -17,7 +17,7 @@
       <content>&lt;h1 id=&#34;我是如何在coreelec系统设置开机自动播放视频列表的&#34;&gt;&lt;strong&gt;我是如何在coreelec系统设置开机自动播放视频列表的&lt;/strong&gt;&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;手里空闲N1盒子一台，刷了coreelec 系统，本质为kodi播放器，起初想配合小米智能插座 + n1盒子+显示器+音箱&lt;/p&gt;
-&lt;p&gt;打造一台家用融媒体diy宣传广告机,设置定时开关机，定时播放指定内容，比如每天早上播放《三子经》《刷牙》，每天中午播放《交通安全》，晚上播放《护眼宣导片》&lt;/p&gt;
+&lt;p&gt;打造一台家用融媒体diy宣传广告机,设置定时开关机，定时播放指定内容，比如每天早上播放《三字经》《刷牙》，每天中午播放《交通安全》，晚上播放《护眼宣导片》&lt;/p&gt;
 &lt;p&gt;等三个.mp4文件。于是翻了一下kodi技术开发论坛，就有了以下成果&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;原论坛：https://forum.kodi.tv/showthread.php?tid=157120&lt;/p&gt;
