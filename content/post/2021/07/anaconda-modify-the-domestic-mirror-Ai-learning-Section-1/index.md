@@ -13,7 +13,7 @@ tags: ["Anaconda"]
 >
 > `[https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/](https://link.jianshu.com/?t=https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/)`
 >
-> 大该分为三步
+> 大概分为三步
 
 ## 1、首先找到conda安装目录
 
