@@ -6,7 +6,42 @@
     <description>Recent content on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Jul 2021 20:58:37 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 09 Jul 2021 16:23:39 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mathematical Concepts Ai Learing Section 2</title>
+      <link>https://ltan.me/post/2021/07/mathematical-concepts-ai-learing-section-2/</link>
+      <pubDate>Fri, 09 Jul 2021 16:23:39 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/07/mathematical-concepts-ai-learing-section-2/</guid>
+      <description>AI学习&amp;ndash;数学基础概念 绝对值 绝对值是指一个数在数轴上所对应点到原点的距离，例如，3的绝对值为3，-3的绝对值也为3。数字的绝对值可以被认为是与零的距离。 应用举例： from keras import backend as K # b是生成一个</description>
+      <content>&lt;h1 id=&#34;ai学习--数学基础概念&#34;&gt;AI学习&amp;ndash;数学基础概念&lt;/h1&gt;
+&lt;h4 id=&#34;绝对值&#34;&gt;绝对值&lt;/h4&gt;
+&lt;p&gt;绝对值是指一个数在数轴上所对应点到原点的距离，例如，3的绝对值为3，-3的绝对值也为3。数字的绝对值可以被认为是与零的距离。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;应用举例：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; keras &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; backend &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; K
+&lt;span style=&#34;color:#75715e&#34;&gt;# b是生成一个4x4 二维 -1 ~ 0 的随机数&lt;/span&gt;
+b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; K&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;random_uniform_variable(shape&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;), low&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, high&lt;span style=&#34;color:#f92672&#34;&gt;=-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# 均匀分布&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 原始打印&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(b)
+&lt;span style=&#34;color:#75715e&#34;&gt;# 取绝对值后打印&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(K&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;abs(b))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;输出结果&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;tf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Variable &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Variable:0&amp;#39;&lt;/span&gt; shape&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;) dtype&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;float32, numpy&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;
+array([[&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.9059057&lt;/span&gt; , &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.58264804&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.9395989&lt;/span&gt; , &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.39963734&lt;/span&gt;],
+       [&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1112231&lt;/span&gt; , &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5067514&lt;/span&gt; , &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.10375643&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.6551852&lt;/span&gt; ],
+       [&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.8337679&lt;/span&gt; , &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.778535&lt;/span&gt;  , &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.7544004&lt;/span&gt; , &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.5426916&lt;/span&gt; ],
+       [&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.09164572&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.6224438&lt;/span&gt; , &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.2649765&lt;/span&gt; , &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0.45468187&lt;/span&gt;]],
+      dtype&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;float32)&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+tf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Tensor(
+[[&lt;span style=&#34;color:#ae81ff&#34;&gt;0.9059057&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0.58264804&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.9395989&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0.39963734&lt;/span&gt;]
+ [&lt;span style=&#34;color:#ae81ff&#34;&gt;0.1112231&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5067514&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0.10375643&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.6551852&lt;/span&gt; ]
+ [&lt;span style=&#34;color:#ae81ff&#34;&gt;0.8337679&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0.778535&lt;/span&gt;   &lt;span style=&#34;color:#ae81ff&#34;&gt;0.7544004&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5426916&lt;/span&gt; ]
+ [&lt;span style=&#34;color:#ae81ff&#34;&gt;0.09164572&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.6224438&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0.2649765&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;0.45468187&lt;/span&gt;]], shape&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;), dtype&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;float32)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
     <item>
       <title>Anaconda Modify the Domestic Mirror Ai Learning Section 1</title>
       <link>https://ltan.me/post/2021/07/anaconda-modify-the-domestic-mirror-ai-learning-section-1/</link>
