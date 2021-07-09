@@ -2,16 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ltan.me/</loc>
+    <lastmod>2021-07-09T16:23:39+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2021/07/mathematical-concepts-ai-learing-section-2/</loc>
+    <lastmod>2021-07-09T16:23:39+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2021-07-09T16:23:39+08:00</lastmod>
+  </url><url>
     <loc>https://ltan.me/tags/anaconda/</loc>
     <lastmod>2021-07-08T20:58:37+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2021/07/anaconda-modify-the-domestic-mirror-ai-learning-section-1/</loc>
-    <lastmod>2021-07-08T20:58:37+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/</loc>
-    <lastmod>2021-07-08T20:58:37+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/post/</loc>
     <lastmod>2021-07-08T20:58:37+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/</loc>
