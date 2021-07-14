@@ -16,8 +16,6 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
-  <link rel="stylesheet" href="https://ltan.me/assets/pink.css">
-
 
 
 
@@ -25,7 +23,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/pink.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
 
 
 
@@ -46,7 +44,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/pink.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -67,7 +65,7 @@
 
 
 </head>
-<body class="pink">
+<body class="orange">
 
 
 <div class="container center headings--one-size">
@@ -181,12 +179,15 @@ b <span style="color:#f92672">=</span> K<span style="color:#f92672">.</span>rand
 <span style="color:#75715e"># 取绝对值后打印</span>
 <span style="color:#66d9ef">print</span>(K<span style="color:#f92672">.</span>abs(b))
 </code></pre></div><p>输出结果</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">&lt;</span>tf<span style="color:#f92672">.</span>Variable <span style="color:#e6db74">&#39;Variable:0&#39;</span> shape<span style="color:#f92672">=</span>(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>) dtype<span style="color:#f92672">=</span>float32, numpy<span style="color:#f92672">=</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e">#原始数据打印，一个二维张量，4x4列的数据</span>
+<span style="color:#f92672">&lt;</span>tf<span style="color:#f92672">.</span>Variable <span style="color:#e6db74">&#39;Variable:0&#39;</span> shape<span style="color:#f92672">=</span>(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>) dtype<span style="color:#f92672">=</span>float32, numpy<span style="color:#f92672">=</span>
 array([[<span style="color:#f92672">-</span><span style="color:#ae81ff">0.9059057</span> , <span style="color:#f92672">-</span><span style="color:#ae81ff">0.58264804</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.9395989</span> , <span style="color:#f92672">-</span><span style="color:#ae81ff">0.39963734</span>],
        [<span style="color:#f92672">-</span><span style="color:#ae81ff">0.1112231</span> , <span style="color:#f92672">-</span><span style="color:#ae81ff">0.5067514</span> , <span style="color:#f92672">-</span><span style="color:#ae81ff">0.10375643</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.6551852</span> ],
        [<span style="color:#f92672">-</span><span style="color:#ae81ff">0.8337679</span> , <span style="color:#f92672">-</span><span style="color:#ae81ff">0.778535</span>  , <span style="color:#f92672">-</span><span style="color:#ae81ff">0.7544004</span> , <span style="color:#f92672">-</span><span style="color:#ae81ff">0.5426916</span> ],
        [<span style="color:#f92672">-</span><span style="color:#ae81ff">0.09164572</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.6224438</span> , <span style="color:#f92672">-</span><span style="color:#ae81ff">0.2649765</span> , <span style="color:#f92672">-</span><span style="color:#ae81ff">0.45468187</span>]],
       dtype<span style="color:#f92672">=</span>float32)<span style="color:#f92672">&gt;</span>
+      
+<span style="color:#75715e">#取绝对值后的结果</span>
 tf<span style="color:#f92672">.</span>Tensor(
 [[<span style="color:#ae81ff">0.9059057</span>  <span style="color:#ae81ff">0.58264804</span> <span style="color:#ae81ff">0.9395989</span>  <span style="color:#ae81ff">0.39963734</span>]
  [<span style="color:#ae81ff">0.1112231</span>  <span style="color:#ae81ff">0.5067514</span>  <span style="color:#ae81ff">0.10375643</span> <span style="color:#ae81ff">0.6551852</span> ]
