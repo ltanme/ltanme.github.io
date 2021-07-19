@@ -16,6 +16,8 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
+  <link rel="stylesheet" href="https://ltan.me/assets/blue.css">
+
 
 
 
@@ -23,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/blue.png">
 
 
 
@@ -44,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/blue.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -65,7 +67,7 @@
 
 
 </head>
-<body class="orange">
+<body class="blue">
 
 
 <div class="container center headings--one-size">
@@ -279,14 +281,14 @@ sa <span style="color:#f92672">=</span> {
 data <span style="color:#f92672">=</span> []
 cell <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>  <span style="color:#75715e">#生成excel 4列表格</span>
 total <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span> <span style="color:#75715e">#生成100题</span>
-<span style="color:#66d9ef">while</span> True:
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
     a <span style="color:#f92672">=</span> recursive_formula(getNum(), <span style="color:#ae81ff">5</span>, [])
     <span style="color:#66d9ef">if</span> len(data)<span style="color:#f92672">&gt;=</span>total:
         <span style="color:#66d9ef">break</span>
     <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> a:
         data<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join(a) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;=&#34;</span>)
 
-<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;共</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">题&#34;</span> <span style="color:#f92672">%</span> len(data)
+print <span style="color:#e6db74">&#34;共</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">题&#34;</span> <span style="color:#f92672">%</span> len(data)
 rows <span style="color:#f92672">=</span> []
 <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> data:
     rows<span style="color:#f92672">.</span>append(item)
