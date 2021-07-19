@@ -189,14 +189,14 @@
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 进入容器，检查容器环境是否正常&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-shel&#34; data-lang=&#34;shel&#34;&gt;docker exec -it  c5d2369adde2 /bin/bash
-  
+
 docker exec -it 58e1c95fea73 /bin/sh
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;./image-20210511150600898.png&#34; alt=&#34;image-20210511150600898&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 安装websocket&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt; pip install websocket 
-  
+
  pip install stomp.py
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
@@ -223,15 +223,15 @@ docker exec -it 58e1c95fea73 /bin/sh
 # -*- coding: utf-8 -*-
 # @Time    : 2021/03/31 下午03:21
 # @Author  : ltan.me
-   
+
 from stomp_ws import Stomp
 import time
-   
+
 def do_thing_a(msg):
     print(&amp;quot;MESSAGE: &amp;quot; + msg)
-   
+
 if __name__ == &amp;quot;__main__&amp;quot;:
-   
+
     for i in range(0,10):
         #为了模拟设备id,激活id,采用id为作为通信参数，生成10个id分别请求websocket服务器域名
         url = &amp;quot;test.xxxx.com/stompServer/websocket?id=%s&amp;amp;activeId=416&amp;amp;deviceId=3657dc0cfede992b97d2135fd0514c6c&amp;amp;userId=1&amp;amp;&amp;amp;connectType=0&amp;amp;token=9d3b7282d295eefe9e9b959f63134dee&amp;quot; % str(i)

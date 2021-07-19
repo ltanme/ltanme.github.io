@@ -16,6 +16,8 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
+  <link rel="stylesheet" href="https://ltan.me/assets/blue.css">
+
 
 
 
@@ -23,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/blue.png">
 
 
 
@@ -44,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/blue.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -65,7 +67,7 @@
 
 
 </head>
-<body class="orange">
+<body class="blue">
 
 
 <div class="container center headings--one-size">
@@ -175,9 +177,9 @@
 <span style="color:#75715e"># b是生成一个4x4 二维 -1 ~ 0 的随机数</span>
 b <span style="color:#f92672">=</span> K<span style="color:#f92672">.</span>random_uniform_variable(shape<span style="color:#f92672">=</span>(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>), low<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, high<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>) <span style="color:#75715e"># 均匀分布</span>
 <span style="color:#75715e"># 原始打印</span>
-<span style="color:#66d9ef">print</span>(b)
+print(b)
 <span style="color:#75715e"># 取绝对值后打印</span>
-<span style="color:#66d9ef">print</span>(K<span style="color:#f92672">.</span>abs(b))
+print(K<span style="color:#f92672">.</span>abs(b))
 </code></pre></div><p>输出结果</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e">#原始数据打印，一个二维张量，4x4列的数据</span>
 <span style="color:#f92672">&lt;</span>tf<span style="color:#f92672">.</span>Variable <span style="color:#e6db74">&#39;Variable:0&#39;</span> shape<span style="color:#f92672">=</span>(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>) dtype<span style="color:#f92672">=</span>float32, numpy<span style="color:#f92672">=</span>

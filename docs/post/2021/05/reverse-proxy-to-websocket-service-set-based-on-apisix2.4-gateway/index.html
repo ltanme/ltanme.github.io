@@ -16,6 +16,8 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
+  <link rel="stylesheet" href="https://ltan.me/assets/blue.css">
+
 
 
 
@@ -23,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/blue.png">
 
 
 
@@ -44,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/blue.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -65,7 +67,7 @@
 
 
 </head>
-<body class="orange">
+<body class="blue">
 
 
 <div class="container center headings--one-size">
@@ -196,14 +198,14 @@
 <li>
 <p><input disabled="" type="checkbox"> 进入容器，检查容器环境是否正常</p>
 <pre><code class="language-shel" data-lang="shel">docker exec -it  c5d2369adde2 /bin/bash
-  
+
 docker exec -it 58e1c95fea73 /bin/sh
 </code></pre><p><img src="./image-20210511150600898.png" alt="image-20210511150600898"></p>
 </li>
 <li>
 <p><input disabled="" type="checkbox"> 安装websocket</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> pip install websocket 
-  
+
  pip install stomp.py
 </code></pre></div></li>
 <li>
@@ -230,15 +232,15 @@ docker exec -it 58e1c95fea73 /bin/sh
 # -*- coding: utf-8 -*-
 # @Time    : 2021/03/31 下午03:21
 # @Author  : ltan.me
-   
+
 from stomp_ws import Stomp
 import time
-   
+
 def do_thing_a(msg):
     print(&quot;MESSAGE: &quot; + msg)
-   
+
 if __name__ == &quot;__main__&quot;:
-   
+
     for i in range(0,10):
         #为了模拟设备id,激活id,采用id为作为通信参数，生成10个id分别请求websocket服务器域名
         url = &quot;test.xxxx.com/stompServer/websocket?id=%s&amp;activeId=416&amp;deviceId=3657dc0cfede992b97d2135fd0514c6c&amp;userId=1&amp;&amp;connectType=0&amp;token=9d3b7282d295eefe9e9b959f63134dee&quot; % str(i)
