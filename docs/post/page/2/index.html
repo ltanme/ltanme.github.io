@@ -179,7 +179,7 @@
         <div class="post-content">
           
           
-          python 日常笔记 时间转换 from datetime import * import time date_time = datetime.fromtimestamp(long(&#34;1528797322&#34;)) print date_time.strftime(&#34;%Y-%m-%d, %H:%M:%S&#34;) import datetime date1 = time.strptime(&#34;2019-12-11 09:35:10&#34;, &#34;%Y-%m-%d%H:%M:%S&#34;) a = datetime.datetime(date1[0],date1[1],date1[2],date1[3],date1[4],date1[5]) strftime = datetime.datetime.strptime(&#34;2017-11-02 09:31:10&#34;, &#34;%Y-%m-%d%H:%M:%S&#34;) strftime2 = datetime.datetime.strptime(&#34;2017-11-02 09:30:10&#34;, &#34;%Y-%m-%d%H:%M:%S&#34;) print(&#34;32&#34;,strftime&gt;strftime2) from datetime import * import time print datetime.now().timetuple() print time.mktime(datetime.now().timetuple()) import datetime import time date1 = time.strptime(&#34;2019-12-11 09:35:10&#34;, &#34;%Y-%m-%d%H:%M:%S&#34;) print long(time.mktime(date1) * 1000) where in mysql 使用 def get_config_list(conn, cur, aid, keys): sql = &#34;select `key`,label from config where id = %sand `key` in (%s) &#34; % ( aid, &#39;,&#39;.join([&#39;%s&#39;] * len(keys))) cur.execute(sql, keys) data = cur.fetchall()
+          python 日常笔记 记录工作要用的python 使用工具，或者常用的代码片段。 Python 是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于PHP和Perl语言。Python 是交互式语言： 这意味着，您可以在一个
           
           
         </div>
