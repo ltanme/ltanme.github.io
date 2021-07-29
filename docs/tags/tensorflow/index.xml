@@ -30,9 +30,10 @@
 &lt;p&gt;第三步， 安装最新版本的anaconda3 最版本的&lt;/p&gt;
 &lt;p&gt;​      去掉官网下载 &lt;a href=&#34;https://repo.anaconda.com/archive/Anaconda3-2020.11-Windows-x86_64.exe&#34;&gt;https://repo.anaconda.com&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;第四步，安装tensorflow最新版本&lt;/p&gt;
-&lt;p&gt;​       pip install tensorflow&lt;/p&gt;
-&lt;p&gt;​       pip install tensorflow-gpu&lt;/p&gt;
-&lt;p&gt;第五步，则试是否正常，运行如下脚本&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;​       pip install tensorflow
+
+​       pip install tensorflow-gpu
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;第五步，则试是否正常，运行如下脚本&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; tensorflow &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; tf
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; os
 os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;environ[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2&amp;#39;&lt;/span&gt;
@@ -107,11 +108,13 @@ tf.Tensor(3.0, shape=(), dtype=float32)
 2.5.0
 GPU: [PhysicalDevice(name=&#39;/physical_device:GPU:0&#39;, device_type=&#39;GPU&#39;)]
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如下三行是打印的真实结果，上面是tensorflow打印的日志信息&lt;/p&gt;
-&lt;p&gt;｀tf.Tensor(3.0, shape=(), dtype=float32)｀
-｀2.5.0｀
+&lt;blockquote&gt;
+&lt;p&gt;｀tf.Tensor(3.0, shape=(), dtype=float32)｀&lt;br&gt;
+｀2.5.0｀&lt;br&gt;
 ｀GPU: [PhysicalDevice(name=&#39;/physical_device:GPU:0&#39;, device_type=&amp;lsquo;GPU&amp;rsquo;)]｀&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;终于看到GPU 中括号里有 信息了，说明gpu生效，安装tensorflow-gpu成功，&lt;/p&gt;
-&lt;p&gt;如果你用Anaconda Jupyter Notebook 默认是不会打印 上面日志的，也就是说看到什么dll 文件丢失&lt;/p&gt;
+&lt;p&gt;如果你用Anaconda Jupyter Notebook 默认是不会打印 上面日志的，也就是说看不到什么dll 文件丢失&lt;/p&gt;
 &lt;p&gt;我用的pycharm ide&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;image-20210726110316971.png&#34; alt=&#34;image-20210726110316971&#34;&gt;&lt;/p&gt;
 &lt;p&gt;我用pycharm ide 配置的环境 如下，我电脑 安装了很多的python 环境，有代码需要在pycharm 切换python 版本，才能正常跑起来，比如我的tensorflow2.5.0 是要用Python 3.8.8才能跑的。 就是如下设置&lt;/p&gt;

@@ -16,8 +16,6 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
-  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
-
 
 
 
@@ -25,7 +23,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
 
 
 
@@ -46,7 +44,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -67,7 +65,7 @@
 
 
 </head>
-<body class="green">
+<body class="orange">
 
 
 <div class="container center headings--one-size">
@@ -189,9 +187,10 @@
 <p>第三步， 安装最新版本的anaconda3 最版本的</p>
 <p>​      去掉官网下载 <a href="https://repo.anaconda.com/archive/Anaconda3-2020.11-Windows-x86_64.exe">https://repo.anaconda.com</a></p>
 <p>第四步，安装tensorflow最新版本</p>
-<p>​       pip install tensorflow</p>
-<p>​       pip install tensorflow-gpu</p>
-<p>第五步，则试是否正常，运行如下脚本</p>
+<pre><code>​       pip install tensorflow
+
+​       pip install tensorflow-gpu
+</code></pre><p>第五步，则试是否正常，运行如下脚本</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> tensorflow <span style="color:#66d9ef">as</span> tf
 <span style="color:#f92672">import</span> os
 os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;2&#39;</span>
@@ -266,11 +265,13 @@ tf.Tensor(3.0, shape=(), dtype=float32)
 2.5.0
 GPU: [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
 </code></pre><p>如下三行是打印的真实结果，上面是tensorflow打印的日志信息</p>
-<p>｀tf.Tensor(3.0, shape=(), dtype=float32)｀
-｀2.5.0｀
+<blockquote>
+<p>｀tf.Tensor(3.0, shape=(), dtype=float32)｀<br>
+｀2.5.0｀<br>
 ｀GPU: [PhysicalDevice(name='/physical_device:GPU:0', device_type=&lsquo;GPU&rsquo;)]｀</p>
+</blockquote>
 <p>终于看到GPU 中括号里有 信息了，说明gpu生效，安装tensorflow-gpu成功，</p>
-<p>如果你用Anaconda Jupyter Notebook 默认是不会打印 上面日志的，也就是说看到什么dll 文件丢失</p>
+<p>如果你用Anaconda Jupyter Notebook 默认是不会打印 上面日志的，也就是说看不到什么dll 文件丢失</p>
 <p>我用的pycharm ide</p>
 <p><img src="image-20210726110316971.png" alt="image-20210726110316971"></p>
 <p>我用pycharm ide 配置的环境 如下，我电脑 安装了很多的python 环境，有代码需要在pycharm 切换python 版本，才能正常跑起来，比如我的tensorflow2.5.0 是要用Python 3.8.8才能跑的。 就是如下设置</p>
