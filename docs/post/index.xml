@@ -6,7 +6,153 @@
     <description>Recent content in Posts on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Aug 2021 15:58:44 +0800</lastBuildDate><atom:link href="https://ltan.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 21 Aug 2021 22:12:49 +0800</lastBuildDate><atom:link href="https://ltan.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mathematical Generation for the Third Grade of Elementary School</title>
+      <link>https://ltan.me/post/2021/08/mathematical-generation-for-the-third-grade-of-elementary-school/</link>
+      <pubDate>Sat, 21 Aug 2021 22:12:49 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/08/mathematical-generation-for-the-third-grade-of-elementary-school/</guid>
+      <description>生成小学三年级四笔算式题及答案代码 由于小学三年级，数学书本未有负数，小数点，难度还是相对初级，要求3位数*2位数，除式算题不能有小数点, 减法不能用负数 下面就简单写了一下，思路比较简单，还没有包括括号，</description>
+      <content>&lt;h1 id=&#34;生成小学三年级四笔算式题及答案代码&#34;&gt;生成小学三年级四笔算式题及答案代码&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;由于小学三年级，数学书本未有负数，小数点，难度还是相对初级，要求3位数*2位数，除式算题不能有小数点, 减法不能用负数&lt;/p&gt;
+&lt;p&gt;下面就简单写了一下，思路比较简单，还没有包括括号，没有复杂的计算顺序的问题，基本上是 &lt;code&gt;a*b + d/c&lt;/code&gt;  这种  &lt;code&gt;a*b - d/c&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# -*- coding=utf-8 -*-&lt;/span&gt;
+
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; random
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; random &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; choice
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; openpyxl &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; Workbook
+wb &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Workbook()
+ws &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; wb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;active
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; datetime
+
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getNum&lt;/span&gt;(min,max):
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; random&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randrange(min, max)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 判断是否是小数点，90.0,56.0 这类不算&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is_float&lt;/span&gt;(s):
+    s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(s)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; s&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;count(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;:  &lt;span style=&#34;color:#75715e&#34;&gt;# 判断小数点个数&lt;/span&gt;
+        sl &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;split(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;)  &lt;span style=&#34;color:#75715e&#34;&gt;# 按照小数点进行分割&lt;/span&gt;
+        left &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sl[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]  &lt;span style=&#34;color:#75715e&#34;&gt;# 小数点前面的&lt;/span&gt;
+        right &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sl[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]  &lt;span style=&#34;color:#75715e&#34;&gt;# 小数点后面的&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; right &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;:
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; left&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;startswith(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;-&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; left&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;count(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;-&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; right&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;isdigit():
+            lleft &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; left&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;split(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;-&amp;#39;&lt;/span&gt;)[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]  &lt;span style=&#34;color:#75715e&#34;&gt;# 按照-分割，然后取负号后面的数字&lt;/span&gt;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; lleft&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;isdigit():
+                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;elif&lt;/span&gt; left&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;isdigit() &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; right&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;isdigit():
+            &lt;span style=&#34;color:#75715e&#34;&gt;# 判断是否为正小数&lt;/span&gt;
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;
+
+
+
+chengfa &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;span style=&#34;color:#75715e&#34;&gt;#乘法&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;:
+    n1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; getNum(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;99&lt;/span&gt;)
+    n2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; getNum(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)
+    total &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n1 &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; n2
+    c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+    c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(n1);c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x&amp;#34;&lt;/span&gt;);c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(n2);c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(total)
+    chengfa&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(c)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len(chengfa)&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+
+
+chufa &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;span style=&#34;color:#75715e&#34;&gt;#除法&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;:
+    n1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; getNum(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;99&lt;/span&gt;)
+    n2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; getNum(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;)
+    total &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; n1 &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; n2
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; is_float(total):
+        c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+        c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(n1);c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;÷&amp;#34;&lt;/span&gt;);c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(n2);c&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(int(total))
+        chufa&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(c)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len(chufa)&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;:
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+
+
+&lt;span style=&#34;color:#75715e&#34;&gt;#乘除合并，加减&lt;/span&gt;
+hasres &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+nores &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;span style=&#34;color:#75715e&#34;&gt;#计算符随机&lt;/span&gt;
+c&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;+&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-&amp;#34;&lt;/span&gt;]
+&lt;span style=&#34;color:#75715e&#34;&gt;#打印多少题&lt;/span&gt;
+t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
+cell &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;#生成excel 4列表格&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;:
+    chuf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; choice(chufa)
+    chenf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; choice(chengfa)
+    f &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; choice(c)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; f &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;+&amp;#34;&lt;/span&gt;:
+            tt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+            tt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]
+        &lt;span style=&#34;color:#75715e&#34;&gt;#有答案的&lt;/span&gt;
+        hasres&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d%s%d%s%d%s%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;],chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;],chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;],f,chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;],chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;],chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;],tt))
+        &lt;span style=&#34;color:#75715e&#34;&gt;#无答案的&lt;/span&gt;
+        nores&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d%s%d%s%d%s%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;=___&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;],chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;],chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;],f,chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;],chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;],chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;]))
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; f &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;+&amp;#34;&lt;/span&gt;:
+            tt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+            tt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]
+        &lt;span style=&#34;color:#75715e&#34;&gt;# 有答案的&lt;/span&gt;
+        hasres&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d%s%d%s%d%s%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;],f, chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;],tt))
+        &lt;span style=&#34;color:#75715e&#34;&gt;# 无答案的&lt;/span&gt;
+        nores&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d%s%d%s%d%s%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;=___&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], chenf[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;],f, chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;], chuf[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;]))
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len(hasres)&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;t:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
+
+
+
+rows &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; item &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; nores:
+    rows&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(item)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len(rows)&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;cell:
+        ws&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(rows)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;del&lt;/span&gt; rows[:]
+
+ws&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append([])
+
+rows &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; item &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; hasres:
+    rows&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(item)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len(rows)&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;cell:
+        ws&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(rows)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;del&lt;/span&gt; rows[:]
+
+version &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datetime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;datetime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;now()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;strftime(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;%Y%m&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%H%M%S&amp;#39;&lt;/span&gt;)
+wb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;save(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;小学三年级下册数学算式生成-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;.xlsx&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (cell,len(hasres),version))
+wb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;生成效果如下&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;image-20210821222311793.png&#34; alt=&#34;image-20210821222311793&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;image-20210821222425698.png&#34; alt=&#34;image-20210821222425698&#34;&gt;&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Vscode Hot Key</title>
+      <link>https://ltan.me/post/2021/08/vscode-hot-key/</link>
+      <pubDate>Sun, 15 Aug 2021 15:40:16 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/08/vscode-hot-key/</guid>
+      <description>我的vscode 使用快捷键 1、 输入一个! html输入模板</description>
+      <content>&lt;h1 id=&#34;我的vscode-使用快捷键&#34;&gt;我的vscode 使用快捷键&lt;/h1&gt;
+&lt;p&gt;1、 输入一个&lt;code&gt;!&lt;/code&gt;  html输入模板&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Main Route and Soft Route Use Configuration</title>
       <link>https://ltan.me/post/2021/08/main-route-and-soft-route-use-configuration/</link>
