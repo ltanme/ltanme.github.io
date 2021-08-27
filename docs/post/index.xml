@@ -18,6 +18,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;由于小学三年级，数学书本未有负数，小数点，难度还是相对初级，要求3位数*2位数，除式算题不能有小数点, 减法不能用负数&lt;/p&gt;
 &lt;p&gt;下面就简单写了一下，思路比较简单，还没有包括括号，没有复杂的计算顺序的问题，基本上是 &lt;code&gt;a*b + d/c&lt;/code&gt;  这种  &lt;code&gt;a*b - d/c&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;生成有答案和无答案两种，方便后续家长或老师改题需要计算器，哈哈，打算后面有时间再搞智能点&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# -*- coding=utf-8 -*-&lt;/span&gt;
 
