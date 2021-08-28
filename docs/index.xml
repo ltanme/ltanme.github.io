@@ -6,7 +6,27 @@
     <description>Recent content on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 21 Aug 2021 22:12:49 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 28 Aug 2021 10:22:19 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Activemq Artemis Learning 1</title>
+      <link>https://ltan.me/post/2021/08/activemq-artemis-learning-1/</link>
+      <pubDate>Sat, 28 Aug 2021 10:22:19 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/08/activemq-artemis-learning-1/</guid>
+      <description>Activemq Artemis learning 1 activemq 有两个版本，过去很多人使用的activemq 经典版。 对该版本性能上面评价不是很满意，但今天官方又提供基于netty版的 activemq artemis 这个消息中件间，将提供异步消息处理。在使用activemq好处是在于</description>
+      <content>&lt;h1 id=&#34;activemq-artemis-learning-1&#34;&gt;Activemq Artemis learning 1&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;activemq 有两个版本，过去很多人使用的activemq 经典版。 对该版本性能上面评价不是很满意，但今天官方又提供基于netty版的&lt;/p&gt;
+&lt;p&gt;activemq artemis 这个消息中件间，将提供异步消息处理。在使用activemq好处是在于，对大多数据中小企业来说没有经历去造轮子，那么完全可以采用开源方案来完成需求，采用activemq artemis 这个消息中间件，他不仅继承原来的多协议，还大大提升了性能，着实很香的，activemq 本来就和rabbitmq, kafka,rocketmq 等三大mq不一样，还是有区别，适用不同场景。比如过去们常常使用mq kafka, rabbitmq大多数是在云服务器内网通信使用的，做服务消息解耦使用，但它只是普通的tcp 传输协议，不支持webscket 直连，http, udp 直连等特点，而activemq artemis 相反，他可以支的寺ws直连，tcp,udp直连，加上公司团队java技术栈的优势，采用先使用，熟悉如何使用activemq artemis 然后对其二次开发，也不是不错技术选型路线&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;下面就是官网提供activemq artemis 核心技术架构图&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;image-20210828103628359.png&#34; alt=&#34;image-20210828103628359&#34;&gt;&lt;/p&gt;
+&lt;p&gt;如果中小企业需要对activemq artemis 商用的话，就不的不考虑安全问题&lt;/p&gt;
+&lt;p&gt;比如android端 是如何链接actviemq artemis 逻辑的，在建立安全链接之前需要做一些鉴权处理&lt;/p&gt;
+&lt;p&gt;需要在activemq前 增加一nginx网关作为代理&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Mathematical Generation for the Third Grade of Elementary School</title>
       <link>https://ltan.me/post/2021/08/mathematical-generation-for-the-third-grade-of-elementary-school/</link>
