@@ -2,6 +2,7 @@
 title: "Activemq Artemis Learning 2"
 date: 2021-08-28T23:21:14+08:00
 draft: true
+tags: ["activemq artemis"]
 ---
 
 # activemq artmis 项目所依赖模块说明整理 
