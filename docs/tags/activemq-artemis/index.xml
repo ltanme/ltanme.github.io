@@ -51,9 +51,9 @@ rg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;co
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mvn package
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;image-20210831195034813.png&#34; alt=&#34;image-20210831195034813&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;将得到的war包放到web目录下&lt;/p&gt;
+&lt;p&gt;将得到的war包放到web目录下,记得一定要重命名 &lt;code&gt;activemq-rest.war&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;image-20210831195002577.png&#34; alt=&#34;image-20210831195002577&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;image-20210831195919395.png&#34; alt=&#34;image-20210831195919395&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;重启activemq artemis&lt;/p&gt;
 &lt;/blockquote&gt;
