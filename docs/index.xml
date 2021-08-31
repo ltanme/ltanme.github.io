@@ -6,7 +6,182 @@
     <description>Recent content on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 28 Aug 2021 10:22:19 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 31 Aug 2021 19:35:49 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Enable Activemq Artemis Rest Api</title>
+      <link>https://ltan.me/post/2021/08/how-to-enable-activemq-artemis-rest-api/</link>
+      <pubDate>Tue, 31 Aug 2021 19:35:49 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/08/how-to-enable-activemq-artemis-rest-api/</guid>
+      <description>如何启用activemq artemis rest api 特性 在一次项目中需要使用activemq artemis mqtt 协议通信特性，需要借助rest api 功能按clientId 查询是否在线，也就是如何通过client id 查询 设备是否在线需要借助res</description>
+      <content>&lt;h1 id=&#34;如何启用activemq-artemis-rest-api-特性&#34;&gt;如何启用activemq artemis rest api 特性&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在一次项目中需要使用activemq artemis mqtt 协议通信特性，需要借助rest api 功能按clientId 查询是否在线，也就是如何通过client id 查询 设备是否在线需要借助rest api 特性，默认情况artemis 不提供rest api 特性，在网搜索了一了，再借助官网的文档，需要build 一个war包 放 到web目录下即可，然后 重启程序&lt;/p&gt;
+&lt;p&gt;但 在build 过程不是顺利，记录一下报错处理方法&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;github 提供的源代码，需要&lt;code&gt;build&lt;/code&gt; ,即 &lt;code&gt;mvn package&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/jirkadanek/artemis-rest&#34;&gt;jirkadanek/artemis-rest: Give your ActiveMQ Artemis Message Broker a REST interface (github.com)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;官网提供的文档，如何开启rest api 特性&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://activemq.apache.org/components/artemis/documentation/latest/rest.html&#34;&gt;REST Interface · ActiveMQ Artemis Documentation (apache.org)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;stackoverflow  提供的类似的问答 参考  配置参考&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/59319707/artemis-rest-interface&#34;&gt;java - Artemis rest interface - Stack Overflow&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/63668418/rest-interface-on-activemq-artemis&#34;&gt;maven - REST interface on ActiveMQ Artemis - Stack Overflow&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在集群模式下，如何开集，&lt;code&gt;master/salver&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/59847221/how-to-enable-rest-in-an-activemq-artemis-cluster&#34;&gt;java - How to enable REST in an ActiveMQ Artemis cluster - Stack Overflow&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;build 报错如下&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;ERROR&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Failed to execute goal on project artemis&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;rest&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;embedded&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; Could not resolve dependencies &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; project com&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;github&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;jdanekrh&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;artemis&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;rest&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;embedded&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;war&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;SNAPSHOT&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; Failure to find o
+rg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;apache&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;activemq&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;rest&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;artemis&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;rest&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;jar&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;2&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;18&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;0&lt;/span&gt; in http&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//maven.aliyun.com/nexus/content/repositories/central/ was cached in the local repository, resolution will not be reattempted unt
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;il the update interval of alimaven has elapsed or updates are forced &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Help 1&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;ERROR&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;解决方法，根据上述报错，原因为找不到&lt;code&gt;artemis-rest:jar:2.18.0&lt;/code&gt;  其 版本为 2.18.0 但是pom.xml 里面写的RELEASE, why?&lt;/p&gt;
+&lt;p&gt;这里我就把改成对应版本，版本从maven 中央仓库得到最新版本&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;再执行以下命令&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mvn install clean -U
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;然后再执行以下命令，就是打包了&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mvn package
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;image-20210831195034813.png&#34; alt=&#34;image-20210831195034813&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;将得到的war包放到web目录下&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;image-20210831195002577.png&#34; alt=&#34;image-20210831195002577&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;重启activemq artemis&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Activemq Artemis Learning 2</title>
+      <link>https://ltan.me/post/2021/08/activemq-artemis-learning-2/</link>
+      <pubDate>Sat, 28 Aug 2021 23:21:14 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/08/activemq-artemis-learning-2/</guid>
+      <description>activemq artmis 项目所依赖模块说明整理 artemis-boot ：项目主要的程序入口，man函数在此 artemis-cdi-client : cdi 集成 它既可以使用嵌入代理，也可以连接到远程代理。通过实现 artemis clientconfiguration 接口提供配置 artemis-cli: 提供命令工具使用，可以通过命令窗口运行东西，如创建用户，</description>
+      <content>&lt;h1 id=&#34;activemq-artmis-项目所依赖模块说明整理&#34;&gt;activemq artmis 项目所依赖模块说明整理&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-boot ：项目主要的程序入口，man函数在此&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-cdi-client : cdi 集成 它既可以使用嵌入代理，也可以连接到远程代理。通过实现 &lt;code&gt;artemis clientconfiguration&lt;/code&gt; 接口提供配置&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-cli: 提供命令工具使用，可以通过命令窗口运行东西，如创建用户，创建&lt;code&gt;address&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-commons: 为整个项目提供 api 的统一异常库，网络连接心跳逻辑，日志打印库，连接池，集合库，线程原子锁，uuid生成工具库，时间工具类库&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-core-client:   客户端连接sdk包&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-core-client-all: 全局的客户端sdk包&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-core-client-osgi: 开放服务网关协议的客户端工具sdk包&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-distribution:  打成wapper包 重要模块，决定你的项目打包后最终的结构&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-docker: docker build 镜像脚本&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-dto: 数据层传输 对像&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-features: 项目特性配置，初始化数据配置，端口，依赖版本等配置&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-hawtio:  基于hawtio  用于管理Java东西的模块化Web控制台。 简而言之，这是一个带有插件的网络控制台。 它有&lt;a href=&#34;http://hawt.io/plugins/index.html&#34;&gt;大量的插件&lt;/a&gt; ，可以自定义和扩展以满足您的需求，web修改，扩展都这里面改，关于web页面的增加，删除等功能&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;artemis-jakarta-client&lt;/code&gt;,&lt;code&gt;artemis-jakarta-ra&lt;/code&gt;,&lt;code&gt;artemis-jakarta-server&lt;/code&gt;,&lt;code&gt;artemis-jakarta-service-extensions&lt;/code&gt; : 	Jakarta是Apache组织下的一套Java解决方案的开源软件的名称&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-jdbc-store:  基于jdbc 数据存储类，如mysql,db2,postgres 等&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-jms-client:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-jms-client-all:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-jms-client-osgi:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-jms-server:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-journal:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-junit&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-maven-plugin&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-protocols&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-quorum-api&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-quorum-ri&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-ra&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-rest&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-selector&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-server&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-server-osgi&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-service-extensions&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-web&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;artemis-website&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;docs&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;etc&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;examples&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;integration&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;scripts&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    </item>
+    
     <item>
       <title>Activemq Artemis Learning 1</title>
       <link>https://ltan.me/post/2021/08/activemq-artemis-learning-1/</link>
