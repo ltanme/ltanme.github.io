@@ -62,9 +62,9 @@ mvn package
 
 ![image-20210831195034813](image-20210831195034813.png)
 
->  将得到的war包放到web目录下
+>  将得到的war包放到web目录下,记得一定要重命名 `activemq-rest.war`
 
-![image-20210831195002577](image-20210831195002577.png)
+![image-20210831195919395](image-20210831195919395.png)
 
 > 重启activemq artemis 
 
