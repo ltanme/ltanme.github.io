@@ -2,7 +2,7 @@
 title: "Artemis Origin Null Is Not Allowed to Call This Agent"
 date: 2021-09-03T11:14:53+08:00
 draft: false
-tags: ["activemq artemis","wireshark"]
+tags: ["activemq artemis","wireshark","jolokia"]
 ---
 
 # Artemis Origin Null Is Not Allowed to Call This Agent 
