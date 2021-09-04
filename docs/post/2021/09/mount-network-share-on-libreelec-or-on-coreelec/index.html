@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Mount Network Share on LibrEelec or on CoreElec :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="如何在coreelec 系统挂在nas共享目录，支持自动开机播放，播放内容安排 背景需求是打造家庭定时定点播放内容，内容包含音视频，现有环境闲置的n1盒子一台，音响一套，小米智能插座一个，nas ds218" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2021/09/mount-network-share-on-libreelec-or-on-coreelec/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Mount Network Share on LibrEelec or on CoreElec">
+<meta property="og:description" content="如何在coreelec 系统挂在nas共享目录，支持自动开机播放，播放内容安排 背景需求是打造家庭定时定点播放内容，内容包含音视频，现有环境闲置的n1盒子一台，音响一套，小米智能插座一个，nas ds218" />
+<meta property="og:url" content="https://ltan.me/post/2021/09/mount-network-share-on-libreelec-or-on-coreelec/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-09-04 17:16:13 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2021/09/mount-network-share-on-libreelec-or-on-coreelec/">Mount Network Share on LibrEelec or on CoreElec</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-09-04 [Mod: 2021-09-04]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/librelec/">LibrELEC</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/coreelec/">CoreELEC</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="如何在coreelec-系统挂在nas共享目录支持自动开机播放播放内容安排">如何在coreelec 系统挂在nas共享目录，支持自动开机播放，播放内容安排<a href="#如何在coreelec-系统挂在nas共享目录支持自动开机播放播放内容安排" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>背景需求是打造家庭定时定点播放内容，内容包含音视频，现有环境闲置的n1盒子一台，音响一套，小米智能插座一个，nas ds218群晖一台，设定每天定时，定点播放不同内容，内容来自群晖硬盘，或者网络离线内容。需要解决以下关键问题如下</p>
+<p>1，如何在coreelec mount 群晖共享目录</p>
+<p>2，如何让coreelec 开机或者重启就自动播放内容</p>
+</blockquote>
+<h3 id="如何在coreelecd--mount-共享目录">如何在coreelecd  mount 共享目录<a href="#如何在coreelecd--mount-共享目录" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<blockquote>
+<p>以下是官网介绍</p>
+</blockquote>
+<p>Kodi can natively mount SMB, NFS, SFTP, WebDAV (and more) remote filesystems (shares) to read media for playback, but many applications that write content, e.g. TVHeadend storing TV recordings, must write to &ldquo;local&rdquo; storage. Remote SMB and NFS shares can be &ldquo;mounted&rdquo; to the local filesystem using kernel mounts configured through systemd .mount files.</p>
+<p>The following NAS configuration is used in the examples below:</p>
+<p>NAS IP: <code>192.168.50.22</code>   群晖的ip</p>
+<p>Username: <code>nasuser1</code>   群晖系统的账号</p>
+<p>Password: <code>123nas</code> 群晖的系统密码</p>
+<p>Share name: <code>recordings</code>    群晖的共享目录名称，我的自己的是volume1</p>
+<p>Full address to share: <code>\\192.168.50.22\volume1</code></p>
+<h2 id="smb-shares--smb-协议共享挂载">SMB Shares  smb 协议共享挂载<a href="#smb-shares--smb-协议共享挂载" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="1-create-the-folder-where-the-share-should-be-mounted">1. Create the folder where the share should be mounted<a href="#1-create-the-folder-where-the-share-should-be-mounted" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Connect to your LibreELEC HTPC with SSH.</p>
+<pre><code>mkdir /storage/recordings
+</code></pre><h3 id="2-create-the-systemd-mount-file">2. Create the systemd .mount file<a href="#2-create-the-systemd-mount-file" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p><strong>IMPORTANT:</strong> The filename uses hyphens to separate elements of the fileystem path to the share mount-point, e.g. <code>/storage/recordings</code> will be <code>storage-recordings.mount</code> and sub folders, e.g. <code>/storage/recordings/tv</code> would be <code>storage-recordings-tv.mount</code></p>
+<p>Create the .mount file:</p>
+<pre><code>nano /storage/.config/system.d/storage-recordings.mount
+</code></pre><p>Below is an example of the mount definition file for a Samba share:</p>
+<pre><code>[Unit]
+Description=cifs mount script
+Requires=network-online.service
+After=network-online.service
+Before=kodi.service
+
+[Mount]
+What=//192.168.50.22/recordings
+Where=/storage/recordings
+Options=username=nasuser1,password=123nas,rw,vers=2.1
+Type=cifs
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><h3 id="3-things-to-edit">3. Things to edit<a href="#3-things-to-edit" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Address of your share. Remember to always use / slashes:</p>
+<pre><code>What=//192.168.1.222/recordings
+</code></pre><p>Path where the Share should be mounted:</p>
+<pre><code>Where=/storage/recordings
+</code></pre><p>Options:</p>
+<pre><code>Options=username=nasuser1,password=123nas,rw,vers=2.1
+</code></pre><p><code>username=</code> Username of your network share <code>password</code> Password of your network share <code>rw</code> Read/write access <code>vers=2.1</code> Version of the Samba protocol, <code>2.1</code> is supported since Windows 7 several <a href="https://wiki.samba.org/index.php/Samba3/SMB2#Introduction">other versions</a> are supported too</p>
+<h3 id="4-enable-the-mount">4. Enable the mount<a href="#4-enable-the-mount" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Finally we need to enable the mountpoint.</p>
+<pre><code>systemctl enable storage-recordings.mount
+</code></pre><h3 id="5-reboot">5. Reboot<a href="#5-reboot" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Reboot your system to check if the mount works.</p>
+<h3 id="6-helpful-command-for-troubleshooting">6. Helpful command for troubleshooting<a href="#6-helpful-command-for-troubleshooting" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Get status and error messages from the mount point.</p>
+<pre><code>systemctl status storage-recordings.mount
+</code></pre><p>Remove mount point and disabling it.</p>
+<pre><code>systemctl disable storage-recordings.mount
+</code></pre><h1 id="nfs-shares--我使用的nfs协议推荐使用nfs效率比smb快">NFS Shares  我使用的nfs协议，推荐使用nfs,效率比smb快<a href="#nfs-shares--我使用的nfs协议推荐使用nfs效率比smb快" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<h3 id="1-create-the-folder-where-the-share-should-be-mounted-1">1. Create the folder where the share should be mounted<a href="#1-create-the-folder-where-the-share-should-be-mounted-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Connect to your LibreELEC HTPC <a href="https:///accessing_libreelec">with SSH</a>.     ssh登录系统，首先创建recordings目录,</p>
+<pre><code>mkdir /storage/recordings
+</code></pre><h3 id="2-create-the-systemd-definition-file---定义mount文件">2. Create the systemd definition file   定义mount文件<a href="#2-create-the-systemd-definition-file---定义mount文件" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p><strong>Important:</strong> you need to use the filename for the definition file according to the folder where you want to mount your share . In our case <code>storage-recordings.mount</code> represent path -&gt; <code>/storage/recordings</code>. If you like an subfolder <code>storage-recordings-tv.mount</code> represent path -&gt; <code>/storage/recordings/tv</code>.</p>
+<p>定义mount文件需要一定的格式，如storage-recordings.mount 则 创建的目录是/storage/recordings</p>
+<p>注意storage-music.mount 是不能定义的，定义会有报错，报bad set 错误</p>
+<pre><code>nano /storage/.config/system.d/storage-recordings.mount
+</code></pre><p>Content of the definition file for a NFS share.</p>
+<pre><code>[Unit]
+Description=nfs mount script
+Requires=network-online.service
+After=network-online.service
+Before=kodi.service
+
+[Mount]
+What=192.168.50.22:/volume1/music
+Where=/storage/recordings
+Options=
+Type=nfs
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><h3 id="3-things-to-edit-1">3. Things to edit<a href="#3-things-to-edit-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Address of your share;</p>
+<pre><code>What=192.168.1.222:/usr/data2/video
+</code></pre><p>Path where the share should be mounted:</p>
+<pre><code>Where=/storage/recordings
+</code></pre><p>Options: At this section you are able to define specific NFS options, such as NFS version for example. In our example here, we don&rsquo;t need it and we are assuming you are using a NFSv3 share.</p>
+<p>Type: <code>Type=nfs</code>   type为指定类型</p>
+<h3 id="4-start-it-for-a-test">4. Start it for a test:<a href="#4-start-it-for-a-test" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>写好mount文件后，准备开启 ，输入如下命令</p>
+<pre><code>systemctl start storage-recordings.mount
+</code></pre><p>Note: That&rsquo;s only a test and the mount won&rsquo;t be available after a reboot. To make it available after boot you have to &ldquo;enable&rdquo; the service first.</p>
+<h3 id="5-enable-the-mount">5. Enable the mount<a href="#5-enable-the-mount" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>以下命令的作用可以，让coreelec 开机会就启动挂载共享目录</p>
+<p>If the previous test worked, then please enable the service via:</p>
+<pre><code>systemctl enable storage-recordings.mount
+</code></pre><h3 id="6-reboot">6. Reboot<a href="#6-reboot" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Reboot your system to see if the mount is available after boot.</p>
+<h3 id="7-helpful-command-for-troubleshooting">7. Helpful command for troubleshooting<a href="#7-helpful-command-for-troubleshooting" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Get status and error messages from the mount point.</p>
+<p>查看挂载的目录状态</p>
+<pre><code>systemctl status storage-recordings.mount
+</code></pre><p>Remove mount point and disabling it.</p>
+<p>如果需要禁用，则用disable 禁用挂载即可</p>
+<pre><code>systemctl disable storage-recordings.mount
+</code></pre><h1 id="apple-timecapsule"><strong>Apple TimeCapsule</strong><a href="#apple-timecapsule" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>TimeCapsule devices share files using an Apple dialect of SMB that is not compatible with the Samba <code>smbclient</code> Kodi uses to connect to SMB shares. To access media on a TimeCapsule you can follow the steps described above for connecting to Samba shares with a systemd storage mount, but with one difference: the <code>Options</code> configuration must force SMB v1.0 and legacy NTLM authentication or the mount will fail. See below:</p>
+<p>如果是你是用smb协议共享的 话，如果有用户名和密码，则用以下格式填写在options处</p>
+<pre><code>Options=username=MyUser,password=MyPass,sec=ntlm,vers=1.0
+</code></pre><p>SMB v1.0 is widely considered to be insecure, but TimeCapsules no longer receive software updates and there is no alternative; SMB v2/v3 are not supported.</p>
+<p>最后效果，以下三个目录是我挂载进来的，如果你挂music, videos目录不建议，会报错的，估计是系统不留吧</p>
+<p><img src="image-20210904174106369.png" alt="image-20210904174106369"></p>
+<p>在 /storage/.config/system.d/目录下，默认系统提供了用例sample,模板，你可以直接更改为mount就可以用</p>
+<p>mount文件内容格式一定要按上面格式填写才能生效，否则报错bad set</p>
+<p><img src="image-20210904174307171.png" alt="image-20210904174307171"></p>
+<p>开机自启脚本如下：</p>
+<p>在/storage/.kodi/userdata/ 目录下 创建 autoexec.py 文件 ，输入代码如下</p>
+<p>python 脚本，这里借助xbmc 库，可以充分发挥你的想像力</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"> <span style="color:#f92672">import</span> xbmc
+
+ xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/.kodi/userdata/playlists/video/1.mp4)&#34;</span>) 
+</code></pre></div><p>其实还有一个以命令形式来控制播放就是cli 模式</p>
+<p>kodi-send 命令</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">CoreELEC:~ <span style="color:#75715e"># kodi-send</span>
+Usage
+        kodi-send <span style="color:#f92672">[</span>OPTION<span style="color:#f92672">]</span> --action<span style="color:#f92672">=</span>ACTION
+        kodi-send <span style="color:#f92672">[</span>OPTION<span style="color:#f92672">]</span> --button<span style="color:#f92672">=</span>BUTTON
+Example
+        kodi-send --host<span style="color:#f92672">=</span>192.168.0.1 --port<span style="color:#f92672">=</span><span style="color:#ae81ff">9777</span> --action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Quit&#34;</span>
+Options
+        -?, --help                      Will bring up this message
+        --host<span style="color:#f92672">=</span>HOST                     Choose what HOST to connect to <span style="color:#f92672">(</span>default<span style="color:#f92672">=</span>localhost<span style="color:#f92672">)</span>
+        --port<span style="color:#f92672">=</span>PORT                     Choose what PORT to connect to <span style="color:#f92672">(</span>default<span style="color:#f92672">=</span>9777<span style="color:#f92672">)</span>
+        --keymap<span style="color:#f92672">=</span>KEYMAP                 Choose which KEYMAP to use <span style="color:#66d9ef">for</span> key presses <span style="color:#f92672">(</span>default<span style="color:#f92672">=</span>KB<span style="color:#f92672">)</span>
+        --button<span style="color:#f92672">=</span>BUTTON                 Sends a key press event to Kodi, this option can be added multiple times to create a macro
+        -a ACTION, --action<span style="color:#f92672">=</span>ACTION      Sends an action to XBMC, this option can be added multiple times to create a macro
+        -d T, --delay<span style="color:#f92672">=</span>T                 Waits <span style="color:#66d9ef">for</span> T ms, this option can be added multiple times to create a macro
+</code></pre></div>
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2021 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>
