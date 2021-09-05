@@ -3062,11 +3062,13 @@ fi
 &lt;p&gt;原论坛：https://forum.kodi.tv/showthread.php?tid=157120&lt;/p&gt;
 &lt;p&gt;解决方法：&lt;/p&gt;
 &lt;p&gt;​     用electerm ssh管理软件登录到kodi 系统，在/storage/.kodi/userdata/ 目录下 创建 autoexec.py 文件 ，输入代码如下&lt;/p&gt;
-&lt;p&gt;​&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; xbmc
-xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayMedia(/storage/.kodi/userdata/playlists/video/1.mp4)&amp;#34;&lt;/span&gt;)
-xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayerControl(repeatall)&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;#PlayerControl(repeatall)  这一句是循环播放1.mp4文件&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;1.mp4 我这里只是测试视频，你可以用nas nfs 接入就可以，做一个软链接即可读取&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; xbmc 
+xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayMedia(/storage/ad/test.m3u)&amp;#34;&lt;/span&gt;)
+xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin( &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;XBMC.SetVolume(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;)) &lt;span style=&#34;color:#75715e&#34;&gt;# 设置音量，这个很有用，比如早上闹钟模式可以设置大一点，晚上睡觉前可以小一点声音，这里的脚本是在nas 群晖系统自动生成，采用定时任务生成的，然后在kodi设备做了开机启动挂载nfs共享实现的&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;test.m3u我这里只是测试音视频列表，你可以用nas nfs 接入就可以，做一个软链接即可读取&lt;/p&gt;
+&lt;p&gt;test.m3u为播放列表，该文件是生成的，生成工具在这里，也可以制混合m3u播放列表，包含本地播放，在线链接播放&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/Isayso/PlaylistEditorTV&#34;&gt;Isayso/PlaylistEditorTV: IPTV m3u list Editor/Player for Windows with Kodi support (github.com)&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;image-20210613072200142.png&#34; alt=&#34;image-20210613072200142&#34;&gt;&lt;/p&gt;
 &lt;p&gt;设备实际播放效果图：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;image-20210613072552887.png&#34; alt=&#34;image-20210613072552887&#34;&gt;&lt;/p&gt;
@@ -3079,6 +3081,22 @@ xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;s
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;/table&gt;
+&lt;h1 id=&#34;注意事项总结&#34;&gt;注意事项总结&lt;/h1&gt;
+&lt;p&gt;本场景需求是：让n1 kodi 设备 音视频播放器，开机自动播放，并根据早，中，晚，周末，节假日特证来设置不同播放内容，内容可以是&lt;/p&gt;
+&lt;p&gt;网络采集的在线视频，在线新闻，音乐，Youtube频道自动播放等等，诸如此类，&lt;/p&gt;
+&lt;p&gt;需要注意以下几点：&lt;/p&gt;
+&lt;p&gt;1，通过小米智能插座，控制开关机时段，比如早上时间段为6：00 ~ 8：00， 中午时间段11：00 ~ 14：00 ， 晚上时间段：17：30 ~ 21：00&lt;/p&gt;
+&lt;p&gt;2，内容通过群晖计划任务，定时生成播放计划脚本，以及播放内容&lt;/p&gt;
+&lt;p&gt;3，播放列表根据自己喜好，分类制作不同的分类播放列表&lt;/p&gt;
+&lt;p&gt;​      如国学单独一个播放列表，流行music一个播放列表，背景音乐，睡前音乐等等&lt;/p&gt;
+&lt;p&gt;播放列表是自己生成的播放列表.m3u格式如下文件&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-m3u&#34; data-lang=&#34;m3u&#34;&gt;#EXTCPlayListM3U::M3U
+#EXTINF:0,高枫 - 大中国
+/storage/recordings/mp3/高枫 - 大中国.mp3
+#EXTINF:0,下山
+/storage/recordings/01.下山.flac
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其播放计划脚本为autoexec.py 脚本 需要根据不同日期判断音量，不同时间段判断播放内容&lt;/p&gt;
+&lt;p&gt;m3u 文件格式制作请参考文档：&lt;a href=&#34;https://en.wikipedia.org/wiki/M3U&#34;&gt;M3U - Wikipedia&lt;/a&gt;&lt;/p&gt;
 </content>
     </item>
     
