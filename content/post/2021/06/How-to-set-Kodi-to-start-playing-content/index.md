@@ -79,6 +79,33 @@ test.m3u为播放列表，该文件是生成的，生成工具在这里，也可
 #EXTINF:0,下山
 /storage/recordings/01.下山.flac
 ```
+开机自动播放脚本存储位置 `/storage/.kodi/userdata/autoexec.py`  代码内容如下，根据自身需求定制
+```python
+import xbmc
+import datetime
+
+today = datetime.date.today()
+d = datetime.datetime.now()
+now = today.day
+dayOfWeek = int(d.weekday())
+cur_hour = int(getattr(d, 'hour'))
+cur_minute = int(getattr(d, 'minute'))
+
+if(dayOfWeek>=1 and dayOfWeek <=5):
+	if(cur_hour >=7 and cur_hour <=8 and cur_minute >= 25 and cur_minute <=59):
+		xbmc.executebuiltin("PlayMedia(/storage/ad/go2school.m3u)")
+		xbmc.executebuiltin("XBMC.SetVolume(%d)" % (80))
+		xbmc.executebuiltin("PlayerControl(repeatall)")
+	if(cur_hour >=14 and cur_hour <=22):
+		xbmc.executebuiltin("PlayMedia(/storage/ad/bj.m3u)")
+		xbmc.executebuiltin("XBMC.SetVolume(%d)" % (75))
+		xbmc.executebuiltin("PlayerControl(repeatall)")
+else:
+	xbmc.executebuiltin("PlayMedia(/storage/ad/playlist.m3u)")
+	xbmc.executebuiltin("XBMC.SetVolume(%d)" % (48))
+	xbmc.executebuiltin("PlayerControl(repeatoff)")
+
+```
 
  其播放计划脚本为autoexec.py 脚本 需要根据不同日期判断音量，不同时间段判断播放内容
 
