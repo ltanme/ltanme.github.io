@@ -160,6 +160,10 @@
     
     #<a href="https://ltan.me/tags/n1/">N1</a>&nbsp;
     
+    #<a href="https://ltan.me/tags/m3u/">m3u</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/m3u8/">m3u8</a>&nbsp;
+    
   </span>
   
 
@@ -210,7 +214,32 @@ xbmc<span style="color:#f92672">.</span>executebuiltin( <span style="color:#e6db
 /storage/recordings/mp3/高枫 - 大中国.mp3
 #EXTINF:0,下山
 /storage/recordings/01.下山.flac
-</code></pre><p>其播放计划脚本为autoexec.py 脚本 需要根据不同日期判断音量，不同时间段判断播放内容</p>
+</code></pre><p>开机自动播放脚本存储位置 <code>/storage/.kodi/userdata/autoexec.py</code>  代码内容如下，根据自身需求定制</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> xbmc
+<span style="color:#f92672">import</span> datetime
+
+today <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>date<span style="color:#f92672">.</span>today()
+d <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>now()
+now <span style="color:#f92672">=</span> today<span style="color:#f92672">.</span>day
+dayOfWeek <span style="color:#f92672">=</span> int(d<span style="color:#f92672">.</span>weekday())
+cur_hour <span style="color:#f92672">=</span> int(getattr(d, <span style="color:#e6db74">&#39;hour&#39;</span>))
+cur_minute <span style="color:#f92672">=</span> int(getattr(d, <span style="color:#e6db74">&#39;minute&#39;</span>))
+
+<span style="color:#66d9ef">if</span>(dayOfWeek<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> dayOfWeek <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">5</span>):
+	<span style="color:#66d9ef">if</span>(cur_hour <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">and</span> cur_hour <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">8</span> <span style="color:#f92672">and</span> cur_minute <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">25</span> <span style="color:#f92672">and</span> cur_minute <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">59</span>):
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/go2school.m3u)&#34;</span>)
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">80</span>))
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayerControl(repeatall)&#34;</span>)
+	<span style="color:#66d9ef">if</span>(cur_hour <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">14</span> <span style="color:#f92672">and</span> cur_hour <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">22</span>):
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/bj.m3u)&#34;</span>)
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">75</span>))
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayerControl(repeatall)&#34;</span>)
+<span style="color:#66d9ef">else</span>:
+	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/playlist.m3u)&#34;</span>)
+	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">48</span>))
+	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayerControl(repeatoff)&#34;</span>)
+
+</code></pre></div><p>其播放计划脚本为autoexec.py 脚本 需要根据不同日期判断音量，不同时间段判断播放内容</p>
 <p>m3u 文件格式制作请参考文档：<a href="https://en.wikipedia.org/wiki/M3U">M3U - Wikipedia</a></p>
 
       </div></div>
