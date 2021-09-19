@@ -66,5 +66,19 @@ mvn package
 
 ![image-20210831195919395](image-20210831195919395.png)
 
+还有最关键一步如下，就是在etc目录下的bootstrap.xml 文件位置，添加 你需要启动的war包
+
+```xml
+   <!-- The web server is only bound to localhost by default -->
+   <web bind="http://localhost:8161" path="web">
+       <app url="activemq-branding" war="activemq-branding.war"/>
+       <app url="artemis-plugin" war="artemis-plugin.war"/>
+       <app url="console" war="console.war"/>
+	   <app url="console" war="activemq-rest.war"/><!--添加这一行即可-->
+   </web>
+```
+
+
+
 > 重启activemq artemis 
 
