@@ -204,7 +204,15 @@ rg<span style="color:#f92672">.</span><span style="color:#a6e22e">apache</span><
 <p>将得到的war包放到web目录下,记得一定要重命名 <code>activemq-rest.war</code></p>
 </blockquote>
 <p><img src="image-20210831195919395.png" alt="image-20210831195919395"></p>
-<blockquote>
+<p>还有最关键一步如下，就是在etc目录下的bootstrap.xml 文件位置，添加 你需要启动的war包</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">   <span style="color:#75715e">&lt;!-- The web server is only bound to localhost by default --&gt;</span>
+   <span style="color:#f92672">&lt;web</span> <span style="color:#a6e22e">bind=</span><span style="color:#e6db74">&#34;http://localhost:8161&#34;</span> <span style="color:#a6e22e">path=</span><span style="color:#e6db74">&#34;web&#34;</span><span style="color:#f92672">&gt;</span>
+       <span style="color:#f92672">&lt;app</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;activemq-branding&#34;</span> <span style="color:#a6e22e">war=</span><span style="color:#e6db74">&#34;activemq-branding.war&#34;</span><span style="color:#f92672">/&gt;</span>
+       <span style="color:#f92672">&lt;app</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;artemis-plugin&#34;</span> <span style="color:#a6e22e">war=</span><span style="color:#e6db74">&#34;artemis-plugin.war&#34;</span><span style="color:#f92672">/&gt;</span>
+       <span style="color:#f92672">&lt;app</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;console&#34;</span> <span style="color:#a6e22e">war=</span><span style="color:#e6db74">&#34;console.war&#34;</span><span style="color:#f92672">/&gt;</span>
+	   <span style="color:#f92672">&lt;app</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;console&#34;</span> <span style="color:#a6e22e">war=</span><span style="color:#e6db74">&#34;activemq-rest.war&#34;</span><span style="color:#f92672">/&gt;</span><span style="color:#75715e">&lt;!--添加这一行即可--&gt;</span>
+   <span style="color:#f92672">&lt;/web&gt;</span>
+</code></pre></div><blockquote>
 <p>重启activemq artemis</p>
 </blockquote>
 
