@@ -6,7 +6,29 @@
     <description>Recent content in Posts on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Sep 2021 17:16:44 +0800</lastBuildDate><atom:link href="https://ltan.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Sep 2021 11:14:37 +0800</lastBuildDate><atom:link href="https://ltan.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Multi Module Project Generation Mybatis Tool by Intellij IDEA</title>
+      <link>https://ltan.me/post/2021/09/multi-module-project-generation-mybatis-tool-by-intellij-idea/</link>
+      <pubDate>Sun, 26 Sep 2021 11:14:37 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/09/multi-module-project-generation-mybatis-tool-by-intellij-idea/</guid>
+      <description>在intellij idea 中用mybatis generate tool 插件快速生成mybatis dao,model,mapper等文件 用idea 打开一个多模块的项目, 配置database mysql 设置并连接上 打开schemas 选择一个表</description>
+      <content>&lt;h1 id=&#34;在intellij-idea-中用mybatis-generate-tool-插件快速生成mybatis-daomodelmapper等文件&#34;&gt;在intellij idea 中用mybatis generate tool 插件快速生成mybatis dao,model,mapper等文件&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;用idea 打开一个多模块的项目, 配置database mysql 设置并连接上&lt;/p&gt;
+&lt;p&gt;打开schemas 选择一个表，右建选择mybatis-generator&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;image-20210926112036871.png&#34; alt=&#34;image-20210926112036871&#34;&gt;&lt;/p&gt;
+&lt;p&gt;在弹出窗口，注意选择,以下红框中请设置好。很重要，否则生成路径不对。免得移动文件，干脆一次到位生成到对应的目录下面&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;image-20210926112146002.png&#34; alt=&#34;image-20210926112146002&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;插件名字如下&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;image-20210926112625009.png&#34; alt=&#34;image-20210926112625009&#34;&gt;&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Activemq Artemis Learning 3</title>
       <link>https://ltan.me/post/2021/09/activemq-artemis-learning-3/</link>
