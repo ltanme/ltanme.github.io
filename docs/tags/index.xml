@@ -6,7 +6,27 @@
     <description>Recent content in Tags on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Sep 2021 17:16:44 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Sep 2021 21:08:19 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java8</title>
+      <link>https://ltan.me/tags/java8/</link>
+      <pubDate>Sun, 26 Sep 2021 21:08:19 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/java8/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>LocalDateTime</title>
+      <link>https://ltan.me/tags/localdatetime/</link>
+      <pubDate>Sun, 26 Sep 2021 21:08:19 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/localdatetime/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
     <item>
       <title>artemis</title>
       <link>https://ltan.me/tags/artemis/</link>
