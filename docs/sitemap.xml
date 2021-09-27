@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ltan.me/tags/com.github.pagehelper/</loc>
+    <lastmod>2021-09-27T16:49:31+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/</loc>
+    <lastmod>2021-09-27T16:49:31+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/mybaits-plus/</loc>
+    <lastmod>2021-09-27T16:49:31+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</loc>
+    <lastmod>2021-09-27T16:49:31+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2021-09-27T16:49:31+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2021-09-27T16:49:31+08:00</lastmod>
+  </url><url>
     <loc>https://ltan.me/post/2021/09/date-and-localdatetime-in-java-8/</loc>
     <lastmod>2021-09-26T21:08:19+08:00</lastmod>
   </url><url>
@@ -9,15 +27,6 @@
     <lastmod>2021-09-26T21:08:19+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/localdatetime/</loc>
-    <lastmod>2021-09-26T21:08:19+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/</loc>
-    <lastmod>2021-09-26T21:08:19+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/post/</loc>
-    <lastmod>2021-09-26T21:08:19+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2021-09-26T21:08:19+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2021/09/multi-module-project-generation-mybatis-tool-by-intellij-idea/</loc>
