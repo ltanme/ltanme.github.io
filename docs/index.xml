@@ -77,7 +77,7 @@ public Object apiConf() {
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用到web前端效果&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;image-20211014110500057.png&#34; alt=&#34;image-20211014110500057&#34;&gt;&lt;/p&gt;
-&lt;p&gt;在业务代码使用枚举类时，还有中文提示，这个比常用好使很多呢&lt;/p&gt;
+&lt;p&gt;在业务代码使用枚举类时，还有中文提示，这个比常量好使很多呢&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;image-20211014110845695.png&#34; alt=&#34;image-20211014110845695&#34;&gt;&lt;/p&gt;
 </content>
     </item>
