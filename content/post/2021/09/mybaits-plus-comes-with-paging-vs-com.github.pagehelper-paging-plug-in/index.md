@@ -2,7 +2,7 @@
 title: "Mybaits Plus Comes With Paging VS Com.github.pagehelper Paging Plug In"
 date: 2021-09-27T16:49:31+08:00
 draft: false
-tags: ["Mybaits Plus","com.github.pagehelper"]
+tags: ["Mybaits Plus","com.github.pagehelper","java"]
 ---
 
 # mybatis-plus 自带分页 和 com.github.pagehelper工具使用对比
