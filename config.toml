@@ -98,8 +98,3 @@ buildDrafts = false
         name = "About"
         weight = 50
         url = "/about/"
-      [[languages.en.menu.main]]
-        identifier = "keeweb"
-        name = "Keeweb"
-        weight = 50
-        url = "/kw/"
