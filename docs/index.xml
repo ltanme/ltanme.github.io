@@ -6,7 +6,33 @@
     <description>Recent content on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Oct 2021 10:45:23 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Dec 2021 09:54:05 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to solve SpringBoot Mysql CLIENT_PLUGIN_AUTH Is Required error</title>
+      <link>https://ltan.me/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</link>
+      <pubDate>Tue, 07 Dec 2021 09:54:05 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</guid>
+      <description>一次上线遇到的问mysql版本使用问题CLIENT_PLUGIN_AUTH 当在项目做好即将上线时，突然发现线上数据库版本太低而报如题错误，导致程序上线启动失败，现有数据库己被很多老的项目在使用着，不可</description>
+      <content>&lt;h1 id=&#34;一次上线遇到的问mysql版本使用问题client_plugin_auth&#34;&gt;一次上线遇到的问mysql版本使用问题CLIENT_PLUGIN_AUTH&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当在项目做好即将上线时，突然发现线上数据库版本太低而报如题错误，导致程序上线启动失败，现有数据库己被很多老的项目在使用着，不可能让dba去更新数据库版本，或另开服务器。&lt;/p&gt;
+&lt;p&gt;找了一下原因，是因为使用spring boot 2.x版本，相对比较新，而默认使用的数据库版本为mysql-connect 库 8.x，而需要手动给mysql connect jar包库版本降级，从8.x降到5.1.48&lt;/p&gt;
+&lt;p&gt;主要处理方法是&lt;/p&gt;
+&lt;p&gt;第一、需要在 父pom.xml 文件里先指定&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;mysql.version&amp;gt;&lt;/span&gt;5.1.48&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/mysql.version&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第二、修改jdbc使用驱动jar包类&lt;/p&gt;
+&lt;p&gt;由&lt;code&gt;com.mysql.cj.jdbc.Driver&lt;/code&gt; 改为 &lt;code&gt;com.mysql.jdbc.Driver&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;链接url&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;url&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;jdbc:mysql://172.20.1.2:3406/xxx?useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;useJDBCCompliantTimezoneShift=true&amp;amp;useLegacyDatetimeCode=false&amp;amp;serverTimezone=Asia/Shanghai&amp;amp;zeroDateTimeBehavior=CONVERT_TO_NULL&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;改为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;jdbc:mysql://172.20.1.2:3406/xxx?useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;useJDBCCompliantTimezoneShift=true&amp;amp;useLegacyDatetimeCode=false&amp;amp;serverTimezone=Asia/Shanghai&amp;amp;zeroDateTimeBehavior=convertToNull&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;CONVERT_TO_NULL  &lt;/code&gt;  to  &lt;code&gt;convertToNull&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;大功告成，顺利上线&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Enumeration Class Used in Java</title>
       <link>https://ltan.me/post/2021/10/enumeration-class-used-in-java/</link>
@@ -4037,13 +4063,13 @@ end
       <pubDate>Sat, 08 May 2021 16:40:17 +0800</pubDate>
       
       <guid>https://ltan.me/about/</guid>
-      <description>专注于 Java, Golang, lua 专注于 docker 分享 centos/ linux windows 相关技术 php, python, web前端 NAS 使用经验分享 10年软件开发相关工作经验，生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Uni</description>
+      <description>专注于 Java, Golang, lua 专注于 docker 分享 centos/ linux windows 相关技术 php, python, web前端 NAS 使用经验分享 生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Unix/Linux/Window</description>
       <content>&lt;p&gt;专注于 Java, Golang, lua&lt;/p&gt;
 &lt;p&gt;专注于 docker&lt;/p&gt;
 &lt;p&gt;分享 centos/ linux windows 相关技术&lt;/p&gt;
 &lt;p&gt;php, python, web前端&lt;/p&gt;
 &lt;p&gt;NAS 使用经验分享&lt;/p&gt;
-&lt;p&gt;10年软件开发相关工作经验，生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Unix/Linux/Windows。做过大型门户网站，做过企业中台管理，做过企业DMP系统，规则引擎等大型项目。&lt;/p&gt;
+&lt;p&gt;生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Unix/Linux/Windows。做过大型门户网站，做过企业中台管理，做过企业DMP系统，规则引擎等大型项目。&lt;/p&gt;
 &lt;h2 id=&#34;关于此博客&#34;&gt;关于此博客&lt;/h2&gt;
 &lt;p&gt;博客主要用于记录生活，工作中遇到的问题，及解决方法和心得&lt;/p&gt;
 &lt;p&gt;此博客基于 &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; 构建&lt;/p&gt;
