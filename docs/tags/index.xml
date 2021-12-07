@@ -6,13 +6,23 @@
     <description>Recent content in Tags on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Oct 2021 10:45:23 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Dec 2021 09:54:05 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>java</title>
       <link>https://ltan.me/tags/java/</link>
-      <pubDate>Thu, 14 Oct 2021 10:45:23 +0800</pubDate>
+      <pubDate>Tue, 07 Dec 2021 09:54:05 +0800</pubDate>
       
       <guid>https://ltan.me/tags/java/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>mysql</title>
+      <link>https://ltan.me/tags/mysql/</link>
+      <pubDate>Tue, 07 Dec 2021 09:54:05 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/mysql/</guid>
       <description></description>
       <content></content>
     </item>
