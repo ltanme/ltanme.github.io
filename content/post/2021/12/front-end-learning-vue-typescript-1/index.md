@@ -2,6 +2,7 @@
 title: "Front End Learning Vue Typescript 1"
 date: 2021-12-21T21:53:30+08:00
 draft: false
+tags: ["vue","typescript"]
 ---
 
 # 前端学习【vue-typescript-1】
