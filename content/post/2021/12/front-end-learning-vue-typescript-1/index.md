@@ -22,13 +22,14 @@ vue create hello-world
 
 ### 构建路由创建一个新的页面
 
-   1.在 App.vue 文件加入 一个 超链接标签 `router-link`  可实现html a标签 href跳转功能
+##### 1. 在 App.vue 文件加入 一个 超链接标签 `router-link`  可实现html a标签 href跳转功能   
+
 
 ```
  <router-link to="/hell">hell</router-link>
 ```
 
-2. 在router目录下index.ts文件里增加如下代码，处理/hell 路由的指向文件
+##### 2. 在router目录下index.ts文件里增加如下代码，处理/hell 路由的指向文件    
 
 ```typescript
 const routes: Array<RouteConfig> = [
@@ -41,89 +42,92 @@ const routes: Array<RouteConfig> = [
 ]
 ```
 
-3. 在utils目录下新增`request.ts`文件
+##### 3. 在utils目录下新增`request.ts`文件
 
-   ```typescript
-   import axios from 'axios'
-   import { config } from 'chai'
-   
-   const service = axios.create({
-     baseURL: "/api", 
-     timeout: 5000
-   })
-   
-   service.interceptors.request.use(
-     (config) => {
-       return config
-     },
-     (error) => {
-       Promise.reject(error)
-     }
-   )
-    
-   service.interceptors.response.use(
-     (response) => {
-       const res = response.data
-       return res
-     },
-     (error) => {
-        console.log(11111111)
-     }
-   )
-   
-   export default service
-   
-   ```
 
-   
+```typescript
+import axios from 'axios'
+import { config } from 'chai'
 
-4. 在src目录下创建api目录，用于专门api函数，与后台交互的api接口处理
+const service = axios.create({
+  baseURL: "/api", 
+  timeout: 5000
+})
 
-   ```typescript
-   import request from '@/utils/request'
-   
-   export const getIpInfo = () => 
-   request({
-     url:"iplocation/ipuu/getInfo?ip=111.44.1.3",
-     method:'get'
-   })
-   ```
+service.interceptors.request.use(
+  (config) => {
+    return config
+  },
+  (error) => {
+    Promise.reject(error)
+  }
+)
+ 
+service.interceptors.response.use(
+  (response) => {
+    const res = response.data
+    return res
+  },
+  (error) => {
+     console.log(11111111)
+  }
+)
 
-   
+export default service
 
-5. 在main.ts文件加入核心依赖库，需要用到el 标签，icon库，el样式都需要导入，以下main.ts原文件加入注释的都新增代码
+```
 
-   ```typescript
-   import Vue from 'vue'  //新加入的
-   import App from './App.vue'
-   import ElementUI from 'element-ui' //新加入的
-   import SvgIcon from 'vue-svgicon' //新加入的
-   
-   import 'element-ui/lib/theme-chalk/index.css'   //新加入的
-   
-   import './registerServiceWorker'
-   import router from './router'
-   import store from './store'
-   
-   
-   Vue.use(ElementUI, {}) //新加入的，需要注册到vue,否则控制台报错，不存在该标签
-   
-   
-   Vue.config.productionTip = false
-   
-   new Vue({
-     router,
-     store,
-     render: h => h(App)
-   }).$mount('#app')
-   
-   ```
 
-   
 
-6. 在views 目录下创建hell.vue 文件
+##### 4. 在src目录下创建api目录，用于专门api函数，与后台交互的api接口处理
 
-```vue
+
+```typescript
+import request from '@/utils/request'
+
+export const getIpInfo = () => 
+request({
+  url:"iplocation/ipuu/getInfo?ip=111.44.1.3",
+  method:'get'
+})
+```
+
+
+
+##### 5. 在main.ts文件加入核心依赖库，需要用到el 标签，icon库，el样式都需要导入，以下main.ts原文件加入注释的都新增代码
+
+
+```typescript
+import Vue from 'vue'  //新加入的
+import App from './App.vue'
+import ElementUI from 'element-ui' //新加入的
+import SvgIcon from 'vue-svgicon' //新加入的
+
+import 'element-ui/lib/theme-chalk/index.css'   //新加入的
+
+import './registerServiceWorker'
+import router from './router'
+import store from './store'
+
+
+Vue.use(ElementUI, {}) //新加入的，需要注册到vue,否则控制台报错，不存在该标签
+
+
+Vue.config.productionTip = false
+
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')
+
+```
+
+
+
+##### 6. 在views 目录下创建hell.vue 文件
+
+```html
  <template>
   <div> 
     <h1> this is hell page..........</h1>
@@ -171,7 +175,8 @@ export default class extends Vue {
 
 ```
 
-7.设置项目接口访问，解决访问接口在开发环境跨域的问题，在vue.config.js
+##### 7. 设置项目接口访问，解决访问接口在开发环境跨域的问题，在vue.config.js
+
 
 ```
 module.exports = {
@@ -193,7 +198,7 @@ module.exports = {
 }
 ```
 
-8. 安装依赖，依次执行
+##### 8. 安装依赖，依次执行
 
 ```
 npm install element-ui --save  
@@ -203,24 +208,25 @@ npm install element-ui --save
 
 
 
-9. 运行
+##### 9. 运行
 
-   ```
-   # npm run serve
-   
-   You may use special comments to disable some warnings.    
-   Use // eslint-disable-next-line to ignore the next line.  
-   Use /* eslint-disable */ to ignore all warnings in a file.
-   No type errors found
-   Version: typescript 4.1.6
-   Time: 2614ms
-   
-     App running at:
-     - Local:   http://localhost:8080/
-     - Network: http://172.20.148.107:8080/
-   ```
 
-   
+```
+# npm run serve
+
+You may use special comments to disable some warnings.    
+Use // eslint-disable-next-line to ignore the next line.  
+Use /* eslint-disable */ to ignore all warnings in a file.
+No type errors found
+Version: typescript 4.1.6
+Time: 2614ms
+
+  App running at:
+  - Local:   http://localhost:8080/
+  - Network: http://172.20.148.107:8080/
+```
+
+
 
 最终效果:
 
