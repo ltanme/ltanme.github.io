@@ -24,11 +24,9 @@
 &lt;h3 id=&#34;构建初始化项目&#34;&gt;构建初始化项目&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;vue create hello-world
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;构建路由创建一个新的页面&#34;&gt;构建路由创建一个新的页面&lt;/h3&gt;
-&lt;p&gt;1.在 App.vue 文件加入 一个 超链接标签 &lt;code&gt;router-link&lt;/code&gt;  可实现html a标签 href跳转功能&lt;/p&gt;
+&lt;h5 id=&#34;1-在-appvue-文件加入-一个-超链接标签-router-link--可实现html-a标签-href跳转功能&#34;&gt;1. 在 App.vue 文件加入 一个 超链接标签 &lt;code&gt;router-link&lt;/code&gt;  可实现html a标签 href跳转功能&lt;/h5&gt;
 &lt;pre&gt;&lt;code&gt; &amp;lt;router-link to=&amp;quot;/hell&amp;quot;&amp;gt;hell&amp;lt;/router-link&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
-&lt;li&gt;在router目录下index.ts文件里增加如下代码，处理/hell 路由的指向文件&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;2-在router目录下indexts文件里增加如下代码处理hell-路由的指向文件&#34;&gt;2. 在router目录下index.ts文件里增加如下代码，处理/hell 路由的指向文件&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-typescript&#34; data-lang=&#34;typescript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;routes&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;Array&lt;/span&gt;&amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;RouteConfig&lt;/span&gt;&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
     &lt;span style=&#34;color:#75715e&#34;&gt;//原有的路由保持不动，增加以下/hell路由指向处理
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt; { 
@@ -37,9 +35,7 @@
   &lt;span style=&#34;color:#a6e22e&#34;&gt;component&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;()&lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;../views/hell.vue&amp;#39;&lt;/span&gt;) 
  } 
 ]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;在utils目录下新增&lt;code&gt;request.ts&lt;/code&gt;文件&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;3-在utils目录下新增requestts文件&#34;&gt;3. 在utils目录下新增&lt;code&gt;request.ts&lt;/code&gt;文件&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-typescript&#34; data-lang=&#34;typescript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;axios&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;axios&amp;#39;&lt;/span&gt;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;config&lt;/span&gt; } &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;chai&amp;#39;&lt;/span&gt;
 
@@ -56,7 +52,7 @@
     &lt;span style=&#34;color:#a6e22e&#34;&gt;Promise&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;reject&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt;)
   }
 )
-
+ 
 &lt;span style=&#34;color:#a6e22e&#34;&gt;service&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;interceptors&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;response&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(
   (&lt;span style=&#34;color:#a6e22e&#34;&gt;response&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; {
     &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;response&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;
@@ -69,9 +65,7 @@
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;service&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;在src目录下创建api目录，用于专门api函数，与后台交互的api接口处理&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;4-在src目录下创建api目录用于专门api函数与后台交互的api接口处理&#34;&gt;4. 在src目录下创建api目录，用于专门api函数，与后台交互的api接口处理&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-typescript&#34; data-lang=&#34;typescript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;@/utils/request&amp;#39;&lt;/span&gt;
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getIpInfo&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; () &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; 
@@ -79,9 +73,7 @@
   &lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;iplocation/ipuu/getInfo?ip=111.44.1.3&amp;#34;&lt;/span&gt;,
   &lt;span style=&#34;color:#a6e22e&#34;&gt;method&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;get&amp;#39;&lt;/span&gt;
 })
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;在main.ts文件加入核心依赖库，需要用到el 标签，icon库，el样式都需要导入，以下main.ts原文件加入注释的都新增代码&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;5-在maints文件加入核心依赖库需要用到el-标签icon库el样式都需要导入以下maints原文件加入注释的都新增代码&#34;&gt;5. 在main.ts文件加入核心依赖库，需要用到el 标签，icon库，el样式都需要导入，以下main.ts原文件加入注释的都新增代码&lt;/h5&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-typescript&#34; data-lang=&#34;typescript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Vue&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;vue&amp;#39;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;//新加入的
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;App&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;./App.vue&amp;#39;&lt;/span&gt;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ElementUI&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;element-ui&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;//新加入的
@@ -105,16 +97,12 @@
   &lt;span style=&#34;color:#a6e22e&#34;&gt;render&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;h&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;h&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;App&lt;/span&gt;)
 }).&lt;span style=&#34;color:#a6e22e&#34;&gt;$mount&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#app&amp;#39;&lt;/span&gt;)
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;在views 目录下创建hell.vue 文件&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-vue&#34; data-lang=&#34;vue&#34;&gt; &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;6-在views-目录下创建hellvue-文件&#34;&gt;6. 在views 目录下创建hell.vue 文件&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt; &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
   &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt; 
-    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;hell&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;page&lt;/span&gt;..........&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;
-    &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!--&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;这个aa来自类属性变量&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;--&amp;gt;&lt;/span&gt;
-    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;{{&lt;span style=&#34;color:#a6e22e&#34;&gt;aa&lt;/span&gt;}}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt; this is hell page..........&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;
+    &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!--这个aa来自类属性变量--&amp;gt;&lt;/span&gt;
+    &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;{{aa}}&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
       &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt; 
           &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;el-button&lt;/span&gt;
               &lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cancel-btn&amp;#34;&lt;/span&gt;
@@ -122,10 +110,10 @@
               &lt;span style=&#34;color:#a6e22e&#34;&gt;icon&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;el-icon-refresh&amp;#34;&lt;/span&gt;
               &lt;span style=&#34;color:#a6e22e&#34;&gt;type&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;warning&amp;#34;&lt;/span&gt;
               &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;aabbba&amp;#34;&lt;/span&gt;
-              &lt;span style=&#34;color:#f92672&#34;&gt;@click&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;=&amp;#34;clickfunc(111)&amp;#34;&lt;/span&gt;
+              &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;@&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;click&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clickfunc(111)&amp;#34;&lt;/span&gt;
             &amp;gt;
-                  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;按钮点击&lt;/span&gt;&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;
-            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;/el-button&amp;gt;&lt;/span&gt;
+                  &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;按钮点击&amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;h1&lt;/span&gt;&amp;gt;
+            &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;el-button&lt;/span&gt;&amp;gt;
       &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
   &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;div&lt;/span&gt;&amp;gt;
 &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;&amp;gt;
@@ -148,14 +136,14 @@
        &lt;span style=&#34;color:#a6e22e&#34;&gt;alert&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;aa&lt;/span&gt;)
   }
   &lt;span style=&#34;color:#75715e&#34;&gt;//异步调用getipinfo接口
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;   &lt;span style=&#34;color:#a6e22e&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getIpInfo&lt;/span&gt;(){
-       &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt; } &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getIpInfo&lt;/span&gt;()
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getIpInfo&lt;/span&gt;(){
+       &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt; } &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getIpInfo&lt;/span&gt;()
        &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;aa&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;data&lt;/span&gt;
    }
 }
 &amp;lt;/&lt;span style=&#34;color:#f92672&#34;&gt;script&lt;/span&gt;&amp;gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;7.设置项目接口访问，解决访问接口在开发环境跨域的问题，在vue.config.js&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;7-设置项目接口访问解决访问接口在开发环境跨域的问题在vueconfigjs&#34;&gt;7. 设置项目接口访问，解决访问接口在开发环境跨域的问题，在vue.config.js&lt;/h5&gt;
 &lt;pre&gt;&lt;code&gt;module.exports = {
   devServer: {
     headers: {
@@ -173,15 +161,11 @@
     }
   },
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;8&#34;&gt;
-&lt;li&gt;安装依赖，依次执行&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;8-安装依赖依次执行&#34;&gt;8. 安装依赖，依次执行&lt;/h5&gt;
 &lt;pre&gt;&lt;code&gt;npm install element-ui --save  
 npm install axios --save
 npm install element-ui --save
-&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;9&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;运行&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&#34;9-运行&#34;&gt;9. 运行&lt;/h5&gt;
 &lt;pre&gt;&lt;code&gt;# npm run serve
 
 You may use special comments to disable some warnings.    
@@ -194,9 +178,7 @@ Time: 2614ms
   App running at:
   - Local:   http://localhost:8080/
   - Network: http://172.20.148.107:8080/
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;最终效果:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最终效果:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;image-20211221223034552.png&#34; alt=&#34;image-20211221223034552&#34;&gt;&lt;/p&gt;
 </content>
     </item>
