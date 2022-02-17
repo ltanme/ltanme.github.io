@@ -5,7 +5,7 @@ draft: true
 tags: ["python2.7","pip"]
 ---
 # windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available
-> 因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7
+> 因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7  
 > 具体错误代码如下：   
   SNIMissingWarning
 d:\python27\lib\site-packages\pip\_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
