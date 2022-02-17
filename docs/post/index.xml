@@ -54,10 +54,11 @@ https://pypi.tuna.tsinghua.edu.cn/simple
       <pubDate>Thu, 17 Feb 2022 19:46:19 +0800</pubDate>
       
       <guid>https://ltan.me/post/2022/02/a-true-sslcontext-object-is-not-available/</guid>
-      <description>windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available 具体错误代码如下： SNIMissingWarning d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to solve this. For more information, see https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings InsecurePlatformWarning Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&#39;: /simple/ndg-httpsclient/ d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160:</description>
+      <description>windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available 因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7 具体错误代码如下： SNIMissingWarning d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre vents urllib3 from configuring SSL appropriately and may</description>
       <content>&lt;h1 id=&#34;windows-下pyhon27环境pip-install-模块报错a-true-sslcontext-object-is-not-available&#34;&gt;windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;具体错误代码如下：
+&lt;p&gt;因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7
+具体错误代码如下：&lt;br&gt;
 SNIMissingWarning
 d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
 vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
