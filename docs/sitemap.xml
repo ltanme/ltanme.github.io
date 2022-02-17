@@ -2,10 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ltan.me/tags/java/</loc>
-    <lastmod>2022-02-11T12:12:06+08:00</lastmod>
+    <loc>https://ltan.me/post/2022/02/a-true-sslcontext-object-is-not-available/</loc>
+    <lastmod>2022-02-17T19:46:19+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/</loc>
+    <lastmod>2022-02-17T19:46:19+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/pip/</loc>
+    <lastmod>2022-02-17T19:46:19+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2022-02-17T19:46:19+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/python2/</loc>
+    <lastmod>2022-02-17T19:46:19+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2022-02-17T19:46:19+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/java/</loc>
     <lastmod>2022-02-11T12:12:06+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/mybatis/</loc>
@@ -15,12 +30,6 @@
     <lastmod>2022-02-11T12:12:06+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/mysql/</loc>
-    <lastmod>2022-02-11T12:12:06+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/post/</loc>
-    <lastmod>2022-02-11T12:12:06+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2022-02-11T12:12:06+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2021/12/front-end-learning-vue-typescript-1/</loc>
