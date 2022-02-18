@@ -39,6 +39,12 @@ PyCharm 2016.1,2018.x&amp;hellip;: Settings, Tools, Terminal, and add &amp;ldquo
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&#34;pycharm-env.jpg&#34; alt=&#34;pycharm-env&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
+&lt;p&gt;设置pycharm Terminal窗口启动时进入Anaconda3环境&lt;br&gt;
+在&amp;quot;设置&amp;quot;&amp;gt;&amp;ldquo;终端工具&amp;rdquo;&amp;gt;，更改如下内容：Shell path&lt;br&gt;
+C:\Users\me\Miniconda3\Scripts\activate.bat 为安装C:\Users\me\Miniconda3的目录&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-$xslt&#34; data-lang=&#34;$xslt&#34;&gt;cmd.exe  &amp;quot;/K&amp;quot;  &amp;quot;C:\Users\me\Miniconda3\Scripts\activate.bat&amp;quot;  &amp;quot;C:\Users\me\Miniconda3&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
 &lt;p&gt;遇到pip install 模块 下载不了的情况，请设置国产镜像&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;pre&gt;&lt;code class=&#34;language-$xslt&#34; data-lang=&#34;$xslt&#34;&gt;https://pypi.douban.com/simple
