@@ -28,6 +28,13 @@ PyCharm 2016.1,2018.x...: Settings, Tools, Terminal, and add ""/K <path-to-your-
 
 ![pycharm-env](pycharm-env.jpg)
 
+
+> 设置pycharm Terminal窗口启动时进入Anaconda3环境   
+在"设置">"终端工具">，更改如下内容：Shell path   
+C:\Users\me\Miniconda3\Scripts\activate.bat 为安装C:\Users\me\Miniconda3的目录
+```$xslt
+cmd.exe  "/K"  "C:\Users\me\Miniconda3\Scripts\activate.bat"  "C:\Users\me\Miniconda3"
+```
 > 遇到pip install 模块 下载不了的情况，请设置国产镜像
 ```$xslt
 https://pypi.douban.com/simple
