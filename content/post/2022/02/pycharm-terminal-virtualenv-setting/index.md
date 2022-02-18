@@ -2,7 +2,7 @@
 title: "Pycharm Terminal Virtualenv Setting"
 date: 2022-02-17T20:25:31+08:00
 draft: true
-tags: ["python2.7","pip","virtualenv"]
+tags: ["python2.7","pip","virtualenv","Anaconda"]
 ---
 
 #  windows 环境pycharm python 多环境开发设置
