@@ -39,6 +39,12 @@ PyCharm 2016.1,2018.x&amp;hellip;: Settings, Tools, Terminal, and add &amp;ldquo
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&#34;pycharm-env.jpg&#34; alt=&#34;pycharm-env&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
+&lt;p&gt;设置pycharm Terminal窗口启动时进入Anaconda3环境&lt;br&gt;
+在&amp;quot;设置&amp;quot;&amp;gt;&amp;ldquo;终端工具&amp;rdquo;&amp;gt;，更改如下内容：Shell path&lt;br&gt;
+C:\Users\me\Miniconda3\Scripts\activate.bat 为安装C:\Users\me\Miniconda3的目录&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-$xslt&#34; data-lang=&#34;$xslt&#34;&gt;cmd.exe  &amp;quot;/K&amp;quot;  &amp;quot;C:\Users\me\Miniconda3\Scripts\activate.bat&amp;quot;  &amp;quot;C:\Users\me\Miniconda3&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
 &lt;p&gt;遇到pip install 模块 下载不了的情况，请设置国产镜像&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;pre&gt;&lt;code class=&#34;language-$xslt&#34; data-lang=&#34;$xslt&#34;&gt;https://pypi.douban.com/simple
@@ -57,7 +63,7 @@ https://pypi.tuna.tsinghua.edu.cn/simple
       <description>windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available 因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7 具体错误代码如下： SNIMissingWarning d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre vents urllib3 from configuring SSL appropriately and may</description>
       <content>&lt;h1 id=&#34;windows-下pyhon27环境pip-install-模块报错a-true-sslcontext-object-is-not-available&#34;&gt;windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7
+&lt;p&gt;因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7&lt;br&gt;
 具体错误代码如下：&lt;br&gt;
 SNIMissingWarning
 d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
