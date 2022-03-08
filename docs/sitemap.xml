@@ -2,16 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ltan.me/post/2022/03/classpath-resource-not-found-when-running-as-jar/</loc>
+    <lastmod>2022-03-08T09:45:39+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/groovy/</loc>
+    <lastmod>2022-03-08T09:45:39+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/java/</loc>
+    <lastmod>2022-03-08T09:45:39+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/</loc>
+    <lastmod>2022-03-08T09:45:39+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2022-03-08T09:45:39+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/springboot/</loc>
+    <lastmod>2022-03-08T09:45:39+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2022-03-08T09:45:39+08:00</lastmod>
+  </url><url>
     <loc>https://ltan.me/tags/anaconda/</loc>
     <lastmod>2022-02-17T20:25:31+08:00</lastmod>
   </url><url>
-    <loc>https://ltan.me/</loc>
-    <lastmod>2022-02-17T20:25:31+08:00</lastmod>
-  </url><url>
     <loc>https://ltan.me/tags/pip/</loc>
-    <lastmod>2022-02-17T20:25:31+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/post/</loc>
     <lastmod>2022-02-17T20:25:31+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2022/02/pycharm-terminal-virtualenv-setting/</loc>
@@ -20,17 +35,11 @@
     <loc>https://ltan.me/tags/python2.7/</loc>
     <lastmod>2022-02-17T20:25:31+08:00</lastmod>
   </url><url>
-    <loc>https://ltan.me/tags/</loc>
-    <lastmod>2022-02-17T20:25:31+08:00</lastmod>
-  </url><url>
     <loc>https://ltan.me/tags/virtualenv/</loc>
     <lastmod>2022-02-17T20:25:31+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2022/02/a-true-sslcontext-object-is-not-available/</loc>
     <lastmod>2022-02-17T19:46:19+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/java/</loc>
-    <lastmod>2022-02-11T12:12:06+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/mybatis/</loc>
     <lastmod>2022-02-11T12:12:06+08:00</lastmod>

@@ -6,7 +6,37 @@
     <description>Recent content in Tags on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Feb 2022 20:25:31 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Mar 2022 09:45:39 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>groovy</title>
+      <link>https://ltan.me/tags/groovy/</link>
+      <pubDate>Tue, 08 Mar 2022 09:45:39 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/groovy/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>java</title>
+      <link>https://ltan.me/tags/java/</link>
+      <pubDate>Tue, 08 Mar 2022 09:45:39 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/java/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>springboot</title>
+      <link>https://ltan.me/tags/springboot/</link>
+      <pubDate>Tue, 08 Mar 2022 09:45:39 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/springboot/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
     <item>
       <title>Anaconda</title>
       <link>https://ltan.me/tags/anaconda/</link>
@@ -43,16 +73,6 @@
       <pubDate>Thu, 17 Feb 2022 20:25:31 +0800</pubDate>
       
       <guid>https://ltan.me/tags/virtualenv/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    
-    <item>
-      <title>java</title>
-      <link>https://ltan.me/tags/java/</link>
-      <pubDate>Fri, 11 Feb 2022 12:12:06 +0800</pubDate>
-      
-      <guid>https://ltan.me/tags/java/</guid>
       <description></description>
       <content></content>
     </item>
