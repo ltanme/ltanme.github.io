@@ -7,7 +7,8 @@ tags: ["java","springboot","groovy"]
 #  读取jar包resources目录下的groovy脚本并调用
 > 工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断
 > 所以采用生成groovy脚本形式来解决动态校验以及入库规则
-> 项目初期设计不复杂，功能简单，直接按日志项名称编写groovy脚本规则
+> 项目初期设计不复杂，功能简单，直接按日志项名称编写groovy脚本规则,比如wifi日志，则规则文件名为wifi.groovy
+> 当日志的http接口请求到wifi名称，则加载wifi.groovy规则文件并解析判断，包括入库，kafka队列等
 > groovy文件放在resources/logTemplate文件夹下，遇到在jar包模式运行不能读到文件的问题
 > 而在idea能直接运行
 > java -jar xxx.jar 运行报错如下
