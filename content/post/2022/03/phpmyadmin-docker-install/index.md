@@ -19,4 +19,6 @@ docker run --name myadmin -d -e PMA_ARBITRARY=1   -p 8081:80  phpmyadmin/phpmyad
 ```
 
 ##运行结果如下
+> 如果遇到登录不上的，请检查你的mysql端口和用户名，密码
+> 需要填写mysql username or password 
 ![phpmyadmin-use](phpmyadmin-docker-use-login.png)
