@@ -6,7 +6,192 @@
     <description>Recent content in Posts on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 28 Mar 2022 18:14:36 +0800</lastBuildDate><atom:link href="https://ltan.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Apr 2022 19:50:44 +0800</lastBuildDate><atom:link href="https://ltan.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Disk Partition Formatted in Openwrt System</title>
+      <link>https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/</link>
+      <pubDate>Mon, 11 Apr 2022 19:50:44 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/</guid>
+      <description>How to Disk Partition Formatted in Openwrt System and Improve network performance 如何在openwrt系统下给磁盘分区，并且是给固态硬盘分区nvme标识 最近在在淘宝买回一台小主机2.5g 4个网口的 cpu N5105 intel 赛扬,主要帮提升一下网络性能 升级wifi6，升级家庭网络</description>
+      <content>&lt;h1 id=&#34;how-to-disk-partition-formatted-in-openwrt-system-and-improve-network-performance&#34;&gt;How to Disk Partition Formatted in Openwrt System and Improve network performance&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如何在openwrt系统下给磁盘分区，并且是给固态硬盘分区&lt;code&gt;nvme标识&lt;/code&gt;
+最近在在淘宝买回一台小主机2.5g 4个网口的 cpu N5105 intel 赛扬,主要帮提升一下网络性能
+升级wifi6，升级家庭网络结构，提升局域网络复制文件速度，同时解决了4k视频播放本地播放传输慢卡顿问题
+店主省事帮我安装一openwrt x86系统，（不是arm，不是/dev/sda磁盘标识），没有把128G固态磁盘剩余的空间分区并格式化
+导致我收到主机后，登录openwrt系统查看不到剩余空间，开始怀疑是否发错错了，不是128G的，还是64G的？？？
+询问店主后得知没有分区剩下的磁盘空间，所以需要买家自己行解决，如果不是it出生的用户怎么办，想想也是，不是it人员不用这部分空间也
+也无所谓&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;解决分区问题分三步&#34;&gt;解决分区问题，分三步&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1， 检查相关命令，是否有分区命令，没有需要安装，&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;    opkg install fdisk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;如果安装好后，使用fdisk -l 命令查看硬盘使用情况，分区情况，以及分区编号&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;2, 格式化未使用的空间,nvme0n1p1,nvme0n1p2己使用了，创建新分区nvme0n1p3&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;   mkfs.ext3 /dev/nvme0n1p3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;3, 挂载分区，使用命令临时挂载，一次性的，需要开机则挂机，则需要添加init.d命令，这里推荐用图形界面挂载比
+比较简单,选择UUID,挂载点后点击保存即可
+&lt;img src=&#34;openwrt-mount.png&#34; alt=&#34;openwrt mount disk&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;以下是用命令操作分区格式化的过程&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;root@OpenWrt:~# mount /dev/nvme0n1p3 /data/
+mount: mounting /dev/nvme0n1p3 on /data/ failed: Invalid argument
+root@OpenWrt:~# mount /dev/nvme0n1p3 /data
+mount: mounting /dev/nvme0n1p3 on /data failed: Invalid argument
+root@OpenWrt:~# mkf
+mkfifo     mkfs.ext2  mkfs.ext3  mkfs.ext4  mkfs.f2fs
+root@OpenWrt:~# mkf
+mkfifo     mkfs.ext2  mkfs.ext3  mkfs.ext4  mkfs.f2fs
+root@OpenWrt:~# mkfs.ext
+-ash: mkfs.ext: not found
+root@OpenWrt:~# mkfs.ext3
+Usage: mkfs.ext3 &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-c|-l filename&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-b block-size&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-C cluster-size&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-i bytes-per-inode&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-I inode-size&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-J journal-options&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-G flex-group-size&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-N number-of-inodes&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-d root-directory&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-m reserved-blocks-percentage&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-o creator-os&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-g blocks-per-group&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-L volume-label&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-M last-mounted-directory&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-O feature&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;,...&lt;span style=&#34;color:#f92672&#34;&gt;]]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-r fs-revision&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-E extended-option&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;,...&lt;span style=&#34;color:#f92672&#34;&gt;]]&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-t fs-type&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-T usage-type &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-U UUID&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-e errors_behavior&lt;span style=&#34;color:#f92672&#34;&gt;][&lt;/span&gt;-z undo_file&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-jnqvDFSV&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; device &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;blocks-count&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+root@OpenWrt:~# mkfs.ext3 /dev/n
+net/         nvme0        nvme0n1p1    nvme0n1p2    nvram
+null         nvme0n1      nvme0n1p128  nvme0n1p3
+root@OpenWrt:~# mkfs.ext3 /dev/n
+net/         nvme0        nvme0n1p1    nvme0n1p2    nvram
+null         nvme0n1      nvme0n1p128  nvme0n1p3
+root@OpenWrt:~# mkfs.ext3 /dev/nvme0103
+mke2fs 1.45.6 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;20-Mar-2020&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+The file /dev/nvme0103 does not exist and no size was specified.
+root@OpenWrt:~# mkfs.ext3 /dev/nvme01p3
+mke2fs 1.45.6 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;20-Mar-2020&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+The file /dev/nvme01p3 does not exist and no size was specified.
+root@OpenWrt:~# fdisk  -l
+Disk /dev/loop0: 83.56 MiB, &lt;span style=&#34;color:#ae81ff&#34;&gt;87621632&lt;/span&gt; bytes, &lt;span style=&#34;color:#ae81ff&#34;&gt;171136&lt;/span&gt; sectors
+Units: sectors of &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; * 512 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; bytes
+Sector size &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;logical/physical&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; bytes / &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; bytes
+I/O size &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;minimum/optimal&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; bytes / &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; bytes
+
+
+Disk /dev/nvme0n1: 119.24 GiB, &lt;span style=&#34;color:#ae81ff&#34;&gt;128035676160&lt;/span&gt; bytes, &lt;span style=&#34;color:#ae81ff&#34;&gt;250069680&lt;/span&gt; sectors
+Disk model: SK 128GB
+Units: sectors of &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; * 512 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; bytes
+Sector size &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;logical/physical&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; bytes / &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; bytes
+I/O size &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;minimum/optimal&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; bytes / &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; bytes
+Disklabel type: gpt
+Disk identifier: 45D81ACA-A5B5-7CD0-2928-787DCE37BA00
+
+Device            Start       End   Sectors   Size Type
+/dev/nvme0n1p1      &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;33279&lt;/span&gt;     &lt;span style=&#34;color:#ae81ff&#34;&gt;32768&lt;/span&gt;    16M Linux filesystem
+/dev/nvme0n1p2    &lt;span style=&#34;color:#ae81ff&#34;&gt;33280&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;360959&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;327680&lt;/span&gt;   160M Linux filesystem
+/dev/nvme0n1p3   &lt;span style=&#34;color:#ae81ff&#34;&gt;362496&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;250069646&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;249707151&lt;/span&gt; 119.1G Linux filesystem
+/dev/nvme0n1p128     &lt;span style=&#34;color:#ae81ff&#34;&gt;34&lt;/span&gt;       &lt;span style=&#34;color:#ae81ff&#34;&gt;511&lt;/span&gt;       &lt;span style=&#34;color:#ae81ff&#34;&gt;478&lt;/span&gt;   239K BIOS boot
+
+Partition table entries are not in disk order.
+root@OpenWrt:~# mount -l
+mount: unrecognized option: l
+BusyBox v1.33.2 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2022-01-04 15:52:49 UTC&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; multi-call binary.
+
+Usage: mount &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;OPTIONS&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-o OPT&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; DEVICE NODE
+
+Mount a filesystem. Filesystem autodetection requires /proc.
+
+        -a              Mount all filesystems in fstab
+        -i              Don&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;t run mount helper
+        -r              Read-only mount
+        -t FSTYPE&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;,...&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Filesystem type&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;s&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+        -O OPT          Mount only filesystems with option OPT &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;-a only&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+-o OPT:
+        loop            Ignored &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;loop devices are autodetected&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;a&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;sync         Writes are &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;a&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;synchronous
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;no&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;atime       Disable/enable updates to inode access times
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;no&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;diratime    Disable/enable atime updates to directories
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;no&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;relatime    Disable/enable atime updates relative to modification time
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;no&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;dev         &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;Dis&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;allow use of special device files
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;no&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;exec        &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;Dis&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;allow use of executable files
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;no&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;suid        &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;Dis&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;allow set-user-id-root programs
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;r&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;shared       Convert &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;recursively&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; to a shared subtree
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;r&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;slave        Convert &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;recursively&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; to a slave subtree
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;r&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;private      Convert &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;recursively&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; to a private subtree
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;un&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;bindable    Make mount point &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;un&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;able to be bind mounted
+        &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;r&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;bind         Bind a file or directory &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;recursively&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; to another location
+        move            Relocate an existing mount point
+        remount         Remount a mounted filesystem, changing flags
+        ro              Same as -r
+
+There are filesystem-specific -o flags.
+root@OpenWrt:~# mount
+/dev/root on /rom type squashfs &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;ro,relatime&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+proc on /proc type proc &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;rw,nosuid,nodev,noexec,noatime&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+sysfs on /sys type sysfs &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;rw,nosuid,nodev,noexec,noatime&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+cgroup2 on /sys/fs/cgroup type cgroup2 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;rw,nosuid,nodev,noexec,relatime,nsdelegate&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+tmpfs on /tmp type tmpfs &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;rw,nosuid,nodev,noatime&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+/dev/loop0 on /overlay type ext4 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;rw,noatime&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+overlayfs:/overlay on / type overlay &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;rw,noatime,lowerdir&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/,upperdir&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/overlay/upper,workdir&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/overlay/work&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+/dev/nvme0n1p1 on /boot type vfat &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;rw,noatime,fmask&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0022,dmask&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0022,codepage&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;437,iocharset&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;iso8859-1,shortname&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;mixed,errors&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;remount-ro&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+/dev/nvme0n1p1 on /boot type vfat &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;rw,noatime,fmask&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0022,dmask&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0022,codepage&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;437,iocharset&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;iso8859-1,shortname&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;mixed,errors&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;remount-ro&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+tmpfs on /dev type tmpfs &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;rw,nosuid,relatime,size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;512k,mode&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;755&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+devpts on /dev/pts type devpts &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;rw,nosuid,noexec,relatime,mode&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;600,ptmxmode&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;000&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+debugfs on /sys/kernel/debug type debugfs &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;rw,noatime&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+none on /sys/fs/bpf type bpf &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;rw,nosuid,nodev,noexec,noatime,mode&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;700&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+root@OpenWrt:~# df -h
+Filesystem                Size      Used Available Use% Mounted on
+/dev/root                77.0M     77.0M         &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; 100% /rom
+tmpfs                     3.8G      6.8M      3.8G   0% /tmp
+/dev/loop0               76.9M      3.1M     68.0M   4% /overlay
+overlayfs:/overlay       76.9M      3.1M     68.0M   4% /
+/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
+/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
+tmpfs                   512.0K         &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;    512.0K   0% /dev
+root@OpenWrt:~# mkfs.ext3 /dev/nvme0n1p3
+mke2fs 1.45.6 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;20-Mar-2020&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+Discarding device blocks: &lt;span style=&#34;color:#66d9ef&#34;&gt;done&lt;/span&gt;
+Creating filesystem with &lt;span style=&#34;color:#ae81ff&#34;&gt;31213393&lt;/span&gt; 4k blocks and &lt;span style=&#34;color:#ae81ff&#34;&gt;7806976&lt;/span&gt; inodes
+Filesystem UUID: ffebbab2-ad4b-48f9-9551-fef3b35abbdf
+Superblock backups stored on blocks:
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+        4096000, 7962624, 11239424, 20480000, &lt;span style=&#34;color:#ae81ff&#34;&gt;23887872&lt;/span&gt;
+
+Allocating group tables: &lt;span style=&#34;color:#66d9ef&#34;&gt;done&lt;/span&gt;
+Writing inode tables: &lt;span style=&#34;color:#66d9ef&#34;&gt;done&lt;/span&gt;
+Creating journal &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;131072&lt;/span&gt; blocks&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;:
+&lt;span style=&#34;color:#66d9ef&#34;&gt;done&lt;/span&gt;
+Writing superblocks and filesystem accounting information: &lt;span style=&#34;color:#66d9ef&#34;&gt;done&lt;/span&gt;
+
+root@OpenWrt:~#
+root@OpenWrt:~# mount /dev/nvme0n1p3 /data
+root@OpenWrt:~# df -h
+Filesystem                Size      Used Available Use% Mounted on
+/dev/root                77.0M     77.0M         &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; 100% /rom
+tmpfs                     3.8G      7.0M      3.8G   0% /tmp
+/dev/loop0               76.9M      3.1M     68.0M   4% /overlay
+overlayfs:/overlay       76.9M      3.1M     68.0M   4% /
+/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
+/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
+tmpfs                   512.0K         &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;    512.0K   0% /dev
+/dev/nvme0n1p3          116.7G     60.1M    110.7G   0% /data
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;升级网线买的号称万兆网线有点小贵看材质就不一样&#34;&gt;升级网线，买的号称万兆网线，有点小贵，看材质就不一样&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;netline.png&#34; alt=&#34;netline&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;浏览器pc有线测速家里宽带安装的移动300mbs&#34;&gt;浏览器pc有线测速，家里宽带安装的移动300Mbs&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;spedtestbrower.png&#34; alt=&#34;netline&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;手机wifi测速&#34;&gt;手机wifi测速&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;speedtestcn.jpg&#34; alt=&#34;netline&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;主路由器主要提供拨号各种插件安装&#34;&gt;主路由器，主要提供拨号，各种插件安装&lt;/h1&gt;
+&lt;p&gt;N5105 4个网口 2.5g&lt;/p&gt;
+&lt;h1 id=&#34;wifi-ap路由器主要提供wifi移动设备连接&#34;&gt;wifi ap路由器，主要提供wifi移动设备连接&lt;/h1&gt;
+&lt;p&gt;AX6000 wifi6&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Phpmyadmin Docker Install</title>
       <link>https://ltan.me/post/2022/03/phpmyadmin-docker-install/</link>
