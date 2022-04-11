@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>How to Disk Partition Formatted in Openwrt System :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="How to Disk Partition Formatted in Openwrt System and Improve network performance 如何在openwrt系统下给磁盘分区，并且是给固态硬盘分区nvme标识 最近在在淘宝买回一台小主机2.5g 4个网口的 cpu N5105 intel 赛扬,主要帮提升一下网络性能 升级wifi6，升级家庭网络" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/red.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/red.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="How to Disk Partition Formatted in Openwrt System">
+<meta property="og:description" content="How to Disk Partition Formatted in Openwrt System and Improve network performance 如何在openwrt系统下给磁盘分区，并且是给固态硬盘分区nvme标识 最近在在淘宝买回一台小主机2.5g 4个网口的 cpu N5105 intel 赛扬,主要帮提升一下网络性能 升级wifi6，升级家庭网络" />
+<meta property="og:url" content="https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/red.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2022-04-11 19:50:44 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="red">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/">How to Disk Partition Formatted in Openwrt System</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2022-04-11 [Mod: 2022-04-11]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/openwrt/">openwrt</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="how-to-disk-partition-formatted-in-openwrt-system-and-improve-network-performance">How to Disk Partition Formatted in Openwrt System and Improve network performance<a href="#how-to-disk-partition-formatted-in-openwrt-system-and-improve-network-performance" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>如何在openwrt系统下给磁盘分区，并且是给固态硬盘分区<code>nvme标识</code>
+最近在在淘宝买回一台小主机2.5g 4个网口的 cpu N5105 intel 赛扬,主要帮提升一下网络性能
+升级wifi6，升级家庭网络结构，提升局域网络复制文件速度，同时解决了4k视频播放本地播放传输慢卡顿问题
+店主省事帮我安装一openwrt x86系统，（不是arm，不是/dev/sda磁盘标识），没有把128G固态磁盘剩余的空间分区并格式化
+导致我收到主机后，登录openwrt系统查看不到剩余空间，开始怀疑是否发错错了，不是128G的，还是64G的？？？
+询问店主后得知没有分区剩下的磁盘空间，所以需要买家自己行解决，如果不是it出生的用户怎么办，想想也是，不是it人员不用这部分空间也
+也无所谓</p>
+</blockquote>
+<h2 id="解决分区问题分三步">解决分区问题，分三步<a href="#解决分区问题分三步" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<blockquote>
+<p>1， 检查相关命令，是否有分区命令，没有需要安装，</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    opkg install fdisk
+</code></pre></div><blockquote>
+<p>如果安装好后，使用fdisk -l 命令查看硬盘使用情况，分区情况，以及分区编号</p>
+</blockquote>
+<blockquote>
+<p>2, 格式化未使用的空间,nvme0n1p1,nvme0n1p2己使用了，创建新分区nvme0n1p3</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">   mkfs.ext3 /dev/nvme0n1p3
+</code></pre></div><blockquote>
+<p>3, 挂载分区，使用命令临时挂载，一次性的，需要开机则挂机，则需要添加init.d命令，这里推荐用图形界面挂载比
+比较简单,选择UUID,挂载点后点击保存即可
+<img src="openwrt-mount.png" alt="openwrt mount disk"></p>
+</blockquote>
+<blockquote>
+<p>以下是用命令操作分区格式化的过程</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@OpenWrt:~# mount /dev/nvme0n1p3 /data/
+mount: mounting /dev/nvme0n1p3 on /data/ failed: Invalid argument
+root@OpenWrt:~# mount /dev/nvme0n1p3 /data
+mount: mounting /dev/nvme0n1p3 on /data failed: Invalid argument
+root@OpenWrt:~# mkf
+mkfifo     mkfs.ext2  mkfs.ext3  mkfs.ext4  mkfs.f2fs
+root@OpenWrt:~# mkf
+mkfifo     mkfs.ext2  mkfs.ext3  mkfs.ext4  mkfs.f2fs
+root@OpenWrt:~# mkfs.ext
+-ash: mkfs.ext: not found
+root@OpenWrt:~# mkfs.ext3
+Usage: mkfs.ext3 <span style="color:#f92672">[</span>-c|-l filename<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-b block-size<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-C cluster-size<span style="color:#f92672">]</span>
+        <span style="color:#f92672">[</span>-i bytes-per-inode<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-I inode-size<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-J journal-options<span style="color:#f92672">]</span>
+        <span style="color:#f92672">[</span>-G flex-group-size<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-N number-of-inodes<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-d root-directory<span style="color:#f92672">]</span>
+        <span style="color:#f92672">[</span>-m reserved-blocks-percentage<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-o creator-os<span style="color:#f92672">]</span>
+        <span style="color:#f92672">[</span>-g blocks-per-group<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-L volume-label<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-M last-mounted-directory<span style="color:#f92672">]</span>
+        <span style="color:#f92672">[</span>-O feature<span style="color:#f92672">[</span>,...<span style="color:#f92672">]]</span> <span style="color:#f92672">[</span>-r fs-revision<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-E extended-option<span style="color:#f92672">[</span>,...<span style="color:#f92672">]]</span>
+        <span style="color:#f92672">[</span>-t fs-type<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-T usage-type <span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-U UUID<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-e errors_behavior<span style="color:#f92672">][</span>-z undo_file<span style="color:#f92672">]</span>
+        <span style="color:#f92672">[</span>-jnqvDFSV<span style="color:#f92672">]</span> device <span style="color:#f92672">[</span>blocks-count<span style="color:#f92672">]</span>
+root@OpenWrt:~# mkfs.ext3 /dev/n
+net/         nvme0        nvme0n1p1    nvme0n1p2    nvram
+null         nvme0n1      nvme0n1p128  nvme0n1p3
+root@OpenWrt:~# mkfs.ext3 /dev/n
+net/         nvme0        nvme0n1p1    nvme0n1p2    nvram
+null         nvme0n1      nvme0n1p128  nvme0n1p3
+root@OpenWrt:~# mkfs.ext3 /dev/nvme0103
+mke2fs 1.45.6 <span style="color:#f92672">(</span>20-Mar-2020<span style="color:#f92672">)</span>
+The file /dev/nvme0103 does not exist and no size was specified.
+root@OpenWrt:~# mkfs.ext3 /dev/nvme01p3
+mke2fs 1.45.6 <span style="color:#f92672">(</span>20-Mar-2020<span style="color:#f92672">)</span>
+The file /dev/nvme01p3 does not exist and no size was specified.
+root@OpenWrt:~# fdisk  -l
+Disk /dev/loop0: 83.56 MiB, <span style="color:#ae81ff">87621632</span> bytes, <span style="color:#ae81ff">171136</span> sectors
+Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
+Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+
+
+Disk /dev/nvme0n1: 119.24 GiB, <span style="color:#ae81ff">128035676160</span> bytes, <span style="color:#ae81ff">250069680</span> sectors
+Disk model: SK 128GB
+Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
+Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+Disklabel type: gpt
+Disk identifier: 45D81ACA-A5B5-7CD0-2928-787DCE37BA00
+
+Device            Start       End   Sectors   Size Type
+/dev/nvme0n1p1      <span style="color:#ae81ff">512</span>     <span style="color:#ae81ff">33279</span>     <span style="color:#ae81ff">32768</span>    16M Linux filesystem
+/dev/nvme0n1p2    <span style="color:#ae81ff">33280</span>    <span style="color:#ae81ff">360959</span>    <span style="color:#ae81ff">327680</span>   160M Linux filesystem
+/dev/nvme0n1p3   <span style="color:#ae81ff">362496</span> <span style="color:#ae81ff">250069646</span> <span style="color:#ae81ff">249707151</span> 119.1G Linux filesystem
+/dev/nvme0n1p128     <span style="color:#ae81ff">34</span>       <span style="color:#ae81ff">511</span>       <span style="color:#ae81ff">478</span>   239K BIOS boot
+
+Partition table entries are not in disk order.
+root@OpenWrt:~# mount -l
+mount: unrecognized option: l
+BusyBox v1.33.2 <span style="color:#f92672">(</span>2022-01-04 15:52:49 UTC<span style="color:#f92672">)</span> multi-call binary.
+
+Usage: mount <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-o OPT<span style="color:#f92672">]</span> DEVICE NODE
+
+Mount a filesystem. Filesystem autodetection requires /proc.
+
+        -a              Mount all filesystems in fstab
+        -i              Don<span style="color:#960050;background-color:#1e0010">&#39;</span>t run mount helper
+        -r              Read-only mount
+        -t FSTYPE<span style="color:#f92672">[</span>,...<span style="color:#f92672">]</span> Filesystem type<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>
+        -O OPT          Mount only filesystems with option OPT <span style="color:#f92672">(</span>-a only<span style="color:#f92672">)</span>
+-o OPT:
+        loop            Ignored <span style="color:#f92672">(</span>loop devices are autodetected<span style="color:#f92672">)</span>
+        <span style="color:#f92672">[</span>a<span style="color:#f92672">]</span>sync         Writes are <span style="color:#f92672">[</span>a<span style="color:#f92672">]</span>synchronous
+        <span style="color:#f92672">[</span>no<span style="color:#f92672">]</span>atime       Disable/enable updates to inode access times
+        <span style="color:#f92672">[</span>no<span style="color:#f92672">]</span>diratime    Disable/enable atime updates to directories
+        <span style="color:#f92672">[</span>no<span style="color:#f92672">]</span>relatime    Disable/enable atime updates relative to modification time
+        <span style="color:#f92672">[</span>no<span style="color:#f92672">]</span>dev         <span style="color:#f92672">(</span>Dis<span style="color:#f92672">)</span>allow use of special device files
+        <span style="color:#f92672">[</span>no<span style="color:#f92672">]</span>exec        <span style="color:#f92672">(</span>Dis<span style="color:#f92672">)</span>allow use of executable files
+        <span style="color:#f92672">[</span>no<span style="color:#f92672">]</span>suid        <span style="color:#f92672">(</span>Dis<span style="color:#f92672">)</span>allow set-user-id-root programs
+        <span style="color:#f92672">[</span>r<span style="color:#f92672">]</span>shared       Convert <span style="color:#f92672">[</span>recursively<span style="color:#f92672">]</span> to a shared subtree
+        <span style="color:#f92672">[</span>r<span style="color:#f92672">]</span>slave        Convert <span style="color:#f92672">[</span>recursively<span style="color:#f92672">]</span> to a slave subtree
+        <span style="color:#f92672">[</span>r<span style="color:#f92672">]</span>private      Convert <span style="color:#f92672">[</span>recursively<span style="color:#f92672">]</span> to a private subtree
+        <span style="color:#f92672">[</span>un<span style="color:#f92672">]</span>bindable    Make mount point <span style="color:#f92672">[</span>un<span style="color:#f92672">]</span>able to be bind mounted
+        <span style="color:#f92672">[</span>r<span style="color:#f92672">]</span>bind         Bind a file or directory <span style="color:#f92672">[</span>recursively<span style="color:#f92672">]</span> to another location
+        move            Relocate an existing mount point
+        remount         Remount a mounted filesystem, changing flags
+        ro              Same as -r
+
+There are filesystem-specific -o flags.
+root@OpenWrt:~# mount
+/dev/root on /rom type squashfs <span style="color:#f92672">(</span>ro,relatime<span style="color:#f92672">)</span>
+proc on /proc type proc <span style="color:#f92672">(</span>rw,nosuid,nodev,noexec,noatime<span style="color:#f92672">)</span>
+sysfs on /sys type sysfs <span style="color:#f92672">(</span>rw,nosuid,nodev,noexec,noatime<span style="color:#f92672">)</span>
+cgroup2 on /sys/fs/cgroup type cgroup2 <span style="color:#f92672">(</span>rw,nosuid,nodev,noexec,relatime,nsdelegate<span style="color:#f92672">)</span>
+tmpfs on /tmp type tmpfs <span style="color:#f92672">(</span>rw,nosuid,nodev,noatime<span style="color:#f92672">)</span>
+/dev/loop0 on /overlay type ext4 <span style="color:#f92672">(</span>rw,noatime<span style="color:#f92672">)</span>
+overlayfs:/overlay on / type overlay <span style="color:#f92672">(</span>rw,noatime,lowerdir<span style="color:#f92672">=</span>/,upperdir<span style="color:#f92672">=</span>/overlay/upper,workdir<span style="color:#f92672">=</span>/overlay/work<span style="color:#f92672">)</span>
+/dev/nvme0n1p1 on /boot type vfat <span style="color:#f92672">(</span>rw,noatime,fmask<span style="color:#f92672">=</span>0022,dmask<span style="color:#f92672">=</span>0022,codepage<span style="color:#f92672">=</span>437,iocharset<span style="color:#f92672">=</span>iso8859-1,shortname<span style="color:#f92672">=</span>mixed,errors<span style="color:#f92672">=</span>remount-ro<span style="color:#f92672">)</span>
+/dev/nvme0n1p1 on /boot type vfat <span style="color:#f92672">(</span>rw,noatime,fmask<span style="color:#f92672">=</span>0022,dmask<span style="color:#f92672">=</span>0022,codepage<span style="color:#f92672">=</span>437,iocharset<span style="color:#f92672">=</span>iso8859-1,shortname<span style="color:#f92672">=</span>mixed,errors<span style="color:#f92672">=</span>remount-ro<span style="color:#f92672">)</span>
+tmpfs on /dev type tmpfs <span style="color:#f92672">(</span>rw,nosuid,relatime,size<span style="color:#f92672">=</span>512k,mode<span style="color:#f92672">=</span>755<span style="color:#f92672">)</span>
+devpts on /dev/pts type devpts <span style="color:#f92672">(</span>rw,nosuid,noexec,relatime,mode<span style="color:#f92672">=</span>600,ptmxmode<span style="color:#f92672">=</span>000<span style="color:#f92672">)</span>
+debugfs on /sys/kernel/debug type debugfs <span style="color:#f92672">(</span>rw,noatime<span style="color:#f92672">)</span>
+none on /sys/fs/bpf type bpf <span style="color:#f92672">(</span>rw,nosuid,nodev,noexec,noatime,mode<span style="color:#f92672">=</span>700<span style="color:#f92672">)</span>
+root@OpenWrt:~# df -h
+Filesystem                Size      Used Available Use% Mounted on
+/dev/root                77.0M     77.0M         <span style="color:#ae81ff">0</span> 100% /rom
+tmpfs                     3.8G      6.8M      3.8G   0% /tmp
+/dev/loop0               76.9M      3.1M     68.0M   4% /overlay
+overlayfs:/overlay       76.9M      3.1M     68.0M   4% /
+/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
+/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
+tmpfs                   512.0K         <span style="color:#ae81ff">0</span>    512.0K   0% /dev
+root@OpenWrt:~# mkfs.ext3 /dev/nvme0n1p3
+mke2fs 1.45.6 <span style="color:#f92672">(</span>20-Mar-2020<span style="color:#f92672">)</span>
+Discarding device blocks: <span style="color:#66d9ef">done</span>
+Creating filesystem with <span style="color:#ae81ff">31213393</span> 4k blocks and <span style="color:#ae81ff">7806976</span> inodes
+Filesystem UUID: ffebbab2-ad4b-48f9-9551-fef3b35abbdf
+Superblock backups stored on blocks:
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+        4096000, 7962624, 11239424, 20480000, <span style="color:#ae81ff">23887872</span>
+
+Allocating group tables: <span style="color:#66d9ef">done</span>
+Writing inode tables: <span style="color:#66d9ef">done</span>
+Creating journal <span style="color:#f92672">(</span><span style="color:#ae81ff">131072</span> blocks<span style="color:#f92672">)</span>:
+<span style="color:#66d9ef">done</span>
+Writing superblocks and filesystem accounting information: <span style="color:#66d9ef">done</span>
+
+root@OpenWrt:~#
+root@OpenWrt:~# mount /dev/nvme0n1p3 /data
+root@OpenWrt:~# df -h
+Filesystem                Size      Used Available Use% Mounted on
+/dev/root                77.0M     77.0M         <span style="color:#ae81ff">0</span> 100% /rom
+tmpfs                     3.8G      7.0M      3.8G   0% /tmp
+/dev/loop0               76.9M      3.1M     68.0M   4% /overlay
+overlayfs:/overlay       76.9M      3.1M     68.0M   4% /
+/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
+/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
+tmpfs                   512.0K         <span style="color:#ae81ff">0</span>    512.0K   0% /dev
+/dev/nvme0n1p3          116.7G     60.1M    110.7G   0% /data
+</code></pre></div><h1 id="升级网线买的号称万兆网线有点小贵看材质就不一样">升级网线，买的号称万兆网线，有点小贵，看材质就不一样<a href="#升级网线买的号称万兆网线有点小贵看材质就不一样" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p><img src="netline.png" alt="netline"></p>
+<h1 id="浏览器pc有线测速家里宽带安装的移动300mbs">浏览器pc有线测速，家里宽带安装的移动300Mbs<a href="#浏览器pc有线测速家里宽带安装的移动300mbs" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p><img src="spedtestbrower.png" alt="netline"></p>
+<h1 id="手机wifi测速">手机wifi测速<a href="#手机wifi测速" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p><img src="speedtestcn.jpg" alt="netline"></p>
+<h1 id="主路由器主要提供拨号各种插件安装">主路由器，主要提供拨号，各种插件安装<a href="#主路由器主要提供拨号各种插件安装" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>N5105 4个网口 2.5g</p>
+<h1 id="wifi-ap路由器主要提供wifi移动设备连接">wifi ap路由器，主要提供wifi移动设备连接<a href="#wifi-ap路由器主要提供wifi移动设备连接" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>AX6000 wifi6</p>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2022 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>
