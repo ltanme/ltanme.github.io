@@ -1,8 +1,9 @@
 ---
 title: "How to Disk Partition Formatted in Openwrt System"
 date: 2022-04-11T19:50:44+08:00
-draft: true
+draft: false
 tags: ["openwrt"]
+featured: true
 ---
 # How to Disk Partition Formatted in Openwrt System and Improve network performance
 > 如何在openwrt系统下给磁盘分区，并且是给固态硬盘分区`nvme标识`
