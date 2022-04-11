@@ -4697,13 +4697,13 @@ end
       <pubDate>Sat, 08 May 2021 16:40:17 +0800</pubDate>
       
       <guid>https://ltan.me/about/</guid>
-      <description>专注于 Java, Golang, lua 专注于 docker 分享 centos/ linux windows 相关技术 php, python, web前端 NAS 使用经验分享 生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Unix/Linux/Window</description>
-      <content>&lt;p&gt;专注于 Java, Golang, lua&lt;/p&gt;
-&lt;p&gt;专注于 docker&lt;/p&gt;
-&lt;p&gt;分享 centos/ linux windows 相关技术&lt;/p&gt;
-&lt;p&gt;php, python, web前端&lt;/p&gt;
-&lt;p&gt;NAS 使用经验分享&lt;/p&gt;
-&lt;p&gt;生活和工作在湾区的码农一枚，专注全栈应用APP开发，技术擅长PHP/JAVA/GOLANG/LUA和Unix/Linux/Windows。做过大型门户网站，做过企业中台管理，做过企业DMP系统，规则引擎等大型项目。&lt;/p&gt;
+      <description>记录生活，工作上遇到的IT处理问题 分享IT相关技术 Java, php, python, web前端 NAS 路由器openwrt使用经验分享 all-in-one家庭网络折腾记 生活和工作在湾区的码农一枚，专注web前后端应用开发，技术擅长PH</description>
+      <content>&lt;p&gt;记录生活，工作上遇到的IT处理问题&lt;/p&gt;
+&lt;p&gt;分享IT相关技术&lt;/p&gt;
+&lt;p&gt;Java, php, python, web前端&lt;/p&gt;
+&lt;p&gt;NAS 路由器openwrt使用经验分享&lt;/p&gt;
+&lt;p&gt;all-in-one家庭网络折腾记&lt;/p&gt;
+&lt;p&gt;生活和工作在湾区的码农一枚，专注web前后端应用开发，技术擅长PHP/JAVA/GOLANG/LUA和Unix/Linux/Windows。做过大型门户网站，做过企业中台管理，做过企业DMP系统，规则引擎等大型项目。&lt;/p&gt;
 &lt;h2 id=&#34;关于此博客&#34;&gt;关于此博客&lt;/h2&gt;
 &lt;p&gt;博客主要用于记录生活，工作中遇到的问题，及解决方法和心得&lt;/p&gt;
 &lt;p&gt;此博客基于 &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; 构建&lt;/p&gt;
