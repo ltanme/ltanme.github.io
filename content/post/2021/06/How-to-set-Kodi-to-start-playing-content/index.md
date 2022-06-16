@@ -90,18 +90,20 @@ now = today.day
 dayOfWeek = int(d.weekday())
 cur_hour = int(getattr(d, 'hour'))
 cur_minute = int(getattr(d, 'minute'))
-
 if(dayOfWeek>=1 and dayOfWeek <=5):
 	if(cur_hour >=7 and cur_hour <=8 and cur_minute >= 25 and cur_minute <=59):
 		xbmc.executebuiltin("PlayMedia(/storage/ad/go2school.m3u)")
+		xbmc.executebuiltin("ActivateWindow(Music,special:/storage/ad/go2school.m3u)")
 		xbmc.executebuiltin("XBMC.SetVolume(%d)" % (80))
 		xbmc.executebuiltin("PlayerControl(repeatall)")
 	if(cur_hour >=14 and cur_hour <=22):
 		xbmc.executebuiltin("PlayMedia(/storage/ad/bj.m3u)")
+		xbmc.executebuiltin("ActivateWindow(Music,special:/storage/ad/bj.m3u)")
 		xbmc.executebuiltin("XBMC.SetVolume(%d)" % (75))
 		xbmc.executebuiltin("PlayerControl(repeatall)")
 else:
 	xbmc.executebuiltin("PlayMedia(/storage/ad/playlist.m3u)")
+	xbmc.executebuiltin("ActivateWindow(Music,special:/storage/ad/bj.m3u)")
 	xbmc.executebuiltin("XBMC.SetVolume(%d)" % (48))
 	xbmc.executebuiltin("PlayerControl(repeatoff)")
 
