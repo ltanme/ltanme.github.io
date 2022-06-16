@@ -16,7 +16,7 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
-  <link rel="stylesheet" href="https://ltan.me/assets/blue.css">
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
 
 
 
@@ -25,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/blue.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
 
 
 
@@ -46,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/blue.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -67,7 +67,7 @@
 
 
 </head>
-<body class="blue">
+<body class="green">
 
 
 <div class="container center headings--one-size">
@@ -226,18 +226,20 @@ now <span style="color:#f92672">=</span> today<span style="color:#f92672">.</spa
 dayOfWeek <span style="color:#f92672">=</span> int(d<span style="color:#f92672">.</span>weekday())
 cur_hour <span style="color:#f92672">=</span> int(getattr(d, <span style="color:#e6db74">&#39;hour&#39;</span>))
 cur_minute <span style="color:#f92672">=</span> int(getattr(d, <span style="color:#e6db74">&#39;minute&#39;</span>))
-
 <span style="color:#66d9ef">if</span>(dayOfWeek<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> dayOfWeek <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">5</span>):
 	<span style="color:#66d9ef">if</span>(cur_hour <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">and</span> cur_hour <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">8</span> <span style="color:#f92672">and</span> cur_minute <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">25</span> <span style="color:#f92672">and</span> cur_minute <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">59</span>):
 		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/go2school.m3u)&#34;</span>)
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;ActivateWindow(Music,special:/storage/ad/go2school.m3u)&#34;</span>)
 		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">80</span>))
 		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayerControl(repeatall)&#34;</span>)
 	<span style="color:#66d9ef">if</span>(cur_hour <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">14</span> <span style="color:#f92672">and</span> cur_hour <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">22</span>):
 		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/bj.m3u)&#34;</span>)
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;ActivateWindow(Music,special:/storage/ad/bj.m3u)&#34;</span>)
 		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">75</span>))
 		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayerControl(repeatall)&#34;</span>)
 <span style="color:#66d9ef">else</span>:
 	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/playlist.m3u)&#34;</span>)
+	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;ActivateWindow(Music,special:/storage/ad/bj.m3u)&#34;</span>)
 	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">48</span>))
 	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayerControl(repeatoff)&#34;</span>)
 

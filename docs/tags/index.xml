@@ -6,7 +6,47 @@
     <description>Recent content in Tags on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Apr 2022 19:50:44 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Jun 2022 20:56:27 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>coreelec</title>
+      <link>https://ltan.me/tags/coreelec/</link>
+      <pubDate>Thu, 16 Jun 2022 20:56:27 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/coreelec/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>kodi</title>
+      <link>https://ltan.me/tags/kodi/</link>
+      <pubDate>Thu, 16 Jun 2022 20:56:27 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/kodi/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>libreELEC</title>
+      <link>https://ltan.me/tags/libreelec/</link>
+      <pubDate>Thu, 16 Jun 2022 20:56:27 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/libreelec/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>python2.7</title>
+      <link>https://ltan.me/tags/python2.7/</link>
+      <pubDate>Thu, 16 Jun 2022 20:56:27 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/python2.7/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
     <item>
       <title>openwrt</title>
       <link>https://ltan.me/tags/openwrt/</link>
@@ -73,16 +113,6 @@
       <pubDate>Thu, 17 Feb 2022 20:25:31 +0800</pubDate>
       
       <guid>https://ltan.me/tags/pip/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    
-    <item>
-      <title>python2.7</title>
-      <link>https://ltan.me/tags/python2.7/</link>
-      <pubDate>Thu, 17 Feb 2022 20:25:31 +0800</pubDate>
-      
-      <guid>https://ltan.me/tags/python2.7/</guid>
       <description></description>
       <content></content>
     </item>
@@ -228,16 +258,6 @@
     </item>
     
     <item>
-      <title>coreelec</title>
-      <link>https://ltan.me/tags/coreelec/</link>
-      <pubDate>Sat, 04 Sep 2021 17:16:13 +0800</pubDate>
-      
-      <guid>https://ltan.me/tags/coreelec/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    
-    <item>
       <title>LibrELEC</title>
       <link>https://ltan.me/tags/librelec/</link>
       <pubDate>Sat, 04 Sep 2021 17:16:13 +0800</pubDate>
@@ -353,16 +373,6 @@
       <pubDate>Tue, 15 Jun 2021 16:06:18 +0800</pubDate>
       
       <guid>https://ltan.me/tags/zerotier/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    
-    <item>
-      <title>kodi</title>
-      <link>https://ltan.me/tags/kodi/</link>
-      <pubDate>Sun, 13 Jun 2021 07:09:39 +0800</pubDate>
-      
-      <guid>https://ltan.me/tags/kodi/</guid>
       <description></description>
       <content></content>
     </item>
