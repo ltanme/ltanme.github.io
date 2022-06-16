@@ -2,6 +2,7 @@
 title: "How to Get Started With Developing Kodi Plugins"
 date: 2022-06-16T20:56:27+08:00
 draft: false
+featured: true
 tags: ["kodi","python2.7","libreELEC","coreELEC"]
 ---
 
