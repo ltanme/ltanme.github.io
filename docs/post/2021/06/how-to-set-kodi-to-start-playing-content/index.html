@@ -241,6 +241,8 @@ cur_minute <span style="color:#f92672">=</span> int(getattr(d, <span style="colo
 	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">48</span>))
 	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayerControl(repeatoff)&#34;</span>)
 
+</code></pre></div><p>通过不需要重启coreELEC系统就可以执行，这样可以快速调试</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kodi-send --action<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;RunScript(&#34;special://profile/autoexec.py&#34;)&#39;</span>
 </code></pre></div><p>其播放计划脚本为autoexec.py 脚本 需要根据不同日期判断音量，不同时间段判断播放内容</p>
 <p>m3u 文件格式制作请参考文档：<a href="https://en.wikipedia.org/wiki/M3U">M3U - Wikipedia</a></p>
 
