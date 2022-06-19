@@ -109,6 +109,11 @@ else:
 
 ```
 
+通过不需要重启coreELEC系统就可以执行，这样可以快速调试
+```bash
+kodi-send --action='RunScript("special://profile/autoexec.py")'
+```
+
  其播放计划脚本为autoexec.py 脚本 需要根据不同日期判断音量，不同时间段判断播放内容
 
  m3u 文件格式制作请参考文档：[M3U - Wikipedia](https://en.wikipedia.org/wiki/M3U)

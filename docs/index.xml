@@ -4626,6 +4626,8 @@ cur_minute &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(getattr(
 	xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;XBMC.SetVolume(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;48&lt;/span&gt;))
 	xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayerControl(repeatoff)&amp;#34;&lt;/span&gt;)
 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;通过不需要重启coreELEC系统就可以执行，这样可以快速调试&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;kodi-send --action&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;RunScript(&amp;#34;special://profile/autoexec.py&amp;#34;)&amp;#39;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其播放计划脚本为autoexec.py 脚本 需要根据不同日期判断音量，不同时间段判断播放内容&lt;/p&gt;
 &lt;p&gt;m3u 文件格式制作请参考文档：&lt;a href=&#34;https://en.wikipedia.org/wiki/M3U&#34;&gt;M3U - Wikipedia&lt;/a&gt;&lt;/p&gt;
 </content>
