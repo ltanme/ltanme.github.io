@@ -118,3 +118,5 @@ kodi-send --action='RunScript("special://profile/autoexec.py")'
 
  m3u 文件格式制作请参考文档：[M3U - Wikipedia](https://en.wikipedia.org/wiki/M3U)
 
+码字不易，求打赏
+![payqr](payqr.jpg)
