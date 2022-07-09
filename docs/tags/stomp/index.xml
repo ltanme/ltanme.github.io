@@ -23,7 +23,7 @@
 &lt;p&gt;当然没有墙的问题，在本地编译主要目的还是为了检验源代码完整性以及 后面二次开发扩展打基础。&lt;/p&gt;
 &lt;p&gt;以下是我编译的最后几部过程的全结果。  最后项目编译共花了&lt;code&gt;43分钟&lt;/code&gt; 包含测试用例，第一次成功编译后，后面编译就会有&lt;code&gt;cache&lt;/code&gt;, 顺利多了，编译后最终的程序打包是在 &lt;code&gt;artemis-distribution&lt;/code&gt; 模块下面&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;mvn -Prelease install
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mvn -Prelease install
 
 [INFO] --------&amp;lt; org.apache.activemq.examples.stomp:stomp-websockets &amp;gt;---------
 
@@ -45,7 +45,7 @@
 
 [INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
 
-[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-websockets/target/bin with includes &amp;quot;**/*.so&amp;quot; and excludes &amp;quot;&amp;quot;
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-websockets/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
 
 [INFO]
 
@@ -59,7 +59,7 @@
 
 [INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ stomp-websockets ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] Copying 1 resource
 
@@ -105,7 +105,7 @@
 
 [INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ stomp-websockets ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-websockets/src/test/resources
 
@@ -131,7 +131,7 @@
 
 [INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ stomp-websockets ---
 
-[INFO] Skipping because packaging &#39;jar&#39; is not pom.
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
 
 [INFO]
 
@@ -193,7 +193,7 @@
 
 [INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
 
-[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-embedded-interceptor/target/bin with includes &amp;quot;**/*.so&amp;quot; and excludes &amp;quot;&amp;quot;
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-embedded-interceptor/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
 
 [INFO]
 
@@ -207,7 +207,7 @@
 
 [INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ stomp-embedded-interceptor ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] Copying 1 resource
 
@@ -253,7 +253,7 @@
 
 [INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ stomp-embedded-interceptor ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-embedded-interceptor/src/test/resources
 
@@ -279,7 +279,7 @@
 
 [INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ stomp-embedded-interceptor ---
 
-[INFO] Skipping because packaging &#39;jar&#39; is not pom.
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
 
 [INFO]
 
@@ -341,7 +341,7 @@
 
 [INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
 
-[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.1/target/bin with includes &amp;quot;**/*.so&amp;quot; and excludes &amp;quot;&amp;quot;
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.1/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
 
 [INFO]
 
@@ -355,7 +355,7 @@
 
 [INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ stomp1.1 ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] Copying 1 resource
 
@@ -401,7 +401,7 @@
 
 [INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ stomp1.1 ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.1/src/test/resources
 
@@ -427,7 +427,7 @@
 
 [INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ stomp1.1 ---
 
-[INFO] Skipping because packaging &#39;jar&#39; is not pom.
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
 
 [INFO]
 
@@ -489,7 +489,7 @@
 
 [INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
 
-[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.2/target/bin with includes &amp;quot;**/*.so&amp;quot; and excludes &amp;quot;&amp;quot;
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.2/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
 
 [INFO]
 
@@ -503,7 +503,7 @@
 
 [INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ stomp1.2 ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] Copying 1 resource
 
@@ -549,7 +549,7 @@
 
 [INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ stomp1.2 ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.2/src/test/resources
 
@@ -575,7 +575,7 @@
 
 [INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ stomp1.2 ---
 
-[INFO] Skipping because packaging &#39;jar&#39; is not pom.
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
 
 [INFO]
 
@@ -685,7 +685,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
 
-[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-jms/target/bin with includes &amp;quot;**/*.so&amp;quot; and excludes &amp;quot;&amp;quot;
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-jms/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
 
 [INFO]
 
@@ -699,7 +699,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ stomp-jms ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] Copying 1 resource
 
@@ -745,7 +745,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ stomp-jms ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-jms/src/test/resources
 
@@ -771,7 +771,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ stomp-jms ---
 
-[INFO] Skipping because packaging &#39;jar&#39; is not pom.
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
 
 [INFO]
 
@@ -833,7 +833,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
 
-[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/target/bin with includes &amp;quot;**/*.so&amp;quot; and excludes &amp;quot;&amp;quot;
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
 
 [INFO]
 
@@ -915,7 +915,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
 
-[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/chat/target/bin with includes &amp;quot;**/*.so&amp;quot; and excludes &amp;quot;&amp;quot;
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/chat/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
 
 [INFO]
 
@@ -929,7 +929,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ chat-example ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] Copying 2 resources
 
@@ -975,7 +975,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ chat-example ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/chat/src/test/resources
 
@@ -1001,7 +1001,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ chat-example ---
 
-[INFO] Skipping because packaging &#39;jar&#39; is not pom.
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
 
 [INFO]
 
@@ -1047,7 +1047,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
 
-[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/queue/target/bin with includes &amp;quot;**/*.so&amp;quot; and excludes &amp;quot;&amp;quot;
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/queue/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
 
 [INFO]
 
@@ -1061,7 +1061,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ queue-openwire ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/queue/src/main/resources
 
@@ -1107,7 +1107,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ queue-openwire ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/queue/src/test/resources
 
@@ -1133,7 +1133,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ queue-openwire ---
 
-[INFO] Skipping because packaging &#39;jar&#39; is not pom.
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
 
 [INFO]
 
@@ -1195,7 +1195,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
 
-[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-listener/target/bin with includes &amp;quot;**/*.so&amp;quot; and excludes &amp;quot;&amp;quot;
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-listener/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
 
 [INFO]
 
@@ -1209,7 +1209,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ message-listener ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-listener/src/main/resources
 
@@ -1255,7 +1255,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ message-listener ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-listener/src/test/resources
 
@@ -1281,7 +1281,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ message-listener ---
 
-[INFO] Skipping because packaging &#39;jar&#39; is not pom.
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
 
 [INFO]
 
@@ -1343,7 +1343,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
 
-[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-recovery/target/bin with includes &amp;quot;**/*.so&amp;quot; and excludes &amp;quot;&amp;quot;
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-recovery/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
 
 [INFO]
 
@@ -1357,7 +1357,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ message-recovery ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-recovery/src/main/resources
 
@@ -1403,7 +1403,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ message-recovery ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-recovery/src/test/resources
 
@@ -1429,7 +1429,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ message-recovery ---
 
-[INFO] Skipping because packaging &#39;jar&#39; is not pom.
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
 
 [INFO]
 
@@ -1483,7 +1483,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
 
-[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/virtual-topic-mapping/target/bin with includes &amp;quot;**/*.so&amp;quot; and excludes &amp;quot;&amp;quot;
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/virtual-topic-mapping/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
 
 [INFO]
 
@@ -1497,7 +1497,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ virtual-topic-mapping ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] Copying 1 resource
 
@@ -1543,7 +1543,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ virtual-topic-mapping ---
 
-[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
 
 [INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/virtual-topic-mapping/src/test/resources
 
@@ -1569,7 +1569,7 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ virtual-topic-mapping ---
 
-[INFO] Skipping because packaging &#39;jar&#39; is not pom.
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
 
 [INFO]
 
@@ -1891,9 +1891,9 @@ Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/sto
 
 [INFO] ActiveMQ Artemis JMS Bridge Example ................ SUCCESS [ 1.110 s]
 
-[INFO] ActiveMQ Artemis JMS &amp;quot;JMX&amp;quot; Example ................. SUCCESS [ 0.753 s]
+[INFO] ActiveMQ Artemis JMS &amp;#34;JMX&amp;#34; Example ................. SUCCESS [ 0.753 s]
 
-[INFO] ActiveMQ Artemis JMS &amp;quot;JMX over SSL&amp;quot; Example ........ SUCCESS [ 0.705 s]
+[INFO] ActiveMQ Artemis JMS &amp;#34;JMX over SSL&amp;#34; Example ........ SUCCESS [ 0.705 s]
 
 [INFO] ActiveMQ Artemis JMS Large Message Example ......... SUCCESS [ 1.019 s]
 

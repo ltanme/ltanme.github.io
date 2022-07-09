@@ -16,6 +16,8 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
+  <link rel="stylesheet" href="https://ltan.me/assets/red.css">
+
 
 
 
@@ -23,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/red.png">
 
 
 
@@ -44,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/red.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -65,7 +67,7 @@
 
 
 </head>
-<body class="orange">
+<body class="red">
 
 
 <div class="container center headings--one-size">
@@ -172,11 +174,11 @@
 <h5 id="找到原来开机启动脚本没有的话添加即可-etcinitds50zerotiersh">找到原来开机启动脚本,没有的话添加即可 /etc/init.d/S50zerotier.sh<a href="#找到原来开机启动脚本没有的话添加即可-etcinitds50zerotiersh" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
 <h5 id="把如下代码新建startup_zerotiersh文件写入如下代码内容保存在root目录下">把如下代码，新建startup_zerotier.sh文件，写入如下代码内容，保存在/root目录下<a href="#把如下代码新建startup_zerotiersh文件写入如下代码内容保存在root目录下" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
 </blockquote>
-<pre><code> 
+<pre tabindex="0"><code> 
 #!/bin/sh
 program=zerotier
-sn=`ps -ef | grep program | grep -v grep |awk '{print $2}'`
-if [ &quot;${sn}&quot; = &quot;&quot; ]
+sn=`ps -ef | grep program | grep -v grep |awk &#39;{print $2}&#39;`
+if [ &#34;${sn}&#34; = &#34;&#34; ]
 then
   sh /etc/init.d/S50zerotier.sh
   echo start ok !
