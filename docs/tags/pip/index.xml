@@ -26,8 +26,8 @@ If you use a venv for each project, remember to use current path variable and a 
 &lt;blockquote&gt;
 &lt;p&gt;创建activate.bat文件复制如下代码,并修改自己创建的虚拟环境目录，这里我创建的虚拟环境目录为&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cmd.exe&amp;#34;&lt;/span&gt; /k &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; D:\python-env\python3\envname\Scripts\activate&amp;#34;&lt;/span&gt; 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cmd.exe&amp;#34;&lt;/span&gt; /k &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; D:\python-env\python3\envname\Scripts\activate&amp;#34;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;/k 的含义是自动执行后面的命令,并且执行完毕后保留窗口&lt;br&gt;
 For Windows users: when using PyCharm with a virtual environment, you can use the /K parameter to cmd.exe to set the virtual environment automatically.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -43,11 +43,11 @@ PyCharm 2016.1,2018.x&amp;hellip;: Settings, Tools, Terminal, and add &amp;ldquo
 在&amp;quot;设置&amp;quot;&amp;gt;&amp;ldquo;终端工具&amp;rdquo;&amp;gt;，更改如下内容：Shell path&lt;br&gt;
 C:\Users\me\Miniconda3\Scripts\activate.bat 为安装C:\Users\me\Miniconda3的目录&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;pre&gt;&lt;code class=&#34;language-$xslt&#34; data-lang=&#34;$xslt&#34;&gt;cmd.exe  &amp;quot;/K&amp;quot;  &amp;quot;C:\Users\me\Miniconda3\Scripts\activate.bat&amp;quot;  &amp;quot;C:\Users\me\Miniconda3&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-$xslt&#34; data-lang=&#34;$xslt&#34;&gt;cmd.exe  &amp;#34;/K&amp;#34;  &amp;#34;C:\Users\me\Miniconda3\Scripts\activate.bat&amp;#34;  &amp;#34;C:\Users\me\Miniconda3&amp;#34;
 &lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
 &lt;p&gt;遇到pip install 模块 下载不了的情况，请设置国产镜像&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;pre&gt;&lt;code class=&#34;language-$xslt&#34; data-lang=&#34;$xslt&#34;&gt;https://pypi.douban.com/simple
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-$xslt&#34; data-lang=&#34;$xslt&#34;&gt;https://pypi.douban.com/simple
 https://mirrors.aliyun.com/pypi/simple
 https://pypi.mirrors.ustc.edu.cn/simple
 https://pypi.tuna.tsinghua.edu.cn/simple
@@ -71,31 +71,31 @@ vents urllib3 from configuring SSL appropriately and may cause certain SSL conne
 solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
 InsecurePlatformWarning
 Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
-ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&#39;: /simple/ndg-httpsclient/
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
 d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
 vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
 solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
 InsecurePlatformWarning
 Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
-ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&#39;: /simple/ndg-httpsclient/
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
 d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
 vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
 solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
 InsecurePlatformWarning
 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
-ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&#39;: /simple/ndg-httpsclient/
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
 d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
 vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
 solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
 InsecurePlatformWarning
 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
-ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&#39;: /simple/ndg-httpsclient/
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
 d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
 vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
 solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
 InsecurePlatformWarning
 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
-ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&#39;: /simple/ndg-httpsclient/
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
 d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
 vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
 solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;

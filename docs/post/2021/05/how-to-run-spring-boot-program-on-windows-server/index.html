@@ -16,6 +16,8 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
+  <link rel="stylesheet" href="https://ltan.me/assets/red.css">
+
 
 
 
@@ -23,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/red.png">
 
 
 
@@ -44,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/red.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -65,7 +67,7 @@
 
 
 </head>
-<body class="orange">
+<body class="red">
 
 
 <div class="container center headings--one-size">
@@ -180,55 +182,55 @@
 <li>需要在pom.xml 加入maven 打外插件，
 插件名为：maven-assembly-plugin</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">   <span style="color:#f92672">&lt;build&gt;</span>
-        <span style="color:#f92672">&lt;finalName&gt;</span>upgrade-admin<span style="color:#f92672">&lt;/finalName&gt;</span> 
-        <span style="color:#f92672">&lt;plugins&gt;</span>
-            <span style="color:#f92672">&lt;plugin&gt;</span>
-                <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
-                <span style="color:#f92672">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span style="color:#f92672">&lt;/artifactId&gt;</span>
-                <span style="color:#f92672">&lt;configuration&gt;</span>
-                    <span style="color:#f92672">&lt;executable&gt;</span>true<span style="color:#f92672">&lt;/executable&gt;</span>
-                <span style="color:#f92672">&lt;/configuration&gt;</span>
-            <span style="color:#f92672">&lt;/plugin&gt;</span>
-
-            <span style="color:#75715e">&lt;!--主要是以下插件配置--&gt;</span>
-            <span style="color:#f92672">&lt;plugin&gt;</span>
-                <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.maven.plugins<span style="color:#f92672">&lt;/groupId&gt;</span>
-                <span style="color:#f92672">&lt;artifactId&gt;</span>maven-assembly-plugin<span style="color:#f92672">&lt;/artifactId&gt;</span>
-                <span style="color:#f92672">&lt;version&gt;</span>3.0.0<span style="color:#f92672">&lt;/version&gt;</span>
-                <span style="color:#f92672">&lt;configuration&gt;</span>
-                    <span style="color:#f92672">&lt;descriptors&gt;</span>
-                        <span style="color:#75715e">&lt;!--通过service-assembly.xml 描述该项目打包的配置信息--&gt;</span>
-                        <span style="color:#f92672">&lt;descriptor&gt;</span>${project.basedir}/src/assembly/service-assembly.xml<span style="color:#f92672">&lt;/descriptor&gt;</span>
-                    <span style="color:#f92672">&lt;/descriptors&gt;</span>
-                <span style="color:#f92672">&lt;/configuration&gt;</span>
-                <span style="color:#f92672">&lt;executions&gt;</span>
-                    <span style="color:#f92672">&lt;execution&gt;</span>
-                        <span style="color:#f92672">&lt;id&gt;</span>service-assembly<span style="color:#f92672">&lt;/id&gt;</span>
-                        <span style="color:#f92672">&lt;phase&gt;</span>package<span style="color:#f92672">&lt;/phase&gt;</span>
-                        <span style="color:#f92672">&lt;goals&gt;</span>
-                            <span style="color:#f92672">&lt;goal&gt;</span>single<span style="color:#f92672">&lt;/goal&gt;</span>
-                        <span style="color:#f92672">&lt;/goals&gt;</span>
-                    <span style="color:#f92672">&lt;/execution&gt;</span>
-                <span style="color:#f92672">&lt;/executions&gt;</span>
-            <span style="color:#f92672">&lt;/plugin&gt;</span>
-
-        <span style="color:#f92672">&lt;/plugins&gt;</span>
-    <span style="color:#f92672">&lt;/build&gt;</span>
-</code></pre></div><ol start="2">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>   <span style="color:#f92672">&lt;build&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;finalName&gt;</span>upgrade-admin<span style="color:#f92672">&lt;/finalName&gt;</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;plugins&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;plugin&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;configuration&gt;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&lt;executable&gt;</span>true<span style="color:#f92672">&lt;/executable&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;/configuration&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;/plugin&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">&lt;!--主要是以下插件配置--&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;plugin&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.maven.plugins<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;artifactId&gt;</span>maven-assembly-plugin<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;version&gt;</span>3.0.0<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;configuration&gt;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&lt;descriptors&gt;</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#75715e">&lt;!--通过service-assembly.xml 描述该项目打包的配置信息--&gt;</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&lt;descriptor&gt;</span>${project.basedir}/src/assembly/service-assembly.xml<span style="color:#f92672">&lt;/descriptor&gt;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&lt;/descriptors&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;/configuration&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;executions&gt;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&lt;execution&gt;</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&lt;id&gt;</span>service-assembly<span style="color:#f92672">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&lt;phase&gt;</span>package<span style="color:#f92672">&lt;/phase&gt;</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&lt;goals&gt;</span>
+</span></span><span style="display:flex;"><span>                            <span style="color:#f92672">&lt;goal&gt;</span>single<span style="color:#f92672">&lt;/goal&gt;</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&lt;/goals&gt;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&lt;/execution&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;/executions&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;/plugin&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/plugins&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/build&gt;</span>
+</span></span></code></pre></div><ol start="2">
 <li>
 <p>配置服务jsw 打包描述信息</p>
 <p>以下是打包配置文件信息：</p>
 </li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;service&gt;</span>
-    <span style="color:#f92672">&lt;id&gt;</span>bamboo-upgrade-service<span style="color:#f92672">&lt;/id&gt;</span>
-    <span style="color:#f92672">&lt;name&gt;</span>Bamboo Upgrade Service<span style="color:#f92672">&lt;/name&gt;</span>
-    <span style="color:#f92672">&lt;description&gt;</span>Bamboo Upgrade Windows service<span style="color:#f92672">&lt;/description&gt;</span>
-    <span style="color:#f92672">&lt;executable&gt;</span>java<span style="color:#f92672">&lt;/executable&gt;</span>
-    <span style="color:#f92672">&lt;arguments&gt;</span>-jar upgrade-admin.jar<span style="color:#f92672">&lt;/arguments&gt;</span>
-<span style="color:#f92672">&lt;/service&gt;</span>
-</code></pre></div><pre><code>id: windows 服务id,要是唯一的，在windows 服务注册表里是唯一的
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;service&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;id&gt;</span>bamboo-upgrade-service<span style="color:#f92672">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;name&gt;</span>Bamboo Upgrade Service<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;description&gt;</span>Bamboo Upgrade Windows service<span style="color:#f92672">&lt;/description&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;executable&gt;</span>java<span style="color:#f92672">&lt;/executable&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;arguments&gt;</span>-jar upgrade-admin.jar<span style="color:#f92672">&lt;/arguments&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/service&gt;</span>
+</span></span></code></pre></div><pre><code>id: windows 服务id,要是唯一的，在windows 服务注册表里是唯一的
 
 name: 服务名称
 
@@ -240,29 +242,29 @@ arguments： 执行参数
 <p><img src="./image-20210513163836081.png" alt="image-20210513163836081"></p>
 <p>​      service-assembly.xml 文件  这是打包核心配置核心文件</p>
 <p>​     主是用于告诉maven 需要打包的文件在哪 里，如何打包，打成什么格式的包</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;assembly</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://maven.apache.org/ASSEMBLY/2.0.0&#34;</span> <span style="color:#a6e22e">xmlns:xsi=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
-          <span style="color:#a6e22e">xsi:schemaLocation=</span><span style="color:#e6db74">&#34;http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd&#34;</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;id&gt;</span>service<span style="color:#f92672">&lt;/id&gt;</span>
-    <span style="color:#f92672">&lt;formats&gt;</span>
-        <span style="color:#f92672">&lt;format&gt;</span>zip<span style="color:#f92672">&lt;/format&gt;</span>
-    <span style="color:#f92672">&lt;/formats&gt;</span>
-    <span style="color:#f92672">&lt;fileSets&gt;</span>
-        <span style="color:#75715e">&lt;!-- Copy in the application JAR --&gt;</span>
-        <span style="color:#f92672">&lt;fileSet&gt;</span>
-            <span style="color:#f92672">&lt;directory&gt;</span>${project.build.directory}<span style="color:#f92672">&lt;/directory&gt;</span>
-            <span style="color:#f92672">&lt;outputDirectory&gt;</span>/<span style="color:#f92672">&lt;/outputDirectory&gt;</span>
-            <span style="color:#f92672">&lt;includes&gt;</span>
-                <span style="color:#f92672">&lt;include&gt;</span>${project.build.finalName}.jar<span style="color:#f92672">&lt;/include&gt;</span>
-            <span style="color:#f92672">&lt;/includes&gt;</span>
-        <span style="color:#f92672">&lt;/fileSet&gt;</span>
-        <span style="color:#75715e">&lt;!-- Copy in the resources including the wrapper exe and config --&gt;</span>
-        <span style="color:#f92672">&lt;fileSet&gt;</span>
-            <span style="color:#f92672">&lt;directory&gt;</span>${project.basedir}/src/assembly/resources<span style="color:#f92672">&lt;/directory&gt;</span>
-            <span style="color:#f92672">&lt;outputDirectory&gt;</span>/<span style="color:#f92672">&lt;/outputDirectory&gt;</span>
-        <span style="color:#f92672">&lt;/fileSet&gt;</span>
-    <span style="color:#f92672">&lt;/fileSets&gt;</span>
-<span style="color:#f92672">&lt;/assembly&gt;</span>
-</code></pre></div><p>该文件的目录位置如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;assembly</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://maven.apache.org/ASSEMBLY/2.0.0&#34;</span> <span style="color:#a6e22e">xmlns:xsi=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">xsi:schemaLocation=</span><span style="color:#e6db74">&#34;http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;id&gt;</span>service<span style="color:#f92672">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;formats&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;format&gt;</span>zip<span style="color:#f92672">&lt;/format&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/formats&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;fileSets&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- Copy in the application JAR --&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;fileSet&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;directory&gt;</span>${project.build.directory}<span style="color:#f92672">&lt;/directory&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;outputDirectory&gt;</span>/<span style="color:#f92672">&lt;/outputDirectory&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;includes&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;include&gt;</span>${project.build.finalName}.jar<span style="color:#f92672">&lt;/include&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;/includes&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/fileSet&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- Copy in the resources including the wrapper exe and config --&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;fileSet&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;directory&gt;</span>${project.basedir}/src/assembly/resources<span style="color:#f92672">&lt;/directory&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;outputDirectory&gt;</span>/<span style="color:#f92672">&lt;/outputDirectory&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/fileSet&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/fileSets&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/assembly&gt;</span>
+</span></span></code></pre></div><p>该文件的目录位置如下</p>
 <p><img src="./image-20210513164413150.png" alt="image-20210513164413150"></p>
 <ol start="3">
 <li>
@@ -276,24 +278,24 @@ arguments： 执行参数
 <li>
 <p>先安装windows 服务指令，上图install.bat是我之前写好的，该文件就是用来install Windows 服务脚本
 install.bat</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">@echo off
-bamboo-upgrade-service-wrapper install
-echo 安装bamboo服务完成
-pause
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>@echo off
+</span></span><span style="display:flex;"><span>bamboo-upgrade-service-wrapper install
+</span></span><span style="display:flex;"><span>echo 安装bamboo服务完成
+</span></span><span style="display:flex;"><span>pause
+</span></span></code></pre></div></li>
 <li>
 <p>编写启动服务，新建startup.bat文件</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">@echo off
-<span style="color:#66d9ef">for</span> /f <span style="color:#e6db74">&#34;skip=3 tokens=4&#34;</span> %<span style="color:#66d9ef">%</span>i <span style="color:#66d9ef">in</span> (<span style="color:#e6db74">&#39;sc query bamboo-upgrade-service&#39;</span>) <span style="color:#66d9ef">do</span> set <span style="color:#e6db74">&#34;zt=%%i&#34;</span> &amp;goto <span style="color:#960050;background-color:#1e0010">:</span>next
-<span style="color:#960050;background-color:#1e0010">:</span>next
-<span style="color:#66d9ef">if</span> /i <span style="color:#e6db74">&#34;%zt%&#34;</span>==<span style="color:#e6db74">&#34;RUNNING&#34;</span> (
-echo 已经发现该服务在运行
-) <span style="color:#66d9ef">else</span> (
-   net start bamboo-upgrade-service
-   echo 该服务现己启动<span style="color:#960050;background-color:#1e0010">，</span>请等20秒中....
-)
-pause
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>@echo off
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> /f <span style="color:#e6db74">&#34;skip=3 tokens=4&#34;</span> %<span style="color:#66d9ef">%</span>i <span style="color:#66d9ef">in</span> (<span style="color:#e6db74">&#39;sc query bamboo-upgrade-service&#39;</span>) <span style="color:#66d9ef">do</span> set <span style="color:#e6db74">&#34;zt=%%i&#34;</span> &amp;goto <span style="color:#960050;background-color:#1e0010">:</span>next
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">:</span>next
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> /i <span style="color:#e6db74">&#34;%zt%&#34;</span>==<span style="color:#e6db74">&#34;RUNNING&#34;</span> (
+</span></span><span style="display:flex;"><span>echo 已经发现该服务在运行
+</span></span><span style="display:flex;"><span>) <span style="color:#66d9ef">else</span> (
+</span></span><span style="display:flex;"><span>   net start bamboo-upgrade-service
+</span></span><span style="display:flex;"><span>   echo 该服务现己启动<span style="color:#960050;background-color:#1e0010">，</span>请等20秒中....
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>pause
+</span></span></code></pre></div></li>
 <li>
 <p>停止服务 ，新建stop.bat文件</p>
 </li>
@@ -314,11 +316,11 @@ pause
 <ol start="4">
 <li>
 <p>卸载服务, 新建uninstall.bat 文件</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">@echo off
-bamboo-upgrade-service-wrapper uninstall
-echo 卸载bamboo服务完成
-pause
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>@echo off
+</span></span><span style="display:flex;"><span>bamboo-upgrade-service-wrapper uninstall
+</span></span><span style="display:flex;"><span>echo 卸载bamboo服务完成
+</span></span><span style="display:flex;"><span>pause
+</span></span></code></pre></div></li>
 <li>
 <p>查看windows运行效果</p>
 <p>按win+R 快捷键，输入<em>services.msc</em>  命令，回车，</p>
