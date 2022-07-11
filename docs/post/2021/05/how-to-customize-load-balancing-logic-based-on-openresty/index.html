@@ -16,6 +16,8 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
+  <link rel="stylesheet" href="https://ltan.me/assets/red.css">
+
 
 
 
@@ -23,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/red.png">
 
 
 
@@ -44,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/red.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -65,7 +67,7 @@
 
 
 </head>
-<body class="orange">
+<body class="red">
 
 
 <div class="container center headings--one-size">
@@ -178,77 +180,77 @@
 <p>主要思路是 利用 lua 语言 lpack 模块 对私有协议头 协议主体进行解析，解析得到设备id 取模得到一台上游消息处理服务器upstream server 节点， 然后通过balancer 模块更新上游处理服务器转发流量。</p>
 <p>也可以利用openresty 自带balancer 模块来完成实现，应用核心代码如下</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua">stream {
-  lua_code_cache off; <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">关闭代码缓存，利于调用，生产环境不建议</span>
-  init_by_lua_block {  <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">当</span>nginx <span style="color:#960050;background-color:#1e0010">启动时，初始化时，从</span>redis加载配置<span style="color:#960050;background-color:#1e0010">，或者从</span>etcd <span style="color:#960050;background-color:#1e0010">加载配置</span>,<span style="color:#960050;background-color:#1e0010">该数据可以做一个后台管理，运维人员直接后台操作</span>
-    require(<span style="color:#e6db74">&#39;ngx.balancer&#39;</span>)
-    _G.BACKENDS <span style="color:#f92672">=</span> {
-      {<span style="color:#e6db74">&#39;172.17.0.1&#39;</span>, <span style="color:#ae81ff">1000</span>}, <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">消息</span>netty服务器c2s<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
-      {<span style="color:#e6db74">&#39;172.17.0.2&#39;</span>, <span style="color:#ae81ff">1000</span>}, <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">消息</span>netty服务器c2s<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>
-      {<span style="color:#e6db74">&#39;172.17.0.3&#39;</span>, <span style="color:#ae81ff">1000</span>}, <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">消息</span>netty服务器c2s<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>
-    }
-  }
-  
-  <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">配置</span>lua请求拦截器 upstream
-  upstream lua_dispatcher {
-    server <span style="color:#ae81ff">0.0.0.1</span>:<span style="color:#ae81ff">1234</span>;
-    balancer_by_lua_block {
-      <span style="color:#66d9ef">local</span> balancer <span style="color:#f92672">=</span> require(<span style="color:#e6db74">&#39;ngx.balancer&#39;</span>)
-      <span style="color:#66d9ef">local</span> backend_index
-      <span style="color:#66d9ef">local</span> hash <span style="color:#f92672">=</span> ngx.crc32_long(ngx.ctx.devid);
-      backend_index <span style="color:#f92672">=</span> (hash <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
-      <span style="color:#66d9ef">local</span> backend_table <span style="color:#f92672">=</span> _G.BACKENDS[backend_index]
-      <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">通过激活</span>id算出一个hash值 <span style="color:#960050;background-color:#1e0010">取个模后，得到服务器下标</span>index <span style="color:#960050;background-color:#1e0010">然后更新</span>balancer <span style="color:#960050;background-color:#1e0010">即可流量负载过去</span>
-      <span style="color:#66d9ef">local</span> ok, err <span style="color:#f92672">=</span> balancer.set_current_peer(table.unpack(backend_table))
-      <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> ok <span style="color:#66d9ef">then</span>
-          ngx.log(ngx.ERR, err)
-          ngx.exit(ngx.ERROR)
-      <span style="color:#66d9ef">end</span>
-    }
-  }
-  
-   <span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">配置代码</span> proxy
-  server {
-    listen <span style="color:#ae81ff">9000</span>;
-    proxy_pass lua_dispatcher;
-    preread_by_lua_block {
-        require(<span style="color:#e6db74">&#34;pack&#34;</span>)
-        <span style="color:#66d9ef">local</span> mypack    <span style="color:#f92672">=</span> string.pack
-        <span style="color:#66d9ef">local</span> myunpack    <span style="color:#f92672">=</span> string.unpack
-        <span style="color:#66d9ef">local</span> sock <span style="color:#f92672">=</span> ngx.req.socket(<span style="color:#66d9ef">true</span>)
-        <span style="color:#66d9ef">if</span> sock <span style="color:#66d9ef">then</span>
-            ngx.say(<span style="color:#e6db74">&#34;got the request socket&#34;</span>)
-        <span style="color:#66d9ef">else</span>
-            ngx.say(<span style="color:#e6db74">&#34;failed to get the request socket: &#34;</span>, err)
-            <span style="color:#66d9ef">return</span>
-        <span style="color:#66d9ef">end</span>
-        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">true</span> <span style="color:#66d9ef">do</span>
-            <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">先尝试读取固定头</span> <span style="color:#ae81ff">6</span><span style="color:#960050;background-color:#1e0010">个字节</span>
-            <span style="color:#66d9ef">local</span> data, err <span style="color:#f92672">=</span> sock:receive(<span style="color:#ae81ff">6</span>)
-            <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">如果遇到</span>timeout,<span style="color:#960050;background-color:#1e0010">或者</span>close的情况<span style="color:#960050;background-color:#1e0010">，则</span><span style="color:#66d9ef">break</span> <span style="color:#960050;background-color:#1e0010">本次循环读取，继续下一条读取</span>
-            <span style="color:#66d9ef">if</span> err<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;timeout&#39;</span> <span style="color:#f92672">or</span> err <span style="color:#f92672">==</span><span style="color:#e6db74">&#39;close&#39;</span> <span style="color:#66d9ef">then</span>
-                <span style="color:#66d9ef">break</span>
-            <span style="color:#66d9ef">end</span>
-            <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">按消息推送私有协议读取返回的参数，</span>type1为消息类型<span style="color:#960050;background-color:#1e0010">，</span>ver2为消息推送私有协议版本号<span style="color:#960050;background-color:#1e0010">，</span>time待命时间<span style="color:#960050;background-color:#1e0010">，</span>len4为消息体的长度<span style="color:#960050;background-color:#1e0010">，不包含头的长度</span>
-            <span style="color:#66d9ef">local</span> succ,succLen,type1,Ver2,Time3,Len4 <span style="color:#f92672">=</span> pcall(myunpack,data,<span style="color:#e6db74">&#34;&gt;ccHH&#34;</span>)
-            <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">读取剩余的消息体长度内容</span>
-            <span style="color:#66d9ef">local</span> body, err <span style="color:#f92672">=</span> sock:receive(Len4)
-            <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">如果读取</span>body为空<span style="color:#960050;background-color:#1e0010">，则退出</span>
-            <span style="color:#66d9ef">if</span> body <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
-                <span style="color:#66d9ef">break</span>
-            <span style="color:#66d9ef">end</span>
-            <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">打印</span>body消息内容 <span style="color:#960050;background-color:#1e0010">解析</span>body是一个json串<span style="color:#960050;background-color:#1e0010">，需要对</span>json进行解码<span style="color:#960050;background-color:#1e0010">，再赋值给</span>ngx.ctx <span style="color:#960050;background-color:#1e0010">全局上下文中共享变量</span>
-            ngx.ctx.device_id <span style="color:#f92672">=</span> body[devid]
-            ngx.log(ngx.ERR, <span style="color:#e6db74">&#34;------bdy &#34;</span>, body)
-        <span style="color:#66d9ef">end</span>
-  
-    }
-  }
-  
-    
-  
-}
-</code></pre></div><p>如下图，左边是设备，中间是tcp 流量转发器，  右 边是消息处理服务器，  设备需要和消息处理服务器 建立tcp长链接，并维持不间断时间心跳，总之采用openresty 来完现流量分发具有强性能，只需要在原来的netty消息层外层加个流量处理网关即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span>stream {
+</span></span><span style="display:flex;"><span>  lua_code_cache off; <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">关闭代码缓存，利于调用，生产环境不建议</span>
+</span></span><span style="display:flex;"><span>  init_by_lua_block {  <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">当</span>nginx <span style="color:#960050;background-color:#1e0010">启动时，初始化时，从</span>redis加载配置<span style="color:#960050;background-color:#1e0010">，或者从</span>etcd <span style="color:#960050;background-color:#1e0010">加载配置</span>,<span style="color:#960050;background-color:#1e0010">该数据可以做一个后台管理，运维人员直接后台操作</span>
+</span></span><span style="display:flex;"><span>    require(<span style="color:#e6db74">&#39;ngx.balancer&#39;</span>)
+</span></span><span style="display:flex;"><span>    _G.BACKENDS <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>      {<span style="color:#e6db74">&#39;172.17.0.1&#39;</span>, <span style="color:#ae81ff">1000</span>}, <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">消息</span>netty服务器c2s<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>      {<span style="color:#e6db74">&#39;172.17.0.2&#39;</span>, <span style="color:#ae81ff">1000</span>}, <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">消息</span>netty服务器c2s<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>      {<span style="color:#e6db74">&#39;172.17.0.3&#39;</span>, <span style="color:#ae81ff">1000</span>}, <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">消息</span>netty服务器c2s<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">配置</span>lua请求拦截器 upstream
+</span></span><span style="display:flex;"><span>  upstream lua_dispatcher {
+</span></span><span style="display:flex;"><span>    server <span style="color:#ae81ff">0.0.0.1</span>:<span style="color:#ae81ff">1234</span>;
+</span></span><span style="display:flex;"><span>    balancer_by_lua_block {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">local</span> balancer <span style="color:#f92672">=</span> require(<span style="color:#e6db74">&#39;ngx.balancer&#39;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">local</span> backend_index
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">local</span> hash <span style="color:#f92672">=</span> ngx.crc32_long(ngx.ctx.devid);
+</span></span><span style="display:flex;"><span>      backend_index <span style="color:#f92672">=</span> (hash <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">local</span> backend_table <span style="color:#f92672">=</span> _G.BACKENDS[backend_index]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">通过激活</span>id算出一个hash值 <span style="color:#960050;background-color:#1e0010">取个模后，得到服务器下标</span>index <span style="color:#960050;background-color:#1e0010">然后更新</span>balancer <span style="color:#960050;background-color:#1e0010">即可流量负载过去</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">local</span> ok, err <span style="color:#f92672">=</span> balancer.set_current_peer(table.unpack(backend_table))
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> ok <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>          ngx.log(ngx.ERR, err)
+</span></span><span style="display:flex;"><span>          ngx.exit(ngx.ERROR)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">配置代码</span> proxy
+</span></span><span style="display:flex;"><span>  server {
+</span></span><span style="display:flex;"><span>    listen <span style="color:#ae81ff">9000</span>;
+</span></span><span style="display:flex;"><span>    proxy_pass lua_dispatcher;
+</span></span><span style="display:flex;"><span>    preread_by_lua_block {
+</span></span><span style="display:flex;"><span>        require(<span style="color:#e6db74">&#34;pack&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">local</span> mypack    <span style="color:#f92672">=</span> string.pack
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">local</span> myunpack    <span style="color:#f92672">=</span> string.unpack
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">local</span> sock <span style="color:#f92672">=</span> ngx.req.socket(<span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> sock <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>            ngx.say(<span style="color:#e6db74">&#34;got the request socket&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>            ngx.say(<span style="color:#e6db74">&#34;failed to get the request socket: &#34;</span>, err)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">true</span> <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">先尝试读取固定头</span> <span style="color:#ae81ff">6</span><span style="color:#960050;background-color:#1e0010">个字节</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">local</span> data, err <span style="color:#f92672">=</span> sock:receive(<span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">如果遇到</span>timeout,<span style="color:#960050;background-color:#1e0010">或者</span>close的情况<span style="color:#960050;background-color:#1e0010">，则</span><span style="color:#66d9ef">break</span> <span style="color:#960050;background-color:#1e0010">本次循环读取，继续下一条读取</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> err<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;timeout&#39;</span> <span style="color:#f92672">or</span> err <span style="color:#f92672">==</span><span style="color:#e6db74">&#39;close&#39;</span> <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">按消息推送私有协议读取返回的参数，</span>type1为消息类型<span style="color:#960050;background-color:#1e0010">，</span>ver2为消息推送私有协议版本号<span style="color:#960050;background-color:#1e0010">，</span>time待命时间<span style="color:#960050;background-color:#1e0010">，</span>len4为消息体的长度<span style="color:#960050;background-color:#1e0010">，不包含头的长度</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">local</span> succ,succLen,type1,Ver2,Time3,Len4 <span style="color:#f92672">=</span> pcall(myunpack,data,<span style="color:#e6db74">&#34;&gt;ccHH&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">读取剩余的消息体长度内容</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">local</span> body, err <span style="color:#f92672">=</span> sock:receive(Len4)
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">如果读取</span>body为空<span style="color:#960050;background-color:#1e0010">，则退出</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> body <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">打印</span>body消息内容 <span style="color:#960050;background-color:#1e0010">解析</span>body是一个json串<span style="color:#960050;background-color:#1e0010">，需要对</span>json进行解码<span style="color:#960050;background-color:#1e0010">，再赋值给</span>ngx.ctx <span style="color:#960050;background-color:#1e0010">全局上下文中共享变量</span>
+</span></span><span style="display:flex;"><span>            ngx.ctx.device_id <span style="color:#f92672">=</span> body[devid]
+</span></span><span style="display:flex;"><span>            ngx.log(ngx.ERR, <span style="color:#e6db74">&#34;------bdy &#34;</span>, body)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>如下图，左边是设备，中间是tcp 流量转发器，  右 边是消息处理服务器，  设备需要和消息处理服务器 建立tcp长链接，并维持不间断时间心跳，总之采用openresty 来完现流量分发具有强性能，只需要在原来的netty消息层外层加个流量处理网关即可。</p>
 <p>但我们在实际环境不推荐这样做，除非小项目，大项目还是推荐apisix 网关来处理很方便</p>
 <p><img src="image-20210519191548391.png" alt="image-20210519191548391"></p>
 
