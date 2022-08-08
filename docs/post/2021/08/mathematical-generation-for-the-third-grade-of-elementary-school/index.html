@@ -16,7 +16,7 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
-  <link rel="stylesheet" href="https://ltan.me/assets/red.css">
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
 
 
 
@@ -25,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/red.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
 
 
 
@@ -46,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/red.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -67,7 +67,7 @@
 
 
 </head>
-<body class="red">
+<body class="green">
 
 
 <div class="container center headings--one-size">
@@ -166,122 +166,123 @@
 <p>下面就简单写了一下，思路比较简单，还没有包括括号，没有复杂的计算顺序的问题，基本上是 <code>a*b + d/c</code>  这种  <code>a*b - d/c</code></p>
 <p>生成有答案和无答案两种，方便后续家长或老师改题需要计算器，哈哈，打算后面有时间再搞智能点</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># -*- coding=utf-8 -*-</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> random
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> random <span style="color:#f92672">import</span> choice
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> openpyxl <span style="color:#f92672">import</span> Workbook
-</span></span><span style="display:flex;"><span>wb <span style="color:#f92672">=</span> Workbook()
-</span></span><span style="display:flex;"><span>ws <span style="color:#f92672">=</span> wb<span style="color:#f92672">.</span>active
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> datetime
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getNum</span>(min,max):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> random<span style="color:#f92672">.</span>randrange(min, max)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 判断是否是小数点，90.0,56.0 这类不算</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_float</span>(s):
-</span></span><span style="display:flex;"><span>    s <span style="color:#f92672">=</span> str(s)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> s<span style="color:#f92672">.</span>count(<span style="color:#e6db74">&#39;.&#39;</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:  <span style="color:#75715e"># 判断小数点个数</span>
-</span></span><span style="display:flex;"><span>        sl <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;.&#39;</span>)  <span style="color:#75715e"># 按照小数点进行分割</span>
-</span></span><span style="display:flex;"><span>        left <span style="color:#f92672">=</span> sl[<span style="color:#ae81ff">0</span>]  <span style="color:#75715e"># 小数点前面的</span>
-</span></span><span style="display:flex;"><span>        right <span style="color:#f92672">=</span> sl[<span style="color:#ae81ff">1</span>]  <span style="color:#75715e"># 小数点后面的</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> right <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;0&#39;</span>:
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> left<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#39;-&#39;</span>) <span style="color:#f92672">and</span> left<span style="color:#f92672">.</span>count(<span style="color:#e6db74">&#39;-&#39;</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> right<span style="color:#f92672">.</span>isdigit():
-</span></span><span style="display:flex;"><span>            lleft <span style="color:#f92672">=</span> left<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;-&#39;</span>)[<span style="color:#ae81ff">1</span>]  <span style="color:#75715e"># 按照-分割，然后取负号后面的数字</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> lleft<span style="color:#f92672">.</span>isdigit():
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> left<span style="color:#f92672">.</span>isdigit() <span style="color:#f92672">and</span> right<span style="color:#f92672">.</span>isdigit():
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 判断是否为正小数</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>chengfa <span style="color:#f92672">=</span> []
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#乘法</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
-</span></span><span style="display:flex;"><span>    n1 <span style="color:#f92672">=</span> getNum(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">99</span>)
-</span></span><span style="display:flex;"><span>    n2 <span style="color:#f92672">=</span> getNum(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span>    total <span style="color:#f92672">=</span> n1 <span style="color:#f92672">*</span> n2
-</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> []
-</span></span><span style="display:flex;"><span>    c<span style="color:#f92672">.</span>append(n1);c<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;x&#34;</span>);c<span style="color:#f92672">.</span>append(n2);c<span style="color:#f92672">.</span>append(total)
-</span></span><span style="display:flex;"><span>    chengfa<span style="color:#f92672">.</span>append(c)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(chengfa)<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">200</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>chufa <span style="color:#f92672">=</span> []
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#除法</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
-</span></span><span style="display:flex;"><span>    n1 <span style="color:#f92672">=</span> getNum(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">99</span>)
-</span></span><span style="display:flex;"><span>    n2 <span style="color:#f92672">=</span> getNum(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">15</span>)
-</span></span><span style="display:flex;"><span>    total <span style="color:#f92672">=</span> n1 <span style="color:#f92672">/</span> n2
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> is_float(total):
-</span></span><span style="display:flex;"><span>        c <span style="color:#f92672">=</span> []
-</span></span><span style="display:flex;"><span>        c<span style="color:#f92672">.</span>append(n1);c<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;÷&#34;</span>);c<span style="color:#f92672">.</span>append(n2);c<span style="color:#f92672">.</span>append(int(total))
-</span></span><span style="display:flex;"><span>        chufa<span style="color:#f92672">.</span>append(c)
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> len(chufa)<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">200</span>:
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#乘除合并，加减</span>
-</span></span><span style="display:flex;"><span>hasres <span style="color:#f92672">=</span> []
-</span></span><span style="display:flex;"><span>nores <span style="color:#f92672">=</span> []
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#计算符随机</span>
-</span></span><span style="display:flex;"><span>c<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;+&#34;</span>,<span style="color:#e6db74">&#34;-&#34;</span>]
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#打印多少题</span>
-</span></span><span style="display:flex;"><span>t <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
-</span></span><span style="display:flex;"><span>cell <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>  <span style="color:#75715e">#生成excel 4列表格</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
-</span></span><span style="display:flex;"><span>    chuf <span style="color:#f92672">=</span> choice(chufa)
-</span></span><span style="display:flex;"><span>    chenf <span style="color:#f92672">=</span> choice(chengfa)
-</span></span><span style="display:flex;"><span>    f <span style="color:#f92672">=</span> choice(c)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> chuf[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">&gt;</span> chenf[<span style="color:#ae81ff">3</span>]:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> f <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;+&#34;</span>:
-</span></span><span style="display:flex;"><span>            tt <span style="color:#f92672">=</span> chuf[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">+</span> chenf[<span style="color:#ae81ff">3</span>]
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>            tt <span style="color:#f92672">=</span> chuf[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">-</span> chenf[<span style="color:#ae81ff">3</span>]
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#有答案的</span>
-</span></span><span style="display:flex;"><span>        hasres<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%d%s%d%s%d%s%d</span><span style="color:#e6db74">=</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (chuf[<span style="color:#ae81ff">0</span>],chuf[<span style="color:#ae81ff">1</span>],chuf[<span style="color:#ae81ff">2</span>],f,chenf[<span style="color:#ae81ff">0</span>],chenf[<span style="color:#ae81ff">1</span>],chenf[<span style="color:#ae81ff">2</span>],tt))
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#无答案的</span>
-</span></span><span style="display:flex;"><span>        nores<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%d%s%d%s%d%s%d</span><span style="color:#e6db74">=___&#34;</span> <span style="color:#f92672">%</span> (chuf[<span style="color:#ae81ff">0</span>],chuf[<span style="color:#ae81ff">1</span>],chuf[<span style="color:#ae81ff">2</span>],f,chenf[<span style="color:#ae81ff">0</span>],chenf[<span style="color:#ae81ff">1</span>],chenf[<span style="color:#ae81ff">2</span>]))
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> f <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;+&#34;</span>:
-</span></span><span style="display:flex;"><span>            tt <span style="color:#f92672">=</span> chuf[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">+</span> chenf[<span style="color:#ae81ff">3</span>]
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>            tt <span style="color:#f92672">=</span> chenf[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">-</span> chuf[<span style="color:#ae81ff">3</span>]
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 有答案的</span>
-</span></span><span style="display:flex;"><span>        hasres<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%d%s%d%s%d%s%d</span><span style="color:#e6db74">=</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (chenf[<span style="color:#ae81ff">0</span>], chenf[<span style="color:#ae81ff">1</span>], chenf[<span style="color:#ae81ff">2</span>],f, chuf[<span style="color:#ae81ff">0</span>], chuf[<span style="color:#ae81ff">1</span>], chuf[<span style="color:#ae81ff">2</span>],tt))
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 无答案的</span>
-</span></span><span style="display:flex;"><span>        nores<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%d%s%d%s%d%s%d</span><span style="color:#e6db74">=___&#34;</span> <span style="color:#f92672">%</span> (chenf[<span style="color:#ae81ff">0</span>], chenf[<span style="color:#ae81ff">1</span>], chenf[<span style="color:#ae81ff">2</span>],f, chuf[<span style="color:#ae81ff">0</span>], chuf[<span style="color:#ae81ff">1</span>], chuf[<span style="color:#ae81ff">2</span>]))
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(hasres)<span style="color:#f92672">&gt;</span>t:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>rows <span style="color:#f92672">=</span> []
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> nores:
-</span></span><span style="display:flex;"><span>    rows<span style="color:#f92672">.</span>append(item)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(rows)<span style="color:#f92672">==</span>cell:
-</span></span><span style="display:flex;"><span>        ws<span style="color:#f92672">.</span>append(rows)
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">del</span> rows[:]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>ws<span style="color:#f92672">.</span>append([])
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>rows <span style="color:#f92672">=</span> []
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> hasres:
-</span></span><span style="display:flex;"><span>    rows<span style="color:#f92672">.</span>append(item)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(rows)<span style="color:#f92672">==</span>cell:
-</span></span><span style="display:flex;"><span>        ws<span style="color:#f92672">.</span>append(rows)
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">del</span> rows[:]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>version <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%Y%m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">%H%M%S&#39;</span>)
-</span></span><span style="display:flex;"><span>wb<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#34;小学三年级下册数学算式生成-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.xlsx&#34;</span> <span style="color:#f92672">%</span> (cell,len(hasres),version))
-</span></span><span style="display:flex;"><span>wb<span style="color:#f92672">.</span>close()
-</span></span></code></pre></div><p>生成效果如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># -*- coding=utf-8 -*-</span>
+
+<span style="color:#f92672">import</span> random
+<span style="color:#f92672">from</span> random <span style="color:#f92672">import</span> choice
+<span style="color:#f92672">from</span> openpyxl <span style="color:#f92672">import</span> Workbook
+wb <span style="color:#f92672">=</span> Workbook()
+ws <span style="color:#f92672">=</span> wb<span style="color:#f92672">.</span>active
+<span style="color:#f92672">import</span> datetime
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getNum</span>(min,max):
+    <span style="color:#66d9ef">return</span> random<span style="color:#f92672">.</span>randrange(min, max)
+
+<span style="color:#75715e"># 判断是否是小数点，90.0,56.0 这类不算</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_float</span>(s):
+    s <span style="color:#f92672">=</span> str(s)
+    <span style="color:#66d9ef">if</span> s<span style="color:#f92672">.</span>count(<span style="color:#e6db74">&#39;.&#39;</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:  <span style="color:#75715e"># 判断小数点个数</span>
+        sl <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;.&#39;</span>)  <span style="color:#75715e"># 按照小数点进行分割</span>
+        left <span style="color:#f92672">=</span> sl[<span style="color:#ae81ff">0</span>]  <span style="color:#75715e"># 小数点前面的</span>
+        right <span style="color:#f92672">=</span> sl[<span style="color:#ae81ff">1</span>]  <span style="color:#75715e"># 小数点后面的</span>
+        <span style="color:#66d9ef">if</span> right <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;0&#39;</span>:
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+        <span style="color:#66d9ef">if</span> left<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#39;-&#39;</span>) <span style="color:#f92672">and</span> left<span style="color:#f92672">.</span>count(<span style="color:#e6db74">&#39;-&#39;</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> right<span style="color:#f92672">.</span>isdigit():
+            lleft <span style="color:#f92672">=</span> left<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;-&#39;</span>)[<span style="color:#ae81ff">1</span>]  <span style="color:#75715e"># 按照-分割，然后取负号后面的数字</span>
+            <span style="color:#66d9ef">if</span> lleft<span style="color:#f92672">.</span>isdigit():
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+        <span style="color:#66d9ef">elif</span> left<span style="color:#f92672">.</span>isdigit() <span style="color:#f92672">and</span> right<span style="color:#f92672">.</span>isdigit():
+            <span style="color:#75715e"># 判断是否为正小数</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+
+
+
+chengfa <span style="color:#f92672">=</span> []
+<span style="color:#75715e">#乘法</span>
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+    n1 <span style="color:#f92672">=</span> getNum(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">99</span>)
+    n2 <span style="color:#f92672">=</span> getNum(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">10</span>)
+    total <span style="color:#f92672">=</span> n1 <span style="color:#f92672">*</span> n2
+    c <span style="color:#f92672">=</span> []
+    c<span style="color:#f92672">.</span>append(n1);c<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;x&#34;</span>);c<span style="color:#f92672">.</span>append(n2);c<span style="color:#f92672">.</span>append(total)
+    chengfa<span style="color:#f92672">.</span>append(c)
+    <span style="color:#66d9ef">if</span> len(chengfa)<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">200</span>:
+        <span style="color:#66d9ef">break</span>;
+
+
+chufa <span style="color:#f92672">=</span> []
+<span style="color:#75715e">#除法</span>
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+    n1 <span style="color:#f92672">=</span> getNum(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">99</span>)
+    n2 <span style="color:#f92672">=</span> getNum(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">15</span>)
+    total <span style="color:#f92672">=</span> n1 <span style="color:#f92672">/</span> n2
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> is_float(total):
+        c <span style="color:#f92672">=</span> []
+        c<span style="color:#f92672">.</span>append(n1);c<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;÷&#34;</span>);c<span style="color:#f92672">.</span>append(n2);c<span style="color:#f92672">.</span>append(int(total))
+        chufa<span style="color:#f92672">.</span>append(c)
+        <span style="color:#66d9ef">if</span> len(chufa)<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">200</span>:
+            <span style="color:#66d9ef">break</span>;
+
+
+<span style="color:#75715e">#乘除合并，加减</span>
+hasres <span style="color:#f92672">=</span> []
+nores <span style="color:#f92672">=</span> []
+<span style="color:#75715e">#计算符随机</span>
+c<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;+&#34;</span>,<span style="color:#e6db74">&#34;-&#34;</span>]
+<span style="color:#75715e">#打印多少题</span>
+t <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+cell <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>  <span style="color:#75715e">#生成excel 4列表格</span>
+
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+    chuf <span style="color:#f92672">=</span> choice(chufa)
+    chenf <span style="color:#f92672">=</span> choice(chengfa)
+    f <span style="color:#f92672">=</span> choice(c)
+    <span style="color:#66d9ef">if</span> chuf[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">&gt;</span> chenf[<span style="color:#ae81ff">3</span>]:
+        <span style="color:#66d9ef">if</span> f <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;+&#34;</span>:
+            tt <span style="color:#f92672">=</span> chuf[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">+</span> chenf[<span style="color:#ae81ff">3</span>]
+        <span style="color:#66d9ef">else</span>:
+            tt <span style="color:#f92672">=</span> chuf[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">-</span> chenf[<span style="color:#ae81ff">3</span>]
+        <span style="color:#75715e">#有答案的</span>
+        hasres<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%d%s%d%s%d%s%d</span><span style="color:#e6db74">=</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (chuf[<span style="color:#ae81ff">0</span>],chuf[<span style="color:#ae81ff">1</span>],chuf[<span style="color:#ae81ff">2</span>],f,chenf[<span style="color:#ae81ff">0</span>],chenf[<span style="color:#ae81ff">1</span>],chenf[<span style="color:#ae81ff">2</span>],tt))
+        <span style="color:#75715e">#无答案的</span>
+        nores<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%d%s%d%s%d%s%d</span><span style="color:#e6db74">=___&#34;</span> <span style="color:#f92672">%</span> (chuf[<span style="color:#ae81ff">0</span>],chuf[<span style="color:#ae81ff">1</span>],chuf[<span style="color:#ae81ff">2</span>],f,chenf[<span style="color:#ae81ff">0</span>],chenf[<span style="color:#ae81ff">1</span>],chenf[<span style="color:#ae81ff">2</span>]))
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">if</span> f <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;+&#34;</span>:
+            tt <span style="color:#f92672">=</span> chuf[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">+</span> chenf[<span style="color:#ae81ff">3</span>]
+        <span style="color:#66d9ef">else</span>:
+            tt <span style="color:#f92672">=</span> chenf[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">-</span> chuf[<span style="color:#ae81ff">3</span>]
+        <span style="color:#75715e"># 有答案的</span>
+        hasres<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%d%s%d%s%d%s%d</span><span style="color:#e6db74">=</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (chenf[<span style="color:#ae81ff">0</span>], chenf[<span style="color:#ae81ff">1</span>], chenf[<span style="color:#ae81ff">2</span>],f, chuf[<span style="color:#ae81ff">0</span>], chuf[<span style="color:#ae81ff">1</span>], chuf[<span style="color:#ae81ff">2</span>],tt))
+        <span style="color:#75715e"># 无答案的</span>
+        nores<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%d%s%d%s%d%s%d</span><span style="color:#e6db74">=___&#34;</span> <span style="color:#f92672">%</span> (chenf[<span style="color:#ae81ff">0</span>], chenf[<span style="color:#ae81ff">1</span>], chenf[<span style="color:#ae81ff">2</span>],f, chuf[<span style="color:#ae81ff">0</span>], chuf[<span style="color:#ae81ff">1</span>], chuf[<span style="color:#ae81ff">2</span>]))
+    <span style="color:#66d9ef">if</span> len(hasres)<span style="color:#f92672">&gt;</span>t:
+        <span style="color:#66d9ef">break</span>
+
+
+
+rows <span style="color:#f92672">=</span> []
+<span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> nores:
+    rows<span style="color:#f92672">.</span>append(item)
+    <span style="color:#66d9ef">if</span> len(rows)<span style="color:#f92672">==</span>cell:
+        ws<span style="color:#f92672">.</span>append(rows)
+        <span style="color:#66d9ef">del</span> rows[:]
+
+ws<span style="color:#f92672">.</span>append([])
+
+rows <span style="color:#f92672">=</span> []
+<span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> hasres:
+    rows<span style="color:#f92672">.</span>append(item)
+    <span style="color:#66d9ef">if</span> len(rows)<span style="color:#f92672">==</span>cell:
+        ws<span style="color:#f92672">.</span>append(rows)
+        <span style="color:#66d9ef">del</span> rows[:]
+
+version <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%Y%m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">%H%M%S&#39;</span>)
+wb<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#34;小学三年级下册数学算式生成-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.xlsx&#34;</span> <span style="color:#f92672">%</span> (cell,len(hasres),version))
+wb<span style="color:#f92672">.</span>close()
+
+</code></pre></div><p>生成效果如下</p>
 <p><img src="image-20210821222311793.png" alt="image-20210821222311793"></p>
 <p><img src="image-20210821222425698.png" alt="image-20210821222425698"></p>
 

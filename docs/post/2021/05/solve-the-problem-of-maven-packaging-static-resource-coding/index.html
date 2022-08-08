@@ -16,7 +16,7 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
-  <link rel="stylesheet" href="https://ltan.me/assets/red.css">
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
 
 
 
@@ -25,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/red.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
 
 
 
@@ -46,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/red.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -67,7 +67,7 @@
 
 
 </head>
-<body class="red">
+<body class="green">
 
 
 <div class="container center headings--one-size">
@@ -173,7 +173,7 @@
 <p>项目做完后在打包时运行时发现浏览器显示字体损坏，导致网站icon图标不能正常显示</p>
 <h2 id="解决方法">解决方法：<a href="#解决方法" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>在pom.xml 里找到build 区块用下面代码替换它</p>
-<pre tabindex="0"><code>    &lt;build&gt;
+<pre><code>    &lt;build&gt;
         &lt;finalName&gt;ivy-admin&lt;/finalName&gt;
         &lt;resources&gt;
             &lt;resource&gt;
@@ -205,6 +205,7 @@
             &lt;/plugin&gt;
         &lt;/plugins&gt;
     &lt;/build&gt;
+
 </code></pre><h2 id="问题原因">问题原因:<a href="#问题原因" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>经过发现在不加上面打包代码时，不排除font 字体目录时，发现maven在打包复制时，对其font字体文件编译，导致文件被改写，编码和原来的字体文件不一样，导致打包前，打包前文件md5不一样，font 字体损坏，最终浏览器显示字体损坏</p>
 <p>打包后可以对比一下字体md5文件，就知道mvn在编译打包时，损坏了font</p>

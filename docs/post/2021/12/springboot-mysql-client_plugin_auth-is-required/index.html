@@ -16,7 +16,7 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
-  <link rel="stylesheet" href="https://ltan.me/assets/red.css">
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
 
 
 
@@ -25,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/red.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
 
 
 
@@ -46,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/red.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -67,7 +67,7 @@
 
 
 </head>
-<body class="red">
+<body class="green">
 
 
 <div class="container center headings--one-size">
@@ -174,14 +174,14 @@
 <p>找了一下原因，是因为使用spring boot 2.x版本，相对比较新，而默认使用的数据库版本为mysql-connect 库 8.x，而需要手动给mysql connect jar包库版本降级，从8.x降到5.1.48</p>
 <p>主要处理方法是</p>
 <p>第一、需要在 父pom.xml 文件里先指定</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;mysql.version&gt;</span>5.1.48<span style="color:#f92672">&lt;/mysql.version&gt;</span>
-</span></span></code></pre></div><p>第二、修改jdbc使用驱动jar包类</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;mysql.version&gt;</span>5.1.48<span style="color:#f92672">&lt;/mysql.version&gt;</span>
+</code></pre></div><p>第二、修改jdbc使用驱动jar包类</p>
 <p>由<code>com.mysql.cj.jdbc.Driver</code> 改为 <code>com.mysql.jdbc.Driver</code></p>
 <p>链接url</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">url</span>: <span style="color:#ae81ff">jdbc:mysql://172.20.1.2:3406/xxx?useUnicode=true&amp;characterEncoding=UTF-8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Asia/Shanghai&amp;zeroDateTimeBehavior=CONVERT_TO_NULL</span>
-</span></span></code></pre></div><p>改为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">jdbc:mysql://172.20.1.2:3406/xxx?useUnicode=true&amp;characterEncoding=UTF-8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Asia/Shanghai&amp;zeroDateTimeBehavior=convertToNull</span>
-</span></span></code></pre></div><p><code>CONVERT_TO_NULL  </code>  to  <code>convertToNull</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">url</span>: <span style="color:#ae81ff">jdbc:mysql://172.20.1.2:3406/xxx?useUnicode=true&amp;characterEncoding=UTF-8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Asia/Shanghai&amp;zeroDateTimeBehavior=CONVERT_TO_NULL</span>
+</code></pre></div><p>改为：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">jdbc:mysql://172.20.1.2:3406/xxx?useUnicode=true&amp;characterEncoding=UTF-8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Asia/Shanghai&amp;zeroDateTimeBehavior=convertToNull</span>
+</code></pre></div><p><code>CONVERT_TO_NULL  </code>  to  <code>convertToNull</code></p>
 </blockquote>
 <p>大功告成，顺利上线</p>
 
