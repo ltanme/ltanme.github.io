@@ -16,7 +16,7 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
-  <link rel="stylesheet" href="https://ltan.me/assets/red.css">
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
 
 
 
@@ -25,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/red.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
 
 
 
@@ -46,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/red.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -67,7 +67,7 @@
 
 
 </head>
-<body class="red">
+<body class="green">
 
 
 <div class="container center headings--one-size">
@@ -183,10 +183,11 @@
 <p>原论坛：https://forum.kodi.tv/showthread.php?tid=157120</p>
 <p>解决方法：</p>
 <p>​     用electerm ssh管理软件登录到kodi 系统，在/storage/.kodi/userdata/ 目录下 创建 autoexec.py 文件 ，输入代码如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> xbmc 
-</span></span><span style="display:flex;"><span>xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/test.m3u)&#34;</span>)
-</span></span><span style="display:flex;"><span>xbmc<span style="color:#f92672">.</span>executebuiltin( <span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">56</span>)) <span style="color:#75715e"># 设置音量，这个很有用，比如早上闹钟模式可以设置大一点，晚上睡觉前可以小一点声音，这里的脚本是在nas 群晖系统自动生成，采用定时任务生成的，然后在kodi设备做了开机启动挂载nfs共享实现的</span>
-</span></span></code></pre></div><p>test.m3u我这里只是测试音视频列表，你可以用nas nfs 接入就可以，做一个软链接即可读取</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> xbmc 
+xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/test.m3u)&#34;</span>)
+xbmc<span style="color:#f92672">.</span>executebuiltin( <span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">56</span>)) <span style="color:#75715e"># 设置音量，这个很有用，比如早上闹钟模式可以设置大一点，晚上睡觉前可以小一点声音，这里的脚本是在nas 群晖系统自动生成，采用定时任务生成的，然后在kodi设备做了开机启动挂载nfs共享实现的</span>
+
+</code></pre></div><p>test.m3u我这里只是测试音视频列表，你可以用nas nfs 接入就可以，做一个软链接即可读取</p>
 <p>test.m3u为播放列表，该文件是生成的，生成工具在这里，也可以制混合m3u播放列表，包含本地播放，在线链接播放</p>
 <p><a href="https://github.com/Isayso/PlaylistEditorTV">Isayso/PlaylistEditorTV: IPTV m3u list Editor/Player for Windows with Kodi support (github.com)</a></p>
 <p><img src="image-20210613072200142.png" alt="image-20210613072200142"></p>
@@ -210,40 +211,41 @@
 <p>3，播放列表根据自己喜好，分类制作不同的分类播放列表</p>
 <p>​      如国学单独一个播放列表，流行music一个播放列表，背景音乐，睡前音乐等等</p>
 <p>播放列表是自己生成的播放列表.m3u格式如下文件</p>
-<pre tabindex="0"><code class="language-m3u" data-lang="m3u">#EXTCPlayListM3U::M3U
+<pre><code class="language-m3u" data-lang="m3u">#EXTCPlayListM3U::M3U
 #EXTINF:0,高枫 - 大中国
 /storage/recordings/mp3/高枫 - 大中国.mp3
 #EXTINF:0,下山
 /storage/recordings/01.下山.flac
 </code></pre><p>开机自动播放脚本存储位置 <code>/storage/.kodi/userdata/autoexec.py</code>  代码内容如下，根据自身需求定制</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> xbmc
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> datetime
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>today <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>date<span style="color:#f92672">.</span>today()
-</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>now()
-</span></span><span style="display:flex;"><span>now <span style="color:#f92672">=</span> today<span style="color:#f92672">.</span>day
-</span></span><span style="display:flex;"><span>dayOfWeek <span style="color:#f92672">=</span> int(d<span style="color:#f92672">.</span>weekday())
-</span></span><span style="display:flex;"><span>cur_hour <span style="color:#f92672">=</span> int(getattr(d, <span style="color:#e6db74">&#39;hour&#39;</span>))
-</span></span><span style="display:flex;"><span>cur_minute <span style="color:#f92672">=</span> int(getattr(d, <span style="color:#e6db74">&#39;minute&#39;</span>))
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(dayOfWeek<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> dayOfWeek <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">5</span>):
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(cur_hour <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">and</span> cur_hour <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">8</span> <span style="color:#f92672">and</span> cur_minute <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">25</span> <span style="color:#f92672">and</span> cur_minute <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">59</span>):
-</span></span><span style="display:flex;"><span>		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/go2school.m3u)&#34;</span>)
-</span></span><span style="display:flex;"><span>		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;ActivateWindow(Music,special:/storage/ad/go2school.m3u)&#34;</span>)
-</span></span><span style="display:flex;"><span>		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">80</span>))
-</span></span><span style="display:flex;"><span>		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayerControl(repeatall)&#34;</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span>(cur_hour <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">14</span> <span style="color:#f92672">and</span> cur_hour <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">22</span>):
-</span></span><span style="display:flex;"><span>		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/bj.m3u)&#34;</span>)
-</span></span><span style="display:flex;"><span>		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;ActivateWindow(Music,special:/storage/ad/bj.m3u)&#34;</span>)
-</span></span><span style="display:flex;"><span>		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">75</span>))
-</span></span><span style="display:flex;"><span>		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayerControl(repeatall)&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/playlist.m3u)&#34;</span>)
-</span></span><span style="display:flex;"><span>	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;ActivateWindow(Music,special:/storage/ad/bj.m3u)&#34;</span>)
-</span></span><span style="display:flex;"><span>	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">48</span>))
-</span></span><span style="display:flex;"><span>	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayerControl(repeatoff)&#34;</span>)
-</span></span></code></pre></div><p>通过不需要重启coreELEC系统就可以执行，这样可以快速调试</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kodi-send --action<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;RunScript(&#34;special://profile/autoexec.py&#34;)&#39;</span>
-</span></span></code></pre></div><p>其播放计划脚本为autoexec.py 脚本 需要根据不同日期判断音量，不同时间段判断播放内容</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> xbmc
+<span style="color:#f92672">import</span> datetime
+
+today <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>date<span style="color:#f92672">.</span>today()
+d <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>now()
+now <span style="color:#f92672">=</span> today<span style="color:#f92672">.</span>day
+dayOfWeek <span style="color:#f92672">=</span> int(d<span style="color:#f92672">.</span>weekday())
+cur_hour <span style="color:#f92672">=</span> int(getattr(d, <span style="color:#e6db74">&#39;hour&#39;</span>))
+cur_minute <span style="color:#f92672">=</span> int(getattr(d, <span style="color:#e6db74">&#39;minute&#39;</span>))
+<span style="color:#66d9ef">if</span>(dayOfWeek<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> dayOfWeek <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">5</span>):
+	<span style="color:#66d9ef">if</span>(cur_hour <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">and</span> cur_hour <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">8</span> <span style="color:#f92672">and</span> cur_minute <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">25</span> <span style="color:#f92672">and</span> cur_minute <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">59</span>):
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/go2school.m3u)&#34;</span>)
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;ActivateWindow(Music,special:/storage/ad/go2school.m3u)&#34;</span>)
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">80</span>))
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayerControl(repeatall)&#34;</span>)
+	<span style="color:#66d9ef">if</span>(cur_hour <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">14</span> <span style="color:#f92672">and</span> cur_hour <span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">22</span>):
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/bj.m3u)&#34;</span>)
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;ActivateWindow(Music,special:/storage/ad/bj.m3u)&#34;</span>)
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">75</span>))
+		xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayerControl(repeatall)&#34;</span>)
+<span style="color:#66d9ef">else</span>:
+	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayMedia(/storage/ad/playlist.m3u)&#34;</span>)
+	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;ActivateWindow(Music,special:/storage/ad/bj.m3u)&#34;</span>)
+	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;XBMC.SetVolume(</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">)&#34;</span> <span style="color:#f92672">%</span> (<span style="color:#ae81ff">48</span>))
+	xbmc<span style="color:#f92672">.</span>executebuiltin(<span style="color:#e6db74">&#34;PlayerControl(repeatoff)&#34;</span>)
+
+</code></pre></div><p>通过不需要重启coreELEC系统就可以执行，这样可以快速调试</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kodi-send --action<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;RunScript(&#34;special://profile/autoexec.py&#34;)&#39;</span>
+</code></pre></div><p>其播放计划脚本为autoexec.py 脚本 需要根据不同日期判断音量，不同时间段判断播放内容</p>
 <p>m3u 文件格式制作请参考文档：<a href="https://en.wikipedia.org/wiki/M3U">M3U - Wikipedia</a></p>
 <p>码字不易，求打赏
 <img src="payqr.jpg" alt="payqr"></p>

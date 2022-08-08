@@ -16,7 +16,7 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
-  <link rel="stylesheet" href="https://ltan.me/assets/red.css">
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
 
 
 
@@ -25,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/red.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
 
 
 
@@ -46,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/red.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -67,7 +67,7 @@
 
 
 </head>
-<body class="red">
+<body class="green">
 
 
 <div class="container center headings--one-size">
@@ -185,36 +185,36 @@
 <blockquote>
 <p>build 报错如下</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> Failed to execute goal on project artemis<span style="color:#f92672">-</span>rest<span style="color:#f92672">-</span>embedded<span style="color:#f92672">:</span> Could not resolve dependencies <span style="color:#66d9ef">for</span> project com<span style="color:#f92672">.</span><span style="color:#a6e22e">github</span><span style="color:#f92672">.</span><span style="color:#a6e22e">jdanekrh</span><span style="color:#f92672">:</span>artemis<span style="color:#f92672">-</span>rest<span style="color:#f92672">-</span>embedded<span style="color:#f92672">:</span>war<span style="color:#f92672">:</span>1<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">-</span>SNAPSHOT<span style="color:#f92672">:</span> Failure to find o
-</span></span><span style="display:flex;"><span>rg<span style="color:#f92672">.</span><span style="color:#a6e22e">apache</span><span style="color:#f92672">.</span><span style="color:#a6e22e">activemq</span><span style="color:#f92672">.</span><span style="color:#a6e22e">rest</span><span style="color:#f92672">:</span>artemis<span style="color:#f92672">-</span>rest<span style="color:#f92672">:</span>jar<span style="color:#f92672">:</span>2<span style="color:#f92672">.</span><span style="color:#a6e22e">18</span><span style="color:#f92672">.</span><span style="color:#a6e22e">0</span> in http<span style="color:#f92672">:</span><span style="color:#75715e">//maven.aliyun.com/nexus/content/repositories/central/ was cached in the local repository, resolution will not be reattempted unt
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>il the update interval of alimaven has elapsed or updates are forced <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">[</span>Help 1<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span>
-</span></span></code></pre></div><blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> Failed to execute goal on project artemis<span style="color:#f92672">-</span>rest<span style="color:#f92672">-</span>embedded<span style="color:#f92672">:</span> Could not resolve dependencies <span style="color:#66d9ef">for</span> project com<span style="color:#f92672">.</span><span style="color:#a6e22e">github</span><span style="color:#f92672">.</span><span style="color:#a6e22e">jdanekrh</span><span style="color:#f92672">:</span>artemis<span style="color:#f92672">-</span>rest<span style="color:#f92672">-</span>embedded<span style="color:#f92672">:</span>war<span style="color:#f92672">:</span>1<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">-</span>SNAPSHOT<span style="color:#f92672">:</span> Failure to find o
+rg<span style="color:#f92672">.</span><span style="color:#a6e22e">apache</span><span style="color:#f92672">.</span><span style="color:#a6e22e">activemq</span><span style="color:#f92672">.</span><span style="color:#a6e22e">rest</span><span style="color:#f92672">:</span>artemis<span style="color:#f92672">-</span>rest<span style="color:#f92672">:</span>jar<span style="color:#f92672">:</span>2<span style="color:#f92672">.</span><span style="color:#a6e22e">18</span><span style="color:#f92672">.</span><span style="color:#a6e22e">0</span> in http<span style="color:#f92672">:</span><span style="color:#75715e">//maven.aliyun.com/nexus/content/repositories/central/ was cached in the local repository, resolution will not be reattempted unt
+</span><span style="color:#75715e"></span>il the update interval of alimaven has elapsed or updates are forced <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">[</span>Help 1<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span>
+</code></pre></div><blockquote>
 <p>解决方法，根据上述报错，原因为找不到<code>artemis-rest:jar:2.18.0</code>  其 版本为 2.18.0 但是pom.xml 里面写的RELEASE, why?</p>
 <p>这里我就把改成对应版本，版本从maven 中央仓库得到最新版本</p>
 </blockquote>
 <blockquote>
 <p>再执行以下命令</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn install clean -U
-</span></span></code></pre></div><blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn install clean -U
+</code></pre></div><blockquote>
 <p>然后再执行以下命令，就是打包了</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn package
-</span></span></code></pre></div><p><img src="image-20210831195034813.png" alt="image-20210831195034813"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn package
+</code></pre></div><p><img src="image-20210831195034813.png" alt="image-20210831195034813"></p>
 <blockquote>
 <p>将得到的war包放到web目录下,记得一定要重命名 <code>activemq-rest.war</code></p>
 </blockquote>
 <p><img src="image-20210831195919395.png" alt="image-20210831195919395"></p>
 <p>还有最关键一步如下，就是在etc目录下的bootstrap.xml 文件位置，添加 你需要启动的war包</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>   <span style="color:#75715e">&lt;!-- The web server is only bound to localhost by default --&gt;</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;web</span> <span style="color:#a6e22e">bind=</span><span style="color:#e6db74">&#34;http://localhost:8161&#34;</span> <span style="color:#a6e22e">path=</span><span style="color:#e6db74">&#34;web&#34;</span><span style="color:#f92672">&gt;</span>
-</span></span><span style="display:flex;"><span>       <span style="color:#f92672">&lt;app</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;activemq-branding&#34;</span> <span style="color:#a6e22e">war=</span><span style="color:#e6db74">&#34;activemq-branding.war&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>       <span style="color:#f92672">&lt;app</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;artemis-plugin&#34;</span> <span style="color:#a6e22e">war=</span><span style="color:#e6db74">&#34;artemis-plugin.war&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>       <span style="color:#f92672">&lt;app</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;console&#34;</span> <span style="color:#a6e22e">war=</span><span style="color:#e6db74">&#34;console.war&#34;</span><span style="color:#f92672">/&gt;</span>
-</span></span><span style="display:flex;"><span>	   <span style="color:#f92672">&lt;app</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;console&#34;</span> <span style="color:#a6e22e">war=</span><span style="color:#e6db74">&#34;activemq-rest.war&#34;</span><span style="color:#f92672">/&gt;</span><span style="color:#75715e">&lt;!--添加这一行即可--&gt;</span>
-</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&lt;/web&gt;</span>
-</span></span></code></pre></div><blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">   <span style="color:#75715e">&lt;!-- The web server is only bound to localhost by default --&gt;</span>
+   <span style="color:#f92672">&lt;web</span> <span style="color:#a6e22e">bind=</span><span style="color:#e6db74">&#34;http://localhost:8161&#34;</span> <span style="color:#a6e22e">path=</span><span style="color:#e6db74">&#34;web&#34;</span><span style="color:#f92672">&gt;</span>
+       <span style="color:#f92672">&lt;app</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;activemq-branding&#34;</span> <span style="color:#a6e22e">war=</span><span style="color:#e6db74">&#34;activemq-branding.war&#34;</span><span style="color:#f92672">/&gt;</span>
+       <span style="color:#f92672">&lt;app</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;artemis-plugin&#34;</span> <span style="color:#a6e22e">war=</span><span style="color:#e6db74">&#34;artemis-plugin.war&#34;</span><span style="color:#f92672">/&gt;</span>
+       <span style="color:#f92672">&lt;app</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;console&#34;</span> <span style="color:#a6e22e">war=</span><span style="color:#e6db74">&#34;console.war&#34;</span><span style="color:#f92672">/&gt;</span>
+	   <span style="color:#f92672">&lt;app</span> <span style="color:#a6e22e">url=</span><span style="color:#e6db74">&#34;console&#34;</span> <span style="color:#a6e22e">war=</span><span style="color:#e6db74">&#34;activemq-rest.war&#34;</span><span style="color:#f92672">/&gt;</span><span style="color:#75715e">&lt;!--添加这一行即可--&gt;</span>
+   <span style="color:#f92672">&lt;/web&gt;</span>
+</code></pre></div><blockquote>
 <p>重启activemq artemis</p>
 </blockquote>
 

@@ -51,14 +51,14 @@
 6 用命令行工具登录libreELEC系统并进入到&lt;code&gt;/storage/.kodi/userdata/&lt;/code&gt; 创建&lt;code&gt;project&lt;/code&gt;，移动&lt;code&gt;script.hello.world&lt;/code&gt;插件目录到&lt;code&gt;/storage/.kodi/userdata/&lt;/code&gt;共享目录下
 并做好script.hello.world软链接，这一步需要把插件目录移动共享目录让windows10可见能访问，原来的libreELEC插件目录做好软链接&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      cd /storage/.kodi/userdata/   
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      mkdir project 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      mv /storage/.kodi/addons/script.hello.world  /storage/.kodi/userdata/project   
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      ln -sf /storage/.kodi/addons/script.hello.world  /storage/.kodi/userdata/project/script.hello.world
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;      cd /storage/.kodi/userdata/   
+       
+      mkdir project 
+        
+      mv /storage/.kodi/addons/script.hello.world  /storage/.kodi/userdata/project   
+      
+      ln -sf /storage/.kodi/addons/script.hello.world  /storage/.kodi/userdata/project/script.hello.world
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;7 上一步成功后，应该可以用pycharm 打开&lt;code&gt;script.hello.world&lt;/code&gt; 项目了&lt;br&gt;
 windows 10 打开可以看到如下结果&lt;br&gt;
 &lt;img src=&#34;script.hello.world-project-dir.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
@@ -77,7 +77,7 @@ addon.py为主要执行文件，插件入口文件，&lt;br&gt;
 tail -f  /storage/.kodi/temp/kodi.log &lt;br&gt;
 &lt;img src=&#34;tail--f-log.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
 xbmc打开窗口，并显示音乐播放列表&lt;br&gt;
-xbmc.executebuiltin(&amp;ldquo;ActivateWindow(Music,special:/storage/ad/bj.m3u)&amp;rdquo;)&lt;br&gt;
+xbmc.executebuiltin(&amp;ldquo;ActivateWindow(Music,special:/storage/ad/bj.m3u)&amp;quot;)&lt;br&gt;
 xbmc打印日志&lt;br&gt;
 xbmc.log(&amp;ldquo;message&amp;rdquo;,level=xbmc.LOGNOTICE)&lt;br&gt;
 参考文档官网&lt;br&gt;

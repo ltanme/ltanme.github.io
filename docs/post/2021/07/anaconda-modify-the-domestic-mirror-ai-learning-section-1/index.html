@@ -16,7 +16,7 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
-  <link rel="stylesheet" href="https://ltan.me/assets/red.css">
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
 
 
 
@@ -25,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/red.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
 
 
 
@@ -46,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/red.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -67,7 +67,7 @@
 
 
 </head>
-<body class="red">
+<body class="green">
 
 
 <div class="container center headings--one-size">
@@ -176,61 +176,61 @@
 <h2 id="1首先找到conda安装目录">1、首先找到conda安装目录<a href="#1首先找到conda安装目录" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>这里我安装在<code>D:\anaconda3</code>  然后找到<code>condabin</code>目录</p>
 <p>在地址输入 <code>cmd</code> 命令并回车执行，在弹窗的cmd 窗口输入以下两条命令</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-</span></span><span style="display:flex;"><span>conda config --set show_channel_urls yes
-</span></span></code></pre></div><blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --set show_channel_urls yes
+</code></pre></div><blockquote>
 <p>此时，目录 C:\Users&lt;你的用户名&gt; 下就会生成配置文件.condarc，内容如下：</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin&gt;type .condarc
-</span></span><span style="display:flex;"><span>channels:
-</span></span><span style="display:flex;"><span>  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-</span></span><span style="display:flex;"><span>  - defaults
-</span></span><span style="display:flex;"><span>show_channel_urls: true
-</span></span></code></pre></div><h2 id="2修改配置文件">2、修改配置文件<a href="#2修改配置文件" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin&gt;type .condarc
+channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - defaults
+show_channel_urls: true
+</code></pre></div><h2 id="2修改配置文件">2、修改配置文件<a href="#2修改配置文件" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <blockquote>
 <p>删除上述配置文件 .condarc 中的第三行，然后保存，最终版本文件如下：</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>channels:
-</span></span><span style="display:flex;"><span>  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-</span></span><span style="display:flex;"><span>show_channel_urls: true
-</span></span></code></pre></div><h2 id="3查看是生否生效">3、查看是生否生效<a href="#3查看是生否生效" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+show_channel_urls: true
+</code></pre></div><h2 id="3查看是生否生效">3、查看是生否生效<a href="#3查看是生否生效" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <blockquote>
 <p>通过命令 conda info 查看当前配置信息，内容如下，即修改成功，关注 channel URLs 字段内容</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>D:<span style="color:#ae81ff">\a</span>naconda3<span style="color:#ae81ff">\c</span>ondabin&gt;conda info
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>     active environment : None
-</span></span><span style="display:flex;"><span>       user config file : C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\.</span>condarc
-</span></span><span style="display:flex;"><span> populated config files : C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\.</span>condarc
-</span></span><span style="display:flex;"><span>          conda version : 4.10.3
-</span></span><span style="display:flex;"><span>    conda-build version : 3.21.4
-</span></span><span style="display:flex;"><span>         python version : 3.8.8.final.0
-</span></span><span style="display:flex;"><span>       virtual packages : __cuda<span style="color:#f92672">=</span>11.0<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>                          __win<span style="color:#f92672">=</span>0<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>                          __archspec<span style="color:#f92672">=</span>1<span style="color:#f92672">=</span>x86_64
-</span></span><span style="display:flex;"><span>       base environment : D:<span style="color:#ae81ff">\a</span>naconda3  <span style="color:#f92672">(</span>writable<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>      conda av data dir : D:<span style="color:#ae81ff">\a</span>naconda3<span style="color:#ae81ff">\e</span>tc<span style="color:#ae81ff">\c</span>onda
-</span></span><span style="display:flex;"><span>  conda av metadata url : None
-</span></span><span style="display:flex;"><span>           channel URLs : https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/win-64
-</span></span><span style="display:flex;"><span>                          https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/noarch
-</span></span><span style="display:flex;"><span>                          https://repo.anaconda.com/pkgs/main/win-64
-</span></span><span style="display:flex;"><span>                          https://repo.anaconda.com/pkgs/main/noarch
-</span></span><span style="display:flex;"><span>                          https://repo.anaconda.com/pkgs/r/win-64
-</span></span><span style="display:flex;"><span>                          https://repo.anaconda.com/pkgs/r/noarch
-</span></span><span style="display:flex;"><span>                          https://repo.anaconda.com/pkgs/msys2/win-64
-</span></span><span style="display:flex;"><span>                          https://repo.anaconda.com/pkgs/msys2/noarch
-</span></span><span style="display:flex;"><span>          package cache : D:<span style="color:#ae81ff">\a</span>naconda3<span style="color:#ae81ff">\p</span>kgs
-</span></span><span style="display:flex;"><span>                          C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\.</span>conda<span style="color:#ae81ff">\p</span>kgs
-</span></span><span style="display:flex;"><span>                          C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\A</span>ppData<span style="color:#ae81ff">\L</span>ocal<span style="color:#ae81ff">\c</span>onda<span style="color:#ae81ff">\c</span>onda<span style="color:#ae81ff">\p</span>kgs
-</span></span><span style="display:flex;"><span>       envs directories : D:<span style="color:#ae81ff">\a</span>naconda3<span style="color:#ae81ff">\e</span>nvs
-</span></span><span style="display:flex;"><span>                          C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\.</span>conda<span style="color:#ae81ff">\e</span>nvs
-</span></span><span style="display:flex;"><span>                          C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\A</span>ppData<span style="color:#ae81ff">\L</span>ocal<span style="color:#ae81ff">\c</span>onda<span style="color:#ae81ff">\c</span>onda<span style="color:#ae81ff">\e</span>nvs
-</span></span><span style="display:flex;"><span>               platform : win-64
-</span></span><span style="display:flex;"><span>             user-agent : conda/4.10.3 requests/2.25.1 CPython/3.8.8 Windows/10 Windows/10.0.19041
-</span></span><span style="display:flex;"><span>          administrator : True
-</span></span><span style="display:flex;"><span>             netrc file : None
-</span></span><span style="display:flex;"><span>           offline mode : False
-</span></span></code></pre></div><p>很明显我上述加的 清华镜像源 己成功了，<code>win-64</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">D:<span style="color:#ae81ff">\a</span>naconda3<span style="color:#ae81ff">\c</span>ondabin&gt;conda info
+
+     active environment : None
+       user config file : C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\.</span>condarc
+ populated config files : C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\.</span>condarc
+          conda version : 4.10.3
+    conda-build version : 3.21.4
+         python version : 3.8.8.final.0
+       virtual packages : __cuda<span style="color:#f92672">=</span>11.0<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+                          __win<span style="color:#f92672">=</span>0<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+                          __archspec<span style="color:#f92672">=</span>1<span style="color:#f92672">=</span>x86_64
+       base environment : D:<span style="color:#ae81ff">\a</span>naconda3  <span style="color:#f92672">(</span>writable<span style="color:#f92672">)</span>
+      conda av data dir : D:<span style="color:#ae81ff">\a</span>naconda3<span style="color:#ae81ff">\e</span>tc<span style="color:#ae81ff">\c</span>onda
+  conda av metadata url : None
+           channel URLs : https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/win-64
+                          https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/noarch
+                          https://repo.anaconda.com/pkgs/main/win-64
+                          https://repo.anaconda.com/pkgs/main/noarch
+                          https://repo.anaconda.com/pkgs/r/win-64
+                          https://repo.anaconda.com/pkgs/r/noarch
+                          https://repo.anaconda.com/pkgs/msys2/win-64
+                          https://repo.anaconda.com/pkgs/msys2/noarch
+          package cache : D:<span style="color:#ae81ff">\a</span>naconda3<span style="color:#ae81ff">\p</span>kgs
+                          C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\.</span>conda<span style="color:#ae81ff">\p</span>kgs
+                          C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\A</span>ppData<span style="color:#ae81ff">\L</span>ocal<span style="color:#ae81ff">\c</span>onda<span style="color:#ae81ff">\c</span>onda<span style="color:#ae81ff">\p</span>kgs
+       envs directories : D:<span style="color:#ae81ff">\a</span>naconda3<span style="color:#ae81ff">\e</span>nvs
+                          C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\.</span>conda<span style="color:#ae81ff">\e</span>nvs
+                          C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\A</span>ppData<span style="color:#ae81ff">\L</span>ocal<span style="color:#ae81ff">\c</span>onda<span style="color:#ae81ff">\c</span>onda<span style="color:#ae81ff">\e</span>nvs
+               platform : win-64
+             user-agent : conda/4.10.3 requests/2.25.1 CPython/3.8.8 Windows/10 Windows/10.0.19041
+          administrator : True
+             netrc file : None
+           offline mode : False
+</code></pre></div><p>很明显我上述加的 清华镜像源 己成功了，<code>win-64</code></p>
 
       </div></div>
 
