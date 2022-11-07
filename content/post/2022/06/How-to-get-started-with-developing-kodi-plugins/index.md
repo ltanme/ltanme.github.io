@@ -72,6 +72,4 @@ tags: ["kodi","python2.7","libreELEC","coreELEC"]
 > 参考文档官网  
         https://kodi.wiki/view/HOW-TO:HelloWorld_addon  
         https://kodi.wiki/view/Add-on_development  
-        
-码字不易，求打赏
-![payqr](payqr.jpg)        
+         
