@@ -14,10 +14,10 @@ buildDrafts = false
   paginate = 5
   # dir name of your main content (default is `content/posts`).
   # the list of set content will show up on your index page (baseurl).
-  contentTypeName = "pink"
+  contentTypeName = "orange"
 
   # ["orange", "blue", "red", "green", "pink"]
-  themeColor = "pink"
+  themeColor = "orange"
 
   # if you set this to 0, only submenu trigger will be visible
   showMenuItems = 5
