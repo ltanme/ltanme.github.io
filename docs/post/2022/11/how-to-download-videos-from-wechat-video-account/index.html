@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="how to downlaod videos from wechat 堂姐发来微信消息，需要帮她把过去上传到微信的视频号某视频下载下来急用 开始以为可以用浏览器打开F12下载抓包，原来还是too young，不得不又从网上捣鼓一下 偶然发现”Charles“这个抓" />
+<meta name="description" content="how to downlaod videos from wechat (如何下载微信里的视频)堂姐发来微信消息，需要帮她把过去上传到微信的视频号某视频下载下来急用 开始以为可以用浏览器打开F12下载抓包，原来还是too young，不得不又从网上捣鼓一下 偶然发现" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2022/11/how-to-download-videos-from-wechat-video-account/" />
@@ -39,7 +39,7 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="How to Download Videos From WeChat">
-<meta property="og:description" content="how to downlaod videos from wechat 堂姐发来微信消息，需要帮她把过去上传到微信的视频号某视频下载下来急用 开始以为可以用浏览器打开F12下载抓包，原来还是too young，不得不又从网上捣鼓一下 偶然发现”Charles“这个抓" />
+<meta property="og:description" content="how to downlaod videos from wechat (如何下载微信里的视频)堂姐发来微信消息，需要帮她把过去上传到微信的视频号某视频下载下来急用 开始以为可以用浏览器打开F12下载抓包，原来还是too young，不得不又从网上捣鼓一下 偶然发现" />
 <meta property="og:url" content="https://ltan.me/post/2022/11/how-to-download-videos-from-wechat-video-account/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -170,19 +170,20 @@
   <div class="post-content"><div>
         <h1 id="how-to-downlaod-videos-from-wechat">how to downlaod videos from wechat<a href="#how-to-downlaod-videos-from-wechat" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <blockquote>
-<p>堂姐发来微信消息，需要帮她把过去上传到微信的视频号某视频下载下来急用
-开始以为可以用浏览器打开F12下载抓包，原来还是too young，不得不又从网上捣鼓一下
-偶然发现”Charles“这个抓包工具，中文名“花瓶”，于是有了以下步骤，特记录一下step
+<p><code>(如何下载微信里的视频)</code>堂姐发来微信消息，需要帮她把过去上传到微信的视频号某视频下载下来急用
+开始以为可以用浏览器打开<code>F12</code>下载抓包，原来还是<code>too young</code>，不得不又从网上捣鼓一下
+偶然发现<code>Charles</code>这个抓包工具，中文名<code>花瓶</code>，于是有了以下步骤，特记录一下<code>step</code>
 普通的下载本来可以通过浏览器打开然后我们可以对其右键另存为的
-总的是来说，下载视频，无非分为两步，第一步，找真实下载链接，第二步用下载工具下载</p>
+总的是来说，下载视频，无非分为<code>两步</code>，<code>第一步</code>，找真实下载链接，<code>第二步</code>用下载工具下载<br>
+不过有个终极方法就是手机录屏可以搞定视频复制下载，但是效果极差不推荐</p>
 </blockquote>
 <blockquote>
-<p>第一步，通过 Charles 对微信抓包获取所有http/https请求链接地址
-安装charles最新版,charles默认代理端口为8888<br>
+<p>第一步，通过 <code>Charles</code> 对微信抓包获取所有<code>http/https</code>请求链接地址
+安装<code>charles</code>最新版,<code>charles</code>默认代理端口为<code>8888</code>
 <img src="charles-set.png" alt="charles">      <br>
-设置微信代理登录，这一步是告诉微信需要需要通过代理端口8888才能连接微信服务器<br>
+设置微信代理登录，这一步是告诉微信需要需要通过代理端口<code>8888</code>才能连接微信服务器<br>
 <img src="wx-set-proxxy.png" alt="charles">       <br>
-打开微信聊天,图片省略，打开微信视频号播放，观察charles变化，找到真实视频播放地址 <br>
+打开微信聊天,图片省略，打开微信视频号播放，观察<code>charles</code>变化，找到真实视频播放地址 <br>
 <img src="wxh_dl_video.png" alt="charles"><br>
 比较幸运的是微信视频号并没有加密，哈哈</p>
 </blockquote>
@@ -194,12 +195,12 @@
 <h1 id="视频解密下载">视频解密下载<a href="#视频解密下载" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <blockquote>
 <p>理论上只要是能支持微信传播的视频连接地址，都应该可以下载的，也就是说只要能在微信打开播放的视频都可以下载的
-除非载了不能解密导致无法播放等，视频加密有好几种，这里我只介绍一种aes是对称还是非对称加密算法
+除非载了不能解密导致无法播放等，视频加密有好几种，这里我只介绍一种<code>aes</code>是对称还是非对称加密算法
 首先视频被下载到浏览器端需要对其视频流文件解码后进行解析播放等几个步骤，通过aes非对稳加密，哪浏览器端解码需要从服务端获取key
 知道这个原理后，再来分析抓包链接，以一个付费视频为准，通过都是经过加密解密后进行播放的</p>
 </blockquote>
 <blockquote>
-<p>第一步，还是与上面一样，通过 Charles 对微信抓包获取所有http/https请求链接地址</p>
+<p>第一步，还是与上面一样，通过 <code>Charles</code> 对微信抓包获取所有<code>http/https</code>请求链接地址</p>
 </blockquote>
 <blockquote>
 <p>第二步，找出真实视频链接以及解码序列(token)文件请求，将链接地址导入到idm进行批量下载
@@ -208,7 +209,7 @@
 <img src="import_dl_list.png" alt="charles"></p>
 </blockquote>
 <blockquote>
-<p>第三步，准备合并前视频解码配置文件及文件合并解密key
+<p>第三步，准备合并前视频解码配置文件及文件合并解密<code>key</code>
 将以下文件
 <img src="ts-token-list.png" alt="charles">
 编辑成如下文件，需要和视频文件目录保持一致，否则无法解码
@@ -217,7 +218,7 @@
 </blockquote>
 <blockquote>
 <p>第四步， 合并视频文件
-执行命令如下,如果没有ffmpeg 需要安装</p>
+执行命令如下,如果没有<code>ffmpeg</code>需要安装,合并视频很关键</p>
 </blockquote>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">     ffmpeg -allowed_extensions ALL -i .v.f240.m3u8 -vcodec copy -acodec copy XXX.mp4
 </code></pre></div><p>执行命令运行结果如下显示</p>
@@ -315,7 +316,7 @@ video:38238kB audio:743kB subtitle:0kB other streams:0kB global headers:0kB muxi
 
 E:<span style="color:#ae81ff">\d</span>ata<span style="color:#ae81ff">\v</span>ideo&gt;
 
-</code></pre></div><p>上述运行命令后不报错，就表示将ts文件合并视频成功，到此下载视频解密成功</p>
+</code></pre></div><p>上述运行命令后不报错，就表示将<code>ts</code>文件合并视频成功，到此下载视频解密成功</p>
 
       </div></div>
 
