@@ -117,6 +117,3 @@ kodi-send --action='RunScript("special://profile/autoexec.py")'
  其播放计划脚本为autoexec.py 脚本 需要根据不同日期判断音量，不同时间段判断播放内容
 
  m3u 文件格式制作请参考文档：[M3U - Wikipedia](https://en.wikipedia.org/wiki/M3U)
-
-码字不易，求打赏
-![payqr](payqr.jpg)

@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ltan.me/tags/charles/</loc>
+    <lastmod>2022-11-07T11:04:57+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/decryption/</loc>
+    <lastmod>2022-11-07T11:04:57+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/ffmpeg/</loc>
+    <lastmod>2022-11-07T11:04:57+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2022/11/how-to-download-videos-from-wechat-video-account/</loc>
+    <lastmod>2022-11-07T11:04:57+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/</loc>
+    <lastmod>2022-11-07T11:04:57+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2022-11-07T11:04:57+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2022-11-07T11:04:57+08:00</lastmod>
+  </url><url>
     <loc>https://ltan.me/tags/coreelec/</loc>
     <lastmod>2022-06-16T20:56:27+08:00</lastmod>
   </url><url>
@@ -14,16 +35,7 @@
     <loc>https://ltan.me/tags/libreelec/</loc>
     <lastmod>2022-06-16T20:56:27+08:00</lastmod>
   </url><url>
-    <loc>https://ltan.me/</loc>
-    <lastmod>2022-06-16T20:56:27+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/post/</loc>
-    <lastmod>2022-06-16T20:56:27+08:00</lastmod>
-  </url><url>
     <loc>https://ltan.me/tags/python2.7/</loc>
-    <lastmod>2022-06-16T20:56:27+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2022-06-16T20:56:27+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/</loc>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>decryption on LTAN.ME</title>
+    <link>https://ltan.me/tags/decryption/</link>
+    <description>Recent content in decryption on LTAN.ME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 07 Nov 2022 11:04:57 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/decryption/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Download Videos From WeChat</title>
+      <link>https://ltan.me/post/2022/11/how-to-download-videos-from-wechat-video-account/</link>
+      <pubDate>Mon, 07 Nov 2022 11:04:57 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2022/11/how-to-download-videos-from-wechat-video-account/</guid>
+      <description>how to downlaod videos from wechat 堂姐发来微信消息，需要帮她把过去上传到微信的视频号某视频下载下来急用 开始以为可以用浏览器打开F12下载抓包，原来还是too young，不得不又从网上捣鼓一下 偶然发现”Charles“这个抓</description>
+      <content>&lt;h1 id=&#34;how-to-downlaod-videos-from-wechat&#34;&gt;how to downlaod videos from wechat&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;堂姐发来微信消息，需要帮她把过去上传到微信的视频号某视频下载下来急用
+开始以为可以用浏览器打开F12下载抓包，原来还是too young，不得不又从网上捣鼓一下
+偶然发现”Charles“这个抓包工具，中文名“花瓶”，于是有了以下步骤，特记录一下step
+普通的下载本来可以通过浏览器打开然后我们可以对其右键另存为的
+总的是来说，下载视频，无非分为两步，第一步，找真实下载链接，第二步用下载工具下载&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;第一步，通过 Charles 对微信抓包获取所有http/https请求链接地址
+安装charles最新版,charles默认代理端口为8888&lt;br&gt;
+&lt;img src=&#34;charles-set.png&#34; alt=&#34;charles&#34;&gt;      &lt;br&gt;
+设置微信代理登录，这一步是告诉微信需要需要通过代理端口8888才能连接微信服务器&lt;br&gt;
+&lt;img src=&#34;wx-set-proxxy.png&#34; alt=&#34;charles&#34;&gt;       &lt;br&gt;
+打开微信聊天,图片省略，打开微信视频号播放，观察charles变化，找到真实视频播放地址 &lt;br&gt;
+&lt;img src=&#34;wxh_dl_video.png&#34; alt=&#34;charles&#34;&gt;&lt;br&gt;
+比较幸运的是微信视频号并没有加密，哈哈&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;第二步，通过浏览器打开播放视频并右键另存为&lt;br&gt;
+直接找到复现连接地址用浏览器打开播放，然后在浏览端右键另存为视频
+下载视频己完成，如果碰到加密视频请往下看&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;视频解密下载&#34;&gt;视频解密下载&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;理论上只要是能支持微信传播的视频连接地址，都应该可以下载的，也就是说只要能在微信打开播放的视频都可以下载的
+除非载了不能解密导致无法播放等，视频加密有好几种，这里我只介绍一种aes是对称还是非对称加密算法
+首先视频被下载到浏览器端需要对其视频流文件解码后进行解析播放等几个步骤，通过aes非对稳加密，哪浏览器端解码需要从服务端获取key
+知道这个原理后，再来分析抓包链接，以一个付费视频为准，通过都是经过加密解密后进行播放的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;第一步，还是与上面一样，通过 Charles 对微信抓包获取所有http/https请求链接地址&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;第二步，找出真实视频链接以及解码序列(token)文件请求，将链接地址导入到idm进行批量下载
+&lt;img src=&#34;dl.txt.png&#34; alt=&#34;charles&#34;&gt; &lt;br&gt;
+&lt;img src=&#34;find-dl-list.png&#34; alt=&#34;charles&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;import_dl_list.png&#34; alt=&#34;charles&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;第三步，准备合并前视频解码配置文件及文件合并解密key
+将以下文件
+&lt;img src=&#34;ts-token-list.png&#34; alt=&#34;charles&#34;&gt;
+编辑成如下文件，需要和视频文件目录保持一致，否则无法解码
+&lt;img src=&#34;megre_video.png&#34; alt=&#34;charles&#34;&gt;
+&lt;img src=&#34;video_file_rename.png&#34; alt=&#34;charles&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;第四步， 合并视频文件
+执行命令如下,如果没有ffmpeg 需要安装&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;     ffmpeg -allowed_extensions ALL -i .v.f240.m3u8 -vcodec copy -acodec copy XXX.mp4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行命令运行结果如下显示&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;      E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ata&lt;span style=&#34;color:#ae81ff&#34;&gt;\v&lt;/span&gt;ideo&amp;gt;
+E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ata&lt;span style=&#34;color:#ae81ff&#34;&gt;\v&lt;/span&gt;ideo&amp;gt;ffmpeg -allowed_extensions ALL -i .v.f240.m3u8 -vcodec copy -acodec copy XXX.mp4
+ffmpeg version n4.4-79-gde1132a891-20210806 Copyright &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;c&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 2000-2021 the FFmpeg developers
+  built with gcc 10-win32 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;GCC&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20210408&lt;/span&gt;
+  configuration: --prefix&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/ffbuild/prefix --pkg-config-flags&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;--static --pkg-config&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;pkg-config --cross-prefix&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;x86_64-w64-mingw32- --arch&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;x86_64 --target-os&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;mingw32 --enable-gpl --enable-version3 --disable-debug --disable-w32threads --enable-pthreads --enable-iconv --enable-libxml2 --enable-zlib --enable-libfreetype --enable-libfribidi --enable-gmp --enable-lzma --enable-fontconfig --enable-libvorbis --enable-opencl --enable-libvmaf --enable-vulkan --disable-libxcb --disable-xlib --enable-amf --enable-libaom --enable-avisynth --enable-libdav1d --enable-libdavs2 --disable-libfdk-aac --enable-ffnvcodec --enable-cuda-llvm --enable-libglslang --enable-libgme --enable-libass --enable-libbluray --enable-libmp3lame --enable-libopus --enable-libtheora --enable-libvpx --enable-libwebp --enable-lv2 --enable-libmfx --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-librav1e --enable-librubberband --enable-schannel --enable-sdl2 --enable-libsoxr --enable-libsrt --enable-libsvtav1 --enable-libtwolame --enable-libuavs3d --disable-libdrm --disable-vaapi --enable-libvidstab --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libzimg --extra-cflags&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;-DLIBTWOLAME_STATIC --extra-cxxflags&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; --extra-ldflags&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;-pthread --extra-ldexeflags&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; --extra-libs&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;-lgomp --extra-version&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;20210806&lt;/span&gt;
+  libavutil      56. 70.100 / 56. 70.100
+  libavcodec     58.134.100 / 58.134.100
+  libavformat    58. 76.100 / 58. 76.100
+  libavdevice    58. 13.100 / 58. 13.100
+  libavfilter     7.110.100 /  7.110.100
+  libswscale      5.  9.100 /  5.  9.100
+  libswresample   3.  9.100 /  3.  9.100
+  libpostproc    55.  9.100 / 55.  9.100
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000253d89e5e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Skip &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#EXT-X-VERSION:3&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000253d89e5e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;https://app.keepyoga.com/api/v1/auth/getkeyUrl?edk=CiCI5QNgqqiMSqVR5r%2BVFkWoIxj7JoWMXbHpfCbrwZkDehCO08TAChiaoOvUBCokNTcxYTU2Y2MtYzQ0OC00MmVlLTgwZGMtNDI4MTFjOGQ2ODE3&amp;amp;fileId=387702297598352502&amp;amp;keySource=VodBuildInKMS&amp;amp;token=heBU6MidgGHZ7-WUMP25AJrUE_68dPv40moYZY3XWSw04ubWJ4U-7JcubiYzkqZ853Djsk8Co6huXYBLdUoIRm32maoqpFSMFPQnP19IzYs%3D&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;https @ 00000253d8a01940&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Protocol &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;https&amp;#39;&lt;/span&gt; not on whitelist &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;file,crypto,data&amp;#39;&lt;/span&gt;!
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000253d89e5e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Unable to open key file https://app.keepyoga.com/api/v1/auth/getkeyUrl?edk&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;CiCI5QNgqqiMSqVR5r%2BVFkWoIxj7JoWMXbHpfCbrwZkDehCO08TAChiaoOvUBCokNTcxYTU2Y2MtYzQ0OC00MmVlLTgwZGMtNDI4MTFjOGQ2ODE3&amp;amp;fileId&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;387702297598352502&amp;amp;keySource&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;VodBuildInKMS&amp;amp;token&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;heBU6MidgGHZ7-WUMP25AJrUE_68dPv40moYZY3XWSw04ubWJ4U-7JcubiYzkqZ853Djsk8Co6huXYBLdUoIRm32maoqpFSMFPQnP19IzYs%3D
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000253d89e5e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000253d89e5e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Error when loading first segment &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;v.f240.ts&amp;#39;&lt;/span&gt;
+.v.f240.m3u8: Invalid data found when processing input
+
+E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ata&lt;span style=&#34;color:#ae81ff&#34;&gt;\v&lt;/span&gt;ideo&amp;gt;ffmpeg -allowed_extensions ALL -i .v.f240.m3u8 -vcodec copy -acodec copy XXX.mp4
+ffmpeg version n4.4-79-gde1132a891-20210806 Copyright &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;c&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 2000-2021 the FFmpeg developers
+  built with gcc 10-win32 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;GCC&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20210408&lt;/span&gt;
+  configuration: --prefix&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/ffbuild/prefix --pkg-config-flags&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;--static --pkg-config&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;pkg-config --cross-prefix&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;x86_64-w64-mingw32- --arch&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;x86_64 --target-os&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;mingw32 --enable-gpl --enable-version3 --disable-debug --disable-w32threads --enable-pthreads --enable-iconv --enable-libxml2 --enable-zlib --enable-libfreetype --enable-libfribidi --enable-gmp --enable-lzma --enable-fontconfig --enable-libvorbis --enable-opencl --enable-libvmaf --enable-vulkan --disable-libxcb --disable-xlib --enable-amf --enable-libaom --enable-avisynth --enable-libdav1d --enable-libdavs2 --disable-libfdk-aac --enable-ffnvcodec --enable-cuda-llvm --enable-libglslang --enable-libgme --enable-libass --enable-libbluray --enable-libmp3lame --enable-libopus --enable-libtheora --enable-libvpx --enable-libwebp --enable-lv2 --enable-libmfx --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-librav1e --enable-librubberband --enable-schannel --enable-sdl2 --enable-libsoxr --enable-libsrt --enable-libsvtav1 --enable-libtwolame --enable-libuavs3d --disable-libdrm --disable-vaapi --enable-libvidstab --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libzimg --extra-cflags&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;-DLIBTWOLAME_STATIC --extra-cxxflags&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; --extra-ldflags&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;-pthread --extra-ldexeflags&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; --extra-libs&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;-lgomp --extra-version&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;20210806&lt;/span&gt;
+  libavutil      56. 70.100 / 56. 70.100
+  libavcodec     58.134.100 / 58.134.100
+  libavformat    58. 76.100 / 58. 76.100
+  libavdevice    58. 13.100 / 58. 13.100
+  libavfilter     7.110.100 /  7.110.100
+  libswscale      5.  9.100 /  5.  9.100
+  libswresample   3.  9.100 /  3.  9.100
+  libpostproc    55.  9.100 / 55.  9.100
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Skip &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;#EXT-X-VERSION:3&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;key&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+Input &lt;span style=&#34;color:#75715e&#34;&gt;#0, hls, from &amp;#39;.v.f240.m3u8&amp;#39;:&lt;/span&gt;
+  Duration: 00:02:06.08, start: 1.436889, bitrate: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; kb/s
+  Program &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+    Metadata:
+      variant_bitrate : &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  Stream &lt;span style=&#34;color:#75715e&#34;&gt;#0:0: Video: h264 (High) ([27][0][0][0] / 0x001B), yuv420p(tv), 1920x1080 [SAR 1:1 DAR 16:9], 24 fps, 24 tbr, 90k tbn, 48 tbc&lt;/span&gt;
+    Metadata:
+      variant_bitrate : &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  Stream &lt;span style=&#34;color:#75715e&#34;&gt;#0:1: Audio: aac (LC) ([15][0][0][0] / 0x000F), 44100 Hz, stereo, fltp&lt;/span&gt;
+    Metadata:
+      variant_bitrate : &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+Output &lt;span style=&#34;color:#75715e&#34;&gt;#0, mp4, to &amp;#39;XXX.mp4&amp;#39;:&lt;/span&gt;
+  Metadata:
+    encoder         : Lavf58.76.100
+  Stream &lt;span style=&#34;color:#75715e&#34;&gt;#0:0: Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 24 fps, 24 tbr, 90k tbn, 90k tbc&lt;/span&gt;
+    Metadata:
+      variant_bitrate : &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+  Stream &lt;span style=&#34;color:#75715e&#34;&gt;#0:1: Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp&lt;/span&gt;
+    Metadata:
+      variant_bitrate : &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+Stream mapping:
+  Stream &lt;span style=&#34;color:#75715e&#34;&gt;#0:0 -&amp;gt; #0:0 (copy)&lt;/span&gt;
+  Stream &lt;span style=&#34;color:#75715e&#34;&gt;#0:1 -&amp;gt; #0:1 (copy)&lt;/span&gt;
+Press &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;q&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; to stop, &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;?&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; help
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240_2.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; readingte&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;N/A speed&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;   0x
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240_3.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mpegts @ 00000186a0889180&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Packet corrupt &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;stream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0, dts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 1382250&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mp4 @ 00000186a08a0e80&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Non-monotonous DTS in output stream 0:1; previous: 632968, current: 631736; changing to 632969. This may result in incorrect timestamps in the output file.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mp4 @ 00000186a08a0e80&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Non-monotonous DTS in output stream 0:1; previous: 632969, current: 632760; changing to 632970. This may result in incorrect timestamps in the output file.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240_4.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mpegts @ 00000186a0889180&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Packet corrupt &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;stream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0, dts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 3399750&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mp4 @ 00000186a08a0e80&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Non-monotonous DTS in output stream 0:1; previous: 1093167, current: 1092135; changing to 1093168. This may result in incorrect timestamps in the output file.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mp4 @ 00000186a08a0e80&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Non-monotonous DTS in output stream 0:1; previous: 1093168, current: 1093159; changing to 1093169. This may result in incorrect timestamps in the output file.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240_5.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mpegts @ 00000186a0889180&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Packet corrupt &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;stream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0, dts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 7719750&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240_6.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240_7.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mp4 @ 00000186a08a0e80&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Non-monotonous DTS in output stream 0:1; previous: 2290257, current: 2289161; changing to 2290258. This may result in incorrect timestamps in the output file.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mp4 @ 00000186a08a0e80&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Non-monotonous DTS in output stream 0:1; previous: 2290258, current: 2290185; changing to 2290259. This may result in incorrect timestamps in the output file.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240_8.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240_9.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mpegts @ 00000186a0889180&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Packet corrupt &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;stream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0, dts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 8657250&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240_10.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mpegts @ 00000186a0889180&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Packet corrupt &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;stream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0, dts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 11469750&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240_11.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mp4 @ 00000186a08a0e80&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Non-monotonous DTS in output stream 0:1; previous: 4128509, current: 4126661; changing to 4128510. This may result in incorrect timestamps in the output file.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mp4 @ 00000186a08a0e80&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Non-monotonous DTS in output stream 0:1; previous: 4128510, current: 4127685; changing to 4128511. This may result in incorrect timestamps in the output file.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240_12.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mpegts @ 00000186a0889180&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Packet corrupt &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;stream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0, dts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 5019750&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240_13.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mpegts @ 00000186a0889180&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Packet corrupt &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;stream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0, dts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 10532250&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hls @ 00000186a0885e00&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Opening &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto:v.f240_14.ts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; reading
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mpegts @ 00000186a0889180&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Packet corrupt &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;stream &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0, dts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 2462250&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.
+frame&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3026&lt;/span&gt; fps&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0.0 q&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;-1.0 Lsize&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;   39051kB time&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;00:02:06.04 bitrate&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;2538.1kbits/s speed&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 320x
+video:38238kB audio:743kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.178609%
+
+E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ata&lt;span style=&#34;color:#ae81ff&#34;&gt;\v&lt;/span&gt;ideo&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;上述运行命令后不报错，就表示将ts文件合并视频成功，到此下载视频解密成功&lt;/p&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>
