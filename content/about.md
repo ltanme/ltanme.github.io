@@ -12,7 +12,7 @@ Java, php, python, web前端
 
 NAS 路由器openwrt使用经验分享 
 
-all-in-one家庭网络折腾记 
+all-in-one家庭网络折腾记，简称aio
 
 生活和工作在湾区的码农一枚，专注web前后端应用开发，技术擅长PHP/JAVA/LUA和Unix/Linux/Windows。做过大型门户网站，做过企业中台管理，做过企业DMP系统，规则引擎等大型项目。 
 
