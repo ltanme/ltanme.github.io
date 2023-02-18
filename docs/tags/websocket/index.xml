@@ -24,31 +24,31 @@
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 搭建环境&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;docker pull django
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker pull django
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 运行python 容器&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;docker run -itd --name py3 -v /i:/i -v /d:/d django /bin/bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -itd --name py3 -v /i:/i -v /d:/d django /bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 进入容器，检查容器环境是否正常&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-shel&#34; data-lang=&#34;shel&#34;&gt;docker exec -it  c5d2369adde2 /bin/bash
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-shel&#34; data-lang=&#34;shel&#34;&gt;docker exec -it  c5d2369adde2 /bin/bash
 
 docker exec -it 58e1c95fea73 /bin/sh
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;./image-20210511150600898.png&#34; alt=&#34;image-20210511150600898&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 安装websocket&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt; pip install websocket 
-
- pip install stomp.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; pip install websocket 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; pip install stomp.py
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 启动后端 java websocket 环境&lt;/p&gt;
 &lt;p&gt;进入java 容器，设置同一个网络环境，同一个网段&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-she&#34; data-lang=&#34;she&#34;&gt;    docker run --name s1 --network app-tier -d -v /i:/i -v /d:/d -p 8081:8080 ltjsj/super-dev-env:v1.1 
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-she&#34; data-lang=&#34;she&#34;&gt;    docker run --name s1 --network app-tier -d -v /i:/i -v /d:/d -p 8081:8080 ltjsj/super-dev-env:v1.1 
 
 ​      docker exec -it s1 /bin/bash
 
@@ -63,7 +63,7 @@ docker exec -it 58e1c95fea73 /bin/sh
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 编写python 脚本测试代码&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-pytho&#34; data-lang=&#34;pytho&#34;&gt;#!/usr/bin/env python
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-pytho&#34; data-lang=&#34;pytho&#34;&gt;#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time    : 2021/03/31 下午03:21
 # @Author  : ltan.me
@@ -72,19 +72,19 @@ from stomp_ws import Stomp
 import time
 
 def do_thing_a(msg):
-    print(&amp;quot;MESSAGE: &amp;quot; + msg)
+    print(&amp;#34;MESSAGE: &amp;#34; + msg)
 
-if __name__ == &amp;quot;__main__&amp;quot;:
+if __name__ == &amp;#34;__main__&amp;#34;:
 
     for i in range(0,10):
         #为了模拟设备id,激活id,采用id为作为通信参数，生成10个id分别请求websocket服务器域名
-        url = &amp;quot;test.xxxx.com/stompServer/websocket?id=%s&amp;amp;activeId=416&amp;amp;deviceId=3657dc0cfede992b97d2135fd0514c6c&amp;amp;userId=1&amp;amp;&amp;amp;connectType=0&amp;amp;token=9d3b7282d295eefe9e9b959f63134dee&amp;quot; % str(i)
+        url = &amp;#34;test.xxxx.com/stompServer/websocket?id=%s&amp;amp;activeId=416&amp;amp;deviceId=3657dc0cfede992b97d2135fd0514c6c&amp;amp;userId=1&amp;amp;&amp;amp;connectType=0&amp;amp;token=9d3b7282d295eefe9e9b959f63134dee&amp;#34; % str(i)
         print(url)
         stomp = Stomp(url, sockjs=True, wss=False)
         stomp.connect()
-        stomp.subscribe(&amp;quot;/user/1_416/command&amp;quot;, do_thing_a)
+        stomp.subscribe(&amp;#34;/user/1_416/command&amp;#34;, do_thing_a)
         time.sleep(2)
-        stomp.send(&amp;quot;/web2client_term&amp;quot;, &#39;{&amp;quot;userId&amp;quot;:1,&amp;quot;activeId&amp;quot;:416,&amp;quot;cmdType&amp;quot;:18,&amp;quot;content&amp;quot;:&amp;quot;python-hahah&amp;quot;}&#39;)
+        stomp.send(&amp;#34;/web2client_term&amp;#34;, &amp;#39;{&amp;#34;userId&amp;#34;:1,&amp;#34;activeId&amp;#34;:416,&amp;#34;cmdType&amp;#34;:18,&amp;#34;content&amp;#34;:&amp;#34;python-hahah&amp;#34;}&amp;#39;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 最终运行效果&lt;/p&gt;
