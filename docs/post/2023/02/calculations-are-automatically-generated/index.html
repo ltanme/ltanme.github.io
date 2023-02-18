@@ -166,7 +166,7 @@
   <div class="post-content"><div>
         <h1 id="自动生成小学生算式题代码">自动生成小学生算式题代码<a href="#自动生成小学生算式题代码" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <blockquote>
-<p>自动生成100以内的2个操作数的加减运算算式，要求运算结果也在100以内
+<p>自动生成100以内的2个操作数的加减运算算式，要求运算结果也在100以内 
 规避结果为负数，题目数量可定制，生成到excel，可以直接打印，样式如下图
 感谢xkm提供代码</p>
 </blockquote>
@@ -174,81 +174,80 @@
 <blockquote>
 <p>代码如下，运行环境python3.x</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#75715e">#author:xkm</span>
-<span style="color:#75715e">#createdate:2023/2/3</span>
-<span style="color:#75715e">#encoding=utf-8</span>
-
-<span style="color:#f92672">import</span> random
-<span style="color:#f92672">import</span> datetime
-<span style="color:#f92672">import</span> math
-<span style="color:#f92672">import</span> xlwt
-style <span style="color:#f92672">=</span> xlwt<span style="color:#f92672">.</span>XFStyle()<span style="color:#75715e">#格式信息</span>
-font <span style="color:#f92672">=</span> xlwt<span style="color:#f92672">.</span>Font()<span style="color:#75715e">#字体基本设置</span>
-font<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;宋体&#39;</span>
-font<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;black&#39;</span>
-font<span style="color:#f92672">.</span>height<span style="color:#f92672">=</span> <span style="color:#ae81ff">400</span> <span style="color:#75715e">#字体大小，220就是11号字体，大概就是11*20得来的吧</span>
-style<span style="color:#f92672">.</span>font <span style="color:#f92672">=</span> font
-wb <span style="color:#f92672">=</span> xlwt<span style="color:#f92672">.</span>Workbook()
-ws <span style="color:#f92672">=</span> wb<span style="color:#f92672">.</span>add_sheet(<span style="color:#e6db74">&#34;习题集&#34;</span>,cell_overwrite_ok<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
-
-data <span style="color:#f92672">=</span> []
-cell <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>  <span style="color:#75715e">#生成excel 列数</span>
-total <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span> <span style="color:#75715e">#生成题数</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">subbb</span>():
-    a<span style="color:#f92672">=</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">9</span>)
-    b<span style="color:#f92672">=</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>,a <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
-    ab<span style="color:#f92672">=</span>a<span style="color:#f92672">*</span><span style="color:#ae81ff">10</span><span style="color:#f92672">+</span>b
-    a1<span style="color:#f92672">=</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>,a)
-    b1 <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, a1)
-    ab1<span style="color:#f92672">=</span>a1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> b1
-    <span style="color:#66d9ef">if</span> ab<span style="color:#f92672">-</span>ab1<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>:
-        res<span style="color:#f92672">=</span>str(ab)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;-&#39;</span><span style="color:#f92672">+</span>str(ab1)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;=(    )&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
-        res<span style="color:#f92672">=</span>res<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;   &#39;</span><span style="color:#f92672">+</span>str(a)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">+</span>str(b)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
-        res<span style="color:#f92672">=</span>res<span style="color:#f92672">+</span><span style="color:#e6db74">&#39; - &#39;</span><span style="color:#f92672">+</span>str(a1)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">+</span>str(b1)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
-        res<span style="color:#f92672">=</span>res<span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;------------&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
-        data<span style="color:#f92672">.</span>append(res)
-        print(res)
-
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">addbb</span>():
-    a <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">8</span>)
-    b <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, a <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
-    ab <span style="color:#f92672">=</span> a <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> b
-    a1 <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">9</span> <span style="color:#f92672">-</span> a)
-    b1 <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span> <span style="color:#f92672">-</span> b)
-    ab1 <span style="color:#f92672">=</span> a1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> b1
-    res <span style="color:#f92672">=</span> str(ab) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;+&#39;</span> <span style="color:#f92672">+</span> str(ab1) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;=(    )&#39;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
-    res <span style="color:#f92672">=</span> res <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;   &#39;</span> <span style="color:#f92672">+</span> str(a) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">+</span> str(b) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
-    res <span style="color:#f92672">=</span> res <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; + &#39;</span> <span style="color:#f92672">+</span> str(a1) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">+</span> str(b1) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
-    res <span style="color:#f92672">=</span> res <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;------------&#39;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
-    data<span style="color:#f92672">.</span>append(res)
-    print(res)
-
-
-<span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">500</span>):
-    <span style="color:#66d9ef">if</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>:
-        addbb()
-    <span style="color:#66d9ef">else</span>:
-        subbb()
-
-index<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
-<span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(int(total <span style="color:#f92672">/</span> cell)):
-    ws<span style="color:#f92672">.</span>row(j)<span style="color:#f92672">.</span>height_mismatch <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
-    ws<span style="color:#f92672">.</span>row(j)<span style="color:#f92672">.</span>height <span style="color:#f92672">=</span><span style="color:#ae81ff">256</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">14</span>
-    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(cell):
-        ws<span style="color:#f92672">.</span>col(k)<span style="color:#f92672">.</span>width <span style="color:#f92672">=</span> <span style="color:#ae81ff">256</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">24</span>
-        <span style="color:#66d9ef">if</span> total<span style="color:#f92672">==</span>index:
-           <span style="color:#66d9ef">break</span>
-        <span style="color:#66d9ef">else</span>:
-           ws<span style="color:#f92672">.</span>write(j, k, data[index],style)
-           index<span style="color:#f92672">=</span>index<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
-
-version <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%Y%m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">%H%M%S&#39;</span>)
-
-
-
-wb<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#34;竖式题目生成-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.xlsx&#34;</span> <span style="color:#f92672">%</span> (cell,len(data),version))
-
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#75715e">#author:xkm</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#createdate:2023/2/3</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#encoding=utf-8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> datetime
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> math
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> xlwt
+</span></span><span style="display:flex;"><span>style <span style="color:#f92672">=</span> xlwt<span style="color:#f92672">.</span>XFStyle()<span style="color:#75715e">#格式信息</span>
+</span></span><span style="display:flex;"><span>font <span style="color:#f92672">=</span> xlwt<span style="color:#f92672">.</span>Font()<span style="color:#75715e">#字体基本设置</span>
+</span></span><span style="display:flex;"><span>font<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;宋体&#39;</span>
+</span></span><span style="display:flex;"><span>font<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;black&#39;</span>
+</span></span><span style="display:flex;"><span>font<span style="color:#f92672">.</span>height<span style="color:#f92672">=</span> <span style="color:#ae81ff">400</span> <span style="color:#75715e">#字体大小，220就是11号字体，大概就是11*20得来的吧</span>
+</span></span><span style="display:flex;"><span>style<span style="color:#f92672">.</span>font <span style="color:#f92672">=</span> font
+</span></span><span style="display:flex;"><span>wb <span style="color:#f92672">=</span> xlwt<span style="color:#f92672">.</span>Workbook()
+</span></span><span style="display:flex;"><span>ws <span style="color:#f92672">=</span> wb<span style="color:#f92672">.</span>add_sheet(<span style="color:#e6db74">&#34;习题集&#34;</span>,cell_overwrite_ok<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>cell <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>  <span style="color:#75715e">#生成excel 列数</span>
+</span></span><span style="display:flex;"><span>total <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span> <span style="color:#75715e">#生成题数</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">subbb</span>():
+</span></span><span style="display:flex;"><span>    a<span style="color:#f92672">=</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">9</span>)
+</span></span><span style="display:flex;"><span>    b<span style="color:#f92672">=</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>,a <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    ab<span style="color:#f92672">=</span>a<span style="color:#f92672">*</span><span style="color:#ae81ff">10</span><span style="color:#f92672">+</span>b
+</span></span><span style="display:flex;"><span>    a1<span style="color:#f92672">=</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>,a)
+</span></span><span style="display:flex;"><span>    b1 <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, a1)
+</span></span><span style="display:flex;"><span>    ab1<span style="color:#f92672">=</span>a1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> b1
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ab<span style="color:#f92672">-</span>ab1<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        res<span style="color:#f92672">=</span>str(ab)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;-&#39;</span><span style="color:#f92672">+</span>str(ab1)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;=(    )&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        res<span style="color:#f92672">=</span>res<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;   &#39;</span><span style="color:#f92672">+</span>str(a)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">+</span>str(b)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        res<span style="color:#f92672">=</span>res<span style="color:#f92672">+</span><span style="color:#e6db74">&#39; - &#39;</span><span style="color:#f92672">+</span>str(a1)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">+</span>str(b1)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        res<span style="color:#f92672">=</span>res<span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;------------&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        data<span style="color:#f92672">.</span>append(res)
+</span></span><span style="display:flex;"><span>        print(res)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">addbb</span>():
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">8</span>)
+</span></span><span style="display:flex;"><span>    b <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, a <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    ab <span style="color:#f92672">=</span> a <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> b
+</span></span><span style="display:flex;"><span>    a1 <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">9</span> <span style="color:#f92672">-</span> a)
+</span></span><span style="display:flex;"><span>    b1 <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span> <span style="color:#f92672">-</span> b)
+</span></span><span style="display:flex;"><span>    ab1 <span style="color:#f92672">=</span> a1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> b1
+</span></span><span style="display:flex;"><span>    res <span style="color:#f92672">=</span> str(ab) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;+&#39;</span> <span style="color:#f92672">+</span> str(ab1) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;=(    )&#39;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    res <span style="color:#f92672">=</span> res <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;   &#39;</span> <span style="color:#f92672">+</span> str(a) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">+</span> str(b) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    res <span style="color:#f92672">=</span> res <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; + &#39;</span> <span style="color:#f92672">+</span> str(a1) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">+</span> str(b1) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    res <span style="color:#f92672">=</span> res <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;------------&#39;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\r\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    data<span style="color:#f92672">.</span>append(res)
+</span></span><span style="display:flex;"><span>    print(res)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">500</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        addbb()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        subbb()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>index<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(int(total <span style="color:#f92672">/</span> cell)):
+</span></span><span style="display:flex;"><span>    ws<span style="color:#f92672">.</span>row(j)<span style="color:#f92672">.</span>height_mismatch <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>    ws<span style="color:#f92672">.</span>row(j)<span style="color:#f92672">.</span>height <span style="color:#f92672">=</span><span style="color:#ae81ff">256</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(cell):
+</span></span><span style="display:flex;"><span>        ws<span style="color:#f92672">.</span>col(k)<span style="color:#f92672">.</span>width <span style="color:#f92672">=</span> <span style="color:#ae81ff">256</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> total<span style="color:#f92672">==</span>index:
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>           ws<span style="color:#f92672">.</span>write(j, k, data[index],style)
+</span></span><span style="display:flex;"><span>           index<span style="color:#f92672">=</span>index<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>version <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%Y%m</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">%H%M%S&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>wb<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#34;竖式题目生成-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">-</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.xlsx&#34;</span> <span style="color:#f92672">%</span> (cell,len(data),version))
+</span></span></code></pre></div>
       </div></div>
 
   

@@ -178,23 +178,23 @@
 </blockquote>
 <p>比如官方这篇文档有提到通过 jolokia 提供 接口对外暴露调用，以一下是连接地址</p>
 <p><a href="http://activemq.apache.org/components/artemis/documentation/latest/management.html#management-notifications">Management · ActiveMQ Artemis Documentation (apache.org)</a></p>
-<pre><code>Exposing JMX using Jolokia
-The default Broker configuration ships with the Jolokia HTTP agent deployed as a web application. Jolokia is a remote JMX-over-HTTP bridge that exposes MBeans. For a full guide as to how to use it refer to Jolokia Documentation, however a simple example to query the broker's version would be to use a browser and go to the URL http://username:password@localhost:8161/console/jolokia/read/org.apache.activemq.artemis:broker=&quot;0.0.0.0&quot;/Version.
+<pre tabindex="0"><code>Exposing JMX using Jolokia
+The default Broker configuration ships with the Jolokia HTTP agent deployed as a web application. Jolokia is a remote JMX-over-HTTP bridge that exposes MBeans. For a full guide as to how to use it refer to Jolokia Documentation, however a simple example to query the broker&#39;s version would be to use a browser and go to the URL http://username:password@localhost:8161/console/jolokia/read/org.apache.activemq.artemis:broker=&#34;0.0.0.0&#34;/Version.
 
 This would give you back something like the following:
-</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;request&#34;</span>:{<span style="color:#f92672">&#34;mbean&#34;</span>:<span style="color:#e6db74">&#34;org.apache.activemq.artemis:broker=\&#34;0.0.0.0\&#34;&#34;</span>,<span style="color:#f92672">&#34;attribute&#34;</span>:<span style="color:#e6db74">&#34;Version&#34;</span>,<span style="color:#f92672">&#34;type&#34;</span>:<span style="color:#e6db74">&#34;read&#34;</span>},<span style="color:#f92672">&#34;value&#34;</span>:<span style="color:#e6db74">&#34;2.0.0-SNAPSHOT&#34;</span>,<span style="color:#f92672">&#34;timestamp&#34;</span>:<span style="color:#ae81ff">1487017918</span>,<span style="color:#f92672">&#34;status&#34;</span>:<span style="color:#ae81ff">200</span>}
-</code></pre></div><p>访问格式如下，比如查询borker  版本</p>
-<pre><code>http://username:password@localhost:8161/console/jolokia/read/org.apache.activemq.artemis:broker=&quot;0.0.0.0&quot;/Version
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{<span style="color:#f92672">&#34;request&#34;</span>:{<span style="color:#f92672">&#34;mbean&#34;</span>:<span style="color:#e6db74">&#34;org.apache.activemq.artemis:broker=\&#34;0.0.0.0\&#34;&#34;</span>,<span style="color:#f92672">&#34;attribute&#34;</span>:<span style="color:#e6db74">&#34;Version&#34;</span>,<span style="color:#f92672">&#34;type&#34;</span>:<span style="color:#e6db74">&#34;read&#34;</span>},<span style="color:#f92672">&#34;value&#34;</span>:<span style="color:#e6db74">&#34;2.0.0-SNAPSHOT&#34;</span>,<span style="color:#f92672">&#34;timestamp&#34;</span>:<span style="color:#ae81ff">1487017918</span>,<span style="color:#f92672">&#34;status&#34;</span>:<span style="color:#ae81ff">200</span>}
+</span></span></code></pre></div><p>访问格式如下，比如查询borker  版本</p>
+<pre tabindex="0"><code>http://username:password@localhost:8161/console/jolokia/read/org.apache.activemq.artemis:broker=&#34;0.0.0.0&#34;/Version
 </code></pre><p>但实际过程就是报错如下 ，常见403错误</p>
 <p>原因是 origin 这个参数是null, 官方也没有说清 origin 这个参数是怎么传过去，虽然做为开发对http接口协议还是有一点了解，</p>
 <p>origin 这个参数就是需要指明访问目标。通常在http header头 加上即可</p>
-<pre><code>{
+<pre tabindex="0"><code>{
 
-  &quot;error_type&quot;: &quot;java.lang.Exception&quot;,
+  &#34;error_type&#34;: &#34;java.lang.Exception&#34;,
 
-  &quot;error&quot;: &quot;java.lang.Exception : Origin null is not allowed to call this agent&quot;,
+  &#34;error&#34;: &#34;java.lang.Exception : Origin null is not allowed to call this agent&#34;,
 
-  &quot;status&quot;: 403
+  &#34;status&#34;: 403
 
 }
 </code></pre><p><img src="image-20210903113004787.png" alt="image-20210903113004787"></p>
@@ -203,68 +203,67 @@ This would give you back something like the following:
 <p>但在实际springboot 项目中，我们用restTemplate 这个http client 客户端，发现不行，还是403</p>
 <p>postman 是可以的，我们在spring boot 项目中，用restTemplate 访问不行。为什么，后面我们没有绕过这个问题，没有换过库</p>
 <p>没有使用postman 推荐的code ,以下是postman 推荐的，但没有尝试，我们还是坚持采用 restTemplate  客户端</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">Unirest<span style="color:#f92672">.</span><span style="color:#a6e22e">setTimeouts</span><span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 0<span style="color:#f92672">);</span>
-HttpResponse<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> response <span style="color:#f92672">=</span> Unirest<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;http://admin:admin@172.20.151.90:8161/console/jolokia/&#34;</span><span style="color:#f92672">)</span>
-  <span style="color:#f92672">.</span><span style="color:#a6e22e">header</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Origin&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34; http://172.20.151.90:8161&#34;</span><span style="color:#f92672">)</span>
-  <span style="color:#f92672">.</span><span style="color:#a6e22e">header</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Content-Type&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;application/json&#34;</span><span style="color:#f92672">)</span>
-  <span style="color:#f92672">.</span><span style="color:#a6e22e">body</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;{\&#34;type\&#34;:\&#34;exec\&#34;,\&#34;mbean\&#34;:\&#34;org.apache.activemq.artemis:broker=\\\&#34;d2403827fe6c\\\&#34;\&#34;,\&#34;operation\&#34;:\&#34;listConsumers(java.lang.String, int, int)\&#34;,\&#34;arguments\&#34;:[\&#34;{\\\&#34;field\\\&#34;:\\\&#34;CLIENT_ID\\\&#34;,\\\&#34;operation\\\&#34;:\\\&#34;EQUALS\\\&#34;,\\\&#34;value\\\&#34;:\\\&#34;86303335\\\&#34;,\\\&#34;sortOrder\\\&#34;:\\\&#34;asc\\\&#34;,\\\&#34;sortColumn\\\&#34;:\\\&#34;id\\\&#34;}\&#34;,1,10]}&#34;</span><span style="color:#f92672">)</span>
-  <span style="color:#f92672">.</span><span style="color:#a6e22e">asString</span><span style="color:#f92672">();</span>
-
-</code></pre></div><p>怀疑 restTemplate 并没有把orgin传过去,经过抓包 才发现</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>Unirest<span style="color:#f92672">.</span><span style="color:#a6e22e">setTimeouts</span><span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> 0<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>HttpResponse<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> response <span style="color:#f92672">=</span> Unirest<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;http://admin:admin@172.20.151.90:8161/console/jolokia/&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">header</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Origin&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34; http://172.20.151.90:8161&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">header</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Content-Type&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;application/json&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">body</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;{\&#34;type\&#34;:\&#34;exec\&#34;,\&#34;mbean\&#34;:\&#34;org.apache.activemq.artemis:broker=\\\&#34;d2403827fe6c\\\&#34;\&#34;,\&#34;operation\&#34;:\&#34;listConsumers(java.lang.String, int, int)\&#34;,\&#34;arguments\&#34;:[\&#34;{\\\&#34;field\\\&#34;:\\\&#34;CLIENT_ID\\\&#34;,\\\&#34;operation\\\&#34;:\\\&#34;EQUALS\\\&#34;,\\\&#34;value\\\&#34;:\\\&#34;86303335\\\&#34;,\\\&#34;sortOrder\\\&#34;:\\\&#34;asc\\\&#34;,\\\&#34;sortColumn\\\&#34;:\\\&#34;id\\\&#34;}\&#34;,1,10]}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">asString</span><span style="color:#f92672">();</span>
+</span></span></code></pre></div><p>怀疑 restTemplate 并没有把orgin传过去,经过抓包 才发现</p>
 <p>于是我们用<code>wireshark</code> 工具抓包发现restTemplate 没有把orgin 参数传给atemis-server</p>
 <p><img src="16306405458570.png" alt="img"></p>
 <p>然后在百度一下，发现以下csdn 博客解决了，增加一行配置即可</p>
-<pre><code>System.setProperty(&quot;sun.net.http.allowRestrictedHeaders&quot;,&quot;true&quot;);
-</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">
-<span style="color:#a6e22e">@Component</span>
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ArtemisJmxHelper</span> <span style="color:#f92672">{</span>
-  <span style="color:#a6e22e">@Autowired</span>
-  <span style="color:#66d9ef">private</span> RestTemplate restTemplate<span style="color:#f92672">;</span>
-  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String username<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;admin&#34;</span><span style="color:#f92672">;</span>
-  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String password<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;admin&#34;</span><span style="color:#f92672">;</span>
-
-  <span style="color:#66d9ef">public</span> Map <span style="color:#a6e22e">getTopicCosumer</span><span style="color:#f92672">(</span>String topic<span style="color:#f92672">){</span>
-
-
-<span style="color:#75715e">//这一行必须要加，才能让restTemplate 生效orgin参数 
-</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">setProperty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sun.net.http.allowRestrictedHeaders&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">);</span>
-
-
-
-<span style="color:#75715e">//    String url=&#34;http://admin:admin@172.20.151.90:8161/console/jolokia&#34;;
-</span><span style="color:#75715e"></span>    String url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://172.20.151.90:8161/console/jolokia/&#34;</span><span style="color:#f92672">;</span>
-    JolokiaReq jolokiaReq <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JolokiaReq<span style="color:#f92672">();</span>
-    jolokiaReq<span style="color:#f92672">.</span><span style="color:#a6e22e">setType</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;exec&#34;</span><span style="color:#f92672">);</span>
-    jolokiaReq<span style="color:#f92672">.</span><span style="color:#a6e22e">setOperation</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;listConsumers(java.lang.String, int, int)&#34;</span><span style="color:#f92672">);</span>
-    jolokiaReq<span style="color:#f92672">.</span><span style="color:#a6e22e">setMbean</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;org.apache.activemq.artemis:broker=\&#34;d2403827fe6c\&#34;&#34;</span><span style="color:#f92672">);</span>
-
-<span style="color:#960050;background-color:#1e0010">​</span>    Map req <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">();</span>
-<span style="color:#960050;background-color:#1e0010">​</span>    req<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;field&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;CLIENT_ID&#34;</span><span style="color:#f92672">);</span>
-<span style="color:#960050;background-color:#1e0010">​</span>    req<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;operation&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;EQUALS&#34;</span><span style="color:#f92672">);</span>
-<span style="color:#960050;background-color:#1e0010">​</span>    req<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;value&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;deviceClient&#34;</span><span style="color:#f92672">);</span>
-<span style="color:#960050;background-color:#1e0010">​</span>    req<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sortOrder&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;asc&#34;</span><span style="color:#f92672">);</span>
-<span style="color:#960050;background-color:#1e0010">​</span>    req<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sortColumn&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">);</span>
-<span style="color:#960050;background-color:#1e0010">​</span>    Object<span style="color:#f92672">[]</span> arguments<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> Object<span style="color:#f92672">[]{</span>JSON<span style="color:#f92672">.</span><span style="color:#a6e22e">toJSONString</span><span style="color:#f92672">(</span>req<span style="color:#f92672">),</span>1<span style="color:#f92672">,</span>10<span style="color:#f92672">};</span>
-<span style="color:#960050;background-color:#1e0010">​</span>    jolokiaReq<span style="color:#f92672">.</span><span style="color:#a6e22e">setArguments</span><span style="color:#f92672">(</span>arguments<span style="color:#f92672">);</span>
-
-<span style="color:#960050;background-color:#1e0010">​</span>    HttpHeaders httpHeaders <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HttpHeaders<span style="color:#f92672">();</span>
-<span style="color:#960050;background-color:#1e0010">​</span>    httpHeaders<span style="color:#f92672">.</span><span style="color:#a6e22e">setContentType</span><span style="color:#f92672">(</span>MediaType<span style="color:#f92672">.</span><span style="color:#a6e22e">APPLICATION_JSON</span><span style="color:#f92672">);</span>
-<span style="color:#960050;background-color:#1e0010">​</span>    httpHeaders<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Origin&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;http://172.20.151.90:8161&#34;</span><span style="color:#f92672">);</span>
-<span style="color:#960050;background-color:#1e0010">​</span>    String auth <span style="color:#f92672">=</span> username <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">+</span> password<span style="color:#f92672">;</span>
-<span style="color:#960050;background-color:#1e0010">​</span>    <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> encodedAuth <span style="color:#f92672">=</span> Base64<span style="color:#f92672">.</span><span style="color:#a6e22e">encodeBase64</span><span style="color:#f92672">(</span>auth<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">(</span>Charset<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;US-ASCII&#34;</span><span style="color:#f92672">)));</span>
-<span style="color:#960050;background-color:#1e0010">​</span>    httpHeaders<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Authorization&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Basic &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span>encodedAuth<span style="color:#f92672">));</span>
-
-
-
-    HttpEntity httpEntity <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HttpEntity<span style="color:#f92672">(</span>jolokiaReq<span style="color:#f92672">,</span>httpHeaders<span style="color:#f92672">);</span>
-    String str <span style="color:#f92672">=</span> JSON<span style="color:#f92672">.</span><span style="color:#a6e22e">toJSONString</span><span style="color:#f92672">(</span>httpEntity<span style="color:#f92672">);</span>
-    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>str<span style="color:#f92672">);</span>
-    ResponseEntity<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> responseEntity <span style="color:#f92672">=</span> restTemplate<span style="color:#f92672">.</span><span style="color:#a6e22e">postForEntity</span><span style="color:#f92672">(</span>url<span style="color:#f92672">,</span> str<span style="color:#f92672">,</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
-    String body <span style="color:#f92672">=</span> responseEntity<span style="color:#f92672">.</span><span style="color:#a6e22e">getBody</span><span style="color:#f92672">();</span>
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
-  <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p>加了后 <code>System.setProperty(&quot;sun.net.http.allowRestrictedHeaders&quot;,&quot;true&quot;);</code></p>
+<pre tabindex="0"><code>System.setProperty(&#34;sun.net.http.allowRestrictedHeaders&#34;,&#34;true&#34;);
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Component</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ArtemisJmxHelper</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@Autowired</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> RestTemplate restTemplate<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String username<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;admin&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String password<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;admin&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> Map <span style="color:#a6e22e">getTopicCosumer</span><span style="color:#f92672">(</span>String topic<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//这一行必须要加，才能让restTemplate 生效orgin参数 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">setProperty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sun.net.http.allowRestrictedHeaders&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//    String url=&#34;http://admin:admin@172.20.151.90:8161/console/jolokia&#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    String url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://172.20.151.90:8161/console/jolokia/&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    JolokiaReq jolokiaReq <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JolokiaReq<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    jolokiaReq<span style="color:#f92672">.</span><span style="color:#a6e22e">setType</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;exec&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    jolokiaReq<span style="color:#f92672">.</span><span style="color:#a6e22e">setOperation</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;listConsumers(java.lang.String, int, int)&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    jolokiaReq<span style="color:#f92672">.</span><span style="color:#a6e22e">setMbean</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;org.apache.activemq.artemis:broker=\&#34;d2403827fe6c\&#34;&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    Map req <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    req<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;field&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;CLIENT_ID&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    req<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;operation&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;EQUALS&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    req<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;value&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;deviceClient&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    req<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sortOrder&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;asc&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    req<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sortColumn&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    Object<span style="color:#f92672">[]</span> arguments<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> Object<span style="color:#f92672">[]{</span>JSON<span style="color:#f92672">.</span><span style="color:#a6e22e">toJSONString</span><span style="color:#f92672">(</span>req<span style="color:#f92672">),</span>1<span style="color:#f92672">,</span>10<span style="color:#f92672">};</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    jolokiaReq<span style="color:#f92672">.</span><span style="color:#a6e22e">setArguments</span><span style="color:#f92672">(</span>arguments<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    HttpHeaders httpHeaders <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HttpHeaders<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    httpHeaders<span style="color:#f92672">.</span><span style="color:#a6e22e">setContentType</span><span style="color:#f92672">(</span>MediaType<span style="color:#f92672">.</span><span style="color:#a6e22e">APPLICATION_JSON</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    httpHeaders<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Origin&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;http://172.20.151.90:8161&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    String auth <span style="color:#f92672">=</span> username <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">+</span> password<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> encodedAuth <span style="color:#f92672">=</span> Base64<span style="color:#f92672">.</span><span style="color:#a6e22e">encodeBase64</span><span style="color:#f92672">(</span>auth<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">(</span>Charset<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;US-ASCII&#34;</span><span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    httpHeaders<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Authorization&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Basic &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span>encodedAuth<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    HttpEntity httpEntity <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HttpEntity<span style="color:#f92672">(</span>jolokiaReq<span style="color:#f92672">,</span>httpHeaders<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    String str <span style="color:#f92672">=</span> JSON<span style="color:#f92672">.</span><span style="color:#a6e22e">toJSONString</span><span style="color:#f92672">(</span>httpEntity<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>str<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    ResponseEntity<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> responseEntity <span style="color:#f92672">=</span> restTemplate<span style="color:#f92672">.</span><span style="color:#a6e22e">postForEntity</span><span style="color:#f92672">(</span>url<span style="color:#f92672">,</span> str<span style="color:#f92672">,</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    String body <span style="color:#f92672">=</span> responseEntity<span style="color:#f92672">.</span><span style="color:#a6e22e">getBody</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>加了后 <code>System.setProperty(&quot;sun.net.http.allowRestrictedHeaders&quot;,&quot;true&quot;);</code></p>
 <p><img src="image-20210903142612594.png" alt="image-20210903142612594"></p>
 <p>４０３问题 最后总结一下：</p>
 <p>有两点需要注意的，</p>

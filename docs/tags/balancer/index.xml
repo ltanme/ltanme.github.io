@@ -22,77 +22,77 @@
 &lt;p&gt;主要思路是 利用 lua 语言 lpack 模块 对私有协议头 协议主体进行解析，解析得到设备id 取模得到一台上游消息处理服务器upstream server 节点， 然后通过balancer 模块更新上游处理服务器转发流量。&lt;/p&gt;
 &lt;p&gt;也可以利用openresty 自带balancer 模块来完成实现，应用核心代码如下&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;stream {
-  lua_code_cache off; &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;关闭代码缓存，利于调用，生产环境不建议&lt;/span&gt;
-  init_by_lua_block {  &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;当&lt;/span&gt;nginx &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;启动时，初始化时，从&lt;/span&gt;redis加载配置&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，或者从&lt;/span&gt;etcd &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;加载配置&lt;/span&gt;,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;该数据可以做一个后台管理，运维人员直接后台操作&lt;/span&gt;
-    require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ngx.balancer&amp;#39;&lt;/span&gt;)
-    _G.BACKENDS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
-      {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;172.17.0.1&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;}, &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;消息&lt;/span&gt;netty服务器c2s&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
-      {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;172.17.0.2&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;}, &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;消息&lt;/span&gt;netty服务器c2s&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
-      {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;172.17.0.3&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;}, &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;消息&lt;/span&gt;netty服务器c2s&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
-    }
-  }
-  
-  &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;配置&lt;/span&gt;lua请求拦截器 upstream
-  upstream lua_dispatcher {
-    server &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0.0.1&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;1234&lt;/span&gt;;
-    balancer_by_lua_block {
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; balancer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ngx.balancer&amp;#39;&lt;/span&gt;)
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; backend_index
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; hash &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ngx.crc32_long(ngx.ctx.devid);
-      backend_index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (hash &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; backend_table &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; _G.BACKENDS[backend_index]
-      &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;通过激活&lt;/span&gt;id算出一个hash值 &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;取个模后，得到服务器下标&lt;/span&gt;index &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;然后更新&lt;/span&gt;balancer &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;即可流量负载过去&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; ok, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; balancer.set_current_peer(table.unpack(backend_table))
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; ok &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-          ngx.log(ngx.ERR, err)
-          ngx.exit(ngx.ERROR)
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-    }
-  }
-  
-   &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;配置代码&lt;/span&gt; proxy
-  server {
-    listen &lt;span style=&#34;color:#ae81ff&#34;&gt;9000&lt;/span&gt;;
-    proxy_pass lua_dispatcher;
-    preread_by_lua_block {
-        require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pack&amp;#34;&lt;/span&gt;)
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; mypack    &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.pack
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; myunpack    &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.unpack
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; sock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ngx.req.socket(&lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sock &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-            ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;got the request socket&amp;#34;&lt;/span&gt;)
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
-            ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;failed to get the request socket: &amp;#34;&lt;/span&gt;, err)
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;先尝试读取固定头&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;个字节&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; data, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sock:receive(&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;)
-            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;如果遇到&lt;/span&gt;timeout,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;或者&lt;/span&gt;close的情况&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，则&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;本次循环读取，继续下一条读取&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; err&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;timeout&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; err &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;close&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;按消息推送私有协议读取返回的参数，&lt;/span&gt;type1为消息类型&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;ver2为消息推送私有协议版本号&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;time待命时间&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;len4为消息体的长度&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，不包含头的长度&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; succ,succLen,type1,Ver2,Time3,Len4 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pcall(myunpack,data,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;gt;ccHH&amp;#34;&lt;/span&gt;)
-            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;读取剩余的消息体长度内容&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; body, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sock:receive(Len4)
-            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;如果读取&lt;/span&gt;body为空&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，则退出&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; body &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;打印&lt;/span&gt;body消息内容 &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;解析&lt;/span&gt;body是一个json串&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，需要对&lt;/span&gt;json进行解码&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，再赋值给&lt;/span&gt;ngx.ctx &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;全局上下文中共享变量&lt;/span&gt;
-            ngx.ctx.device_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; body[devid]
-            ngx.log(ngx.ERR, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;------bdy &amp;#34;&lt;/span&gt;, body)
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-  
-    }
-  }
-  
-    
-  
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如下图，左边是设备，中间是tcp 流量转发器，  右 边是消息处理服务器，  设备需要和消息处理服务器 建立tcp长链接，并维持不间断时间心跳，总之采用openresty 来完现流量分发具有强性能，只需要在原来的netty消息层外层加个流量处理网关即可。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;stream {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  lua_code_cache off; &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;关闭代码缓存，利于调用，生产环境不建议&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  init_by_lua_block {  &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;当&lt;/span&gt;nginx &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;启动时，初始化时，从&lt;/span&gt;redis加载配置&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，或者从&lt;/span&gt;etcd &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;加载配置&lt;/span&gt;,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;该数据可以做一个后台管理，运维人员直接后台操作&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ngx.balancer&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _G.BACKENDS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;172.17.0.1&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;}, &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;消息&lt;/span&gt;netty服务器c2s&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;172.17.0.2&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;}, &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;消息&lt;/span&gt;netty服务器c2s&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;172.17.0.3&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;}, &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;消息&lt;/span&gt;netty服务器c2s&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;配置&lt;/span&gt;lua请求拦截器 upstream
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  upstream lua_dispatcher {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    server &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0.0.1&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;1234&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    balancer_by_lua_block {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; balancer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ngx.balancer&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; backend_index
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; hash &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ngx.crc32_long(ngx.ctx.devid);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      backend_index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (hash &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; backend_table &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; _G.BACKENDS[backend_index]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;通过激活&lt;/span&gt;id算出一个hash值 &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;取个模后，得到服务器下标&lt;/span&gt;index &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;然后更新&lt;/span&gt;balancer &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;即可流量负载过去&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; ok, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; balancer.set_current_peer(table.unpack(backend_table))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; ok &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          ngx.log(ngx.ERR, err)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          ngx.exit(ngx.ERROR)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;配置代码&lt;/span&gt; proxy
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  server {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    listen &lt;span style=&#34;color:#ae81ff&#34;&gt;9000&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    proxy_pass lua_dispatcher;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    preread_by_lua_block {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pack&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; mypack    &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.pack
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; myunpack    &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.unpack
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; sock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ngx.req.socket(&lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sock &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;got the request socket&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;failed to get the request socket: &amp;#34;&lt;/span&gt;, err)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;先尝试读取固定头&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;个字节&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; data, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sock:receive(&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;如果遇到&lt;/span&gt;timeout,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;或者&lt;/span&gt;close的情况&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，则&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;本次循环读取，继续下一条读取&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; err&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;timeout&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; err &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;close&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;按消息推送私有协议读取返回的参数，&lt;/span&gt;type1为消息类型&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;ver2为消息推送私有协议版本号&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;time待命时间&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;len4为消息体的长度&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，不包含头的长度&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; succ,succLen,type1,Ver2,Time3,Len4 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pcall(myunpack,data,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;gt;ccHH&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;读取剩余的消息体长度内容&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; body, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sock:receive(Len4)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;如果读取&lt;/span&gt;body为空&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，则退出&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; body &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;打印&lt;/span&gt;body消息内容 &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;解析&lt;/span&gt;body是一个json串&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，需要对&lt;/span&gt;json进行解码&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，再赋值给&lt;/span&gt;ngx.ctx &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;全局上下文中共享变量&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            ngx.ctx.device_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; body[devid]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            ngx.log(ngx.ERR, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;------bdy &amp;#34;&lt;/span&gt;, body)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如下图，左边是设备，中间是tcp 流量转发器，  右 边是消息处理服务器，  设备需要和消息处理服务器 建立tcp长链接，并维持不间断时间心跳，总之采用openresty 来完现流量分发具有强性能，只需要在原来的netty消息层外层加个流量处理网关即可。&lt;/p&gt;
 &lt;p&gt;但我们在实际环境不推荐这样做，除非小项目，大项目还是推荐apisix 网关来处理很方便&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;image-20210519191548391.png&#34; alt=&#34;image-20210519191548391&#34;&gt;&lt;/p&gt;
 </content>

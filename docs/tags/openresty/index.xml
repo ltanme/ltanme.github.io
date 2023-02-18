@@ -21,55 +21,55 @@
 &lt;p&gt;1，下载https://github.com/openresty/lua-resty-balancer&lt;/p&gt;
 &lt;p&gt;编译安装balancer&lt;/p&gt;
 &lt;p&gt;在&lt;a href=&#34;https://github.com/openresty/lua-resty-balancer&#34;&gt;lua-resty-balancer&lt;/a&gt;目录下执行&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt; gcc -O2 -fPIC -I/usr/local/include -c chash.c -o chash.o
-
- gcc -shared -o librestychash.so chash.o
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;将编译后的so文件存放在openresty 安装目录下的lualib 文件夹下即可，&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; gcc -O2 -fPIC -I/usr/local/include -c chash.c -o chash.o
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; gcc -shared -o librestychash.so chash.o
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;将编译后的so文件存放在openresty 安装目录下的lualib 文件夹下即可，&lt;/p&gt;
 &lt;p&gt;把 chash.lua   roundrobin.lua    两个文件复制到lualib/resty 目录下即可&lt;/p&gt;
 &lt;p&gt;2，应用业务代码&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-nginx&#34; data-lang=&#34;nginx&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;worker_processes&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;error_log&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;logs/error.log&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;debug&lt;/span&gt;;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;events&lt;/span&gt; {
-    &lt;span style=&#34;color:#f92672&#34;&gt;worker_connections&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1024&lt;/span&gt;;
-}
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;http&lt;/span&gt; {
-    &lt;span style=&#34;color:#f92672&#34;&gt;init_by_lua_block&lt;/span&gt; {
-	    &lt;span style=&#34;color:#f92672&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;resty_chash&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;require&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.chash&amp;#34;&lt;/span&gt;
-		&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;cjson&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;require(&amp;#34;cjson.safe&amp;#34;)&lt;/span&gt;
-        &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;object_list_1999&lt;/span&gt; = {
-            &lt;span style=&#34;color:#f92672&#34;&gt;[&amp;#34;1985&amp;#34;]&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;,&lt;/span&gt;
-            &lt;span style=&#34;color:#e6db74&#34;&gt;[&amp;#34;1986&amp;#34;]&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;
-        &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
-        &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;str_null&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;string.char(0)&lt;/span&gt;
-        &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;pids,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;nodes&lt;/span&gt; = {}&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; {}
-        &lt;span style=&#34;color:#f92672&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;pid,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;weight&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;pairs(object_list_1999)&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;do&lt;/span&gt;
-            &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;id&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;string.gsub(pid,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;:&amp;#34;,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;str_null)&lt;/span&gt; 
-            &lt;span style=&#34;color:#e6db74&#34;&gt;pids[id]&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;pid&lt;/span&gt;
-            &lt;span style=&#34;color:#e6db74&#34;&gt;nodes[id]&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;weight&lt;/span&gt;
-        &lt;span style=&#34;color:#e6db74&#34;&gt;end&lt;/span&gt;
-        &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;chash_up&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;resty_chash:new(nodes)&lt;/span&gt;
-        &lt;span style=&#34;color:#e6db74&#34;&gt;package.loaded.my_chash_up_1999&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;chash_up&lt;/span&gt;
-        &lt;span style=&#34;color:#e6db74&#34;&gt;package.loaded.my_ids_1999&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;pids&lt;/span&gt;
-	&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
-    &lt;span style=&#34;color:#e6db74&#34;&gt;server&lt;/span&gt; {
-        &lt;span style=&#34;color:#f92672&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;;
-		&lt;span style=&#34;color:#f92672&#34;&gt;charset&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;utf-8&lt;/span&gt;;
-        &lt;span style=&#34;color:#f92672&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;/fpId&lt;/span&gt; {
-		    &lt;span style=&#34;color:#f92672&#34;&gt;default_type&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;text/html&lt;/span&gt;;
-			&lt;span style=&#34;color:#f92672&#34;&gt;content_by_lua_block&lt;/span&gt; {
-				&lt;span style=&#34;color:#f92672&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;args,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;err&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;ngx.req.get_uri_args()&lt;/span&gt;
-				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;userId&lt;/span&gt;  = &lt;span style=&#34;color:#e6db74&#34;&gt;args[&amp;#34;userId&amp;#34;]&lt;/span&gt;
-				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;chash_up&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;package.loaded.my_chash_up_1999&lt;/span&gt;
-				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;pid&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;package.loaded.my_ids_1999&lt;/span&gt;
-				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;id&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;chash_up:find(userId)&lt;/span&gt;
-				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;hit_id&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;pid[id]&lt;/span&gt;
-				&lt;span style=&#34;color:#e6db74&#34;&gt;ngx.say(&amp;#34;用户ID:&amp;#34;..userId..&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;命中了:&amp;#34;..hit_id)&lt;/span&gt;
-			&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
-        &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
-    &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
-&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-nginx&#34; data-lang=&#34;nginx&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;worker_processes&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;error_log&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;logs/error.log&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;debug&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;events&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;worker_connections&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1024&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;http&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;init_by_lua_block&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	    &lt;span style=&#34;color:#f92672&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;resty_chash&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;require&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.chash&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;cjson&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;require(&amp;#34;cjson.safe&amp;#34;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;object_list_1999&lt;/span&gt; = {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;[&amp;#34;1985&amp;#34;]&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;[&amp;#34;1986&amp;#34;]&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;str_null&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;string.char(0)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;pids,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;nodes&lt;/span&gt; = {}&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; {}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;pid,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;weight&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;pairs(object_list_1999)&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;id&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;string.gsub(pid,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;:&amp;#34;,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;str_null)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;pids[id]&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;pid&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;nodes[id]&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;weight&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;chash_up&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;resty_chash:new(nodes)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;package.loaded.my_chash_up_1999&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;chash_up&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;package.loaded.my_ids_1999&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;pids&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;server&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#f92672&#34;&gt;charset&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;utf-8&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;/fpId&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		    &lt;span style=&#34;color:#f92672&#34;&gt;default_type&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;text/html&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			&lt;span style=&#34;color:#f92672&#34;&gt;content_by_lua_block&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#f92672&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;args,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;err&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;ngx.req.get_uri_args()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;userId&lt;/span&gt;  = &lt;span style=&#34;color:#e6db74&#34;&gt;args[&amp;#34;userId&amp;#34;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;chash_up&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;package.loaded.my_chash_up_1999&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;pid&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;package.loaded.my_ids_1999&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;id&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;chash_up:find(userId)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;hit_id&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;pid[id]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#e6db74&#34;&gt;ngx.say(&amp;#34;用户ID:&amp;#34;..userId..&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;命中了:&amp;#34;..hit_id)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
     <item>
@@ -87,77 +87,77 @@
 &lt;p&gt;主要思路是 利用 lua 语言 lpack 模块 对私有协议头 协议主体进行解析，解析得到设备id 取模得到一台上游消息处理服务器upstream server 节点， 然后通过balancer 模块更新上游处理服务器转发流量。&lt;/p&gt;
 &lt;p&gt;也可以利用openresty 自带balancer 模块来完成实现，应用核心代码如下&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;stream {
-  lua_code_cache off; &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;关闭代码缓存，利于调用，生产环境不建议&lt;/span&gt;
-  init_by_lua_block {  &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;当&lt;/span&gt;nginx &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;启动时，初始化时，从&lt;/span&gt;redis加载配置&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，或者从&lt;/span&gt;etcd &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;加载配置&lt;/span&gt;,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;该数据可以做一个后台管理，运维人员直接后台操作&lt;/span&gt;
-    require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ngx.balancer&amp;#39;&lt;/span&gt;)
-    _G.BACKENDS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
-      {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;172.17.0.1&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;}, &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;消息&lt;/span&gt;netty服务器c2s&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
-      {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;172.17.0.2&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;}, &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;消息&lt;/span&gt;netty服务器c2s&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
-      {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;172.17.0.3&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;}, &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;消息&lt;/span&gt;netty服务器c2s&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
-    }
-  }
-  
-  &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;配置&lt;/span&gt;lua请求拦截器 upstream
-  upstream lua_dispatcher {
-    server &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0.0.1&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;1234&lt;/span&gt;;
-    balancer_by_lua_block {
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; balancer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ngx.balancer&amp;#39;&lt;/span&gt;)
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; backend_index
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; hash &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ngx.crc32_long(ngx.ctx.devid);
-      backend_index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (hash &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; backend_table &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; _G.BACKENDS[backend_index]
-      &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;通过激活&lt;/span&gt;id算出一个hash值 &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;取个模后，得到服务器下标&lt;/span&gt;index &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;然后更新&lt;/span&gt;balancer &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;即可流量负载过去&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; ok, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; balancer.set_current_peer(table.unpack(backend_table))
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; ok &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-          ngx.log(ngx.ERR, err)
-          ngx.exit(ngx.ERROR)
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-    }
-  }
-  
-   &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;配置代码&lt;/span&gt; proxy
-  server {
-    listen &lt;span style=&#34;color:#ae81ff&#34;&gt;9000&lt;/span&gt;;
-    proxy_pass lua_dispatcher;
-    preread_by_lua_block {
-        require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pack&amp;#34;&lt;/span&gt;)
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; mypack    &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.pack
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; myunpack    &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.unpack
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; sock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ngx.req.socket(&lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sock &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-            ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;got the request socket&amp;#34;&lt;/span&gt;)
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
-            ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;failed to get the request socket: &amp;#34;&lt;/span&gt;, err)
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;先尝试读取固定头&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;个字节&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; data, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sock:receive(&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;)
-            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;如果遇到&lt;/span&gt;timeout,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;或者&lt;/span&gt;close的情况&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，则&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;本次循环读取，继续下一条读取&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; err&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;timeout&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; err &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;close&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;按消息推送私有协议读取返回的参数，&lt;/span&gt;type1为消息类型&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;ver2为消息推送私有协议版本号&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;time待命时间&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;len4为消息体的长度&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，不包含头的长度&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; succ,succLen,type1,Ver2,Time3,Len4 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pcall(myunpack,data,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;gt;ccHH&amp;#34;&lt;/span&gt;)
-            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;读取剩余的消息体长度内容&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; body, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sock:receive(Len4)
-            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;如果读取&lt;/span&gt;body为空&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，则退出&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; body &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;打印&lt;/span&gt;body消息内容 &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;解析&lt;/span&gt;body是一个json串&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，需要对&lt;/span&gt;json进行解码&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，再赋值给&lt;/span&gt;ngx.ctx &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;全局上下文中共享变量&lt;/span&gt;
-            ngx.ctx.device_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; body[devid]
-            ngx.log(ngx.ERR, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;------bdy &amp;#34;&lt;/span&gt;, body)
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-  
-    }
-  }
-  
-    
-  
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如下图，左边是设备，中间是tcp 流量转发器，  右 边是消息处理服务器，  设备需要和消息处理服务器 建立tcp长链接，并维持不间断时间心跳，总之采用openresty 来完现流量分发具有强性能，只需要在原来的netty消息层外层加个流量处理网关即可。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;stream {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  lua_code_cache off; &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;关闭代码缓存，利于调用，生产环境不建议&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  init_by_lua_block {  &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;当&lt;/span&gt;nginx &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;启动时，初始化时，从&lt;/span&gt;redis加载配置&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，或者从&lt;/span&gt;etcd &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;加载配置&lt;/span&gt;,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;该数据可以做一个后台管理，运维人员直接后台操作&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ngx.balancer&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    _G.BACKENDS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;172.17.0.1&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;}, &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;消息&lt;/span&gt;netty服务器c2s&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;172.17.0.2&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;}, &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;消息&lt;/span&gt;netty服务器c2s&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;172.17.0.3&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;}, &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;消息&lt;/span&gt;netty服务器c2s&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;配置&lt;/span&gt;lua请求拦截器 upstream
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  upstream lua_dispatcher {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    server &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0.0.1&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;1234&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    balancer_by_lua_block {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; balancer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ngx.balancer&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; backend_index
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; hash &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ngx.crc32_long(ngx.ctx.devid);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      backend_index &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (hash &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; backend_table &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; _G.BACKENDS[backend_index]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;通过激活&lt;/span&gt;id算出一个hash值 &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;取个模后，得到服务器下标&lt;/span&gt;index &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;然后更新&lt;/span&gt;balancer &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;即可流量负载过去&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; ok, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; balancer.set_current_peer(table.unpack(backend_table))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; ok &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          ngx.log(ngx.ERR, err)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          ngx.exit(ngx.ERROR)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;配置代码&lt;/span&gt; proxy
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  server {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    listen &lt;span style=&#34;color:#ae81ff&#34;&gt;9000&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    proxy_pass lua_dispatcher;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    preread_by_lua_block {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pack&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; mypack    &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.pack
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; myunpack    &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.unpack
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; sock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ngx.req.socket(&lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sock &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;got the request socket&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;failed to get the request socket: &amp;#34;&lt;/span&gt;, err)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;先尝试读取固定头&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;个字节&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; data, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sock:receive(&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;如果遇到&lt;/span&gt;timeout,&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;或者&lt;/span&gt;close的情况&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，则&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;本次循环读取，继续下一条读取&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; err&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;timeout&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; err &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;close&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;按消息推送私有协议读取返回的参数，&lt;/span&gt;type1为消息类型&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;ver2为消息推送私有协议版本号&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;time待命时间&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;len4为消息体的长度&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，不包含头的长度&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; succ,succLen,type1,Ver2,Time3,Len4 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pcall(myunpack,data,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;gt;ccHH&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;读取剩余的消息体长度内容&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; body, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sock:receive(Len4)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;如果读取&lt;/span&gt;body为空&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，则退出&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; body &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;打印&lt;/span&gt;body消息内容 &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;解析&lt;/span&gt;body是一个json串&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，需要对&lt;/span&gt;json进行解码&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，再赋值给&lt;/span&gt;ngx.ctx &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;全局上下文中共享变量&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            ngx.ctx.device_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; body[devid]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            ngx.log(ngx.ERR, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;------bdy &amp;#34;&lt;/span&gt;, body)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如下图，左边是设备，中间是tcp 流量转发器，  右 边是消息处理服务器，  设备需要和消息处理服务器 建立tcp长链接，并维持不间断时间心跳，总之采用openresty 来完现流量分发具有强性能，只需要在原来的netty消息层外层加个流量处理网关即可。&lt;/p&gt;
 &lt;p&gt;但我们在实际环境不推荐这样做，除非小项目，大项目还是推荐apisix 网关来处理很方便&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;image-20210519191548391.png&#34; alt=&#34;image-20210519191548391&#34;&gt;&lt;/p&gt;
 </content>
@@ -180,31 +180,31 @@
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 搭建环境&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;docker pull django
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker pull django
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 运行python 容器&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;docker run -itd --name py3 -v /i:/i -v /d:/d django /bin/bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -itd --name py3 -v /i:/i -v /d:/d django /bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 进入容器，检查容器环境是否正常&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-shel&#34; data-lang=&#34;shel&#34;&gt;docker exec -it  c5d2369adde2 /bin/bash
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-shel&#34; data-lang=&#34;shel&#34;&gt;docker exec -it  c5d2369adde2 /bin/bash
 
 docker exec -it 58e1c95fea73 /bin/sh
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;./image-20210511150600898.png&#34; alt=&#34;image-20210511150600898&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 安装websocket&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt; pip install websocket 
-
- pip install stomp.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; pip install websocket 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; pip install stomp.py
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 启动后端 java websocket 环境&lt;/p&gt;
 &lt;p&gt;进入java 容器，设置同一个网络环境，同一个网段&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-she&#34; data-lang=&#34;she&#34;&gt;    docker run --name s1 --network app-tier -d -v /i:/i -v /d:/d -p 8081:8080 ltjsj/super-dev-env:v1.1 
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-she&#34; data-lang=&#34;she&#34;&gt;    docker run --name s1 --network app-tier -d -v /i:/i -v /d:/d -p 8081:8080 ltjsj/super-dev-env:v1.1 
 
 ​      docker exec -it s1 /bin/bash
 
@@ -219,7 +219,7 @@ docker exec -it 58e1c95fea73 /bin/sh
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 编写python 脚本测试代码&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-pytho&#34; data-lang=&#34;pytho&#34;&gt;#!/usr/bin/env python
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-pytho&#34; data-lang=&#34;pytho&#34;&gt;#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time    : 2021/03/31 下午03:21
 # @Author  : ltan.me
@@ -228,19 +228,19 @@ from stomp_ws import Stomp
 import time
 
 def do_thing_a(msg):
-    print(&amp;quot;MESSAGE: &amp;quot; + msg)
+    print(&amp;#34;MESSAGE: &amp;#34; + msg)
 
-if __name__ == &amp;quot;__main__&amp;quot;:
+if __name__ == &amp;#34;__main__&amp;#34;:
 
     for i in range(0,10):
         #为了模拟设备id,激活id,采用id为作为通信参数，生成10个id分别请求websocket服务器域名
-        url = &amp;quot;test.xxxx.com/stompServer/websocket?id=%s&amp;amp;activeId=416&amp;amp;deviceId=3657dc0cfede992b97d2135fd0514c6c&amp;amp;userId=1&amp;amp;&amp;amp;connectType=0&amp;amp;token=9d3b7282d295eefe9e9b959f63134dee&amp;quot; % str(i)
+        url = &amp;#34;test.xxxx.com/stompServer/websocket?id=%s&amp;amp;activeId=416&amp;amp;deviceId=3657dc0cfede992b97d2135fd0514c6c&amp;amp;userId=1&amp;amp;&amp;amp;connectType=0&amp;amp;token=9d3b7282d295eefe9e9b959f63134dee&amp;#34; % str(i)
         print(url)
         stomp = Stomp(url, sockjs=True, wss=False)
         stomp.connect()
-        stomp.subscribe(&amp;quot;/user/1_416/command&amp;quot;, do_thing_a)
+        stomp.subscribe(&amp;#34;/user/1_416/command&amp;#34;, do_thing_a)
         time.sleep(2)
-        stomp.send(&amp;quot;/web2client_term&amp;quot;, &#39;{&amp;quot;userId&amp;quot;:1,&amp;quot;activeId&amp;quot;:416,&amp;quot;cmdType&amp;quot;:18,&amp;quot;content&amp;quot;:&amp;quot;python-hahah&amp;quot;}&#39;)
+        stomp.send(&amp;#34;/web2client_term&amp;#34;, &amp;#39;{&amp;#34;userId&amp;#34;:1,&amp;#34;activeId&amp;#34;:416,&amp;#34;cmdType&amp;#34;:18,&amp;#34;content&amp;#34;:&amp;#34;python-hahah&amp;#34;}&amp;#39;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 最终运行效果&lt;/p&gt;
@@ -264,39 +264,39 @@ if __name__ == &amp;quot;__main__&amp;quot;:
 &lt;p&gt;因为lua语言生态内，有强大的openresty 技术可使用，而openresty可以提供强劲的web 并发性能，能提供tcp 长链接通道 技术&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;首先需要lapck包对其解析&#34;&gt;首先需要lapck包对其解析&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;git clone  https://github.com/Kong/lua-pack 
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone  https://github.com/Kong/lua-pack 
 或
 git clone https://github.com/lilien1010/lpack
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装lapck包需要编译&#34;&gt;安装lapck包需要编译&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;./image-20210508175332849.png&#34; alt=&#34;image-20210508175332849&#34;&gt;&lt;/p&gt;
 &lt;h1 id=&#34;--编译时找不到luah头文件需要增加以下参数其目的是让编译是找到luajit-luah头文件--&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/h1&gt;
 &lt;p&gt;在编译时遇到 lua.h No such file or directory #include &amp;quot; lua.h&amp;quot; ？ 问题时，需要遇增加如下参数&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;-DLUA_INCLUDE_DIR=/usr/local/openresty/luajit/include/luajit-2.1/ 
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;-DLUA_INCLUDE_DIR=/usr/local/openresty/luajit/include/luajit-2.1/ 
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最终编译命令如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;#DLUA_INCLUDE_DIR 表示lua.h 存放的位置 LUA_LIBRARY指定luajit库，so文件，
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#DLUA_INCLUDE_DIR 表示lua.h 存放的位置 LUA_LIBRARY指定luajit库，so文件，
 cmake ./  -DLUA_INCLUDE_DIR=/usr/local/openresty/luajit/include/luajit-2.1/  -DLUA_LIBRARY=/usr/local/lib/libluajit-5.1.so
 make  #编译成so文件，得到pack.so
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;详细解析tcp私有代码如下&#34;&gt;详细解析tcp私有代码如下&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;require(&amp;quot;pack&amp;quot;)
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;require(&amp;#34;pack&amp;#34;)
 local mypack    = string.pack
 local myunpack    = string.unpack
 local sock = ngx.req.socket(true)
 if sock then
-    ngx.say(&amp;quot;got the request socket&amp;quot;)
+    ngx.say(&amp;#34;got the request socket&amp;#34;)
 else
-    ngx.say(&amp;quot;failed to get the request socket: &amp;quot;, err)
+    ngx.say(&amp;#34;failed to get the request socket: &amp;#34;, err)
     return
 end
 while true do
     --先尝试读取固定头 6个字节
     local data, err = sock:receive(6)
     --如果遇到timeout,或者close的情况，则break 本次循环读取，继续下一条读取
-    if err==&#39;timeout&#39; or err ==&#39;close&#39; then
+    if err==&amp;#39;timeout&amp;#39; or err ==&amp;#39;close&amp;#39; then
         break
     end
     --按pmtp协议读取返回的参数，type1为消息类型，ver2为pmtp协议版本号，time待命时间，len4为消息体的长度，不包含头的长度
     --默认字节顺序为 大端，&amp;gt;ccHH
-    local succ,succLen,type1,Ver2,Time3,Len4 = pcall(myunpack,data,&amp;quot;&amp;gt;ccHH&amp;quot;)
+    local succ,succLen,type1,Ver2,Time3,Len4 = pcall(myunpack,data,&amp;#34;&amp;gt;ccHH&amp;#34;)
     --读取剩余的消息体长度内容
     local body, err = sock:receive(Len4)
     --如果读取body为空，则退出
@@ -304,7 +304,7 @@ while true do
         break
     end
     --打印body消息内容
-    ngx.log(ngx.ERR, &amp;quot;------bdy &amp;quot;, body)
+    ngx.log(ngx.ERR, &amp;#34;------bdy &amp;#34;, body)
 end
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;通过客户端链接后发送tcp私有协议包的一模拟效果&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;./image-20210508175828796.png&#34; alt=&#34;image-20210508175828796&#34;&gt;&lt;/p&gt;
