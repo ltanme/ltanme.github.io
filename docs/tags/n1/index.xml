@@ -20,11 +20,11 @@
 &lt;h5 id=&#34;找到原来开机启动脚本没有的话添加即可-etcinitds50zerotiersh&#34;&gt;找到原来开机启动脚本,没有的话添加即可 /etc/init.d/S50zerotier.sh&lt;/h5&gt;
 &lt;h5 id=&#34;把如下代码新建startup_zerotiersh文件写入如下代码内容保存在root目录下&#34;&gt;把如下代码，新建startup_zerotier.sh文件，写入如下代码内容，保存在/root目录下&lt;/h5&gt;
 &lt;/blockquote&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; 
+&lt;pre&gt;&lt;code&gt; 
 #!/bin/sh
 program=zerotier
-sn=`ps -ef | grep program | grep -v grep |awk &amp;#39;{print $2}&amp;#39;`
-if [ &amp;#34;${sn}&amp;#34; = &amp;#34;&amp;#34; ]
+sn=`ps -ef | grep program | grep -v grep |awk &#39;{print $2}&#39;`
+if [ &amp;quot;${sn}&amp;quot; = &amp;quot;&amp;quot; ]
 then
   sh /etc/init.d/S50zerotier.sh
   echo start ok !
@@ -54,10 +54,11 @@ fi
 &lt;p&gt;原论坛：https://forum.kodi.tv/showthread.php?tid=157120&lt;/p&gt;
 &lt;p&gt;解决方法：&lt;/p&gt;
 &lt;p&gt;​     用electerm ssh管理软件登录到kodi 系统，在/storage/.kodi/userdata/ 目录下 创建 autoexec.py 文件 ，输入代码如下&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; xbmc 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayMedia(/storage/ad/test.m3u)&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin( &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;XBMC.SetVolume(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;)) &lt;span style=&#34;color:#75715e&#34;&gt;# 设置音量，这个很有用，比如早上闹钟模式可以设置大一点，晚上睡觉前可以小一点声音，这里的脚本是在nas 群晖系统自动生成，采用定时任务生成的，然后在kodi设备做了开机启动挂载nfs共享实现的&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;test.m3u我这里只是测试音视频列表，你可以用nas nfs 接入就可以，做一个软链接即可读取&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; xbmc 
+xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayMedia(/storage/ad/test.m3u)&amp;#34;&lt;/span&gt;)
+xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin( &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;XBMC.SetVolume(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;)) &lt;span style=&#34;color:#75715e&#34;&gt;# 设置音量，这个很有用，比如早上闹钟模式可以设置大一点，晚上睡觉前可以小一点声音，这里的脚本是在nas 群晖系统自动生成，采用定时任务生成的，然后在kodi设备做了开机启动挂载nfs共享实现的&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;test.m3u我这里只是测试音视频列表，你可以用nas nfs 接入就可以，做一个软链接即可读取&lt;/p&gt;
 &lt;p&gt;test.m3u为播放列表，该文件是生成的，生成工具在这里，也可以制混合m3u播放列表，包含本地播放，在线链接播放&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/Isayso/PlaylistEditorTV&#34;&gt;Isayso/PlaylistEditorTV: IPTV m3u list Editor/Player for Windows with Kodi support (github.com)&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;image-20210613072200142.png&#34; alt=&#34;image-20210613072200142&#34;&gt;&lt;/p&gt;
@@ -81,40 +82,41 @@ fi
 &lt;p&gt;3，播放列表根据自己喜好，分类制作不同的分类播放列表&lt;/p&gt;
 &lt;p&gt;​      如国学单独一个播放列表，流行music一个播放列表，背景音乐，睡前音乐等等&lt;/p&gt;
 &lt;p&gt;播放列表是自己生成的播放列表.m3u格式如下文件&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-m3u&#34; data-lang=&#34;m3u&#34;&gt;#EXTCPlayListM3U::M3U
+&lt;pre&gt;&lt;code class=&#34;language-m3u&#34; data-lang=&#34;m3u&#34;&gt;#EXTCPlayListM3U::M3U
 #EXTINF:0,高枫 - 大中国
 /storage/recordings/mp3/高枫 - 大中国.mp3
 #EXTINF:0,下山
 /storage/recordings/01.下山.flac
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;开机自动播放脚本存储位置 &lt;code&gt;/storage/.kodi/userdata/autoexec.py&lt;/code&gt;  代码内容如下，根据自身需求定制&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; xbmc
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; datetime
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;today &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datetime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;date&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;today()
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;d &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datetime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;datetime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;now()
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;now &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; today&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;day
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dayOfWeek &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;weekday())
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cur_hour &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(getattr(d, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;hour&amp;#39;&lt;/span&gt;))
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cur_minute &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(getattr(d, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;minute&amp;#39;&lt;/span&gt;))
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(dayOfWeek&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; dayOfWeek &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;):
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(cur_hour &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; cur_hour &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; cur_minute &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;25&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; cur_minute &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;59&lt;/span&gt;):
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayMedia(/storage/ad/go2school.m3u)&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ActivateWindow(Music,special:/storage/ad/go2school.m3u)&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;XBMC.SetVolume(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayerControl(repeatall)&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(cur_hour &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;14&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; cur_hour &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;):
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayMedia(/storage/ad/bj.m3u)&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ActivateWindow(Music,special:/storage/ad/bj.m3u)&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;XBMC.SetVolume(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;75&lt;/span&gt;))
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayerControl(repeatall)&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayMedia(/storage/ad/playlist.m3u)&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ActivateWindow(Music,special:/storage/ad/bj.m3u)&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;XBMC.SetVolume(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;48&lt;/span&gt;))
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayerControl(repeatoff)&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;通过不需要重启coreELEC系统就可以执行，这样可以快速调试&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kodi-send --action&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;RunScript(&amp;#34;special://profile/autoexec.py&amp;#34;)&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其播放计划脚本为autoexec.py 脚本 需要根据不同日期判断音量，不同时间段判断播放内容&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; xbmc
+&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; datetime
+
+today &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datetime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;date&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;today()
+d &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datetime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;datetime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;now()
+now &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; today&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;day
+dayOfWeek &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;weekday())
+cur_hour &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(getattr(d, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;hour&amp;#39;&lt;/span&gt;))
+cur_minute &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(getattr(d, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;minute&amp;#39;&lt;/span&gt;))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(dayOfWeek&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; dayOfWeek &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;):
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(cur_hour &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; cur_hour &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; cur_minute &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;25&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; cur_minute &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;59&lt;/span&gt;):
+		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayMedia(/storage/ad/go2school.m3u)&amp;#34;&lt;/span&gt;)
+		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ActivateWindow(Music,special:/storage/ad/go2school.m3u)&amp;#34;&lt;/span&gt;)
+		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;XBMC.SetVolume(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;))
+		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayerControl(repeatall)&amp;#34;&lt;/span&gt;)
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(cur_hour &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;14&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; cur_hour &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;):
+		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayMedia(/storage/ad/bj.m3u)&amp;#34;&lt;/span&gt;)
+		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ActivateWindow(Music,special:/storage/ad/bj.m3u)&amp;#34;&lt;/span&gt;)
+		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;XBMC.SetVolume(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;75&lt;/span&gt;))
+		xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayerControl(repeatall)&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+	xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayMedia(/storage/ad/playlist.m3u)&amp;#34;&lt;/span&gt;)
+	xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ActivateWindow(Music,special:/storage/ad/bj.m3u)&amp;#34;&lt;/span&gt;)
+	xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;XBMC.SetVolume(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;)&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;48&lt;/span&gt;))
+	xbmc&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executebuiltin(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PlayerControl(repeatoff)&amp;#34;&lt;/span&gt;)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;通过不需要重启coreELEC系统就可以执行，这样可以快速调试&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;kodi-send --action&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;RunScript(&amp;#34;special://profile/autoexec.py&amp;#34;)&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其播放计划脚本为autoexec.py 脚本 需要根据不同日期判断音量，不同时间段判断播放内容&lt;/p&gt;
 &lt;p&gt;m3u 文件格式制作请参考文档：&lt;a href=&#34;https://en.wikipedia.org/wiki/M3U&#34;&gt;M3U - Wikipedia&lt;/a&gt;&lt;/p&gt;
 </content>
     </item>

@@ -31,7 +31,7 @@ draft: true
 		Hidden=false
    ```
 >  内容控制程序
-   采用supervisor做开机自启go语言编写的内容控制程序
+>  采用supervisor做开机自启go语言编写的内容控制程序
    
    
    ```bash 
