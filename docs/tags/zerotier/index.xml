@@ -20,11 +20,11 @@
 &lt;h5 id=&#34;找到原来开机启动脚本没有的话添加即可-etcinitds50zerotiersh&#34;&gt;找到原来开机启动脚本,没有的话添加即可 /etc/init.d/S50zerotier.sh&lt;/h5&gt;
 &lt;h5 id=&#34;把如下代码新建startup_zerotiersh文件写入如下代码内容保存在root目录下&#34;&gt;把如下代码，新建startup_zerotier.sh文件，写入如下代码内容，保存在/root目录下&lt;/h5&gt;
 &lt;/blockquote&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; 
+&lt;pre&gt;&lt;code&gt; 
 #!/bin/sh
 program=zerotier
-sn=`ps -ef | grep program | grep -v grep |awk &amp;#39;{print $2}&amp;#39;`
-if [ &amp;#34;${sn}&amp;#34; = &amp;#34;&amp;#34; ]
+sn=`ps -ef | grep program | grep -v grep |awk &#39;{print $2}&#39;`
+if [ &amp;quot;${sn}&amp;quot; = &amp;quot;&amp;quot; ]
 then
   sh /etc/init.d/S50zerotier.sh
   echo start ok !

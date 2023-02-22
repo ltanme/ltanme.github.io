@@ -178,15 +178,15 @@
 <blockquote>
 <p>1， 检查相关命令，是否有分区命令，没有需要安装，</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>    opkg install fdisk
-</span></span></code></pre></div><blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    opkg install fdisk
+</code></pre></div><blockquote>
 <p>如果安装好后，使用fdisk -l 命令查看硬盘使用情况，分区情况，以及分区编号</p>
 </blockquote>
 <blockquote>
 <p>2, 格式化未使用的空间,nvme0n1p1,nvme0n1p2己使用了，创建新分区nvme0n1p3</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>   mkfs.ext3 /dev/nvme0n1p3
-</span></span></code></pre></div><blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">   mkfs.ext3 /dev/nvme0n1p3
+</code></pre></div><blockquote>
 <p>3, 挂载分区，使用命令临时挂载，一次性的，需要开机则挂机，则需要添加init.d命令，这里推荐用图形界面挂载比
 比较简单,选择UUID,挂载点后点击保存即可
 <img src="openwrt-mount.png" alt="openwrt mount disk"></p>
@@ -194,677 +194,678 @@
 <blockquote>
 <p>以下是用命令操作分区格式化的过程</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@OpenWrt:~# mount /dev/nvme0n1p3 /data/
-</span></span><span style="display:flex;"><span>mount: mounting /dev/nvme0n1p3 on /data/ failed: Invalid argument
-</span></span><span style="display:flex;"><span>root@OpenWrt:~# mount /dev/nvme0n1p3 /data
-</span></span><span style="display:flex;"><span>mount: mounting /dev/nvme0n1p3 on /data failed: Invalid argument
-</span></span><span style="display:flex;"><span>root@OpenWrt:~# mkf
-</span></span><span style="display:flex;"><span>mkfifo     mkfs.ext2  mkfs.ext3  mkfs.ext4  mkfs.f2fs
-</span></span><span style="display:flex;"><span>root@OpenWrt:~# mkf
-</span></span><span style="display:flex;"><span>mkfifo     mkfs.ext2  mkfs.ext3  mkfs.ext4  mkfs.f2fs
-</span></span><span style="display:flex;"><span>root@OpenWrt:~# mkfs.ext
-</span></span><span style="display:flex;"><span>-ash: mkfs.ext: not found
-</span></span><span style="display:flex;"><span>root@OpenWrt:~# mkfs.ext3
-</span></span><span style="display:flex;"><span>Usage: mkfs.ext3 <span style="color:#f92672">[</span>-c|-l filename<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-b block-size<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-C cluster-size<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>-i bytes-per-inode<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-I inode-size<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-J journal-options<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>-G flex-group-size<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-N number-of-inodes<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-d root-directory<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>-m reserved-blocks-percentage<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-o creator-os<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>-g blocks-per-group<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-L volume-label<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-M last-mounted-directory<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>-O feature<span style="color:#f92672">[</span>,...<span style="color:#f92672">]]</span> <span style="color:#f92672">[</span>-r fs-revision<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-E extended-option<span style="color:#f92672">[</span>,...<span style="color:#f92672">]]</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>-t fs-type<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-T usage-type <span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-U UUID<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-e errors_behavior<span style="color:#f92672">][</span>-z undo_file<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>-jnqvDFSV<span style="color:#f92672">]</span> device <span style="color:#f92672">[</span>blocks-count<span style="color:#f92672">]</span>
-</span></span><span style="display:flex;"><span>root@OpenWrt:~# mkfs.ext3 /dev/n
-</span></span><span style="display:flex;"><span>net/         nvme0        nvme0n1p1    nvme0n1p2    nvram
-</span></span><span style="display:flex;"><span>null         nvme0n1      nvme0n1p128  nvme0n1p3
-</span></span><span style="display:flex;"><span>root@OpenWrt:~# mkfs.ext3 /dev/n
-</span></span><span style="display:flex;"><span>net/         nvme0        nvme0n1p1    nvme0n1p2    nvram
-</span></span><span style="display:flex;"><span>null         nvme0n1      nvme0n1p128  nvme0n1p3
-</span></span><span style="display:flex;"><span>root@OpenWrt:~# mkfs.ext3 /dev/nvme0103
-</span></span><span style="display:flex;"><span>mke2fs 1.45.6 <span style="color:#f92672">(</span>20-Mar-2020<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>The file /dev/nvme0103 does not exist and no size was specified.
-</span></span><span style="display:flex;"><span>root@OpenWrt:~# mkfs.ext3 /dev/nvme01p3
-</span></span><span style="display:flex;"><span>mke2fs 1.45.6 <span style="color:#f92672">(</span>20-Mar-2020<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>The file /dev/nvme01p3 does not exist and no size was specified.
-</span></span><span style="display:flex;"><span>root@OpenWrt:~# fdisk  -l
-</span></span><span style="display:flex;"><span>Disk /dev/loop0: 83.56 MiB, <span style="color:#ae81ff">87621632</span> bytes, <span style="color:#ae81ff">171136</span> sectors
-</span></span><span style="display:flex;"><span>Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Disk /dev/nvme0n1: 119.24 GiB, <span style="color:#ae81ff">128035676160</span> bytes, <span style="color:#ae81ff">250069680</span> sectors
-</span></span><span style="display:flex;"><span>Disk model: SK 128GB
-</span></span><span style="display:flex;"><span>Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Disklabel type: gpt
-</span></span><span style="display:flex;"><span>Disk identifier: 45D81ACA-A5B5-7CD0-2928-787DCE37BA00
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Device            Start       End   Sectors   Size Type
-</span></span><span style="display:flex;"><span>/dev/nvme0n1p1      <span style="color:#ae81ff">512</span>     <span style="color:#ae81ff">33279</span>     <span style="color:#ae81ff">32768</span>    16M Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/nvme0n1p2    <span style="color:#ae81ff">33280</span>    <span style="color:#ae81ff">360959</span>    <span style="color:#ae81ff">327680</span>   160M Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/nvme0n1p3   <span style="color:#ae81ff">362496</span> <span style="color:#ae81ff">250069646</span> <span style="color:#ae81ff">249707151</span> 119.1G Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/nvme0n1p128     <span style="color:#ae81ff">34</span>       <span style="color:#ae81ff">511</span>       <span style="color:#ae81ff">478</span>   239K BIOS boot
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Partition table entries are not in disk order.
-</span></span><span style="display:flex;"><span>root@OpenWrt:~# mount -l
-</span></span><span style="display:flex;"><span>mount: unrecognized option: l
-</span></span><span style="display:flex;"><span>BusyBox v1.33.2 <span style="color:#f92672">(</span>2022-01-04 15:52:49 UTC<span style="color:#f92672">)</span> multi-call binary.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Usage: mount <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-o OPT<span style="color:#f92672">]</span> DEVICE NODE
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Mount a filesystem. Filesystem autodetection requires /proc.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        -a              Mount all filesystems in fstab
-</span></span><span style="display:flex;"><span>        -i              Don<span style="color:#e6db74">&#39;t run mount helper
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        -r              Read-only mount
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        -t FSTYPE[,...] Filesystem type(s)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        -O OPT          Mount only filesystems with option OPT (-a only)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-o OPT:
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        loop            Ignored (loop devices are autodetected)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [a]sync         Writes are [a]synchronous
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [no]atime       Disable/enable updates to inode access times
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [no]diratime    Disable/enable atime updates to directories
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [no]relatime    Disable/enable atime updates relative to modification time
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [no]dev         (Dis)allow use of special device files
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [no]exec        (Dis)allow use of executable files
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [no]suid        (Dis)allow set-user-id-root programs
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [r]shared       Convert [recursively] to a shared subtree
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [r]slave        Convert [recursively] to a slave subtree
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [r]private      Convert [recursively] to a private subtree
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [un]bindable    Make mount point [un]able to be bind mounted
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [r]bind         Bind a file or directory [recursively] to another location
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        move            Relocate an existing mount point
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        remount         Remount a mounted filesystem, changing flags
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        ro              Same as -r
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">There are filesystem-specific -o flags.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">root@OpenWrt:~# mount
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/root on /rom type squashfs (ro,relatime)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">proc on /proc type proc (rw,nosuid,nodev,noexec,noatime)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,noatime)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">tmpfs on /tmp type tmpfs (rw,nosuid,nodev,noatime)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/loop0 on /overlay type ext4 (rw,noatime)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">overlayfs:/overlay on / type overlay (rw,noatime,lowerdir=/,upperdir=/overlay/upper,workdir=/overlay/work)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/nvme0n1p1 on /boot type vfat (rw,noatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/nvme0n1p1 on /boot type vfat (rw,noatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">tmpfs on /dev type tmpfs (rw,nosuid,relatime,size=512k,mode=755)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,mode=600,ptmxmode=000)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">debugfs on /sys/kernel/debug type debugfs (rw,noatime)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">none on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,noatime,mode=700)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">root@OpenWrt:~# df -h
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Filesystem                Size      Used Available Use% Mounted on
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/root                77.0M     77.0M         0 100% /rom
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">tmpfs                     3.8G      6.8M      3.8G   0% /tmp
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/loop0               76.9M      3.1M     68.0M   4% /overlay
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">overlayfs:/overlay       76.9M      3.1M     68.0M   4% /
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">tmpfs                   512.0K         0    512.0K   0% /dev
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">root@OpenWrt:~# mkfs.ext3 /dev/nvme0n1p3
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">mke2fs 1.45.6 (20-Mar-2020)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Discarding device blocks: done
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Creating filesystem with 31213393 4k blocks and 7806976 inodes
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Filesystem UUID: ffebbab2-ad4b-48f9-9551-fef3b35abbdf
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Superblock backups stored on blocks:
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        4096000, 7962624, 11239424, 20480000, 23887872
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Allocating group tables: done
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Writing inode tables: done
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Creating journal (131072 blocks):
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">done
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Writing superblocks and filesystem accounting information: done
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">root@OpenWrt:~#
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">root@OpenWrt:~# mount /dev/nvme0n1p3 /data
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">root@OpenWrt:~# df -h
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Filesystem                Size      Used Available Use% Mounted on
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/root                77.0M     77.0M         0 100% /rom
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">tmpfs                     3.8G      7.0M      3.8G   0% /tmp
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/loop0               76.9M      3.1M     68.0M   4% /overlay
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">overlayfs:/overlay       76.9M      3.1M     68.0M   4% /
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">tmpfs                   512.0K         0    512.0K   0% /dev
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/nvme0n1p3          116.7G     60.1M    110.7G   0% /data
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">#====================================================================
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># root @ FusionWrt in ~ [21:29:18]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">$
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># root @ FusionWrt in ~ [21:29:18]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">$ fdisk -l
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Disk /dev/loop0: 749.88 MiB, 786300928 bytes, 1535744 sectors
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Units: sectors of 1 * 512 = 512 bytes
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Sector size (logical/physical): 512 bytes / 512 bytes
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">I/O size (minimum/optimal): 512 bytes / 512 bytes
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">GPT PMBR size mismatch (2236959 != 180355071) will be corrected by write.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">The backup GPT table is corrupt, but the primary appears OK, so that will be used.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">The backup GPT table is not on the end of the device.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Disk /dev/sda: 86 GiB, 92341796864 bytes, 180355072 sectors
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Disk model: Virtual Disk
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Units: sectors of 1 * 512 = 512 bytes
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Sector size (logical/physical): 512 bytes / 512 bytes
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">I/O size (minimum/optimal): 512 bytes / 512 bytes
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Disklabel type: gpt
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Disk identifier: 9EF097BB-CC70-D6F6-8AC0-303F2DC1E300
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Device       Start     End Sectors  Size Type
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/sda1      512  131583  131072   64M Linux filesystem
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/sda2   131584 2236927 2105344    1G Linux filesystem
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/sda128     34     511     478  239K BIOS boot
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Partition table entries are not in disk order.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># root @ FusionWrt in ~ [21:29:24]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">$ df -h
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Filesystem                Size      Used Available Use% Mounted on
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/root               279.0M    279.0M         0 100% /rom
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">tmpfs                     1.9G     13.7M      1.9G   1% /tmp
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/loop0              747.9M    135.6M    612.3M  18% /overlay
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">overlayfs:/overlay      747.9M    135.6M    612.3M  18% /
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/sda1                63.9M      5.7M     58.2M   9% /boot
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/dev/sda1                63.9M      5.7M     58.2M   9% /boot
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">tmpfs                   512.0K         0    512.0K   0% /dev
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">cgroup                    1.9G         0      1.9G   0% /sys/fs/cgroup
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">overlayfs:/overlay      747.9M    135.6M    612.3M  18% /opt/docker
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># root @ FusionWrt in ~ [21:29:59]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">$ fd
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">zsh: command not found: fd
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># root @ FusionWrt in ~ [21:30:49] C:127
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  1 EFI System                     C12A7328-F81F-11D2-BA4B-00A0C93EC93B
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  2 MBR partition scheme           024DEE41-33E7-11D3-9D69-0008C781F39F
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  3 Intel Fast Flash               D3BFE2DE-3DAF-11DF-BA40-E3A556D89593
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  4 BIOS boot                      21686148-6449-6E6F-744E-656564454649
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  5 Sony boot partition            F4019732-066E-4E12-8273-346C5641494F
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  6 Lenovo boot partition          BFBFAFE7-A34F-448A-9A5B-6213EB736C22
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  7 PowerPC PReP boot              9E1A2D38-C612-4316-AA26-8B49521E5A8B
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  8 ONIE boot                      7412F7D5-A156-4B13-81DC-867174929325
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  9 ONIE config                    D4E6E2CD-4469-46F3-B5CB-1BFF57AFC149
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 10 Microsoft reserved             E3C9E316-0B5C-4DB8-817D-F92DF00215AE
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 11 Microsoft basic data           EBD0A0A2-B9E5-4433-87C0-68B6B72699C7
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 12 Microsoft LDM metadata         5808C8AA-7E8F-42E0-85D2-E1E90434CFB3
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 13 Microsoft LDM data             AF9B60A0-1431-4F62-BC68-3311714A69AD
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 14 Windows recovery environment   DE94BBA4-06D1-4D40-A16A-BFD50179D6AC
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 15 IBM General Parallel Fs        37AFFC90-EF7D-4E96-91C3-2D7AE055B174
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 16 Microsoft Storage Spaces       E75CAF8F-F680-4CEE-AFA3-B001E56EFC2D
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 17 HP-UX data                     75894C1E-3AEB-11D3-B7C1-7B03A0000000
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 18 HP-UX service                  E2A1E728-32E3-11D6-A682-7B03A0000000
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 19 Linux swap                     0657FD6D-A4AB-43C4-84E5-0933C84B4F4F
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 20 Linux filesystem               0FC63DAF-8483-4772-8E79-3D69D8477DE4
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 21 Linux server data              3B8F8425-20E0-4F3B-907F-1A25A76F98E8
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 22 Linux root (x86)               44479540-F297-41B2-9AF7-D131D5F0458A
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 23 Linux root (x86-64)            4F68BCE3-E8CD-4DB1-96E7-FBCAF984B709
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 24 Linux root (ARM)               69DAD710-2CE4-4E3C-B16C-21A1D49ABED3
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 25 Linux root (ARM-64)            B921B045-1DF0-41C3-AF44-4C6F280D3FAE
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 26 Linux root (IA-64)             993D8D3D-F80E-4225-855A-9DAF8ED7EA97
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> 27 Linux reserved                 8DA63339-0007-60C0-C436-083AC8230908
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Command (m for help): m
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Help:
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  GPT
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   M   enter protective/hybrid MBR
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  Generic
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   d   delete a partition
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   F   list free unpartitioned space
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   l   list known partition types
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   n   add a new partition
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   p   print the partition table
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   t   change a partition type
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   v   verify the partition table
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   i   print information about a partition
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  Misc
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   m   print this menu
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   x   extra functionality (experts only)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  Script
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   I   load disk layout from sfdisk script file
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   O   dump disk layout to sfdisk script file
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  Save &amp; Exit
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   w   write table to disk and exit
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   q   quit without saving changes
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  Create a new label
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   g   create a new empty GPT partition table
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   G   create a new empty SGI (IRIX) partition table
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   o   create a new empty DOS partition table
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   s   create a new empty Sun partition table
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Command (m for help): c
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">c: unknown command
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Command (m for help): g
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Created a new GPT disklabel (GUID: A5806F78-F456-C34C-B92D-AE3357E8FC1B).
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Command (m for help):
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Command (m for help): q
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># root @ FusionWrt in ~ [21:34:57]
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">$ fdisk /dev/sda
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Welcome to fdisk (util-linux 2.37.3).
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Changes will remain in memory only, until you decide to write them.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Be careful before using the write command.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">GPT PMBR size mismatch (2236959 != 180355071) will be corrected by write.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">The backup GPT table is corrupt, but the primary appears OK, so that will be used.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">The backup GPT table is not on the end of the device. This problem will be corrected by write.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">This disk is currently in use - repartitioning is probably a bad idea.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">It&#39;</span>s recommended to umount all file systems, and swapoff all swap
-</span></span><span style="display:flex;"><span>partitions on this disk.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: c
-</span></span><span style="display:flex;"><span>c: unknown command
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: m
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Help:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  GPT
-</span></span><span style="display:flex;"><span>   M   enter protective/hybrid MBR
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  Generic
-</span></span><span style="display:flex;"><span>   d   delete a partition
-</span></span><span style="display:flex;"><span>   F   list free unpartitioned space
-</span></span><span style="display:flex;"><span>   l   list known partition types
-</span></span><span style="display:flex;"><span>   n   add a new partition
-</span></span><span style="display:flex;"><span>   p   print the partition table
-</span></span><span style="display:flex;"><span>   t   change a partition type
-</span></span><span style="display:flex;"><span>   v   verify the partition table
-</span></span><span style="display:flex;"><span>   i   print information about a partition
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  Misc
-</span></span><span style="display:flex;"><span>   m   print this menu
-</span></span><span style="display:flex;"><span>   x   extra functionality <span style="color:#f92672">(</span>experts only<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  Script
-</span></span><span style="display:flex;"><span>   I   load disk layout from sfdisk script file
-</span></span><span style="display:flex;"><span>   O   dump disk layout to sfdisk script file
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  Save &amp; Exit
-</span></span><span style="display:flex;"><span>   w   write table to disk and exit
-</span></span><span style="display:flex;"><span>   q   quit without saving changes
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  Create a new label
-</span></span><span style="display:flex;"><span>   g   create a new empty GPT partition table
-</span></span><span style="display:flex;"><span>   G   create a new empty SGI <span style="color:#f92672">(</span>IRIX<span style="color:#f92672">)</span> partition table
-</span></span><span style="display:flex;"><span>   o   create a new empty DOS partition table
-</span></span><span style="display:flex;"><span>   s   create a new empty Sun partition table
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: p
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Disk /dev/sda: <span style="color:#ae81ff">86</span> GiB, <span style="color:#ae81ff">92341796864</span> bytes, <span style="color:#ae81ff">180355072</span> sectors
-</span></span><span style="display:flex;"><span>Disk model: Virtual Disk
-</span></span><span style="display:flex;"><span>Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Disklabel type: gpt
-</span></span><span style="display:flex;"><span>Disk identifier: 9EF097BB-CC70-D6F6-8AC0-303F2DC1E300
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Device       Start     End Sectors  Size Type
-</span></span><span style="display:flex;"><span>/dev/sda1      <span style="color:#ae81ff">512</span>  <span style="color:#ae81ff">131583</span>  <span style="color:#ae81ff">131072</span>   64M Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/sda2   <span style="color:#ae81ff">131584</span> <span style="color:#ae81ff">2236927</span> <span style="color:#ae81ff">2105344</span>    1G Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/sda128     <span style="color:#ae81ff">34</span>     <span style="color:#ae81ff">511</span>     <span style="color:#ae81ff">478</span>  239K BIOS boot
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Partition table entries are not in disk order.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: m
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Help:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  GPT
-</span></span><span style="display:flex;"><span>   M   enter protective/hybrid MBR
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  Generic
-</span></span><span style="display:flex;"><span>   d   delete a partition
-</span></span><span style="display:flex;"><span>   F   list free unpartitioned space
-</span></span><span style="display:flex;"><span>   l   list known partition types
-</span></span><span style="display:flex;"><span>   n   add a new partition
-</span></span><span style="display:flex;"><span>   p   print the partition table
-</span></span><span style="display:flex;"><span>   t   change a partition type
-</span></span><span style="display:flex;"><span>   v   verify the partition table
-</span></span><span style="display:flex;"><span>   i   print information about a partition
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  Misc
-</span></span><span style="display:flex;"><span>   m   print this menu
-</span></span><span style="display:flex;"><span>   x   extra functionality <span style="color:#f92672">(</span>experts only<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  Script
-</span></span><span style="display:flex;"><span>   I   load disk layout from sfdisk script file
-</span></span><span style="display:flex;"><span>   O   dump disk layout to sfdisk script file
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  Save &amp; Exit
-</span></span><span style="display:flex;"><span>   w   write table to disk and exit
-</span></span><span style="display:flex;"><span>   q   quit without saving changes
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  Create a new label
-</span></span><span style="display:flex;"><span>   g   create a new empty GPT partition table
-</span></span><span style="display:flex;"><span>   G   create a new empty SGI <span style="color:#f92672">(</span>IRIX<span style="color:#f92672">)</span> partition table
-</span></span><span style="display:flex;"><span>   o   create a new empty DOS partition table
-</span></span><span style="display:flex;"><span>   s   create a new empty Sun partition table
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: f
-</span></span><span style="display:flex;"><span>f: unknown command
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: F
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Unpartitioned space /dev/sda: 84.93 GiB, <span style="color:#ae81ff">91195686400</span> bytes, <span style="color:#ae81ff">178116575</span> sectors
-</span></span><span style="display:flex;"><span>Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  Start       End   Sectors  Size
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2238464</span> <span style="color:#ae81ff">180355038</span> <span style="color:#ae81ff">178116575</span> 84.9G
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: n
-</span></span><span style="display:flex;"><span>Partition number <span style="color:#f92672">(</span>3-127, default 3<span style="color:#f92672">)</span>:
-</span></span><span style="display:flex;"><span>First sector <span style="color:#f92672">(</span>2236928-180355038, default 2238464<span style="color:#f92672">)</span>:
-</span></span><span style="display:flex;"><span>Last sector, +/-sectors or +/-size<span style="color:#f92672">{</span>K,M,G,T,P<span style="color:#f92672">}</span> <span style="color:#f92672">(</span>2238464-180355038, default 180355038<span style="color:#f92672">)</span>:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Created a new partition <span style="color:#ae81ff">3</span> of type <span style="color:#e6db74">&#39;Linux filesystem&#39;</span> and of size 84.9 GiB.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: w
-</span></span><span style="display:flex;"><span>The partition table has been altered.
-</span></span><span style="display:flex;"><span>Syncing disks.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in ~ [21:36:40]</span>
-</span></span><span style="display:flex;"><span>$ fdisk -l
-</span></span><span style="display:flex;"><span>Disk /dev/loop0: 749.88 MiB, <span style="color:#ae81ff">786300928</span> bytes, <span style="color:#ae81ff">1535744</span> sectors
-</span></span><span style="display:flex;"><span>Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Disk /dev/sda: <span style="color:#ae81ff">86</span> GiB, <span style="color:#ae81ff">92341796864</span> bytes, <span style="color:#ae81ff">180355072</span> sectors
-</span></span><span style="display:flex;"><span>Disk model: Virtual Disk
-</span></span><span style="display:flex;"><span>Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Disklabel type: gpt
-</span></span><span style="display:flex;"><span>Disk identifier: 9EF097BB-CC70-D6F6-8AC0-303F2DC1E300
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Device        Start       End   Sectors  Size Type
-</span></span><span style="display:flex;"><span>/dev/sda1       <span style="color:#ae81ff">512</span>    <span style="color:#ae81ff">131583</span>    <span style="color:#ae81ff">131072</span>   64M Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/sda2    <span style="color:#ae81ff">131584</span>   <span style="color:#ae81ff">2236927</span>   <span style="color:#ae81ff">2105344</span>    1G Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/sda3   <span style="color:#ae81ff">2238464</span> <span style="color:#ae81ff">180355038</span> <span style="color:#ae81ff">178116575</span> 84.9G Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/sda128      <span style="color:#ae81ff">34</span>       <span style="color:#ae81ff">511</span>       <span style="color:#ae81ff">478</span>  239K BIOS boot
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Partition table entries are not in disk order.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in ~ [21:36:45]</span>
-</span></span><span style="display:flex;"><span>$ mkfs.ext3 /dev/sda3
-</span></span><span style="display:flex;"><span>mke2fs 1.46.5 <span style="color:#f92672">(</span>30-Dec-2021<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>Discarding device blocks: <span style="color:#66d9ef">done</span>
-</span></span><span style="display:flex;"><span>Creating filesystem with <span style="color:#ae81ff">22264571</span> 4k blocks and <span style="color:#ae81ff">5570560</span> inodes
-</span></span><span style="display:flex;"><span>Filesystem UUID: d12bdb7a-f91f-4cdd-aab3-f6391845ca0b
-</span></span><span style="display:flex;"><span>Superblock backups stored on blocks:
-</span></span><span style="display:flex;"><span>        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
-</span></span><span style="display:flex;"><span>        4096000, 7962624, 11239424, <span style="color:#ae81ff">20480000</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Allocating group tables: <span style="color:#66d9ef">done</span>
-</span></span><span style="display:flex;"><span>Writing inode tables: <span style="color:#66d9ef">done</span>
-</span></span><span style="display:flex;"><span>Creating journal <span style="color:#f92672">(</span><span style="color:#ae81ff">131072</span> blocks<span style="color:#f92672">)</span>: <span style="color:#66d9ef">done</span>
-</span></span><span style="display:flex;"><span>Writing superblocks and filesystem accounting information:
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in ~ [21:37:06]</span>
-</span></span><span style="display:flex;"><span>$
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in ~ [21:37:06]</span>
-</span></span><span style="display:flex;"><span>$ df -h
-</span></span><span style="display:flex;"><span>Filesystem                Size      Used Available Use% Mounted on
-</span></span><span style="display:flex;"><span>/dev/root               279.0M    279.0M         <span style="color:#ae81ff">0</span> 100% /rom
-</span></span><span style="display:flex;"><span>tmpfs                     1.9G     13.7M      1.9G   1% /tmp
-</span></span><span style="display:flex;"><span>/dev/loop0              747.9M    135.6M    612.3M  18% /overlay
-</span></span><span style="display:flex;"><span>overlayfs:/overlay      747.9M    135.6M    612.3M  18% /
-</span></span><span style="display:flex;"><span>/dev/sda1                63.9M      5.7M     58.2M   9% /boot
-</span></span><span style="display:flex;"><span>/dev/sda1                63.9M      5.7M     58.2M   9% /boot
-</span></span><span style="display:flex;"><span>tmpfs                   512.0K         <span style="color:#ae81ff">0</span>    512.0K   0% /dev
-</span></span><span style="display:flex;"><span>cgroup                    1.9G         <span style="color:#ae81ff">0</span>      1.9G   0% /sys/fs/cgroup
-</span></span><span style="display:flex;"><span>overlayfs:/overlay      747.9M    135.6M    612.3M  18% /opt/docker
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in ~ [21:37:09]</span>
-</span></span><span style="display:flex;"><span>$ df -h
-</span></span><span style="display:flex;"><span>Filesystem                Size      Used Available Use% Mounted on
-</span></span><span style="display:flex;"><span>/dev/root               279.0M    279.0M         <span style="color:#ae81ff">0</span> 100% /rom
-</span></span><span style="display:flex;"><span>tmpfs                     1.9G     13.7M      1.9G   1% /tmp
-</span></span><span style="display:flex;"><span>/dev/loop0              747.9M    135.6M    612.3M  18% /overlay
-</span></span><span style="display:flex;"><span>overlayfs:/overlay      747.9M    135.6M    612.3M  18% /
-</span></span><span style="display:flex;"><span>/dev/sda1                63.9M      5.7M     58.2M   9% /boot
-</span></span><span style="display:flex;"><span>/dev/sda1                63.9M      5.7M     58.2M   9% /boot
-</span></span><span style="display:flex;"><span>tmpfs                   512.0K         <span style="color:#ae81ff">0</span>    512.0K   0% /dev
-</span></span><span style="display:flex;"><span>cgroup                    1.9G         <span style="color:#ae81ff">0</span>      1.9G   0% /sys/fs/cgroup
-</span></span><span style="display:flex;"><span>overlayfs:/overlay      747.9M    135.6M    612.3M  18% /opt/docker
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in ~ [21:37:18]</span>
-</span></span><span style="display:flex;"><span>$ fdisk -l
-</span></span><span style="display:flex;"><span>Disk /dev/loop0: 749.88 MiB, <span style="color:#ae81ff">786300928</span> bytes, <span style="color:#ae81ff">1535744</span> sectors
-</span></span><span style="display:flex;"><span>Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Disk /dev/sda: <span style="color:#ae81ff">86</span> GiB, <span style="color:#ae81ff">92341796864</span> bytes, <span style="color:#ae81ff">180355072</span> sectors
-</span></span><span style="display:flex;"><span>Disk model: Virtual Disk
-</span></span><span style="display:flex;"><span>Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Disklabel type: gpt
-</span></span><span style="display:flex;"><span>Disk identifier: 9EF097BB-CC70-D6F6-8AC0-303F2DC1E300
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Device        Start       End   Sectors  Size Type
-</span></span><span style="display:flex;"><span>/dev/sda1       <span style="color:#ae81ff">512</span>    <span style="color:#ae81ff">131583</span>    <span style="color:#ae81ff">131072</span>   64M Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/sda2    <span style="color:#ae81ff">131584</span>   <span style="color:#ae81ff">2236927</span>   <span style="color:#ae81ff">2105344</span>    1G Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/sda3   <span style="color:#ae81ff">2238464</span> <span style="color:#ae81ff">180355038</span> <span style="color:#ae81ff">178116575</span> 84.9G Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/sda128      <span style="color:#ae81ff">34</span>       <span style="color:#ae81ff">511</span>       <span style="color:#ae81ff">478</span>  239K BIOS boot
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Partition table entries are not in disk order.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in ~ [21:37:21]</span>
-</span></span><span style="display:flex;"><span>$
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in ~ [21:38:44]</span>
-</span></span><span style="display:flex;"><span>$
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in ~ [21:38:44]</span>
-</span></span><span style="display:flex;"><span>$ cd /data
-</span></span><span style="display:flex;"><span>cd: no such file or directory: /data
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in ~ [21:38:48] C:1</span>
-</span></span><span style="display:flex;"><span>$ pwd
-</span></span><span style="display:flex;"><span>/root
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in ~ [21:38:50]</span>
-</span></span><span style="display:flex;"><span>$ ls -/ /data
-</span></span><span style="display:flex;"><span>ls: unrecognized option: /
-</span></span><span style="display:flex;"><span>BusyBox v1.35.0 <span style="color:#f92672">(</span>2022-02-27 05:31:25 UTC<span style="color:#f92672">)</span> multi-call binary.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Usage: ls <span style="color:#f92672">[</span>-1AaCxdLHRFplinshrSXvctu<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-w WIDTH<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>FILE<span style="color:#f92672">]</span>...
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>List directory contents
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        -1      One column output
-</span></span><span style="display:flex;"><span>        -a      Include names starting with .
-</span></span><span style="display:flex;"><span>        -A      Like -a, but exclude . and ..
-</span></span><span style="display:flex;"><span>        -x      List by lines
-</span></span><span style="display:flex;"><span>        -d      List directory names, not contents
-</span></span><span style="display:flex;"><span>        -L      Follow symlinks
-</span></span><span style="display:flex;"><span>        -H      Follow symlinks on command line
-</span></span><span style="display:flex;"><span>        -R      Recurse
-</span></span><span style="display:flex;"><span>        -p      Append / to directory names
-</span></span><span style="display:flex;"><span>        -F      Append indicator <span style="color:#f92672">(</span>one of */<span style="color:#f92672">=</span>@|<span style="color:#f92672">)</span> to names
-</span></span><span style="display:flex;"><span>        -l      Long format
-</span></span><span style="display:flex;"><span>        -i      List inode numbers
-</span></span><span style="display:flex;"><span>        -n      List numeric UIDs and GIDs instead of names
-</span></span><span style="display:flex;"><span>        -s      List allocated blocks
-</span></span><span style="display:flex;"><span>        -lc     List ctime
-</span></span><span style="display:flex;"><span>        -lu     List atime
-</span></span><span style="display:flex;"><span>        --full-time     List full date/time
-</span></span><span style="display:flex;"><span>        -h      Human readable sizes <span style="color:#f92672">(</span>1K 243M 2G<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>        --group-directories-first
-</span></span><span style="display:flex;"><span>        -S      Sort by size
-</span></span><span style="display:flex;"><span>        -X      Sort by extension
-</span></span><span style="display:flex;"><span>        -v      Sort by version
-</span></span><span style="display:flex;"><span>        -t      Sort by mtime
-</span></span><span style="display:flex;"><span>        -tc     Sort by ctime
-</span></span><span style="display:flex;"><span>        -tu     Sort by atime
-</span></span><span style="display:flex;"><span>        -r      Reverse sort order
-</span></span><span style="display:flex;"><span>        -w N    Format N columns wide
-</span></span><span style="display:flex;"><span>        --color<span style="color:#f92672">[={</span>always,never,auto<span style="color:#f92672">}]</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in ~ [21:38:54] C:1</span>
-</span></span><span style="display:flex;"><span>$ mkdir /data
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in ~ [21:39:02]</span>
-</span></span><span style="display:flex;"><span>$ cd /
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in / [21:39:06]</span>
-</span></span><span style="display:flex;"><span>$ du -h -d <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>1.6M    ./bin
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>       ./dev
-</span></span><span style="display:flex;"><span>16.3M   ./etc
-</span></span><span style="display:flex;"><span>49.4M   ./lib
-</span></span><span style="display:flex;"><span>10.5K   ./mnt
-</span></span><span style="display:flex;"><span>330.5K  ./opt
-</span></span><span style="display:flex;"><span>2.9M    ./overlay
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>       ./proc
-</span></span><span style="display:flex;"><span>885.0M  ./rom
-</span></span><span style="display:flex;"><span>6.4M    ./root
-</span></span><span style="display:flex;"><span>1.4M    ./sbin
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>       ./sys
-</span></span><span style="display:flex;"><span>13.7M   ./tmp
-</span></span><span style="display:flex;"><span>737.2M  ./usr
-</span></span><span style="display:flex;"><span>72.0M   ./www
-</span></span><span style="display:flex;"><span>5.1M    ./boot
-</span></span><span style="display:flex;"><span>7.0K    ./home
-</span></span><span style="display:flex;"><span>18.5K   ./run
-</span></span><span style="display:flex;"><span>3.5K    ./data
-</span></span><span style="display:flex;"><span>1.7G    .
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in / [21:39:11]</span>
-</span></span><span style="display:flex;"><span>$ df -h
-</span></span><span style="display:flex;"><span>Filesystem                Size      Used Available Use% Mounted on
-</span></span><span style="display:flex;"><span>/dev/root               279.0M    279.0M         <span style="color:#ae81ff">0</span> 100% /rom
-</span></span><span style="display:flex;"><span>tmpfs                     1.9G     13.7M      1.9G   1% /tmp
-</span></span><span style="display:flex;"><span>/dev/loop0              747.9M    135.6M    612.3M  18% /overlay
-</span></span><span style="display:flex;"><span>overlayfs:/overlay      747.9M    135.6M    612.3M  18% /
-</span></span><span style="display:flex;"><span>/dev/sda1                63.9M      5.7M     58.2M   9% /boot
-</span></span><span style="display:flex;"><span>/dev/sda1                63.9M      5.7M     58.2M   9% /boot
-</span></span><span style="display:flex;"><span>tmpfs                   512.0K         <span style="color:#ae81ff">0</span>    512.0K   0% /dev
-</span></span><span style="display:flex;"><span>cgroup                    1.9G         <span style="color:#ae81ff">0</span>      1.9G   0% /sys/fs/cgroup
-</span></span><span style="display:flex;"><span>overlayfs:/overlay      747.9M    135.6M    612.3M  18% /opt/docker
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in / [21:39:15]</span>
-</span></span><span style="display:flex;"><span>$
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in / [21:41:20]</span>
-</span></span><span style="display:flex;"><span>$
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in / [21:41:20]</span>
-</span></span><span style="display:flex;"><span>$
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in / [21:41:20]</span>
-</span></span><span style="display:flex;"><span>$ cd /data
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in /data [21:41:23]</span>
-</span></span><span style="display:flex;"><span>$ ls
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in /data [21:41:24]</span>
-</span></span><span style="display:flex;"><span>$ pwd
-</span></span><span style="display:flex;"><span>/data
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in /data [21:41:27]</span>
-</span></span><span style="display:flex;"><span>$ du -h -d 1-h
-</span></span><span style="display:flex;"><span>du: invalid number <span style="color:#e6db74">&#39;1-h&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in /data [21:41:31] C:1</span>
-</span></span><span style="display:flex;"><span>$ du -h
-</span></span><span style="display:flex;"><span>3.5K    .
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in /data [21:41:33]</span>
-</span></span><span style="display:flex;"><span>$ df -h
-</span></span><span style="display:flex;"><span>Filesystem                Size      Used Available Use% Mounted on
-</span></span><span style="display:flex;"><span>/dev/root               279.0M    279.0M         <span style="color:#ae81ff">0</span> 100% /rom
-</span></span><span style="display:flex;"><span>tmpfs                     1.9G     13.7M      1.9G   1% /tmp
-</span></span><span style="display:flex;"><span>/dev/loop0              747.9M    135.6M    612.3M  18% /overlay
-</span></span><span style="display:flex;"><span>overlayfs:/overlay      747.9M    135.6M    612.3M  18% /
-</span></span><span style="display:flex;"><span>/dev/sda1                63.9M      5.7M     58.2M   9% /boot
-</span></span><span style="display:flex;"><span>/dev/sda1                63.9M      5.7M     58.2M   9% /boot
-</span></span><span style="display:flex;"><span>tmpfs                   512.0K         <span style="color:#ae81ff">0</span>    512.0K   0% /dev
-</span></span><span style="display:flex;"><span>cgroup                    1.9G         <span style="color:#ae81ff">0</span>      1.9G   0% /sys/fs/cgroup
-</span></span><span style="display:flex;"><span>overlayfs:/overlay      747.9M    135.6M    612.3M  18% /opt/docker
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in /data [21:41:39]</span>
-</span></span><span style="display:flex;"><span>$ fdisk -l
-</span></span><span style="display:flex;"><span>Disk /dev/loop0: 749.88 MiB, <span style="color:#ae81ff">786300928</span> bytes, <span style="color:#ae81ff">1535744</span> sectors
-</span></span><span style="display:flex;"><span>Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Disk /dev/sda: <span style="color:#ae81ff">86</span> GiB, <span style="color:#ae81ff">92341796864</span> bytes, <span style="color:#ae81ff">180355072</span> sectors
-</span></span><span style="display:flex;"><span>Disk model: Virtual Disk
-</span></span><span style="display:flex;"><span>Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
-</span></span><span style="display:flex;"><span>Disklabel type: gpt
-</span></span><span style="display:flex;"><span>Disk identifier: 9EF097BB-CC70-D6F6-8AC0-303F2DC1E300
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Device        Start       End   Sectors  Size Type
-</span></span><span style="display:flex;"><span>/dev/sda1       <span style="color:#ae81ff">512</span>    <span style="color:#ae81ff">131583</span>    <span style="color:#ae81ff">131072</span>   64M Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/sda2    <span style="color:#ae81ff">131584</span>   <span style="color:#ae81ff">2236927</span>   <span style="color:#ae81ff">2105344</span>    1G Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/sda3   <span style="color:#ae81ff">2238464</span> <span style="color:#ae81ff">180355038</span> <span style="color:#ae81ff">178116575</span> 84.9G Linux filesystem
-</span></span><span style="display:flex;"><span>/dev/sda128      <span style="color:#ae81ff">34</span>       <span style="color:#ae81ff">511</span>       <span style="color:#ae81ff">478</span>  239K BIOS boot
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Partition table entries are not in disk order.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in /data [21:41:54]</span>
-</span></span><span style="display:flex;"><span>$ mount /dev/sda3 /data
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in /data [21:42:12]</span>
-</span></span><span style="display:flex;"><span>$
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in /data [21:42:15]</span>
-</span></span><span style="display:flex;"><span>$ df -h
-</span></span><span style="display:flex;"><span>Filesystem                Size      Used Available Use% Mounted on
-</span></span><span style="display:flex;"><span>/dev/root               279.0M    279.0M         <span style="color:#ae81ff">0</span> 100% /rom
-</span></span><span style="display:flex;"><span>tmpfs                     1.9G     13.7M      1.9G   1% /tmp
-</span></span><span style="display:flex;"><span>/dev/loop0              747.9M    135.6M    612.3M  18% /overlay
-</span></span><span style="display:flex;"><span>overlayfs:/overlay      747.9M    135.6M    612.3M  18% /
-</span></span><span style="display:flex;"><span>/dev/sda1                63.9M      5.7M     58.2M   9% /boot
-</span></span><span style="display:flex;"><span>/dev/sda1                63.9M      5.7M     58.2M   9% /boot
-</span></span><span style="display:flex;"><span>tmpfs                   512.0K         <span style="color:#ae81ff">0</span>    512.0K   0% /dev
-</span></span><span style="display:flex;"><span>cgroup                    1.9G         <span style="color:#ae81ff">0</span>      1.9G   0% /sys/fs/cgroup
-</span></span><span style="display:flex;"><span>overlayfs:/overlay      747.9M    135.6M    612.3M  18% /opt/docker
-</span></span><span style="display:flex;"><span>/dev/sda3                83.0G    540.0K     78.8G   0% /data
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in /data [21:42:19]</span>
-</span></span><span style="display:flex;"><span>$ cat /etc/fstab
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># &lt;file system&gt; &lt;mount point&gt; &lt;type&gt; &lt;options&gt; &lt;dump&gt; &lt;pass&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># root @ FusionWrt in /data [21:42:47]</span>
-</span></span></code></pre></div><h1 id="升级网线买的号称万兆网线有点小贵看材质就不一样">升级网线，买的号称万兆网线，有点小贵，看材质就不一样<a href="#升级网线买的号称万兆网线有点小贵看材质就不一样" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@OpenWrt:~# mount /dev/nvme0n1p3 /data/
+mount: mounting /dev/nvme0n1p3 on /data/ failed: Invalid argument
+root@OpenWrt:~# mount /dev/nvme0n1p3 /data
+mount: mounting /dev/nvme0n1p3 on /data failed: Invalid argument
+root@OpenWrt:~# mkf
+mkfifo     mkfs.ext2  mkfs.ext3  mkfs.ext4  mkfs.f2fs
+root@OpenWrt:~# mkf
+mkfifo     mkfs.ext2  mkfs.ext3  mkfs.ext4  mkfs.f2fs
+root@OpenWrt:~# mkfs.ext
+-ash: mkfs.ext: not found
+root@OpenWrt:~# mkfs.ext3
+Usage: mkfs.ext3 <span style="color:#f92672">[</span>-c|-l filename<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-b block-size<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-C cluster-size<span style="color:#f92672">]</span>
+        <span style="color:#f92672">[</span>-i bytes-per-inode<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-I inode-size<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-J journal-options<span style="color:#f92672">]</span>
+        <span style="color:#f92672">[</span>-G flex-group-size<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-N number-of-inodes<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-d root-directory<span style="color:#f92672">]</span>
+        <span style="color:#f92672">[</span>-m reserved-blocks-percentage<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-o creator-os<span style="color:#f92672">]</span>
+        <span style="color:#f92672">[</span>-g blocks-per-group<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-L volume-label<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-M last-mounted-directory<span style="color:#f92672">]</span>
+        <span style="color:#f92672">[</span>-O feature<span style="color:#f92672">[</span>,...<span style="color:#f92672">]]</span> <span style="color:#f92672">[</span>-r fs-revision<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-E extended-option<span style="color:#f92672">[</span>,...<span style="color:#f92672">]]</span>
+        <span style="color:#f92672">[</span>-t fs-type<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-T usage-type <span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-U UUID<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-e errors_behavior<span style="color:#f92672">][</span>-z undo_file<span style="color:#f92672">]</span>
+        <span style="color:#f92672">[</span>-jnqvDFSV<span style="color:#f92672">]</span> device <span style="color:#f92672">[</span>blocks-count<span style="color:#f92672">]</span>
+root@OpenWrt:~# mkfs.ext3 /dev/n
+net/         nvme0        nvme0n1p1    nvme0n1p2    nvram
+null         nvme0n1      nvme0n1p128  nvme0n1p3
+root@OpenWrt:~# mkfs.ext3 /dev/n
+net/         nvme0        nvme0n1p1    nvme0n1p2    nvram
+null         nvme0n1      nvme0n1p128  nvme0n1p3
+root@OpenWrt:~# mkfs.ext3 /dev/nvme0103
+mke2fs 1.45.6 <span style="color:#f92672">(</span>20-Mar-2020<span style="color:#f92672">)</span>
+The file /dev/nvme0103 does not exist and no size was specified.
+root@OpenWrt:~# mkfs.ext3 /dev/nvme01p3
+mke2fs 1.45.6 <span style="color:#f92672">(</span>20-Mar-2020<span style="color:#f92672">)</span>
+The file /dev/nvme01p3 does not exist and no size was specified.
+root@OpenWrt:~# fdisk  -l
+Disk /dev/loop0: 83.56 MiB, <span style="color:#ae81ff">87621632</span> bytes, <span style="color:#ae81ff">171136</span> sectors
+Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
+Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+
+
+Disk /dev/nvme0n1: 119.24 GiB, <span style="color:#ae81ff">128035676160</span> bytes, <span style="color:#ae81ff">250069680</span> sectors
+Disk model: SK 128GB
+Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
+Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+Disklabel type: gpt
+Disk identifier: 45D81ACA-A5B5-7CD0-2928-787DCE37BA00
+
+Device            Start       End   Sectors   Size Type
+/dev/nvme0n1p1      <span style="color:#ae81ff">512</span>     <span style="color:#ae81ff">33279</span>     <span style="color:#ae81ff">32768</span>    16M Linux filesystem
+/dev/nvme0n1p2    <span style="color:#ae81ff">33280</span>    <span style="color:#ae81ff">360959</span>    <span style="color:#ae81ff">327680</span>   160M Linux filesystem
+/dev/nvme0n1p3   <span style="color:#ae81ff">362496</span> <span style="color:#ae81ff">250069646</span> <span style="color:#ae81ff">249707151</span> 119.1G Linux filesystem
+/dev/nvme0n1p128     <span style="color:#ae81ff">34</span>       <span style="color:#ae81ff">511</span>       <span style="color:#ae81ff">478</span>   239K BIOS boot
+
+Partition table entries are not in disk order.
+root@OpenWrt:~# mount -l
+mount: unrecognized option: l
+BusyBox v1.33.2 <span style="color:#f92672">(</span>2022-01-04 15:52:49 UTC<span style="color:#f92672">)</span> multi-call binary.
+
+Usage: mount <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-o OPT<span style="color:#f92672">]</span> DEVICE NODE
+
+Mount a filesystem. Filesystem autodetection requires /proc.
+
+        -a              Mount all filesystems in fstab
+        -i              Don<span style="color:#e6db74">&#39;t run mount helper
+</span><span style="color:#e6db74">        -r              Read-only mount
+</span><span style="color:#e6db74">        -t FSTYPE[,...] Filesystem type(s)
+</span><span style="color:#e6db74">        -O OPT          Mount only filesystems with option OPT (-a only)
+</span><span style="color:#e6db74">-o OPT:
+</span><span style="color:#e6db74">        loop            Ignored (loop devices are autodetected)
+</span><span style="color:#e6db74">        [a]sync         Writes are [a]synchronous
+</span><span style="color:#e6db74">        [no]atime       Disable/enable updates to inode access times
+</span><span style="color:#e6db74">        [no]diratime    Disable/enable atime updates to directories
+</span><span style="color:#e6db74">        [no]relatime    Disable/enable atime updates relative to modification time
+</span><span style="color:#e6db74">        [no]dev         (Dis)allow use of special device files
+</span><span style="color:#e6db74">        [no]exec        (Dis)allow use of executable files
+</span><span style="color:#e6db74">        [no]suid        (Dis)allow set-user-id-root programs
+</span><span style="color:#e6db74">        [r]shared       Convert [recursively] to a shared subtree
+</span><span style="color:#e6db74">        [r]slave        Convert [recursively] to a slave subtree
+</span><span style="color:#e6db74">        [r]private      Convert [recursively] to a private subtree
+</span><span style="color:#e6db74">        [un]bindable    Make mount point [un]able to be bind mounted
+</span><span style="color:#e6db74">        [r]bind         Bind a file or directory [recursively] to another location
+</span><span style="color:#e6db74">        move            Relocate an existing mount point
+</span><span style="color:#e6db74">        remount         Remount a mounted filesystem, changing flags
+</span><span style="color:#e6db74">        ro              Same as -r
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">There are filesystem-specific -o flags.
+</span><span style="color:#e6db74">root@OpenWrt:~# mount
+</span><span style="color:#e6db74">/dev/root on /rom type squashfs (ro,relatime)
+</span><span style="color:#e6db74">proc on /proc type proc (rw,nosuid,nodev,noexec,noatime)
+</span><span style="color:#e6db74">sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,noatime)
+</span><span style="color:#e6db74">cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate)
+</span><span style="color:#e6db74">tmpfs on /tmp type tmpfs (rw,nosuid,nodev,noatime)
+</span><span style="color:#e6db74">/dev/loop0 on /overlay type ext4 (rw,noatime)
+</span><span style="color:#e6db74">overlayfs:/overlay on / type overlay (rw,noatime,lowerdir=/,upperdir=/overlay/upper,workdir=/overlay/work)
+</span><span style="color:#e6db74">/dev/nvme0n1p1 on /boot type vfat (rw,noatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+</span><span style="color:#e6db74">/dev/nvme0n1p1 on /boot type vfat (rw,noatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+</span><span style="color:#e6db74">tmpfs on /dev type tmpfs (rw,nosuid,relatime,size=512k,mode=755)
+</span><span style="color:#e6db74">devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,mode=600,ptmxmode=000)
+</span><span style="color:#e6db74">debugfs on /sys/kernel/debug type debugfs (rw,noatime)
+</span><span style="color:#e6db74">none on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,noatime,mode=700)
+</span><span style="color:#e6db74">root@OpenWrt:~# df -h
+</span><span style="color:#e6db74">Filesystem                Size      Used Available Use% Mounted on
+</span><span style="color:#e6db74">/dev/root                77.0M     77.0M         0 100% /rom
+</span><span style="color:#e6db74">tmpfs                     3.8G      6.8M      3.8G   0% /tmp
+</span><span style="color:#e6db74">/dev/loop0               76.9M      3.1M     68.0M   4% /overlay
+</span><span style="color:#e6db74">overlayfs:/overlay       76.9M      3.1M     68.0M   4% /
+</span><span style="color:#e6db74">/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
+</span><span style="color:#e6db74">/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
+</span><span style="color:#e6db74">tmpfs                   512.0K         0    512.0K   0% /dev
+</span><span style="color:#e6db74">root@OpenWrt:~# mkfs.ext3 /dev/nvme0n1p3
+</span><span style="color:#e6db74">mke2fs 1.45.6 (20-Mar-2020)
+</span><span style="color:#e6db74">Discarding device blocks: done
+</span><span style="color:#e6db74">Creating filesystem with 31213393 4k blocks and 7806976 inodes
+</span><span style="color:#e6db74">Filesystem UUID: ffebbab2-ad4b-48f9-9551-fef3b35abbdf
+</span><span style="color:#e6db74">Superblock backups stored on blocks:
+</span><span style="color:#e6db74">        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+</span><span style="color:#e6db74">        4096000, 7962624, 11239424, 20480000, 23887872
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Allocating group tables: done
+</span><span style="color:#e6db74">Writing inode tables: done
+</span><span style="color:#e6db74">Creating journal (131072 blocks):
+</span><span style="color:#e6db74">done
+</span><span style="color:#e6db74">Writing superblocks and filesystem accounting information: done
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">root@OpenWrt:~#
+</span><span style="color:#e6db74">root@OpenWrt:~# mount /dev/nvme0n1p3 /data
+</span><span style="color:#e6db74">root@OpenWrt:~# df -h
+</span><span style="color:#e6db74">Filesystem                Size      Used Available Use% Mounted on
+</span><span style="color:#e6db74">/dev/root                77.0M     77.0M         0 100% /rom
+</span><span style="color:#e6db74">tmpfs                     3.8G      7.0M      3.8G   0% /tmp
+</span><span style="color:#e6db74">/dev/loop0               76.9M      3.1M     68.0M   4% /overlay
+</span><span style="color:#e6db74">overlayfs:/overlay       76.9M      3.1M     68.0M   4% /
+</span><span style="color:#e6db74">/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
+</span><span style="color:#e6db74">/dev/nvme0n1p1           16.0M      5.7M     10.2M  36% /boot
+</span><span style="color:#e6db74">tmpfs                   512.0K         0    512.0K   0% /dev
+</span><span style="color:#e6db74">/dev/nvme0n1p3          116.7G     60.1M    110.7G   0% /data
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">#====================================================================
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"># root @ FusionWrt in ~ [21:29:18]
+</span><span style="color:#e6db74">$
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"># root @ FusionWrt in ~ [21:29:18]
+</span><span style="color:#e6db74">$ fdisk -l
+</span><span style="color:#e6db74">Disk /dev/loop0: 749.88 MiB, 786300928 bytes, 1535744 sectors
+</span><span style="color:#e6db74">Units: sectors of 1 * 512 = 512 bytes
+</span><span style="color:#e6db74">Sector size (logical/physical): 512 bytes / 512 bytes
+</span><span style="color:#e6db74">I/O size (minimum/optimal): 512 bytes / 512 bytes
+</span><span style="color:#e6db74">GPT PMBR size mismatch (2236959 != 180355071) will be corrected by write.
+</span><span style="color:#e6db74">The backup GPT table is corrupt, but the primary appears OK, so that will be used.
+</span><span style="color:#e6db74">The backup GPT table is not on the end of the device.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Disk /dev/sda: 86 GiB, 92341796864 bytes, 180355072 sectors
+</span><span style="color:#e6db74">Disk model: Virtual Disk
+</span><span style="color:#e6db74">Units: sectors of 1 * 512 = 512 bytes
+</span><span style="color:#e6db74">Sector size (logical/physical): 512 bytes / 512 bytes
+</span><span style="color:#e6db74">I/O size (minimum/optimal): 512 bytes / 512 bytes
+</span><span style="color:#e6db74">Disklabel type: gpt
+</span><span style="color:#e6db74">Disk identifier: 9EF097BB-CC70-D6F6-8AC0-303F2DC1E300
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Device       Start     End Sectors  Size Type
+</span><span style="color:#e6db74">/dev/sda1      512  131583  131072   64M Linux filesystem
+</span><span style="color:#e6db74">/dev/sda2   131584 2236927 2105344    1G Linux filesystem
+</span><span style="color:#e6db74">/dev/sda128     34     511     478  239K BIOS boot
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Partition table entries are not in disk order.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"># root @ FusionWrt in ~ [21:29:24]
+</span><span style="color:#e6db74">$ df -h
+</span><span style="color:#e6db74">Filesystem                Size      Used Available Use% Mounted on
+</span><span style="color:#e6db74">/dev/root               279.0M    279.0M         0 100% /rom
+</span><span style="color:#e6db74">tmpfs                     1.9G     13.7M      1.9G   1% /tmp
+</span><span style="color:#e6db74">/dev/loop0              747.9M    135.6M    612.3M  18% /overlay
+</span><span style="color:#e6db74">overlayfs:/overlay      747.9M    135.6M    612.3M  18% /
+</span><span style="color:#e6db74">/dev/sda1                63.9M      5.7M     58.2M   9% /boot
+</span><span style="color:#e6db74">/dev/sda1                63.9M      5.7M     58.2M   9% /boot
+</span><span style="color:#e6db74">tmpfs                   512.0K         0    512.0K   0% /dev
+</span><span style="color:#e6db74">cgroup                    1.9G         0      1.9G   0% /sys/fs/cgroup
+</span><span style="color:#e6db74">overlayfs:/overlay      747.9M    135.6M    612.3M  18% /opt/docker
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"># root @ FusionWrt in ~ [21:29:59]
+</span><span style="color:#e6db74">$ fd
+</span><span style="color:#e6db74">zsh: command not found: fd
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"># root @ FusionWrt in ~ [21:30:49] C:127
+</span><span style="color:#e6db74">  1 EFI System                     C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+</span><span style="color:#e6db74">  2 MBR partition scheme           024DEE41-33E7-11D3-9D69-0008C781F39F
+</span><span style="color:#e6db74">  3 Intel Fast Flash               D3BFE2DE-3DAF-11DF-BA40-E3A556D89593
+</span><span style="color:#e6db74">  4 BIOS boot                      21686148-6449-6E6F-744E-656564454649
+</span><span style="color:#e6db74">  5 Sony boot partition            F4019732-066E-4E12-8273-346C5641494F
+</span><span style="color:#e6db74">  6 Lenovo boot partition          BFBFAFE7-A34F-448A-9A5B-6213EB736C22
+</span><span style="color:#e6db74">  7 PowerPC PReP boot              9E1A2D38-C612-4316-AA26-8B49521E5A8B
+</span><span style="color:#e6db74">  8 ONIE boot                      7412F7D5-A156-4B13-81DC-867174929325
+</span><span style="color:#e6db74">  9 ONIE config                    D4E6E2CD-4469-46F3-B5CB-1BFF57AFC149
+</span><span style="color:#e6db74"> 10 Microsoft reserved             E3C9E316-0B5C-4DB8-817D-F92DF00215AE
+</span><span style="color:#e6db74"> 11 Microsoft basic data           EBD0A0A2-B9E5-4433-87C0-68B6B72699C7
+</span><span style="color:#e6db74"> 12 Microsoft LDM metadata         5808C8AA-7E8F-42E0-85D2-E1E90434CFB3
+</span><span style="color:#e6db74"> 13 Microsoft LDM data             AF9B60A0-1431-4F62-BC68-3311714A69AD
+</span><span style="color:#e6db74"> 14 Windows recovery environment   DE94BBA4-06D1-4D40-A16A-BFD50179D6AC
+</span><span style="color:#e6db74"> 15 IBM General Parallel Fs        37AFFC90-EF7D-4E96-91C3-2D7AE055B174
+</span><span style="color:#e6db74"> 16 Microsoft Storage Spaces       E75CAF8F-F680-4CEE-AFA3-B001E56EFC2D
+</span><span style="color:#e6db74"> 17 HP-UX data                     75894C1E-3AEB-11D3-B7C1-7B03A0000000
+</span><span style="color:#e6db74"> 18 HP-UX service                  E2A1E728-32E3-11D6-A682-7B03A0000000
+</span><span style="color:#e6db74"> 19 Linux swap                     0657FD6D-A4AB-43C4-84E5-0933C84B4F4F
+</span><span style="color:#e6db74"> 20 Linux filesystem               0FC63DAF-8483-4772-8E79-3D69D8477DE4
+</span><span style="color:#e6db74"> 21 Linux server data              3B8F8425-20E0-4F3B-907F-1A25A76F98E8
+</span><span style="color:#e6db74"> 22 Linux root (x86)               44479540-F297-41B2-9AF7-D131D5F0458A
+</span><span style="color:#e6db74"> 23 Linux root (x86-64)            4F68BCE3-E8CD-4DB1-96E7-FBCAF984B709
+</span><span style="color:#e6db74"> 24 Linux root (ARM)               69DAD710-2CE4-4E3C-B16C-21A1D49ABED3
+</span><span style="color:#e6db74"> 25 Linux root (ARM-64)            B921B045-1DF0-41C3-AF44-4C6F280D3FAE
+</span><span style="color:#e6db74"> 26 Linux root (IA-64)             993D8D3D-F80E-4225-855A-9DAF8ED7EA97
+</span><span style="color:#e6db74"> 27 Linux reserved                 8DA63339-0007-60C0-C436-083AC8230908
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Command (m for help): m
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Help:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">  GPT
+</span><span style="color:#e6db74">   M   enter protective/hybrid MBR
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">  Generic
+</span><span style="color:#e6db74">   d   delete a partition
+</span><span style="color:#e6db74">   F   list free unpartitioned space
+</span><span style="color:#e6db74">   l   list known partition types
+</span><span style="color:#e6db74">   n   add a new partition
+</span><span style="color:#e6db74">   p   print the partition table
+</span><span style="color:#e6db74">   t   change a partition type
+</span><span style="color:#e6db74">   v   verify the partition table
+</span><span style="color:#e6db74">   i   print information about a partition
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">  Misc
+</span><span style="color:#e6db74">   m   print this menu
+</span><span style="color:#e6db74">   x   extra functionality (experts only)
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">  Script
+</span><span style="color:#e6db74">   I   load disk layout from sfdisk script file
+</span><span style="color:#e6db74">   O   dump disk layout to sfdisk script file
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">  Save &amp; Exit
+</span><span style="color:#e6db74">   w   write table to disk and exit
+</span><span style="color:#e6db74">   q   quit without saving changes
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">  Create a new label
+</span><span style="color:#e6db74">   g   create a new empty GPT partition table
+</span><span style="color:#e6db74">   G   create a new empty SGI (IRIX) partition table
+</span><span style="color:#e6db74">   o   create a new empty DOS partition table
+</span><span style="color:#e6db74">   s   create a new empty Sun partition table
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Command (m for help): c
+</span><span style="color:#e6db74">c: unknown command
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Command (m for help): g
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Created a new GPT disklabel (GUID: A5806F78-F456-C34C-B92D-AE3357E8FC1B).
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Command (m for help):
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Command (m for help): q
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"># root @ FusionWrt in ~ [21:34:57]
+</span><span style="color:#e6db74">$ fdisk /dev/sda
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Welcome to fdisk (util-linux 2.37.3).
+</span><span style="color:#e6db74">Changes will remain in memory only, until you decide to write them.
+</span><span style="color:#e6db74">Be careful before using the write command.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">GPT PMBR size mismatch (2236959 != 180355071) will be corrected by write.
+</span><span style="color:#e6db74">The backup GPT table is corrupt, but the primary appears OK, so that will be used.
+</span><span style="color:#e6db74">The backup GPT table is not on the end of the device. This problem will be corrected by write.
+</span><span style="color:#e6db74">This disk is currently in use - repartitioning is probably a bad idea.
+</span><span style="color:#e6db74">It&#39;</span>s recommended to umount all file systems, and swapoff all swap
+partitions on this disk.
+
+
+Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: c
+c: unknown command
+
+Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: m
+
+Help:
+
+  GPT
+   M   enter protective/hybrid MBR
+
+  Generic
+   d   delete a partition
+   F   list free unpartitioned space
+   l   list known partition types
+   n   add a new partition
+   p   print the partition table
+   t   change a partition type
+   v   verify the partition table
+   i   print information about a partition
+
+  Misc
+   m   print this menu
+   x   extra functionality <span style="color:#f92672">(</span>experts only<span style="color:#f92672">)</span>
+
+  Script
+   I   load disk layout from sfdisk script file
+   O   dump disk layout to sfdisk script file
+
+  Save &amp; Exit
+   w   write table to disk and exit
+   q   quit without saving changes
+
+  Create a new label
+   g   create a new empty GPT partition table
+   G   create a new empty SGI <span style="color:#f92672">(</span>IRIX<span style="color:#f92672">)</span> partition table
+   o   create a new empty DOS partition table
+   s   create a new empty Sun partition table
+
+
+Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: p
+
+Disk /dev/sda: <span style="color:#ae81ff">86</span> GiB, <span style="color:#ae81ff">92341796864</span> bytes, <span style="color:#ae81ff">180355072</span> sectors
+Disk model: Virtual Disk
+Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
+Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+Disklabel type: gpt
+Disk identifier: 9EF097BB-CC70-D6F6-8AC0-303F2DC1E300
+
+Device       Start     End Sectors  Size Type
+/dev/sda1      <span style="color:#ae81ff">512</span>  <span style="color:#ae81ff">131583</span>  <span style="color:#ae81ff">131072</span>   64M Linux filesystem
+/dev/sda2   <span style="color:#ae81ff">131584</span> <span style="color:#ae81ff">2236927</span> <span style="color:#ae81ff">2105344</span>    1G Linux filesystem
+/dev/sda128     <span style="color:#ae81ff">34</span>     <span style="color:#ae81ff">511</span>     <span style="color:#ae81ff">478</span>  239K BIOS boot
+
+Partition table entries are not in disk order.
+
+Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: m
+
+Help:
+
+  GPT
+   M   enter protective/hybrid MBR
+
+  Generic
+   d   delete a partition
+   F   list free unpartitioned space
+   l   list known partition types
+   n   add a new partition
+   p   print the partition table
+   t   change a partition type
+   v   verify the partition table
+   i   print information about a partition
+
+  Misc
+   m   print this menu
+   x   extra functionality <span style="color:#f92672">(</span>experts only<span style="color:#f92672">)</span>
+
+  Script
+   I   load disk layout from sfdisk script file
+   O   dump disk layout to sfdisk script file
+
+  Save &amp; Exit
+   w   write table to disk and exit
+   q   quit without saving changes
+
+  Create a new label
+   g   create a new empty GPT partition table
+   G   create a new empty SGI <span style="color:#f92672">(</span>IRIX<span style="color:#f92672">)</span> partition table
+   o   create a new empty DOS partition table
+   s   create a new empty Sun partition table
+
+
+Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: f
+f: unknown command
+
+Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: F
+
+Unpartitioned space /dev/sda: 84.93 GiB, <span style="color:#ae81ff">91195686400</span> bytes, <span style="color:#ae81ff">178116575</span> sectors
+Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
+Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+
+  Start       End   Sectors  Size
+<span style="color:#ae81ff">2238464</span> <span style="color:#ae81ff">180355038</span> <span style="color:#ae81ff">178116575</span> 84.9G
+
+Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: n
+Partition number <span style="color:#f92672">(</span>3-127, default 3<span style="color:#f92672">)</span>:
+First sector <span style="color:#f92672">(</span>2236928-180355038, default 2238464<span style="color:#f92672">)</span>:
+Last sector, +/-sectors or +/-size<span style="color:#f92672">{</span>K,M,G,T,P<span style="color:#f92672">}</span> <span style="color:#f92672">(</span>2238464-180355038, default 180355038<span style="color:#f92672">)</span>:
+
+Created a new partition <span style="color:#ae81ff">3</span> of type <span style="color:#e6db74">&#39;Linux filesystem&#39;</span> and of size 84.9 GiB.
+
+Command <span style="color:#f92672">(</span>m <span style="color:#66d9ef">for</span> help<span style="color:#f92672">)</span>: w
+The partition table has been altered.
+Syncing disks.
+
+
+<span style="color:#75715e"># root @ FusionWrt in ~ [21:36:40]</span>
+$ fdisk -l
+Disk /dev/loop0: 749.88 MiB, <span style="color:#ae81ff">786300928</span> bytes, <span style="color:#ae81ff">1535744</span> sectors
+Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
+Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+
+
+Disk /dev/sda: <span style="color:#ae81ff">86</span> GiB, <span style="color:#ae81ff">92341796864</span> bytes, <span style="color:#ae81ff">180355072</span> sectors
+Disk model: Virtual Disk
+Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
+Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+Disklabel type: gpt
+Disk identifier: 9EF097BB-CC70-D6F6-8AC0-303F2DC1E300
+
+Device        Start       End   Sectors  Size Type
+/dev/sda1       <span style="color:#ae81ff">512</span>    <span style="color:#ae81ff">131583</span>    <span style="color:#ae81ff">131072</span>   64M Linux filesystem
+/dev/sda2    <span style="color:#ae81ff">131584</span>   <span style="color:#ae81ff">2236927</span>   <span style="color:#ae81ff">2105344</span>    1G Linux filesystem
+/dev/sda3   <span style="color:#ae81ff">2238464</span> <span style="color:#ae81ff">180355038</span> <span style="color:#ae81ff">178116575</span> 84.9G Linux filesystem
+/dev/sda128      <span style="color:#ae81ff">34</span>       <span style="color:#ae81ff">511</span>       <span style="color:#ae81ff">478</span>  239K BIOS boot
+
+Partition table entries are not in disk order.
+
+<span style="color:#75715e"># root @ FusionWrt in ~ [21:36:45]</span>
+$ mkfs.ext3 /dev/sda3
+mke2fs 1.46.5 <span style="color:#f92672">(</span>30-Dec-2021<span style="color:#f92672">)</span>
+Discarding device blocks: <span style="color:#66d9ef">done</span>
+Creating filesystem with <span style="color:#ae81ff">22264571</span> 4k blocks and <span style="color:#ae81ff">5570560</span> inodes
+Filesystem UUID: d12bdb7a-f91f-4cdd-aab3-f6391845ca0b
+Superblock backups stored on blocks:
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+        4096000, 7962624, 11239424, <span style="color:#ae81ff">20480000</span>
+
+Allocating group tables: <span style="color:#66d9ef">done</span>
+Writing inode tables: <span style="color:#66d9ef">done</span>
+Creating journal <span style="color:#f92672">(</span><span style="color:#ae81ff">131072</span> blocks<span style="color:#f92672">)</span>: <span style="color:#66d9ef">done</span>
+Writing superblocks and filesystem accounting information:
+<span style="color:#66d9ef">done</span>
+
+
+<span style="color:#75715e"># root @ FusionWrt in ~ [21:37:06]</span>
+$
+
+<span style="color:#75715e"># root @ FusionWrt in ~ [21:37:06]</span>
+$ df -h
+Filesystem                Size      Used Available Use% Mounted on
+/dev/root               279.0M    279.0M         <span style="color:#ae81ff">0</span> 100% /rom
+tmpfs                     1.9G     13.7M      1.9G   1% /tmp
+/dev/loop0              747.9M    135.6M    612.3M  18% /overlay
+overlayfs:/overlay      747.9M    135.6M    612.3M  18% /
+/dev/sda1                63.9M      5.7M     58.2M   9% /boot
+/dev/sda1                63.9M      5.7M     58.2M   9% /boot
+tmpfs                   512.0K         <span style="color:#ae81ff">0</span>    512.0K   0% /dev
+cgroup                    1.9G         <span style="color:#ae81ff">0</span>      1.9G   0% /sys/fs/cgroup
+overlayfs:/overlay      747.9M    135.6M    612.3M  18% /opt/docker
+
+<span style="color:#75715e"># root @ FusionWrt in ~ [21:37:09]</span>
+$ df -h
+Filesystem                Size      Used Available Use% Mounted on
+/dev/root               279.0M    279.0M         <span style="color:#ae81ff">0</span> 100% /rom
+tmpfs                     1.9G     13.7M      1.9G   1% /tmp
+/dev/loop0              747.9M    135.6M    612.3M  18% /overlay
+overlayfs:/overlay      747.9M    135.6M    612.3M  18% /
+/dev/sda1                63.9M      5.7M     58.2M   9% /boot
+/dev/sda1                63.9M      5.7M     58.2M   9% /boot
+tmpfs                   512.0K         <span style="color:#ae81ff">0</span>    512.0K   0% /dev
+cgroup                    1.9G         <span style="color:#ae81ff">0</span>      1.9G   0% /sys/fs/cgroup
+overlayfs:/overlay      747.9M    135.6M    612.3M  18% /opt/docker
+
+<span style="color:#75715e"># root @ FusionWrt in ~ [21:37:18]</span>
+$ fdisk -l
+Disk /dev/loop0: 749.88 MiB, <span style="color:#ae81ff">786300928</span> bytes, <span style="color:#ae81ff">1535744</span> sectors
+Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
+Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+
+
+Disk /dev/sda: <span style="color:#ae81ff">86</span> GiB, <span style="color:#ae81ff">92341796864</span> bytes, <span style="color:#ae81ff">180355072</span> sectors
+Disk model: Virtual Disk
+Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
+Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+Disklabel type: gpt
+Disk identifier: 9EF097BB-CC70-D6F6-8AC0-303F2DC1E300
+
+Device        Start       End   Sectors  Size Type
+/dev/sda1       <span style="color:#ae81ff">512</span>    <span style="color:#ae81ff">131583</span>    <span style="color:#ae81ff">131072</span>   64M Linux filesystem
+/dev/sda2    <span style="color:#ae81ff">131584</span>   <span style="color:#ae81ff">2236927</span>   <span style="color:#ae81ff">2105344</span>    1G Linux filesystem
+/dev/sda3   <span style="color:#ae81ff">2238464</span> <span style="color:#ae81ff">180355038</span> <span style="color:#ae81ff">178116575</span> 84.9G Linux filesystem
+/dev/sda128      <span style="color:#ae81ff">34</span>       <span style="color:#ae81ff">511</span>       <span style="color:#ae81ff">478</span>  239K BIOS boot
+
+Partition table entries are not in disk order.
+
+<span style="color:#75715e"># root @ FusionWrt in ~ [21:37:21]</span>
+$
+
+<span style="color:#75715e"># root @ FusionWrt in ~ [21:38:44]</span>
+$
+
+<span style="color:#75715e"># root @ FusionWrt in ~ [21:38:44]</span>
+$ cd /data
+cd: no such file or directory: /data
+
+<span style="color:#75715e"># root @ FusionWrt in ~ [21:38:48] C:1</span>
+$ pwd
+/root
+
+<span style="color:#75715e"># root @ FusionWrt in ~ [21:38:50]</span>
+$ ls -/ /data
+ls: unrecognized option: /
+BusyBox v1.35.0 <span style="color:#f92672">(</span>2022-02-27 05:31:25 UTC<span style="color:#f92672">)</span> multi-call binary.
+
+Usage: ls <span style="color:#f92672">[</span>-1AaCxdLHRFplinshrSXvctu<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>-w WIDTH<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>FILE<span style="color:#f92672">]</span>...
+
+List directory contents
+
+        -1      One column output
+        -a      Include names starting with .
+        -A      Like -a, but exclude . and ..
+        -x      List by lines
+        -d      List directory names, not contents
+        -L      Follow symlinks
+        -H      Follow symlinks on command line
+        -R      Recurse
+        -p      Append / to directory names
+        -F      Append indicator <span style="color:#f92672">(</span>one of */<span style="color:#f92672">=</span>@|<span style="color:#f92672">)</span> to names
+        -l      Long format
+        -i      List inode numbers
+        -n      List numeric UIDs and GIDs instead of names
+        -s      List allocated blocks
+        -lc     List ctime
+        -lu     List atime
+        --full-time     List full date/time
+        -h      Human readable sizes <span style="color:#f92672">(</span>1K 243M 2G<span style="color:#f92672">)</span>
+        --group-directories-first
+        -S      Sort by size
+        -X      Sort by extension
+        -v      Sort by version
+        -t      Sort by mtime
+        -tc     Sort by ctime
+        -tu     Sort by atime
+        -r      Reverse sort order
+        -w N    Format N columns wide
+        --color<span style="color:#f92672">[={</span>always,never,auto<span style="color:#f92672">}]</span>
+
+<span style="color:#75715e"># root @ FusionWrt in ~ [21:38:54] C:1</span>
+$ mkdir /data
+
+<span style="color:#75715e"># root @ FusionWrt in ~ [21:39:02]</span>
+$ cd /
+
+<span style="color:#75715e"># root @ FusionWrt in / [21:39:06]</span>
+$ du -h -d <span style="color:#ae81ff">1</span>
+1.6M    ./bin
+<span style="color:#ae81ff">0</span>       ./dev
+16.3M   ./etc
+49.4M   ./lib
+10.5K   ./mnt
+330.5K  ./opt
+2.9M    ./overlay
+<span style="color:#ae81ff">0</span>       ./proc
+885.0M  ./rom
+6.4M    ./root
+1.4M    ./sbin
+<span style="color:#ae81ff">0</span>       ./sys
+13.7M   ./tmp
+737.2M  ./usr
+72.0M   ./www
+5.1M    ./boot
+7.0K    ./home
+18.5K   ./run
+3.5K    ./data
+1.7G    .
+
+<span style="color:#75715e"># root @ FusionWrt in / [21:39:11]</span>
+$ df -h
+Filesystem                Size      Used Available Use% Mounted on
+/dev/root               279.0M    279.0M         <span style="color:#ae81ff">0</span> 100% /rom
+tmpfs                     1.9G     13.7M      1.9G   1% /tmp
+/dev/loop0              747.9M    135.6M    612.3M  18% /overlay
+overlayfs:/overlay      747.9M    135.6M    612.3M  18% /
+/dev/sda1                63.9M      5.7M     58.2M   9% /boot
+/dev/sda1                63.9M      5.7M     58.2M   9% /boot
+tmpfs                   512.0K         <span style="color:#ae81ff">0</span>    512.0K   0% /dev
+cgroup                    1.9G         <span style="color:#ae81ff">0</span>      1.9G   0% /sys/fs/cgroup
+overlayfs:/overlay      747.9M    135.6M    612.3M  18% /opt/docker
+
+<span style="color:#75715e"># root @ FusionWrt in / [21:39:15]</span>
+$
+
+<span style="color:#75715e"># root @ FusionWrt in / [21:41:20]</span>
+$
+
+<span style="color:#75715e"># root @ FusionWrt in / [21:41:20]</span>
+$
+
+<span style="color:#75715e"># root @ FusionWrt in / [21:41:20]</span>
+$ cd /data
+
+<span style="color:#75715e"># root @ FusionWrt in /data [21:41:23]</span>
+$ ls
+
+<span style="color:#75715e"># root @ FusionWrt in /data [21:41:24]</span>
+$ pwd
+/data
+
+<span style="color:#75715e"># root @ FusionWrt in /data [21:41:27]</span>
+$ du -h -d 1-h
+du: invalid number <span style="color:#e6db74">&#39;1-h&#39;</span>
+
+<span style="color:#75715e"># root @ FusionWrt in /data [21:41:31] C:1</span>
+$ du -h
+3.5K    .
+
+<span style="color:#75715e"># root @ FusionWrt in /data [21:41:33]</span>
+$ df -h
+Filesystem                Size      Used Available Use% Mounted on
+/dev/root               279.0M    279.0M         <span style="color:#ae81ff">0</span> 100% /rom
+tmpfs                     1.9G     13.7M      1.9G   1% /tmp
+/dev/loop0              747.9M    135.6M    612.3M  18% /overlay
+overlayfs:/overlay      747.9M    135.6M    612.3M  18% /
+/dev/sda1                63.9M      5.7M     58.2M   9% /boot
+/dev/sda1                63.9M      5.7M     58.2M   9% /boot
+tmpfs                   512.0K         <span style="color:#ae81ff">0</span>    512.0K   0% /dev
+cgroup                    1.9G         <span style="color:#ae81ff">0</span>      1.9G   0% /sys/fs/cgroup
+overlayfs:/overlay      747.9M    135.6M    612.3M  18% /opt/docker
+
+<span style="color:#75715e"># root @ FusionWrt in /data [21:41:39]</span>
+$ fdisk -l
+Disk /dev/loop0: 749.88 MiB, <span style="color:#ae81ff">786300928</span> bytes, <span style="color:#ae81ff">1535744</span> sectors
+Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
+Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+
+
+Disk /dev/sda: <span style="color:#ae81ff">86</span> GiB, <span style="color:#ae81ff">92341796864</span> bytes, <span style="color:#ae81ff">180355072</span> sectors
+Disk model: Virtual Disk
+Units: sectors of <span style="color:#ae81ff">1</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span> bytes
+Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+I/O size <span style="color:#f92672">(</span>minimum/optimal<span style="color:#f92672">)</span>: <span style="color:#ae81ff">512</span> bytes / <span style="color:#ae81ff">512</span> bytes
+Disklabel type: gpt
+Disk identifier: 9EF097BB-CC70-D6F6-8AC0-303F2DC1E300
+
+Device        Start       End   Sectors  Size Type
+/dev/sda1       <span style="color:#ae81ff">512</span>    <span style="color:#ae81ff">131583</span>    <span style="color:#ae81ff">131072</span>   64M Linux filesystem
+/dev/sda2    <span style="color:#ae81ff">131584</span>   <span style="color:#ae81ff">2236927</span>   <span style="color:#ae81ff">2105344</span>    1G Linux filesystem
+/dev/sda3   <span style="color:#ae81ff">2238464</span> <span style="color:#ae81ff">180355038</span> <span style="color:#ae81ff">178116575</span> 84.9G Linux filesystem
+/dev/sda128      <span style="color:#ae81ff">34</span>       <span style="color:#ae81ff">511</span>       <span style="color:#ae81ff">478</span>  239K BIOS boot
+
+Partition table entries are not in disk order.
+
+<span style="color:#75715e"># root @ FusionWrt in /data [21:41:54]</span>
+$ mount /dev/sda3 /data
+
+<span style="color:#75715e"># root @ FusionWrt in /data [21:42:12]</span>
+$
+
+<span style="color:#75715e"># root @ FusionWrt in /data [21:42:15]</span>
+$ df -h
+Filesystem                Size      Used Available Use% Mounted on
+/dev/root               279.0M    279.0M         <span style="color:#ae81ff">0</span> 100% /rom
+tmpfs                     1.9G     13.7M      1.9G   1% /tmp
+/dev/loop0              747.9M    135.6M    612.3M  18% /overlay
+overlayfs:/overlay      747.9M    135.6M    612.3M  18% /
+/dev/sda1                63.9M      5.7M     58.2M   9% /boot
+/dev/sda1                63.9M      5.7M     58.2M   9% /boot
+tmpfs                   512.0K         <span style="color:#ae81ff">0</span>    512.0K   0% /dev
+cgroup                    1.9G         <span style="color:#ae81ff">0</span>      1.9G   0% /sys/fs/cgroup
+overlayfs:/overlay      747.9M    135.6M    612.3M  18% /opt/docker
+/dev/sda3                83.0G    540.0K     78.8G   0% /data
+
+<span style="color:#75715e"># root @ FusionWrt in /data [21:42:19]</span>
+$ cat /etc/fstab
+<span style="color:#75715e"># &lt;file system&gt; &lt;mount point&gt; &lt;type&gt; &lt;options&gt; &lt;dump&gt; &lt;pass&gt;</span>
+
+<span style="color:#75715e"># root @ FusionWrt in /data [21:42:47]</span>
+
+</code></pre></div><h1 id="升级网线买的号称万兆网线有点小贵看材质就不一样">升级网线，买的号称万兆网线，有点小贵，看材质就不一样<a href="#升级网线买的号称万兆网线有点小贵看材质就不一样" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <p><img src="netline.png" alt="netline"></p>
 <h1 id="浏览器pc有线测速家里宽带安装的移动300mbs">浏览器pc有线测速，家里宽带安装的移动300Mbs<a href="#浏览器pc有线测速家里宽带安装的移动300mbs" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <p><img src="spedtestbrower.png" alt="netline"></p>

@@ -21,7 +21,7 @@
 安装docker 环境后，直接运行以下命令，高级功能请查询官方文档&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;命令&#34;&gt;命令&lt;/h2&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-jshelllanguage&#34; data-lang=&#34;jshelllanguage&#34;&gt;#下载容器
+&lt;pre&gt;&lt;code class=&#34;language-jshelllanguage&#34; data-lang=&#34;jshelllanguage&#34;&gt;#下载容器
 docker pull phpmyadmin/phpmyadmin
 #运行容器，PMA_ARBITRARY=1表示可以连接任意mysql数据库服务器
 docker run --name myadmin -d -e PMA_ARBITRARY=1   -p 8081:80  phpmyadmin/phpmyadmin

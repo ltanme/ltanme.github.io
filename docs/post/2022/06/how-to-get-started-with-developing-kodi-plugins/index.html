@@ -207,14 +207,14 @@
 6 用命令行工具登录libreELEC系统并进入到<code>/storage/.kodi/userdata/</code> 创建<code>project</code>，移动<code>script.hello.world</code>插件目录到<code>/storage/.kodi/userdata/</code>共享目录下
 并做好script.hello.world软链接，这一步需要把插件目录移动共享目录让windows10可见能访问，原来的libreELEC插件目录做好软链接</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>      cd /storage/.kodi/userdata/   
-</span></span><span style="display:flex;"><span>       
-</span></span><span style="display:flex;"><span>      mkdir project 
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>      mv /storage/.kodi/addons/script.hello.world  /storage/.kodi/userdata/project   
-</span></span><span style="display:flex;"><span>      
-</span></span><span style="display:flex;"><span>      ln -sf /storage/.kodi/addons/script.hello.world  /storage/.kodi/userdata/project/script.hello.world
-</span></span></code></pre></div><blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">      cd /storage/.kodi/userdata/   
+       
+      mkdir project 
+        
+      mv /storage/.kodi/addons/script.hello.world  /storage/.kodi/userdata/project   
+      
+      ln -sf /storage/.kodi/addons/script.hello.world  /storage/.kodi/userdata/project/script.hello.world
+</code></pre></div><blockquote>
 <p>7 上一步成功后，应该可以用pycharm 打开<code>script.hello.world</code> 项目了<br>
 windows 10 打开可以看到如下结果<br>
 <img src="script.hello.world-project-dir.png" alt="libreELEC"><br>
@@ -233,7 +233,7 @@ addon.py为主要执行文件，插件入口文件，<br>
 tail -f  /storage/.kodi/temp/kodi.log <br>
 <img src="tail--f-log.png" alt="libreELEC"><br>
 xbmc打开窗口，并显示音乐播放列表<br>
-xbmc.executebuiltin(&ldquo;ActivateWindow(Music,special:/storage/ad/bj.m3u)&rdquo;)<br>
+xbmc.executebuiltin(&ldquo;ActivateWindow(Music,special:/storage/ad/bj.m3u)&quot;)<br>
 xbmc打印日志<br>
 xbmc.log(&ldquo;message&rdquo;,level=xbmc.LOGNOTICE)<br>
 参考文档官网<br>

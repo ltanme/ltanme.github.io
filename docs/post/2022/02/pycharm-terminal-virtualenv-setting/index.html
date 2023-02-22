@@ -182,8 +182,8 @@ If you use a venv for each project, remember to use current path variable and a 
 <blockquote>
 <p>创建activate.bat文件复制如下代码,并修改自己创建的虚拟环境目录，这里我创建的虚拟环境目录为</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#e6db74">&#34;cmd.exe&#34;</span> /k <span style="color:#e6db74">&#34; D:\python-env\python3\envname\Scripts\activate&#34;</span> 
-</span></span></code></pre></div><blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#e6db74">&#34;cmd.exe&#34;</span> /k <span style="color:#e6db74">&#34; D:\python-env\python3\envname\Scripts\activate&#34;</span> 
+</code></pre></div><blockquote>
 <p>/k 的含义是自动执行后面的命令,并且执行完毕后保留窗口<br>
 For Windows users: when using PyCharm with a virtual environment, you can use the /K parameter to cmd.exe to set the virtual environment automatically.</p>
 </blockquote>
@@ -199,11 +199,11 @@ PyCharm 2016.1,2018.x&hellip;: Settings, Tools, Terminal, and add &ldquo;&quot;/
 在&quot;设置&quot;&gt;&ldquo;终端工具&rdquo;&gt;，更改如下内容：Shell path<br>
 C:\Users\me\Miniconda3\Scripts\activate.bat 为安装C:\Users\me\Miniconda3的目录</p>
 </blockquote>
-<pre tabindex="0"><code class="language-$xslt" data-lang="$xslt">cmd.exe  &#34;/K&#34;  &#34;C:\Users\me\Miniconda3\Scripts\activate.bat&#34;  &#34;C:\Users\me\Miniconda3&#34;
+<pre><code class="language-$xslt" data-lang="$xslt">cmd.exe  &quot;/K&quot;  &quot;C:\Users\me\Miniconda3\Scripts\activate.bat&quot;  &quot;C:\Users\me\Miniconda3&quot;
 </code></pre><blockquote>
 <p>遇到pip install 模块 下载不了的情况，请设置国产镜像</p>
 </blockquote>
-<pre tabindex="0"><code class="language-$xslt" data-lang="$xslt">https://pypi.douban.com/simple
+<pre><code class="language-$xslt" data-lang="$xslt">https://pypi.douban.com/simple
 https://mirrors.aliyun.com/pypi/simple
 https://pypi.mirrors.ustc.edu.cn/simple
 https://pypi.tuna.tsinghua.edu.cn/simple
