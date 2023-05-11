@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>winutils on LTAN.ME</title>
+    <link>https://ltan.me/tags/winutils/</link>
+    <description>Recent content in winutils on LTAN.ME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 11 May 2023 15:25:41 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/winutils/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Install Apache Spark on Windows Setup PySpark</title>
+      <link>https://ltan.me/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</link>
+      <pubDate>Thu, 11 May 2023 15:25:41 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</guid>
+      <description>为什么要在Windows 10上运行Scala Spark程序 开发环境设置简单： 对于许多开发者来说，Windows是他们最熟悉的操作系统， 因此在Windows上进行开发可以节省大量的环境设置和配置时间。 此</description>
+      <content>&lt;h2 id=&#34;为什么要在windows-10上运行scala-spark程序&#34;&gt;为什么要在Windows 10上运行Scala Spark程序&lt;/h2&gt;
+&lt;h3 id=&#34;开发环境设置简单&#34;&gt;开发环境设置简单：&lt;/h3&gt;
+&lt;p&gt;对于许多开发者来说，Windows是他们最熟悉的操作系统，
+因此在Windows上进行开发可以节省大量的环境设置和配置时间。
+此外，Windows上有IntelliJ IDEA可以方便Scala和Spark的开发。&lt;/p&gt;
+&lt;h3 id=&#34;本地测试方便&#34;&gt;本地测试方便：&lt;/h3&gt;
+&lt;p&gt;在本地Windows环境中进行开发，
+可以方便快速的进行代码的单元测试和调试。
+虽然Spark在集群中运行时的行为可能与在单个机器上有所不同，
+但对于许多常见的任务，
+本地测试通常可以提供足够的保证。&lt;/p&gt;
+&lt;h2 id=&#34;如何做&#34;&gt;如何做&lt;/h2&gt;
+&lt;h3 id=&#34;步骤1下载spark并安装&#34;&gt;步骤1，下载spark并安装&lt;/h3&gt;
+&lt;p&gt;根据自己的环境版本，在官网下载&lt;code&gt;spark-3.2.4-bin-hadoop2.7&lt;/code&gt;包
+下载链接地址为&lt;code&gt;https://spark.apache.org/downloads.html&lt;/code&gt;
+解压.tgz文件放到你本地目录夹,如&lt;code&gt;d:\spark-2.4.4-bin-hadoop2.7&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;步骤2-下载winutils并安装&#34;&gt;步骤2 下载winutils并安装&lt;/h3&gt;
+&lt;p&gt;下载winutils.exe(解释windows hadoop通信问题)
+下载链接地址&lt;code&gt;https://github.com/steveloughran/winutils/blob/master/hadoop-2.7.1/bin/winutils.exe&lt;/code&gt;
+存放到&lt;code&gt;d:\spark-2.4.4-bin-hadoop2.7\bin\winutils.exe&lt;/code&gt; 该目录下&lt;/p&gt;
+&lt;h3 id=&#34;步骤3设置环境变量&#34;&gt;步骤3，设置环境变量&lt;/h3&gt;
+&lt;p&gt;设置windows环境变量&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Environment variable: &lt;/span&gt;
+SPARK_HOME&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;d:&lt;span style=&#34;color:#ae81ff&#34;&gt;\s&lt;/span&gt;park-2.4.4-bin-hadoop2.7
+HADOOP_HOME&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;d:&lt;span style=&#34;color:#ae81ff&#34;&gt;\s&lt;/span&gt;park-2.4.4-bin-hadoop2.7
+&lt;span style=&#34;color:#75715e&#34;&gt;# PATH variable:&lt;/span&gt;
+ d:&lt;span style=&#34;color:#ae81ff&#34;&gt;\s&lt;/span&gt;park-2.4.4-bin-hadoop2.7&lt;span style=&#34;color:#ae81ff&#34;&gt;\b&lt;/span&gt;in
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;步骤4-验证测试scala-spark--pyspark&#34;&gt;步骤4 验证测试scala spark 、 pyspark&lt;/h3&gt;
+&lt;p&gt;测试 pyspark&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; sys
+&lt;span style=&#34;color:#75715e&#34;&gt;# 这里不需要用pip install pyspark 会容易报错，根本不好安装的，不好使还不如这样引用&lt;/span&gt;
+sys&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;D:\spark-3.2.4-bin-hadoop2.7\python&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pyspark.sql &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; SparkSession
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 创建 SparkSession&lt;/span&gt;
+spark &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; SparkSession&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;builder
+    &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;appName(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;HDFS Read Example&amp;#34;&lt;/span&gt;)
+    &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;config(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;spark.master&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;local&amp;#34;&lt;/span&gt;)
+    &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getOrCreate()
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 读取 CSV 文件&lt;/span&gt;
+df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; spark&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;csv(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hdfs://sybigdata/user/example/part-00000-d3d3436e-f258-43b8-bfec-e45eb966edc7-c000.csv&amp;#34;&lt;/span&gt;, header&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 显示前 10 行&lt;/span&gt;
+df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;查看显示结果&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;Using Spark&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;s default log4j profile: org/apache/spark/log4j-defaults.properties
+Setting default log level to &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;WARN&amp;#34;&lt;/span&gt;.
+To adjust logging level use sc.setLogLevel&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;newLevel&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;. For SparkR, use setLogLevel&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;newLevel&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.
+23/05/11 15:19:23 WARN NativeCodeLoader: Unable to load native-hadoop library &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; your platform... using builtin-java classes where applicable
++------+--------+--------------+--------------+-----------+----------+
+|vvbbcc|hhmm_int|abc_name_index|abc_page_index|bbbbb_index|dddd_index|
++------+--------+--------------+--------------+-----------+----------+
+|    31|     943|           2.0|           2.0|        0.0|       0.0|
+|    18|     395|           6.0|           6.0|        0.0|      31.0|
+|     9|    1175|           2.0|           2.0|        0.0|      20.0|
+|    15|    1250|           5.0|           5.0|        0.0|      34.0|
+|    16|     266|           7.0|           7.0|        0.0|       1.0|
+|     6|     131|           5.0|           5.0|        0.0|       8.0|
+|     8|     136|           4.0|           3.0|        0.0|       0.0|
+|     7|    1229|           1.0|           1.0|        0.0|       5.0|
+|    10|      79|           4.0|           3.0|        0.0|       4.0|
+|    19|    1156|           6.0|           6.0|        0.0|       3.0|
++------+--------+--------------+--------------+-----------+----------+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;only showing top 10 rows&lt;/p&gt;
+&lt;h3 id=&#34;验证scala-spark&#34;&gt;验证scala spark&lt;/h3&gt;
+&lt;p&gt;读取csv文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;    val spark &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; SparkSession.builder&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt;
+      .appName&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ShowLocal&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+      .config&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;spark.master&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;local&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+      .enableHiveSupport&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt;
+      .getOrCreate&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt;
+    val path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hdfs://sybigdata/user/example/part-00000-d3d3436e-f258-43b8-bfec-e45eb966edc7-c000.csv&amp;#34;&lt;/span&gt;
+    // 从HDFS中读取所有CSV文件
+    val df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; spark.read.format&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;csv&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.option&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;header&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.load&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;path&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+    // 打印数据
+    df.show&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;10&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;写入csv文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;    System.setProperty&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hadoop.home.dir&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;C:\\winutils\\&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+
+    val user &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;admin&amp;#34;&lt;/span&gt;
+    val ugi &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; UserGroupInformation.createRemoteUser&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;user&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+
+    ugi.doAs&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;new PrivilegedExceptionAction&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Unit&lt;span style=&#34;color:#f92672&#34;&gt;]()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+      override def run: Unit &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        val spark &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; SparkSession.builder&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt;
+          .appName&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;helloSpsark&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+          .config&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;spark.master&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;local&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+          .enableHiveSupport&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt;
+          .getOrCreate&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt;
+        val tuples &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Seq&lt;span style=&#34;color:#f92672&#34;&gt;((&lt;/span&gt;1, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;spark&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Big Data&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;))&lt;/span&gt;
+        val df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; spark.createDataFrame&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;tuples&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.toDF&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt;
+        df.show&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt;
+        &lt;span style=&#34;color:#75715e&#34;&gt;#这里会把csv文件保存在e:\abcd目录下&lt;/span&gt;
+        df.write.mode&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;SaveMode.Overwrite&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.format&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;csv&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.save&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;file:///e:/abcd&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+        spark.stop&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以下是保存的csv文件目录&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;bcd&amp;gt;dir 
+2023/05/11  14:59    &amp;lt;DIR&amp;gt;          .
+2023/05/11  14:59    &amp;lt;DIR&amp;gt;          ..
+2023/05/11  14:59                &lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt; .part-00000-8430568a-02c2-4db8-ad6c-16a2aed410df-c000.csv.crc
+2023/05/11  14:59                 &lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt; ._SUCCESS.crc
+2023/05/11  14:59                &lt;span style=&#34;color:#ae81ff&#34;&gt;21&lt;/span&gt; part-00000-8430568a-02c2-4db8-ad6c-16a2aed410df-c000.csv
+2023/05/11  14:59                 &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; _SUCCESS
+               &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; 个文件             &lt;span style=&#34;color:#ae81ff&#34;&gt;41&lt;/span&gt; 字节
+               &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; 个目录 211,274,485,760 可用字节
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;csv 文件内容&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;bcd&amp;gt;type part-00000-8430568a-02c2-4db8-ad6c-16a2aed410df-c000.csv
+1,spark
+2,Big Data
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
+  </channel>
+</rss>
