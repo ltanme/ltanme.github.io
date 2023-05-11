@@ -248,6 +248,17 @@ To adjust logging level use sc.setLogLevel<span style="color:#f92672">(</span>ne
     val df <span style="color:#f92672">=</span> spark.read.format<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;csv&#34;</span><span style="color:#f92672">)</span>.option<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;header&#34;</span>, <span style="color:#e6db74">&#34;true&#34;</span><span style="color:#f92672">)</span>.load<span style="color:#f92672">(</span>path<span style="color:#f92672">)</span>
     // 打印数据
     df.show<span style="color:#f92672">(</span>10<span style="color:#f92672">)</span>
+</code></pre></div><p>请注意，要以windows 跑成功spark程序，以下配置是必须的
+windows 作为单机跑起来，在本地运行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+<span style="color:#75715e">## 在windows 本地以下为 本地运行spark, 以下代码是必须的</span>
+    System.setProperty<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hadoop.home.dir&#34;</span>, <span style="color:#e6db74">&#34;C:\\winutils\\&#34;</span><span style="color:#f92672">)</span>
+
+    val spark <span style="color:#f92672">=</span> SparkSession.builder<span style="color:#f92672">()</span>
+      .appName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;helloSpsark&#34;</span><span style="color:#f92672">)</span>
+      .config<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;spark.master&#34;</span>, <span style="color:#e6db74">&#34;local&#34;</span><span style="color:#f92672">)</span>
+      .enableHiveSupport<span style="color:#f92672">()</span>
+      .getOrCreate<span style="color:#f92672">()</span>
 </code></pre></div><p>写入csv文件</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">    System.setProperty<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hadoop.home.dir&#34;</span>, <span style="color:#e6db74">&#34;C:\\winutils\\&#34;</span><span style="color:#f92672">)</span>
 

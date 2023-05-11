@@ -90,6 +90,7 @@ only showing top 10 rows
 
 ### 验证scala spark
 读取csv文件
+
 ```shell
     val spark = SparkSession.builder()
       .appName("ShowLocal")
@@ -102,7 +103,22 @@ only showing top 10 rows
     // 打印数据
     df.show(10)
 ```
+
+请注意，要以windows 跑成功spark程序，以下配置是必须的
+windows 作为单机跑起来，在本地运行
+```shell
+
+## 在windows 本地以下为 本地运行spark, 以下代码是必须的
+    System.setProperty("hadoop.home.dir", "C:\\winutils\\")
+
+    val spark = SparkSession.builder()
+      .appName("helloSpsark")
+      .config("spark.master", "local")
+      .enableHiveSupport()
+      .getOrCreate()
+```
 写入csv文件
+
 ```shell
     System.setProperty("hadoop.home.dir", "C:\\winutils\\")
 
