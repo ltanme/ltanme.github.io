@@ -6,7 +6,224 @@
     <description>Recent content in Posts on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 May 2023 15:25:41 +0800</lastBuildDate><atom:link href="https://ltan.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Jun 2023 14:40:51 +0800</lastBuildDate><atom:link href="https://ltan.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hybrid Encryption With AES 128 Bit and RSA Using Java and Ngx_lua</title>
+      <link>https://ltan.me/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/</link>
+      <pubDate>Thu, 08 Jun 2023 14:40:51 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/</guid>
+      <description>一种 AES（128位）+RSA混合加密，iv为前16个0字符，使用java和ngx.lua编写的加解密方法 使用 openresty 和 ngx_lua 编写的服务端 HTTP 接口，旨在提供给 Android 设备提交加密数据上报、日志采集等功能。 主要流流程如下</description>
+      <content>&lt;h2 id=&#34;一种-aes128位rsa混合加密iv为前16个0字符使用java和ngxlua编写的加解密方法&#34;&gt;一种 AES（128位）+RSA混合加密，iv为前16个0字符，使用java和ngx.lua编写的加解密方法&lt;/h2&gt;
+&lt;p&gt;使用 openresty 和 ngx_lua 编写的服务端 HTTP 接口，旨在提供给 Android 设备提交加密数据上报、日志采集等功能。&lt;br&gt;
+主要流流程如下
+&lt;img src=&#34;./swim-road-flow.PNG&#34; alt=&#34;aes+rsa混合常见流程&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;local enable_padding = true&lt;/code&gt;：定义一个布尔变量&lt;code&gt; enable_padding&lt;/code&gt; 并赋值为 &lt;code&gt;true&lt;/code&gt;，用于启用填充功能。
+&lt;code&gt;local aes_128_cbc_with_padding = aes:new(key, nil, aes.cipher(128,&amp;quot;cbc&amp;quot;), {iv = string.rep(&#39;\0&#39;, 16)}, nil, nil, enable_padding)&lt;/code&gt;：
+&lt;code&gt;aes:new()&lt;/code&gt; 是创建 &lt;code&gt;AES&lt;/code&gt; 加密算法实例的函数。&lt;br&gt;
+&lt;code&gt;key&lt;/code&gt; 是用于加密和解密的密钥。&lt;br&gt;
+&lt;code&gt;nil&lt;/code&gt; 表示没有额外的选项参数。&lt;br&gt;
+&lt;code&gt;aes.cipher(128, &amp;quot;cbc&amp;quot;)&lt;/code&gt; 指定使用&lt;code&gt;AES-128&lt;/code&gt; 位密钥和 &lt;code&gt;CBC (Cipher Block Chaining)&lt;/code&gt; 模式进行加密。&lt;br&gt;
+&lt;code&gt;{iv = string.rep(&#39;\0&#39;, 16)}&lt;/code&gt; 是初始化向量 &lt;code&gt;(IV)&lt;/code&gt;，其中 &lt;code&gt;string.rep(&#39;\0&#39;, 16)&lt;/code&gt; 创建了一个由 &lt;code&gt;16&lt;/code&gt; 个空字符组成的字符串作为 &lt;code&gt;IV&lt;/code&gt;。&lt;br&gt;
+最后一个参数 &lt;code&gt;enable_padding&lt;/code&gt; 是用于启用填充功能的布尔变量。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;以下是lua加密流程&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; rsa_priv_key&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;[[
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-------BEGIN PRIVATE KEY-----
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;your rsa private key code here 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-------END PRIVATE KEY-----
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;]]&lt;/span&gt;
+
+ 
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; rsa_pub_key&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;[[
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-------BEGIN PUBLIC KEY-----
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;your rsa public key code here 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-------END PUBLIC KEY-----
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;]]&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; resty_rsa &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.rsa&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; resty_aes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.aes&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; resty_rand &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.random&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; resty_str &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.string&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;-- Base64 encode with URL safe and no padding&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;encode_base64url&lt;/span&gt;(input)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; encoded &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ngx.encode_base64(input)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; url_encoded &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.gsub(encoded, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;+&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;-&amp;#39;&lt;/span&gt;)
+    url_encoded &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.gsub(url_encoded, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;_&amp;#39;&lt;/span&gt;)
+    url_encoded &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.gsub(url_encoded, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;=&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; url_encoded
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;-- RSA encryption function&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rsa_encrypted&lt;/span&gt;(aes_key)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; pub, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; resty_rsa:new({ public_key &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rsa_pub_key })
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; pub &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+        ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;new rsa err: &amp;#34;&lt;/span&gt;, err)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; encrypted &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pub:encrypt(aes_key)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; encrypted
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;-- AES encryption function&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;aes_encrypted&lt;/span&gt;(aes_key, content)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; aes_128_cbc_with_padding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; resty_aes:new(
+            aes_key, &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;, resty_aes.cipher(&lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cbc&amp;#34;&lt;/span&gt;), {iv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.rep(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\0&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;)}, &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;,
+            &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; aes_128_cbc_with_padding &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+        ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Failed to create aes_128_cbc_with_padding&amp;#39;&lt;/span&gt;)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; encrypted &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; aes_128_cbc_with_padding:encrypt(content)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; encrypted
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;-- Main encryption function&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;encrypt&lt;/span&gt;(content)
+    &lt;span style=&#34;color:#75715e&#34;&gt;-- 1. Generate random AES key&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; aes_key &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; resty_rand.bytes(&lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;)
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;-- 2. Use RSA algorithm + RSA public key to encrypt the AES key&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; encrypted_aes_key &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rsa_encrypted(aes_key)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; encrypted_aes_key &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+        ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Failed to encrypt AES key&amp;#34;&lt;/span&gt;)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;-- 3. Use AES to encrypt the content&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; encrypted_content &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; aes_encrypted(aes_key, content)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; encrypted_content &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+        ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Failed to encrypt content&amp;#34;&lt;/span&gt;)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;-- Return the base64url encoded encrypted AES key and content&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; encode_base64url(encrypted_aes_key), encode_base64url(encrypted_content)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;-- Your content to encrypt&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; content &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Your content here&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;-- Call the encrypt function&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; encryptedAesKey, encryptedContent &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; encrypt(content)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;-- Print the base64url encoded encrypted AES key and content&lt;/span&gt;
+ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Encrypted AES Key: &amp;#34;&lt;/span&gt;, encryptedAesKey)
+ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Encrypted Content: &amp;#34;&lt;/span&gt;, encryptedContent) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;以下是解密流程代码&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; rsa_priv_key&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;[[
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-------BEGIN PRIVATE KEY-----
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;your rsa private key code here 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-------END PRIVATE KEY-----
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;]]&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; rsa_pub_key&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;[[
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-------BEGIN PUBLIC KEY-----
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;your rsa public key code here 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-------END PUBLIC KEY-----
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;]]&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; resty_str &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.string&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;stringToHex&lt;/span&gt;(input)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; resty_str.to_hex(input)
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;-- Base64 decode with URL safe and no padding&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;decode_base64url&lt;/span&gt;(input)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; remainder &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;input &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; remainder &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; padding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.rep(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;=&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; remainder)
+        input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; input &lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt; padding
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; url_decoded &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.gsub(input, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;-&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;+&amp;#39;&lt;/span&gt;)
+    url_decoded &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.gsub(url_decoded, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;_&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; decoded &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ngx.decode_base64(url_decoded)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; decoded
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;-- Base64 decode with no padding&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;decode_base64nopad&lt;/span&gt;(input)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; remainder &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;input &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; remainder &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; padding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.rep(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;=&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; remainder)
+        input &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; input &lt;span style=&#34;color:#f92672&#34;&gt;..&lt;/span&gt; padding
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; decoded &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ngx.decode_base64(input)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; decoded
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;-- RSA decryption function&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rsa_decrypted&lt;/span&gt;(base64url_str)
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; resty_rsa &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.rsa&amp;#34;&lt;/span&gt;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; base64url_str &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; decoded_str &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; decode_base64url(base64url_str)
+
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; decoded_str &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+      ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Failed to decode base64url string: &amp;#34;&lt;/span&gt;, base64url_str)
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; priv, err &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; resty_rsa:new({ private_key &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rsa_priv_key })
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; priv &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+       ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;new rsa err: &amp;#34;&lt;/span&gt;, err)
+       &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; decrypted &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; priv:decrypt(decoded_str)
+
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;  decrypted
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;-- AES decryption function&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;aes_decrypted&lt;/span&gt;(key, str)
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; key &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; str &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+      ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;key or str is nil&amp;#39;&lt;/span&gt;)
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; decode_str &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; decode_base64url(str)
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; aes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.aes&amp;#34;&lt;/span&gt;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; enable_padding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; aes_128_cbc_with_padding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; aes:new(
+       key, &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;, aes.cipher(&lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cbc&amp;#34;&lt;/span&gt;), {iv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.rep(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\0&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;)}, &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;,
+       &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;, enable_padding)
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; aes_128_cbc_with_padding &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+        ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Failed to create aes_256_cbc_with_padding&amp;#39;&lt;/span&gt;)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; decrypted &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; aes_128_cbc_with_padding:decrypt(decode_str)
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; decrypted
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;-- Main decryption function&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;decrypt&lt;/span&gt;(content, encryptAesKey)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; decoded_key &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rsa_decrypted(encryptAesKey)
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; decoded_key &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+        ngx.say(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Failed to decrypt AES key&amp;#34;&lt;/span&gt;)
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; decrypted_content &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; aes_decrypted(decoded_key, content)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; decrypted_content
+&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;-- Your encrypted content and key&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; content &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;your encrypt content&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; encryptAesKey &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;your aes key code here by java&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;-- Call the decrypt function&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; decryptedContent &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; decrypt(content,encryptAesKey)
+&lt;span style=&#34;color:#75715e&#34;&gt;-- Print the decrypted content&lt;/span&gt;
+ngx.say(decryptedContent)
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
     <item>
       <title>How to Install Apache Spark on Windows Setup PySpark</title>
       <link>https://ltan.me/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</link>
