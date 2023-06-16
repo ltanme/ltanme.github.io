@@ -26,11 +26,19 @@ all-in-one家庭网络折腾记，简称aio
 
 # 链接收藏
 
-灰狐(https://www.huihoo.com/)
+荒野無燈(https://ttys3.dev/)   
+左耳朵耗子(https://coolshell.cn/)   
+Tinyfool的个人网站(https://codechina.org/)   
+云风的 BLOG(https://blog.codingnow.com/)   
+阮一峰的网络日志(https://www.ruanyifeng.com/)   
+阮晓寰-编程随想(https://program-think.blogspot.com/) 
 
+灰狐(https://www.huihoo.com/)    
 https://zeef.com/ 
 
 图书类
+
+电子图书  https://www.letmeread.net/    
 
 http://it-ebooks.info/
 
