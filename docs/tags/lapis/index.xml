@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>lapis on LTAN.ME</title>
+    <link>https://ltan.me/tags/lapis/</link>
+    <description>Recent content in lapis on LTAN.ME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Jul 2023 16:21:20 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/lapis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OpenResty Lua Lapis and Redis Cluster Setup Guide</title>
+      <link>https://ltan.me/post/2023/07/openresty-lua-lapis-and-redis-cluster-setup-guide/</link>
+      <pubDate>Wed, 05 Jul 2023 16:21:20 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2023/07/openresty-lua-lapis-and-redis-cluster-setup-guide/</guid>
+      <description>安装模块 下载并安装lua-resty-redis-cluster模块 lua-resty-redis-cluster模块的GitHub地址：https://github.com/iresty/lua-r</description>
+      <content>&lt;h1 id=&#34;安装模块&#34;&gt;安装模块&lt;/h1&gt;
+&lt;h2 id=&#34;下载并安装lua-resty-redis-cluster模块&#34;&gt;下载并安装lua-resty-redis-cluster模块&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;lua-resty-redis-cluster模块的GitHub地址：&lt;a href=&#34;https://github.com/iresty/lua-resty-redis-cluster&#34;&gt;https://github.com/iresty/lua-resty-redis-cluster&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;这个模块可以用来连接redis集群。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;请将这个模块下载到任意的目录下。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;下载完成后，你只需要在包中找到&lt;code&gt;rediscluster.lua&lt;/code&gt;和&lt;code&gt;redis_slot.c&lt;/code&gt;两个文件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意：&lt;code&gt;.c&lt;/code&gt;文件无法直接在nginx配置文件中引入，所以我们需要将它编译成&lt;code&gt;.so&lt;/code&gt;文件。以下是编译命令：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;```
+gcc SOURCE_FILES -fPIC -shared -o TARGET 
+```
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;使用上面的命令，你可以得到&lt;code&gt;librestyredisslot.so&lt;/code&gt;文件。也可以生成redis_slot.so具体命令如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gcc redis_slot.c  -fPIC -shared -o librestyredisslot.so
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;文件放置&#34;&gt;文件放置&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;将编译得到的&lt;code&gt;librestyredisslot.so&lt;/code&gt;文件复制到&lt;code&gt;/data/webserver/openresty/lualib/&lt;/code&gt;目录下。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;将&lt;code&gt;rediscluster.lua&lt;/code&gt;文件放到&lt;code&gt;/data/webserver/openresty/lualib/&lt;/code&gt;目录下。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;openresty-lua-lapis-and-redis-cluster-setup-guide&#34;&gt;OpenResty, Lua, Lapis, and Redis Cluster Setup Guide&lt;/h1&gt;
+&lt;h2 id=&#34;download-and-install-the-lua-resty-redis-cluster-module&#34;&gt;Download and Install the lua-resty-redis-cluster Module&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The GitHub link for the lua-resty-redis-cluster module is &lt;a href=&#34;https://github.com/iresty/lua-resty-redis-cluster&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;This module can be used to connect to a Redis cluster.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Please download the module into any directory of your choice.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;After downloading, you will need the &lt;code&gt;rediscluster.lua&lt;/code&gt; and &lt;code&gt;redis_slot.c&lt;/code&gt; files from the package.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: The &lt;code&gt;.c&lt;/code&gt; file can&amp;rsquo;t be directly imported into the Nginx configuration file, so it needs to be compiled into a &lt;code&gt;.so&lt;/code&gt; file. The compilation command is:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;```
+gcc SOURCE_FILES -fPIC -shared -o TARGET 
+```
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Using the above command, you can obtain the librestyredisslot.so file. You can also generate redis_slot.so with the following specific command.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The specific command is as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gcc redis_slot.c  -fPIC -shared -o librestyredisslot.so
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;file-placement&#34;&gt;File Placement&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Copy the compiled &lt;code&gt;librestyredisslot.so&lt;/code&gt; file into the &lt;code&gt;/data/webserver/openresty/lualib/&lt;/code&gt; directory.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Place the &lt;code&gt;rediscluster.lua&lt;/code&gt; file into the &lt;code&gt;/data/webserver/openresty/lualib/&lt;/code&gt; directory.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>
