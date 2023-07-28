@@ -33,15 +33,13 @@
 &lt;blockquote&gt;
 &lt;p&gt;注意：&lt;code&gt;.c&lt;/code&gt;文件无法直接在nginx配置文件中引入，所以我们需要将它编译成&lt;code&gt;.so&lt;/code&gt;文件。以下是编译命令：&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;```
-gcc SOURCE_FILES -fPIC -shared -o TARGET 
-```
+&lt;pre&gt;&lt;code&gt;gcc SOURCE_FILES -fPIC -shared -o TARGET 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;使用上面的命令，你可以得到&lt;code&gt;librestyredisslot.so&lt;/code&gt;文件。也可以生成redis_slot.so具体命令如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;gcc redis_slot.c  -fPIC -shared -o librestyredisslot.so
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;p&gt;gcc redis_slot.c  -fPIC -shared -o librestyredisslot.so&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;文件放置&#34;&gt;文件放置&lt;/h2&gt;
 &lt;ul&gt;
@@ -71,9 +69,7 @@ gcc SOURCE_FILES -fPIC -shared -o TARGET
 &lt;blockquote&gt;
 &lt;p&gt;Note: The &lt;code&gt;.c&lt;/code&gt; file can&amp;rsquo;t be directly imported into the Nginx configuration file, so it needs to be compiled into a &lt;code&gt;.so&lt;/code&gt; file. The compilation command is:&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;```
-gcc SOURCE_FILES -fPIC -shared -o TARGET 
-```
+&lt;pre&gt;&lt;code&gt;gcc SOURCE_FILES -fPIC -shared -o TARGET 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -81,8 +77,8 @@ gcc SOURCE_FILES -fPIC -shared -o TARGET
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;The specific command is as follows:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;gcc redis_slot.c  -fPIC -shared -o librestyredisslot.so
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;p&gt;gcc redis_slot.c  -fPIC -shared -o librestyredisslot.so&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;file-placement&#34;&gt;File Placement&lt;/h2&gt;
 &lt;ul&gt;
