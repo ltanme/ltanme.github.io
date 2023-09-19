@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Managing Multiple Git Accounts on Windows 10 :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="在 Windows 10 下管理多个 Git 账号 问题背景描述 在开发过程中，开发者经常需要在多个代码托管平台（例如 GitHub、GitLab 或公司私有的代码托管平台）之间切换。这样做可能会引发一系列问题，尤其是当你需要使用不同的" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2023/09/managing-multiple-git-accounts-on-windows-10/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Managing Multiple Git Accounts on Windows 10">
+<meta property="og:description" content="在 Windows 10 下管理多个 Git 账号 问题背景描述 在开发过程中，开发者经常需要在多个代码托管平台（例如 GitHub、GitLab 或公司私有的代码托管平台）之间切换。这样做可能会引发一系列问题，尤其是当你需要使用不同的" />
+<meta property="og:url" content="https://ltan.me/post/2023/09/managing-multiple-git-accounts-on-windows-10/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2023-09-19 19:19:09 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2023/09/managing-multiple-git-accounts-on-windows-10/">Managing Multiple Git Accounts on Windows 10</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2023-09-19 [Mod: 2023-09-19]
+      </span>
+    
+    
+  </div>
+
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="在-windows-10-下管理多个-git-账号">在 Windows 10 下管理多个 Git 账号<a href="#在-windows-10-下管理多个-git-账号" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>问题背景描述
+在开发过程中，开发者经常需要在多个代码托管平台（例如 GitHub、GitLab 或公司私有的代码托管平台）之间切换。这样做可能会引发一系列问题，尤其是当你需要使用不同的 Git 账号进行代码提交时。
+本文将指导你如何在 Windows 10 下管理多个 Git 账号，并确保你的用户名和电子邮件地址不被泄露。<br>
+<code>为什么要采用ssh提交git代码,而不是用http协议提交代码</code><br>
+<code>个人认为主要是ssh提供更好的安全，为什么要采用ssh提交git代码，而http提交代码，一但会话失效需要重登录，甚至还要用浏览器登录一下非常不便</code></p>
+</blockquote>
+<h2 id="前提条件">前提条件<a href="#前提条件" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>已安装 Git</li>
+<li>Windows 10 操作系统</li>
+</ul>
+<h2 id="步骤-1-生成-ssh-密钥">步骤 1: 生成 SSH 密钥<a href="#步骤-1-生成-ssh-密钥" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>首先，为每一个 Git 账号生成一个 SSH 密钥。
+打开gitbash cmd 命令窗口,如果安装了git的话，在安装目录下找到bash窗口</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 生成 SSH 密钥为 GitHub 账号</span>
+ssh-keygen -t rsa -b <span style="color:#ae81ff">4096</span> -C <span style="color:#e6db74">&#34;your_email@example.com&#34;</span> -f /c/Users/admin/.ssh/id_rsa_mygithubusername
+
+<span style="color:#75715e"># 生成 SSH 密钥为公司的 Git 账号</span>
+ssh-keygen -t rsa -b <span style="color:#ae81ff">4096</span> -C <span style="color:#e6db74">&#34;your_work_email@example.com&#34;</span> -f /c/Users/admin/.ssh/id_rsa_mycompanyname
+</code></pre></div><h2 id="步骤-2-创建-ssh-config-文件">步骤 2: 创建 SSH Config 文件<a href="#步骤-2-创建-ssh-config-文件" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<blockquote>
+<p>在 C:\Users\admin.ssh 目录下创建一个 config 文件（<code>如果没有的话</code>），并添加以下内容：</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># GitHub a 账号</span>
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\.</span>ssh<span style="color:#ae81ff">\i</span>d_rsa_mygithubusername_a  <span style="color:#75715e">#这是存在在本地的私钥，pub文件公钥上传到github上</span>
+
+<span style="color:#75715e"># GitHub b 账号</span>
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\.</span>ssh<span style="color:#ae81ff">\i</span>d_rsa_mygithubusername_b  <span style="color:#75715e">#这是存在在本地的私钥，pub文件公钥上传到github上</span>
+
+<span style="color:#75715e"># 公司 Git 账号</span>
+Host work.git
+  HostName company.git
+  User git
+  IdentityFile C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\.</span>ssh<span style="color:#ae81ff">\i</span>d_rsa_mycompanyname  <span style="color:#75715e">#这是存在本地的私钥，pub文件公钥上传到公司gitlib上</span>
+</code></pre></div><h2 id="步骤-3-配置-git-用户信息">步骤 3: 配置 Git 用户信息,<a href="#步骤-3-配置-git-用户信息" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<blockquote>
+<p>为了保证不泄露个人信息，你可以在每个项目目录下单独设置 Git 用户名和电子邮件。</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">    <span style="color:#75715e"># 在项目目录下运行，也就是为每个项目单独添加独立的name和email而不用公共的，默认的</span>
+    git config user.name <span style="color:#e6db74">&#34;Your Name&#34;</span>
+    git config user.email <span style="color:#e6db74">&#34;your_email@example.com&#34;</span>
+</code></pre></div><blockquote>
+<p>如果的你的项目已经存在，或者是通过http接口上传的gitlib的，可以找到项目根目录下有个.git隐藏目录 打开它
+然后找到config文件，并打开它，显示如下内容</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>core<span style="color:#f92672">]</span>
+	repositoryformatversion <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+	filemode <span style="color:#f92672">=</span> false
+	bare <span style="color:#f92672">=</span> false
+	logallrefupdates <span style="color:#f92672">=</span> true
+	symlinks <span style="color:#f92672">=</span> false
+	ignorecase <span style="color:#f92672">=</span> true
+<span style="color:#f92672">[</span>remote <span style="color:#e6db74">&#34;origin&#34;</span><span style="color:#f92672">]</span>
+	url <span style="color:#f92672">=</span> http://gitlab.company.com/forest/holly.git
+	fetch <span style="color:#f92672">=</span> +refs/heads/*:refs/remotes/origin/*
+<span style="color:#f92672">[</span>branch <span style="color:#e6db74">&#34;master&#34;</span><span style="color:#f92672">]</span>
+	remote <span style="color:#f92672">=</span> origin
+	merge <span style="color:#f92672">=</span> refs/heads/master
+<span style="color:#f92672">[</span>branch <span style="color:#e6db74">&#34;dev&#34;</span><span style="color:#f92672">]</span>
+	remote <span style="color:#f92672">=</span> origin
+	merge <span style="color:#f92672">=</span> refs/heads/dev
+<span style="color:#f92672">[</span>user<span style="color:#f92672">]</span>
+	name <span style="color:#f92672">=</span> your name   <span style="color:#75715e"># 切记这里一定要添加你的name,否则是用默认全局,泄露信息，可以匿名</span>
+	email <span style="color:#f92672">=</span> your email <span style="color:#75715e"># 切记这里一定要添加你的eamil,否则是用默认全局 泄露信息 可以匿名	</span>
+</code></pre></div><blockquote>
+<p>只要将以上url 修改为git@gitlab.company.com:forest/holly.git 即可马上提交代码</p>
+</blockquote>
+<blockquote>
+<p>如果遇到github.com 多个账号都要提交不同的代码怎么办？
+分别给每个账号生成一对公私钥对，把公钥分别添加<code>SSH and GPG keys</code> github上即可
+然后在项目.git目录下找到config文件内容修改如下：</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>core<span style="color:#f92672">]</span>
+	repositoryformatversion <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+	filemode <span style="color:#f92672">=</span> false
+	bare <span style="color:#f92672">=</span> false
+	logallrefupdates <span style="color:#f92672">=</span> true
+	symlinks <span style="color:#f92672">=</span> false
+	ignorecase <span style="color:#f92672">=</span> true
+<span style="color:#f92672">[</span>remote <span style="color:#e6db74">&#34;origin&#34;</span><span style="color:#f92672">]</span>
+	url <span style="color:#f92672">=</span> git@github.com-<span style="color:#f92672">{</span>你的github账号<span style="color:#f92672">}</span>:用户名/项目名   <span style="color:#75715e">#主要是这里，在github.com后面添加-账号</span>
+	fetch <span style="color:#f92672">=</span> +refs/heads/*:refs/remotes/origin/*
+<span style="color:#f92672">[</span>branch <span style="color:#e6db74">&#34;master&#34;</span><span style="color:#f92672">]</span>
+	remote <span style="color:#f92672">=</span> origin
+	merge <span style="color:#f92672">=</span> refs/heads/master
+<span style="color:#f92672">[</span>branch <span style="color:#e6db74">&#34;dev&#34;</span><span style="color:#f92672">]</span>
+	remote <span style="color:#f92672">=</span> origin
+	merge <span style="color:#f92672">=</span> refs/heads/dev
+<span style="color:#f92672">[</span>user<span style="color:#f92672">]</span>
+	name <span style="color:#f92672">=</span> your name   <span style="color:#75715e"># 切记这里一定要添加你的name,否则是用默认全局,泄露信息，可以匿名</span>
+	email <span style="color:#f92672">=</span> your email <span style="color:#75715e"># 切记这里一定要添加你的eamil,否则是用默认全局 泄露信息 可以匿名</span>
+</code></pre></div>
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>
