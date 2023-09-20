@@ -20,7 +20,7 @@
 在开发过程中，开发者经常需要在多个代码托管平台（例如 GitHub、GitLab 或公司私有的代码托管平台）之间切换。这样做可能会引发一系列问题，尤其是当你需要使用不同的 Git 账号进行代码提交时。
 本文将指导你如何在 Windows 10 下管理多个 Git 账号，并确保你的用户名和电子邮件地址不被泄露。&lt;br&gt;
 &lt;code&gt;为什么要采用ssh提交git代码,而不是用http协议提交代码&lt;/code&gt;&lt;br&gt;
-&lt;code&gt;个人认为主要是ssh提供更好的安全，为什么要采用ssh提交git代码，而http提交代码，一但会话失效需要重登录，甚至还要用浏览器登录一下非常不便&lt;/code&gt;&lt;/p&gt;
+&lt;code&gt;个人认为主要是ssh提供更好的安全，而用http提交的话，一但会话失效需要重登录，甚至还要用浏览器登录一下非常不便&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;前提条件&#34;&gt;前提条件&lt;/h2&gt;
 &lt;ul&gt;
