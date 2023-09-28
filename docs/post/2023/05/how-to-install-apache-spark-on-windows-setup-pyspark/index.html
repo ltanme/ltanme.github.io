@@ -294,6 +294,33 @@ windows 作为单机跑起来，在本地运行</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">E:<span style="color:#ae81ff">\a</span>bcd&gt;type part-00000-8430568a-02c2-4db8-ad6c-16a2aed410df-c000.csv
 1,spark
 2,Big Data
+</code></pre></div><h2 id="在windows10-用intellj-idea-创建spark程序步骤">在windows10 用intellj idea 创建spark程序步骤<a href="#在windows10-用intellj-idea-创建spark程序步骤" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>使用 &ldquo;net.alchim31.maven:scala-archetype-simple&rdquo;。这个 archetype 为您提供了一个基本的 Scala 项目结构，您可以在此基础上添加 Spark 依赖。</p>
+<p>按照以下步骤在 IntelliJ IDEA 中创建一个基于 Scala + Spark 的 Maven 项目：</p>
+<p>打开 IntelliJ IDEA，点击 &ldquo;Create New Project&rdquo;。</p>
+<p>在左侧导航栏中选择 &ldquo;Maven&rdquo;，然后勾选 &ldquo;Create from archetype&rdquo;。</p>
+<p>如果 &ldquo;net.alchim31.maven:scala-archetype-simple&rdquo; 不在列表中，点击 &ldquo;Add Archetype&rdquo; 按钮。</p>
+<p>在 &ldquo;Add Archetype&rdquo; 对话框中输入以下信息：</p>
+<p>GroupId: <code>net.alchim31.maven</code><br>
+ArtifactId: <code>scala-archetype-simple</code><br>
+Version: <code>1.7</code>（或您想使用的其他版本）<br>
+点击 &ldquo;OK&rdquo;。</p>
+<p>在列表中选择 &ldquo;net.alchim31.maven:scala-archetype-simple&rdquo;，然后点击 &ldquo;Next&rdquo;。</p>
+<p>输入 &ldquo;GroupId&rdquo; 和 &ldquo;ArtifactId&rdquo;（例如，com.example 和 voicepredictionmodel）。点击 &ldquo;Next&rdquo;。</p>
+<p>选择项目的存储位置，然后点击 &ldquo;Finish&rdquo;。</p>
+<p>现在，您已经创建了一个基于 Scala 的 Maven 项目。接下来，需要为项目添加 Spark 依赖。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.spark&lt;/groupId&gt;
+    &lt;artifactId&gt;spark-core_2.12&lt;/artifactId&gt;
+    &lt;version&gt;3.2.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.spark&lt;/groupId&gt;
+    &lt;artifactId&gt;spark-sql_2.12&lt;/artifactId&gt;
+    &lt;version&gt;3.2.0&lt;/version&gt;
+&lt;/dependency&gt;
+
 </code></pre></div>
       </div></div>
 

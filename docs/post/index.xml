@@ -549,6 +549,33 @@ windows 作为单机跑起来，在本地运行&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;bcd&amp;gt;type part-00000-8430568a-02c2-4db8-ad6c-16a2aed410df-c000.csv
 1,spark
 2,Big Data
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;在windows10-用intellj-idea-创建spark程序步骤&#34;&gt;在windows10 用intellj idea 创建spark程序步骤&lt;/h2&gt;
+&lt;p&gt;使用 &amp;ldquo;net.alchim31.maven:scala-archetype-simple&amp;rdquo;。这个 archetype 为您提供了一个基本的 Scala 项目结构，您可以在此基础上添加 Spark 依赖。&lt;/p&gt;
+&lt;p&gt;按照以下步骤在 IntelliJ IDEA 中创建一个基于 Scala + Spark 的 Maven 项目：&lt;/p&gt;
+&lt;p&gt;打开 IntelliJ IDEA，点击 &amp;ldquo;Create New Project&amp;rdquo;。&lt;/p&gt;
+&lt;p&gt;在左侧导航栏中选择 &amp;ldquo;Maven&amp;rdquo;，然后勾选 &amp;ldquo;Create from archetype&amp;rdquo;。&lt;/p&gt;
+&lt;p&gt;如果 &amp;ldquo;net.alchim31.maven:scala-archetype-simple&amp;rdquo; 不在列表中，点击 &amp;ldquo;Add Archetype&amp;rdquo; 按钮。&lt;/p&gt;
+&lt;p&gt;在 &amp;ldquo;Add Archetype&amp;rdquo; 对话框中输入以下信息：&lt;/p&gt;
+&lt;p&gt;GroupId: &lt;code&gt;net.alchim31.maven&lt;/code&gt;&lt;br&gt;
+ArtifactId: &lt;code&gt;scala-archetype-simple&lt;/code&gt;&lt;br&gt;
+Version: &lt;code&gt;1.7&lt;/code&gt;（或您想使用的其他版本）&lt;br&gt;
+点击 &amp;ldquo;OK&amp;rdquo;。&lt;/p&gt;
+&lt;p&gt;在列表中选择 &amp;ldquo;net.alchim31.maven:scala-archetype-simple&amp;rdquo;，然后点击 &amp;ldquo;Next&amp;rdquo;。&lt;/p&gt;
+&lt;p&gt;输入 &amp;ldquo;GroupId&amp;rdquo; 和 &amp;ldquo;ArtifactId&amp;rdquo;（例如，com.example 和 voicepredictionmodel）。点击 &amp;ldquo;Next&amp;rdquo;。&lt;/p&gt;
+&lt;p&gt;选择项目的存储位置，然后点击 &amp;ldquo;Finish&amp;rdquo;。&lt;/p&gt;
+&lt;p&gt;现在，您已经创建了一个基于 Scala 的 Maven 项目。接下来，需要为项目添加 Spark 依赖。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.apache.spark&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spark-core_2.12&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;3.2.0&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.apache.spark&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spark-sql_2.12&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;3.2.0&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
