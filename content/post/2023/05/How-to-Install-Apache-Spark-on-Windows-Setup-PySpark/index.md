@@ -159,3 +159,43 @@ E:\abcd>type part-00000-8430568a-02c2-4db8-ad6c-16a2aed410df-c000.csv
 1,spark
 2,Big Data
 ```
+
+## 在windows10 用intellj idea 创建spark程序步骤
+使用 "net.alchim31.maven:scala-archetype-simple"。这个 archetype 为您提供了一个基本的 Scala 项目结构，您可以在此基础上添加 Spark 依赖。
+
+按照以下步骤在 IntelliJ IDEA 中创建一个基于 Scala + Spark 的 Maven 项目：
+
+打开 IntelliJ IDEA，点击 "Create New Project"。
+
+在左侧导航栏中选择 "Maven"，然后勾选 "Create from archetype"。
+
+如果 "net.alchim31.maven:scala-archetype-simple" 不在列表中，点击 "Add Archetype" 按钮。
+
+在 "Add Archetype" 对话框中输入以下信息：  
+
+GroupId: `net.alchim31.maven`  
+ArtifactId: `scala-archetype-simple`  
+Version: `1.7`（或您想使用的其他版本）  
+点击 "OK"。  
+
+在列表中选择 "net.alchim31.maven:scala-archetype-simple"，然后点击 "Next"。
+
+输入 "GroupId" 和 "ArtifactId"（例如，com.example 和 voicepredictionmodel）。点击 "Next"。
+
+选择项目的存储位置，然后点击 "Finish"。
+
+现在，您已经创建了一个基于 Scala 的 Maven 项目。接下来，需要为项目添加 Spark 依赖。
+```shell
+
+<dependency>
+    <groupId>org.apache.spark</groupId>
+    <artifactId>spark-core_2.12</artifactId>
+    <version>3.2.0</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.spark</groupId>
+    <artifactId>spark-sql_2.12</artifactId>
+    <version>3.2.0</version>
+</dependency>
+
+```
