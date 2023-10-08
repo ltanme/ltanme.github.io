@@ -47,7 +47,7 @@ From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;
 &lt;ol&gt;
 &lt;li&gt;检查 VMware 的网络模式设置。&lt;/li&gt;
 &lt;li&gt;检查 Windows 和 CentOS 的防火墙设置。&lt;/li&gt;
-&lt;li&gt;使用 &lt;code&gt;traceroute&lt;/code&gt; 和 &lt;code&gt;route -n&lt;/code&gt; 命令跟踪网络路径。&lt;/li&gt;
+&lt;li&gt;使用 &lt;code&gt;traceroute&lt;/code&gt;命令跟踪网络路径 或者查看系统路由表 &lt;code&gt;route -n&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;检查 CentOS 的路由表。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;我发现了一个关键的线索：CentOS 虚拟机上的 Docker 网络与宿主机的网络地址冲突。&lt;/p&gt;
