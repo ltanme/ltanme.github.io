@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vmware on LTAN.ME</title>
+    <link>https://ltan.me/tags/vmware/</link>
+    <description>Recent content in vmware on LTAN.ME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 Oct 2023 19:16:07 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/vmware/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine</title>
+      <link>https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</link>
+      <pubDate>Sun, 08 Oct 2023 19:16:07 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</guid>
+      <description>解决因docker网络导致的网络问题，无法ping通局域网ip 背景 在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网</description>
+      <content>&lt;h1 id=&#34;解决因docker网络导致的网络问题无法ping通局域网ip&#34;&gt;解决因docker网络导致的网络问题，无法ping通局域网ip&lt;/h1&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网并 ping 通外部地址，但 CentOS 7 无法 ping 通宿主机。这让我非常困惑，并最初怀疑可能是公司的网管对我的 MAC 地址进行了某种限制。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# route -n&lt;/span&gt;
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         172.22.128.1    0.0.0.0         UG    &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; ens33
+172.17.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; docker0
+172.18.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-6b8659f8f886
+172.19.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-89bc77a42b8a
+172.20.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-b4e656893ece
+172.22.128.0    0.0.0.0         255.255.240.0   U     &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; ens33
+172.26.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-5b7ab2df8a43
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;虚拟机上有多个 Docker 网络，其中一个网络（br-b4e656893ece）与宿主机的网络冲突。&lt;br&gt;
+这意味着， 尝试 ping 宿主机时，数据包可能被发送到了 Docker 网络，而不是真正的物理网络。&lt;br&gt;
+这是最关键的问题所在&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;问现现像&#34;&gt;问现现像&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我的一个局域网ip ping不通&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ping 172.20.151.90&lt;/span&gt;
+PING 172.20.151.90 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;172.20.151.90&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 56&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;84&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; bytes of data.
+From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; Destination Host Unreachable
+From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; Destination Host Unreachable
+From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; Destination Host Unreachable
+From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; Destination Host Unreachable
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;诊断过程&#34;&gt;诊断过程&lt;/h2&gt;
+&lt;p&gt;经过一系列的诊断步骤，包括：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;检查 VMware 的网络模式设置。&lt;/li&gt;
+&lt;li&gt;检查 Windows 和 CentOS 的防火墙设置。&lt;/li&gt;
+&lt;li&gt;使用 &lt;code&gt;traceroute&lt;/code&gt; 和 &lt;code&gt;route -n&lt;/code&gt; 命令跟踪网络路径。&lt;/li&gt;
+&lt;li&gt;检查 CentOS 的路由表。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;我发现了一个关键的线索：CentOS 虚拟机上的 Docker 网络与宿主机的网络地址冲突。&lt;/p&gt;
+&lt;h2 id=&#34;解决方法&#34;&gt;解决方法&lt;/h2&gt;
+&lt;p&gt;最终确定是 Docker 网络与宿主机网络冲突导致的问题。为了解决这个问题，我采取了以下步骤：&lt;/p&gt;
+&lt;p&gt;第一步, 停止 Docker 服务。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;sudo systemctl stop docker.service
+sudo systemctl stop docker.socket
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第二步, 手动删除冲突的 Docker 网络或修改其 IP 地址。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#我选择删除&lt;/span&gt;
+sudo route del -net 172.20.0.0 netmask 255.255.0.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第三步, 重启 Docker 服务和 CentOS 虚拟机。&lt;/p&gt;
+&lt;p&gt;经过上述步骤，CentOS 7 虚拟机成功 ping 通了宿主机。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# check test,it worked!&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ping 172.20.151.90&lt;/span&gt;
+PING 172.20.151.90 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;172.20.151.90&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 56&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;84&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; bytes of data.
+&lt;span style=&#34;color:#ae81ff&#34;&gt;64&lt;/span&gt; bytes from 172.20.151.90: icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; ttl&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;63&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0.422 ms
+&lt;span style=&#34;color:#ae81ff&#34;&gt;64&lt;/span&gt; bytes from 172.20.151.90: icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; ttl&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;63&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0.362 ms
+&lt;span style=&#34;color:#ae81ff&#34;&gt;64&lt;/span&gt; bytes from 172.20.151.90: icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; ttl&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;63&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0.555 ms
+^C
+--- 172.20.151.90 ping statistics ---
+&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; packets transmitted, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; received, 0% packet loss, time 2000ms
+rtt min/avg/max/mdev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0.362/0.446/0.555/0.082 ms
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;结论&#34;&gt;结论&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这次的经验教训是，当遇到网络通信问题时，不仅要检查常见的网络配置和防火墙设置，&lt;br&gt;
+还要考虑到其他可能影响网络的因素，例如 Docker 或其他虚拟化技术。而最重要的是，&lt;br&gt;
+不要过早地得出结论或怀疑其他人，因为问题的根源可能出乎意料。&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

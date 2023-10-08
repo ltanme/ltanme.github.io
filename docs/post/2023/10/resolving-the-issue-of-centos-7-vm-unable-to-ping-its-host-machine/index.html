@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="解决因docker网络导致的网络问题，无法ping通局域网ip 背景 在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine">
+<meta property="og:description" content="解决因docker网络导致的网络问题，无法ping通局域网ip 背景 在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网" />
+<meta property="og:url" content="https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2023-10-08 19:16:07 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/">Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2023-10-08 [Mod: 2023-10-08]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/vmware/">vmware</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="解决因docker网络导致的网络问题无法ping通局域网ip">解决因docker网络导致的网络问题，无法ping通局域网ip<a href="#解决因docker网络导致的网络问题无法ping通局域网ip" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<h2 id="背景">背景<a href="#背景" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网并 ping 通外部地址，但 CentOS 7 无法 ping 通宿主机。这让我非常困惑，并最初怀疑可能是公司的网管对我的 MAC 地址进行了某种限制。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># route -n</span>
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         172.22.128.1    0.0.0.0         UG    <span style="color:#ae81ff">100</span>    <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> ens33
+172.17.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> docker0
+172.18.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-6b8659f8f886
+172.19.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-89bc77a42b8a
+172.20.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-b4e656893ece
+172.22.128.0    0.0.0.0         255.255.240.0   U     <span style="color:#ae81ff">100</span>    <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> ens33
+172.26.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-5b7ab2df8a43
+</code></pre></div><blockquote>
+<p>虚拟机上有多个 Docker 网络，其中一个网络（br-b4e656893ece）与宿主机的网络冲突。<br>
+这意味着， 尝试 ping 宿主机时，数据包可能被发送到了 Docker 网络，而不是真正的物理网络。<br>
+这是最关键的问题所在</p>
+</blockquote>
+<h2 id="问现现像">问现现像<a href="#问现现像" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<blockquote>
+<p>我的一个局域网ip ping不通</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># ping 172.20.151.90</span>
+PING 172.20.151.90 <span style="color:#f92672">(</span>172.20.151.90<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+From 172.20.0.1 icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> Destination Host Unreachable
+From 172.20.0.1 icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> Destination Host Unreachable
+From 172.20.0.1 icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> Destination Host Unreachable
+From 172.20.0.1 icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> Destination Host Unreachable
+</code></pre></div><h2 id="诊断过程">诊断过程<a href="#诊断过程" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>经过一系列的诊断步骤，包括：</p>
+<ol>
+<li>检查 VMware 的网络模式设置。</li>
+<li>检查 Windows 和 CentOS 的防火墙设置。</li>
+<li>使用 <code>traceroute</code> 和 <code>route -n</code> 命令跟踪网络路径。</li>
+<li>检查 CentOS 的路由表。</li>
+</ol>
+<p>我发现了一个关键的线索：CentOS 虚拟机上的 Docker 网络与宿主机的网络地址冲突。</p>
+<h2 id="解决方法">解决方法<a href="#解决方法" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>最终确定是 Docker 网络与宿主机网络冲突导致的问题。为了解决这个问题，我采取了以下步骤：</p>
+<p>第一步, 停止 Docker 服务。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo systemctl stop docker.service
+sudo systemctl stop docker.socket
+
+</code></pre></div><p>第二步, 手动删除冲突的 Docker 网络或修改其 IP 地址。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#我选择删除</span>
+sudo route del -net 172.20.0.0 netmask 255.255.0.0
+</code></pre></div><p>第三步, 重启 Docker 服务和 CentOS 虚拟机。</p>
+<p>经过上述步骤，CentOS 7 虚拟机成功 ping 通了宿主机。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># check test,it worked!</span>
+<span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># ping 172.20.151.90</span>
+PING 172.20.151.90 <span style="color:#f92672">(</span>172.20.151.90<span style="color:#f92672">)</span> 56<span style="color:#f92672">(</span>84<span style="color:#f92672">)</span> bytes of data.
+<span style="color:#ae81ff">64</span> bytes from 172.20.151.90: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>0.422 ms
+<span style="color:#ae81ff">64</span> bytes from 172.20.151.90: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>0.362 ms
+<span style="color:#ae81ff">64</span> bytes from 172.20.151.90: icmp_seq<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> ttl<span style="color:#f92672">=</span><span style="color:#ae81ff">63</span> time<span style="color:#f92672">=</span>0.555 ms
+^C
+--- 172.20.151.90 ping statistics ---
+<span style="color:#ae81ff">3</span> packets transmitted, <span style="color:#ae81ff">3</span> received, 0% packet loss, time 2000ms
+rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.362/0.446/0.555/0.082 ms
+</code></pre></div><h2 id="结论">结论<a href="#结论" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<blockquote>
+<p>这次的经验教训是，当遇到网络通信问题时，不仅要检查常见的网络配置和防火墙设置，<br>
+还要考虑到其他可能影响网络的因素，例如 Docker 或其他虚拟化技术。而最重要的是，<br>
+不要过早地得出结论或怀疑其他人，因为问题的根源可能出乎意料。</p>
+</blockquote>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>
