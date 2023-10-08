@@ -44,7 +44,7 @@ From 172.20.0.1 icmp_seq=4 Destination Host Unreachable
 
 1. 检查 VMware 的网络模式设置。
 2. 检查 Windows 和 CentOS 的防火墙设置。
-3. 使用 `traceroute` 和 `route -n` 命令跟踪网络路径。
+3. 使用 `traceroute`命令跟踪网络路径 或者查看系统路由表 `route -n`
 4. 检查 CentOS 的路由表。
 
 我发现了一个关键的线索：CentOS 虚拟机上的 Docker 网络与宿主机的网络地址冲突。
