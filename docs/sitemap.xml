@@ -2,13 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ltan.me/</loc>
-    <lastmod>2023-09-19T19:19:09+08:00</lastmod>
+    <loc>https://ltan.me/tags/docker/</loc>
+    <lastmod>2023-10-08T19:16:07+08:00</lastmod>
   </url><url>
-    <loc>https://ltan.me/post/2023/09/managing-multiple-git-accounts-on-windows-10/</loc>
-    <lastmod>2023-09-19T19:19:09+08:00</lastmod>
+    <loc>https://ltan.me/</loc>
+    <lastmod>2023-10-08T19:16:07+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/</loc>
+    <lastmod>2023-10-08T19:16:07+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</loc>
+    <lastmod>2023-10-08T19:16:07+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2023-10-08T19:16:07+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/vmware/</loc>
+    <lastmod>2023-10-08T19:16:07+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2023/09/managing-multiple-git-accounts-on-windows-10/</loc>
     <lastmod>2023-09-19T19:19:09+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/lapis/</loc>
@@ -21,9 +33,6 @@
     <lastmod>2023-07-05T16:21:20+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/redis/</loc>
-    <lastmod>2023-07-05T16:21:20+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2023-07-05T16:21:20+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/aes/</loc>
@@ -342,9 +351,6 @@
     <lastmod>2021-05-12T19:11:15+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/apisix/</loc>
-    <lastmod>2021-05-11T15:39:09+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/docker/</loc>
     <lastmod>2021-05-11T15:39:09+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</loc>
