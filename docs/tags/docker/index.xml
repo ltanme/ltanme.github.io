@@ -72,6 +72,87 @@ PING 172.20.151.90 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;172.2
 --- 172.20.151.90 ping statistics ---
 &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; packets transmitted, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; received, 0% packet loss, time 2000ms
 rtt min/avg/max/mdev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0.362/0.446/0.555/0.082 ms
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;主要原因是我上周折腾开环境时，在centos7 使用docker-compose搭建了kafka，使用如下的一个&lt;code&gt;docker-compose.yml&lt;/code&gt;文件
+从以下docker-compose文件看，并没有设置网络相关的东西，所以导致使用了默认的docker网络容器&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;version: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2&amp;#39;&lt;/span&gt;
+
+services:
+  zookeeper:
+    image: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bitnami/zookeeper:latest&amp;#39;&lt;/span&gt;
+    ports:
+      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2181:2181&amp;#39;&lt;/span&gt;
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yes
+
+  kafka:
+    image: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bitnami/kafka:latest&amp;#39;&lt;/span&gt;
+    ports:
+      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;9092:9092&amp;#39;&lt;/span&gt;
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yes
+      - KAFKA_CFG_ADVERTISED_LISTENERS&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;PLAINTEXT://localhost:9092
+    depends_on:
+      - zookeeper
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;为了不会使每天开机启动系统，自动创建了172.20.0.0这一条路由记录，我决定对docker-compose.yml进行修改网络
+指定子网段ip   该ip由docker自动创建的br-b4e656893ece 网卡id号&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost kafka&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# route -n&lt;/span&gt;
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         172.17.64.1     0.0.0.0         UG    &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; ens33
+172.17.64.0     0.0.0.0         255.255.240.0   U     &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; ens33
+172.18.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-6b8659f8f886
+172.19.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-89bc77a42b8a
+172.20.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-b4e656893ece
+172.26.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-5b7ab2df8a43
+192.168.89.0    0.0.0.0         255.255.255.0   U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; docker0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;通过&lt;code&gt;docker network ls&lt;/code&gt; 命令发现&lt;code&gt;b4e656893ece&lt;/code&gt; 为 kafka-default所创建的&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker network ls&lt;/span&gt;
+NETWORK ID     NAME                        DRIVER    SCOPE
+6b8659f8f886   bigdata_default             bridge    local
+1bbd6235ef1e   bridge                      bridge    local
+5b7ab2df8a43   docker-compose_default      bridge    local
+89bc77a42b8a   docker-compose_my_network   bridge    local
+330d08b4c24b   host                        host      local
+b4e656893ece   kafka_default               bridge    local
+5501efb5d97b   none                        null      local
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最终修改为docker-compose.yml 如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;version: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2&amp;#39;&lt;/span&gt;
+
+services:
+  zookeeper:
+    image: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bitnami/zookeeper:latest&amp;#39;&lt;/span&gt;
+    ports:
+      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2181:2181&amp;#39;&lt;/span&gt;
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yes
+    networks:
+      - custom_network
+
+  kafka:
+    image: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bitnami/kafka:latest&amp;#39;&lt;/span&gt;
+    ports:
+      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;9092:9092&amp;#39;&lt;/span&gt;
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yes
+      - KAFKA_CFG_ADVERTISED_LISTENERS&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;PLAINTEXT://localhost:9092
+    depends_on:
+      - zookeeper
+    networks:
+      - custom_network
+
+networks:
+  custom_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果不修改docker-compose.yml文件重新执行的话，下面解决方法也可以&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#need to delete kafka_deafalut&lt;/span&gt;
+docker network rm kafka_default
+&lt;span style=&#34;color:#75715e&#34;&gt;#re create network, then vaild subnet,it worked!&lt;/span&gt;
+docker network create --subnet&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;172.30.0.0/16 kafka_default 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;结论&#34;&gt;结论&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;这次的经验教训是，当遇到网络通信问题时，不仅要检查常见的网络配置和防火墙设置，&lt;br&gt;

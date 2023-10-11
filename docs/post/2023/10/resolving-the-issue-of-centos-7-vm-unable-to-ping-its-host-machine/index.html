@@ -224,6 +224,87 @@ PING 172.20.151.90 <span style="color:#f92672">(</span>172.20.151.90<span style=
 --- 172.20.151.90 ping statistics ---
 <span style="color:#ae81ff">3</span> packets transmitted, <span style="color:#ae81ff">3</span> received, 0% packet loss, time 2000ms
 rtt min/avg/max/mdev <span style="color:#f92672">=</span> 0.362/0.446/0.555/0.082 ms
+</code></pre></div><p>主要原因是我上周折腾开环境时，在centos7 使用docker-compose搭建了kafka，使用如下的一个<code>docker-compose.yml</code>文件
+从以下docker-compose文件看，并没有设置网络相关的东西，所以导致使用了默认的docker网络容器</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">version: <span style="color:#e6db74">&#39;2&#39;</span>
+
+services:
+  zookeeper:
+    image: <span style="color:#e6db74">&#39;bitnami/zookeeper:latest&#39;</span>
+    ports:
+      - <span style="color:#e6db74">&#39;2181:2181&#39;</span>
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN<span style="color:#f92672">=</span>yes
+
+  kafka:
+    image: <span style="color:#e6db74">&#39;bitnami/kafka:latest&#39;</span>
+    ports:
+      - <span style="color:#e6db74">&#39;9092:9092&#39;</span>
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT<span style="color:#f92672">=</span>zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER<span style="color:#f92672">=</span>yes
+      - KAFKA_CFG_ADVERTISED_LISTENERS<span style="color:#f92672">=</span>PLAINTEXT://localhost:9092
+    depends_on:
+      - zookeeper
+</code></pre></div><p>为了不会使每天开机启动系统，自动创建了172.20.0.0这一条路由记录，我决定对docker-compose.yml进行修改网络
+指定子网段ip   该ip由docker自动创建的br-b4e656893ece 网卡id号</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@localhost kafka<span style="color:#f92672">]</span><span style="color:#75715e"># route -n</span>
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         172.17.64.1     0.0.0.0         UG    <span style="color:#ae81ff">100</span>    <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> ens33
+172.17.64.0     0.0.0.0         255.255.240.0   U     <span style="color:#ae81ff">100</span>    <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> ens33
+172.18.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-6b8659f8f886
+172.19.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-89bc77a42b8a
+172.20.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-b4e656893ece
+172.26.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-5b7ab2df8a43
+192.168.89.0    0.0.0.0         255.255.255.0   U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> docker0
+</code></pre></div><p>通过<code>docker network ls</code> 命令发现<code>b4e656893ece</code> 为 kafka-default所创建的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># docker network ls</span>
+NETWORK ID     NAME                        DRIVER    SCOPE
+6b8659f8f886   bigdata_default             bridge    local
+1bbd6235ef1e   bridge                      bridge    local
+5b7ab2df8a43   docker-compose_default      bridge    local
+89bc77a42b8a   docker-compose_my_network   bridge    local
+330d08b4c24b   host                        host      local
+b4e656893ece   kafka_default               bridge    local
+5501efb5d97b   none                        null      local
+</code></pre></div><p>最终修改为docker-compose.yml 如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">version: <span style="color:#e6db74">&#39;2&#39;</span>
+
+services:
+  zookeeper:
+    image: <span style="color:#e6db74">&#39;bitnami/zookeeper:latest&#39;</span>
+    ports:
+      - <span style="color:#e6db74">&#39;2181:2181&#39;</span>
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN<span style="color:#f92672">=</span>yes
+    networks:
+      - custom_network
+
+  kafka:
+    image: <span style="color:#e6db74">&#39;bitnami/kafka:latest&#39;</span>
+    ports:
+      - <span style="color:#e6db74">&#39;9092:9092&#39;</span>
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT<span style="color:#f92672">=</span>zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER<span style="color:#f92672">=</span>yes
+      - KAFKA_CFG_ADVERTISED_LISTENERS<span style="color:#f92672">=</span>PLAINTEXT://localhost:9092
+    depends_on:
+      - zookeeper
+    networks:
+      - custom_network
+
+networks:
+  custom_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16 
+</code></pre></div><p>如果不修改docker-compose.yml文件重新执行的话，下面解决方法也可以</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#need to delete kafka_deafalut</span>
+docker network rm kafka_default
+<span style="color:#75715e">#re create network, then vaild subnet,it worked!</span>
+docker network create --subnet<span style="color:#f92672">=</span>172.30.0.0/16 kafka_default 
 </code></pre></div><h2 id="结论">结论<a href="#结论" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <blockquote>
 <p>这次的经验教训是，当遇到网络通信问题时，不仅要检查常见的网络配置和防火墙设置，<br>
