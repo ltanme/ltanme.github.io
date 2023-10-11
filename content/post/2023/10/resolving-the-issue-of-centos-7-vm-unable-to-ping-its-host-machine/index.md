@@ -81,6 +81,103 @@ PING 172.20.151.90 (172.20.151.90) 56(84) bytes of data.
 rtt min/avg/max/mdev = 0.362/0.446/0.555/0.082 ms
 ```
 
+主要原因是我上周折腾开环境时，在centos7 使用docker-compose搭建了kafka，使用如下的一个`docker-compose.yml`文件 
+从以下docker-compose文件看，并没有设置网络相关的东西，所以导致使用了默认的docker网络容器
+```shell
+version: '2'
+
+services:
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    ports:
+      - '2181:2181'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    image: 'bitnami/kafka:latest'
+    ports:
+      - '9092:9092'
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+    depends_on:
+      - zookeeper
+```
+为了不会使每天开机启动系统，自动创建了172.20.0.0这一条路由记录，我决定对docker-compose.yml进行修改网络
+指定子网段ip   该ip由docker自动创建的br-b4e656893ece 网卡id号   
+```shell
+[root@localhost kafka]# route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         172.17.64.1     0.0.0.0         UG    100    0        0 ens33
+172.17.64.0     0.0.0.0         255.255.240.0   U     100    0        0 ens33
+172.18.0.0      0.0.0.0         255.255.0.0     U     0      0        0 br-6b8659f8f886
+172.19.0.0      0.0.0.0         255.255.0.0     U     0      0        0 br-89bc77a42b8a
+172.20.0.0      0.0.0.0         255.255.0.0     U     0      0        0 br-b4e656893ece
+172.26.0.0      0.0.0.0         255.255.0.0     U     0      0        0 br-5b7ab2df8a43
+192.168.89.0    0.0.0.0         255.255.255.0   U     0      0        0 docker0
+```
+
+通过`docker network ls` 命令发现`b4e656893ece` 为 kafka-default所创建的
+```shell
+[root@localhost ~]# docker network ls
+NETWORK ID     NAME                        DRIVER    SCOPE
+6b8659f8f886   bigdata_default             bridge    local
+1bbd6235ef1e   bridge                      bridge    local
+5b7ab2df8a43   docker-compose_default      bridge    local
+89bc77a42b8a   docker-compose_my_network   bridge    local
+330d08b4c24b   host                        host      local
+b4e656893ece   kafka_default               bridge    local
+5501efb5d97b   none                        null      local
+```
+
+
+最终修改为docker-compose.yml 如下   
+```shell
+version: '2'
+
+services:
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    ports:
+      - '2181:2181'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - custom_network
+
+  kafka:
+    image: 'bitnami/kafka:latest'
+    ports:
+      - '9092:9092'
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+    depends_on:
+      - zookeeper
+    networks:
+      - custom_network
+
+networks:
+  custom_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16 
+```
+
+如果不修改docker-compose.yml文件重新执行的话，下面解决方法也可以  
+```shell
+#need to delete kafka_deafalut
+docker network rm kafka_default
+#re create network, then vaild subnet,it worked!
+docker network create --subnet=172.30.0.0/16 kafka_default 
+```
+
+
 ## 结论
 > 这次的经验教训是，当遇到网络通信问题时，不仅要检查常见的网络配置和防火墙设置，  
 > 还要考虑到其他可能影响网络的因素，例如 Docker 或其他虚拟化技术。而最重要的是，  
