@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Configure Direct Domain in Clash :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="In Clash, if you want a specific domain to bypass the proxy and connect directly, you can utilize the mixin and rules settings. Below is an example of how to set up a direct connection for the domain baolei.xxxx.com: mixin: # Pay attention to the indentation below dns: enable: true listen: :53 nameserver: - 8.8.8.8 rules: - DOMAIN-SUFFIX,baolei.xxx.com,DIRECT mixin: This setting allows you to modify the main configuration dynamically. It is useful when you want to have a base configuration and apply changes without affecting the main configuration. dns: Inside the mixin, this section configures the DNS settings for Clash." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/guides/configure-direct-domain-in-clash/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Configure Direct Domain in Clash">
+<meta property="og:description" content="In Clash, if you want a specific domain to bypass the proxy and connect directly, you can utilize the mixin and rules settings. Below is an example of how to set up a direct connection for the domain baolei.xxxx.com: mixin: # Pay attention to the indentation below dns: enable: true listen: :53 nameserver: - 8.8.8.8 rules: - DOMAIN-SUFFIX,baolei.xxx.com,DIRECT mixin: This setting allows you to modify the main configuration dynamically. It is useful when you want to have a base configuration and apply changes without affecting the main configuration. dns: Inside the mixin, this section configures the DNS settings for Clash." />
+<meta property="og:url" content="https://ltan.me/guides/configure-direct-domain-in-clash/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2023-10-12 17:00:18 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/guides/configure-direct-domain-in-clash/">Configure Direct Domain in Clash</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2023-10-12 [Mod: 2023-10-12]
+      </span>
+    
+    
+  </div>
+
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>In Clash, if you want a specific domain to bypass the proxy and connect directly, you can utilize the <code>mixin</code> and <code>rules</code> settings. Below is an example of how to set up a direct connection for the domain <code>baolei.xxxx.com</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">mixin</span>: <span style="color:#75715e"># Pay attention to the indentation below</span>
+  <span style="color:#f92672">dns</span>:
+    <span style="color:#f92672">enable</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#f92672">listen</span>: :<span style="color:#ae81ff">53</span>
+    <span style="color:#f92672">nameserver</span>:
+      - <span style="color:#ae81ff">8.8.8.8</span>
+
+<span style="color:#f92672">rules</span>:
+  - <span style="color:#ae81ff">DOMAIN-SUFFIX,baolei.xxx.com,DIRECT</span>
+</code></pre></div><p><code>mixin</code>: This setting allows you to modify the main configuration dynamically. It is useful when you want to have a base configuration and apply changes without affecting the main configuration.</p>
+<p><code>dns</code>: Inside the mixin, this section configures the DNS settings for Clash.</p>
+<p><code>enable</code>: true: This enables the DNS feature in Clash.<br>
+<code>listen</code>: :53: This instructs Clash to listen on port 53 for DNS requests.<br>
+<code>nameserver</code>: This specifies the default DNS servers that Clash will use to resolve domain names. In this case, Google&rsquo;s public DNS (8.8.8.8) is used.<br>
+<code>rules</code>: This section defines the rules for how domains are treated in terms of routing.</p>
+<p><code>DOMAIN-SUFFIX,baolei.xxxx.com,DIRECT</code>: This rule means that any domain ending with baolei.xxxx.com will connect directly, bypassing the proxy.
+By implementing this configuration, all traffic to baolei.xxxx.com will bypass the proxy and connect directly. It&rsquo;s useful when you want certain domains to have a direct connection, perhaps due to performance reasons or to bypass potential issues with proxying.</p>
+<h1 id="对于-direct-规则即使域名解析使用了-8888实际的数据流还是直连的">对于 DIRECT 规则，即使域名解析使用了 8.8.8.8，实际的数据流还是直连的<a href="#对于-direct-规则即使域名解析使用了-8888实际的数据流还是直连的" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>
