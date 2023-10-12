@@ -6,7 +6,36 @@
     <description>Recent content on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 08 Oct 2023 19:16:07 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 12 Oct 2023 17:00:18 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Configure Direct Domain in Clash</title>
+      <link>https://ltan.me/guides/configure-direct-domain-in-clash/</link>
+      <pubDate>Thu, 12 Oct 2023 17:00:18 +0800</pubDate>
+      
+      <guid>https://ltan.me/guides/configure-direct-domain-in-clash/</guid>
+      <description>In Clash, if you want a specific domain to bypass the proxy and connect directly, you can utilize the mixin and rules settings. Below is an example of how to set up a direct connection for the domain baolei.xxxx.com: mixin: # Pay attention to the indentation below dns: enable: true listen: :53 nameserver: - 8.8.8.8 rules: - DOMAIN-SUFFIX,baolei.xxx.com,DIRECT mixin: This setting allows you to modify the main configuration dynamically. It is useful when you want to have a base configuration and apply changes without affecting the main configuration. dns: Inside the mixin, this section configures the DNS settings for Clash.</description>
+      <content>&lt;p&gt;In Clash, if you want a specific domain to bypass the proxy and connect directly, you can utilize the &lt;code&gt;mixin&lt;/code&gt; and &lt;code&gt;rules&lt;/code&gt; settings. Below is an example of how to set up a direct connection for the domain &lt;code&gt;baolei.xxxx.com&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;mixin&lt;/span&gt;: &lt;span style=&#34;color:#75715e&#34;&gt;# Pay attention to the indentation below&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;dns&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;enable&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;listen&lt;/span&gt;: :&lt;span style=&#34;color:#ae81ff&#34;&gt;53&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;nameserver&lt;/span&gt;:
+      - &lt;span style=&#34;color:#ae81ff&#34;&gt;8.8.8.8&lt;/span&gt;
+
+&lt;span style=&#34;color:#f92672&#34;&gt;rules&lt;/span&gt;:
+  - &lt;span style=&#34;color:#ae81ff&#34;&gt;DOMAIN-SUFFIX,baolei.xxx.com,DIRECT&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;mixin&lt;/code&gt;: This setting allows you to modify the main configuration dynamically. It is useful when you want to have a base configuration and apply changes without affecting the main configuration.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;dns&lt;/code&gt;: Inside the mixin, this section configures the DNS settings for Clash.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;enable&lt;/code&gt;: true: This enables the DNS feature in Clash.&lt;br&gt;
+&lt;code&gt;listen&lt;/code&gt;: :53: This instructs Clash to listen on port 53 for DNS requests.&lt;br&gt;
+&lt;code&gt;nameserver&lt;/code&gt;: This specifies the default DNS servers that Clash will use to resolve domain names. In this case, Google&amp;rsquo;s public DNS (8.8.8.8) is used.&lt;br&gt;
+&lt;code&gt;rules&lt;/code&gt;: This section defines the rules for how domains are treated in terms of routing.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;DOMAIN-SUFFIX,baolei.xxxx.com,DIRECT&lt;/code&gt;: This rule means that any domain ending with baolei.xxxx.com will connect directly, bypassing the proxy.
+By implementing this configuration, all traffic to baolei.xxxx.com will bypass the proxy and connect directly. It&amp;rsquo;s useful when you want certain domains to have a direct connection, perhaps due to performance reasons or to bypass potential issues with proxying.&lt;/p&gt;
+&lt;h1 id=&#34;对于-direct-规则即使域名解析使用了-8888实际的数据流还是直连的&#34;&gt;对于 DIRECT 规则，即使域名解析使用了 8.8.8.8，实际的数据流还是直连的&lt;/h1&gt;
+</content>
+    </item>
+    
     <item>
       <title>Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine</title>
       <link>https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</link>

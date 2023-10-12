@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ltan.me/tags/docker/</loc>
-    <lastmod>2023-10-08T19:16:07+08:00</lastmod>
+    <loc>https://ltan.me/guides/configure-direct-domain-in-clash/</loc>
+    <lastmod>2023-10-12T17:00:18+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/</loc>
-    <lastmod>2023-10-08T19:16:07+08:00</lastmod>
+    <lastmod>2023-10-12T17:00:18+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/</loc>
+    <lastmod>2023-10-12T17:00:18+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/docker/</loc>
     <lastmod>2023-10-08T19:16:07+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</loc>
