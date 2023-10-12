@@ -17,7 +17,6 @@ mixin: # Pay attention to the indentation below
 
 rules:
   - DOMAIN-SUFFIX,baolei.xxx.com,DIRECT
-Explanation:
 ```
 
 `mixin`: This setting allows you to modify the main configuration dynamically. It is useful when you want to have a base configuration and apply changes without affecting the main configuration.   
