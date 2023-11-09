@@ -13,17 +13,38 @@
       <pubDate>Thu, 12 Oct 2023 17:00:18 +0800</pubDate>
       
       <guid>https://ltan.me/guides/configure-direct-domain-in-clash/</guid>
-      <description>In Clash, if you want a specific domain to bypass the proxy and connect directly, you can utilize the mixin and rules settings. Below is an example of how to set up a direct connection for the domain baolei.xxxx.com: mixin: # Pay attention to the indentation below dns: enable: true listen: :53 nameserver: - 8.8.8.8 rules: - DOMAIN-SUFFIX,baolei.xxx.com,DIRECT mixin: This setting allows you to modify the main configuration dynamically. It is useful when you want to have a base configuration and apply changes without affecting the main configuration. dns: Inside the mixin, this section configures the DNS settings for Clash.</description>
+      <description>In Clash, if you want a specific domain to bypass the proxy and connect directly, you can utilize the mixin and rules settings. Below is an example of how to set up a direct connection for the domain baolei.xxxx.com: dns: enable: true enhanced-mode: redir-host # 或者使用 fake-ip，根据你的需求选择 listen: 0.0.0.0:53 nameserver: - 172.20.128.2 # 你的首选DNS服务器,家庭内网dns,公司内网dns - 172.20.128.3 #</description>
       <content>&lt;p&gt;In Clash, if you want a specific domain to bypass the proxy and connect directly, you can utilize the &lt;code&gt;mixin&lt;/code&gt; and &lt;code&gt;rules&lt;/code&gt; settings. Below is an example of how to set up a direct connection for the domain &lt;code&gt;baolei.xxxx.com&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;mixin&lt;/span&gt;: &lt;span style=&#34;color:#75715e&#34;&gt;# Pay attention to the indentation below&lt;/span&gt;
-  &lt;span style=&#34;color:#f92672&#34;&gt;dns&lt;/span&gt;:
-    &lt;span style=&#34;color:#f92672&#34;&gt;enable&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
-    &lt;span style=&#34;color:#f92672&#34;&gt;listen&lt;/span&gt;: :&lt;span style=&#34;color:#ae81ff&#34;&gt;53&lt;/span&gt;
-    &lt;span style=&#34;color:#f92672&#34;&gt;nameserver&lt;/span&gt;:
-      - &lt;span style=&#34;color:#ae81ff&#34;&gt;8.8.8.8&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;dns&lt;/span&gt;:
+  &lt;span style=&#34;color:#f92672&#34;&gt;enable&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;enhanced-mode&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;redir-host&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# 或者使用 fake-ip，根据你的需求选择&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;listen&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0.0.0&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;53&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;nameserver&lt;/span&gt;:
+    - &lt;span style=&#34;color:#ae81ff&#34;&gt;172.20.128.2&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# 你的首选DNS服务器,家庭内网dns,公司内网dns&lt;/span&gt;
+    - &lt;span style=&#34;color:#ae81ff&#34;&gt;172.20.128.3&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# 你的备用DNS服务器,家庭内网dns,公司内网dns&lt;/span&gt;
+    &lt;span style=&#34;color:#75715e&#34;&gt;# - &amp;#34;8.8.8.8&amp;#34; # 公共DNS，仅在访问互联网时使用&lt;/span&gt;
+    &lt;span style=&#34;color:#75715e&#34;&gt;# - &amp;#34;8.8.4.4&amp;#34; # 公共DNS，仅在访问互联网时使用&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;fallback&lt;/span&gt;: &lt;span style=&#34;color:#75715e&#34;&gt;# 当 nameserver 无法解析才使用以下dns解析&lt;/span&gt;
+    - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;8.8.8.8&amp;#34;&lt;/span&gt;
+    - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;8.8.4.4&amp;#34;&lt;/span&gt;
+    - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.1.1.1&amp;#34;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;fallback-filter&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;geoip&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# 使用GeoIP规则过滤掉国内的IP地址&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;ipcidr&lt;/span&gt;: &lt;span style=&#34;color:#75715e&#34;&gt;# 保证以下私有地址范围不使用fallback DNS&lt;/span&gt;
+      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0.0.0.0/8&amp;#34;&lt;/span&gt;
+      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.0.0.0/8&amp;#34;&lt;/span&gt;
+      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.0/8&amp;#34;&lt;/span&gt;
+      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;169.254.0.0/16&amp;#34;&lt;/span&gt;
+      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;172.16.0.0/12&amp;#34;&lt;/span&gt;
+      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.0.0/16&amp;#34;&lt;/span&gt;
+      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;::1/128&amp;#34;&lt;/span&gt;
+      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fc00::/7&amp;#34;&lt;/span&gt;
+      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fe80::/10&amp;#34;&lt;/span&gt;
 
 &lt;span style=&#34;color:#f92672&#34;&gt;rules&lt;/span&gt;:
-  - &lt;span style=&#34;color:#ae81ff&#34;&gt;DOMAIN-SUFFIX,baolei.xxx.com,DIRECT&lt;/span&gt;
+  - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;DOMAIN-SUFFIX,baolei.xxxx.com,DIRECT&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# 确保这条规则在任何可能触发代理的规则之前&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# 其他规则...&lt;/span&gt;
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;mixin&lt;/code&gt;: This setting allows you to modify the main configuration dynamically. It is useful when you want to have a base configuration and apply changes without affecting the main configuration.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;dns&lt;/code&gt;: Inside the mixin, this section configures the DNS settings for Clash.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;enable&lt;/code&gt;: true: This enables the DNS feature in Clash.&lt;br&gt;
@@ -2560,7 +2581,7 @@ public Object apiConf() {
 
   &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;error&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Internal Server Error&amp;#34;&lt;/span&gt;,
 
-  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;nested exception is org.apache.ibatis.reflection.ReflectionException: Could not set property &amp;#39;createTime&amp;#39; of &amp;#39;class com.coocaa.device.control.api.model.Command&amp;#39; with value &amp;#39;2021-09-26T21:17:54.966&amp;#39; Cause: java.lang.IllegalArgumentException: argument type mismatch&amp;#34;&lt;/span&gt;,
+  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;nested exception is org.apache.ibatis.reflection.ReflectionException: Could not set property &amp;#39;createTime&amp;#39; of &amp;#39;class com.company.device.control.api.model.Command&amp;#39; with value &amp;#39;2021-09-26T21:17:54.966&amp;#39; Cause: java.lang.IllegalArgumentException: argument type mismatch&amp;#34;&lt;/span&gt;,
 
   &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;path&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/comm/add&amp;#34;&lt;/span&gt;
 

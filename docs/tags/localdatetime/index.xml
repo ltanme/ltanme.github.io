@@ -79,7 +79,7 @@
 
   &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;error&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Internal Server Error&amp;#34;&lt;/span&gt;,
 
-  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;nested exception is org.apache.ibatis.reflection.ReflectionException: Could not set property &amp;#39;createTime&amp;#39; of &amp;#39;class com.coocaa.device.control.api.model.Command&amp;#39; with value &amp;#39;2021-09-26T21:17:54.966&amp;#39; Cause: java.lang.IllegalArgumentException: argument type mismatch&amp;#34;&lt;/span&gt;,
+  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;nested exception is org.apache.ibatis.reflection.ReflectionException: Could not set property &amp;#39;createTime&amp;#39; of &amp;#39;class com.company.device.control.api.model.Command&amp;#39; with value &amp;#39;2021-09-26T21:17:54.966&amp;#39; Cause: java.lang.IllegalArgumentException: argument type mismatch&amp;#34;&lt;/span&gt;,
 
   &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;path&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/comm/add&amp;#34;&lt;/span&gt;
 
