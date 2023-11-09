@@ -27,7 +27,7 @@ tags: ["Java8","LocalDateTime"]
 
   "error": "Internal Server Error",
 
-  "message": "nested exception is org.apache.ibatis.reflection.ReflectionException: Could not set property 'createTime' of 'class com.coocaa.device.control.api.model.Command' with value '2021-09-26T21:17:54.966' Cause: java.lang.IllegalArgumentException: argument type mismatch",
+  "message": "nested exception is org.apache.ibatis.reflection.ReflectionException: Could not set property 'createTime' of 'class com.company.device.control.api.model.Command' with value '2021-09-26T21:17:54.966' Cause: java.lang.IllegalArgumentException: argument type mismatch",
 
   "path": "/comm/add"
 
