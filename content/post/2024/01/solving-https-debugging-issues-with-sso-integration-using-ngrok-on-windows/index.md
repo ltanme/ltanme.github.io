@@ -2,7 +2,7 @@
 title: "Solving HTTPS Debugging Issues with SSO Integration Using Ngrok on Windows"
 date: 2024-01-02T10:00:00+08:00
 tags: ["SSO", "HTTPS", "Ngrok", "Windows"]
-featured: false
+featured: true
 ---
 
 ## 介绍
