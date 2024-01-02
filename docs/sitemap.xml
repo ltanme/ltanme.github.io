@@ -2,22 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ltan.me/guides/configure-direct-domain-in-clash/</loc>
-    <lastmod>2023-10-12T17:00:18+08:00</lastmod>
+    <loc>https://ltan.me/tags/https/</loc>
+    <lastmod>2024-01-02T10:00:00+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/</loc>
-    <lastmod>2023-10-12T17:00:18+08:00</lastmod>
+    <lastmod>2024-01-02T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/ngrok/</loc>
+    <lastmod>2024-01-02T10:00:00+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/</loc>
+    <lastmod>2024-01-02T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/</loc>
+    <lastmod>2024-01-02T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/sso/</loc>
+    <lastmod>2024-01-02T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2024-01-02T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/windows/</loc>
+    <lastmod>2024-01-02T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/guides/configure-direct-domain-in-clash/</loc>
     <lastmod>2023-10-12T17:00:18+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/docker/</loc>
     <lastmod>2023-10-08T19:16:07+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</loc>
-    <lastmod>2023-10-08T19:16:07+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2023-10-08T19:16:07+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/vmware/</loc>

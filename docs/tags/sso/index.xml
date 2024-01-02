@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SSO on LTAN.ME</title>
+    <link>https://ltan.me/tags/sso/</link>
+    <description>Recent content in SSO on LTAN.ME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 02 Jan 2024 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/sso/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Solving HTTPS Debugging Issues with SSO Integration Using Ngrok on Windows</title>
+      <link>https://ltan.me/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/</link>
+      <pubDate>Tue, 02 Jan 2024 10:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/</guid>
+      <description>介绍 在这篇文章中，我们将探讨如何使用ngrok在Windows环境下解决与公司SSO系统对接时的HTTPS调试问题。我们将逐步介绍如何配置ngrok以实现内网穿透，从而允许远程服务器访问您的本地开发环</description>
+      <content>&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
+&lt;p&gt;在这篇文章中，我们将探讨如何使用ngrok在Windows环境下解决与公司SSO系统对接时的HTTPS调试问题。我们将逐步介绍如何配置ngrok以实现内网穿透，从而允许远程服务器访问您的本地开发环境。&lt;/p&gt;
+&lt;h2 id=&#34;步骤1-安装ngrok&#34;&gt;步骤1: 安装ngrok&lt;/h2&gt;
+&lt;p&gt;首先，需要在Windows系统上安装ngrok。请按照以下步骤操作：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;访问&lt;a href=&#34;https://ngrok.com/download&#34;&gt;ngrok官网&lt;/a&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;下载适用于Windows的ngrok安装包。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;解压下载的文件到一个您方便访问的位置。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;打开命令提示符并切换到包含ngrok的文件夹。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在命令提示符中运行以下命令以验证安装：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ngrok --version
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这应该会显示安装的ngrok版本。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;步骤2-配置ngrok&#34;&gt;步骤2: 配置ngrok&lt;/h2&gt;
+&lt;p&gt;接下来，配置ngrok以实现内网穿透。您需要创建一个ngrok帐户并获取授权令牌。在ngrok官网注册后，复制您的授权令牌，并在命令提示符中运行以下命令：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;```
+ngrok config add-authtoken  [您的授权令牌]
+```
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./screenshot-20240102-205845.png&#34; alt=&#34;&#34;&gt;
+配置文件保存如下&lt;br&gt;
+&lt;img src=&#34;./screenshot-20240102-205956.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;步骤3-启动ngrok隧道&#34;&gt;步骤3: 启动ngrok隧道&lt;/h2&gt;
+&lt;p&gt;现在，启动ngrok隧道以连接到您的本地开发服务器。假设您的本地服务器运行在端口1880上，您可以使用以下命令启动ngrok隧道：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;```
+ngrok http 1880
+```
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./screenshot-20240102-210046.png&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;./screenshot-20240102-205914.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;步骤4-配置sso系统&#34;&gt;步骤4: 配置SSO系统&lt;/h2&gt;
+&lt;p&gt;最后一步是在您的SSO系统中配置ngrok提供的公共URL。这将允许SSO系统通过ngrok隧道访问您的本地服务器。&lt;/p&gt;
+&lt;h2 id=&#34;结论&#34;&gt;结论&lt;/h2&gt;
+&lt;p&gt;使用ngrok在Windows环境下解决SSO系统的HTTPS调试问题是一个简单而有效的方法。通过以上步骤，您可以轻松地实现内网穿透，从而使远程服务器能够访问您的本地开发环境。&lt;/p&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>
