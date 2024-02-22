@@ -6,7 +6,59 @@
     <description>Recent content on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 16 Jan 2024 17:22:05 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Feb 2024 20:50:54 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Record an Error During Node RED Deployment</title>
+      <link>https://ltan.me/post/2024/02/record-an-error-during-node-red-deployment/</link>
+      <pubDate>Thu, 22 Feb 2024 20:50:54 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/02/record-an-error-during-node-red-deployment/</guid>
+      <description>记一次在docker 打包部署node red 启动报错 报错如下： --------------------------------------------------------------------- Your flow credentials file is encrypted using a system-generated key. If the system-generated key is lost for any reason, your credentials file will not be recoverable, you will have to delete it and re-enter your credentials. You should set your own key using the &amp;#39;credentialSecret&amp;#39; option in your settings file. Node-RED will then re-encrypt your credentials file using your chosen key the next time you deploy a change. --------------------------------------------------------------------- 22 Feb</description>
+      <content>&lt;h1 id=&#34;记一次在docker-打包部署node-red-启动报错&#34;&gt;记一次在docker 打包部署node red 启动报错&lt;/h1&gt;
+&lt;p&gt;报错如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;---------------------------------------------------------------------
+Your flow credentials file is encrypted using a system-generated key.
+
+If the system-generated key is lost &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; any reason, your credentials
+file will not be recoverable, you will have to delete it and re-enter
+your credentials.
+
+You should set your own key using the &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;credentialSecret&amp;#39;&lt;/span&gt; option in
+your settings file. Node-RED will &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt; re-encrypt your credentials
+file using your chosen key the next time you deploy a change.
+---------------------------------------------------------------------
+
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt; Feb 20:47:25 - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;warn&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Encrypted credentials not found
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt; Feb 20:47:25 - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;info&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Server now running at http://127.0.0.1:3002/
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt; Feb 20:47:25 - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;info&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Starting flows
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt; Feb 20:47:25 - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;info&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Started flows
+
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt; Feb 20:47:35 - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;warn&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Flushing file /data/nodes to disk failed : Error: EISDIR: illegal operation on a directory, rename &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/data/nodes.$$$&amp;#39;&lt;/span&gt; -&amp;gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/data/nodes&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt; Feb 20:47:35 - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;warn&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Error saving flows: EISDIR: illegal operation on a directory, rename &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/data/nodes.$$$&amp;#39;&lt;/span&gt; -&amp;gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/data/nodes&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt; Feb 20:47:35 - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;warn&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Error: EISDIR: illegal operation on a directory, rename &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/data/nodes.$$$&amp;#39;&lt;/span&gt; -&amp;gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/data/nodes&amp;#39;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;pm2启动信息&#34;&gt;PM2启动信息&lt;/h2&gt;
+&lt;p&gt;使用如下PM2配置文件启动Node-RED实例：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;#&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;cat&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;pm&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;-nodered.json&lt;/span&gt;
+    {
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;apps&amp;#34;&lt;/span&gt;: [
+           {
+                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;NR-INSTANCE-3002&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;script&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/usr/src/node-red/packages/node_modules/node-red/red.js&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;args&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;--userDir /data/config/node-red-3002  --nodesDir /data/nodes --port 3002&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;exec_mode&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fork&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;node_args&amp;#34;&lt;/span&gt;: [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;--inspect=9000&amp;#34;&lt;/span&gt;]
+           }
+        ]
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;我的settingsjs-文件的nodesdir-配置如下&#34;&gt;我的settings.js 文件的nodesDir 配置如下:&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;nodesDir&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;/data/nodes,&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;最终解决方法为&#34;&gt;最终解决方法为：&lt;/h2&gt;
+&lt;p&gt;在启动命令中去除&amp;ndash;nodesDir /data/nodes选项。官方不推荐在命令行中使用此选项，因为nodes.$$$是一个临时文件夹，起初以为是权限问题，后来发现并非如此。
+若在命令行中指定&amp;ndash;nodesDir /data/nodes，且settings.js文件中也有设置，命令行的设置会优先生效。但如果两者同时设置，可能会引起兼容性问题或其他未知问题。&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Remember the Problem of Apisix and Node Red Multi Instance Debugging</title>
       <link>https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</link>
