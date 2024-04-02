@@ -17,7 +17,7 @@ buildDrafts = false
   contentTypeName = "orange"
 
   # ["orange", "blue", "red", "green", "pink"]
-  themeColor = "red"
+  themeColor = "orange"
 
   # if you set this to 0, only submenu trigger will be visible
   showMenuItems = 5
