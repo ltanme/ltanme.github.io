@@ -3,10 +3,25 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://ltan.me/tags/docker/</loc>
-    <lastmod>2024-02-22T20:50:54+08:00</lastmod>
+    <lastmod>2024-04-15T21:21:29+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/headscale/</loc>
+    <lastmod>2024-04-15T21:21:29+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/</loc>
-    <lastmod>2024-02-22T20:50:54+08:00</lastmod>
+    <lastmod>2024-04-15T21:21:29+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2024-04-15T21:21:29+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2024/04/headscale-server-setup-process/</loc>
+    <lastmod>2024-04-15T21:21:29+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2024-04-15T21:21:29+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/tailscale/</loc>
+    <lastmod>2024-04-15T21:21:29+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/nodered/</loc>
     <lastmod>2024-02-22T20:50:54+08:00</lastmod>
@@ -14,13 +29,7 @@
     <loc>https://ltan.me/tags/pm2/</loc>
     <lastmod>2024-02-22T20:50:54+08:00</lastmod>
   </url><url>
-    <loc>https://ltan.me/post/</loc>
-    <lastmod>2024-02-22T20:50:54+08:00</lastmod>
-  </url><url>
     <loc>https://ltan.me/post/2024/02/record-an-error-during-node-red-deployment/</loc>
-    <lastmod>2024-02-22T20:50:54+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2024-02-22T20:50:54+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/apisix/</loc>

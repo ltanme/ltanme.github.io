@@ -6,7 +6,105 @@
     <description>Recent content on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 Feb 2024 20:50:54 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Apr 2024 21:21:29 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Server setup process using Headscale with Docker.</title>
+      <link>https://ltan.me/post/2024/04/headscale-server-setup-process/</link>
+      <pubDate>Mon, 15 Apr 2024 21:21:29 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/04/headscale-server-setup-process/</guid>
+      <description>Server setup process using Headscale with Docker. 记录采用headscale &amp;amp; docker 异地组网过程 需求背景 曾经我尝试使用ZeroTier，最初的体验非常不错。然而，随着时间的推移，我发现连接速度变得缓慢和卡顿， 有时甚至需要借助特殊的网络加速技</description>
+      <content>&lt;h1 id=&#34;server-setup-process-using-headscale-with-docker&#34;&gt;Server setup process using Headscale with Docker.&lt;/h1&gt;
+&lt;h2 id=&#34;记录采用headscale--docker-异地组网过程&#34;&gt;记录采用headscale &amp;amp; docker 异地组网过程&lt;/h2&gt;
+&lt;h2 id=&#34;需求背景&#34;&gt;需求背景&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;曾经我尝试使用&lt;code&gt;ZeroTier&lt;/code&gt;，最初的体验非常不错。然而，随着时间的推移，我发现连接速度变得缓慢和卡顿，
+有时甚至需要借助特殊的网络加速技术来提高性能。后来，在&lt;code&gt;X&lt;/code&gt;社区中，我看到有人分享了&lt;code&gt;Tailscale&lt;/code&gt;的好评，
+这促使我安装了&lt;code&gt;Tailscale&lt;/code&gt;的官方客户端。相较于&lt;code&gt;ZeroTier&lt;/code&gt;，&lt;code&gt;Tailscale&lt;/code&gt;在速度上有显著的提升，
+尽管偶尔也会遇到一些延迟。&lt;code&gt;Tailscale&lt;/code&gt;依赖于其官方服务器，但它支持用户自建服务器，
+这一点非常吸引我。通过结合使用&lt;code&gt;Tailscale&lt;/code&gt;客户端和官网，我们可以实现异地组网。
+为了达到更理想的连接速度，我决定自建异地组网系统。这样不仅能控制家中的&lt;code&gt;群晖&lt;/code&gt;设备，还能优化&lt;code&gt;PT&lt;/code&gt;下载等功能。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;搭建headscale服务端&#34;&gt;搭建&lt;code&gt;headscale&lt;/code&gt;服务端&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1,准备环境&lt;code&gt;linux(centos7/ubuntu)&lt;/code&gt;&lt;br&gt;
+2,安装&lt;code&gt;docker&lt;/code&gt;,&lt;br&gt;
+3,申请好域名,准备&lt;code&gt;https&lt;/code&gt;证书 推荐&lt;code&gt;cf&lt;/code&gt;,并解析到自己的服务器&lt;br&gt;
+&lt;code&gt;ssl_certificate&lt;/code&gt; 和 &lt;code&gt;ssl_certificate_key&lt;/code&gt; 为自己申请的域名证书从cf导出来的文件&lt;br&gt;
+4,安装好&lt;code&gt;nginx&lt;/code&gt;,&lt;code&gt;nginx&lt;/code&gt;配置如下,打码地方为自己的域名，箭头处需要开启&lt;code&gt;websocket&lt;/code&gt;&lt;br&gt;
+&lt;img src=&#34;img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;准备headscale-配置文件&#34;&gt;准备&lt;code&gt;headscale&lt;/code&gt; 配置文件&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;创建目录&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;mkdir -p /root/mydocker/config
+chmod -R a+x /root/mydocker/config
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;从以下链接地址下载配置文件&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;wget -O /root/mydocker/conf/config.yaml https://raw.githubusercontent.com/juanfont/headscale/main/config-example.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;修改配置文件&lt;code&gt;config.yaml&lt;/code&gt; 文件&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt; server_url: https://你的域名:443
+ listen_addr: 0.0.0.0:8080
+ metrics_listen_addr: 0.0.0.0:9090
+ noise:
+    private_key_path: /etc/headscale/noise_private.key
+ database:
+  type: sqlite3
+  sqlite:
+    path: /etc/headscale/db.sqlite
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;部署headscale&#34;&gt;部署headscale&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;启动docker, 我是在/root/mydocker/ 目录启动的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;  docker run --name headscale --detach --volume &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;pwd&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;/config:/etc/headscale/ --publish 0.0.0.0:8080:8080 --publish 0.0.0.0:9090:9090 headscale/headscale:0.23.0-alpha5 serve
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;在windows或客户端安装tailscale官网下载并安装好&#34;&gt;在windows或客户端安装tailscale(官网下载并安装好)&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;以win10 为例 直接采用命令行登录&lt;br&gt;
+&lt;img src=&#34;img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;br&gt;
+会得到以下地址:&lt;br&gt;
+https://你的域名:443/register/mkey:23234kflasdjf&amp;hellip;..
+mkey 后面请复制一下
+进入到headscale 服务器命令行，执行以下命令，将&lt;code&gt;23234kflasdjf.....&lt;/code&gt; 注册即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;进入服务器执行命令注册登录的设备&#34;&gt;进入服务器,执行命令注册登录的设备&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;执行以下命令，因为是docker安装的&lt;br&gt;
+mywin10 就表示对应需要组网的机器&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;docker exec headscale headscale users create mywin10
+docker exec headscale headscale nodes register --user admin --key mkey:23234kflasdjf.....
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;以下是我执行的上面两条docker命令的示例&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@racknerd-6d4dab3 ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker exec headscale headscale users create admin&lt;/span&gt;
+2024-04-08T12:28:08Z TRC DNS configuration loaded dns_config&lt;span style=&#34;color:#f92672&#34;&gt;={&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Nameservers&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.1.1.1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Proxied&amp;#34;&lt;/span&gt;:true,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Resolvers&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Addr&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.1.1.1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}]}&lt;/span&gt;
+User created
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@racknerd-6d4dab3 ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker exec headscale headscale nodes register --user admin --key mkey:2342342344444444444444fb3ce635336028bc8989fa9615e233343434&lt;/span&gt;
+2024-04-08T12:28:14Z TRC DNS configuration loaded dns_config&lt;span style=&#34;color:#f92672&#34;&gt;={&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Nameservers&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.1.1.1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Proxied&amp;#34;&lt;/span&gt;:true,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Resolvers&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Addr&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.1.1.1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}]}&lt;/span&gt;
+Node desktop-mms156b registered
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;接下来就看到以下成功信息&lt;br&gt;
+&lt;img src=&#34;img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;tailscale 客户端自动显示当前状态&lt;br&gt;
+&lt;img src=&#34;img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;接下来就可以远程登录我的win10了，我要从100.64.0.2 的机器远程登录100.64.0.7的机器  &lt;br&gt;
+&lt;img src=&#34;img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;远程登录win10 速度很赞，几乎和本地一样操作流畅，而且无需科学&lt;br&gt;
+&lt;img src=&#34;img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    </item>
+    
     <item>
       <title>Record an Error During Node RED Deployment</title>
       <link>https://ltan.me/post/2024/02/record-an-error-during-node-red-deployment/</link>
