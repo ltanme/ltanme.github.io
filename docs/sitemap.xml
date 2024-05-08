@@ -2,29 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ltan.me/tags/iot/</loc>
+    <lastmod>2024-05-08T21:36:49+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/</loc>
+    <lastmod>2024-05-08T21:36:49+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/nodered/</loc>
+    <lastmod>2024-05-08T21:36:49+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2024-05-08T21:36:49+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/rulechain/</loc>
+    <lastmod>2024-05-08T21:36:49+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/</loc>
+    <lastmod>2024-05-08T21:36:49+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2024-05-08T21:36:49+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/thingsboard/</loc>
+    <lastmod>2024-05-08T21:36:49+08:00</lastmod>
+  </url><url>
     <loc>https://ltan.me/tags/docker/</loc>
     <lastmod>2024-04-15T21:21:29+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/headscale/</loc>
     <lastmod>2024-04-15T21:21:29+08:00</lastmod>
   </url><url>
-    <loc>https://ltan.me/</loc>
-    <lastmod>2024-04-15T21:21:29+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/post/</loc>
-    <lastmod>2024-04-15T21:21:29+08:00</lastmod>
-  </url><url>
     <loc>https://ltan.me/post/2024/04/headscale-server-setup-process/</loc>
-    <lastmod>2024-04-15T21:21:29+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2024-04-15T21:21:29+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/tailscale/</loc>
     <lastmod>2024-04-15T21:21:29+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/nodered/</loc>
-    <lastmod>2024-02-22T20:50:54+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/pm2/</loc>
     <lastmod>2024-02-22T20:50:54+08:00</lastmod>
