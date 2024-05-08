@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Smart Air Conditioning Control With ThingsBoard :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard 记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机 第一步，创建一个空的规则链，名称就叫两个温度计控制空调的规则链 第二步，创建一个设备配置，名称就" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Smart Air Conditioning Control With ThingsBoard">
+<meta property="og:description" content="Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard 记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机 第一步，创建一个空的规则链，名称就叫两个温度计控制空调的规则链 第二步，创建一个设备配置，名称就" />
+<meta property="og:url" content="https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-05-08 21:36:49 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/">Smart Air Conditioning Control With ThingsBoard</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-05-08 [Mod: 2024-05-08]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/thingsboard/">thingsboard</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/iot/">IoT</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/rulechain/">ruleChain</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/nodered/">nodered</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="automating-climate-control-leveraging-dual-thermometers-for-smart-air-conditioning-via-thingsboard">Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard<a href="#automating-climate-control-leveraging-dual-thermometers-for-smart-air-conditioning-via-thingsboard" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机</p>
+</blockquote>
+<h3 id="第一步创建一个空的规则链名称就叫两个温度计控制空调的规则链">第一步，创建一个空的规则链，名称就叫<code>两个温度计控制空调的规则链</code><a href="#第一步创建一个空的规则链名称就叫两个温度计控制空调的规则链" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p><img src="img_2.png" alt="img_2.png"></p>
+<h3 id="第二步创建一个设备配置名称就叫两个温度计控制空调的设备配置">第二步，创建一个设备配置，名称就叫<code>两个温度计控制空调的设备配置</code><a href="#第二步创建一个设备配置名称就叫两个温度计控制空调的设备配置" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p><img src="img_3.png" alt="img_3.png"></p>
+<h3 id="第三步分别添加三个设备温度计1温度计2空调">第三步，分别添加三个设备<code>温度计1</code>、<code>温度计2</code>、<code>空调</code><a href="#第三步分别添加三个设备温度计1温度计2空调" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p><img src="img_4.png" alt="img_4.png"></p>
+<h3 id="第四步给温度计1温度计2-设备添加关联关系">第四步，给<code>温度计1</code>,<code>温度计2</code> 设备添加关联关系<a href="#第四步给温度计1温度计2-设备添加关联关系" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>添加关系的原因是，因为<code>温度计1</code>,<code>温度计2</code> 的温度都满足了条件需要给<code>空调</code>发送rpc控制消息
+才需创建关联空调的，这里可以理解是<code>温度计</code>控制<code>空调</code>，所以创建温度计<code>向外的关联</code>（<code>from</code>）的关系
+同理也可以理解，空调需要接受温度计的控制消息<code>向内的关联</code>（<code>to</code>）的关系，这两个关系方向都可以
+这里以from关系为例创建，但请注意，这里的<code>关系类型</code>一定要唯一，不能一样我这里建立了两条关系分别是<code>relation1</code>,
+<code>relation2</code>
+<img src="img.png" alt="img.png"></p>
+<h3 id="第五步给两个温度计控制空调的规则链这个空白的规则链编写规则链这是最核心的部分">第五步，给<code>两个温度计控制空调的规则链</code>这个空白的规则链编写规则链，这是最核心的部分<a href="#第五步给两个温度计控制空调的规则链这个空白的规则链编写规则链这是最核心的部分" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>梳理自己的流程需求，我这里的流程是前提条件，<code>温度计1</code>、<code>温度计2</code>、<code>空调</code> 这三个设备已经连上了<code>thingsboard</code> <code>1883</code> <code>mqqt</code> 端口
+且处理活动状态，在实体设备可以看到设备状态。
+我的主要流程是，<code>温度计1</code>和<code>温度计2</code>都在同时发送遥测消息数据格式为：
+<code>{temperature:25}</code> 并由<code>save timeseries</code> 这个节点保存数据
+当接受到<code>温度计1</code>的遥测数据时，再查询<code>温度计2</code>的遥测温度数据，并把<code>温度计2</code>的数据保存在元数据中<code>metadata</code>
+这是由<code>related device attrbuite</code> 查询得到<code>温度计2</code>的数据
+如果<code> success</code> 然后接下来由<code> switch</code> 判断两个温度数据是否满足，代码如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">temperature1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">temperature</span>;
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">temperature2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">metadata</span>.<span style="color:#a6e22e">temperature</span>; <span style="color:#75715e">//从元数据获取temperature数据
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">nextRelation</span>(<span style="color:#a6e22e">metadata</span>, <span style="color:#a6e22e">msg</span>) {
+  <span style="color:#66d9ef">return</span> [<span style="color:#e6db74">&#39;other&#39;</span>];
+}
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">msgType</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;POST_TELEMETRY_REQUEST&#39;</span>) {
+    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">temperature1</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">30</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">temperature2</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">40</span>){
+       <span style="color:#66d9ef">return</span> [<span style="color:#e6db74">&#34;温度计1&gt;30且温度计2&gt;40&#34;</span>];
+    }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">temperature1</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">30</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">temperature2</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">40</span>){
+       <span style="color:#66d9ef">return</span> [<span style="color:#e6db74">&#34;温度计1&lt;30且温度计2&lt;40&#34;</span>];
+    }
+}
+<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">nextRelation</span>(<span style="color:#a6e22e">metadata</span>, <span style="color:#a6e22e">msg</span>); 
+</code></pre></div><p>以下<code>switch</code>节点产生了两个分支，接下来到了<code>change originator</code>
+这一步是关键，因为我们上述所说到是由温度计把消息发送给空调这是错误的理解，
+因为需要空调<code>（self）</code>自已给自己发送消息才能控制空调，所以这一步目的是将发送消息者切换为空调本身
+当切换<code>success</code>成后，接下来是<code>script</code> 转换节点 主要是组装空调能解析的数据结构
+我这里定义的是数据如下, 消息体为<code>newMsg</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">newMsg</span> <span style="color:#f92672">=</span> {
+   <span style="color:#e6db74">&#34;method&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;setKongTiao&#34;</span>,
+   <span style="color:#e6db74">&#34;params&#34;</span><span style="color:#f92672">:</span> {
+       <span style="color:#e6db74">&#34;state&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;OFF&#34;</span>
+    }
+}
+<span style="color:#66d9ef">return</span> {<span style="color:#a6e22e">msg</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">newMsg</span>, <span style="color:#a6e22e">metadata</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">metadata</span>, <span style="color:#a6e22e">msgType</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">msgType</span>};
+</code></pre></div><p><img src="img_1.png" alt="img_1.png"></p>
+<h3 id="第六步debug调试">第六步，debug调试<a href="#第六步debug调试" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>用网页模拟成功，红色区域为打开空调
+<img src="img_5.png" alt="img_5.png">
+打开调式
+<img src="img_6.png" alt="img_6.png">
+点击事件，查看数据，看数据是否符合预期
+<img src="img_7.png" alt="img_7.png"></p>
+<blockquote>
+<p>通过以上步骤，我们可以构建一个高效且自动化的空调控制系统，使室内环境保持在舒适的温度范围内。这不仅提高了居住或工作环境的舒适度，同时也有助于节约能源。
+希望这次介绍能够帮助你更好地理解在ThingsBoard平台上如何实现复杂的设备互动和自动化控制。如果需要进一步的信息或有其他疑问，请继续关注我的博客或提出咨询。</p>
+<p>不得不说thingsboard非常强大，你无需编写查询sql语句去获取数据，相反如果用了nodered做流处理，需要编写sql语句来获取设备数据的</p>
+</blockquote>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2024 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

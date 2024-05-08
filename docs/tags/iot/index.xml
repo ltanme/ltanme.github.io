@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IoT on LTAN.ME</title>
+    <link>https://ltan.me/tags/iot/</link>
+    <description>Recent content in IoT on LTAN.ME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 May 2024 21:36:49 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/iot/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Smart Air Conditioning Control With ThingsBoard</title>
+      <link>https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/</link>
+      <pubDate>Wed, 08 May 2024 21:36:49 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/</guid>
+      <description>Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard 记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机 第一步，创建一个空的规则链，名称就叫两个温度计控制空调的规则链 第二步，创建一个设备配置，名称就</description>
+      <content>&lt;h1 id=&#34;automating-climate-control-leveraging-dual-thermometers-for-smart-air-conditioning-via-thingsboard&#34;&gt;Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;第一步创建一个空的规则链名称就叫两个温度计控制空调的规则链&#34;&gt;第一步，创建一个空的规则链，名称就叫&lt;code&gt;两个温度计控制空调的规则链&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;img_2.png&#34; alt=&#34;img_2.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;第二步创建一个设备配置名称就叫两个温度计控制空调的设备配置&#34;&gt;第二步，创建一个设备配置，名称就叫&lt;code&gt;两个温度计控制空调的设备配置&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;第三步分别添加三个设备温度计1温度计2空调&#34;&gt;第三步，分别添加三个设备&lt;code&gt;温度计1&lt;/code&gt;、&lt;code&gt;温度计2&lt;/code&gt;、&lt;code&gt;空调&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;第四步给温度计1温度计2-设备添加关联关系&#34;&gt;第四步，给&lt;code&gt;温度计1&lt;/code&gt;,&lt;code&gt;温度计2&lt;/code&gt; 设备添加关联关系&lt;/h3&gt;
+&lt;p&gt;添加关系的原因是，因为&lt;code&gt;温度计1&lt;/code&gt;,&lt;code&gt;温度计2&lt;/code&gt; 的温度都满足了条件需要给&lt;code&gt;空调&lt;/code&gt;发送rpc控制消息
+才需创建关联空调的，这里可以理解是&lt;code&gt;温度计&lt;/code&gt;控制&lt;code&gt;空调&lt;/code&gt;，所以创建温度计&lt;code&gt;向外的关联&lt;/code&gt;（&lt;code&gt;from&lt;/code&gt;）的关系
+同理也可以理解，空调需要接受温度计的控制消息&lt;code&gt;向内的关联&lt;/code&gt;（&lt;code&gt;to&lt;/code&gt;）的关系，这两个关系方向都可以
+这里以from关系为例创建，但请注意，这里的&lt;code&gt;关系类型&lt;/code&gt;一定要唯一，不能一样我这里建立了两条关系分别是&lt;code&gt;relation1&lt;/code&gt;,
+&lt;code&gt;relation2&lt;/code&gt;
+&lt;img src=&#34;img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;第五步给两个温度计控制空调的规则链这个空白的规则链编写规则链这是最核心的部分&#34;&gt;第五步，给&lt;code&gt;两个温度计控制空调的规则链&lt;/code&gt;这个空白的规则链编写规则链，这是最核心的部分&lt;/h3&gt;
+&lt;p&gt;梳理自己的流程需求，我这里的流程是前提条件，&lt;code&gt;温度计1&lt;/code&gt;、&lt;code&gt;温度计2&lt;/code&gt;、&lt;code&gt;空调&lt;/code&gt; 这三个设备已经连上了&lt;code&gt;thingsboard&lt;/code&gt; &lt;code&gt;1883&lt;/code&gt; &lt;code&gt;mqqt&lt;/code&gt; 端口
+且处理活动状态，在实体设备可以看到设备状态。
+我的主要流程是，&lt;code&gt;温度计1&lt;/code&gt;和&lt;code&gt;温度计2&lt;/code&gt;都在同时发送遥测消息数据格式为：
+&lt;code&gt;{temperature:25}&lt;/code&gt; 并由&lt;code&gt;save timeseries&lt;/code&gt; 这个节点保存数据
+当接受到&lt;code&gt;温度计1&lt;/code&gt;的遥测数据时，再查询&lt;code&gt;温度计2&lt;/code&gt;的遥测温度数据，并把&lt;code&gt;温度计2&lt;/code&gt;的数据保存在元数据中&lt;code&gt;metadata&lt;/code&gt;
+这是由&lt;code&gt;related device attrbuite&lt;/code&gt; 查询得到&lt;code&gt;温度计2&lt;/code&gt;的数据
+如果&lt;code&gt; success&lt;/code&gt; 然后接下来由&lt;code&gt; switch&lt;/code&gt; 判断两个温度数据是否满足，代码如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;temperature1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;temperature&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;temperature2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;temperature&lt;/span&gt;; &lt;span style=&#34;color:#75715e&#34;&gt;//从元数据获取temperature数据
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nextRelation&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;) {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;other&amp;#39;&lt;/span&gt;];
+}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;msgType&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;POST_TELEMETRY_REQUEST&amp;#39;&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;temperature1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;temperature2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;){
+       &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;温度计1&amp;gt;30且温度计2&amp;gt;40&amp;#34;&lt;/span&gt;];
+    }&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;temperature1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;temperature2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;){
+       &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;温度计1&amp;lt;30且温度计2&amp;lt;40&amp;#34;&lt;/span&gt;];
+    }
+}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nextRelation&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;); 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以下&lt;code&gt;switch&lt;/code&gt;节点产生了两个分支，接下来到了&lt;code&gt;change originator&lt;/code&gt;
+这一步是关键，因为我们上述所说到是由温度计把消息发送给空调这是错误的理解，
+因为需要空调&lt;code&gt;（self）&lt;/code&gt;自已给自己发送消息才能控制空调，所以这一步目的是将发送消息者切换为空调本身
+当切换&lt;code&gt;success&lt;/code&gt;成后，接下来是&lt;code&gt;script&lt;/code&gt; 转换节点 主要是组装空调能解析的数据结构
+我这里定义的是数据如下, 消息体为&lt;code&gt;newMsg&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;newMsg&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+   &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;method&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;setKongTiao&amp;#34;&lt;/span&gt;,
+   &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;params&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+       &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;state&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;OFF&amp;#34;&lt;/span&gt;
+    }
+}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; {&lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;newMsg&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;msgType&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;msgType&lt;/span&gt;};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;第六步debug调试&#34;&gt;第六步，debug调试&lt;/h3&gt;
+&lt;p&gt;用网页模拟成功，红色区域为打开空调
+&lt;img src=&#34;img_5.png&#34; alt=&#34;img_5.png&#34;&gt;
+打开调式
+&lt;img src=&#34;img_6.png&#34; alt=&#34;img_6.png&#34;&gt;
+点击事件，查看数据，看数据是否符合预期
+&lt;img src=&#34;img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通过以上步骤，我们可以构建一个高效且自动化的空调控制系统，使室内环境保持在舒适的温度范围内。这不仅提高了居住或工作环境的舒适度，同时也有助于节约能源。
+希望这次介绍能够帮助你更好地理解在ThingsBoard平台上如何实现复杂的设备互动和自动化控制。如果需要进一步的信息或有其他疑问，请继续关注我的博客或提出咨询。&lt;/p&gt;
+&lt;p&gt;不得不说thingsboard非常强大，你无需编写查询sql语句去获取数据，相反如果用了nodered做流处理，需要编写sql语句来获取设备数据的&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>
