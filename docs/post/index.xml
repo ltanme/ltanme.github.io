@@ -13,10 +13,11 @@
       <pubDate>Wed, 08 May 2024 21:36:49 +0800</pubDate>
       
       <guid>https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/</guid>
-      <description>Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard 记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机 第一步，创建一个空的规则链，名称就叫两个温度计控制空调的规则链 第二步，创建一个设备配置，名称就</description>
+      <description>Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard 记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机 当然这并不是真实过程对接调式，只是通过模拟的方法来熟练一下thingsboard的ruleCh</description>
       <content>&lt;h1 id=&#34;automating-climate-control-leveraging-dual-thermometers-for-smart-air-conditioning-via-thingsboard&#34;&gt;Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机&lt;/p&gt;
+&lt;p&gt;记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机&lt;br&gt;
+当然这并不是真实过程对接调式，只是通过模拟的方法来熟练一下thingsboard的ruleChain&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;第一步创建一个空的规则链名称就叫两个温度计控制空调的规则链&#34;&gt;第一步，创建一个空的规则链，名称就叫&lt;code&gt;两个温度计控制空调的规则链&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&#34;img_2.png&#34; alt=&#34;img_2.png&#34;&gt;&lt;/p&gt;
