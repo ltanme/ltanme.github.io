@@ -103,3 +103,6 @@ at Generator.next (<anonymous>)
 at fulfilled (E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular-builders\custom-webpack\dist\custom-webpack-builder.js:5:58)
 
 ```
+# 说在最后
+在maven 编译时，一定要使用windows 管理员权限执行
+
