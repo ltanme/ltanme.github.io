@@ -6,7 +6,8 @@ featured: true
 tags: ["thingsboard", "IoT","lombok","JDK17"]
 ---
 #　Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4
-> 记录`thingsboard3.6.4`在导入 `IntelliJ IDEA 2022.2.3` 编译报错的一些问题
+> 记录`thingsboard3.6.4`在导入 `IntelliJ IDEA 2022.2.3` 编译报错的一些问题  
+> 记录 如何从`thingsboard3.6.4`弃坑到`thingsboard3.6.3`
 
 > 导入步骤简单说一下，先从github下载thingsboard3.6.4 源码 
 > 导入代码前提准备是环境，我的环境如下
@@ -90,10 +91,10 @@ BUILD FAILED in 18m 29s
 ```
 
 > *问题3 angular js的问题*
-> 解决方法：换3.6.3版本
-> 试了梯子没有问题，全局下载tun模式。依然无效
+> 解决方法：换3.6.3版本   
+> 试了梯子没有问题，全局下载tun模式。依然无效   
 ![img_2.png](img_2.png)
-报错如下
+报错如下   
 ```shell
 [error] TypeError: Cannot read properties of undefined (reading 'pluginOptions')
 at module.exports (E:\workProject\java5\thingsboard\ui-ngx\extra-webpack.config.js:71:57)

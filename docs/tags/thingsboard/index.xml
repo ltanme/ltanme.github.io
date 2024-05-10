@@ -6,7 +6,112 @@
     <description>Recent content in thingsboard on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 May 2024 21:36:49 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/thingsboard/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 10 May 2024 10:41:26 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/thingsboard/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4</title>
+      <link>https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/</link>
+      <pubDate>Fri, 10 May 2024 10:41:26 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/</guid>
+      <description># Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4 记录thingsboard3.6.4在导入 IntelliJ IDEA 2022.2.3 编译报错的一些问题 记录 如何从thingsboard3.6.4弃坑到thingsboard3.6.3 导入步骤简单说一下，先从gi</description>
+      <content>&lt;p&gt;#　Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;记录&lt;code&gt;thingsboard3.6.4&lt;/code&gt;在导入 &lt;code&gt;IntelliJ IDEA 2022.2.3&lt;/code&gt; 编译报错的一些问题&lt;br&gt;
+记录 如何从&lt;code&gt;thingsboard3.6.4&lt;/code&gt;弃坑到&lt;code&gt;thingsboard3.6.3&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;导入步骤简单说一下，先从github下载thingsboard3.6.4 源码
+导入代码前提准备是环境，我的环境如下
+windows 10&lt;br&gt;
+maven version 3.8.1 给 IntelliJ IDEA 2022.2.3 配置好settings.xml 采用从maven官方仓库拉取依赖&lt;br&gt;
+IntelliJ IDEA 2022.2.3  &lt;br&gt;
+IntelliJ IDEA 只需要安装 protocol buffers 和 lombook 就可以了&lt;br&gt;
+JDK17,不是jdk11&lt;br&gt;
+在本地安装postgreSQL,创建好数据库名&lt;code&gt;thingsboard364&lt;/code&gt;&lt;br&gt;
+然后导入到IntelliJ IDEA 2022.2.3。&lt;br&gt;
+从复制sql脚本到application的&lt;code&gt;src/main/data/&lt;/code&gt;目录下&lt;br&gt;
+&lt;img src=&#34;img.png&#34; alt=&#34;img.png&#34;&gt;
+把 &lt;strong&gt;IntelliJ IDEA&lt;/strong&gt; maven 设置跳过skip test,避免测试过程中遇到地域性测试，语言文本测试 导致通测试不过&lt;br&gt;
+&lt;img src=&#34;img_1.png&#34; alt=&#34;img_1.png&#34;&gt;
+最后点击 &lt;strong&gt;IntelliJ IDEA&lt;/strong&gt; maven package 进行编译项目 &lt;br&gt;
+我遇到的问题如下：&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;问题1 lombok 在jdk17下版本太低不兼容&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;class lombok.javac.apt.LombokProcessor &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;in unnamed module @0x719f35fe&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 
+cannot access class com.sun.tools.javac.processing.JavacProcessingEnvironment
+ &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;in module jdk.compiler&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 
+ because module jdk.compiler does not export com.sun.tools.javac.processing to
+  unnamed module @0x719f35fe
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;解决lombok 报错
+The issue you are facing with the error &amp;ldquo;java.lang.IllegalAccessError: class lombok.javac.apt.LombokProcessor&amp;rdquo; is related to compatibility problems between Lombok and JDK versions. To resolve this issue, you need to ensure that you are using a compatible version of Lombok with your JDK. Upgrading Lombok to version 1.18.22 or higher should address this problem. Additionally, make sure that Lombok is set up correctly in your project configuration.
+The error occurs because Java 17 enforces strong encapsulation, and using an older version of Lombok can lead to this issue. By upgrading to Lombok version 1.18.22 or newer, you should be able to resolve the problem. It&amp;rsquo;s crucial to verify that you are indeed using the correct version of Lombok for your build to avoid compatibility issues&lt;br&gt;
+解决方方如下：
+这个错误是因为Java 17 强制执行强封装，使用较旧版本的Lombok可能会导致此问题。通过升级到Lombok 1.18.22或更新版本，您应该能够解决这个问题。务必验证您确实正在使用正确的Lombok版本来构建，以避免兼容性问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在&lt;code&gt;thingsboard&lt;/code&gt; 根项目目录下&lt;code&gt;pom.xml&lt;/code&gt; 修改 第85行
+&amp;lt;lombok.version&amp;gt;1.18.18&amp;lt;/lombok.version&amp;gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;lombok.version&amp;gt;&lt;/span&gt;1.18.26&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/lombok.version&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;问题2 gradle问题&lt;/em&gt;
+解决方法更换版本 jdk 11,maven 版本为3.8.2&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; --- gradle-maven-plugin:1.0.11:invoke &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;default&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; @ http ---
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; jvmArgs: &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Ljava.lang.String;@519c5122
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; gradleProjectDirectory: E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;ransport&lt;span style=&#34;color:#ae81ff&#34;&gt;\h&lt;/span&gt;ttp&lt;span style=&#34;color:#ae81ff&#34;&gt;\.&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;\.&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;\p&lt;/span&gt;ackaging&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
+Downloading https://services.gradle.org/distributions/gradle-7.1.1-bin.zip
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Download https://services.gradle.org/distributions/gradle-7.1.1-bin.zip
+...........................................................................................................
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Starting Gradle Daemon
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Connecting to Gradle Daemon
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Starting Gradle Daemon
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Run build
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Evaluate settings
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Run build
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure build
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Load projects
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure build
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure project :
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Compiling build file &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;build.gradle&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure project :
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure build
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Run build
+FAILURE: Build failed with an exception.
+* Where:
+Build file &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;E:\workProject\java5\thingsboard\packaging\java\build.gradle&amp;#39;&lt;/span&gt;
+* What went wrong:
+Could not compile build file &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;E:\workProject\java5\thingsboard\packaging\java\build.gradle&amp;#39;&lt;/span&gt;.
+&amp;gt; startup failed:
+  General error during conversion: Unsupported class file major version &lt;span style=&#34;color:#ae81ff&#34;&gt;61&lt;/span&gt;
+  java.lang.IllegalArgumentException: Unsupported class file major version &lt;span style=&#34;color:#ae81ff&#34;&gt;61&lt;/span&gt;
+  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; error
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+* Get more help at https://help.gradle.org
+BUILD FAILED in 18m 29s
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Deleting unused version-specific caches in E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\p&lt;/span&gt;ackaging&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava&lt;span style=&#34;color:#ae81ff&#34;&gt;\.&lt;/span&gt;gradle
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;问题3 angular js的问题&lt;/em&gt;
+解决方法：换3.6.3版本&lt;br&gt;
+试了梯子没有问题，全局下载tun模式。依然无效&lt;br&gt;
+&lt;img src=&#34;img_2.png&#34; alt=&#34;img_2.png&#34;&gt;
+报错如下&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;error&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; TypeError: Cannot read properties of undefined &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;reading &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;pluginOptions&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+at module.exports &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&lt;span style=&#34;color:#ae81ff&#34;&gt;\e&lt;/span&gt;xtra-webpack.config.js:71:57&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+at CustomWebpackBuilder.&amp;lt;anonymous&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;ode_modules&lt;span style=&#34;color:#ae81ff&#34;&gt;\@&lt;/span&gt;angular-builders&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ist&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack-builder.js:32:50&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+at Generator.next &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&amp;lt;anonymous&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+at fulfilled &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;ode_modules&lt;span style=&#34;color:#ae81ff&#34;&gt;\@&lt;/span&gt;angular-builders&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ist&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack-builder.js:5:58&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
     <item>
       <title>Smart Air Conditioning Control With ThingsBoard</title>
       <link>https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/</link>
