@@ -105,4 +105,10 @@ at fulfilled (E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular-buil
 ```
 # 说在最后
 在maven 编译时，一定要使用windows 管理员权限执行
+```shell
+mvn clean package  -DskipTests -s settings.xml
+```
+如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，才需要挂梯子
+./node_modules/@angular/material/fesm2020/badge.mjs:7:0-77 - Error: Module not found: Error: Can't resolve '@angular/platform-browser/animations' in 'E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular\material\fesm2020'
+
 
