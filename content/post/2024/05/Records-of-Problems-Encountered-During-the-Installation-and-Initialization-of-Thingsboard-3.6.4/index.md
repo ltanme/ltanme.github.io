@@ -271,3 +271,5 @@ websocket connection issues. You might need to use "--disable-host-check" if tha
 case.
 
 ```
+我还没有执行mvn 打包所有的java 光前端ui-ngx 2个G了
+![img_6.png](img_6.png)
