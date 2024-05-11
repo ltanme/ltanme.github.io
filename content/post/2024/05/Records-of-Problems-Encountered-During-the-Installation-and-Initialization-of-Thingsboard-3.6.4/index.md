@@ -192,6 +192,7 @@ idea.max.intellisense.filesize=20000
  custom IntelliJ IDEA properties (expand/override 'bin\idea.properties')      
 idea.max.intellisense.filesize=20000    
 保存后 重新运行：mvn clean install -DskipTests    
+小心点打开这个文件非常卡，我的内存吃不消了
 ![img_11.png](img_11.png)
 
 # 说在最后
