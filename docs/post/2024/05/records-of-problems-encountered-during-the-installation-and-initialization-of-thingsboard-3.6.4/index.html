@@ -363,7 +363,17 @@ services:
 插件只安装一个，否则与第一个冲突，这是我遇到的问题<br>
 <img src="img_8.png" alt="img_8.png"><br>
 将生成的proto java 类必须让maven知道这是源文件，右键目录选择<code>Mark Directory as</code>  设置为<code>Generated Sources root</code><br>
-<img src="img_9.png" alt="img_9.png"></p>
+<img src="img_9.png" alt="img_9.png"><br>
+TransportProts 飘红问题
+<img src="img_10.png" alt="img_10.png">
+如果完全安装后错误仍然存在，则这是 IDE 的问题。打开&quot;Edit Custom Properties&hellip;&quot;（或者可能以不同的方式调用）并添加以下行： <br>
+idea.max.intellisense.filesize=20000 <br>
+通过<code>ctrl+shift+A</code>打开后输入上述配置 <br>
+这个文件其实idea目录下的bin下  <br>
+custom IntelliJ IDEA properties (expand/override &lsquo;bin\idea.properties&rsquo;)   <br>
+idea.max.intellisense.filesize=20000 <br>
+保存后 重新运行：mvn clean install -DskipTests <br>
+<img src="img_11.png" alt="img_11.png"></p>
 <h1 id="说在最后">说在最后<a href="#说在最后" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <p>在maven 编译时，一定要使用windows 管理员权限执行</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mvn clean package  -DskipTests -s settings.xml

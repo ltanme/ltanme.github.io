@@ -207,7 +207,17 @@ services:
 插件只安装一个，否则与第一个冲突，这是我遇到的问题&lt;br&gt;
 &lt;img src=&#34;img_8.png&#34; alt=&#34;img_8.png&#34;&gt;&lt;br&gt;
 将生成的proto java 类必须让maven知道这是源文件，右键目录选择&lt;code&gt;Mark Directory as&lt;/code&gt;  设置为&lt;code&gt;Generated Sources root&lt;/code&gt;&lt;br&gt;
-&lt;img src=&#34;img_9.png&#34; alt=&#34;img_9.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;img_9.png&#34; alt=&#34;img_9.png&#34;&gt;&lt;br&gt;
+TransportProts 飘红问题
+&lt;img src=&#34;img_10.png&#34; alt=&#34;img_10.png&#34;&gt;
+如果完全安装后错误仍然存在，则这是 IDE 的问题。打开&amp;quot;Edit Custom Properties&amp;hellip;&amp;quot;（或者可能以不同的方式调用）并添加以下行： &lt;br&gt;
+idea.max.intellisense.filesize=20000 &lt;br&gt;
+通过&lt;code&gt;ctrl+shift+A&lt;/code&gt;打开后输入上述配置 &lt;br&gt;
+这个文件其实idea目录下的bin下  &lt;br&gt;
+custom IntelliJ IDEA properties (expand/override &amp;lsquo;bin\idea.properties&amp;rsquo;)   &lt;br&gt;
+idea.max.intellisense.filesize=20000 &lt;br&gt;
+保存后 重新运行：mvn clean install -DskipTests &lt;br&gt;
+&lt;img src=&#34;img_11.png&#34; alt=&#34;img_11.png&#34;&gt;&lt;/p&gt;
 &lt;h1 id=&#34;说在最后&#34;&gt;说在最后&lt;/h1&gt;
 &lt;p&gt;在maven 编译时，一定要使用windows 管理员权限执行&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;mvn clean package  -DskipTests -s settings.xml
