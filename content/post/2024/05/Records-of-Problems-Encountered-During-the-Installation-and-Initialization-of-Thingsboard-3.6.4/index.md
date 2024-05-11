@@ -127,11 +127,11 @@ at fulfilled (E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular-buil
 > E:\maven_repository\.m2\repository\com\github\eirslett  
 
 # 关于thingsboard docker启动，及修改docker里的pgsql 配置的工具调式
-> apt-get update # 更新
-> docker exec -it -u root [container_name_or_id] /bin/bash  # 进入容器
-> apt-get install -y net-tools  # 安装netstart
-> apt-get install -y vim # 安装vim 修改配置
-最简单的docker compose 配置 快速启动
+> apt-get update # 更新   
+> docker exec -it -u root [container_name_or_id] /bin/bash  # 进入容器   
+> apt-get install -y net-tools  # 安装netstart  
+> apt-get install -y vim # 安装vim 修改配置   
+最简单的docker compose 配置 快速启动  
 ```xml
 version: '3.0'
 services:
