@@ -275,10 +275,16 @@ at fulfilled <span style="color:#f92672">(</span>E:<span style="color:#ae81ff">\
 </blockquote>
 <h1 id="pgsql数据库初始化">pgsql数据库初始化<a href="#pgsql数据库初始化" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <ul>
+<li>登录到pgsql</li>
+</ul>
+<blockquote>
+<p>psql -h localhost -p 5432 -U thingsboard -d thingsboard</p>
+</blockquote>
+<ul>
 <li>增加pg数据库用户root 密码为root</li>
 </ul>
 <blockquote>
-<p>CREATE ROLE root WITH LOGIN PASSWORD &lsquo;root&rsquo;;</p>
+<p>CREATE ROLE root WITH LOGIN PASSWORD &ldquo;root&rdquo;;</p>
 </blockquote>
 <ul>
 <li>增加角色给root</li>
@@ -288,6 +294,7 @@ at fulfilled <span style="color:#f92672">(</span>E:<span style="color:#ae81ff">\
 </blockquote>
 <ul>
 <li>设置远程访问 pg_hba.conf,不管是docker安装thingsboard这里也适用</li>
+<li>docker thingsboard的<code>postgresql</code> 配置位置位于<code>/data/db/</code></li>
 <li>在pg_hba.conf增加一行在文件末行</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">host    all             all             0.0.0.0/0               md5  
@@ -351,7 +358,13 @@ services:
     volumes:
       - /data/program/thingsboard/tb-data-363:/data
       - /data/program/thingsboard/logs:/var/log/thingsboard
-</code></pre></div><h1 id="说在最后">说在最后<a href="#说在最后" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+</code></pre></div><h1 id="关于thingsboard-protoc-文件显示问题">关于thingsboard protoc 文件显示问题<a href="#关于thingsboard-protoc-文件显示问题" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p><img src="img_7.png" alt="img_7.png"><br>
+插件只安装一个，否则与第一个冲突，这是我遇到的问题<br>
+<img src="img_8.png" alt="img_8.png"><br>
+将生成的proto java 类必须让maven知道这是源文件，右键目录选择<code>Mark Directory as</code>  设置为<code>Generated Sources root</code><br>
+<img src="img_9.png" alt="img_9.png"></p>
+<h1 id="说在最后">说在最后<a href="#说在最后" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <p>在maven 编译时，一定要使用windows 管理员权限执行</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mvn clean package  -DskipTests -s settings.xml
 mvn clean install -U  -s settings.xml
@@ -444,7 +457,14 @@ locally. It hasn<span style="color:#e6db74">&#39;t been reviewed for security is
 <span style="color:#66d9ef">case</span>.
 
 </code></pre></div><p>我还没有执行mvn 打包所有的java 光前端ui-ngx 2个G了<br>
-<img src="img_6.png" alt="img_6.png"></p>
+<img src="img_6.png" alt="img_6.png">
+最终我运行的环境<br>
+C:\Users\admin&gt;mvn -version<br>
+Apache Maven 3.8.2 (ea98e05a04480131370aa0c110b8c54cf726c06f)<br>
+Maven home: D:\apache-maven-3.8.2<br>
+Java version: 11.0.11, vendor: AdoptOpenJDK, runtime: D:\Java_jdk\Java\jdk1.11.0-11<br>
+Default locale: zh_CN, platform encoding: GBK<br>
+OS name: &ldquo;windows 10&rdquo;, version: &ldquo;10.0&rdquo;, arch: &ldquo;amd64&rdquo;, family: &ldquo;windows&rdquo;</p>
 
       </div></div>
 

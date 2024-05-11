@@ -119,10 +119,16 @@ at fulfilled &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span 
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;pgsql数据库初始化&#34;&gt;pgsql数据库初始化&lt;/h1&gt;
 &lt;ul&gt;
+&lt;li&gt;登录到pgsql&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;psql -h localhost -p 5432 -U thingsboard -d thingsboard&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
 &lt;li&gt;增加pg数据库用户root 密码为root&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;CREATE ROLE root WITH LOGIN PASSWORD &amp;lsquo;root&amp;rsquo;;&lt;/p&gt;
+&lt;p&gt;CREATE ROLE root WITH LOGIN PASSWORD &amp;ldquo;root&amp;rdquo;;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;增加角色给root&lt;/li&gt;
@@ -132,6 +138,7 @@ at fulfilled &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span 
 &lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;设置远程访问 pg_hba.conf,不管是docker安装thingsboard这里也适用&lt;/li&gt;
+&lt;li&gt;docker thingsboard的&lt;code&gt;postgresql&lt;/code&gt; 配置位置位于&lt;code&gt;/data/db/&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;在pg_hba.conf增加一行在文件末行&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;host    all             all             0.0.0.0/0               md5  
@@ -195,7 +202,13 @@ services:
     volumes:
       - /data/program/thingsboard/tb-data-363:/data
       - /data/program/thingsboard/logs:/var/log/thingsboard
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;说在最后&#34;&gt;说在最后&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;关于thingsboard-protoc-文件显示问题&#34;&gt;关于thingsboard protoc 文件显示问题&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;br&gt;
+插件只安装一个，否则与第一个冲突，这是我遇到的问题&lt;br&gt;
+&lt;img src=&#34;img_8.png&#34; alt=&#34;img_8.png&#34;&gt;&lt;br&gt;
+将生成的proto java 类必须让maven知道这是源文件，右键目录选择&lt;code&gt;Mark Directory as&lt;/code&gt;  设置为&lt;code&gt;Generated Sources root&lt;/code&gt;&lt;br&gt;
+&lt;img src=&#34;img_9.png&#34; alt=&#34;img_9.png&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;说在最后&#34;&gt;说在最后&lt;/h1&gt;
 &lt;p&gt;在maven 编译时，一定要使用windows 管理员权限执行&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;mvn clean package  -DskipTests -s settings.xml
 mvn clean install -U  -s settings.xml
@@ -288,7 +301,14 @@ locally. It hasn&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;t been review
 &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt;.
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我还没有执行mvn 打包所有的java 光前端ui-ngx 2个G了&lt;br&gt;
-&lt;img src=&#34;img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;img_6.png&#34; alt=&#34;img_6.png&#34;&gt;
+最终我运行的环境&lt;br&gt;
+C:\Users\admin&amp;gt;mvn -version&lt;br&gt;
+Apache Maven 3.8.2 (ea98e05a04480131370aa0c110b8c54cf726c06f)&lt;br&gt;
+Maven home: D:\apache-maven-3.8.2&lt;br&gt;
+Java version: 11.0.11, vendor: AdoptOpenJDK, runtime: D:\Java_jdk\Java\jdk1.11.0-11&lt;br&gt;
+Default locale: zh_CN, platform encoding: GBK&lt;br&gt;
+OS name: &amp;ldquo;windows 10&amp;rdquo;, version: &amp;ldquo;10.0&amp;rdquo;, arch: &amp;ldquo;amd64&amp;rdquo;, family: &amp;ldquo;windows&amp;rdquo;&lt;/p&gt;
 </content>
     </item>
     

@@ -109,13 +109,14 @@ at fulfilled (E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular-buil
 > mvn clean package  -DskipTests -s settings.xml  
 # pgsql数据库初始化
 * 登录到pgsql
->psql -h localhost -p 5432 -U thingsboard -d thingsboard
+>psql -h localhost -p 5432 -U thingsboard -d thingsboard   
 * 增加pg数据库用户root 密码为root  
-> CREATE ROLE root WITH LOGIN PASSWORD 'root';  
+> CREATE ROLE root WITH LOGIN PASSWORD "root";
 * 增加角色给root  
 > GRANT thingsboard TO root;   
 
 * 设置远程访问 pg_hba.conf,不管是docker安装thingsboard这里也适用
+* docker thingsboard的`postgresql` 配置位置位于`/data/db/`
 * 在pg_hba.conf增加一行在文件末行
 ```shell
 host    all             all             0.0.0.0/0               md5  
@@ -175,6 +176,23 @@ services:
       - /data/program/thingsboard/tb-data-363:/data
       - /data/program/thingsboard/logs:/var/log/thingsboard
 ```
+
+# 关于thingsboard protoc 文件显示问题   
+![img_7.png](img_7.png)   
+插件只安装一个，否则与第一个冲突，这是我遇到的问题   
+![img_8.png](img_8.png)  
+将生成的proto java 类必须让maven知道这是源文件，右键目录选择`Mark Directory as`  设置为`Generated Sources root`   
+![img_9.png](img_9.png)  
+TransportProts 飘红问题
+![img_10.png](img_10.png)
+如果完全安装后错误仍然存在，则这是 IDE 的问题。打开"Edit Custom Properties..."（或者可能以不同的方式调用）并添加以下行：    
+idea.max.intellisense.filesize=20000    
+通过`ctrl+shift+A`打开后输入上述配置    
+这个文件其实idea目录下的bin下     
+ custom IntelliJ IDEA properties (expand/override 'bin\idea.properties')      
+idea.max.intellisense.filesize=20000    
+保存后 重新运行：mvn clean install -DskipTests    
+![img_11.png](img_11.png)
 
 # 说在最后
 在maven 编译时，一定要使用windows 管理员权限执行
