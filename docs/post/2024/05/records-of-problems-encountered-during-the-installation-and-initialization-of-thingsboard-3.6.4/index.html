@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="# Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4 记录thingsboard3.6.4在导入 IntelliJ IDEA 2022.2.3 编译报错的一些问题 记录 如何从thingsboard3.6.4弃坑到thingsboard3.6.3 导入步骤简单说一下，先从gi" />
+<meta name="description" content="# Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4 记录thingsboard3.6.4在导入 IntelliJ IDEA 2022.2.3 编译报错的一些问题 记录 如何从thingsboard3.6.4弃坑到thingsboard3.6.3最后又回到了thingsbo" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/" />
@@ -39,7 +39,7 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4">
-<meta property="og:description" content="# Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4 记录thingsboard3.6.4在导入 IntelliJ IDEA 2022.2.3 编译报错的一些问题 记录 如何从thingsboard3.6.4弃坑到thingsboard3.6.3 导入步骤简单说一下，先从gi" />
+<meta property="og:description" content="# Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4 记录thingsboard3.6.4在导入 IntelliJ IDEA 2022.2.3 编译报错的一些问题 记录 如何从thingsboard3.6.4弃坑到thingsboard3.6.3最后又回到了thingsbo" />
 <meta property="og:url" content="https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -173,7 +173,7 @@
         <p>#　Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4</p>
 <blockquote>
 <p>记录<code>thingsboard3.6.4</code>在导入 <code>IntelliJ IDEA 2022.2.3</code> 编译报错的一些问题<br>
-记录 如何从<code>thingsboard3.6.4</code>弃坑到<code>thingsboard3.6.3</code></p>
+记录 如何从<code>thingsboard3.6.4</code>弃坑到<code>thingsboard3.6.3</code>最后又回到了<code>thingsboard3.6.4</code></p>
 </blockquote>
 <blockquote>
 <p>导入步骤简单说一下，先从github下载thingsboard3.6.4 源码
@@ -255,7 +255,8 @@ BUILD FAILED in 18m 29s
 </code></pre></div><blockquote>
 <p><em>问题3 angular js的问题</em>
 解决方法：换3.6.3版本<br>
-试了梯子没有问题，全局下载tun模式。依然无效<br>
+试了梯子没有问题，全局下载tun模式。依然无效
+最后解决了主要是问题，yarn cache问题，清理干净重新下载即可
 <img src="img_2.png" alt="img_2.png">
 报错如下</p>
 </blockquote>
@@ -287,17 +288,17 @@ at fulfilled <span style="color:#f92672">(</span>E:<span style="color:#ae81ff">\
 </blockquote>
 <ul>
 <li>设置远程访问 pg_hba.conf,不管是docker安装thingsboard这里也适用</li>
+<li>在pg_hba.conf增加一行在文件末行</li>
 </ul>
-<blockquote>
-<p>host    all             all             0.0.0.0/0               md5<br>
-postgresql.conf中的listen_addresses设置为'*'</p>
-</blockquote>
-<ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">host    all             all             0.0.0.0/0               md5  
+</code></pre></div><p>在postgresql.conf中修改以下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">listen_addresses<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;*&#39;</span>  
+</code></pre></div><ul>
 <li>WINDOWS 10 解决node.exe占用</li>
 </ul>
 <blockquote>
-<p>tasklist /V |findstr node.exe<br>
-taskkill /F /PID 7132</p>
+<p>tasklist /V |findstr node.exe  找到进程ID<br>
+taskkill /F /PID 7132  删除该进程ID</p>
 </blockquote>
 <ul>
 <li>maven编译ui-ngx几个缓存 <code>E:\maven_repository\.m2\</code> 这个是我下载的组件</li>
@@ -306,14 +307,32 @@ taskkill /F /PID 7132</p>
 <blockquote>
 <p>E:\maven_repository.m2\repository\com\github\eirslett\node\<br>
 E:\maven_repository.m2\repository\com\github\eirslett\yarn\1.22.17\<br>
-E:\maven_repository.m2\repository\com\github\eirslett</p>
+E:\maven_repository.m2\repository\com\github\eirslett<br>
+C:\Users\admin\AppData\Local\Yarn  #这个缓存目录很坑，动不动几个G的文件</p>
+</blockquote>
+<p>在ui-ngx目录下执行</p>
+<blockquote>
+<p>target\node\yarn\dist\bin\yarn.cmd cache clean <br>
+也可以手动执行安装，还可以看到进度条，通过maven的插件运行不太友好 <br>
+target\node\yarn\dist\bin\yarn.cmd  install<br>
+<img src="img_4.png" alt="img_4.png">
+yarn 清理缓存如下
+清除yarn cache成功</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yarn cache v1.22.17
+success Cleared cache.
+Done in 57.70s.
+</code></pre></div><blockquote>
+<p>删除target 目录用 <code>del /P target</code><br>
+删除js <code>del /P node_modules</code> <br>
+总之清理缓存需要清理yarn的缓存，yarn,node程序自身的程序，maven下载所产生的包</p>
 </blockquote>
 <h1 id="关于thingsboard-docker启动及修改docker里的pgsql-配置的工具调式">关于thingsboard docker启动，及修改docker里的pgsql 配置的工具调式<a href="#关于thingsboard-docker启动及修改docker里的pgsql-配置的工具调式" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <blockquote>
-<p>apt-get update # 更新
-docker exec -it -u root [container_name_or_id] /bin/bash  # 进入容器
-apt-get install -y net-tools  # 安装netstart
-apt-get install -y vim # 安装vim 修改配置
+<p>apt-get update # 更新<br>
+docker exec -it -u root [container_name_or_id] /bin/bash  # 进入容器<br>
+apt-get install -y net-tools  # 安装netstart<br>
+apt-get install -y vim # 安装vim 修改配置<br>
 最简单的docker compose 配置 快速启动</p>
 </blockquote>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">version: &#39;3.0&#39;
@@ -335,11 +354,96 @@ services:
 </code></pre></div><h1 id="说在最后">说在最后<a href="#说在最后" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <p>在maven 编译时，一定要使用windows 管理员权限执行</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mvn clean package  -DskipTests -s settings.xml
-</code></pre></div><p>如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，才需要挂梯子
+mvn clean install -U  -s settings.xml
+</code></pre></div><p>如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，需要挂梯子
 ./node_modules/@angular/material/fesm2020/badge.mjs:7:0-77 - Error: Module not found: Error: Can&rsquo;t resolve &lsquo;@angular/platform-browser/animations&rsquo; in &lsquo;E:\workProject\java5\thingsboard\ui-ngx\node_modules@angular\material\fesm2020&rsquo;<br>
-主要是因为网络问题在下载以下两个包需要很长时间<br>
-npm install @angular/common@^14.0.0 @angular/core@^14.0.0</p>
+主要是因为网络问题在下载以下两个包需要很长时间</p>
+<blockquote>
+<p>出现以下两行特别坑，非常慢，从windowsm网络监控看，明显示下载速度降低了，可以挂梯子试试更换节点地区试试</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> warning <span style="color:#e6db74">&#34; &gt; @flowjs/ngx-flow@0.6.0&#34;</span> has incorrect peer dependency <span style="color:#e6db74">&#34;@angular/common@^14.0.0-&#34;</span>.
+<span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> warning <span style="color:#e6db74">&#34; &gt; @flowjs/ngx-flow@0.6.0&#34;</span> has incorrect peer dependency <span style="color:#e6db74">&#34;@angular/core@^14.0.0-&#34;</span>.
+</code></pre></div><p>这些包更不要单独安装<br>
+npm install @angular/common@^14.0.0 @angular/core@^14.0.0
+也不排除一些情况在网络载中，某个js包下载不全导致编译报错，这种情况也会发生的。<br>
+随时查看网络情况以及电脑使用内存情况，由其是内存的问题，如果同时多个yarn install 然后又开了 IntelliJ IDEA 2022.2.3<br>
+多个任务，会导致内存接近极限，我电脑32G，被干到了31G，这样的话非常慢，重启电脑大法再来吧</p>
+<p><img src="img_3.png" alt="img_3.png">
+<img src="img_5.png" alt="img_5.png"></p>
+<p>最后展示编译thingsboard ui-ngx 3.6.3和3.6.4都编译通过了</p>
+<blockquote>
+<p>以下是3.6.4 ui-ngx 编译成功</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\D</span>ownloads<span style="color:#ae81ff">\t</span>hingsboard-3.6.3<span style="color:#ae81ff">\u</span>i-ngx&gt;target<span style="color:#ae81ff">\n</span>ode<span style="color:#ae81ff">\y</span>arn<span style="color:#ae81ff">\d</span>ist<span style="color:#ae81ff">\b</span>in<span style="color:#ae81ff">\y</span>arn.cmd install
+yarn install v1.22.17
+<span style="color:#f92672">[</span>1/4<span style="color:#f92672">]</span> Resolving packages...
+warning Resolution field <span style="color:#e6db74">&#34;cacache@17.0.4&#34;</span> is incompatible with requested version <span style="color:#e6db74">&#34;cacache@^16.1.0&#34;</span>
+<span style="color:#f92672">[</span>2/4<span style="color:#f92672">]</span> Fetching packages...
+<span style="color:#f92672">[</span>3/4<span style="color:#f92672">]</span> Linking dependencies...
+warning <span style="color:#e6db74">&#34; &gt; @flowjs/ngx-flow@0.6.0&#34;</span> has incorrect peer dependency <span style="color:#e6db74">&#34;@angular/common@^14.0.0-&#34;</span>.
+warning <span style="color:#e6db74">&#34; &gt; @flowjs/ngx-flow@0.6.0&#34;</span> has incorrect peer dependency <span style="color:#e6db74">&#34;@angular/core@^14.0.0-&#34;</span>.
+<span style="color:#f92672">[</span>4/4<span style="color:#f92672">]</span> Building fresh packages...
+$ patch-package
+patch-package 6.5.1
+Applying patches...
+@angular/core@15.2.10 ✔
+@mat-datetimepicker/core@11.0.3 ✔
+canvas-gauges@2.1.7 ✔
+echarts@5.5.0 ✔
+Done in 19.36s.
 
+C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\D</span>ownloads<span style="color:#ae81ff">\t</span>hingsboard-3.6.3<span style="color:#ae81ff">\u</span>i-ngx&gt;npm run start
+
+&gt; thingsboard@3.6.3 start
+&gt; node --max_old_space_size<span style="color:#f92672">=</span><span style="color:#ae81ff">8048</span> ./node_modules/@angular/cli/bin/ng serve --configuration development --host 0.0.0.0 --open
+
+Warning: This is a simple server <span style="color:#66d9ef">for</span> use in testing or debugging Angular applications
+locally. It hasn<span style="color:#e6db74">&#39;t been reviewed for security issues.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Binding this server to an open connection can result in compromising your application or
+</span><span style="color:#e6db74">computer. Using a different host than the one passed to the &#34;--host&#34; flag might result in
+</span><span style="color:#e6db74">websocket connection issues. You might need to use &#34;--disable-host-check&#34; if that&#39;</span>s the
+<span style="color:#66d9ef">case</span>.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files                                                                                     | Names                                            |  Raw Size
+</code></pre></div><blockquote>
+<p>以下是3.6.4 ui-ngx 编译成功</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\D</span>ownloads<span style="color:#ae81ff">\t</span>hingsboard-3.6.4_a.tar<span style="color:#ae81ff">\3</span>64<span style="color:#ae81ff">\t</span>hingsboard-3.6.4<span style="color:#ae81ff">\u</span>i-ngx&gt;target<span style="color:#ae81ff">\n</span>ode<span style="color:#ae81ff">\y</span>arn<span style="color:#ae81ff">\d</span>ist<span style="color:#ae81ff">\b</span>in<span style="color:#ae81ff">\y</span>arn.cmd install
+yarn install v1.22.17
+<span style="color:#f92672">[</span>1/4<span style="color:#f92672">]</span> Resolving packages...
+warning Resolution field <span style="color:#e6db74">&#34;cacache@17.0.4&#34;</span> is incompatible with requested version <span style="color:#e6db74">&#34;cacache@^16.1.0&#34;</span>
+<span style="color:#f92672">[</span>2/4<span style="color:#f92672">]</span> Fetching packages...
+<span style="color:#f92672">[</span>3/4<span style="color:#f92672">]</span> Linking dependencies...
+warning <span style="color:#e6db74">&#34; &gt; @flowjs/ngx-flow@0.6.0&#34;</span> has incorrect peer dependency <span style="color:#e6db74">&#34;@angular/common@^14.0.0-&#34;</span>.
+warning <span style="color:#e6db74">&#34; &gt; @flowjs/ngx-flow@0.6.0&#34;</span> has incorrect peer dependency <span style="color:#e6db74">&#34;@angular/core@^14.0.0-&#34;</span>.
+<span style="color:#f92672">[</span>4/4<span style="color:#f92672">]</span> Building fresh packages...
+$ patch-package
+patch-package 6.5.1
+Applying patches...
+@angular/core@15.2.10 ✔
+@mat-datetimepicker/core@11.0.3 ✔
+canvas-gauges@2.1.7 ✔
+echarts@5.5.0 ✔
+Done in 18.75s.
+
+C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\D</span>ownloads<span style="color:#ae81ff">\t</span>hingsboard-3.6.4_a.tar<span style="color:#ae81ff">\3</span>64<span style="color:#ae81ff">\t</span>hingsboard-3.6.4<span style="color:#ae81ff">\u</span>i-ngx&gt;
+C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\D</span>ownloads<span style="color:#ae81ff">\t</span>hingsboard-3.6.4_a.tar<span style="color:#ae81ff">\3</span>64<span style="color:#ae81ff">\t</span>hingsboard-3.6.4<span style="color:#ae81ff">\u</span>i-ngx&gt;
+C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\D</span>ownloads<span style="color:#ae81ff">\t</span>hingsboard-3.6.4_a.tar<span style="color:#ae81ff">\3</span>64<span style="color:#ae81ff">\t</span>hingsboard-3.6.4<span style="color:#ae81ff">\u</span>i-ngx&gt;npm run start
+
+&gt; thingsboard@3.6.4 start
+&gt; node --max_old_space_size<span style="color:#f92672">=</span><span style="color:#ae81ff">8048</span> ./node_modules/@angular/cli/bin/ng serve --configuration development --host 0.0.0.0 --open
+
+Warning: This is a simple server <span style="color:#66d9ef">for</span> use in testing or debugging Angular applications
+locally. It hasn<span style="color:#e6db74">&#39;t been reviewed for security issues.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Binding this server to an open connection can result in compromising your application or
+</span><span style="color:#e6db74">computer. Using a different host than the one passed to the &#34;--host&#34; flag might result in
+</span><span style="color:#e6db74">websocket connection issues. You might need to use &#34;--disable-host-check&#34; if that&#39;</span>s the
+<span style="color:#66d9ef">case</span>.
+
+</code></pre></div>
       </div></div>
 
   
