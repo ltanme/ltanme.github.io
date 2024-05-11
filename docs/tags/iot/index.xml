@@ -13,11 +13,11 @@
       <pubDate>Fri, 10 May 2024 10:41:26 +0800</pubDate>
       
       <guid>https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/</guid>
-      <description># Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4 记录thingsboard3.6.4在导入 IntelliJ IDEA 2022.2.3 编译报错的一些问题 记录 如何从thingsboard3.6.4弃坑到thingsboard3.6.3 导入步骤简单说一下，先从gi</description>
+      <description># Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4 记录thingsboard3.6.4在导入 IntelliJ IDEA 2022.2.3 编译报错的一些问题 记录 如何从thingsboard3.6.4弃坑到thingsboard3.6.3最后又回到了thingsbo</description>
       <content>&lt;p&gt;#　Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;记录&lt;code&gt;thingsboard3.6.4&lt;/code&gt;在导入 &lt;code&gt;IntelliJ IDEA 2022.2.3&lt;/code&gt; 编译报错的一些问题&lt;br&gt;
-记录 如何从&lt;code&gt;thingsboard3.6.4&lt;/code&gt;弃坑到&lt;code&gt;thingsboard3.6.3&lt;/code&gt;&lt;/p&gt;
+记录 如何从&lt;code&gt;thingsboard3.6.4&lt;/code&gt;弃坑到&lt;code&gt;thingsboard3.6.3&lt;/code&gt;最后又回到了&lt;code&gt;thingsboard3.6.4&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;导入步骤简单说一下，先从github下载thingsboard3.6.4 源码
@@ -99,7 +99,8 @@ BUILD FAILED in 18m 29s
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;em&gt;问题3 angular js的问题&lt;/em&gt;
 解决方法：换3.6.3版本&lt;br&gt;
-试了梯子没有问题，全局下载tun模式。依然无效&lt;br&gt;
+试了梯子没有问题，全局下载tun模式。依然无效
+最后解决了主要是问题，yarn cache问题，清理干净重新下载即可
 &lt;img src=&#34;img_2.png&#34; alt=&#34;img_2.png&#34;&gt;
 报错如下&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -131,17 +132,17 @@ at fulfilled &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span 
 &lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;设置远程访问 pg_hba.conf,不管是docker安装thingsboard这里也适用&lt;/li&gt;
+&lt;li&gt;在pg_hba.conf增加一行在文件末行&lt;/li&gt;
 &lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;host    all             all             0.0.0.0/0               md5&lt;br&gt;
-postgresql.conf中的listen_addresses设置为&#39;*&#39;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;host    all             all             0.0.0.0/0               md5  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在postgresql.conf中修改以下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;listen_addresses&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;WINDOWS 10 解决node.exe占用&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;tasklist /V |findstr node.exe&lt;br&gt;
-taskkill /F /PID 7132&lt;/p&gt;
+&lt;p&gt;tasklist /V |findstr node.exe  找到进程ID&lt;br&gt;
+taskkill /F /PID 7132  删除该进程ID&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;maven编译ui-ngx几个缓存 &lt;code&gt;E:\maven_repository\.m2\&lt;/code&gt; 这个是我下载的组件&lt;/li&gt;
@@ -150,14 +151,32 @@ taskkill /F /PID 7132&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;E:\maven_repository.m2\repository\com\github\eirslett\node\&lt;br&gt;
 E:\maven_repository.m2\repository\com\github\eirslett\yarn\1.22.17\&lt;br&gt;
-E:\maven_repository.m2\repository\com\github\eirslett&lt;/p&gt;
+E:\maven_repository.m2\repository\com\github\eirslett&lt;br&gt;
+C:\Users\admin\AppData\Local\Yarn  #这个缓存目录很坑，动不动几个G的文件&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在ui-ngx目录下执行&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;target\node\yarn\dist\bin\yarn.cmd cache clean &lt;br&gt;
+也可以手动执行安装，还可以看到进度条，通过maven的插件运行不太友好 &lt;br&gt;
+target\node\yarn\dist\bin\yarn.cmd  install&lt;br&gt;
+&lt;img src=&#34;img_4.png&#34; alt=&#34;img_4.png&#34;&gt;
+yarn 清理缓存如下
+清除yarn cache成功&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;yarn cache v1.22.17
+success Cleared cache.
+Done in 57.70s.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;删除target 目录用 &lt;code&gt;del /P target&lt;/code&gt;&lt;br&gt;
+删除js &lt;code&gt;del /P node_modules&lt;/code&gt; &lt;br&gt;
+总之清理缓存需要清理yarn的缓存，yarn,node程序自身的程序，maven下载所产生的包&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;关于thingsboard-docker启动及修改docker里的pgsql-配置的工具调式&#34;&gt;关于thingsboard docker启动，及修改docker里的pgsql 配置的工具调式&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;apt-get update # 更新
-docker exec -it -u root [container_name_or_id] /bin/bash  # 进入容器
-apt-get install -y net-tools  # 安装netstart
-apt-get install -y vim # 安装vim 修改配置
+&lt;p&gt;apt-get update # 更新&lt;br&gt;
+docker exec -it -u root [container_name_or_id] /bin/bash  # 进入容器&lt;br&gt;
+apt-get install -y net-tools  # 安装netstart&lt;br&gt;
+apt-get install -y vim # 安装vim 修改配置&lt;br&gt;
 最简单的docker compose 配置 快速启动&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;version: &amp;#39;3.0&amp;#39;
@@ -179,11 +198,96 @@ services:
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;说在最后&#34;&gt;说在最后&lt;/h1&gt;
 &lt;p&gt;在maven 编译时，一定要使用windows 管理员权限执行&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;mvn clean package  -DskipTests -s settings.xml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，才需要挂梯子
+mvn clean install -U  -s settings.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，需要挂梯子
 ./node_modules/@angular/material/fesm2020/badge.mjs:7:0-77 - Error: Module not found: Error: Can&amp;rsquo;t resolve &amp;lsquo;@angular/platform-browser/animations&amp;rsquo; in &amp;lsquo;E:\workProject\java5\thingsboard\ui-ngx\node_modules@angular\material\fesm2020&amp;rsquo;&lt;br&gt;
-主要是因为网络问题在下载以下两个包需要很长时间&lt;br&gt;
-npm install @angular/common@^14.0.0 @angular/core@^14.0.0&lt;/p&gt;
-</content>
+主要是因为网络问题在下载以下两个包需要很长时间&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;出现以下两行特别坑，非常慢，从windowsm网络监控看，明显示下载速度降低了，可以挂梯子试试更换节点地区试试&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/common@^14.0.0-&amp;#34;&lt;/span&gt;.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/core@^14.0.0-&amp;#34;&lt;/span&gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这些包更不要单独安装&lt;br&gt;
+npm install @angular/common@^14.0.0 @angular/core@^14.0.0
+也不排除一些情况在网络载中，某个js包下载不全导致编译报错，这种情况也会发生的。&lt;br&gt;
+随时查看网络情况以及电脑使用内存情况，由其是内存的问题，如果同时多个yarn install 然后又开了 IntelliJ IDEA 2022.2.3&lt;br&gt;
+多个任务，会导致内存接近极限，我电脑32G，被干到了31G，这样的话非常慢，重启电脑大法再来吧&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img_3.png&#34; alt=&#34;img_3.png&#34;&gt;
+&lt;img src=&#34;img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;最后展示编译thingsboard ui-ngx 3.6.3和3.6.4都编译通过了&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;以下是3.6.4 ui-ngx 编译成功&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.3&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;target&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;ode&lt;span style=&#34;color:#ae81ff&#34;&gt;\y&lt;/span&gt;arn&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ist&lt;span style=&#34;color:#ae81ff&#34;&gt;\b&lt;/span&gt;in&lt;span style=&#34;color:#ae81ff&#34;&gt;\y&lt;/span&gt;arn.cmd install
+yarn install v1.22.17
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Resolving packages...
+warning Resolution field &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cacache@17.0.4&amp;#34;&lt;/span&gt; is incompatible with requested version &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cacache@^16.1.0&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;2/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Fetching packages...
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;3/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Linking dependencies...
+warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/common@^14.0.0-&amp;#34;&lt;/span&gt;.
+warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/core@^14.0.0-&amp;#34;&lt;/span&gt;.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;4/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Building fresh packages...
+$ patch-package
+patch-package 6.5.1
+Applying patches...
+@angular/core@15.2.10 ✔
+@mat-datetimepicker/core@11.0.3 ✔
+canvas-gauges@2.1.7 ✔
+echarts@5.5.0 ✔
+Done in 19.36s.
+
+C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.3&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;npm run start
+
+&amp;gt; thingsboard@3.6.3 start
+&amp;gt; node --max_old_space_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8048&lt;/span&gt; ./node_modules/@angular/cli/bin/ng serve --configuration development --host 0.0.0.0 --open
+
+Warning: This is a simple server &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; use in testing or debugging Angular applications
+locally. It hasn&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;t been reviewed for security issues.
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Binding this server to an open connection can result in compromising your application or
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;computer. Using a different host than the one passed to the &amp;#34;--host&amp;#34; flag might result in
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;websocket connection issues. You might need to use &amp;#34;--disable-host-check&amp;#34; if that&amp;#39;&lt;/span&gt;s the
+&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt;.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files                                                                                     | Names                                            |  Raw Size
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;以下是3.6.4 ui-ngx 编译成功&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4_a.tar&lt;span style=&#34;color:#ae81ff&#34;&gt;\3&lt;/span&gt;64&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;target&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;ode&lt;span style=&#34;color:#ae81ff&#34;&gt;\y&lt;/span&gt;arn&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ist&lt;span style=&#34;color:#ae81ff&#34;&gt;\b&lt;/span&gt;in&lt;span style=&#34;color:#ae81ff&#34;&gt;\y&lt;/span&gt;arn.cmd install
+yarn install v1.22.17
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Resolving packages...
+warning Resolution field &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cacache@17.0.4&amp;#34;&lt;/span&gt; is incompatible with requested version &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cacache@^16.1.0&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;2/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Fetching packages...
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;3/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Linking dependencies...
+warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/common@^14.0.0-&amp;#34;&lt;/span&gt;.
+warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/core@^14.0.0-&amp;#34;&lt;/span&gt;.
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;4/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Building fresh packages...
+$ patch-package
+patch-package 6.5.1
+Applying patches...
+@angular/core@15.2.10 ✔
+@mat-datetimepicker/core@11.0.3 ✔
+canvas-gauges@2.1.7 ✔
+echarts@5.5.0 ✔
+Done in 18.75s.
+
+C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4_a.tar&lt;span style=&#34;color:#ae81ff&#34;&gt;\3&lt;/span&gt;64&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;
+C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4_a.tar&lt;span style=&#34;color:#ae81ff&#34;&gt;\3&lt;/span&gt;64&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;
+C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4_a.tar&lt;span style=&#34;color:#ae81ff&#34;&gt;\3&lt;/span&gt;64&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;npm run start
+
+&amp;gt; thingsboard@3.6.4 start
+&amp;gt; node --max_old_space_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8048&lt;/span&gt; ./node_modules/@angular/cli/bin/ng serve --configuration development --host 0.0.0.0 --open
+
+Warning: This is a simple server &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; use in testing or debugging Angular applications
+locally. It hasn&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;t been reviewed for security issues.
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Binding this server to an open connection can result in compromising your application or
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;computer. Using a different host than the one passed to the &amp;#34;--host&amp;#34; flag might result in
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;websocket connection issues. You might need to use &amp;#34;--disable-host-check&amp;#34; if that&amp;#39;&lt;/span&gt;s the
+&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt;.
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
     <item>
