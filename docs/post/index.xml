@@ -287,7 +287,9 @@ locally. It hasn&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;t been review
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;websocket connection issues. You might need to use &amp;#34;--disable-host-check&amp;#34; if that&amp;#39;&lt;/span&gt;s the
 &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt;.
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我还没有执行mvn 打包所有的java 光前端ui-ngx 2个G了&lt;br&gt;
+&lt;img src=&#34;img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;/p&gt;
+</content>
     </item>
     
     <item>
