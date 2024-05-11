@@ -130,7 +130,7 @@ listen_addresses='*'
 > E:\maven_repository\.m2\repository\com\github\eirslett\node\   
 > E:\maven_repository\.m2\repository\com\github\eirslett\yarn\1.22.17\   
 > E:\maven_repository\.m2\repository\com\github\eirslett  
-> C:\Users\admin\AppData\Local\Yarn  #这个缓存目录很坑，动不动10几个G
+> C:\Users\admin\AppData\Local\Yarn  #这个缓存目录很坑，动不动几个G的文件
 
 在ui-ngx目录下执行
 > target\node\yarn\dist\bin\yarn.cmd cache clean
@@ -176,7 +176,7 @@ services:
 mvn clean package  -DskipTests -s settings.xml
 mvn clean package  -s settings.xml
 ```
-如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，才需要挂梯子
+如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，需要挂梯子
 ./node_modules/@angular/material/fesm2020/badge.mjs:7:0-77 - Error: Module not found: Error: Can't resolve '@angular/platform-browser/animations' in 'E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular\material\fesm2020'   
 主要是因为网络问题在下载以下两个包需要很长时间 
 > 出现以下两行特别坑，非常慢，从windowsm网络监控看，明显示下载速度降低了，可以挂梯子试试更换节点地区试试
