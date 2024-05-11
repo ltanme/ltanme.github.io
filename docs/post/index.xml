@@ -217,6 +217,7 @@ idea.max.intellisense.filesize=20000 &lt;br&gt;
 custom IntelliJ IDEA properties (expand/override &amp;lsquo;bin\idea.properties&amp;rsquo;)   &lt;br&gt;
 idea.max.intellisense.filesize=20000 &lt;br&gt;
 保存后 重新运行：mvn clean install -DskipTests &lt;br&gt;
+小心点打开这个文件非常卡，我的内存吃不消了&lt;br&gt;
 &lt;img src=&#34;img_11.png&#34; alt=&#34;img_11.png&#34;&gt;&lt;/p&gt;
 &lt;h1 id=&#34;说在最后&#34;&gt;说在最后&lt;/h1&gt;
 &lt;p&gt;在maven 编译时，一定要使用windows 管理员权限执行&lt;/p&gt;
