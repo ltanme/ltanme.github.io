@@ -273,3 +273,10 @@ case.
 ```
 我还没有执行mvn 打包所有的java 光前端ui-ngx 2个G了  
 ![img_6.png](img_6.png)
+最终我运行的环境   
+C:\Users\admin>mvn -version   
+Apache Maven 3.8.2 (ea98e05a04480131370aa0c110b8c54cf726c06f)   
+Maven home: D:\apache-maven-3.8.2   
+Java version: 11.0.11, vendor: AdoptOpenJDK, runtime: D:\Java_jdk\Java\jdk1.11.0-11   
+Default locale: zh_CN, platform encoding: GBK   
+OS name: "windows 10", version: "10.0", arch: "amd64", family: "windows"   
