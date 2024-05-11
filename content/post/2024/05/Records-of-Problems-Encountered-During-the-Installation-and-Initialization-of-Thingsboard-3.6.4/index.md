@@ -103,12 +103,60 @@ at Generator.next (<anonymous>)
 at fulfilled (E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular-builders\custom-webpack\dist\custom-webpack-builder.js:5:58)
 
 ```
+* 提示maven在编译打包ui-ngx时注意几个目录  
+* maven 编译  
+> mvn clean package  -DskipTests -s settings.xml  
+# pgsql数据库初始化
+* 增加pg数据库用户root 密码为root  
+> CREATE ROLE root WITH LOGIN PASSWORD 'root';  
+* 增加角色给root  
+> GRANT thingsboard TO root;   
+
+* 设置远程访问 pg_hba.conf,不管是docker安装thingsboard这里也适用
+> host    all             all             0.0.0.0/0               md5   
+> postgresql.conf中的listen_addresses设置为'*'  
+
+* WINDOWS 10 解决node.exe占用  
+> tasklist /V |findstr node.exe  
+> taskkill /F /PID 7132  
+
+* maven编译ui-ngx几个缓存 `E:\maven_repository\.m2\` 这个是我下载的组件 
+* 如果你之前在你的windows电脑上尝试过多个版本进打包编译，小心缓存
+> E:\maven_repository\.m2\repository\com\github\eirslett\node\   
+> E:\maven_repository\.m2\repository\com\github\eirslett\yarn\1.22.17\   
+> E:\maven_repository\.m2\repository\com\github\eirslett  
+
+# 关于thingsboard docker启动，及修改docker里的pgsql 配置的工具调式
+> apt-get update # 更新
+> docker exec -it -u root [container_name_or_id] /bin/bash  # 进入容器
+> apt-get install -y net-tools  # 安装netstart
+> apt-get install -y vim # 安装vim 修改配置
+最简单的docker compose 配置 快速启动
+```xml
+version: '3.0'
+services:
+  mytb:
+    restart: always
+    image: "thingsboard/tb-postgres:3.6.3"
+    ports:
+      - "8080:9090"
+      - "1883:1883"
+      - "7070:7070"
+      - "15432:5432"
+      - "5683-5688:5683-5688/udp"
+    environment:
+      TB_QUEUE_TYPE: in-memory
+    volumes:
+      - /data/program/thingsboard/tb-data-363:/data
+      - /data/program/thingsboard/logs:/var/log/thingsboard
+```
+
 # 说在最后
 在maven 编译时，一定要使用windows 管理员权限执行
 ```shell
 mvn clean package  -DskipTests -s settings.xml
 ```
 如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，才需要挂梯子
-./node_modules/@angular/material/fesm2020/badge.mjs:7:0-77 - Error: Module not found: Error: Can't resolve '@angular/platform-browser/animations' in 'E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular\material\fesm2020'
-
-
+./node_modules/@angular/material/fesm2020/badge.mjs:7:0-77 - Error: Module not found: Error: Can't resolve '@angular/platform-browser/animations' in 'E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular\material\fesm2020'   
+主要是因为网络问题在下载以下两个包需要很长时间  
+npm install @angular/common@^14.0.0 @angular/core@^14.0.0
