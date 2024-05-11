@@ -109,7 +109,81 @@ at CustomWebpackBuilder.&amp;lt;anonymous&amp;gt; &lt;span style=&#34;color:#f92
 at Generator.next &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&amp;lt;anonymous&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
 at fulfilled &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;ode_modules&lt;span style=&#34;color:#ae81ff&#34;&gt;\@&lt;/span&gt;angular-builders&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ist&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack-builder.js:5:58&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;提示maven在编译打包ui-ngx时注意几个目录&lt;/li&gt;
+&lt;li&gt;maven 编译&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mvn clean package  -DskipTests -s settings.xml&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;pgsql数据库初始化&#34;&gt;pgsql数据库初始化&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;增加pg数据库用户root 密码为root&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;CREATE ROLE root WITH LOGIN PASSWORD &amp;lsquo;root&amp;rsquo;;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;增加角色给root&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;GRANT thingsboard TO root;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;设置远程访问 pg_hba.conf,不管是docker安装thingsboard这里也适用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;host    all             all             0.0.0.0/0               md5&lt;br&gt;
+postgresql.conf中的listen_addresses设置为&#39;*&#39;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;WINDOWS 10 解决node.exe占用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;tasklist /V |findstr node.exe&lt;br&gt;
+taskkill /F /PID 7132&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;maven编译ui-ngx几个缓存 &lt;code&gt;E:\maven_repository\.m2\&lt;/code&gt; 这个是我下载的组件&lt;/li&gt;
+&lt;li&gt;如果你之前在你的windows电脑上尝试过多个版本进打包编译，小心缓存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;E:\maven_repository.m2\repository\com\github\eirslett\node\&lt;br&gt;
+E:\maven_repository.m2\repository\com\github\eirslett\yarn\1.22.17\&lt;br&gt;
+E:\maven_repository.m2\repository\com\github\eirslett&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;关于thingsboard-docker启动及修改docker里的pgsql-配置的工具调式&#34;&gt;关于thingsboard docker启动，及修改docker里的pgsql 配置的工具调式&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;apt-get update # 更新
+docker exec -it -u root [container_name_or_id] /bin/bash  # 进入容器
+apt-get install -y net-tools  # 安装netstart
+apt-get install -y vim # 安装vim 修改配置
+最简单的docker compose 配置 快速启动&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;version: &amp;#39;3.0&amp;#39;
+services:
+  mytb:
+    restart: always
+    image: &amp;#34;thingsboard/tb-postgres:3.6.3&amp;#34;
+    ports:
+      - &amp;#34;8080:9090&amp;#34;
+      - &amp;#34;1883:1883&amp;#34;
+      - &amp;#34;7070:7070&amp;#34;
+      - &amp;#34;15432:5432&amp;#34;
+      - &amp;#34;5683-5688:5683-5688/udp&amp;#34;
+    environment:
+      TB_QUEUE_TYPE: in-memory
+    volumes:
+      - /data/program/thingsboard/tb-data-363:/data
+      - /data/program/thingsboard/logs:/var/log/thingsboard
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;说在最后&#34;&gt;说在最后&lt;/h1&gt;
+&lt;p&gt;在maven 编译时，一定要使用windows 管理员权限执行&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;mvn clean package  -DskipTests -s settings.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，才需要挂梯子
+./node_modules/@angular/material/fesm2020/badge.mjs:7:0-77 - Error: Module not found: Error: Can&amp;rsquo;t resolve &amp;lsquo;@angular/platform-browser/animations&amp;rsquo; in &amp;lsquo;E:\workProject\java5\thingsboard\ui-ngx\node_modules@angular\material\fesm2020&amp;rsquo;&lt;br&gt;
+主要是因为网络问题在下载以下两个包需要很长时间&lt;br&gt;
+npm install @angular/common@^14.0.0 @angular/core@^14.0.0&lt;/p&gt;
+</content>
     </item>
     
     <item>

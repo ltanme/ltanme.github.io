@@ -265,7 +265,81 @@ at CustomWebpackBuilder.&lt;anonymous&gt; <span style="color:#f92672">(</span>E:
 at Generator.next <span style="color:#f92672">(</span>&lt;anonymous&gt;<span style="color:#f92672">)</span>
 at fulfilled <span style="color:#f92672">(</span>E:<span style="color:#ae81ff">\w</span>orkProject<span style="color:#ae81ff">\j</span>ava5<span style="color:#ae81ff">\t</span>hingsboard<span style="color:#ae81ff">\u</span>i-ngx<span style="color:#ae81ff">\n</span>ode_modules<span style="color:#ae81ff">\@</span>angular-builders<span style="color:#ae81ff">\c</span>ustom-webpack<span style="color:#ae81ff">\d</span>ist<span style="color:#ae81ff">\c</span>ustom-webpack-builder.js:5:58<span style="color:#f92672">)</span>
 
-</code></pre></div>
+</code></pre></div><ul>
+<li>提示maven在编译打包ui-ngx时注意几个目录</li>
+<li>maven 编译</li>
+</ul>
+<blockquote>
+<p>mvn clean package  -DskipTests -s settings.xml</p>
+</blockquote>
+<h1 id="pgsql数据库初始化">pgsql数据库初始化<a href="#pgsql数据库初始化" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<ul>
+<li>增加pg数据库用户root 密码为root</li>
+</ul>
+<blockquote>
+<p>CREATE ROLE root WITH LOGIN PASSWORD &lsquo;root&rsquo;;</p>
+</blockquote>
+<ul>
+<li>增加角色给root</li>
+</ul>
+<blockquote>
+<p>GRANT thingsboard TO root;</p>
+</blockquote>
+<ul>
+<li>设置远程访问 pg_hba.conf,不管是docker安装thingsboard这里也适用</li>
+</ul>
+<blockquote>
+<p>host    all             all             0.0.0.0/0               md5<br>
+postgresql.conf中的listen_addresses设置为'*'</p>
+</blockquote>
+<ul>
+<li>WINDOWS 10 解决node.exe占用</li>
+</ul>
+<blockquote>
+<p>tasklist /V |findstr node.exe<br>
+taskkill /F /PID 7132</p>
+</blockquote>
+<ul>
+<li>maven编译ui-ngx几个缓存 <code>E:\maven_repository\.m2\</code> 这个是我下载的组件</li>
+<li>如果你之前在你的windows电脑上尝试过多个版本进打包编译，小心缓存</li>
+</ul>
+<blockquote>
+<p>E:\maven_repository.m2\repository\com\github\eirslett\node\<br>
+E:\maven_repository.m2\repository\com\github\eirslett\yarn\1.22.17\<br>
+E:\maven_repository.m2\repository\com\github\eirslett</p>
+</blockquote>
+<h1 id="关于thingsboard-docker启动及修改docker里的pgsql-配置的工具调式">关于thingsboard docker启动，及修改docker里的pgsql 配置的工具调式<a href="#关于thingsboard-docker启动及修改docker里的pgsql-配置的工具调式" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>apt-get update # 更新
+docker exec -it -u root [container_name_or_id] /bin/bash  # 进入容器
+apt-get install -y net-tools  # 安装netstart
+apt-get install -y vim # 安装vim 修改配置
+最简单的docker compose 配置 快速启动</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">version: &#39;3.0&#39;
+services:
+  mytb:
+    restart: always
+    image: &#34;thingsboard/tb-postgres:3.6.3&#34;
+    ports:
+      - &#34;8080:9090&#34;
+      - &#34;1883:1883&#34;
+      - &#34;7070:7070&#34;
+      - &#34;15432:5432&#34;
+      - &#34;5683-5688:5683-5688/udp&#34;
+    environment:
+      TB_QUEUE_TYPE: in-memory
+    volumes:
+      - /data/program/thingsboard/tb-data-363:/data
+      - /data/program/thingsboard/logs:/var/log/thingsboard
+</code></pre></div><h1 id="说在最后">说在最后<a href="#说在最后" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>在maven 编译时，一定要使用windows 管理员权限执行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mvn clean package  -DskipTests -s settings.xml
+</code></pre></div><p>如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，才需要挂梯子
+./node_modules/@angular/material/fesm2020/badge.mjs:7:0-77 - Error: Module not found: Error: Can&rsquo;t resolve &lsquo;@angular/platform-browser/animations&rsquo; in &lsquo;E:\workProject\java5\thingsboard\ui-ngx\node_modules@angular\material\fesm2020&rsquo;<br>
+主要是因为网络问题在下载以下两个包需要很长时间<br>
+npm install @angular/common@^14.0.0 @angular/core@^14.0.0</p>
+
       </div></div>
 
   
