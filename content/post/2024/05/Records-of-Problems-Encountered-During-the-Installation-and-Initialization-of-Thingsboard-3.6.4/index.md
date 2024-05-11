@@ -7,7 +7,7 @@ tags: ["thingsboard", "IoT","lombok","JDK17"]
 ---
 #　Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4
 > 记录`thingsboard3.6.4`在导入 `IntelliJ IDEA 2022.2.3` 编译报错的一些问题  
-> 记录 如何从`thingsboard3.6.4`弃坑到`thingsboard3.6.3`
+> 记录 如何从`thingsboard3.6.4`弃坑到`thingsboard3.6.3`最后又回到了`thingsboard3.6.4`  
 
 > 导入步骤简单说一下，先从github下载thingsboard3.6.4 源码 
 > 导入代码前提准备是环境，我的环境如下
@@ -92,7 +92,8 @@ BUILD FAILED in 18m 29s
 
 > *问题3 angular js的问题*
 > 解决方法：换3.6.3版本   
-> 试了梯子没有问题，全局下载tun模式。依然无效   
+> 试了梯子没有问题，全局下载tun模式。依然无效
+> 最后解决了主要是问题，yarn cache问题，清理干净重新下载即可
 ![img_2.png](img_2.png)
 报错如下   
 ```shell
@@ -133,7 +134,10 @@ listen_addresses='*'
 > C:\Users\admin\AppData\Local\Yarn  #这个缓存目录很坑，动不动几个G的文件
 
 在ui-ngx目录下执行
-> target\node\yarn\dist\bin\yarn.cmd cache clean
+> target\node\yarn\dist\bin\yarn.cmd cache clean    
+也可以手动执行安装，还可以看到进度条，通过maven的插件运行不太友好    
+> target\node\yarn\dist\bin\yarn.cmd  install   
+![img_4.png](img_4.png)
 > yarn 清理缓存如下
 清除yarn cache成功
 ```shell
@@ -174,7 +178,7 @@ services:
 在maven 编译时，一定要使用windows 管理员权限执行
 ```shell
 mvn clean package  -DskipTests -s settings.xml
-mvn clean package  -s settings.xml
+mvn clean install -U  -s settings.xml
 ```
 如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，需要挂梯子
 ./node_modules/@angular/material/fesm2020/badge.mjs:7:0-77 - Error: Module not found: Error: Can't resolve '@angular/platform-browser/animations' in 'E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular\material\fesm2020'   
@@ -187,5 +191,83 @@ mvn clean package  -s settings.xml
 这些包更不要单独安装  
 npm install @angular/common@^14.0.0 @angular/core@^14.0.0
 也不排除一些情况在网络载中，某个js包下载不全导致编译报错，这种情况也会发生的。   
-随时查看网络情况   
+随时查看网络情况以及电脑使用内存情况，由其是内存的问题，如果同时多个yarn install 然后又开了 IntelliJ IDEA 2022.2.3  
+多个任务，会导致内存接近极限，我电脑32G，被干到了31G，这样的话非常慢，重启电脑大法再来吧   
+ 
 ![img_3.png](img_3.png)
+![img_5.png](img_5.png)
+
+最后展示编译thingsboard ui-ngx 3.6.3和3.6.4都编译通过了
+> 以下是3.6.4 ui-ngx 编译成功
+```shell
+C:\Users\admin\Downloads\thingsboard-3.6.3\ui-ngx>target\node\yarn\dist\bin\yarn.cmd install
+yarn install v1.22.17
+[1/4] Resolving packages...
+warning Resolution field "cacache@17.0.4" is incompatible with requested version "cacache@^16.1.0"
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+warning " > @flowjs/ngx-flow@0.6.0" has incorrect peer dependency "@angular/common@^14.0.0-".
+warning " > @flowjs/ngx-flow@0.6.0" has incorrect peer dependency "@angular/core@^14.0.0-".
+[4/4] Building fresh packages...
+$ patch-package
+patch-package 6.5.1
+Applying patches...
+@angular/core@15.2.10 ✔
+@mat-datetimepicker/core@11.0.3 ✔
+canvas-gauges@2.1.7 ✔
+echarts@5.5.0 ✔
+Done in 19.36s.
+
+C:\Users\admin\Downloads\thingsboard-3.6.3\ui-ngx>npm run start
+
+> thingsboard@3.6.3 start
+> node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --configuration development --host 0.0.0.0 --open
+
+Warning: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disable-host-check" if that's the
+case.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files                                                                                     | Names                                            |  Raw Size
+```
+
+> 以下是3.6.4 ui-ngx 编译成功
+```shell
+C:\Users\admin\Downloads\thingsboard-3.6.4_a.tar\364\thingsboard-3.6.4\ui-ngx>target\node\yarn\dist\bin\yarn.cmd install
+yarn install v1.22.17
+[1/4] Resolving packages...
+warning Resolution field "cacache@17.0.4" is incompatible with requested version "cacache@^16.1.0"
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+warning " > @flowjs/ngx-flow@0.6.0" has incorrect peer dependency "@angular/common@^14.0.0-".
+warning " > @flowjs/ngx-flow@0.6.0" has incorrect peer dependency "@angular/core@^14.0.0-".
+[4/4] Building fresh packages...
+$ patch-package
+patch-package 6.5.1
+Applying patches...
+@angular/core@15.2.10 ✔
+@mat-datetimepicker/core@11.0.3 ✔
+canvas-gauges@2.1.7 ✔
+echarts@5.5.0 ✔
+Done in 18.75s.
+
+C:\Users\admin\Downloads\thingsboard-3.6.4_a.tar\364\thingsboard-3.6.4\ui-ngx>
+C:\Users\admin\Downloads\thingsboard-3.6.4_a.tar\364\thingsboard-3.6.4\ui-ngx>
+C:\Users\admin\Downloads\thingsboard-3.6.4_a.tar\364\thingsboard-3.6.4\ui-ngx>npm run start
+
+> thingsboard@3.6.4 start
+> node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --configuration development --host 0.0.0.0 --open
+
+Warning: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disable-host-check" if that's the
+case.
+
+```
