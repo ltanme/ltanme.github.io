@@ -113,18 +113,24 @@ at fulfilled (E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular-buil
 > GRANT thingsboard TO root;   
 
 * 设置远程访问 pg_hba.conf,不管是docker安装thingsboard这里也适用
-> host    all             all             0.0.0.0/0               md5   
-> postgresql.conf中的listen_addresses设置为'*'  
-
-* WINDOWS 10 解决node.exe占用  
-> tasklist /V |findstr node.exe  
-> taskkill /F /PID 7132  
+* 在pg_hba.conf增加一行在文件末行
+```shell
+host    all             all             0.0.0.0/0               md5  
+```
+在postgresql.conf中修改以下
+```shell
+listen_addresses='*'  
+```
+* WINDOWS 10 解决node.exe占用     
+> tasklist /V |findstr node.exe  找到进程ID   
+> taskkill /F /PID 7132  删除该进程ID  
 
 * maven编译ui-ngx几个缓存 `E:\maven_repository\.m2\` 这个是我下载的组件 
 * 如果你之前在你的windows电脑上尝试过多个版本进打包编译，小心缓存
 > E:\maven_repository\.m2\repository\com\github\eirslett\node\   
 > E:\maven_repository\.m2\repository\com\github\eirslett\yarn\1.22.17\   
 > E:\maven_repository\.m2\repository\com\github\eirslett  
+> C:\Users\admin\AppData\Local\Yarn  #这个缓存目录很坑，动不动10几个G
 
 在ui-ngx目录下执行
 > target\node\yarn\dist\bin\yarn.cmd cache clean
@@ -135,9 +141,9 @@ yarn cache v1.22.17
 success Cleared cache.
 Done in 57.70s.
 ```
-> 删除target 目录用 del /P target
-> 删除js del /P node_modules   
-> 总之清理缓存需要清理yarn的缓存，yarn,node程序自身的程序，maven下载所产生的包
+> 删除target 目录用 `del /P target`  
+> 删除js `del /P node_modules`    
+> 总之清理缓存需要清理yarn的缓存，yarn,node程序自身的程序，maven下载所产生的包  
 
 # 关于thingsboard docker启动，及修改docker里的pgsql 配置的工具调式
 > apt-get update # 更新   
@@ -168,8 +174,16 @@ services:
 在maven 编译时，一定要使用windows 管理员权限执行
 ```shell
 mvn clean package  -DskipTests -s settings.xml
+mvn clean package  -s settings.xml
 ```
 如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，才需要挂梯子
 ./node_modules/@angular/material/fesm2020/badge.mjs:7:0-77 - Error: Module not found: Error: Can't resolve '@angular/platform-browser/animations' in 'E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular\material\fesm2020'   
-主要是因为网络问题在下载以下两个包需要很长时间  
+主要是因为网络问题在下载以下两个包需要很长时间 
+> 出现以下两行特别坑，非常慢，从windowsm网络监控看，明显示下载速度降低了，可以挂梯子试试更换节点地区试试
+```shell
+[INFO] warning " > @flowjs/ngx-flow@0.6.0" has incorrect peer dependency "@angular/common@^14.0.0-".
+[INFO] warning " > @flowjs/ngx-flow@0.6.0" has incorrect peer dependency "@angular/core@^14.0.0-".
+```
+这些包更不要单独安装  
 npm install @angular/common@^14.0.0 @angular/core@^14.0.0
+也不排除一些情况在网络载中，某个js包下载不全导致编译报错，这种情况也会发生的。
