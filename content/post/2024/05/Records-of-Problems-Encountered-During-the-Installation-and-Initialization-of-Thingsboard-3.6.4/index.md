@@ -186,4 +186,6 @@ mvn clean package  -s settings.xml
 ```
 这些包更不要单独安装  
 npm install @angular/common@^14.0.0 @angular/core@^14.0.0
-也不排除一些情况在网络载中，某个js包下载不全导致编译报错，这种情况也会发生的。
+也不排除一些情况在网络载中，某个js包下载不全导致编译报错，这种情况也会发生的。   
+随时查看网络情况   
+![img_3.png](img_3.png)
