@@ -108,6 +108,8 @@ at fulfilled (E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular-buil
 * maven 编译  
 > mvn clean package  -DskipTests -s settings.xml  
 # pgsql数据库初始化
+* 登录到pgsql
+>psql -h localhost -p 5432 -U thingsboard -d thingsboard
 * 增加pg数据库用户root 密码为root  
 > CREATE ROLE root WITH LOGIN PASSWORD 'root';  
 * 增加角色给root  
