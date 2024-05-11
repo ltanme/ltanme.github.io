@@ -126,6 +126,19 @@ at fulfilled (E:\workProject\java5\thingsboard\ui-ngx\node_modules\@angular-buil
 > E:\maven_repository\.m2\repository\com\github\eirslett\yarn\1.22.17\   
 > E:\maven_repository\.m2\repository\com\github\eirslett  
 
+在ui-ngx目录下执行
+> target\node\yarn\dist\bin\yarn.cmd cache clean
+> yarn 清理缓存如下
+清除yarn cache成功
+```shell
+yarn cache v1.22.17
+success Cleared cache.
+Done in 57.70s.
+```
+> 删除target 目录用 del /P target
+> 删除js del /P node_modules   
+> 总之清理缓存需要清理yarn的缓存，yarn,node程序自身的程序，maven下载所产生的包
+
 # 关于thingsboard docker启动，及修改docker里的pgsql 配置的工具调式
 > apt-get update # 更新   
 > docker exec -it -u root [container_name_or_id] /bin/bash  # 进入容器   
