@@ -165,7 +165,7 @@ C:\Users\admin\AppData\Local\Yarn  #这个缓存目录很坑，动不动几个G�
 &lt;blockquote&gt;
 &lt;p&gt;target\node\yarn\dist\bin\yarn.cmd cache clean &lt;br&gt;
 也可以手动执行安装，还可以看到进度条，通过maven的插件运行不太友好 &lt;br&gt;
-target\node\yarn\dist\bin\yarn.cmd  install&lt;br&gt;
+&lt;code&gt;target\node\yarn\dist\bin\yarn.cmd install&lt;/code&gt;如果这一条命令手动执行成功后，可以用mvn package 对ui-ngx打成jar包了 &lt;br&gt;
 &lt;img src=&#34;img_4.png&#34; alt=&#34;img_4.png&#34;&gt;
 yarn 清理缓存如下
 清除yarn cache成功&lt;/p&gt;
