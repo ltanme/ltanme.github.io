@@ -139,7 +139,7 @@ listen_addresses='*'
 在ui-ngx目录下执行
 > target\node\yarn\dist\bin\yarn.cmd cache clean    
 也可以手动执行安装，还可以看到进度条，通过maven的插件运行不太友好    
-> target\node\yarn\dist\bin\yarn.cmd  install   
+> `target\node\yarn\dist\bin\yarn.cmd install`如果这一条命令手动执行成功后，可以用mvn package 对ui-ngx打成jar包了    
 ![img_4.png](img_4.png)
 > yarn 清理缓存如下
 清除yarn cache成功
