@@ -2,22 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ltan.me/tags/docker/</loc>
-    <lastmod>2024-06-06T20:55:44+08:00</lastmod>
-  </url><url>
     <loc>https://ltan.me/</loc>
+    <lastmod>2024-06-06T21:18:29+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/mac-os-x/</loc>
+    <lastmod>2024-06-06T21:18:29+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2024-06-06T21:18:29+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2024-06-06T21:18:29+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2024/06/upgrading-a-2013-macbook-air-to-a-specific-macos-version-for-microsof-rdp-client-installation/</loc>
+    <lastmod>2024-06-06T21:18:29+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/docker/</loc>
     <lastmod>2024-06-06T20:55:44+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/nginx/</loc>
     <lastmod>2024-06-06T20:55:44+08:00</lastmod>
   </url><url>
-    <loc>https://ltan.me/post/</loc>
-    <lastmod>2024-06-06T20:55:44+08:00</lastmod>
-  </url><url>
     <loc>https://ltan.me/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/</loc>
-    <lastmod>2024-06-06T20:55:44+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2024-06-06T20:55:44+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/verdaccio/</loc>
