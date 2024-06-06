@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ltan.me/tags/docker/</loc>
+    <lastmod>2024-06-06T20:55:44+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/</loc>
+    <lastmod>2024-06-06T20:55:44+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/nginx/</loc>
+    <lastmod>2024-06-06T20:55:44+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2024-06-06T20:55:44+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/</loc>
+    <lastmod>2024-06-06T20:55:44+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2024-06-06T20:55:44+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/verdaccio/</loc>
+    <lastmod>2024-06-06T20:55:44+08:00</lastmod>
+  </url><url>
     <loc>https://ltan.me/tags/iot/</loc>
     <lastmod>2024-05-10T10:41:26+08:00</lastmod>
   </url><url>
@@ -11,16 +32,7 @@
     <loc>https://ltan.me/tags/lombok/</loc>
     <lastmod>2024-05-10T10:41:26+08:00</lastmod>
   </url><url>
-    <loc>https://ltan.me/</loc>
-    <lastmod>2024-05-10T10:41:26+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/post/</loc>
-    <lastmod>2024-05-10T10:41:26+08:00</lastmod>
-  </url><url>
     <loc>https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/</loc>
-    <lastmod>2024-05-10T10:41:26+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2024-05-10T10:41:26+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/thingsboard/</loc>
@@ -34,9 +46,6 @@
   </url><url>
     <loc>https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/</loc>
     <lastmod>2024-05-08T21:36:49+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/docker/</loc>
-    <lastmod>2024-04-15T21:21:29+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/headscale/</loc>
     <lastmod>2024-04-15T21:21:29+08:00</lastmod>
