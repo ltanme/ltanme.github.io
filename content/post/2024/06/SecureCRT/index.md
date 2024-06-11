@@ -9,7 +9,7 @@ tags: ["SecureCRT"]
 ![img.png](img.png)
 在windows 10 环境下通过cmd登录ssh，能成功，但是通过SecureCRT报一些错误解决的方法
 ```shell
-ssh twl-admin@192.168.154.136 
+ssh admin@192.168.154.136 
 ```
 能通过 Windows CMD 使用 SSH 成功登录到你的 Ubuntu 虚拟机，这说明你的 SSH 服务器配置是正确的。SecureCRT 报错很可能是因为它使用的密钥交换算法或加密算法与 SSH 服务器不兼容。
 
