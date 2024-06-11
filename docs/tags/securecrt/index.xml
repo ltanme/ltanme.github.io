@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SecureCRT on LTAN.ME</title>
+    <link>https://ltan.me/tags/securecrt/</link>
+    <description>Recent content in SecureCRT on LTAN.ME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 11 Jun 2024 16:28:38 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/securecrt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SecureCRT</title>
+      <link>https://ltan.me/post/2024/06/securecrt/</link>
+      <pubDate>Tue, 11 Jun 2024 16:28:38 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/06/securecrt/</guid>
+      <description>解决 SecureCRT 报错的问题 在windows 10 环境下通过cmd登录ssh，能成功，但是通过SecureCRT报一些错误解决的方法 ssh twl-admin@192.168.154.136 能通过 Windows CMD 使用 SSH 成功登录到你的 Ubuntu 虚拟机，这说明你的 SSH 服务器配置是正确的。Secu</description>
+      <content>&lt;h2 id=&#34;解决-securecrt-报错的问题&#34;&gt;解决 SecureCRT 报错的问题&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;img.png&#34; alt=&#34;img.png&#34;&gt;
+在windows 10 环境下通过cmd登录ssh，能成功，但是通过SecureCRT报一些错误解决的方法&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;ssh twl-admin@192.168.154.136 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;能通过 Windows CMD 使用 SSH 成功登录到你的 Ubuntu 虚拟机，这说明你的 SSH 服务器配置是正确的。SecureCRT 报错很可能是因为它使用的密钥交换算法或加密算法与 SSH 服务器不兼容。&lt;/p&gt;
+&lt;h3 id=&#34;解决-securecrt-报错的问题-1&#34;&gt;解决 SecureCRT 报错的问题&lt;/h3&gt;
+&lt;p&gt;以下是调整 SecureCRT 设置以解决密钥交换失败问题的详细步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;打开 SecureCRT 会话设置&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;打开 SecureCRT。&lt;/li&gt;
+&lt;li&gt;右键点击你的会话并选择 &lt;code&gt;属性&lt;/code&gt;（或 &lt;code&gt;Edit Session&lt;/code&gt;）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;调整密钥交换算法&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在左侧导航栏中，选择 &lt;code&gt;连接&lt;/code&gt; &amp;gt; &lt;code&gt;SSH2&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;在 &lt;code&gt;首选密钥交换&lt;/code&gt; 列表中，添加或启用兼容的算法。例如，添加 &lt;code&gt;diffie-hellman-group14-sha1&lt;/code&gt; 或 &lt;code&gt;diffie-hellman-group1-sha1&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;确保这些算法被选中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;调整加密算法&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在同一个 &lt;code&gt;SSH2&lt;/code&gt; 选项卡中，找到 &lt;code&gt;首选加密&lt;/code&gt; 列表。&lt;/li&gt;
+&lt;li&gt;添加或启用兼容的加密算法。例如，添加 &lt;code&gt;aes256-cbc&lt;/code&gt;、&lt;code&gt;aes128-cbc&lt;/code&gt; 等常见的加密算法。&lt;/li&gt;
+&lt;li&gt;确保这些算法被选中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;保存设置&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;保存会话设置，并尝试重新连接。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;检查-ssh-配置文件中的支持算法&#34;&gt;检查 SSH 配置文件中的支持算法&lt;/h3&gt;
+&lt;p&gt;确认你的 SSH 服务器配置文件 &lt;code&gt;/etc/ssh/sshd_config&lt;/code&gt; 中包含以下内容：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;编辑 SSH 配置文件&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;打开终端并编辑文件：
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo nano /etc/ssh/sshd_config
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;确保包含以下行&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;KexAlgorithms diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+Ciphers aes256-cbc,aes128-cbc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;保存文件并重启 SSH 服务&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;保存文件并退出编辑器，然后重启 SSH 服务：
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo systemctl restart ssh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;重试-securecrt-连接&#34;&gt;重试 SecureCRT 连接&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;打开 SecureCRT&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;重新尝试连接。&lt;/li&gt;
+&lt;li&gt;如果仍然遇到问题，可以尝试禁用一些较新的密钥交换和加密算法，只保留兼容的算法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;securecrt-的详细设置步骤&#34;&gt;SecureCRT 的详细设置步骤&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;打开 SecureCRT 并选择会话&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;右键点击会话并选择 &lt;code&gt;属性&lt;/code&gt;&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;导航到 &lt;code&gt;连接&lt;/code&gt; &amp;gt; &lt;code&gt;SSH2&lt;/code&gt; 选项卡&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在 &lt;code&gt;首选密钥交换&lt;/code&gt; 列表中，确保 &lt;code&gt;diffie-hellman-group14-sha1&lt;/code&gt; 和 &lt;code&gt;diffie-hellman-group1-sha1&lt;/code&gt; 被选中&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在 &lt;code&gt;首选加密&lt;/code&gt; 列表中，确保 &lt;code&gt;aes256-cbc&lt;/code&gt; 和 &lt;code&gt;aes128-cbc&lt;/code&gt; 被选中&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;保存设置并重试连接&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

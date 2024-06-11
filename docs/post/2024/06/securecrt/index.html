@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>SecureCRT :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="解决 SecureCRT 报错的问题 在windows 10 环境下通过cmd登录ssh，能成功，但是通过SecureCRT报一些错误解决的方法 ssh twl-admin@192.168.154.136 能通过 Windows CMD 使用 SSH 成功登录到你的 Ubuntu 虚拟机，这说明你的 SSH 服务器配置是正确的。Secu" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2024/06/securecrt/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="SecureCRT">
+<meta property="og:description" content="解决 SecureCRT 报错的问题 在windows 10 环境下通过cmd登录ssh，能成功，但是通过SecureCRT报一些错误解决的方法 ssh twl-admin@192.168.154.136 能通过 Windows CMD 使用 SSH 成功登录到你的 Ubuntu 虚拟机，这说明你的 SSH 服务器配置是正确的。Secu" />
+<meta property="og:url" content="https://ltan.me/post/2024/06/securecrt/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-06-11 16:28:38 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2024/06/securecrt/">SecureCRT</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-06-11 [Mod: 2024-06-11]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/securecrt/">SecureCRT</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="解决-securecrt-报错的问题">解决 SecureCRT 报错的问题<a href="#解决-securecrt-报错的问题" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><img src="img.png" alt="img.png">
+在windows 10 环境下通过cmd登录ssh，能成功，但是通过SecureCRT报一些错误解决的方法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ssh twl-admin@192.168.154.136 
+</code></pre></div><p>能通过 Windows CMD 使用 SSH 成功登录到你的 Ubuntu 虚拟机，这说明你的 SSH 服务器配置是正确的。SecureCRT 报错很可能是因为它使用的密钥交换算法或加密算法与 SSH 服务器不兼容。</p>
+<h3 id="解决-securecrt-报错的问题-1">解决 SecureCRT 报错的问题<a href="#解决-securecrt-报错的问题-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>以下是调整 SecureCRT 设置以解决密钥交换失败问题的详细步骤：</p>
+<ol>
+<li>
+<p><strong>打开 SecureCRT 会话设置</strong>：</p>
+<ul>
+<li>打开 SecureCRT。</li>
+<li>右键点击你的会话并选择 <code>属性</code>（或 <code>Edit Session</code>）。</li>
+</ul>
+</li>
+<li>
+<p><strong>调整密钥交换算法</strong>：</p>
+<ul>
+<li>在左侧导航栏中，选择 <code>连接</code> &gt; <code>SSH2</code>。</li>
+<li>在 <code>首选密钥交换</code> 列表中，添加或启用兼容的算法。例如，添加 <code>diffie-hellman-group14-sha1</code> 或 <code>diffie-hellman-group1-sha1</code>。</li>
+<li>确保这些算法被选中。</li>
+</ul>
+</li>
+<li>
+<p><strong>调整加密算法</strong>：</p>
+<ul>
+<li>在同一个 <code>SSH2</code> 选项卡中，找到 <code>首选加密</code> 列表。</li>
+<li>添加或启用兼容的加密算法。例如，添加 <code>aes256-cbc</code>、<code>aes128-cbc</code> 等常见的加密算法。</li>
+<li>确保这些算法被选中。</li>
+</ul>
+</li>
+<li>
+<p><strong>保存设置</strong>：</p>
+<ul>
+<li>保存会话设置，并尝试重新连接。</li>
+</ul>
+</li>
+</ol>
+<h3 id="检查-ssh-配置文件中的支持算法">检查 SSH 配置文件中的支持算法<a href="#检查-ssh-配置文件中的支持算法" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>确认你的 SSH 服务器配置文件 <code>/etc/ssh/sshd_config</code> 中包含以下内容：</p>
+<ol>
+<li>
+<p><strong>编辑 SSH 配置文件</strong>：</p>
+<ul>
+<li>打开终端并编辑文件：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /etc/ssh/sshd_config
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p><strong>确保包含以下行</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">KexAlgorithms diffie-hellman-group14-sha1,diffie-hellman-group1-sha1
+Ciphers aes256-cbc,aes128-cbc
+</code></pre></div></li>
+<li>
+<p><strong>保存文件并重启 SSH 服务</strong>：</p>
+<ul>
+<li>保存文件并退出编辑器，然后重启 SSH 服务：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo systemctl restart ssh
+</code></pre></div></li>
+</ul>
+</li>
+</ol>
+<h3 id="重试-securecrt-连接">重试 SecureCRT 连接<a href="#重试-securecrt-连接" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ol>
+<li><strong>打开 SecureCRT</strong>：
+<ul>
+<li>重新尝试连接。</li>
+<li>如果仍然遇到问题，可以尝试禁用一些较新的密钥交换和加密算法，只保留兼容的算法。</li>
+</ul>
+</li>
+</ol>
+<h3 id="securecrt-的详细设置步骤">SecureCRT 的详细设置步骤<a href="#securecrt-的详细设置步骤" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ol>
+<li><strong>打开 SecureCRT 并选择会话</strong>。</li>
+<li><strong>右键点击会话并选择 <code>属性</code></strong>。</li>
+<li><strong>导航到 <code>连接</code> &gt; <code>SSH2</code> 选项卡</strong>。</li>
+<li><strong>在 <code>首选密钥交换</code> 列表中，确保 <code>diffie-hellman-group14-sha1</code> 和 <code>diffie-hellman-group1-sha1</code> 被选中</strong>。</li>
+<li><strong>在 <code>首选加密</code> 列表中，确保 <code>aes256-cbc</code> 和 <code>aes128-cbc</code> 被选中</strong>。</li>
+<li><strong>保存设置并重试连接</strong>。</li>
+</ol>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2024 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>
