@@ -407,7 +407,12 @@ mvn clean install -DskipTests
       ```plaintext
       .host:/share /home/your-username/shared vmhgfs defaults 0 0
       ```
-
+    - 以下是我自己的环境所添加的示例
+      ```plaintext
+      .host:/workProject /mnt/hgfs/workProject fuse.vmhgfs-fuse defaults,allow_other 0 0
+      .host:/e /mnt/hgfs/e fuse.vmhgfs-fuse defaults,allow_other 0 0
+      .host:/d /mnt/hgfs/d fuse.vmhgfs-fuse defaults,allow_other 0 0
+       ```
 3. **保存并退出**：
     - 保存文件并退出编辑器。
 
