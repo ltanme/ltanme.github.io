@@ -521,6 +521,11 @@ sudo ./vmware-install.pl
 &lt;li&gt;在文件末尾添加以下条目：
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;.host:/share /home/your-username/shared vmhgfs defaults 0 0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;以下是我自己的环境所添加的示例
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;.host:/workProject /mnt/hgfs/workProject fuse.vmhgfs-fuse defaults,allow_other 0 0
+.host:/e /mnt/hgfs/e fuse.vmhgfs-fuse defaults,allow_other 0 0
+.host:/d /mnt/hgfs/d fuse.vmhgfs-fuse defaults,allow_other 0 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
