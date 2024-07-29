@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Summary of Configuring Multiple Data Sources With Spring Boot 2.7.10 &#43; JPA and Troubleshooting :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="配置 Spring Boot 2.7.10 &#43; JPA 支持多数据源 (使用 PostgreSQL 和 Nacos 配置) 总结Spring Boot 2.7.10 &#43; JPA 多数据源配置与问题解决 Summary of Configuring Multiple Data Sources with Spring Boot 2.7.10 &#43; JPA and Troubleshooting 我有一个项目需要访问多个数据库源，ccdb接口访问服务器ip为:10.10.5.1" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2024/07/summary-of-configuring-multiple-data-sources-with-spring-boot-2.7.10-&#43;-jpa-and-troubleshooting/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Summary of Configuring Multiple Data Sources With Spring Boot 2.7.10 &#43; JPA and Troubleshooting">
+<meta property="og:description" content="配置 Spring Boot 2.7.10 &#43; JPA 支持多数据源 (使用 PostgreSQL 和 Nacos 配置) 总结Spring Boot 2.7.10 &#43; JPA 多数据源配置与问题解决 Summary of Configuring Multiple Data Sources with Spring Boot 2.7.10 &#43; JPA and Troubleshooting 我有一个项目需要访问多个数据库源，ccdb接口访问服务器ip为:10.10.5.1" />
+<meta property="og:url" content="https://ltan.me/post/2024/07/summary-of-configuring-multiple-data-sources-with-spring-boot-2.7.10-&#43;-jpa-and-troubleshooting/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-07-29 20:09:35 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2024/07/summary-of-configuring-multiple-data-sources-with-spring-boot-2.7.10-&#43;-jpa-and-troubleshooting/">Summary of Configuring Multiple Data Sources With Spring Boot 2.7.10 + JPA and Troubleshooting</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-07-29 [Mod: 2024-07-29]
+      </span>
+    
+    
+  </div>
+
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h3 id="配置-spring-boot-2710--jpa-支持多数据源-使用-postgresql-和-nacos-配置">配置 Spring Boot 2.7.10 + JPA 支持多数据源 (使用 PostgreSQL 和 Nacos 配置)<a href="#配置-spring-boot-2710--jpa-支持多数据源-使用-postgresql-和-nacos-配置" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h4 id="总结spring-boot-2710--jpa-多数据源配置与问题解决">总结Spring Boot 2.7.10 + JPA 多数据源配置与问题解决<a href="#总结spring-boot-2710--jpa-多数据源配置与问题解决" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<h3 id="summary-of-configuring-multiple-data-sources-with-spring-boot-2710--jpa-and-troubleshooting">Summary of Configuring Multiple Data Sources with Spring Boot 2.7.10 + JPA and Troubleshooting<a href="#summary-of-configuring-multiple-data-sources-with-spring-boot-2710--jpa-and-troubleshooting" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>我有一个项目需要访问多个数据库源，ccdb接口访问服务器ip为:<code>10.10.5.10</code>的ccdb数据库，而tbdb接口需要访问服务器ip为:<code>10.10.5.9</code>的tbdb数据库
+ccdb接口和tbdb接口都属于同一个<code>jar</code>包代码，所以需要多数据库解决方案，
+但在解决<code>Spring Boot 2.7.10</code>项目中配置多数据源和JPA访问数据库的过程中，遇到了一系列问题。以下是详细问题描述及解决方案：</p>
+<h4 id="遇到的问题及解决方案">遇到的问题及解决方案<a href="#遇到的问题及解决方案" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<ol>
+<li>
+<p><strong><code>Not a managed type</code> 错误</strong></p>
+<ul>
+<li><strong>问题描述</strong>: 在启动应用程序时，遇到了<code>java.lang.IllegalArgumentException: Not a managed type</code>错误。</li>
+<li><strong>原因</strong>: 这是因为JPA实体类没有被正确扫描到，导致Hibernate无法识别这些类。</li>
+<li><strong>解决方案</strong>: 确保在<code>ccdbConfig</code>和<code>tbdbConfig</code>中正确配置了各自的数据源和<code>basePackages</code>，并且主类中不要再重复配置<code>basePackages</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>No qualifying bean of type</code> 错误</strong></p>
+<ul>
+<li><strong>问题描述</strong>: 应用启动时，报告找不到指定类型的bean。</li>
+<li><strong>原因</strong>: 多数据源配置时，未能正确配置各自的数据源和JPA相关的bean。</li>
+<li><strong>解决方案</strong>: 确保每个数据源配置类（如<code>ccdbConfig</code>和<code>tbdbConfig</code>）正确配置了<code>EntityManagerFactory</code>、<code>DataSource</code>和<code>TransactionManager</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>@EnableJpaRepositories</code> 的配置问题</strong></p>
+<ul>
+<li><strong>问题描述</strong>: 多数据源配置时，<code>@EnableJpaRepositories</code>没有正确配置。</li>
+<li><strong>原因</strong>: 主入口类配置了全局的<code>basePackages</code>，与各个数据源配置类的<code>basePackages</code>冲突。</li>
+<li><strong>解决方案</strong>: 在主入口类中移除<code>basePackages</code>配置，只在各自的数据源配置类中配置。</li>
+</ul>
+</li>
+</ol>
+<h4 id="详细配置步骤">详细配置步骤<a href="#详细配置步骤" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<ol>
+<li>
+<p><strong>主入口类配置</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@SpringBootApplication</span><span style="color:#f92672">(</span>scanBasePackages <span style="color:#f92672">=</span> <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;com.example&#34;</span><span style="color:#f92672">})</span>
+<span style="color:#a6e22e">@Slf4j</span>
+<span style="color:#a6e22e">@RestController</span>
+<span style="color:#a6e22e">@ComponentScan</span><span style="color:#f92672">({</span><span style="color:#e6db74">&#34;com.example.*&#34;</span><span style="color:#f92672">})</span>
+<span style="color:#a6e22e">@EnableJpaAuditing</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Application</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        SpringApplication<span style="color:#f92672">.</span><span style="color:#a6e22e">run</span><span style="color:#f92672">(</span>Application<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> args<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></li>
+<li>
+<p><strong>ccdbConfig 配置</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Configuration</span>
+<span style="color:#a6e22e">@EnableJpaRepositories</span><span style="color:#f92672">(</span>
+    basePackages <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;com.example.ccdb.dao&#34;</span><span style="color:#f92672">,</span>
+    entityManagerFactoryRef <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ccdbEntityManagerFactory&#34;</span><span style="color:#f92672">,</span>
+    transactionManagerRef <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ccdbTransactionManager&#34;</span>
+<span style="color:#f92672">)</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CcdbConfig</span> <span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Primary</span>
+    <span style="color:#a6e22e">@Bean</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ccdbDataSource&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#a6e22e">@ConfigurationProperties</span><span style="color:#f92672">(</span>prefix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;spring.datasource.ccdb&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">public</span> DataSource <span style="color:#a6e22e">dataSource</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> DataSourceBuilder<span style="color:#f92672">.</span><span style="color:#a6e22e">create</span><span style="color:#f92672">().</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Primary</span>
+    <span style="color:#a6e22e">@Bean</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ccdbEntityManagerFactory&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">public</span> LocalContainerEntityManagerFactoryBean <span style="color:#a6e22e">entityManagerFactory</span><span style="color:#f92672">(</span>
+            EntityManagerFactoryBuilder builder<span style="color:#f92672">,</span> <span style="color:#a6e22e">@Qualifier</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ccdbDataSource&#34;</span><span style="color:#f92672">)</span> DataSource dataSource<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> builder<span style="color:#f92672">.</span><span style="color:#a6e22e">dataSource</span><span style="color:#f92672">(</span>dataSource<span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">packages</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;com.example.ccdb.model&#34;</span><span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">persistenceUnit</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ccdb&#34;</span><span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Primary</span>
+    <span style="color:#a6e22e">@Bean</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ccdbTransactionManager&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">public</span> PlatformTransactionManager <span style="color:#a6e22e">transactionManager</span><span style="color:#f92672">(</span>
+            <span style="color:#a6e22e">@Qualifier</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ccdbEntityManagerFactory&#34;</span><span style="color:#f92672">)</span> EntityManagerFactory entityManagerFactory<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> JpaTransactionManager<span style="color:#f92672">(</span>entityManagerFactory<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></li>
+<li>
+<p><strong>tbdbConfig 配置</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Configuration</span>
+<span style="color:#a6e22e">@EnableJpaRepositories</span><span style="color:#f92672">(</span>
+    basePackages <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;com.example.tbdb.dao&#34;</span><span style="color:#f92672">,</span>
+    entityManagerFactoryRef <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tbdbEntityManagerFactory&#34;</span><span style="color:#f92672">,</span>
+    transactionManagerRef <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tbdbTransactionManager&#34;</span>
+<span style="color:#f92672">)</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TbdbConfig</span> <span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Bean</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tbdbDataSource&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#a6e22e">@ConfigurationProperties</span><span style="color:#f92672">(</span>prefix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;spring.datasource.tbdb&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">public</span> DataSource <span style="color:#a6e22e">dataSource</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> DataSourceBuilder<span style="color:#f92672">.</span><span style="color:#a6e22e">create</span><span style="color:#f92672">().</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Bean</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tbdbEntityManagerFactory&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">public</span> LocalContainerEntityManagerFactoryBean <span style="color:#a6e22e">entityManagerFactory</span><span style="color:#f92672">(</span>
+            EntityManagerFactoryBuilder builder<span style="color:#f92672">,</span> <span style="color:#a6e22e">@Qualifier</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;tbdbDataSource&#34;</span><span style="color:#f92672">)</span> DataSource dataSource<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> builder<span style="color:#f92672">.</span><span style="color:#a6e22e">dataSource</span><span style="color:#f92672">(</span>dataSource<span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">packages</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;com.example.tbdb.model&#34;</span><span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">persistenceUnit</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;tbdb&#34;</span><span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Bean</span><span style="color:#f92672">(</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tbdbTransactionManager&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">public</span> PlatformTransactionManager <span style="color:#a6e22e">transactionManager</span><span style="color:#f92672">(</span>
+            <span style="color:#a6e22e">@Qualifier</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;tbdbEntityManagerFactory&#34;</span><span style="color:#f92672">)</span> EntityManagerFactory entityManagerFactory<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> JpaTransactionManager<span style="color:#f92672">(</span>entityManagerFactory<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></li>
+</ol>
+<h4 id="postgresql-数据库配置">PostgreSQL 数据库配置<a href="#postgresql-数据库配置" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<p>在<code>application.yml</code>文件中，添加PostgreSQL数据源的配置：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">spring</span>:
+  <span style="color:#f92672">datasource</span>:
+    <span style="color:#f92672">ccdb</span>:
+      <span style="color:#f92672">driver-class-name</span>: <span style="color:#ae81ff">org.postgresql.Driver</span>
+      <span style="color:#f92672">url</span>: <span style="color:#ae81ff">jdbc:postgresql://10.10.5.10:5432/ccdb</span>
+      <span style="color:#f92672">username</span>: <span style="color:#ae81ff">your-username</span>
+      <span style="color:#f92672">password</span>: <span style="color:#ae81ff">your-password</span>
+    <span style="color:#f92672">tbdb</span>:
+      <span style="color:#f92672">driver-class-name</span>: <span style="color:#ae81ff">org.postgresql.Driver</span>
+      <span style="color:#f92672">url</span>: <span style="color:#ae81ff">jdbc:postgresql://10.10.5.9:5432/tbdb</span>
+      <span style="color:#f92672">username</span>: <span style="color:#ae81ff">your-username</span>
+      <span style="color:#f92672">password</span>: <span style="color:#ae81ff">your-password</span>
+</code></pre></div><h4 id="nacos-配置">Nacos 配置<a href="#nacos-配置" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<p>配置Spring Boot项目使用Nacos进行配置管理：</p>
+<ol>
+<li>
+<p>添加依赖：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependency&gt;</span>
+    <span style="color:#f92672">&lt;groupId&gt;</span>com.alibaba.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-config<span style="color:#f92672">&lt;/artifactId&gt;</span>
+    <span style="color:#f92672">&lt;version&gt;</span>2021.1<span style="color:#f92672">&lt;/version&gt;</span>
+<span style="color:#f92672">&lt;/dependency&gt;</span>
+</code></pre></div></li>
+<li>
+<p>在<code>bootstrap.yml</code>文件中配置Nacos：</p>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">server</span>:
+  <span style="color:#f92672">port</span>: <span style="color:#ae81ff">7001</span>
+<span style="color:#f92672">spring</span>:
+  <span style="color:#f92672">main</span>:
+    <span style="color:#f92672">allow-bean-definition-overriding</span>: <span style="color:#66d9ef">true</span>
+  <span style="color:#f92672">profiles</span>:
+    <span style="color:#f92672">active</span>: @<span style="color:#ae81ff">activatedProperties@</span>
+  <span style="color:#f92672">servlet</span>:
+    <span style="color:#f92672">multipart</span>:
+      <span style="color:#f92672">max-file-size</span>: <span style="color:#ae81ff">2000MB</span>
+      <span style="color:#f92672">max-request-size</span>: <span style="color:#ae81ff">2000MB</span>
+  <span style="color:#f92672">application</span>:
+    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">example-admin-api</span>
+  <span style="color:#f92672">cloud</span>:
+    <span style="color:#f92672">nacos</span>:
+      <span style="color:#f92672">discovery</span>:
+        <span style="color:#f92672">server-addr</span>: <span style="color:#ae81ff">${spring.cloud.nacos.server-addr}</span>
+        <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">${spring.cloud.nacos.namespace}</span>
+        <span style="color:#f92672">group</span>: <span style="color:#ae81ff">${spring.cloud.nacos.group}</span>
+      <span style="color:#f92672">config</span>:
+        <span style="color:#f92672">server-addr</span>: <span style="color:#ae81ff">${spring.cloud.nacos.server-addr}</span>
+        <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">${spring.cloud.nacos.namespace}</span>
+        <span style="color:#f92672">group</span>: <span style="color:#ae81ff">${spring.cloud.nacos.group}</span>
+        <span style="color:#f92672">file-extension</span>: <span style="color:#ae81ff">yaml</span>
+        <span style="color:#f92672">refresh-enabled</span>: <span style="color:#66d9ef">true</span>
+        <span style="color:#f92672">shared-configs[0]</span>:
+          <span style="color:#f92672">data-id</span>: <span style="color:#ae81ff">example-admin-api.yml</span>
+          <span style="color:#f92672">group</span>: <span style="color:#ae81ff">EXAMPLE_GROUP</span>
+          <span style="color:#f92672">refresh</span>: <span style="color:#66d9ef">false</span>
+        <span style="color:#f92672">shared-configs[1]</span>:
+          <span style="color:#f92672">data-id</span>: <span style="color:#ae81ff">example-multiple-mysql.yml</span>
+          <span style="color:#f92672">group</span>: <span style="color:#ae81ff">EXAMPLE_GROUP</span>
+          <span style="color:#f92672">refresh</span>: <span style="color:#66d9ef">false</span>
+  <span style="color:#f92672">mvc</span>:
+    <span style="color:#f92672">pathmatch</span>:
+      <span style="color:#f92672">matching-strategy</span>: <span style="color:#ae81ff">ant_path_matcher</span>
+  <span style="color:#f92672">jpa</span>:
+    <span style="color:#f92672">hibernate</span>:
+      <span style="color:#f92672">ddl-auto</span>: <span style="color:#ae81ff">validate</span>
+    <span style="color:#f92672">show-sql</span>: <span style="color:#66d9ef">true</span>
+
+---
+<span style="color:#75715e"># dev环境配置</span>
+<span style="color:#f92672">spring</span>:
+  <span style="color:#f92672">cloud</span>:
+    <span style="color:#f92672">nacos</span>:
+      <span style="color:#f92672">server-addr</span>: <span style="color:#ae81ff">10.10.5.2</span>:<span style="color:#ae81ff">8848</span>
+      <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">3d10dc42-b214-4c0d-9ddb-8618a170873d</span>
+      <span style="color:#f92672">group</span>: <span style="color:#ae81ff">EXAMPLE_GROUP</span>
+  <span style="color:#f92672">config</span>:
+    <span style="color:#f92672">activate</span>:
+      <span style="color:#f92672">on-profile</span>: <span style="color:#ae81ff">dev</span>
+
+---
+<span style="color:#75715e"># master 正式环境环境配置</span>
+<span style="color:#f92672">spring</span>:
+  <span style="color:#f92672">cloud</span>:
+    <span style="color:#f92672">nacos</span>:
+      <span style="color:#f92672">server-addr</span>: <span style="color:#ae81ff">10.10.5.3</span>:<span style="color:#ae81ff">8848</span>
+      <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">c11b80fb-db5a-4a10-bb28-21945fffef72</span>
+      <span style="color:#f92672">group</span>: <span style="color:#ae81ff">EXAMPLE_GROUP</span>
+  <span style="color:#f92672">config</span>:
+    <span style="color:#f92672">activate</span>:
+      <span style="color:#f92672">on-profile</span>: <span style="color:#ae81ff">master</span>
+</code></pre></div><h4 id="核心依赖">核心依赖<a href="#核心依赖" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<p>在<code>pom.xml</code>文件中，确保以下核心依赖：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;dependencies&gt;</span>
+    <span style="color:#75715e">&lt;!-- Spring Boot Starter Data JPA --&gt;</span>
+    <span style="color:#f92672">&lt;dependency&gt;</span>
+        <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
+        <span style="color:#f92672">&lt;artifactId&gt;</span>spring-boot-starter-data-jpa<span style="color:#f92672">&lt;/artifactId&gt;</span>
+    <span style="color:#f92672">&lt;/dependency&gt;</span>
+
+    <span style="color:#75715e">&lt;!-- PostgreSQL Driver --&gt;</span>
+    <span style="color:#f92672">&lt;dependency&gt;</span>
+        <span style="color:#f92672">&lt;groupId&gt;</span>org.postgresql<span style="color:#f92672">&lt;/groupId&gt;</span>
+        <span style="color:#f92672">&lt;artifactId&gt;</span>postgresql<span style="color:#f92672">&lt;/artifactId&gt;</span>
+        <span style="color:#f92672">&lt;version&gt;</span>42.2.20<span style="color:#f92672">&lt;/version&gt;</span>
+    <span style="color:#f92672">&lt;/dependency&gt;</span>
+
+    <span style="color:#75715e">&lt;!-- Nacos Config Starter --&gt;</span>
+    <span style="color:#f92672">&lt;dependency&gt;</span>
+        <span style="color:#f92672">&lt;groupId&gt;</span>com.alibaba.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+        <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-config<span style="color:#f92672">&lt;/artifactId&gt;</span>
+        <span style="color:#f92672">&lt;version&gt;</span>2021.1<span style="color:#f92672">&lt;/version&gt;</span>
+    <span style="color:#f92672">&lt;/dependency&gt;</span>
+
+    <span style="color:#75715e">&lt;!-- Spring Boot Starter Web --&gt;</span>
+    <span style="color:#f92672">&lt;dependency&gt;</span>
+        <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
+        <span style="color:#f92672">&lt;artifactId&gt;</span>spring-boot-starter-web<span style="color:#f92672">&lt;/artifactId&gt;</span>
+    <span style="color:#f92672">&lt;/dependency&gt;</span>
+
+    <span style="color:#75715e">&lt;!-- Lombok --&gt;</span>
+    <span style="color:#f92672">&lt;dependency&gt;</span>
+        <span style="color:#f92672">&lt;groupId&gt;</span>org.projectlombok<span style="color:#f92672">&lt;/groupId&gt;</span>
+        <span style="color:#f92672">&lt;artifactId&gt;</span>lombok<span style="color:#f92672">&lt;/artifactId&gt;</span>
+    <span style="color:#f92672">&lt;/dependency&gt;</span>
+<span style="color:#f92672">&lt;/dependencies&gt;</span>
+</code></pre></div><h4 id="项目结构如下">项目结构如下<a href="#项目结构如下" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">example-multi-datasource-project
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── example
+│   │   │           ├── Application.java  #spring boot 启动入口
+│   │   │           ├── ccdb  #查ccdb数据库服务器
+│   │   │           │   ├── config
+│   │   │           │   │   └── CcdbConfig.java
+│   │   │           │   ├── dao
+│   │   │           │   │   └── RnPluginsRepository.java
+│   │   │           │   ├── model
+│   │   │           │   │   └── RnPlugins.java
+│   │   │           │   └── service
+│   │   │           │       └── RnPluginsService.java
+│   │   │           ├── tbdb  #查tbdb数据库服务器
+│   │   │           │   ├── config
+│   │   │           │   │   └── TbdbConfig.java
+│   │   │           │   ├── dao
+│   │   │           │   │   └── TbPluginsRepository.java
+│   │   │           │   ├── model
+│   │   │           │   │   └── TbPlugins.java
+│   │   │           │   └── service
+│   │   │           │       └── TbPluginsService.java
+│   │   │           └── common
+│   │   │               └── config
+│   │   │                   └── CommonConfig.java
+│   │   ├── resources
+│   │   │   ├── application.yml
+│   │   │   ├── bootstrap.yml
+│   │   │   └── logging.yml
+│   ├── test
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── example
+│   │   │           ├── ccdb
+│   │   │           │   └── RnPluginsServiceTest.java
+│   │   │           └── tbdb
+│   │   │               └── TbPluginsServiceTest.java
+├── pom.xml
+└── README.md
+</code></pre></div><p>这种格式应该在 Hugo 中正确渲染。如果仍然遇到问题，可以检查 Hugo 的渲染配置，确保 Markdown 文件的解析设置正确。</p>
+<h4 id="调试与验证">调试与验证<a href="#调试与验证" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<ol>
+<li><strong>检查实体类</strong>：确保所有JPA实体类都在指定的包路径下，并且正确标注了<code>@Entity</code>注解。</li>
+<li><strong>日志级别</strong>：将Spring和Hibernate的日志级别调整为<code>DEBUG</code>，以获取更多的调试信息。</li>
+<li><strong>单独验证</strong>：分别启动两个数据源的配置，确保各自单独运行时没有问题，然后再组合进行测试。</li>
+</ol>
+<p>通过这些步骤，最终成功解决了Spring Boot 2.7.10 + JPA 多数据源配置中的问题。关键在于各个配置类的职责清晰，并避免配置的冲突。</p>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2024 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>
