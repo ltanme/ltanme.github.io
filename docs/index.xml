@@ -6,7 +6,310 @@
     <description>Recent content on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Jul 2024 21:01:07 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 29 Jul 2024 20:09:35 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Summary of Configuring Multiple Data Sources With Spring Boot 2.7.10 &#43; JPA and Troubleshooting</title>
+      <link>https://ltan.me/post/2024/07/summary-of-configuring-multiple-data-sources-with-spring-boot-2.7.10-&#43;-jpa-and-troubleshooting/</link>
+      <pubDate>Mon, 29 Jul 2024 20:09:35 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/07/summary-of-configuring-multiple-data-sources-with-spring-boot-2.7.10-&#43;-jpa-and-troubleshooting/</guid>
+      <description>配置 Spring Boot 2.7.10 + JPA 支持多数据源 (使用 PostgreSQL 和 Nacos 配置) 总结Spring Boot 2.7.10 + JPA 多数据源配置与问题解决 Summary of Configuring Multiple Data Sources with Spring Boot 2.7.10 + JPA and Troubleshooting 我有一个项目需要访问多个数据库源，ccdb接口访问服务器ip为:10.10.5.1</description>
+      <content>&lt;h3 id=&#34;配置-spring-boot-2710--jpa-支持多数据源-使用-postgresql-和-nacos-配置&#34;&gt;配置 Spring Boot 2.7.10 + JPA 支持多数据源 (使用 PostgreSQL 和 Nacos 配置)&lt;/h3&gt;
+&lt;h4 id=&#34;总结spring-boot-2710--jpa-多数据源配置与问题解决&#34;&gt;总结Spring Boot 2.7.10 + JPA 多数据源配置与问题解决&lt;/h4&gt;
+&lt;h3 id=&#34;summary-of-configuring-multiple-data-sources-with-spring-boot-2710--jpa-and-troubleshooting&#34;&gt;Summary of Configuring Multiple Data Sources with Spring Boot 2.7.10 + JPA and Troubleshooting&lt;/h3&gt;
+&lt;p&gt;我有一个项目需要访问多个数据库源，ccdb接口访问服务器ip为:&lt;code&gt;10.10.5.10&lt;/code&gt;的ccdb数据库，而tbdb接口需要访问服务器ip为:&lt;code&gt;10.10.5.9&lt;/code&gt;的tbdb数据库
+ccdb接口和tbdb接口都属于同一个&lt;code&gt;jar&lt;/code&gt;包代码，所以需要多数据库解决方案，
+但在解决&lt;code&gt;Spring Boot 2.7.10&lt;/code&gt;项目中配置多数据源和JPA访问数据库的过程中，遇到了一系列问题。以下是详细问题描述及解决方案：&lt;/p&gt;
+&lt;h4 id=&#34;遇到的问题及解决方案&#34;&gt;遇到的问题及解决方案&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;Not a managed type&lt;/code&gt; 错误&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;问题描述&lt;/strong&gt;: 在启动应用程序时，遇到了&lt;code&gt;java.lang.IllegalArgumentException: Not a managed type&lt;/code&gt;错误。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原因&lt;/strong&gt;: 这是因为JPA实体类没有被正确扫描到，导致Hibernate无法识别这些类。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;解决方案&lt;/strong&gt;: 确保在&lt;code&gt;ccdbConfig&lt;/code&gt;和&lt;code&gt;tbdbConfig&lt;/code&gt;中正确配置了各自的数据源和&lt;code&gt;basePackages&lt;/code&gt;，并且主类中不要再重复配置&lt;code&gt;basePackages&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;No qualifying bean of type&lt;/code&gt; 错误&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;问题描述&lt;/strong&gt;: 应用启动时，报告找不到指定类型的bean。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原因&lt;/strong&gt;: 多数据源配置时，未能正确配置各自的数据源和JPA相关的bean。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;解决方案&lt;/strong&gt;: 确保每个数据源配置类（如&lt;code&gt;ccdbConfig&lt;/code&gt;和&lt;code&gt;tbdbConfig&lt;/code&gt;）正确配置了&lt;code&gt;EntityManagerFactory&lt;/code&gt;、&lt;code&gt;DataSource&lt;/code&gt;和&lt;code&gt;TransactionManager&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;@EnableJpaRepositories&lt;/code&gt; 的配置问题&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;问题描述&lt;/strong&gt;: 多数据源配置时，&lt;code&gt;@EnableJpaRepositories&lt;/code&gt;没有正确配置。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原因&lt;/strong&gt;: 主入口类配置了全局的&lt;code&gt;basePackages&lt;/code&gt;，与各个数据源配置类的&lt;code&gt;basePackages&lt;/code&gt;冲突。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;解决方案&lt;/strong&gt;: 在主入口类中移除&lt;code&gt;basePackages&lt;/code&gt;配置，只在各自的数据源配置类中配置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;详细配置步骤&#34;&gt;详细配置步骤&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;主入口类配置&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@SpringBootApplication&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;scanBasePackages &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;com.example&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;})&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;@Slf4j&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;@RestController&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;@ComponentScan&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;({&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;com.example.*&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;})&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;@EnableJpaAuditing&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Application&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; args&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        SpringApplication&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;run&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;Application&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; args&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;ccdbConfig 配置&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@Configuration&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;@EnableJpaRepositories&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;
+    basePackages &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;com.example.ccdb.dao&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt;
+    entityManagerFactoryRef &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ccdbEntityManagerFactory&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt;
+    transactionManagerRef &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ccdbTransactionManager&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CcdbConfig&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@Primary&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@Bean&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ccdbDataSource&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@ConfigurationProperties&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;prefix &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;spring.datasource.ccdb&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; DataSource &lt;span style=&#34;color:#a6e22e&#34;&gt;dataSource&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; DataSourceBuilder&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;create&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;().&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;build&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@Primary&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@Bean&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ccdbEntityManagerFactory&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; LocalContainerEntityManagerFactoryBean &lt;span style=&#34;color:#a6e22e&#34;&gt;entityManagerFactory&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;
+            EntityManagerFactoryBuilder builder&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@Qualifier&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ccdbDataSource&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; DataSource dataSource&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; builder&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;dataSource&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;dataSource&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+                &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;packages&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;com.example.ccdb.model&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+                &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;persistenceUnit&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ccdb&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+                &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;build&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@Primary&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@Bean&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ccdbTransactionManager&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; PlatformTransactionManager &lt;span style=&#34;color:#a6e22e&#34;&gt;transactionManager&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;
+            &lt;span style=&#34;color:#a6e22e&#34;&gt;@Qualifier&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ccdbEntityManagerFactory&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; EntityManagerFactory entityManagerFactory&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; JpaTransactionManager&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;entityManagerFactory&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;tbdbConfig 配置&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@Configuration&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;@EnableJpaRepositories&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;
+    basePackages &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;com.example.tbdb.dao&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt;
+    entityManagerFactoryRef &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tbdbEntityManagerFactory&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt;
+    transactionManagerRef &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tbdbTransactionManager&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;TbdbConfig&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@Bean&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tbdbDataSource&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@ConfigurationProperties&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;prefix &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;spring.datasource.tbdb&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; DataSource &lt;span style=&#34;color:#a6e22e&#34;&gt;dataSource&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; DataSourceBuilder&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;create&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;().&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;build&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@Bean&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tbdbEntityManagerFactory&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; LocalContainerEntityManagerFactoryBean &lt;span style=&#34;color:#a6e22e&#34;&gt;entityManagerFactory&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;
+            EntityManagerFactoryBuilder builder&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@Qualifier&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tbdbDataSource&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; DataSource dataSource&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; builder&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;dataSource&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;dataSource&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+                &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;packages&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;com.example.tbdb.model&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+                &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;persistenceUnit&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tbdb&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+                &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;build&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;@Bean&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tbdbTransactionManager&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; PlatformTransactionManager &lt;span style=&#34;color:#a6e22e&#34;&gt;transactionManager&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;
+            &lt;span style=&#34;color:#a6e22e&#34;&gt;@Qualifier&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tbdbEntityManagerFactory&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; EntityManagerFactory entityManagerFactory&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; JpaTransactionManager&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;entityManagerFactory&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;postgresql-数据库配置&#34;&gt;PostgreSQL 数据库配置&lt;/h4&gt;
+&lt;p&gt;在&lt;code&gt;application.yml&lt;/code&gt;文件中，添加PostgreSQL数据源的配置：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;spring&lt;/span&gt;:
+  &lt;span style=&#34;color:#f92672&#34;&gt;datasource&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;ccdb&lt;/span&gt;:
+      &lt;span style=&#34;color:#f92672&#34;&gt;driver-class-name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;org.postgresql.Driver&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;url&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;jdbc:postgresql://10.10.5.10:5432/ccdb&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;username&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;your-username&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;password&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;your-password&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;tbdb&lt;/span&gt;:
+      &lt;span style=&#34;color:#f92672&#34;&gt;driver-class-name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;org.postgresql.Driver&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;url&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;jdbc:postgresql://10.10.5.9:5432/tbdb&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;username&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;your-username&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;password&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;your-password&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;nacos-配置&#34;&gt;Nacos 配置&lt;/h4&gt;
+&lt;p&gt;配置Spring Boot项目使用Nacos进行配置管理：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;添加依赖：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.alibaba.cloud&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-cloud-starter-alibaba-nacos-config&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2021.1&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在&lt;code&gt;bootstrap.yml&lt;/code&gt;文件中配置Nacos：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;server&lt;/span&gt;:
+  &lt;span style=&#34;color:#f92672&#34;&gt;port&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;7001&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;spring&lt;/span&gt;:
+  &lt;span style=&#34;color:#f92672&#34;&gt;main&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;allow-bean-definition-overriding&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;profiles&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;active&lt;/span&gt;: @&lt;span style=&#34;color:#ae81ff&#34;&gt;activatedProperties@&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;servlet&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;multipart&lt;/span&gt;:
+      &lt;span style=&#34;color:#f92672&#34;&gt;max-file-size&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;2000MB&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;max-request-size&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;2000MB&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;application&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;example-admin-api&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;cloud&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;nacos&lt;/span&gt;:
+      &lt;span style=&#34;color:#f92672&#34;&gt;discovery&lt;/span&gt;:
+        &lt;span style=&#34;color:#f92672&#34;&gt;server-addr&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;${spring.cloud.nacos.server-addr}&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;namespace&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;${spring.cloud.nacos.namespace}&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;group&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;${spring.cloud.nacos.group}&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;config&lt;/span&gt;:
+        &lt;span style=&#34;color:#f92672&#34;&gt;server-addr&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;${spring.cloud.nacos.server-addr}&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;namespace&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;${spring.cloud.nacos.namespace}&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;group&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;${spring.cloud.nacos.group}&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;file-extension&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;yaml&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;refresh-enabled&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;shared-configs[0]&lt;/span&gt;:
+          &lt;span style=&#34;color:#f92672&#34;&gt;data-id&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;example-admin-api.yml&lt;/span&gt;
+          &lt;span style=&#34;color:#f92672&#34;&gt;group&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;EXAMPLE_GROUP&lt;/span&gt;
+          &lt;span style=&#34;color:#f92672&#34;&gt;refresh&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;shared-configs[1]&lt;/span&gt;:
+          &lt;span style=&#34;color:#f92672&#34;&gt;data-id&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;example-multiple-mysql.yml&lt;/span&gt;
+          &lt;span style=&#34;color:#f92672&#34;&gt;group&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;EXAMPLE_GROUP&lt;/span&gt;
+          &lt;span style=&#34;color:#f92672&#34;&gt;refresh&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;mvc&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;pathmatch&lt;/span&gt;:
+      &lt;span style=&#34;color:#f92672&#34;&gt;matching-strategy&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;ant_path_matcher&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;jpa&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;hibernate&lt;/span&gt;:
+      &lt;span style=&#34;color:#f92672&#34;&gt;ddl-auto&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;validate&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;show-sql&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+
+---
+&lt;span style=&#34;color:#75715e&#34;&gt;# dev环境配置&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;spring&lt;/span&gt;:
+  &lt;span style=&#34;color:#f92672&#34;&gt;cloud&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;nacos&lt;/span&gt;:
+      &lt;span style=&#34;color:#f92672&#34;&gt;server-addr&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;10.10.5.2&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;8848&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;namespace&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;3d10dc42-b214-4c0d-9ddb-8618a170873d&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;group&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;EXAMPLE_GROUP&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;config&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;activate&lt;/span&gt;:
+      &lt;span style=&#34;color:#f92672&#34;&gt;on-profile&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;dev&lt;/span&gt;
+
+---
+&lt;span style=&#34;color:#75715e&#34;&gt;# master 正式环境环境配置&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;spring&lt;/span&gt;:
+  &lt;span style=&#34;color:#f92672&#34;&gt;cloud&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;nacos&lt;/span&gt;:
+      &lt;span style=&#34;color:#f92672&#34;&gt;server-addr&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;10.10.5.3&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;8848&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;namespace&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;c11b80fb-db5a-4a10-bb28-21945fffef72&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;group&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;EXAMPLE_GROUP&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;config&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;activate&lt;/span&gt;:
+      &lt;span style=&#34;color:#f92672&#34;&gt;on-profile&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;master&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;核心依赖&#34;&gt;核心依赖&lt;/h4&gt;
+&lt;p&gt;在&lt;code&gt;pom.xml&lt;/code&gt;文件中，确保以下核心依赖：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!-- Spring Boot Starter Data JPA --&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-boot-starter-data-jpa&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!-- PostgreSQL Driver --&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.postgresql&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;postgresql&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;42.2.20&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!-- Nacos Config Starter --&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.alibaba.cloud&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-cloud-starter-alibaba-nacos-config&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2021.1&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!-- Spring Boot Starter Web --&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-boot-starter-web&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+
+    &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!-- Lombok --&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.projectlombok&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;lombok&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;项目结构如下&#34;&gt;项目结构如下&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;example-multi-datasource-project
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── example
+│   │   │           ├── Application.java  #spring boot 启动入口
+│   │   │           ├── ccdb  #查ccdb数据库服务器
+│   │   │           │   ├── config
+│   │   │           │   │   └── CcdbConfig.java
+│   │   │           │   ├── dao
+│   │   │           │   │   └── RnPluginsRepository.java
+│   │   │           │   ├── model
+│   │   │           │   │   └── RnPlugins.java
+│   │   │           │   └── service
+│   │   │           │       └── RnPluginsService.java
+│   │   │           ├── tbdb  #查tbdb数据库服务器
+│   │   │           │   ├── config
+│   │   │           │   │   └── TbdbConfig.java
+│   │   │           │   ├── dao
+│   │   │           │   │   └── TbPluginsRepository.java
+│   │   │           │   ├── model
+│   │   │           │   │   └── TbPlugins.java
+│   │   │           │   └── service
+│   │   │           │       └── TbPluginsService.java
+│   │   │           └── common
+│   │   │               └── config
+│   │   │                   └── CommonConfig.java
+│   │   ├── resources
+│   │   │   ├── application.yml
+│   │   │   ├── bootstrap.yml
+│   │   │   └── logging.yml
+│   ├── test
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── example
+│   │   │           ├── ccdb
+│   │   │           │   └── RnPluginsServiceTest.java
+│   │   │           └── tbdb
+│   │   │               └── TbPluginsServiceTest.java
+├── pom.xml
+└── README.md
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这种格式应该在 Hugo 中正确渲染。如果仍然遇到问题，可以检查 Hugo 的渲染配置，确保 Markdown 文件的解析设置正确。&lt;/p&gt;
+&lt;h4 id=&#34;调试与验证&#34;&gt;调试与验证&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;检查实体类&lt;/strong&gt;：确保所有JPA实体类都在指定的包路径下，并且正确标注了&lt;code&gt;@Entity&lt;/code&gt;注解。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;日志级别&lt;/strong&gt;：将Spring和Hibernate的日志级别调整为&lt;code&gt;DEBUG&lt;/code&gt;，以获取更多的调试信息。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;单独验证&lt;/strong&gt;：分别启动两个数据源的配置，确保各自单独运行时没有问题，然后再组合进行测试。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;通过这些步骤，最终成功解决了Spring Boot 2.7.10 + JPA 多数据源配置中的问题。关键在于各个配置类的职责清晰，并避免配置的冲突。&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Thingsboard Getway Debug</title>
       <link>https://ltan.me/post/2024/07/thingsboard-getway-debug/</link>
