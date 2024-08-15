@@ -3,6 +3,7 @@ title: "Thingsboard Getway Debug"
 date: 2024-07-04T21:01:07+08:00
 draft: false
 featured: true
+tags: ["thingsboard "]
 ---
 
 # 记一次thingsboard gateway 调试总结
