@@ -6,7 +6,164 @@
     <description>Recent content on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Jul 2024 20:09:35 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Sep 2024 20:52:28 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Enable Public Network IPv6 Access for Home Routers</title>
+      <link>https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/</link>
+      <pubDate>Wed, 11 Sep 2024 20:52:28 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/</guid>
+      <description>记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等 我的设备为广东移动+openwrt(r5s)， 我上网模式是光猫拨号，路由器nat 1.找到登录光猫后台用户名和密码 2.设置如下状态</description>
+      <content>&lt;h1 id=&#34;记一次开启给家庭网络开通公网ip访问方便远程访问nas同步照片资料等&#34;&gt;记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我的设备为广东移动+openwrt(r5s)， 我上网模式是光猫拨号，路由器nat
+1.找到登录光猫后台用户名和密码&lt;br&gt;
+&lt;img src=&#34;img.png&#34; alt=&#34;img.png&#34;&gt;&lt;br&gt;
+2.设置如下状态如下-&amp;gt;如图所示&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;img_1.png&#34; alt=&#34;img_1.png&#34;&gt;
+先把这里的沟去掉吧，后续再优化，看能否通网&lt;br&gt;
+&lt;img src=&#34;img_2.png&#34; alt=&#34;img_2.png&#34;&gt;
+&lt;img src=&#34;img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;3.openwrt设置-&amp;gt; 如图所示&lt;br&gt;
+以下也是全部选择接受，从wan口到lan口接受
+先看是否能通，后续慢慢做安全优化
+&lt;img src=&#34;img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;img_8.png&#34; alt=&#34;img_8.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;img_9.png&#34; alt=&#34;img_9.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;img_10.png&#34; alt=&#34;img_10.png&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;测试 用手机5g流量,浏览器打开访问 &lt;br&gt;
+&lt;img src=&#34;img_11.png&#34; alt=&#34;img_11.png&#34;&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;ipv6 通网成功,不过后续ipv6 地址经常变动，但可以在pt站点查看做种的ip地址&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Common Docker Issues Solutions</title>
+      <link>https://ltan.me/post/2024/08/common-docker-issues-solutions/</link>
+      <pubDate>Thu, 15 Aug 2024 16:13:23 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/08/common-docker-issues-solutions/</guid>
+      <description>Docker 疑难杂症汇总 在使用 Docker 的过程中，可能会遇到各种各样的问题，尤其是在国内环境下，网络限制可能会导致一些操作困难。本文将汇总常见的 Docker 安装与使用过程中可能遇到的疑难杂症，并提供相应的解决方案。 1. Docker 安装过程中</description>
+      <content>&lt;h1 id=&#34;docker-疑难杂症汇总&#34;&gt;Docker 疑难杂症汇总&lt;/h1&gt;
+&lt;p&gt;在使用 Docker 的过程中，可能会遇到各种各样的问题，尤其是在国内环境下，网络限制可能会导致一些操作困难。本文将汇总常见的 Docker 安装与使用过程中可能遇到的疑难杂症，并提供相应的解决方案。&lt;/p&gt;
+&lt;h2 id=&#34;1-docker-安装过程中网络问题&#34;&gt;1. Docker 安装过程中网络问题&lt;/h2&gt;
+&lt;h3 id=&#34;问题描述&#34;&gt;问题描述：&lt;/h3&gt;
+&lt;p&gt;在国内使用 &lt;code&gt;apt-get&lt;/code&gt; 安装 Docker 时，经常遇到无法连接到 Docker 官方仓库 &lt;code&gt;download.docker.com&lt;/code&gt; 的问题，导致无法获取或更新 Docker 包。&lt;/p&gt;
+&lt;h3 id=&#34;解决方案&#34;&gt;解决方案：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用国内镜像源：&lt;/strong&gt; 通过修改 Docker 的 APT 源配置文件，切换到国内镜像源（如清华大学、阿里云、中科大等），可以有效解决网络连接问题。&lt;/p&gt;
+&lt;p&gt;修改 &lt;code&gt;/etc/apt/sources.list.d/docker.list&lt;/code&gt; 文件：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;deb &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;arch&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;arm64&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu jammy stable
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;添加-gpg-公钥-如果遇到-gpg-公钥无法获取的问题可以手动下载并添加公钥&#34;&gt;添加 GPG 公钥： 如果遇到 GPG 公钥无法获取的问题，可以手动下载并添加公钥：&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;更换dns或使用vpn-如果镜像源依旧无法访问可以尝试更换dns或者使用vpn绕过网络限制&#34;&gt;更换DNS或使用VPN： 如果镜像源依旧无法访问，可以尝试更换DNS，或者使用VPN绕过网络限制。&lt;/h4&gt;
+&lt;h1 id=&#34;gpg-公钥问题&#34;&gt;GPG 公钥问题&lt;/h1&gt;
+&lt;p&gt;问题描述：&lt;br&gt;
+在更新或安装 Docker 过程中，可能会出现关于 GPG 公钥的警告或错误，如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;The&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;following&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;signatures&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;couldn&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;t&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;be&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;verified&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;because&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;key&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;not&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;available&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;NO_PUBKEY&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;EA0A9C3F273FCD8&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;解决方案：&lt;br&gt;
+手动添加公钥：&lt;br&gt;
+使用以下命令手动添加公钥：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;
+curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker-ustc.gpg
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;将公钥放置到正确的位置：
+确保公钥被正确地放置到 /etc/apt/keyrings/ 目录下，并更新 APT 源配置，指定 signed-by 参数。&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Smartdns&#43;adguardhome</title>
+      <link>https://ltan.me/post/2024/08/smartdns&#43;adguardhome/</link>
+      <pubDate>Wed, 07 Aug 2024 20:28:21 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/08/smartdns&#43;adguardhome/</guid>
+      <description>文档参考记录 https://disc8888.com/10775.html https://cloud.tencent.com/developer/article/2296129 smartdns https://www.nodeseek.com/post-53938-1 docker run &amp;ndash;name adguardhome2 &amp;ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf -p 15332:53/udp -p 15332:53/tcp -p 3002:3000/tcp -d adguard/adguardhome:latest docker run &amp;ndash;name adguardhome1 &amp;ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard1/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard1/conf:/opt/adguardhome/conf -p 15331:53/udp -p 15331:53/tcp -p 3001:3000/tcp -d adguard/adguardhome:latest docker run &amp;ndash;name adguardhome1 &amp;ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf &amp;ndash;network host -d adguard/adguardhome:latest</description>
+      <content>&lt;p&gt;&lt;img src=&#34;img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;文档参考记录
+&lt;a href=&#34;https://disc8888.com/10775.html&#34;&gt;https://disc8888.com/10775.html&lt;/a&gt;
+&lt;a href=&#34;https://cloud.tencent.com/developer/article/2296129&#34;&gt;https://cloud.tencent.com/developer/article/2296129&lt;/a&gt;
+smartdns
+&lt;a href=&#34;https://www.nodeseek.com/post-53938-1&#34;&gt;https://www.nodeseek.com/post-53938-1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;docker run &amp;ndash;name adguardhome2 &amp;ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf -p 15332:53/udp -p 15332:53/tcp -p 3002:3000/tcp -d adguard/adguardhome:latest&lt;/p&gt;
+&lt;p&gt;docker run &amp;ndash;name adguardhome1&lt;br&gt;
+&amp;ndash;restart unless-stopped&lt;br&gt;
+-v /overlay/upper/opt/docker/volumes/adguard1/work:/opt/adguardhome/work&lt;br&gt;
+-v /overlay/upper/opt/docker/volumes/adguard1/conf:/opt/adguardhome/conf&lt;br&gt;
+-p 15331:53/udp&lt;br&gt;
+-p 15331:53/tcp&lt;br&gt;
+-p 3001:3000/tcp&lt;br&gt;
+-d adguard/adguardhome:latest&lt;/p&gt;
+&lt;p&gt;docker run &amp;ndash;name adguardhome1&lt;br&gt;
+&amp;ndash;restart unless-stopped&lt;br&gt;
+-v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work&lt;br&gt;
+-v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf&lt;br&gt;
+&amp;ndash;network host&lt;br&gt;
+-d adguard/adguardhome:latest&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>N5105&#43;istoreos</title>
+      <link>https://ltan.me/post/2024/07/n5105&#43;istoreos/</link>
+      <pubDate>Wed, 31 Jul 2024 19:52:37 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/07/n5105&#43;istoreos/</guid>
+      <description>以下图片vmnic0对应eth0,打x 的表示用于管理该exsi虚拟机器使用 图片ip地址设置 选择需要直通的网卡，需要排除管理网卡，点击切换直通 配置istore 硬件 添加交换机后，再添加端口组 问题. 任务 Power On</description>
+      <content>&lt;p&gt;以下图片vmnic0对应eth0,打x 的表示用于管理该exsi虚拟机器使用
+&lt;img src=&#34;img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;图片ip地址设置&lt;/p&gt;
+&lt;p&gt;选择需要直通的网卡，需要排除管理网卡，点击&lt;code&gt;切换直通&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;配置istore 硬件
+&lt;img src=&#34;img_2.png&#34; alt=&#34;img_2.png&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;添加交换机后再添加端口组&#34;&gt;添加交换机后，再添加端口组&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;img_3.png&#34; alt=&#34;img_3.png&#34;&gt;
+&lt;img src=&#34;img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;问题&#34;&gt;问题.&lt;/h1&gt;
+&lt;p&gt;任务
+Power On VM
+键
+haTask-5-vim.VirtualMachine.powerOn-267&lt;/p&gt;
+&lt;p&gt;描述
+打开该虚拟机电源&lt;/p&gt;
+&lt;p&gt;虚拟机
+win10
+状况
+失败 - 父资源池中的可用内存资源不足，无法执行该操作。&lt;/p&gt;
+&lt;p&gt;错误
+模块“MonitorLoop”打开电源失败。
+组 vmm.135766: 无法对 VMM 组 vmm0:win10 应用内存配置。(最小值: 1048576，最大值: -1，最小限制: -1，份额: -3，单位: pages)
+无法打开虚拟机电源: 内存资源的准入检查失败。有关资源管理设置的信息，请参见《VMware ESX 资源管理指南》。
+无法打开虚拟机电源。
+无法启动虚拟机。
+&lt;img src=&#34;img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;实际显示
+&lt;img src=&#34;img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;win10 的配置
+&lt;img src=&#34;img_8.png&#34; alt=&#34;img_8.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;istore的配置
+&lt;img src=&#34;img_9.png&#34; alt=&#34;img_9.png&#34;&gt;&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Summary of Configuring Multiple Data Sources With Spring Boot 2.7.10 &#43; JPA and Troubleshooting</title>
       <link>https://ltan.me/post/2024/07/summary-of-configuring-multiple-data-sources-with-spring-boot-2.7.10-&#43;-jpa-and-troubleshooting/</link>
