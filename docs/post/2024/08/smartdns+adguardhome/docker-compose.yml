@@ -1,0 +1,51 @@
+version: '3.0'
+
+services:
+  smartdns:
+    image: pikuzheng/smartdns:latest
+    container_name: smartdns
+    ports:
+      - "6053:53/tcp"
+      - "6053:53/udp"
+    volumes:
+      - ./smartdns:/etc/smartdns
+    restart: always
+    networks:
+      - my_network
+    healthcheck:
+      test: ["CMD", "dig", "example.com", "@127.0.0.1#6053"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  adguardhome1:
+    image: adguard/adguardhome
+    container_name: adguardhome1
+    ports:
+      - "3000:3000"
+      - "6054:53/tcp"
+      - "6054:53/udp"
+    volumes:
+      - ./adguardhome1/workdir:/opt/adguardhome/work
+      - ./adguardhome1/conf:/opt/adguardhome/conf
+    restart: always
+    networks:
+      - my_network
+
+  adguardhome2:
+    image: adguard/adguardhome
+    container_name: adguardhome2
+    ports:
+      - "3001:3000"
+      - "6055:53/tcp"
+      - "6055:53/udp"
+    volumes:
+      - ./adguardhome2/workdir:/opt/adguardhome/work
+      - ./adguardhome2/conf:/opt/adguardhome/conf
+    restart: always
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge

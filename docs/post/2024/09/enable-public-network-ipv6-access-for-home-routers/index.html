@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Enable Public Network IPv6 Access for Home Routers :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等 我的设备为广东移动&#43;openwrt(r5s)， 我上网模式是光猫拨号，路由器nat 1.找到登录光猫后台用户名和密码 2.设置如下状态" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Enable Public Network IPv6 Access for Home Routers">
+<meta property="og:description" content="记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等 我的设备为广东移动&#43;openwrt(r5s)， 我上网模式是光猫拨号，路由器nat 1.找到登录光猫后台用户名和密码 2.设置如下状态" />
+<meta property="og:url" content="https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-09-11 20:52:28 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/">Enable Public Network IPv6 Access for Home Routers</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-09-11 [Mod: 2024-09-11]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/ipv6/">ipv6</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="记一次开启给家庭网络开通公网ip访问方便远程访问nas同步照片资料等">记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等<a href="#记一次开启给家庭网络开通公网ip访问方便远程访问nas同步照片资料等" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>我的设备为广东移动+openwrt(r5s)， 我上网模式是光猫拨号，路由器nat<br>
+1.找到登录光猫后台用户名和密码<br>
+<img src="img.png" alt="img.png"><br>
+2.设置如下状态如下-&gt;如图所示</p>
+</blockquote>
+<p><img src="img_1.png" alt="img_1.png">
+先把这里的沟去掉吧，后续再优化，看能否通网<br>
+<img src="img_2.png" alt="img_2.png">
+<img src="img_3.png" alt="img_3.png"><br>
+<img src="img_4.png" alt="img_4.png"><br>
+<img src="img_5.png" alt="img_5.png"></p>
+<blockquote>
+<p>3.openwrt设置-&gt; 如图所示<br>
+以下也是全部选择接受，从wan口到lan口接受
+先看是否能通，后续慢慢做安全优化
+<img src="img_6.png" alt="img_6.png"><br>
+<img src="img_7.png" alt="img_7.png"><br>
+<img src="img_8.png" alt="img_8.png"><br>
+<img src="img_9.png" alt="img_9.png"><br>
+<img src="img_10.png" alt="img_10.png"></p>
+</blockquote>
+<blockquote>
+<p>测试 用手机5g流量,浏览器打开访问 <br>
+<img src="img_11.png" alt="img_11.png"></p>
+</blockquote>
+<p>ipv6 通网成功,不过后续ipv6 地址经常变动，但可以在pt站点查看做种的ip地址</p>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2024 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>
