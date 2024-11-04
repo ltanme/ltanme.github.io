@@ -6,13 +6,13 @@
     <description>Recent content in Tags on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Sep 2024 20:52:28 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Nov 2024 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>ipv6</title>
-      <link>https://ltan.me/tags/ipv6/</link>
-      <pubDate>Wed, 11 Sep 2024 20:52:28 +0800</pubDate>
+      <title>CentOS</title>
+      <link>https://ltan.me/tags/centos/</link>
+      <pubDate>Mon, 04 Nov 2024 10:00:00 +0800</pubDate>
       
-      <guid>https://ltan.me/tags/ipv6/</guid>
+      <guid>https://ltan.me/tags/centos/</guid>
       <description></description>
       <content></content>
     </item>
@@ -20,9 +20,49 @@
     <item>
       <title>docker</title>
       <link>https://ltan.me/tags/docker/</link>
-      <pubDate>Thu, 15 Aug 2024 16:13:23 +0800</pubDate>
+      <pubDate>Mon, 04 Nov 2024 10:00:00 +0800</pubDate>
       
       <guid>https://ltan.me/tags/docker/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>headscale</title>
+      <link>https://ltan.me/tags/headscale/</link>
+      <pubDate>Mon, 04 Nov 2024 10:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/headscale/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>migration</title>
+      <link>https://ltan.me/tags/migration/</link>
+      <pubDate>Mon, 04 Nov 2024 10:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/migration/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>ubuntu</title>
+      <link>https://ltan.me/tags/ubuntu/</link>
+      <pubDate>Mon, 04 Nov 2024 10:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/ubuntu/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>ipv6</title>
+      <link>https://ltan.me/tags/ipv6/</link>
+      <pubDate>Wed, 11 Sep 2024 20:52:28 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/ipv6/</guid>
       <description></description>
       <content></content>
     </item>
@@ -53,16 +93,6 @@
       <pubDate>Thu, 04 Jul 2024 21:01:07 +0800</pubDate>
       
       <guid>https://ltan.me/tags/thingsboard/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    
-    <item>
-      <title>ubuntu</title>
-      <link>https://ltan.me/tags/ubuntu/</link>
-      <pubDate>Tue, 11 Jun 2024 18:52:36 +0800</pubDate>
-      
-      <guid>https://ltan.me/tags/ubuntu/</guid>
       <description></description>
       <content></content>
     </item>
@@ -163,16 +193,6 @@
       <pubDate>Wed, 08 May 2024 21:36:49 +0800</pubDate>
       
       <guid>https://ltan.me/tags/rulechain/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    
-    <item>
-      <title>headscale</title>
-      <link>https://ltan.me/tags/headscale/</link>
-      <pubDate>Mon, 15 Apr 2024 21:21:29 +0800</pubDate>
-      
-      <guid>https://ltan.me/tags/headscale/</guid>
       <description></description>
       <content></content>
     </item>

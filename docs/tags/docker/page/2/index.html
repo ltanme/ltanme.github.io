@@ -144,6 +144,54 @@
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/">Headscale Migration from CentOS 7 to Ubuntu 24</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2024-11-04
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/headscale/">headscale</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/migration/">migration</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/centos/">CentOS</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/ubuntu/">Ubuntu</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.
+1. Export Data and Image on CentOS 7 Export Configuration and Database To begin, export the configuration and database files from the headscale container:
+docker cp headscale:/etc/headscale/config.yaml ./config.yaml docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite Export Docker Image Use docker save to export the headscale Docker image:
+docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1 2. Transfer Files to Ubuntu 24 Transfer the configuration, database, and image files to the Ubuntu 24 system using scp, rsync, or another file transfer tool:
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2024/11/headscalemigrationfromcentos7toubuntu24/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="https://ltan.me/post/2024/08/common-docker-issues-solutions/">Common Docker Issues Solutions</a>
         </h1>
         <div class="post-meta">
