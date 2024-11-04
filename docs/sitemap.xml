@@ -2,25 +2,40 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ltan.me/tags/centos/</loc>
+    <lastmod>2024-11-04T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/docker/</loc>
+    <lastmod>2024-11-04T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/headscale/</loc>
+    <lastmod>2024-11-04T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/</loc>
+    <lastmod>2024-11-04T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/</loc>
+    <lastmod>2024-11-04T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/migration/</loc>
+    <lastmod>2024-11-04T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2024-11-04T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2024-11-04T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/ubuntu/</loc>
+    <lastmod>2024-11-04T10:00:00+08:00</lastmod>
+  </url><url>
     <loc>https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/</loc>
     <lastmod>2024-09-11T20:52:28+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/ipv6/</loc>
     <lastmod>2024-09-11T20:52:28+08:00</lastmod>
   </url><url>
-    <loc>https://ltan.me/</loc>
-    <lastmod>2024-09-11T20:52:28+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/post/</loc>
-    <lastmod>2024-09-11T20:52:28+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
-    <lastmod>2024-09-11T20:52:28+08:00</lastmod>
-  </url><url>
     <loc>https://ltan.me/post/2024/08/common-docker-issues-solutions/</loc>
-    <lastmod>2024-08-15T16:13:23+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/docker/</loc>
     <lastmod>2024-08-15T16:13:23+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/adguardhome/</loc>
@@ -43,9 +58,6 @@
   </url><url>
     <loc>https://ltan.me/post/2024/07/thingsboard-getway-debug/</loc>
     <lastmod>2024-07-04T21:01:07+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/ubuntu/</loc>
-    <lastmod>2024-06-11T18:52:36+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/vmware/</loc>
     <lastmod>2024-06-11T18:52:36+08:00</lastmod>
@@ -94,9 +106,6 @@
   </url><url>
     <loc>https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/</loc>
     <lastmod>2024-05-08T21:36:49+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/headscale/</loc>
-    <lastmod>2024-04-15T21:21:29+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2024/04/headscale-server-setup-process/</loc>
     <lastmod>2024-04-15T21:21:29+08:00</lastmod>

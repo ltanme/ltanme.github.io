@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Headscale Migration from CentOS 7 to Ubuntu 24 :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.
+1. Export Data and Image on CentOS 7 Export Configuration and Database To begin, export the configuration and database files from the headscale container:
+docker cp headscale:/etc/headscale/config.yaml ./config.yaml docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite Export Docker Image Use docker save to export the headscale Docker image:
+docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1 2. Transfer Files to Ubuntu 24 Transfer the configuration, database, and image files to the Ubuntu 24 system using scp, rsync, or another file transfer tool:" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Headscale Migration from CentOS 7 to Ubuntu 24">
+<meta property="og:description" content="This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.
+1. Export Data and Image on CentOS 7 Export Configuration and Database To begin, export the configuration and database files from the headscale container:
+docker cp headscale:/etc/headscale/config.yaml ./config.yaml docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite Export Docker Image Use docker save to export the headscale Docker image:
+docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1 2. Transfer Files to Ubuntu 24 Transfer the configuration, database, and image files to the Ubuntu 24 system using scp, rsync, or another file transfer tool:" />
+<meta property="og:url" content="https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-11-04 10:00:00 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/">Headscale Migration from CentOS 7 to Ubuntu 24</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-11-04 [Mod: 2024-11-04]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/headscale/">headscale</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/migration/">migration</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/centos/">CentOS</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/ubuntu/">Ubuntu</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.</p>
+<h3 id="1-export-data-and-image-on-centos-7">1. Export Data and Image on CentOS 7<a href="#1-export-data-and-image-on-centos-7" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h4 id="export-configuration-and-database">Export Configuration and Database<a href="#export-configuration-and-database" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<p>To begin, export the configuration and database files from the <code>headscale</code> container:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker cp headscale:/etc/headscale/config.yaml ./config.yaml
+docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite
+</code></pre></div><h4 id="export-docker-image">Export Docker Image<a href="#export-docker-image" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<p>Use <code>docker save</code> to export the <code>headscale</code> Docker image:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1
+</code></pre></div><h3 id="2-transfer-files-to-ubuntu-24">2. Transfer Files to Ubuntu 24<a href="#2-transfer-files-to-ubuntu-24" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Transfer the configuration, database, and image files to the Ubuntu 24 system using <code>scp</code>, <code>rsync</code>, or another file transfer tool:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">scp config.yaml db.sqlite headscale_image_backup.tar user@ubuntu-server:/path/to/backup/
+</code></pre></div><h3 id="3-import-data-on-ubuntu-24">3. Import Data on Ubuntu 24<a href="#3-import-data-on-ubuntu-24" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h4 id="load-docker-image">Load Docker Image<a href="#load-docker-image" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<p>On the Ubuntu system, use <code>docker load</code> to import the Docker image:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker load -i /path/to/backup/headscale_image_backup.tar
+</code></pre></div><h4 id="create-headscale-container">Create Headscale Container<a href="#create-headscale-container" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<p>Move the configuration and database files to <code>/etc/headscale/</code> and create the container:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo mkdir -p /etc/headscale
+sudo mv /path/to/backup/config.yaml /etc/headscale/
+sudo mv /path/to/backup/db.sqlite /etc/headscale/
+</code></pre></div><p>Run the container with volume mounts:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run -d <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  --name headscale <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -v /etc/headscale/config.yaml:/etc/headscale/config.yaml <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -v /etc/headscale/db.sqlite:/etc/headscale/db.sqlite <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -p 8080:8080 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -p 9090:9090 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  headscale/headscale:0.23.0-beta1
+</code></pre></div><h3 id="4-verify-the-migration">4. Verify the Migration<a href="#4-verify-the-migration" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Check the container status:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker ps
+docker logs headscale
+</code></pre></div><p>After completing these steps, Headscale should successfully run on Ubuntu 24.</p>
+<pre><code></code></pre>
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2024 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

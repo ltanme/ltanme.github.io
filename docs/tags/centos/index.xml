@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CentOS on LTAN.ME</title>
+    <link>https://ltan.me/tags/centos/</link>
+    <description>Recent content in CentOS on LTAN.ME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 Nov 2024 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/centos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Headscale Migration from CentOS 7 to Ubuntu 24</title>
+      <link>https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/</link>
+      <pubDate>Mon, 04 Nov 2024 10:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/</guid>
+      <description>This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.
+1. Export Data and Image on CentOS 7 Export Configuration and Database To begin, export the configuration and database files from the headscale container:
+docker cp headscale:/etc/headscale/config.yaml ./config.yaml docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite Export Docker Image Use docker save to export the headscale Docker image:
+docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1 2. Transfer Files to Ubuntu 24 Transfer the configuration, database, and image files to the Ubuntu 24 system using scp, rsync, or another file transfer tool:</description>
+      <content>&lt;p&gt;This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.&lt;/p&gt;
+&lt;h3 id=&#34;1-export-data-and-image-on-centos-7&#34;&gt;1. Export Data and Image on CentOS 7&lt;/h3&gt;
+&lt;h4 id=&#34;export-configuration-and-database&#34;&gt;Export Configuration and Database&lt;/h4&gt;
+&lt;p&gt;To begin, export the configuration and database files from the &lt;code&gt;headscale&lt;/code&gt; container:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker cp headscale:/etc/headscale/config.yaml ./config.yaml
+docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;export-docker-image&#34;&gt;Export Docker Image&lt;/h4&gt;
+&lt;p&gt;Use &lt;code&gt;docker save&lt;/code&gt; to export the &lt;code&gt;headscale&lt;/code&gt; Docker image:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;2-transfer-files-to-ubuntu-24&#34;&gt;2. Transfer Files to Ubuntu 24&lt;/h3&gt;
+&lt;p&gt;Transfer the configuration, database, and image files to the Ubuntu 24 system using &lt;code&gt;scp&lt;/code&gt;, &lt;code&gt;rsync&lt;/code&gt;, or another file transfer tool:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;scp config.yaml db.sqlite headscale_image_backup.tar user@ubuntu-server:/path/to/backup/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;3-import-data-on-ubuntu-24&#34;&gt;3. Import Data on Ubuntu 24&lt;/h3&gt;
+&lt;h4 id=&#34;load-docker-image&#34;&gt;Load Docker Image&lt;/h4&gt;
+&lt;p&gt;On the Ubuntu system, use &lt;code&gt;docker load&lt;/code&gt; to import the Docker image:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker load -i /path/to/backup/headscale_image_backup.tar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;create-headscale-container&#34;&gt;Create Headscale Container&lt;/h4&gt;
+&lt;p&gt;Move the configuration and database files to &lt;code&gt;/etc/headscale/&lt;/code&gt; and create the container:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo mkdir -p /etc/headscale
+sudo mv /path/to/backup/config.yaml /etc/headscale/
+sudo mv /path/to/backup/db.sqlite /etc/headscale/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Run the container with volume mounts:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker run -d &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  --name headscale &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  -v /etc/headscale/config.yaml:/etc/headscale/config.yaml &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  -v /etc/headscale/db.sqlite:/etc/headscale/db.sqlite &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  -p 8080:8080 &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  -p 9090:9090 &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  headscale/headscale:0.23.0-beta1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;4-verify-the-migration&#34;&gt;4. Verify the Migration&lt;/h3&gt;
+&lt;p&gt;Check the container status:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker ps
+docker logs headscale
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After completing these steps, Headscale should successfully run on Ubuntu 24.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</content>
+    </item>
+    
+  </channel>
+</rss>
