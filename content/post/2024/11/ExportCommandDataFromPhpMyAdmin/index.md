@@ -1,7 +1,7 @@
 ---
 title: "Export Command Data from PhpMyAdmin"
 date: 2024-11-04T12:00:00+08:00
-draft: true
+draft: false
 tags: ["phpmyadmin", "data export", "automation", "python", "Excel"]
 ---
 
