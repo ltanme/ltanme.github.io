@@ -6,7 +6,97 @@
     <description>Recent content in Tags on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Nov 2024 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Feb 2025 17:03:23 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Firewall</title>
+      <link>https://ltan.me/tags/firewall/</link>
+      <pubDate>Fri, 28 Feb 2025 17:03:23 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/firewall/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>Networking</title>
+      <link>https://ltan.me/tags/networking/</link>
+      <pubDate>Fri, 28 Feb 2025 17:03:23 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/networking/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>openwrt</title>
+      <link>https://ltan.me/tags/openwrt/</link>
+      <pubDate>Fri, 28 Feb 2025 17:03:23 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/openwrt/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>Parental Controls</title>
+      <link>https://ltan.me/tags/parental-controls/</link>
+      <pubDate>Fri, 28 Feb 2025 17:03:23 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/parental-controls/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>automation</title>
+      <link>https://ltan.me/tags/automation/</link>
+      <pubDate>Mon, 04 Nov 2024 12:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/automation/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>data export</title>
+      <link>https://ltan.me/tags/data-export/</link>
+      <pubDate>Mon, 04 Nov 2024 12:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/data-export/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>Excel</title>
+      <link>https://ltan.me/tags/excel/</link>
+      <pubDate>Mon, 04 Nov 2024 12:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/excel/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>phpmyadmin</title>
+      <link>https://ltan.me/tags/phpmyadmin/</link>
+      <pubDate>Mon, 04 Nov 2024 12:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/phpmyadmin/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://ltan.me/tags/python/</link>
+      <pubDate>Mon, 04 Nov 2024 12:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/python/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
     <item>
       <title>CentOS</title>
       <link>https://ltan.me/tags/centos/</link>
@@ -483,26 +573,6 @@
       <pubDate>Thu, 16 Jun 2022 20:56:27 +0800</pubDate>
       
       <guid>https://ltan.me/tags/python2.7/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    
-    <item>
-      <title>openwrt</title>
-      <link>https://ltan.me/tags/openwrt/</link>
-      <pubDate>Mon, 11 Apr 2022 19:50:44 +0800</pubDate>
-      
-      <guid>https://ltan.me/tags/openwrt/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    
-    <item>
-      <title>phpmyadmin</title>
-      <link>https://ltan.me/tags/phpmyadmin/</link>
-      <pubDate>Mon, 28 Mar 2022 18:14:36 +0800</pubDate>
-      
-      <guid>https://ltan.me/tags/phpmyadmin/</guid>
       <description></description>
       <content></content>
     </item>

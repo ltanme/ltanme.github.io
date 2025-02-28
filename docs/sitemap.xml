@@ -2,6 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ltan.me/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/</loc>
+    <lastmod>2025-02-28T17:03:23+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/firewall/</loc>
+    <lastmod>2025-02-28T17:03:23+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/</loc>
+    <lastmod>2025-02-28T17:03:23+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/networking/</loc>
+    <lastmod>2025-02-28T17:03:23+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/openwrt/</loc>
+    <lastmod>2025-02-28T17:03:23+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/parental-controls/</loc>
+    <lastmod>2025-02-28T17:03:23+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2025-02-28T17:03:23+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2025-02-28T17:03:23+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/automation/</loc>
+    <lastmod>2024-11-04T12:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/data-export/</loc>
+    <lastmod>2024-11-04T12:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/excel/</loc>
+    <lastmod>2024-11-04T12:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2024/11/exportcommanddatafromphpmyadmin/</loc>
+    <lastmod>2024-11-04T12:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/phpmyadmin/</loc>
+    <lastmod>2024-11-04T12:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/python/</loc>
+    <lastmod>2024-11-04T12:00:00+08:00</lastmod>
+  </url><url>
     <loc>https://ltan.me/tags/centos/</loc>
     <lastmod>2024-11-04T10:00:00+08:00</lastmod>
   </url><url>
@@ -14,16 +56,7 @@
     <loc>https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/</loc>
     <lastmod>2024-11-04T10:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://ltan.me/</loc>
-    <lastmod>2024-11-04T10:00:00+08:00</lastmod>
-  </url><url>
     <loc>https://ltan.me/tags/migration/</loc>
-    <lastmod>2024-11-04T10:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/post/</loc>
-    <lastmod>2024-11-04T10:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2024-11-04T10:00:00+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/ubuntu/</loc>
@@ -241,12 +274,6 @@
   </url><url>
     <loc>https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/</loc>
     <lastmod>2022-04-11T19:50:44+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/openwrt/</loc>
-    <lastmod>2022-04-11T19:50:44+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/phpmyadmin/</loc>
-    <lastmod>2022-03-28T18:14:36+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/post/2022/03/phpmyadmin-docker-install/</loc>
     <lastmod>2022-03-28T18:14:36+08:00</lastmod>

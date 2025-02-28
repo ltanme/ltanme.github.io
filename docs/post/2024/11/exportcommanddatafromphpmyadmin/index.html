@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Export Command Data from PhpMyAdmin :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="在使用 PhpMyAdmin 时，您可能会遇到一个问题：当某些字段内容较长时，界面无法完整显示这些字段内容，只能看到部分数据。这种情况下，PhpMyAdmin 默认的导出功能可能无法满足需求，因为网页导出的数据也会被截断，手" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2024/11/exportcommanddatafromphpmyadmin/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Export Command Data from PhpMyAdmin">
+<meta property="og:description" content="在使用 PhpMyAdmin 时，您可能会遇到一个问题：当某些字段内容较长时，界面无法完整显示这些字段内容，只能看到部分数据。这种情况下，PhpMyAdmin 默认的导出功能可能无法满足需求，因为网页导出的数据也会被截断，手" />
+<meta property="og:url" content="https://ltan.me/post/2024/11/exportcommanddatafromphpmyadmin/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-11-04 12:00:00 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2024/11/exportcommanddatafromphpmyadmin/">Export Command Data from PhpMyAdmin</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-11-04 [Mod: 2024-11-04]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/phpmyadmin/">phpmyadmin</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/data-export/">data export</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/automation/">automation</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/python/">python</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/excel/">Excel</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>在使用 PhpMyAdmin 时，您可能会遇到一个问题：当某些字段内容较长时，界面无法完整显示这些字段内容，只能看到部分数据。这种情况下，PhpMyAdmin 默认的导出功能可能无法满足需求，因为网页导出的数据也会被截断，手动复制粘贴又非常耗时且容易出错。</p>
+<p>因此，我们可以通过编写 Python 脚本直接调用 PhpMyAdmin 的接口，自动化获取完整数据并保存为 Excel 文件。这样做的主要原因包括：</p>
+<ol>
+<li><strong>避免手动操作的繁琐</strong>：使用代码可以批量导出数据，无需逐行查看、复制，节省了大量时间。</li>
+<li><strong>数据完整性</strong>：直接通过接口请求数据，可以获取字段的完整内容，避免网页显示导致的数据截断问题。</li>
+<li><strong>便于分析和存储</strong>：将数据保存到 Excel 文件中，方便后续的分析和归档，也可以作为备份使用。</li>
+</ol>
+<p>通过此方法，您可以轻松导出完整的数据库字段信息，不受界面限制，也提高了数据处理的效率。</p>
+<p>To solve the issue of PhpMyAdmin&rsquo;s web interface not fully displaying certain fields (especially when fields are too long to display completely), you can use the following method to export complete data. This method utilizes Python and the <code>requests</code> and <code>openpyxl</code> libraries to retrieve data from PhpMyAdmin and save it to an Excel file. Please note that some sensitive information in the code has been hidden.</p>
+<h3 id="code-example">Code Example<a href="#code-example" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> requests
+<span style="color:#f92672">import</span> openpyxl
+
+<span style="color:#75715e"># Create an Excel file</span>
+workbook <span style="color:#f92672">=</span> openpyxl<span style="color:#f92672">.</span>Workbook()
+sheet <span style="color:#f92672">=</span> workbook<span style="color:#f92672">.</span>active
+sheet<span style="color:#f92672">.</span>title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Command Data&#34;</span>
+sheet<span style="color:#f92672">.</span>append([<span style="color:#e6db74">&#34;ID&#34;</span>, <span style="color:#e6db74">&#34;Command Name&#34;</span>, <span style="color:#e6db74">&#34;Command Detail&#34;</span>])  <span style="color:#75715e"># Add headers</span>
+
+<span style="color:#75715e"># Define base request information</span>
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://[HOST]/sql.php&#34;</span>
+headers <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#34;accept&#34;</span>: <span style="color:#e6db74">&#34;*/*&#34;</span>,
+    <span style="color:#e6db74">&#34;accept-encoding&#34;</span>: <span style="color:#e6db74">&#34;gzip, deflate&#34;</span>,
+    <span style="color:#e6db74">&#34;accept-language&#34;</span>: <span style="color:#e6db74">&#34;zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#34;</span>,
+    <span style="color:#e6db74">&#34;cache-control&#34;</span>: <span style="color:#e6db74">&#34;no-cache&#34;</span>,
+    <span style="color:#e6db74">&#34;connection&#34;</span>: <span style="color:#e6db74">&#34;keep-alive&#34;</span>,
+    <span style="color:#e6db74">&#34;content-type&#34;</span>: <span style="color:#e6db74">&#34;application/x-www-form-urlencoded; charset=UTF-8&#34;</span>,
+    <span style="color:#e6db74">&#34;cookie&#34;</span>: <span style="color:#e6db74">&#34;[COOKIE_DATA]&#34;</span>,
+    <span style="color:#e6db74">&#34;host&#34;</span>: <span style="color:#e6db74">&#34;[HOST]&#34;</span>,
+    <span style="color:#e6db74">&#34;origin&#34;</span>: <span style="color:#e6db74">&#34;[ORIGIN]&#34;</span>,
+    <span style="color:#e6db74">&#34;user-agent&#34;</span>: <span style="color:#e6db74">&#34;Mozilla/5.0&#34;</span>,
+    <span style="color:#e6db74">&#34;x-requested-with&#34;</span>: <span style="color:#e6db74">&#34;XMLHttpRequest&#34;</span>
+}
+
+<span style="color:#75715e"># Define request data template</span>
+data_template <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#34;db&#34;</span>: <span style="color:#e6db74">&#34;device_remote_control&#34;</span>,
+    <span style="color:#e6db74">&#34;ajax_request&#34;</span>: <span style="color:#e6db74">&#34;true&#34;</span>,
+    <span style="color:#e6db74">&#34;grid_edit&#34;</span>: <span style="color:#e6db74">&#34;true&#34;</span>,
+    <span style="color:#e6db74">&#34;_nocache&#34;</span>: <span style="color:#e6db74">&#34;[NOCACHE_VALUE]&#34;</span>,
+    <span style="color:#e6db74">&#34;token&#34;</span>: <span style="color:#e6db74">&#34;[TOKEN_VALUE]&#34;</span>
+}
+
+<span style="color:#75715e"># Define query function</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">query_command</span>(sql_query, command_id):
+    data <span style="color:#f92672">=</span> data_template<span style="color:#f92672">.</span>copy()
+    data[<span style="color:#e6db74">&#34;sql_query&#34;</span>] <span style="color:#f92672">=</span> sql_query
+    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Executing SQL for ID </span><span style="color:#e6db74">{</span>command_id<span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">{</span>sql_query<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+    response <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(url, headers<span style="color:#f92672">=</span>headers, data<span style="color:#f92672">=</span>data)
+    response_json <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>json()
+    <span style="color:#66d9ef">return</span> response_json<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;value&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)  <span style="color:#75715e"># Return queried field value</span>
+
+<span style="color:#75715e"># Loop to query command_name and command_detail from ID 74 to 580</span>
+<span style="color:#66d9ef">for</span> command_id <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">74</span>, <span style="color:#ae81ff">581</span>):
+    command_name_query <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;SELECT command_name FROM `command` WHERE id=</span><span style="color:#e6db74">{</span>command_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+    command_detail_query <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;SELECT command_detail FROM `command` WHERE id=</span><span style="color:#e6db74">{</span>command_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+
+    <span style="color:#75715e"># Query command_name</span>
+    command_name <span style="color:#f92672">=</span> query_command(command_name_query, command_id)
+
+    <span style="color:#75715e"># Query command_detail</span>
+    command_detail <span style="color:#f92672">=</span> query_command(command_detail_query, command_id)
+
+    <span style="color:#75715e"># Write to Excel if either value exists</span>
+    <span style="color:#66d9ef">if</span> command_name <span style="color:#f92672">or</span> command_detail:
+        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Writing to Excel: ID=</span><span style="color:#e6db74">{</span>command_id<span style="color:#e6db74">}</span><span style="color:#e6db74">, command_name=</span><span style="color:#e6db74">{</span>command_name<span style="color:#e6db74">}</span><span style="color:#e6db74">, command_detail=</span><span style="color:#e6db74">{</span>command_detail<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+        sheet<span style="color:#f92672">.</span>append([command_id, command_name, command_detail])
+
+<span style="color:#75715e"># Save the Excel file</span>
+workbook<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#34;command_data.xlsx&#34;</span>)
+print(<span style="color:#e6db74">&#34;Data successfully written to the Excel file.&#34;</span>)
+</code></pre></div><h3 id="notes">Notes<a href="#notes" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li><strong>Sensitive Information Hidden</strong>: Be sure to replace placeholder values such as <code>[HOST]</code>, <code>[COOKIE_DATA]</code>, <code>[NOCACHE_VALUE]</code>, and <code>[TOKEN_VALUE]</code> with actual values.</li>
+<li><strong>Customizable Range</strong>: The code loops through command IDs from 74 to 580. Adjust this range as needed.</li>
+<li><strong>Library Requirements</strong>: Ensure <code>requests</code> and <code>openpyxl</code> libraries are installed by running:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pip install requests openpyxl
+</code></pre></div></li>
+</ul>
+<p>This method allows you to automate data retrieval from PhpMyAdmin, avoiding the limitations of its web interface.</p>
+<pre><code>
+ 
+</code></pre>
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>
