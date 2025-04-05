@@ -101,6 +101,88 @@ Node desktop-mms156b registered
 &lt;blockquote&gt;
 &lt;p&gt;远程登录win10 速度很赞，几乎和本地一样操作流畅，而且无需科学&lt;br&gt;
 &lt;img src=&#34;img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;解决以上需要在每一台电脑上都要安装tailscale 客户端的问题
+利用群晖做数据转发，只需要在群晖上安装tailscale客户端即可&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;群晖子网路由subnet-router设置&#34;&gt;群晖子网路由（Subnet Router）设置&lt;/h2&gt;
+&lt;h3 id=&#34;问题解决方案&#34;&gt;问题解决方案&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;使用群晖NAS作为子网路由（Subnet Router）可以让所有家庭网络中的设备无需安装Tailscale客户端即可访问Tailscale网络。
+只需在群晖上安装一次Tailscale客户端，并进行适当配置，就可以实现整个内网的访问。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;详细步骤&#34;&gt;详细步骤&lt;/h3&gt;
+&lt;h4 id=&#34;1-在群晖上启用ipv4转发功能&#34;&gt;1. 在群晖上启用IPv4转发功能&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通过SSH登录到群晖，执行以下命令启用IPv4转发：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 检查当前IPv4转发状态&lt;/span&gt;
+sysctl net.ipv4.ip_forward
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 临时启用IPv4转发&lt;/span&gt;
+sudo sysctl -w net.ipv4.ip_forward&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 永久启用IPv4转发（在重启后仍然生效）&lt;/span&gt;
+sudo echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;net.ipv4.ip_forward = 1&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /etc/sysctl.conf
+sudo sysctl -p
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;2-在headscale服务器上允许子网路由广播&#34;&gt;2. 在Headscale服务器上允许子网路由广播&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在Headscale服务器上执行以下命令，允许用户advertise routes（广播路由）：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 格式：headscale routes enable-route [子网CIDR] [节点ID]&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 例如：允许群晖广播192.168.1.0/24子网&lt;/span&gt;
+docker exec headscale headscale routes list
+&lt;span style=&#34;color:#75715e&#34;&gt;# 查看当前节点ID和广播的路由&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 启用子网路由（使用实际的子网CIDR和节点ID）&lt;/span&gt;
+docker exec headscale headscale routes enable --route 192.168.1.0/24 --node-id &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;以下是我实际执行的命令和结果：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@racknerd-6d4dab ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker exec headscale headscale routes enable \&lt;/span&gt;
+&amp;gt;   --route &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&amp;gt;   --force
+2025-04-05T06:53:57Z WRN An updated version of Headscale has been found &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;0.25.1 vs. your current v0.23.0-beta1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;. Check it out https://github.com/juanfont/headscale/releases
+
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@racknerd-6d4dab ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker exec headscale headscale routes list&lt;/span&gt;
+2025-04-05T06:54:14Z WRN An updated version of Headscale has been found &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;0.25.1 vs. your current v0.23.0-beta1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;. Check it out https://github.com/juanfont/headscale/releases
+
+ID | Node        | Prefix           | Advertised | Enabled | Primary
+&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  | diskstation | 192.168.100.0/24 | true       | true    | true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;从上面的结果可以看到，我的群晖设备名为&lt;code&gt;diskstation&lt;/code&gt;，它已经成功广播了&lt;code&gt;192.168.100.0/24&lt;/code&gt;子网，并且该路由已启用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;3-在群晖nas上配置tailscale&#34;&gt;3. 在群晖NAS上配置Tailscale&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在群晖上配置Tailscale客户端以广播子网路由：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 在群晖上执行此命令来重新配置Tailscale客户端&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# 注意：--advertise-routes参数指定要广播的子网&lt;/span&gt;
+sudo tailscale up --accept-routes --advertise-routes&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;192.168.1.0/24 --login-server&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;https://你的域名
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 查看Tailscale状态确认子网路由是否生效&lt;/span&gt;
+tailscale status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;注意：不需要重新登录，只需执行上述命令即可启用子网路由。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;验证子网路由是否成功&#34;&gt;验证子网路由是否成功&lt;/h3&gt;
+&lt;h4 id=&#34;在android手机上验证&#34;&gt;在Android手机上验证&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;在Android手机上安装Tailscale客户端&lt;/li&gt;
+&lt;li&gt;使用你的域名作为登录服务器（https://你的域名）登录&lt;/li&gt;
+&lt;li&gt;成功登录后，你应该能够访问家里内网的IP地址（如192.168.1.x）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;检查路由状态&#34;&gt;检查路由状态&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 在Headscale服务器上检查路由状态&lt;/span&gt;
+docker exec headscale headscale routes list
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# 在群晖上检查Tailscale状态&lt;/span&gt;
+tailscale status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;成功配置后，任何连接到你的Tailscale网络的设备都可以直接访问家庭内网的所有设备，而无需在每台设备上安装Tailscale客户端。
+这大大简化了网络管理，并允许访问那些无法安装Tailscale的设备（如智能家居设备、打印机等）。&lt;/p&gt;
 &lt;/blockquote&gt;
 </content>
     </item>

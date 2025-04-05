@@ -90,3 +90,88 @@ Node desktop-mms156b registered
 
 > 远程登录win10 速度很赞，几乎和本地一样操作流畅，而且无需科学   
 ![img_5.png](img_5.png)   
+> 
+> 解决以上需要在每一台电脑上都要安装tailscale 客户端的问题
+> 利用群晖做数据转发，只需要在群晖上安装tailscale客户端即可
+
+## 群晖子网路由（Subnet Router）设置
+
+### 问题解决方案
+> 使用群晖NAS作为子网路由（Subnet Router）可以让所有家庭网络中的设备无需安装Tailscale客户端即可访问Tailscale网络。
+> 只需在群晖上安装一次Tailscale客户端，并进行适当配置，就可以实现整个内网的访问。
+
+### 详细步骤
+
+#### 1. 在群晖上启用IPv4转发功能
+> 通过SSH登录到群晖，执行以下命令启用IPv4转发：
+```shell
+# 检查当前IPv4转发状态
+sysctl net.ipv4.ip_forward
+
+# 临时启用IPv4转发
+sudo sysctl -w net.ipv4.ip_forward=1
+
+# 永久启用IPv4转发（在重启后仍然生效）
+sudo echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+sudo sysctl -p
+```
+
+#### 2. 在Headscale服务器上允许子网路由广播
+> 在Headscale服务器上执行以下命令，允许用户advertise routes（广播路由）：
+```shell
+# 格式：headscale routes enable-route [子网CIDR] [节点ID]
+# 例如：允许群晖广播192.168.1.0/24子网
+docker exec headscale headscale routes list
+# 查看当前节点ID和广播的路由
+
+# 启用子网路由（使用实际的子网CIDR和节点ID）
+docker exec headscale headscale routes enable --route 192.168.1.0/24 --node-id 1
+```
+
+> 以下是我实际执行的命令和结果：
+```shell
+[root@racknerd-6d4dab ~]# docker exec headscale headscale routes enable \
+>   --route 1 \
+>   --force
+2025-04-05T06:53:57Z WRN An updated version of Headscale has been found (0.25.1 vs. your current v0.23.0-beta1). Check it out https://github.com/juanfont/headscale/releases
+
+[root@racknerd-6d4dab ~]# docker exec headscale headscale routes list
+2025-04-05T06:54:14Z WRN An updated version of Headscale has been found (0.25.1 vs. your current v0.23.0-beta1). Check it out https://github.com/juanfont/headscale/releases
+
+ID | Node        | Prefix           | Advertised | Enabled | Primary
+1  | diskstation | 192.168.100.0/24 | true       | true    | true
+```
+> 从上面的结果可以看到，我的群晖设备名为`diskstation`，它已经成功广播了`192.168.100.0/24`子网，并且该路由已启用。
+
+#### 3. 在群晖NAS上配置Tailscale
+> 在群晖上配置Tailscale客户端以广播子网路由：
+```shell
+# 在群晖上执行此命令来重新配置Tailscale客户端
+# 注意：--advertise-routes参数指定要广播的子网
+sudo tailscale up --accept-routes --advertise-routes=192.168.1.0/24 --login-server=https://你的域名
+
+# 查看Tailscale状态确认子网路由是否生效
+tailscale status
+```
+> 注意：不需要重新登录，只需执行上述命令即可启用子网路由。
+
+### 验证子网路由是否成功
+
+#### 在Android手机上验证
+> 1. 在Android手机上安装Tailscale客户端
+> 2. 使用你的域名作为登录服务器（https://你的域名）登录
+> 3. 成功登录后，你应该能够访问家里内网的IP地址（如192.168.1.x）
+
+#### 检查路由状态
+```shell
+# 在Headscale服务器上检查路由状态
+docker exec headscale headscale routes list
+
+# 在群晖上检查Tailscale状态
+tailscale status
+```
+
+![img_6.png](img_6.png)  
+
+> 成功配置后，任何连接到你的Tailscale网络的设备都可以直接访问家庭内网的所有设备，而无需在每台设备上安装Tailscale客户端。
+> 这大大简化了网络管理，并允许访问那些无法安装Tailscale的设备（如智能家居设备、打印机等）。
