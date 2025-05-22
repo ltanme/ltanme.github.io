@@ -23,6 +23,9 @@ tags: [APISIX, APM, W3C Trace Context, 全链路追踪, Docker Compose]
     3. 在 APM 里能通过 trace ID 搜到整条链路。
 
 ---
+## 整体追踪逻辑图
+![trace_context.png](trace_context.png)
+
 
 ## 环境准备
 | 组件 | 版本 | 镜像 |
@@ -92,29 +95,93 @@ plugins:
 ```
 ## 自定义 w3c-trace-inject 插件
 ```lua
--- plugins/w3c-trace-inject.lua
-local core, random, str = require("apisix.core"), require("resty.random"), require("resty.string")
-local function gen_hex(n) return str.to_hex(random.bytes(n, true)) end
-local function ok_tp(tp)  return tp and tp:match("^00%-%x%x+%-%x%x+%-%x%x$") end
-local function ok_ts(ts) return ts and #ts<=512 end   -- 简化
+ --
+--  插件名称 : w3c-trace-inject
+--  APISIX 3.9
+--  功能     : 为所有请求注入 / 校验 traceparent 与 tracestate，并把 traceparent 回写到响应头
+--
+local core   = require("apisix.core")
+local random = require("resty.random")
+local str    = require("resty.string")
 
-local _M = {version=0.3, priority=10000, name="w3c-trace-inject", schema={type="object"}}
+local plugin_name = "w3c-trace-inject"
 
-function _M.access(_, ctx)
-  local h = core.request.headers(ctx)
-  local tp = h.traceparent
-  if not ok_tp(tp) then
-    local tid, sid = gen_hex(16), gen_hex(8)
-    tp = string.format("00-%s-%s-01", tid, sid)
-    core.request.set_header(ctx,"traceparent",tp)
-  end
-  ctx.tp = tp ; ctx.ts = h.tracestate or "as=1"
-  core.request.set_header(ctx,"tracestate",ctx.ts)
+------------------------------------------------------------------------
+-- 插件元信息
+------------------------------------------------------------------------
+local _M = {
+    version  = 0.3,        -- ↑ 0.3：新增 header_filter
+    priority = 10000,
+    name     = plugin_name,
+    schema   = { type = "object" },   -- 无需额外配置
+}
+
+------------------------------------------------------------------------
+-- 工具函数
+------------------------------------------------------------------------
+local function gen_hex(bytes)           -- 将随机字节转 16 进制
+    return str.to_hex(random.bytes(bytes, true))
 end
 
-function _M.header_filter(_,ctx)
-  ngx.header.traceparent = ctx.tp
-  ngx.header.tracestate  = ctx.ts
+-- traceparent 必须形如 00-32hex-16hex-2hex
+local function valid_traceparent(tp)
+    return tp
+       and tp:match("^00%-%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%-%x%x$")
+end
+
+-- tracestate 基础校验：≤512 字节，逗号分隔的 key=value，key 只能小写字母数字和 `_ - * /`
+local function valid_tracestate(ts)
+    if not ts or #ts > 512 then return false end
+    for entry in ts:gmatch("[^,]+") do
+        local key, val = entry:match("^([%l%d%-%_%*/]+)=([%g]+)$")
+        if not key or not val then
+            return false
+        end
+    end
+    return true
+end
+
+------------------------------------------------------------------------
+-- access 阶段：注入 / 校验请求头
+------------------------------------------------------------------------
+function _M.access(conf, ctx)
+    local headers = core.request.headers(ctx)
+
+    -- 1️⃣ traceparent --------------------------------------------------
+    local tp = headers["traceparent"]
+    if not valid_traceparent(tp) then
+        local trace_id = gen_hex(16)             -- 128-bit
+        local span_id  = gen_hex(8)              -- 64-bit
+        tp = string.format("00-%s-%s-01", trace_id, span_id)
+        core.request.set_header(ctx, "traceparent", tp)
+        ctx.trace_id = trace_id                  -- 写入 ctx 供日志等使用
+    else
+        ctx.trace_id = tp:sub(4, 35)             -- 提取已存在的 trace-id
+    end
+    ctx.response_traceparent = tp                -- 留给 header_filter
+
+    -- 2️⃣ tracestate ---------------------------------------------------
+    local ts = headers["tracestate"]
+    if not ts then
+        ts = "as=1"
+        core.request.set_header(ctx, "tracestate", ts)
+    elseif not valid_tracestate(ts) then
+        core.request.clear_header(ctx, "tracestate")
+        ts = nil
+    end
+    ctx.response_tracestate = ts                 -- 留给 header_filter
+end
+
+------------------------------------------------------------------------
+-- header_filter 阶段：把 trace 信息写回响应头
+------------------------------------------------------------------------
+function _M.header_filter(conf, ctx)
+    if ctx.response_traceparent then
+        ngx.header["traceparent"] = ctx.response_traceparent
+    end
+    if ctx.response_tracestate then
+        ngx.header["tracestate"] = ctx.response_tracestate
+    end
 end
 
 return _M
@@ -181,3 +248,7 @@ tracestate: as=1
 {"code":0,"data":{"x-real-ip":"192.168.240.1","tracestate":"as=1","x-forwarded-proto":"http","x-forwarded-host":"localhost","traceparent":"00-c968d17a84e4b2391ecd986259551550-44b21d2b9dcc18e5-01","clientIP":"192.168.240.1","host":"10.244.191.219","x-forwarded-port":"9080","user-agent":"curl/7.29.0","accept":"*/*"},"msg":"success"}
 ```
 
+## 通过trace.id查看 apm dashbard 效果
+![image2025-5-22_10-48-50.png](image2025-5-22_10-48-50.png)
+> 
+![image2025-5-22_10-49-31.png](image2025-5-22_10-49-31.png)
