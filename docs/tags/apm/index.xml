@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>apisix on LTAN.ME</title>
-    <link>https://ltan.me/tags/apisix/</link>
-    <description>Recent content in apisix on LTAN.ME</description>
+    <title>APM on LTAN.ME</title>
+    <link>https://ltan.me/tags/apm/</link>
+    <description>Recent content in APM on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ltan.me/tags/apisix/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ltan.me/tags/apm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>APISIX 3.9 &#43; APM 整合全链路追踪日志</title>
       <link>https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/</link>
@@ -257,119 +257,6 @@ tracestate: as&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span s
  
 &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;code&amp;#34;&lt;/span&gt;:0,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;data&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-real-ip&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.240.1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;as=1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-proto&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;localhost&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;traceparent&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;00-c968d17a84e4b2391ecd986259551550-44b21d2b9dcc18e5-01&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clientIP&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.240.1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.244.191.219&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-port&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9080&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;user-agent&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;curl/7.29.0&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;accept&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;*/*&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;msg&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;success&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
-    </item>
-    
-    <item>
-      <title>Remember the Problem of Apisix and Node Red Multi Instance Debugging</title>
-      <link>https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</link>
-      <pubDate>Tue, 16 Jan 2024 17:22:05 +0800</pubDate>
-      
-      <guid>https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</guid>
-      <description>Resolving Docker Compose and ApiSix Port 502 Error 在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。 然而，在这个过程中，我遇到了一个502端口访问错误。 我花了一整天的时间来解决这个</description>
-      <content>&lt;h1 id=&#34;resolving-docker-compose-and-apisix-port-502-error&#34;&gt;Resolving Docker Compose and ApiSix Port 502 Error&lt;/h1&gt;
-&lt;p&gt;在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
-然而，在这个过程中，我遇到了一个502端口访问错误。
-我花了一整天的时间来解决这个问题，最终找到了问题的原因。&lt;/p&gt;
-&lt;p&gt;问题出在我创建Node-RED实例并在ApiSix中添加upstream时。
-我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker run -d --network apisix_apisix --name node-red-a -p 1880:1880 nodered/node-red:3.1.0-18
-docker run -d --network apisix_apisix --name node-red-b -p 1881:1880 nodered/node-red:3.1.0-18
-docker run -d --network apisix_apisix --name node-red-c -p 1882:1880 nodered/node-red:3.1.0-18
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;但实际上，Docker网络apisix_apisix并没有使用这个暴露端口，&lt;br&gt;
-而是使用了内部网络的端口。这个错误导致了我一整天的时间浪费。&lt;/p&gt;
-&lt;p&gt;为了解决问题，我将Node-RED实例的端口号设置为1880，  &lt;br&gt;
-与Docker网络中的端口一致，这样ApiSix能够正确地与Node-RED实例通信。&lt;br&gt;
-以下端口必须要填写内部的程序实际端口&lt;br&gt;
-&lt;img src=&#34;./screenshot-20240116-205136.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>Reverse Proxy to Websocket Service Set Based on Apisix2</title>
-      <link>https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</link>
-      <pubDate>Tue, 11 May 2021 15:39:09 +0800</pubDate>
-      
-      <guid>https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</guid>
-      <description>基于apisix2.4网关反向代理到websocket服务集节点 问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点 apisix就是基于open</description>
-      <content>&lt;h1 id=&#34;基于apisix24网关反向代理到websocket服务集节点&#34;&gt;基于apisix2.4网关反向代理到websocket服务集节点&lt;/h1&gt;
-&lt;p&gt;问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点&lt;/p&gt;
-&lt;p&gt;apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等&lt;/p&gt;
-&lt;p&gt;本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;整体的环境说明：如下图&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210511150518389.png&#34; alt=&#34;image-20210511150518389&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 搭建环境&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;docker pull django
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 运行python 容器&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;docker run -itd --name py3 -v /i:/i -v /d:/d django /bin/bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 进入容器，检查容器环境是否正常&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-shel&#34; data-lang=&#34;shel&#34;&gt;docker exec -it  c5d2369adde2 /bin/bash
-
-docker exec -it 58e1c95fea73 /bin/sh
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;./image-20210511150600898.png&#34; alt=&#34;image-20210511150600898&#34;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 安装websocket&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt; pip install websocket 
-
- pip install stomp.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 启动后端 java websocket 环境&lt;/p&gt;
-&lt;p&gt;进入java 容器，设置同一个网络环境，同一个网段&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-she&#34; data-lang=&#34;she&#34;&gt;    docker run --name s1 --network app-tier -d -v /i:/i -v /d:/d -p 8081:8080 ltjsj/super-dev-env:v1.1 
-
-​      docker exec -it s1 /bin/bash
-
-​      java -jar /i/path/to/websocket.jar 
-
-​       docker inspect s1 | findstr IPAddress # 查看容器ip， 准备填入apisix 节点 
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 配置apisix&lt;/p&gt;
-&lt;p&gt;路由代理，配置上游&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210511150841820.png&#34; alt=&#34;image-20210511150841820&#34;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 编写python 脚本测试代码&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-pytho&#34; data-lang=&#34;pytho&#34;&gt;#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Time    : 2021/03/31 下午03:21
-# @Author  : ltan.me
-
-from stomp_ws import Stomp
-import time
-
-def do_thing_a(msg):
-    print(&amp;quot;MESSAGE: &amp;quot; + msg)
-
-if __name__ == &amp;quot;__main__&amp;quot;:
-
-    for i in range(0,10):
-        #为了模拟设备id,激活id,采用id为作为通信参数，生成10个id分别请求websocket服务器域名
-        url = &amp;quot;test.xxxx.com/stompServer/websocket?id=%s&amp;amp;activeId=416&amp;amp;deviceId=3657dc0cfede992b97d2135fd0514c6c&amp;amp;userId=1&amp;amp;&amp;amp;connectType=0&amp;amp;token=9d3b7282d295eefe9e9b959f63134dee&amp;quot; % str(i)
-        print(url)
-        stomp = Stomp(url, sockjs=True, wss=False)
-        stomp.connect()
-        stomp.subscribe(&amp;quot;/user/1_416/command&amp;quot;, do_thing_a)
-        time.sleep(2)
-        stomp.send(&amp;quot;/web2client_term&amp;quot;, &#39;{&amp;quot;userId&amp;quot;:1,&amp;quot;activeId&amp;quot;:416,&amp;quot;cmdType&amp;quot;:18,&amp;quot;content&amp;quot;:&amp;quot;python-hahah&amp;quot;}&#39;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 最终运行效果&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210511151138269.png&#34; alt=&#34;image-20210511151138269&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210511151206802.png&#34; alt=&#34;image-20210511151206802&#34;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-</content>
     </item>
     
   </channel>

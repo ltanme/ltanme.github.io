@@ -2,13 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ltan.me/tags/apisix/</loc>
+    <lastmod>2025-05-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/</loc>
+    <lastmod>2025-05-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/apm/</loc>
+    <lastmod>2025-05-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/docker-compose/</loc>
+    <lastmod>2025-05-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/</loc>
+    <lastmod>2025-05-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2025-05-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2025-05-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/w3c-trace-context/</loc>
+    <lastmod>2025-05-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/%E5%85%A8%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/</loc>
+    <lastmod>2025-05-22T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://ltan.me/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/</loc>
     <lastmod>2025-02-28T17:03:23+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/firewall/</loc>
-    <lastmod>2025-02-28T17:03:23+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/</loc>
     <lastmod>2025-02-28T17:03:23+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/networking/</loc>
@@ -18,12 +42,6 @@
     <lastmod>2025-02-28T17:03:23+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/parental-controls/</loc>
-    <lastmod>2025-02-28T17:03:23+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/post/</loc>
-    <lastmod>2025-02-28T17:03:23+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2025-02-28T17:03:23+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/automation/</loc>
@@ -151,9 +169,6 @@
   </url><url>
     <loc>https://ltan.me/post/2024/02/record-an-error-during-node-red-deployment/</loc>
     <lastmod>2024-02-22T20:50:54+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/apisix/</loc>
-    <lastmod>2024-01-16T17:22:05+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/node-red/</loc>
     <lastmod>2024-01-16T17:22:05+08:00</lastmod>
