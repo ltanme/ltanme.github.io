@@ -11,6 +11,8 @@
 
 **访问地址：** [https://ltan.me](https://ltan.me)
 
+> 💡 **About the Author**: A tech enthusiast who treats life like debugging code, builds a "digital kingdom" in NAS, contemplates "life algorithms" while swimming, and scripts everything from groceries to daily routines with IT mindset.
+
 ## ✨ 主要特性
 
 ### 🎨 动态主题色彩
