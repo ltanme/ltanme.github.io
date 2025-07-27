@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Websocket on LTAN.ME</title>
-    <link>http://localhost:1313/tags/websocket/</link>
+    <link>https://ltan.me/tags/websocket/</link>
     <description>Recent content in Websocket on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 11 May 2021 15:39:09 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/websocket/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 May 2021 15:39:09 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/websocket/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Reverse Proxy to Websocket Service Set Based on Apisix2</title>
-      <link>http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</link>
+      <link>https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</link>
       <pubDate>Tue, 11 May 2021 15:39:09 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</guid>
+      <guid>https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</guid>
       <description>&lt;h1 id=&#34;基于apisix24网关反向代理到websocket服务集节点&#34;&gt;基于apisix2.4网关反向代理到websocket服务集节点&lt;/h1&gt;
 &lt;p&gt;问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点&lt;/p&gt;
 &lt;p&gt;apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等&lt;/p&gt;
@@ -23,7 +23,7 @@
 &lt;p&gt;本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;整体的环境说明：如下图&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150518389.png&#34; alt=&#34;image-20210511150518389&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150518389.png&#34; alt=&#34;image-20210511150518389&#34;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 搭建环境&lt;/p&gt;
@@ -38,7 +38,7 @@
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-shel&#34; data-lang=&#34;shel&#34;&gt;docker exec -it  c5d2369adde2 /bin/bash
 
 docker exec -it 58e1c95fea73 /bin/sh
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150600898.png&#34; alt=&#34;image-20210511150600898&#34;&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150600898.png&#34; alt=&#34;image-20210511150600898&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 安装websocket&lt;/p&gt;
@@ -62,7 +62,7 @@ docker exec -it 58e1c95fea73 /bin/sh
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 配置apisix&lt;/p&gt;
 &lt;p&gt;路由代理，配置上游&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150841820.png&#34; alt=&#34;image-20210511150841820&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150841820.png&#34; alt=&#34;image-20210511150841820&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 编写python 脚本测试代码&lt;/p&gt;
@@ -91,8 +91,8 @@ if __name__ == &amp;#34;__main__&amp;#34;:
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 最终运行效果&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511151138269.png&#34; alt=&#34;image-20210511151138269&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511151206802.png&#34; alt=&#34;image-20210511151206802&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511151138269.png&#34; alt=&#34;image-20210511151138269&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511151206802.png&#34; alt=&#34;image-20210511151206802&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 </content>
