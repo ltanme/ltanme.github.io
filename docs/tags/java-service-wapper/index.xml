@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java Service Wapper on LTAN.ME</title>
-    <link>https://ltan.me/tags/java-service-wapper/</link>
+    <link>http://localhost:55668/tags/java-service-wapper/</link>
     <description>Recent content in Java Service Wapper on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 13 May 2021 16:22:51 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/java-service-wapper/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 May 2021 16:22:51 +0800</lastBuildDate><atom:link href="http://localhost:55668/tags/java-service-wapper/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Run Spring Boot Program on Windows Server</title>
-      <link>https://ltan.me/post/2021/05/how-to-run-spring-boot-program-on-windows-server/</link>
+      <link>http://localhost:55668/post/2021/05/how-to-run-spring-boot-program-on-windows-server/</link>
       <pubDate>Thu, 13 May 2021 16:22:51 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/05/how-to-run-spring-boot-program-on-windows-server/</guid>
+      <guid>http://localhost:55668/post/2021/05/how-to-run-spring-boot-program-on-windows-server/</guid>
       <description>&lt;h1 id=&#34;spring-boot程序如何正确运行在windows服务器上面&#34;&gt;spring boot程序如何正确运行在Windows服务器上面&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;一次项目开发中，要求服务器是windows环境，一般我们都是用java sprint boot 开发的程序运行在linux 环境中，通过supervisor程序来守护，设置开机启动之类的操作命令， 很少有人用windows server, 这次机会遇到这个问题需要解决，好在记的我在几年前用过java service wapper（简称jsw）这个程序 ，对jsw 有一些了解,于是找一相当资料看一下&lt;/p&gt;</description>
@@ -24,7 +24,7 @@
 &lt;p&gt;他可以替代supervisor 做程序守护，开机启动等相关设置，如果是需要把jar包跑在windows 服务器当中。我需要通过sc 命令来注册服务指令&lt;/p&gt;
 &lt;p&gt;目前我暂时用到服务守护，和服务注册，等特点，其他特性还没有研究。以下是记录一下我在spring boot 项目中如何使用它来打包成 jsw 服务。&lt;/p&gt;
 &lt;p&gt;​    首先看一下我的项目结构图&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-run-spring-boot-program-on-windows-server/image-20210513163512015.png&#34; alt=&#34;image-20210513163512015&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2021/05/how-to-run-spring-boot-program-on-windows-server/image-20210513163512015.png&#34; alt=&#34;image-20210513163512015&#34;&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;需要在pom.xml 加入maven 打外插件，
 插件名为：maven-assembly-plugin&lt;/li&gt;
@@ -86,7 +86,7 @@ description：  服务描述
 executable ： 执行bin 名称
 arguments： 执行参数
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-run-spring-boot-program-on-windows-server/image-20210513163836081.png&#34; alt=&#34;image-20210513163836081&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2021/05/how-to-run-spring-boot-program-on-windows-server/image-20210513163836081.png&#34; alt=&#34;image-20210513163836081&#34;&gt;&lt;/p&gt;
 &lt;p&gt;​      service-assembly.xml 文件  这是打包核心配置核心文件&lt;/p&gt;
 &lt;p&gt;​     主是用于告诉maven 需要打包的文件在哪 里，如何打包，打成什么格式的包&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;assembly&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xmlns=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http://maven.apache.org/ASSEMBLY/2.0.0&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;xmlns:xsi=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&lt;/span&gt;
@@ -112,15 +112,15 @@ arguments： 执行参数
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/fileSets&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/assembly&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;该文件的目录位置如下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-run-spring-boot-program-on-windows-server/image-20210513164413150.png&#34; alt=&#34;image-20210513164413150&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2021/05/how-to-run-spring-boot-program-on-windows-server/image-20210513164413150.png&#34; alt=&#34;image-20210513164413150&#34;&gt;&lt;/p&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;执行打包 mvn package 命令
-&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-run-spring-boot-program-on-windows-server/image-20210513164650797.png&#34; alt=&#34;image-20210513164650797&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:55668/post/2021/05/how-to-run-spring-boot-program-on-windows-server/image-20210513164650797.png&#34; alt=&#34;image-20210513164650797&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;部署程序，降upgrade-admin-service.zip包 复制到一个正式的目录下解压后下图就是解压后zip后的效果
-&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-run-spring-boot-program-on-windows-server/image-20210513164952742.png&#34; alt=&#34;image-20210513164952742&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:55668/post/2021/05/how-to-run-spring-boot-program-on-windows-server/image-20210513164952742.png&#34; alt=&#34;image-20210513164952742&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;先安装windows 服务指令，上图install.bat是我之前写好的，该文件就是用来install Windows 服务脚本
@@ -172,7 +172,7 @@ install.bat&lt;/p&gt;
 &lt;p&gt;查看windows运行效果&lt;/p&gt;
 &lt;p&gt;按win+R 快捷键，输入&lt;em&gt;services.msc&lt;/em&gt;  命令，回车，&lt;/p&gt;
 &lt;p&gt;设置开机启动该服务都可以在windows 这边设置&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-run-spring-boot-program-on-windows-server/image-20210513165843939.png&#34; alt=&#34;image-20210513165843939&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2021/05/how-to-run-spring-boot-program-on-windows-server/image-20210513165843939.png&#34; alt=&#34;image-20210513165843939&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 </content>

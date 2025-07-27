@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cross Platform on LTAN.ME</title>
+    <link>http://localhost:55668/tags/cross-platform/</link>
+    <description>Recent content in Cross Platform on LTAN.ME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 27 Jan 2025 14:00:00 +0800</lastBuildDate><atom:link href="http://localhost:55668/tags/cross-platform/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BrowserGuard - 智能浏览器监控工具，助力家长控制与学习管理</title>
+      <link>http://localhost:55668/post/date-&#43;y/date-&#43;m/browserguard-parental-control-browser-monitoring-tool/</link>
+      <pubDate>Mon, 27 Jan 2025 14:00:00 +0800</pubDate>
+      
+      <guid>http://localhost:55668/post/date-&#43;y/date-&#43;m/browserguard-parental-control-browser-monitoring-tool/</guid>
+      <description>&lt;h2 id=&#34;项目概述&#34;&gt;项目概述&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/ltanme/BrowserGuard&#34;&gt;BrowserGuard&lt;/a&gt; 是一款专为家庭电脑学习管理设计的智能浏览器监控工具。基于 Electron + React + TypeScript 技术栈开发，支持 macOS 和 Windows 双平台，通过实时监控浏览器访问行为，帮助家长和孩子建立健康的上网习惯。&lt;/p&gt;
+&lt;h2 id=&#34;核心功能特性&#34;&gt;核心功能特性&lt;/h2&gt;
+&lt;h3 id=&#34;-智能拦截系统&#34;&gt;🎯 智能拦截系统&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;实时监控&lt;/strong&gt;：自动轮询规则接口，实时拦截游戏网站、短视频平台等娱乐内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多浏览器支持&lt;/strong&gt;：兼容 Chrome、Edge、Safari、Firefox 等主流浏览器&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;时间规则&lt;/strong&gt;：支持按时间段设置不同的拦截规则，灵活配置学习/娱乐时段&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-安全保护机制&#34;&gt;🔒 安全保护机制&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;管理员密码保护&lt;/strong&gt;：仅管理员可退出应用，防止孩子绕过监控&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;开机自启&lt;/strong&gt;：macOS LaunchAgent/Windows 注册表自动启动&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;单实例运行&lt;/strong&gt;：确保系统只有一个监控实例在运行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-灵活配置管理&#34;&gt;⚙️ 灵活配置管理&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;规则热更新&lt;/strong&gt;：支持远程规则接口，新规则自动生效&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;本地配置&lt;/strong&gt;：密码和配置信息保存在本地，支持修改&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;日志调试&lt;/strong&gt;：详细的操作日志，便于问题排查&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;使用场景&#34;&gt;使用场景&lt;/h2&gt;
+&lt;h3 id=&#34;-家庭学习管理&#34;&gt;👨‍👩‍👧‍👦 家庭学习管理&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;防沉迷控制&lt;/strong&gt;：在孩子学习时间自动拦截游戏网站&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;健康上网&lt;/strong&gt;：限制短视频、社交媒体等娱乐内容访问&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;时间管理&lt;/strong&gt;：通过时间段规则，培养良好的作息习惯&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-企业自律场景&#34;&gt;🏢 企业自律场景&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;工作专注&lt;/strong&gt;：在工作时间拦截娱乐网站，提高工作效率&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络安全&lt;/strong&gt;：防止访问恶意网站，保护企业数据安全&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;员工管理&lt;/strong&gt;：帮助员工建立健康的上网习惯&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-教育机构应用&#34;&gt;🎓 教育机构应用&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;机房管理&lt;/strong&gt;：在学校的电脑机房统一管理学生上网行为&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;学习环境&lt;/strong&gt;：为学生创造专注的学习环境&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;家长合作&lt;/strong&gt;：与家长共同监督孩子的上网行为&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;技术架构&#34;&gt;技术架构&lt;/h2&gt;
+&lt;h3 id=&#34;技术栈&#34;&gt;技术栈&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;框架&lt;/strong&gt;：Electron (跨平台桌面应用)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;前端&lt;/strong&gt;：React + TypeScript&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;构建&lt;/strong&gt;：Webpack + Electron Builder&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;部署&lt;/strong&gt;：GitHub Actions 自动化构建发布&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;核心模块&#34;&gt;核心模块&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;BrowserGuard/
+├── src/
+│   ├── main/           # 主进程代码
+│   ├── renderer/       # 渲染进程 (React)
+│   └── shared/         # 共享类型定义
+├── scripts/            # 跨平台脚本
+├── build/              # 构建配置
+└── docs/              # 项目文档
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装与使用&#34;&gt;安装与使用&lt;/h2&gt;
+&lt;h3 id=&#34;快速开始&#34;&gt;快速开始&lt;/h3&gt;
+&lt;h4 id=&#34;1-下载安装&#34;&gt;1. 下载安装&lt;/h4&gt;
+&lt;p&gt;访问 &lt;a href=&#34;https://github.com/ltanme/BrowserGuard/releases&#34;&gt;GitHub Releases&lt;/a&gt; 页面，下载适合你系统的安装包：&lt;/p&gt;</description>
+      <content>&lt;h2 id=&#34;项目概述&#34;&gt;项目概述&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/ltanme/BrowserGuard&#34;&gt;BrowserGuard&lt;/a&gt; 是一款专为家庭电脑学习管理设计的智能浏览器监控工具。基于 Electron + React + TypeScript 技术栈开发，支持 macOS 和 Windows 双平台，通过实时监控浏览器访问行为，帮助家长和孩子建立健康的上网习惯。&lt;/p&gt;
+&lt;h2 id=&#34;核心功能特性&#34;&gt;核心功能特性&lt;/h2&gt;
+&lt;h3 id=&#34;-智能拦截系统&#34;&gt;🎯 智能拦截系统&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;实时监控&lt;/strong&gt;：自动轮询规则接口，实时拦截游戏网站、短视频平台等娱乐内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多浏览器支持&lt;/strong&gt;：兼容 Chrome、Edge、Safari、Firefox 等主流浏览器&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;时间规则&lt;/strong&gt;：支持按时间段设置不同的拦截规则，灵活配置学习/娱乐时段&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-安全保护机制&#34;&gt;🔒 安全保护机制&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;管理员密码保护&lt;/strong&gt;：仅管理员可退出应用，防止孩子绕过监控&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;开机自启&lt;/strong&gt;：macOS LaunchAgent/Windows 注册表自动启动&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;单实例运行&lt;/strong&gt;：确保系统只有一个监控实例在运行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-灵活配置管理&#34;&gt;⚙️ 灵活配置管理&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;规则热更新&lt;/strong&gt;：支持远程规则接口，新规则自动生效&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;本地配置&lt;/strong&gt;：密码和配置信息保存在本地，支持修改&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;日志调试&lt;/strong&gt;：详细的操作日志，便于问题排查&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;使用场景&#34;&gt;使用场景&lt;/h2&gt;
+&lt;h3 id=&#34;-家庭学习管理&#34;&gt;👨‍👩‍👧‍👦 家庭学习管理&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;防沉迷控制&lt;/strong&gt;：在孩子学习时间自动拦截游戏网站&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;健康上网&lt;/strong&gt;：限制短视频、社交媒体等娱乐内容访问&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;时间管理&lt;/strong&gt;：通过时间段规则，培养良好的作息习惯&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-企业自律场景&#34;&gt;🏢 企业自律场景&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;工作专注&lt;/strong&gt;：在工作时间拦截娱乐网站，提高工作效率&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络安全&lt;/strong&gt;：防止访问恶意网站，保护企业数据安全&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;员工管理&lt;/strong&gt;：帮助员工建立健康的上网习惯&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-教育机构应用&#34;&gt;🎓 教育机构应用&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;机房管理&lt;/strong&gt;：在学校的电脑机房统一管理学生上网行为&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;学习环境&lt;/strong&gt;：为学生创造专注的学习环境&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;家长合作&lt;/strong&gt;：与家长共同监督孩子的上网行为&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;技术架构&#34;&gt;技术架构&lt;/h2&gt;
+&lt;h3 id=&#34;技术栈&#34;&gt;技术栈&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;框架&lt;/strong&gt;：Electron (跨平台桌面应用)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;前端&lt;/strong&gt;：React + TypeScript&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;构建&lt;/strong&gt;：Webpack + Electron Builder&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;部署&lt;/strong&gt;：GitHub Actions 自动化构建发布&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;核心模块&#34;&gt;核心模块&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;BrowserGuard/
+├── src/
+│   ├── main/           # 主进程代码
+│   ├── renderer/       # 渲染进程 (React)
+│   └── shared/         # 共享类型定义
+├── scripts/            # 跨平台脚本
+├── build/              # 构建配置
+└── docs/              # 项目文档
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装与使用&#34;&gt;安装与使用&lt;/h2&gt;
+&lt;h3 id=&#34;快速开始&#34;&gt;快速开始&lt;/h3&gt;
+&lt;h4 id=&#34;1-下载安装&#34;&gt;1. 下载安装&lt;/h4&gt;
+&lt;p&gt;访问 &lt;a href=&#34;https://github.com/ltanme/BrowserGuard/releases&#34;&gt;GitHub Releases&lt;/a&gt; 页面，下载适合你系统的安装包：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;macOS&lt;/strong&gt;: &lt;code&gt;BrowserGuard-1.0.0-arm64.dmg&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Windows&lt;/strong&gt;: &lt;code&gt;BrowserGuard Setup 1.0.0-ia32.exe&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;2-首次运行设置&#34;&gt;2. 首次运行设置&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;启动应用后自动显示首次运行设置界面&lt;/li&gt;
+&lt;li&gt;设置管理员密码（默认为 &lt;code&gt;123456&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;配置规则接口 URL&lt;/li&gt;
+&lt;li&gt;设置自动重载间隔（10-300秒）&lt;/li&gt;
+&lt;li&gt;点击&amp;quot;完成设置&amp;quot;进入主界面&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;3-权限授予&#34;&gt;3. 权限授予&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;macOS&lt;/strong&gt;: 首次启动会自动弹出&amp;quot;辅助功能&amp;quot;设置面板，请勾选 BrowserGuard&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Windows&lt;/strong&gt;: 需以管理员身份运行以便自动关闭浏览器进程&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;配置说明&#34;&gt;配置说明&lt;/h3&gt;
+&lt;h4 id=&#34;默认配置&#34;&gt;默认配置&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;管理员密码&lt;/strong&gt;: &lt;code&gt;123456&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;规则接口&lt;/strong&gt;: &lt;code&gt;https://api.example.com/blocklist&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自动重载间隔&lt;/strong&gt;: 30秒&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;配置文件位置&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;macOS: &lt;code&gt;~/Library/Application Support/BrowserGuard/config.json&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Windows: &lt;code&gt;%APPDATA%\BrowserGuard\config.json&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;规则配置示例&#34;&gt;规则配置示例&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;periods&amp;#34;&lt;/span&gt;: [
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;start&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;08:00&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;end&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;12:00&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;domains&amp;#34;&lt;/span&gt;: [
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;poki.com&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;4399.com&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;douyin.com&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bilibili.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;start&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;14:00&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;end&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;18:00&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;domains&amp;#34;&lt;/span&gt;: [
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;youtube.com&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tiktok.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;界面功能&#34;&gt;界面功能&lt;/h2&gt;
+&lt;h3 id=&#34;1-管理员登录界面&#34;&gt;1. 管理员登录界面&lt;/h3&gt;
+&lt;p&gt;首次启动或每次登录时，用户需输入管理员密码才能进入主界面。&lt;/p&gt;
+&lt;h3 id=&#34;2-dashboard-主界面&#34;&gt;2. Dashboard 主界面&lt;/h3&gt;
+&lt;p&gt;登录后显示当前规则、拦截时间段、受限域名等信息，并可进入配置设置。&lt;/p&gt;
+&lt;h3 id=&#34;3-规则配置窗口&#34;&gt;3. 规则配置窗口&lt;/h3&gt;
+&lt;p&gt;可修改管理员密码、规则接口、自动重载间隔、调试模式等，支持热更新。&lt;/p&gt;
+&lt;h3 id=&#34;4-检测到游戏网站自动关闭浏览器&#34;&gt;4. 检测到游戏网站自动关闭浏览器&lt;/h3&gt;
+&lt;p&gt;当检测到访问受限网站时，自动关闭浏览器并显示提示信息。&lt;/p&gt;
+&lt;h3 id=&#34;5-退出确认窗口&#34;&gt;5. 退出确认窗口&lt;/h3&gt;
+&lt;p&gt;点击退出时需再次输入管理员密码确认，防止误操作。&lt;/p&gt;
+&lt;h2 id=&#34;开发与构建&#34;&gt;开发与构建&lt;/h2&gt;
+&lt;h3 id=&#34;本地开发&#34;&gt;本地开发&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 克隆仓库&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/ltanme/BrowserGuard.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd BrowserGuard
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装依赖&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;npm install
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 开发模式&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;npm run dev
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;打包构建&#34;&gt;打包构建&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 快速打包所有平台&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;./build.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 只打包 macOS&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;./build.sh --mac
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 只打包 Windows&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;./build.sh --win
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 查看帮助&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;./build.sh --help
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;cicd-自动化&#34;&gt;CI/CD 自动化&lt;/h3&gt;
+&lt;p&gt;项目配置了 GitHub Actions 工作流，支持自动构建和发布：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;标签触发&lt;/strong&gt;: &lt;code&gt;git tag v1.0.0 &amp;amp;&amp;amp; git push origin v1.0.0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;手动触发&lt;/strong&gt;: 在 GitHub Actions 页面手动触发构建&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;项目特色&#34;&gt;项目特色&lt;/h2&gt;
+&lt;h3 id=&#34;-智能化设计&#34;&gt;🌟 智能化设计&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;基于时间规则&lt;/strong&gt;：支持多个时间段和不同的域名组合&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;实时监控&lt;/strong&gt;：自动轮询规则接口，新规则立即生效&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;跨平台兼容&lt;/strong&gt;：Windows 和 macOS 分别处理配置文件路径&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-易用性&#34;&gt;🔧 易用性&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;图形化界面&lt;/strong&gt;：直观的 Dashboard 界面，操作简单&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;一键安装&lt;/strong&gt;：提供 DMG 和 EXE 安装包，开箱即用&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;详细文档&lt;/strong&gt;：完整的使用说明和开发文档&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-安全性&#34;&gt;🛡️ 安全性&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;密码保护&lt;/strong&gt;：管理员密码保护，防止未授权退出&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;日志记录&lt;/strong&gt;：详细的操作日志，便于审计和调试&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;权限控制&lt;/strong&gt;：系统级权限管理，确保监控有效性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;BrowserGuard 是一款功能完善、设计合理的家长控制工具，不仅适用于家庭学习管理，还可以扩展到企业自律和教育机构场景。通过智能的规则配置和实时监控，帮助用户建立健康的上网习惯，实现真正的&amp;quot;防沉迷&amp;quot;管理。&lt;/p&gt;
+&lt;p&gt;项目采用现代化的技术栈，具有良好的可扩展性和维护性，是开源社区中不可多得的优秀作品。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;项目地址&lt;/strong&gt;: &lt;a href=&#34;https://github.com/ltanme/BrowserGuard&#34;&gt;https://github.com/ltanme/BrowserGuard&lt;/a&gt;&lt;br&gt;
+&lt;strong&gt;技术栈&lt;/strong&gt;: Electron + React + TypeScript&lt;br&gt;
+&lt;strong&gt;支持平台&lt;/strong&gt;: macOS, Windows&lt;br&gt;
+&lt;strong&gt;开源协议&lt;/strong&gt;: MIT License&lt;/p&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

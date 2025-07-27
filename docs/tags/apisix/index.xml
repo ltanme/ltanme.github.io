@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>APISIX on LTAN.ME</title>
-    <link>https://ltan.me/tags/apisix/</link>
+    <link>http://localhost:55668/tags/apisix/</link>
     <description>Recent content in APISIX on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 22 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ltan.me/tags/apisix/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:55668/tags/apisix/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>APISIX 3.9 &#43; APM 整合全链路追踪日志</title>
-      <link>https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/</link>
+      <link>http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/</link>
       <pubDate>Thu, 22 May 2025 00:00:00 +0000</pubDate>
       
-      <guid>https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/</guid>
+      <guid>http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/</guid>
       <description>&lt;h2 id=&#34;目录&#34;&gt;目录&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%83%8c%e6%99%af%e4%b8%8e%e7%9b%ae%e6%a0%87&#34;&gt;背景与目标&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87&#34;&gt;环境准备&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#docker-compose-%e6%9c%80%e5%b0%8f%e5%8f%af%e8%bf%90%e8%a1%8c%e6%a0%88&#34;&gt;Docker Compose 最小可运行栈&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%87%aa%e5%ae%9a%e4%b9%89-w3c-trace-inject-%e6%8f%92%e4%bb%b6&#34;&gt;自定义 &lt;code&gt;w3c-trace-inject&lt;/code&gt; 插件&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e5%b8%b8%e8%a7%81%e6%8a%a5%e9%94%99%e4%b8%8e%e6%8e%92%e9%9a%9c%e7%ac%94%e8%ae%b0&#34;&gt;常见报错与排障笔记&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%b7%af%e7%94%b1--%e4%b8%8a%e6%b8%b8%e9%85%8d%e7%bd%ae%e4%b8%8e%e6%b5%8b%e8%af%95&#34;&gt;路由 / 上游配置与测试&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%83%8c%e6%99%af%e4%b8%8e%e7%9b%ae%e6%a0%87&#34;&gt;背景与目标&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87&#34;&gt;环境准备&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#docker-compose-%e6%9c%80%e5%b0%8f%e5%8f%af%e8%bf%90%e8%a1%8c%e6%a0%88&#34;&gt;Docker Compose 最小可运行栈&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%87%aa%e5%ae%9a%e4%b9%89-w3c-trace-inject-%e6%8f%92%e4%bb%b6&#34;&gt;自定义 &lt;code&gt;w3c-trace-inject&lt;/code&gt; 插件&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e5%b8%b8%e8%a7%81%e6%8a%a5%e9%94%99%e4%b8%8e%e6%8e%92%e9%9a%9c%e7%ac%94%e8%ae%b0&#34;&gt;常见报错与排障笔记&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%b7%af%e7%94%b1--%e4%b8%8a%e6%b8%b8%e9%85%8d%e7%bd%ae%e4%b8%8e%e6%b5%8b%e8%af%95&#34;&gt;路由 / 上游配置与测试&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;背景与目标&#34;&gt;背景与目标&lt;/h2&gt;
@@ -36,15 +36,15 @@
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;整体追踪逻辑图&#34;&gt;整体追踪逻辑图&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/trace_context.png&#34; alt=&#34;trace_context.png&#34;&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/trace_context.png&#34; alt=&#34;trace_context.png&#34;&gt;&lt;/p&gt;</description>
       <content>&lt;h2 id=&#34;目录&#34;&gt;目录&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%83%8c%e6%99%af%e4%b8%8e%e7%9b%ae%e6%a0%87&#34;&gt;背景与目标&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87&#34;&gt;环境准备&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#docker-compose-%e6%9c%80%e5%b0%8f%e5%8f%af%e8%bf%90%e8%a1%8c%e6%a0%88&#34;&gt;Docker Compose 最小可运行栈&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%87%aa%e5%ae%9a%e4%b9%89-w3c-trace-inject-%e6%8f%92%e4%bb%b6&#34;&gt;自定义 &lt;code&gt;w3c-trace-inject&lt;/code&gt; 插件&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e5%b8%b8%e8%a7%81%e6%8a%a5%e9%94%99%e4%b8%8e%e6%8e%92%e9%9a%9c%e7%ac%94%e8%ae%b0&#34;&gt;常见报错与排障笔记&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%b7%af%e7%94%b1--%e4%b8%8a%e6%b8%b8%e9%85%8d%e7%bd%ae%e4%b8%8e%e6%b5%8b%e8%af%95&#34;&gt;路由 / 上游配置与测试&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%83%8c%e6%99%af%e4%b8%8e%e7%9b%ae%e6%a0%87&#34;&gt;背景与目标&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87&#34;&gt;环境准备&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#docker-compose-%e6%9c%80%e5%b0%8f%e5%8f%af%e8%bf%90%e8%a1%8c%e6%a0%88&#34;&gt;Docker Compose 最小可运行栈&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%87%aa%e5%ae%9a%e4%b9%89-w3c-trace-inject-%e6%8f%92%e4%bb%b6&#34;&gt;自定义 &lt;code&gt;w3c-trace-inject&lt;/code&gt; 插件&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e5%b8%b8%e8%a7%81%e6%8a%a5%e9%94%99%e4%b8%8e%e6%8e%92%e9%9a%9c%e7%ac%94%e8%ae%b0&#34;&gt;常见报错与排障笔记&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%b7%af%e7%94%b1--%e4%b8%8a%e6%b8%b8%e9%85%8d%e7%bd%ae%e4%b8%8e%e6%b5%8b%e8%af%95&#34;&gt;路由 / 上游配置与测试&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;背景与目标&#34;&gt;背景与目标&lt;/h2&gt;
@@ -60,7 +60,7 @@
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;整体追踪逻辑图&#34;&gt;整体追踪逻辑图&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/trace_context.png&#34; alt=&#34;trace_context.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/trace_context.png&#34; alt=&#34;trace_context.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;环境准备&#34;&gt;环境准备&lt;/h2&gt;
 &lt;table&gt;
   &lt;thead&gt;
@@ -343,19 +343,47 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;code&amp;#34;&lt;/span&gt;:0,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;data&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-real-ip&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.240.1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;as=1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-proto&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;localhost&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;traceparent&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;00-c968d17a84e4b2391ecd986259551550-44b21d2b9dcc18e5-01&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clientIP&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.240.1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.244.191.219&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-port&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9080&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;user-agent&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;curl/7.29.0&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;accept&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;*/*&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;msg&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;success&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;通过traceid查看-apm-dashbard-效果&#34;&gt;通过trace.id查看 apm dashbard 效果&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/image2025-5-22_10-48-50.png&#34; alt=&#34;image2025-5-22_10-48-50.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/image2025-5-22_10-48-50.png&#34; alt=&#34;image2025-5-22_10-48-50.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/image2025-5-22_10-49-31.png&#34; alt=&#34;image2025-5-22_10-49-31.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/image2025-5-22_10-49-31.png&#34; alt=&#34;image2025-5-22_10-49-31.png&#34;&gt;&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Remember the Problem of Apisix and Node Red Multi Instance Debugging</title>
+      <link>http://localhost:55668/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</link>
+      <pubDate>Tue, 16 Jan 2024 17:22:05 +0800</pubDate>
+      
+      <guid>http://localhost:55668/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</guid>
+      <description>&lt;h1 id=&#34;resolving-docker-compose-and-apisix-port-502-error&#34;&gt;Resolving Docker Compose and ApiSix Port 502 Error&lt;/h1&gt;
+&lt;p&gt;在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
+然而，在这个过程中，我遇到了一个502端口访问错误。
+我花了一整天的时间来解决这个问题，最终找到了问题的原因。&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;resolving-docker-compose-and-apisix-port-502-error&#34;&gt;Resolving Docker Compose and ApiSix Port 502 Error&lt;/h1&gt;
+&lt;p&gt;在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
+然而，在这个过程中，我遇到了一个502端口访问错误。
+我花了一整天的时间来解决这个问题，最终找到了问题的原因。&lt;/p&gt;
+&lt;p&gt;问题出在我创建Node-RED实例并在ApiSix中添加upstream时。
+我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -d --network apisix_apisix --name node-red-a -p 1880:1880 nodered/node-red:3.1.0-18
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -d --network apisix_apisix --name node-red-b -p 1881:1880 nodered/node-red:3.1.0-18
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -d --network apisix_apisix --name node-red-c -p 1882:1880 nodered/node-red:3.1.0-18
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;但实际上，Docker网络apisix_apisix并没有使用这个暴露端口，&lt;br&gt;
+而是使用了内部网络的端口。这个错误导致了我一整天的时间浪费。&lt;/p&gt;
+&lt;p&gt;为了解决问题，我将Node-RED实例的端口号设置为1880，  &lt;br&gt;
+与Docker网络中的端口一致，这样ApiSix能够正确地与Node-RED实例通信。&lt;br&gt;
+以下端口必须要填写内部的程序实际端口&lt;br&gt;
+&lt;img src=&#34;http://localhost:55668/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/screenshot-20240116-205136.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
     <item>
       <title>Reverse Proxy to Websocket Service Set Based on Apisix2</title>
-      <link>https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</link>
+      <link>http://localhost:55668/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</link>
       <pubDate>Tue, 11 May 2021 15:39:09 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</guid>
+      <guid>http://localhost:55668/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</guid>
       <description>&lt;h1 id=&#34;基于apisix24网关反向代理到websocket服务集节点&#34;&gt;基于apisix2.4网关反向代理到websocket服务集节点&lt;/h1&gt;
 &lt;p&gt;问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点&lt;/p&gt;
 &lt;p&gt;apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等&lt;/p&gt;
@@ -366,7 +394,7 @@
 &lt;p&gt;本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;整体的环境说明：如下图&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150518389.png&#34; alt=&#34;image-20210511150518389&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150518389.png&#34; alt=&#34;image-20210511150518389&#34;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 搭建环境&lt;/p&gt;
@@ -381,7 +409,7 @@
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-shel&#34; data-lang=&#34;shel&#34;&gt;docker exec -it  c5d2369adde2 /bin/bash
 
 docker exec -it 58e1c95fea73 /bin/sh
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150600898.png&#34; alt=&#34;image-20210511150600898&#34;&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150600898.png&#34; alt=&#34;image-20210511150600898&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 安装websocket&lt;/p&gt;
@@ -405,7 +433,7 @@ docker exec -it 58e1c95fea73 /bin/sh
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 配置apisix&lt;/p&gt;
 &lt;p&gt;路由代理，配置上游&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150841820.png&#34; alt=&#34;image-20210511150841820&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150841820.png&#34; alt=&#34;image-20210511150841820&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 编写python 脚本测试代码&lt;/p&gt;
@@ -434,8 +462,8 @@ if __name__ == &amp;#34;__main__&amp;#34;:
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 最终运行效果&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511151138269.png&#34; alt=&#34;image-20210511151138269&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511151206802.png&#34; alt=&#34;image-20210511151206802&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511151138269.png&#34; alt=&#34;image-20210511151138269&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511151206802.png&#34; alt=&#34;image-20210511151206802&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 </content>

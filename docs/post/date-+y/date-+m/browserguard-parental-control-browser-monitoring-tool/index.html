@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55668&amp;path=livereload" data-no-instant defer></script>
+  
+    <title>BrowserGuard - 智能浏览器监控工具，助力家长控制与学习管理 :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="项目概述 BrowserGuard 是一款专为家庭电脑学习管理设计的智能浏览器监控工具。基于 Electron &#43; React &#43; TypeScript 技术栈开发，支持 macOS 和 Windows 双平台，通过实时监控浏览器访问行为，帮助家长和孩子建立健康的上网习惯。
+核心功能特性 🎯 智能拦截系统 实时监控：自动轮询规则接口，实时拦截游戏网站、短视频平台等娱乐内容 多浏览器支持：兼容 Chrome、Edge、Safari、Firefox 等主流浏览器 时间规则：支持按时间段设置不同的拦截规则，灵活配置学习/娱乐时段 🔒 安全保护机制 管理员密码保护：仅管理员可退出应用，防止孩子绕过监控 开机自启：macOS LaunchAgent/Windows 注册表自动启动 单实例运行：确保系统只有一个监控实例在运行 ⚙️ 灵活配置管理 规则热更新：支持远程规则接口，新规则自动生效 本地配置：密码和配置信息保存在本地，支持修改 日志调试：详细的操作日志，便于问题排查 使用场景 👨‍👩‍👧‍👦 家庭学习管理 防沉迷控制：在孩子学习时间自动拦截游戏网站 健康上网：限制短视频、社交媒体等娱乐内容访问 时间管理：通过时间段规则，培养良好的作息习惯 🏢 企业自律场景 工作专注：在工作时间拦截娱乐网站，提高工作效率 网络安全：防止访问恶意网站，保护企业数据安全 员工管理：帮助员工建立健康的上网习惯 🎓 教育机构应用 机房管理：在学校的电脑机房统一管理学生上网行为 学习环境：为学生创造专注的学习环境 家长合作：与家长共同监督孩子的上网行为 技术架构 技术栈 框架：Electron (跨平台桌面应用) 前端：React &#43; TypeScript 构建：Webpack &#43; Electron Builder 部署：GitHub Actions 自动化构建发布 核心模块 BrowserGuard/ ├── src/ │ ├── main/ # 主进程代码 │ ├── renderer/ # 渲染进程 (React) │ └── shared/ # 共享类型定义 ├── scripts/ # 跨平台脚本 ├── build/ # 构建配置 └── docs/ # 项目文档 安装与使用 快速开始 1. 下载安装 访问 GitHub Releases 页面，下载适合你系统的安装包：
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:55668/post/date-&#43;y/date-&#43;m/browserguard-parental-control-browser-monitoring-tool/" />
+
+
+
+
+<link rel="stylesheet" href="http://localhost:55668/assets/style.css">
+
+  <link rel="stylesheet" href="http://localhost:55668/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="http://localhost:55668/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:55668/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="BrowserGuard - 智能浏览器监控工具，助力家长控制与学习管理">
+<meta property="og:description" content="项目概述 BrowserGuard 是一款专为家庭电脑学习管理设计的智能浏览器监控工具。基于 Electron &#43; React &#43; TypeScript 技术栈开发，支持 macOS 和 Windows 双平台，通过实时监控浏览器访问行为，帮助家长和孩子建立健康的上网习惯。
+核心功能特性 🎯 智能拦截系统 实时监控：自动轮询规则接口，实时拦截游戏网站、短视频平台等娱乐内容 多浏览器支持：兼容 Chrome、Edge、Safari、Firefox 等主流浏览器 时间规则：支持按时间段设置不同的拦截规则，灵活配置学习/娱乐时段 🔒 安全保护机制 管理员密码保护：仅管理员可退出应用，防止孩子绕过监控 开机自启：macOS LaunchAgent/Windows 注册表自动启动 单实例运行：确保系统只有一个监控实例在运行 ⚙️ 灵活配置管理 规则热更新：支持远程规则接口，新规则自动生效 本地配置：密码和配置信息保存在本地，支持修改 日志调试：详细的操作日志，便于问题排查 使用场景 👨‍👩‍👧‍👦 家庭学习管理 防沉迷控制：在孩子学习时间自动拦截游戏网站 健康上网：限制短视频、社交媒体等娱乐内容访问 时间管理：通过时间段规则，培养良好的作息习惯 🏢 企业自律场景 工作专注：在工作时间拦截娱乐网站，提高工作效率 网络安全：防止访问恶意网站，保护企业数据安全 员工管理：帮助员工建立健康的上网习惯 🎓 教育机构应用 机房管理：在学校的电脑机房统一管理学生上网行为 学习环境：为学生创造专注的学习环境 家长合作：与家长共同监督孩子的上网行为 技术架构 技术栈 框架：Electron (跨平台桌面应用) 前端：React &#43; TypeScript 构建：Webpack &#43; Electron Builder 部署：GitHub Actions 自动化构建发布 核心模块 BrowserGuard/ ├── src/ │ ├── main/ # 主进程代码 │ ├── renderer/ # 渲染进程 (React) │ └── shared/ # 共享类型定义 ├── scripts/ # 跨平台脚本 ├── build/ # 构建配置 └── docs/ # 项目文档 安装与使用 快速开始 1. 下载安装 访问 GitHub Releases 页面，下载适合你系统的安装包：
+" />
+<meta property="og:url" content="http://localhost:55668/post/date-&#43;y/date-&#43;m/browserguard-parental-control-browser-monitoring-tool/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="http://localhost:55668/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2025-01-27 14:00:00 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="http://localhost:55668/post/date-&#43;y/date-&#43;m/browserguard-parental-control-browser-monitoring-tool/">BrowserGuard - 智能浏览器监控工具，助力家长控制与学习管理</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2025-01-27 [Mod: 2025-01-27]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="http://localhost:55668/tags/electron/">Electron</a>&nbsp;
+    
+    #<a href="http://localhost:55668/tags/react/">React</a>&nbsp;
+    
+    #<a href="http://localhost:55668/tags/typescript/">TypeScript</a>&nbsp;
+    
+    #<a href="http://localhost:55668/tags/parental-control/">Parental Control</a>&nbsp;
+    
+    #<a href="http://localhost:55668/tags/browser-monitoring/">Browser Monitoring</a>&nbsp;
+    
+    #<a href="http://localhost:55668/tags/desktop-app/">Desktop App</a>&nbsp;
+    
+    #<a href="http://localhost:55668/tags/cross-platform/">Cross Platform</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="项目概述">项目概述<a href="#项目概述" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><a href="https://github.com/ltanme/BrowserGuard">BrowserGuard</a> 是一款专为家庭电脑学习管理设计的智能浏览器监控工具。基于 Electron + React + TypeScript 技术栈开发，支持 macOS 和 Windows 双平台，通过实时监控浏览器访问行为，帮助家长和孩子建立健康的上网习惯。</p>
+<h2 id="核心功能特性">核心功能特性<a href="#核心功能特性" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="-智能拦截系统">🎯 智能拦截系统<a href="#-智能拦截系统" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li><strong>实时监控</strong>：自动轮询规则接口，实时拦截游戏网站、短视频平台等娱乐内容</li>
+<li><strong>多浏览器支持</strong>：兼容 Chrome、Edge、Safari、Firefox 等主流浏览器</li>
+<li><strong>时间规则</strong>：支持按时间段设置不同的拦截规则，灵活配置学习/娱乐时段</li>
+</ul>
+<h3 id="-安全保护机制">🔒 安全保护机制<a href="#-安全保护机制" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li><strong>管理员密码保护</strong>：仅管理员可退出应用，防止孩子绕过监控</li>
+<li><strong>开机自启</strong>：macOS LaunchAgent/Windows 注册表自动启动</li>
+<li><strong>单实例运行</strong>：确保系统只有一个监控实例在运行</li>
+</ul>
+<h3 id="-灵活配置管理">⚙️ 灵活配置管理<a href="#-灵活配置管理" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li><strong>规则热更新</strong>：支持远程规则接口，新规则自动生效</li>
+<li><strong>本地配置</strong>：密码和配置信息保存在本地，支持修改</li>
+<li><strong>日志调试</strong>：详细的操作日志，便于问题排查</li>
+</ul>
+<h2 id="使用场景">使用场景<a href="#使用场景" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="-家庭学习管理">👨‍👩‍👧‍👦 家庭学习管理<a href="#-家庭学习管理" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li><strong>防沉迷控制</strong>：在孩子学习时间自动拦截游戏网站</li>
+<li><strong>健康上网</strong>：限制短视频、社交媒体等娱乐内容访问</li>
+<li><strong>时间管理</strong>：通过时间段规则，培养良好的作息习惯</li>
+</ul>
+<h3 id="-企业自律场景">🏢 企业自律场景<a href="#-企业自律场景" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li><strong>工作专注</strong>：在工作时间拦截娱乐网站，提高工作效率</li>
+<li><strong>网络安全</strong>：防止访问恶意网站，保护企业数据安全</li>
+<li><strong>员工管理</strong>：帮助员工建立健康的上网习惯</li>
+</ul>
+<h3 id="-教育机构应用">🎓 教育机构应用<a href="#-教育机构应用" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li><strong>机房管理</strong>：在学校的电脑机房统一管理学生上网行为</li>
+<li><strong>学习环境</strong>：为学生创造专注的学习环境</li>
+<li><strong>家长合作</strong>：与家长共同监督孩子的上网行为</li>
+</ul>
+<h2 id="技术架构">技术架构<a href="#技术架构" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="技术栈">技术栈<a href="#技术栈" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li><strong>框架</strong>：Electron (跨平台桌面应用)</li>
+<li><strong>前端</strong>：React + TypeScript</li>
+<li><strong>构建</strong>：Webpack + Electron Builder</li>
+<li><strong>部署</strong>：GitHub Actions 自动化构建发布</li>
+</ul>
+<h3 id="核心模块">核心模块<a href="#核心模块" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<pre tabindex="0"><code>BrowserGuard/
+├── src/
+│   ├── main/           # 主进程代码
+│   ├── renderer/       # 渲染进程 (React)
+│   └── shared/         # 共享类型定义
+├── scripts/            # 跨平台脚本
+├── build/              # 构建配置
+└── docs/              # 项目文档
+</code></pre><h2 id="安装与使用">安装与使用<a href="#安装与使用" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="快速开始">快速开始<a href="#快速开始" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h4 id="1-下载安装">1. 下载安装<a href="#1-下载安装" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<p>访问 <a href="https://github.com/ltanme/BrowserGuard/releases">GitHub Releases</a> 页面，下载适合你系统的安装包：</p>
+<ul>
+<li><strong>macOS</strong>: <code>BrowserGuard-1.0.0-arm64.dmg</code></li>
+<li><strong>Windows</strong>: <code>BrowserGuard Setup 1.0.0-ia32.exe</code></li>
+</ul>
+<h4 id="2-首次运行设置">2. 首次运行设置<a href="#2-首次运行设置" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<ol>
+<li>启动应用后自动显示首次运行设置界面</li>
+<li>设置管理员密码（默认为 <code>123456</code>）</li>
+<li>配置规则接口 URL</li>
+<li>设置自动重载间隔（10-300秒）</li>
+<li>点击&quot;完成设置&quot;进入主界面</li>
+</ol>
+<h4 id="3-权限授予">3. 权限授予<a href="#3-权限授予" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<ul>
+<li><strong>macOS</strong>: 首次启动会自动弹出&quot;辅助功能&quot;设置面板，请勾选 BrowserGuard</li>
+<li><strong>Windows</strong>: 需以管理员身份运行以便自动关闭浏览器进程</li>
+</ul>
+<h3 id="配置说明">配置说明<a href="#配置说明" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h4 id="默认配置">默认配置<a href="#默认配置" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<ul>
+<li><strong>管理员密码</strong>: <code>123456</code></li>
+<li><strong>规则接口</strong>: <code>https://api.example.com/blocklist</code></li>
+<li><strong>自动重载间隔</strong>: 30秒</li>
+<li><strong>配置文件位置</strong>:
+<ul>
+<li>macOS: <code>~/Library/Application Support/BrowserGuard/config.json</code></li>
+<li>Windows: <code>%APPDATA%\BrowserGuard\config.json</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="规则配置示例">规则配置示例<a href="#规则配置示例" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;periods&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;start&#34;</span>: <span style="color:#e6db74">&#34;08:00&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;end&#34;</span>: <span style="color:#e6db74">&#34;12:00&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;domains&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;poki.com&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;4399.com&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;douyin.com&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;bilibili.com&#34;</span>
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;start&#34;</span>: <span style="color:#e6db74">&#34;14:00&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;end&#34;</span>: <span style="color:#e6db74">&#34;18:00&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;domains&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;youtube.com&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;tiktok.com&#34;</span>
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="界面功能">界面功能<a href="#界面功能" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="1-管理员登录界面">1. 管理员登录界面<a href="#1-管理员登录界面" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>首次启动或每次登录时，用户需输入管理员密码才能进入主界面。</p>
+<h3 id="2-dashboard-主界面">2. Dashboard 主界面<a href="#2-dashboard-主界面" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>登录后显示当前规则、拦截时间段、受限域名等信息，并可进入配置设置。</p>
+<h3 id="3-规则配置窗口">3. 规则配置窗口<a href="#3-规则配置窗口" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>可修改管理员密码、规则接口、自动重载间隔、调试模式等，支持热更新。</p>
+<h3 id="4-检测到游戏网站自动关闭浏览器">4. 检测到游戏网站自动关闭浏览器<a href="#4-检测到游戏网站自动关闭浏览器" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>当检测到访问受限网站时，自动关闭浏览器并显示提示信息。</p>
+<h3 id="5-退出确认窗口">5. 退出确认窗口<a href="#5-退出确认窗口" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>点击退出时需再次输入管理员密码确认，防止误操作。</p>
+<h2 id="开发与构建">开发与构建<a href="#开发与构建" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="本地开发">本地开发<a href="#本地开发" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 克隆仓库</span>
+</span></span><span style="display:flex;"><span>git clone https://github.com/ltanme/BrowserGuard.git
+</span></span><span style="display:flex;"><span>cd BrowserGuard
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 安装依赖</span>
+</span></span><span style="display:flex;"><span>npm install
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 开发模式</span>
+</span></span><span style="display:flex;"><span>npm run dev
+</span></span></code></pre></div><h3 id="打包构建">打包构建<a href="#打包构建" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 快速打包所有平台</span>
+</span></span><span style="display:flex;"><span>./build.sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 只打包 macOS</span>
+</span></span><span style="display:flex;"><span>./build.sh --mac
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 只打包 Windows</span>
+</span></span><span style="display:flex;"><span>./build.sh --win
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看帮助</span>
+</span></span><span style="display:flex;"><span>./build.sh --help
+</span></span></code></pre></div><h3 id="cicd-自动化">CI/CD 自动化<a href="#cicd-自动化" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>项目配置了 GitHub Actions 工作流，支持自动构建和发布：</p>
+<ul>
+<li><strong>标签触发</strong>: <code>git tag v1.0.0 &amp;&amp; git push origin v1.0.0</code></li>
+<li><strong>手动触发</strong>: 在 GitHub Actions 页面手动触发构建</li>
+</ul>
+<h2 id="项目特色">项目特色<a href="#项目特色" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="-智能化设计">🌟 智能化设计<a href="#-智能化设计" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li><strong>基于时间规则</strong>：支持多个时间段和不同的域名组合</li>
+<li><strong>实时监控</strong>：自动轮询规则接口，新规则立即生效</li>
+<li><strong>跨平台兼容</strong>：Windows 和 macOS 分别处理配置文件路径</li>
+</ul>
+<h3 id="-易用性">🔧 易用性<a href="#-易用性" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li><strong>图形化界面</strong>：直观的 Dashboard 界面，操作简单</li>
+<li><strong>一键安装</strong>：提供 DMG 和 EXE 安装包，开箱即用</li>
+<li><strong>详细文档</strong>：完整的使用说明和开发文档</li>
+</ul>
+<h3 id="-安全性">🛡️ 安全性<a href="#-安全性" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li><strong>密码保护</strong>：管理员密码保护，防止未授权退出</li>
+<li><strong>日志记录</strong>：详细的操作日志，便于审计和调试</li>
+<li><strong>权限控制</strong>：系统级权限管理，确保监控有效性</li>
+</ul>
+<h2 id="总结">总结<a href="#总结" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>BrowserGuard 是一款功能完善、设计合理的家长控制工具，不仅适用于家庭学习管理，还可以扩展到企业自律和教育机构场景。通过智能的规则配置和实时监控，帮助用户建立健康的上网习惯，实现真正的&quot;防沉迷&quot;管理。</p>
+<p>项目采用现代化的技术栈，具有良好的可扩展性和维护性，是开源社区中不可多得的优秀作品。</p>
+<hr>
+<p><strong>项目地址</strong>: <a href="https://github.com/ltanme/BrowserGuard">https://github.com/ltanme/BrowserGuard</a><br>
+<strong>技术栈</strong>: Electron + React + TypeScript<br>
+<strong>支持平台</strong>: macOS, Windows<br>
+<strong>开源协议</strong>: MIT License</p>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="http://localhost:55668/assets/main.js"></script>
+<script src="http://localhost:55668/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ubuntu on LTAN.ME</title>
-    <link>https://ltan.me/tags/ubuntu/</link>
+    <link>http://localhost:55668/tags/ubuntu/</link>
     <description>Recent content in Ubuntu on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Nov 2024 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Nov 2024 10:00:00 +0800</lastBuildDate><atom:link href="http://localhost:55668/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Headscale Migration from CentOS 7 to Ubuntu 24</title>
-      <link>https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/</link>
+      <link>http://localhost:55668/post/2024/11/headscalemigrationfromcentos7toubuntu24/</link>
       <pubDate>Mon, 04 Nov 2024 10:00:00 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/</guid>
+      <guid>http://localhost:55668/post/2024/11/headscalemigrationfromcentos7toubuntu24/</guid>
       <description>&lt;p&gt;This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.&lt;/p&gt;
 &lt;h3 id=&#34;1-export-data-and-image-on-centos-7&#34;&gt;1. Export Data and Image on CentOS 7&lt;/h3&gt;
 &lt;h4 id=&#34;export-configuration-and-database&#34;&gt;Export Configuration and Database&lt;/h4&gt;
@@ -63,13 +63,13 @@
     
     <item>
       <title>Vmware and Ubuntu</title>
-      <link>https://ltan.me/post/2024/06/vmware-and-ubuntu/</link>
+      <link>http://localhost:55668/post/2024/06/vmware-and-ubuntu/</link>
       <pubDate>Tue, 11 Jun 2024 18:52:36 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2024/06/vmware-and-ubuntu/</guid>
+      <guid>http://localhost:55668/post/2024/06/vmware-and-ubuntu/</guid>
       <description>&lt;h2 id=&#34;在vmware安装ubuntu-2004-lts-版本与windows-10-共享文件环境搭建&#34;&gt;在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建&lt;/h2&gt;
 &lt;p&gt;我的虚拟机设置情况&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/06/vmware-and-ubuntu/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:55668/post/2024/06/vmware-and-ubuntu/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南：&lt;/p&gt;
 &lt;h3 id=&#34;下载-ubuntu-20046-lts-iso-文件&#34;&gt;下载 Ubuntu 20.04.6 LTS ISO 文件&lt;/h3&gt;
 &lt;ol&gt;
@@ -83,7 +83,7 @@
 &lt;p&gt;&lt;strong&gt;选择下载合适的 ISO 文件&lt;/strong&gt;:&lt;/p&gt;</description>
       <content>&lt;h2 id=&#34;在vmware安装ubuntu-2004-lts-版本与windows-10-共享文件环境搭建&#34;&gt;在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建&lt;/h2&gt;
 &lt;p&gt;我的虚拟机设置情况&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/06/vmware-and-ubuntu/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:55668/post/2024/06/vmware-and-ubuntu/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南：&lt;/p&gt;
 &lt;h3 id=&#34;下载-ubuntu-20046-lts-iso-文件&#34;&gt;下载 Ubuntu 20.04.6 LTS ISO 文件&lt;/h3&gt;
 &lt;ol&gt;
@@ -635,7 +635,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;artemis-rest           docker          drama-engine     hawtio      java                   java4  lua    openresty     remote
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;admin@ubuntu-server:~$ 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;admin@ubuntu-server:~$ 
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/06/vmware-and-ubuntu/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2024/06/vmware-and-ubuntu/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     

@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ngx_lua on LTAN.ME</title>
-    <link>https://ltan.me/tags/ngx_lua/</link>
+    <link>http://localhost:55668/tags/ngx_lua/</link>
     <description>Recent content in Ngx_lua on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 08 Jun 2023 14:40:51 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/ngx_lua/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Jun 2023 14:40:51 +0800</lastBuildDate><atom:link href="http://localhost:55668/tags/ngx_lua/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hybrid Encryption With AES 128 Bit and RSA Using Java and Ngx_lua</title>
-      <link>https://ltan.me/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/</link>
+      <link>http://localhost:55668/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/</link>
       <pubDate>Thu, 08 Jun 2023 14:40:51 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/</guid>
+      <guid>http://localhost:55668/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/</guid>
       <description>&lt;h2 id=&#34;一种-aes128位rsa混合加密iv为前16个0字符使用java和ngxlua编写的加解密方法&#34;&gt;一种 AES（128位）+RSA混合加密，iv为前16个0字符，使用java和ngx.lua编写的加解密方法&lt;/h2&gt;
 &lt;p&gt;使用 openresty 和 ngx_lua 编写的服务端 HTTP 接口，旨在提供给 Android 设备提交加密数据上报、日志采集等功能。&lt;br&gt;
 主要流流程如下
-&lt;img src=&#34;https://ltan.me/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/swim-road-flow.PNG&#34; alt=&#34;aes&amp;#43;rsa混合常见流程&#34;&gt;&lt;/p&gt;</description>
+&lt;img src=&#34;http://localhost:55668/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/swim-road-flow.PNG&#34; alt=&#34;aes&amp;#43;rsa混合常见流程&#34;&gt;&lt;/p&gt;</description>
       <content>&lt;h2 id=&#34;一种-aes128位rsa混合加密iv为前16个0字符使用java和ngxlua编写的加解密方法&#34;&gt;一种 AES（128位）+RSA混合加密，iv为前16个0字符，使用java和ngx.lua编写的加解密方法&lt;/h2&gt;
 &lt;p&gt;使用 openresty 和 ngx_lua 编写的服务端 HTTP 接口，旨在提供给 Android 设备提交加密数据上报、日志采集等功能。&lt;br&gt;
 主要流流程如下
-&lt;img src=&#34;https://ltan.me/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/swim-road-flow.PNG&#34; alt=&#34;aes&amp;#43;rsa混合常见流程&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:55668/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/swim-road-flow.PNG&#34; alt=&#34;aes&amp;#43;rsa混合常见流程&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;code&gt;local enable_padding = true&lt;/code&gt;：定义一个布尔变量&lt;code&gt; enable_padding&lt;/code&gt; 并赋值为 &lt;code&gt;true&lt;/code&gt;，用于启用填充功能。
 &lt;code&gt;local aes_128_cbc_with_padding = aes:new(key, nil, aes.cipher(128,&amp;quot;cbc&amp;quot;), {iv = string.rep(&#39;\0&#39;, 16)}, nil, nil, enable_padding)&lt;/code&gt;：

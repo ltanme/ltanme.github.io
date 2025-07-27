@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lapis on LTAN.ME</title>
-    <link>https://ltan.me/tags/lapis/</link>
+    <link>http://localhost:55668/tags/lapis/</link>
     <description>Recent content in Lapis on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 05 Jul 2023 16:21:20 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/lapis/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Jul 2023 16:21:20 +0800</lastBuildDate><atom:link href="http://localhost:55668/tags/lapis/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>OpenResty Lua Lapis and Redis Cluster Setup Guide</title>
-      <link>https://ltan.me/post/2023/07/openresty-lua-lapis-and-redis-cluster-setup-guide/</link>
+      <link>http://localhost:55668/post/2023/07/openresty-lua-lapis-and-redis-cluster-setup-guide/</link>
       <pubDate>Wed, 05 Jul 2023 16:21:20 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2023/07/openresty-lua-lapis-and-redis-cluster-setup-guide/</guid>
+      <guid>http://localhost:55668/post/2023/07/openresty-lua-lapis-and-redis-cluster-setup-guide/</guid>
       <description>&lt;h1 id=&#34;安装模块&#34;&gt;安装模块&lt;/h1&gt;
 &lt;h2 id=&#34;下载并安装lua-resty-redis-cluster模块&#34;&gt;下载并安装lua-resty-redis-cluster模块&lt;/h2&gt;
 &lt;ul&gt;

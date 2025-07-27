@@ -2,17 +2,63 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Anaconda on LTAN.ME</title>
-    <link>https://ltan.me/tags/anaconda/</link>
+    <link>http://localhost:55668/tags/anaconda/</link>
     <description>Recent content in Anaconda on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 08 Jul 2021 20:58:37 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/anaconda/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Feb 2022 20:25:31 +0800</lastBuildDate><atom:link href="http://localhost:55668/tags/anaconda/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pycharm Terminal Virtualenv Setting</title>
+      <link>http://localhost:55668/post/2022/02/pycharm-terminal-virtualenv-setting/</link>
+      <pubDate>Thu, 17 Feb 2022 20:25:31 +0800</pubDate>
+      
+      <guid>http://localhost:55668/post/2022/02/pycharm-terminal-virtualenv-setting/</guid>
+      <description>&lt;h1 id=&#34;windows-环境pycharm-python-多环境开发设置&#34;&gt;windows 环境pycharm python 多环境开发设置&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在python项目开发中，很多情况每个项目采用不同的python 环境，一般常见的系统默认python 版本为
+python 2.7但如果又不想破坏系统原来的python 环境，则可以安装virualenv 依赖解决多版本的问题
+virtualen 采用pip install 安装，不管是采用python3版本的pip,还是 python2版本的pip都可以安
+装这个依赖，pycharm 具体设置如下：&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;windows-环境pycharm-python-多环境开发设置&#34;&gt;windows 环境pycharm python 多环境开发设置&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在python项目开发中，很多情况每个项目采用不同的python 环境，一般常见的系统默认python 版本为
+python 2.7但如果又不想破坏系统原来的python 环境，则可以安装virualenv 依赖解决多版本的问题
+virtualen 采用pip install 安装，不管是采用python3版本的pip,还是 python2版本的pip都可以安
+装这个依赖，pycharm 具体设置如下：&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;The preferences in Settings (Preferences) | Tools | Terminal are global.
+If you use a venv for each project, remember to use current path variable and a default venv name:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;创建activate.bat文件复制如下代码,并修改自己创建的虚拟环境目录，这里我创建的虚拟环境目录为&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cmd.exe&amp;#34;&lt;/span&gt; /k &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; D:\python-env\python3\envname\Scripts\activate&amp;#34;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;/k 的含义是自动执行后面的命令,并且执行完毕后保留窗口&lt;br&gt;
+For Windows users: when using PyCharm with a virtual environment, you can use the /K parameter to cmd.exe to set the virtual environment automatically.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;PyCharm 3 or 4: Settings, Terminal, Default shell and add /K &amp;lt;path-to-your-activate.bat&amp;gt;.&lt;/p&gt;
+&lt;p&gt;PyCharm 5: Settings, Tools, Terminal, and add /K &amp;lt;path-to-your-activate.bat&amp;gt; to Shell path.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;打开pychrm，依次点击file菜单，settings&amp;ndash;&amp;gt;tools&amp;mdash;&amp;gt;terminal&amp;ndash;&amp;gt;shell path&lt;br&gt;
+PyCharm 2016.1,2018.x&amp;hellip;: Settings, Tools, Terminal, and add &amp;ldquo;&amp;quot;/K &amp;lt;path-to-your-activate.bat&amp;gt;&amp;rdquo;&amp;quot; to Shell path and add (mind the quotes). Also add quotes around cmd.exe, resulting in:&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2022/02/pycharm-terminal-virtualenv-setting/pycharm-env.jpg&#34; alt=&#34;pycharm-env&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;设置pycharm Terminal窗口启动时进入Anaconda3环境&lt;br&gt;
+在&amp;quot;设置&amp;quot;&amp;gt;&amp;ldquo;终端工具&amp;rdquo;&amp;gt;，更改如下内容：Shell path&lt;br&gt;
+C:\Users\me\Miniconda3\Scripts\activate.bat 为安装C:\Users\me\Miniconda3的目录&lt;/p&gt;&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-$xslt&#34; data-lang=&#34;$xslt&#34;&gt;cmd.exe  &amp;#34;/K&amp;#34;  &amp;#34;C:\Users\me\Miniconda3\Scripts\activate.bat&amp;#34;  &amp;#34;C:\Users\me\Miniconda3&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;遇到pip install 模块 下载不了的情况，请设置国产镜像&lt;/p&gt;&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-$xslt&#34; data-lang=&#34;$xslt&#34;&gt;https://pypi.douban.com/simple
+https://mirrors.aliyun.com/pypi/simple
+https://pypi.mirrors.ustc.edu.cn/simple
+https://pypi.tuna.tsinghua.edu.cn/simple
+&lt;/code&gt;&lt;/pre&gt;</content>
+    </item>
+    
     <item>
       <title>Anaconda Modify the Domestic Mirror Ai Learning Section 1</title>
-      <link>https://ltan.me/post/2021/07/anaconda-modify-the-domestic-mirror-ai-learning-section-1/</link>
+      <link>http://localhost:55668/post/2021/07/anaconda-modify-the-domestic-mirror-ai-learning-section-1/</link>
       <pubDate>Thu, 08 Jul 2021 20:58:37 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/07/anaconda-modify-the-domestic-mirror-ai-learning-section-1/</guid>
+      <guid>http://localhost:55668/post/2021/07/anaconda-modify-the-domestic-mirror-ai-learning-section-1/</guid>
       <description>&lt;h1 id=&#34;我的ai学习第一课-anaconda-修改镜像源&#34;&gt;我的AI学习第一课 Anaconda 修改镜像源&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;为什么要修改镜像源，因为初次使用anaconda 发现下载太慢了，都是从官网服务器拉取模块，需要 等很漫长时间，&lt;/p&gt;
