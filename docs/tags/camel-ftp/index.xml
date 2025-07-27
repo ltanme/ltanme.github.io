@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Camel Ftp on LTAN.ME</title>
-    <link>http://localhost:54137/tags/camel-ftp/</link>
+    <link>https://ltan.me/tags/camel-ftp/</link>
     <description>Recent content in Camel Ftp on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 12 May 2021 19:11:15 +0800</lastBuildDate><atom:link href="http://localhost:54137/tags/camel-ftp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 12 May 2021 19:11:15 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/camel-ftp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A Bug That Displays Abnormally After Uploading an Image</title>
-      <link>http://localhost:54137/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/</link>
+      <link>https://ltan.me/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/</link>
       <pubDate>Wed, 12 May 2021 19:11:15 +0800</pubDate>
       
-      <guid>http://localhost:54137/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/</guid>
+      <guid>https://ltan.me/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/</guid>
       <description>&lt;h1 id=&#34;记一次解决图片上传后在浏览器不能正常显示的问题&#34;&gt;记一次解决图片上传后在浏览器不能正常显示的问题&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;原来这个项目是比较老，采用的是spirng mvc +ftp 技术搭建的上传功能，通过把一个静态资源h5页，打包成一个zip上传到后台&lt;/p&gt;
@@ -26,15 +26,15 @@
 &lt;p&gt;意思就是在本地解压zip后，需要把zip包静态资源按照 目录格式同步 ftp 服务器当中，关键是文件在上传前后读写需要保持编码一至就不会出现这个问题&lt;/p&gt;
 &lt;p&gt;下面开始详细分析调式&lt;/p&gt;
 &lt;p&gt;当设置uft8编码上传图片文件后，每个文件上传后会少很多的字节内容&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/image-20210512192524181.png&#34; alt=&#34;image-20210512192524181&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/image-20210512192524181.png&#34; alt=&#34;image-20210512192524181&#34;&gt;&lt;/p&gt;
 &lt;p&gt;该图片文件默认在上传前编码格式为 ANSI&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/image-20210512192650863.png&#34; alt=&#34;image-20210512192650863&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/image-20210512192650863.png&#34; alt=&#34;image-20210512192650863&#34;&gt;&lt;/p&gt;
 &lt;p&gt;然后从同步到ftp 服务器后，下载到本地打开发现，编码变成了GB2312 格式的&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/image-20210512192804222.png&#34; alt=&#34;image-20210512192804222&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/image-20210512192804222.png&#34; alt=&#34;image-20210512192804222&#34;&gt;&lt;/p&gt;
 &lt;p&gt;当然变成GB2312编码上传后的图片文件，文件md5值是一样的，浏览器不能正常显示图片文件，因为图片文件被编码破坏了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/image-20210512192847433.png&#34; alt=&#34;image-20210512192847433&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/image-20210512192847433.png&#34; alt=&#34;image-20210512192847433&#34;&gt;&lt;/p&gt;
 &lt;p&gt;原老项目采用apache commons net 包下的ftp client，不知道为什么设置了编码也没有解决问题，说是同步到ftp工具用apache camel 组件代替 apache commons net 的ftp  client,  替换之前尝试把编码设置成uft-8,果然很容易复现问题&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/image-20210512193353856.png&#34; alt=&#34;image-20210512193353856&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/a-bug-that-displays-abnormally-after-uploading-an-image/image-20210512193353856.png&#34; alt=&#34;image-20210512193353856&#34;&gt;&lt;/p&gt;
 &lt;p&gt;最终用apache camel 代替了 ftpclient 解决ftp 同步图片后偶发性打不开的问题&lt;/p&gt;
 </content>
     </item>

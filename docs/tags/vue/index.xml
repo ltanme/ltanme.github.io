@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vue on LTAN.ME</title>
-    <link>http://localhost:54137/tags/vue/</link>
+    <link>https://ltan.me/tags/vue/</link>
     <description>Recent content in Vue on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 21 Dec 2021 21:53:30 +0800</lastBuildDate><atom:link href="http://localhost:54137/tags/vue/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Dec 2021 21:53:30 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/vue/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Front End Learning Vue Typescript 1</title>
-      <link>http://localhost:54137/post/2021/12/front-end-learning-vue-typescript-1/</link>
+      <link>https://ltan.me/post/2021/12/front-end-learning-vue-typescript-1/</link>
       <pubDate>Tue, 21 Dec 2021 21:53:30 +0800</pubDate>
       
-      <guid>http://localhost:54137/post/2021/12/front-end-learning-vue-typescript-1/</guid>
+      <guid>https://ltan.me/post/2021/12/front-end-learning-vue-typescript-1/</guid>
       <description>&lt;h1 id=&#34;前端学习vue-typescript-1&#34;&gt;前端学习【vue-typescript-1】&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;基于模板代码学习编写最前沿技术框架&lt;code&gt;vue-typescript-admin-template&lt;/code&gt; , 这里直接省略环境搭建npm node vue 请自行安装, vue 以最新版本为准 vue3.x
@@ -179,7 +179,7 @@ Time: 2614ms
   - Local:   http://localhost:8080/
   - Network: http://172.20.148.107:8080/
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最终效果:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2021/12/front-end-learning-vue-typescript-1/image-20211221223034552.png&#34; alt=&#34;image-20211221223034552&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/12/front-end-learning-vue-typescript-1/image-20211221223034552.png&#34; alt=&#34;image-20211221223034552&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     

@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vmware on LTAN.ME</title>
-    <link>http://localhost:54137/tags/vmware/</link>
+    <link>https://ltan.me/tags/vmware/</link>
     <description>Recent content in Vmware on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 11 Jun 2024 18:52:36 +0800</lastBuildDate><atom:link href="http://localhost:54137/tags/vmware/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 Jun 2024 18:52:36 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/vmware/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vmware and Ubuntu</title>
-      <link>http://localhost:54137/post/2024/06/vmware-and-ubuntu/</link>
+      <link>https://ltan.me/post/2024/06/vmware-and-ubuntu/</link>
       <pubDate>Tue, 11 Jun 2024 18:52:36 +0800</pubDate>
       
-      <guid>http://localhost:54137/post/2024/06/vmware-and-ubuntu/</guid>
+      <guid>https://ltan.me/post/2024/06/vmware-and-ubuntu/</guid>
       <description>&lt;h2 id=&#34;在vmware安装ubuntu-2004-lts-版本与windows-10-共享文件环境搭建&#34;&gt;在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建&lt;/h2&gt;
 &lt;p&gt;我的虚拟机设置情况&lt;br&gt;
-&lt;img src=&#34;http://localhost:54137/post/2024/06/vmware-and-ubuntu/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/06/vmware-and-ubuntu/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南：&lt;/p&gt;
 &lt;h3 id=&#34;下载-ubuntu-20046-lts-iso-文件&#34;&gt;下载 Ubuntu 20.04.6 LTS ISO 文件&lt;/h3&gt;
 &lt;ol&gt;
@@ -38,7 +38,7 @@
 &lt;p&gt;&lt;strong&gt;打开 VMware Workstation 或 VMware Player&lt;/strong&gt;:&lt;/p&gt;</description>
       <content>&lt;h2 id=&#34;在vmware安装ubuntu-2004-lts-版本与windows-10-共享文件环境搭建&#34;&gt;在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建&lt;/h2&gt;
 &lt;p&gt;我的虚拟机设置情况&lt;br&gt;
-&lt;img src=&#34;http://localhost:54137/post/2024/06/vmware-and-ubuntu/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/06/vmware-and-ubuntu/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南：&lt;/p&gt;
 &lt;h3 id=&#34;下载-ubuntu-20046-lts-iso-文件&#34;&gt;下载 Ubuntu 20.04.6 LTS ISO 文件&lt;/h3&gt;
 &lt;ol&gt;
@@ -590,16 +590,16 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;artemis-rest           docker          drama-engine     hawtio      java                   java4  lua    openresty     remote
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;admin@ubuntu-server:~$ 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;admin@ubuntu-server:~$ 
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2024/06/vmware-and-ubuntu/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/06/vmware-and-ubuntu/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
     <item>
       <title>Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine</title>
-      <link>http://localhost:54137/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</link>
+      <link>https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</link>
       <pubDate>Sun, 08 Oct 2023 19:16:07 +0800</pubDate>
       
-      <guid>http://localhost:54137/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</guid>
+      <guid>https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</guid>
       <description>&lt;h1 id=&#34;解决因docker网络导致的网络问题无法ping通局域网ip&#34;&gt;解决因docker网络导致的网络问题，无法ping通局域网ip&lt;/h1&gt;
 &lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
 &lt;p&gt;在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网并 ping 通外部地址，但 CentOS 7 无法 ping 通宿主机。这让我非常困惑，并最初怀疑可能是公司的网管对我的 MAC 地址进行了某种限制。&lt;/p&gt;
