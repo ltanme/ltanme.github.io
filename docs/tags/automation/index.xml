@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Automation on LTAN.ME</title>
-    <link>http://localhost:1313/tags/automation/</link>
+    <link>https://ltan.me/tags/automation/</link>
     <description>Recent content in Automation on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Nov 2024 12:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/automation/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Nov 2024 12:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/automation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Export Command Data from PhpMyAdmin</title>
-      <link>http://localhost:1313/post/2024/11/exportcommanddatafromphpmyadmin/</link>
+      <link>https://ltan.me/post/2024/11/exportcommanddatafromphpmyadmin/</link>
       <pubDate>Mon, 04 Nov 2024 12:00:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2024/11/exportcommanddatafromphpmyadmin/</guid>
+      <guid>https://ltan.me/post/2024/11/exportcommanddatafromphpmyadmin/</guid>
       <description>&lt;p&gt;在使用 PhpMyAdmin 时，您可能会遇到一个问题：当某些字段内容较长时，界面无法完整显示这些字段内容，只能看到部分数据。这种情况下，PhpMyAdmin 默认的导出功能可能无法满足需求，因为网页导出的数据也会被截断，手动复制粘贴又非常耗时且容易出错。&lt;/p&gt;</description>
       <content>&lt;p&gt;在使用 PhpMyAdmin 时，您可能会遇到一个问题：当某些字段内容较长时，界面无法完整显示这些字段内容，只能看到部分数据。这种情况下，PhpMyAdmin 默认的导出功能可能无法满足需求，因为网页导出的数据也会被截断，手动复制粘贴又非常耗时且容易出错。&lt;/p&gt;
 &lt;p&gt;因此，我们可以通过编写 Python 脚本直接调用 PhpMyAdmin 的接口，自动化获取完整数据并保存为 Excel 文件。这样做的主要原因包括：&lt;/p&gt;

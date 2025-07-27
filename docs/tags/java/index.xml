@@ -2,204 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on LTAN.ME</title>
-    <link>http://localhost:1313/tags/java/</link>
+    <link>https://ltan.me/tags/java/</link>
     <description>Recent content in Java on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 28 Nov 2022 16:05:03 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/java/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Localdatetime to Date Format Java</title>
-      <link>http://localhost:1313/post/2022/11/localdatetime-to-date-format-java/</link>
-      <pubDate>Mon, 28 Nov 2022 16:05:03 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/2022/11/localdatetime-to-date-format-java/</guid>
-      <description>&lt;h1 id=&#34;localdatetime-to-date-format-java&#34;&gt;Localdatetime to Date Format Java&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在使用&lt;code&gt;java&lt;/code&gt;时间的&lt;code&gt;api&lt;/code&gt;个人感觉非常不方便，很多时候存在格式转换，类型转换 比如&lt;code&gt;date&lt;/code&gt; 转&lt;code&gt;localDate&lt;/code&gt;
-&lt;code&gt;localDateTime&lt;/code&gt;转换为 &lt;code&gt;Date&lt;/code&gt; 等这种操作，二者的相互转换并不是一步到位哪么简单的，所以，还是在
-这里记录一下转换的&lt;code&gt;api&lt;/code&gt;备忘一下, &lt;code&gt;localDate&lt;/code&gt;只处理&lt;code&gt;yyyyMMdd&lt;/code&gt;格式，&lt;code&gt;localTime&lt;/code&gt;只处理&lt;code&gt;HHmmss&lt;/code&gt;格式,而
-&lt;code&gt;localDateTime&lt;/code&gt; 可以处理 &lt;code&gt;yyyy-MM-dd HH:mm:ss&lt;/code&gt;&lt;/p&gt;</description>
-      <content>&lt;h1 id=&#34;localdatetime-to-date-format-java&#34;&gt;Localdatetime to Date Format Java&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在使用&lt;code&gt;java&lt;/code&gt;时间的&lt;code&gt;api&lt;/code&gt;个人感觉非常不方便，很多时候存在格式转换，类型转换 比如&lt;code&gt;date&lt;/code&gt; 转&lt;code&gt;localDate&lt;/code&gt;
-&lt;code&gt;localDateTime&lt;/code&gt;转换为 &lt;code&gt;Date&lt;/code&gt; 等这种操作，二者的相互转换并不是一步到位哪么简单的，所以，还是在
-这里记录一下转换的&lt;code&gt;api&lt;/code&gt;备忘一下, &lt;code&gt;localDate&lt;/code&gt;只处理&lt;code&gt;yyyyMMdd&lt;/code&gt;格式，&lt;code&gt;localTime&lt;/code&gt;只处理&lt;code&gt;HHmmss&lt;/code&gt;格式,而
-&lt;code&gt;localDateTime&lt;/code&gt; 可以处理 &lt;code&gt;yyyy-MM-dd HH:mm:ss&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
-&lt;h2 id=&#34;date-to-localdatetime&#34;&gt;Date to LocalDateTime&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Date date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Date(); 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    LocalDateTime ldt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; date.&lt;span style=&#34;color:#a6e22e&#34;&gt;toInstant&lt;/span&gt;()
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            .&lt;span style=&#34;color:#a6e22e&#34;&gt;atZone&lt;/span&gt;(ZoneId.&lt;span style=&#34;color:#a6e22e&#34;&gt;systemDefault&lt;/span&gt;() )
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            .&lt;span style=&#34;color:#a6e22e&#34;&gt;toLocalDateTime&lt;/span&gt;(); 
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;localdatetime-to-date&#34;&gt;LocalDateTime to Date&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   LocalDateTime date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; LocalDateTime.&lt;span style=&#34;color:#a6e22e&#34;&gt;now&lt;/span&gt;(); 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   Date date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Date.&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;( localDateTime.&lt;span style=&#34;color:#a6e22e&#34;&gt;atZone&lt;/span&gt;( ZoneId.&lt;span style=&#34;color:#a6e22e&#34;&gt;systemDefault&lt;/span&gt;()).&lt;span style=&#34;color:#a6e22e&#34;&gt;toInstant&lt;/span&gt;());
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;生成时间序列&#34;&gt;生成时间序列&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Date&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getDayList&lt;/span&gt;(String startDate, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; gap) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      String pattern &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yyyy-MM-dd HH:mm:ss&amp;#34;&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      DateTimeFormatter dateFormat &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DateTimeFormatter.&lt;span style=&#34;color:#a6e22e&#34;&gt;ofPattern&lt;/span&gt;(pattern); 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#75715e&#34;&gt;// 生成年月日的日期序列&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Date&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArrayList&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;(); 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; gap; i&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         LocalDateTime newDate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; LocalDateTime.&lt;span style=&#34;color:#a6e22e&#34;&gt;parse&lt;/span&gt;(startDate, dateFormat).&lt;span style=&#34;color:#a6e22e&#34;&gt;plusDays&lt;/span&gt;(i);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         Date date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Date.&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;(newDate.&lt;span style=&#34;color:#a6e22e&#34;&gt;atZone&lt;/span&gt;(ZoneId.&lt;span style=&#34;color:#a6e22e&#34;&gt;systemDefault&lt;/span&gt;()).&lt;span style=&#34;color:#a6e22e&#34;&gt;toInstant&lt;/span&gt;());
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         res.&lt;span style=&#34;color:#a6e22e&#34;&gt;add&lt;/span&gt;(date);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#75715e&#34;&gt;//调用&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      String startDate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2022-11-01 01:01:11&amp;#34;&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; gap &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 30;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Date&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; dayList &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; getDayList(startDate, gap);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      SimpleDateFormat sdf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; SimpleDateFormat(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yyyy-MM-dd&amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      dayList.&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;(item &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         String luanar &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; testLuanars(item); &lt;span style=&#34;color:#75715e&#34;&gt;//输出农历&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         String format &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sdf.&lt;span style=&#34;color:#a6e22e&#34;&gt;format&lt;/span&gt;(item);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         System.&lt;span style=&#34;color:#a6e22e&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;println&lt;/span&gt;(format &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;=======&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; luanar);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      });
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
-    </item>
-    
-    <item>
-      <title>Classpath Resource Not Found When Running as Jar</title>
-      <link>http://localhost:1313/post/2022/03/classpath-resource-not-found-when-running-as-jar/</link>
-      <pubDate>Tue, 08 Mar 2022 09:45:39 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/2022/03/classpath-resource-not-found-when-running-as-jar/</guid>
-      <description>&lt;h1 id=&#34;读取jar包resources目录下的groovy脚本并调用&#34;&gt;读取jar包resources目录下的groovy脚本并调用&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断
-所以采用生成groovy脚本形式来解决动态校验以及入库规则
-项目初期设计不复杂，功能简单，直接按日志项名称编写groovy脚本规则,比如wifi日志，则规则文件名为wifi.groovy
-当日志的http接口请求到wifi名称，则加载wifi.groovy规则文件并解析判断，包括入库，kafka队列等
-groovy文件放在resources/logTemplate文件夹下，遇到在jar包模式运行不能读到文件的问题
-而在idea能直接运行
-java -jar xxx.jar 运行报错如下&lt;/p&gt;</description>
-      <content>&lt;h1 id=&#34;读取jar包resources目录下的groovy脚本并调用&#34;&gt;读取jar包resources目录下的groovy脚本并调用&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断
-所以采用生成groovy脚本形式来解决动态校验以及入库规则
-项目初期设计不复杂，功能简单，直接按日志项名称编写groovy脚本规则,比如wifi日志，则规则文件名为wifi.groovy
-当日志的http接口请求到wifi名称，则加载wifi.groovy规则文件并解析判断，包括入库，kafka队列等
-groovy文件放在resources/logTemplate文件夹下，遇到在jar包模式运行不能读到文件的问题
-而在idea能直接运行
-java -jar xxx.jar 运行报错如下&lt;/p&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; Caused by: java.&lt;span style=&#34;color:#a6e22e&#34;&gt;lang&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;IllegalArgumentException&lt;/span&gt;: URI is not hierarchical
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;解决方法通过jar包运行时不能以文件形式读取jar包里的内容参考google方法整理有如下几种方法解决&#34;&gt;解决方法，通过jar包运行时，不能以文件形式读取jar包里的内容，参考google方法整理有如下几种方法解决&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;第一种方法 Using IOUtils.toString (Apache Utils)&lt;/p&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; IOUtils.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(inputStream, StandardCharsets.&lt;span style=&#34;color:#a6e22e&#34;&gt;UTF_8&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第二种方法 Using CharStreams (Guava)&lt;/p&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CharStreams.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       inputStream, Charsets.&lt;span style=&#34;color:#a6e22e&#34;&gt;UTF_8&lt;/span&gt;));
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第三种方法 Using Scanner (JDK)&lt;/p&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; Scanner s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Scanner(inputStream).&lt;span style=&#34;color:#a6e22e&#34;&gt;useDelimiter&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\\A&amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.&lt;span style=&#34;color:#a6e22e&#34;&gt;hasNext&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; s.&lt;span style=&#34;color:#a6e22e&#34;&gt;next&lt;/span&gt;() : &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第四种方法 Using Stream API (Java 8). Warning: This solution converts different line breaks (like \r\n) to \n.&lt;/p&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader(&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(inputStream))
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   .&lt;span style=&#34;color:#a6e22e&#34;&gt;lines&lt;/span&gt;().&lt;span style=&#34;color:#a6e22e&#34;&gt;collect&lt;/span&gt;(Collectors.&lt;span style=&#34;color:#a6e22e&#34;&gt;joining&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;));
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第五种方法 Using parallel Stream API (Java 8). Warning: This solution converts different line breaks (like \r\n) to \n.&lt;/p&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader(&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(inputStream))
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    .&lt;span style=&#34;color:#a6e22e&#34;&gt;lines&lt;/span&gt;().&lt;span style=&#34;color:#a6e22e&#34;&gt;parallel&lt;/span&gt;().&lt;span style=&#34;color:#a6e22e&#34;&gt;collect&lt;/span&gt;(Collectors.&lt;span style=&#34;color:#a6e22e&#34;&gt;joining&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;));
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第六种方法 Using InputStreamReader and StringBuilder (JDK)&lt;/p&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; bufferSize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 1024;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; buffer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;bufferSize&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; StringBuilder out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringBuilder();
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; Reader in &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(stream, StandardCharsets.&lt;span style=&#34;color:#a6e22e&#34;&gt;UTF_8&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; numRead; (numRead &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; in.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;(buffer, 0, buffer.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; 0; ) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     out.&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;(buffer, 0, numRead);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; out.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;();
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第七种方法 Using StringWriter and IOUtils.copy (Apache Commons)&lt;/p&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; StringWriter writer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringWriter();
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; IOUtils.&lt;span style=&#34;color:#a6e22e&#34;&gt;copy&lt;/span&gt;(inputStream, writer, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; writer.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;();
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第八种方法 Using ByteArrayOutputStream and inputStream.read (JDK)&lt;/p&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; ByteArrayOutputStream result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ByteArrayOutputStream();
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; buffer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1024&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; length; (length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inputStream.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;(buffer)) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1; ) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     result.&lt;span style=&#34;color:#a6e22e&#34;&gt;write&lt;/span&gt;(buffer, 0, length);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// StandardCharsets.UTF_8.name() &amp;gt; JDK 7&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; result.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第九种方法 Using ByteArrayOutputStream and inputStream.read (JDK)&lt;/p&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String newLine &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; System.&lt;span style=&#34;color:#a6e22e&#34;&gt;getProperty&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;line.separator&amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; BufferedReader reader &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader(
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(inputStream));
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; StringBuilder result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringBuilder();
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (String line; (line &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; reader.&lt;span style=&#34;color:#a6e22e&#34;&gt;readLine&lt;/span&gt;()) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;; ) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (result.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; 0) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         result.&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;(newLine);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     result.&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;(line);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; result.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;();
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第十种方法 Using BufferedInputStream and ByteArrayOutputStream (JDK)&lt;/p&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;BufferedInputStream bis &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedInputStream(inputStream);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ByteArrayOutputStream buf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ByteArrayOutputStream();
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bis.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;(); result &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1; result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bis.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;()) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    buf.&lt;span style=&#34;color:#a6e22e&#34;&gt;write&lt;/span&gt;((&lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;) result);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// StandardCharsets.UTF_8.name() &amp;gt; JDK 7&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; buf.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第十一种方法 Using inputStream.read() and StringBuilder (JDK). Warning: This solution has problems with Unicode, for example with Russian text (works correctly only with non-Unicode text)&lt;/p&gt;&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;StringBuilder sb &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringBuilder();
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; ch; (ch &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inputStream.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;()) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1; ) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    sb.&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;((&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;) ch);
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; sb.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;();
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;根据场景需求我最终选择第四种方法来解决读取jar包里的文件内容
-本文来自：https://stackoverflow.com/questions/309424/how-do-i-read-convert-an-inputstream-into-a-string-in-java&lt;/p&gt;&lt;/blockquote&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>Mybatis Failed to Save Data</title>
-      <link>http://localhost:1313/post/2022/02/mybatis-failed-to-save-data/</link>
-      <pubDate>Fri, 11 Feb 2022 12:12:06 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/2022/02/mybatis-failed-to-save-data/</guid>
-      <description>&lt;h1 id=&#34;记一次遇到mybaits写入数据不成功问题&#34;&gt;记一次遇到mybaits写入数据不成功问题&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到
-mysql client 执行sql执行并没有问题，但是调用接口时，写入mysql不成功，也不报错，遇到这种问题特别
-困惑，特记录一下，&lt;/p&gt;</description>
-      <content>&lt;h1 id=&#34;记一次遇到mybaits写入数据不成功问题&#34;&gt;记一次遇到mybaits写入数据不成功问题&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到
-mysql client 执行sql执行并没有问题，但是调用接口时，写入mysql不成功，也不报错，遇到这种问题特别
-困惑，特记录一下，&lt;/p&gt;&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;找了一下午才发现问题，最怕就是程序不报错，语句执行成功，但数据库没有数据这样的问题呢
-主要问题是接口请求实体类有几个版本字段是用的Long 类型的，而mysql表对应的字段是int类型的
-在用mybatis-generate 插件生成表的 mapper.xml、dao、model时，mysql字段为int类型的生成对应的integer类型
-但是代码定义的dto 接口请求实体类，字段是long类型，入库时，存在long 转 integer 的行为，行为非法，但执行时sql不报错
-由于时间关系没有进一步查为什么不报错提示，xml生成的字段类型都是 java.lang.Integer&lt;/p&gt;&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;解决方法 统一 字段类型即可&lt;/p&gt;&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在mysql数据库里，int类型占4个字节对应java的Integer类型，
-而mysql中的bigint 类型占用8个字节对应java的Long类型, 在mybaits xml 文件没有Long类型，只有BIGINT&lt;/p&gt;&lt;/blockquote&gt;
-</content>
-    </item>
-    
+    <lastBuildDate>Tue, 07 Dec 2021 09:54:05 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to solve SpringBoot Mysql CLIENT_PLUGIN_AUTH Is Required error</title>
-      <link>http://localhost:1313/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</link>
+      <link>https://ltan.me/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</link>
       <pubDate>Tue, 07 Dec 2021 09:54:05 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</guid>
+      <guid>https://ltan.me/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</guid>
       <description>&lt;h1 id=&#34;一次上线遇到的问mysql版本使用问题client_plugin_auth&#34;&gt;一次上线遇到的问mysql版本使用问题CLIENT_PLUGIN_AUTH&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;当在项目做好即将上线时，突然发现线上数据库版本太低而报如题错误，导致程序上线启动失败，现有数据库己被很多老的项目在使用着，不可能让dba去更新数据库版本，或另开服务器。&lt;/p&gt;
@@ -224,10 +37,10 @@ mysql client 执行sql执行并没有问题，但是调用接口时，写入mysq
     
     <item>
       <title>Enumeration Class Used in Java</title>
-      <link>http://localhost:1313/post/2021/10/enumeration-class-used-in-java/</link>
+      <link>https://ltan.me/post/2021/10/enumeration-class-used-in-java/</link>
       <pubDate>Thu, 14 Oct 2021 10:45:23 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/10/enumeration-class-used-in-java/</guid>
+      <guid>https://ltan.me/post/2021/10/enumeration-class-used-in-java/</guid>
       <description>&lt;h1 id=&#34;枚举类在java中使用方法之一&#34;&gt;枚举类在java中使用方法之一&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在后数据中台中，有些数据不需要放在数据库当中，只需要一个枚举类即可，比如web ui select 选择器下拉数据，&lt;code&gt;男&lt;/code&gt;，&lt;code&gt;女&lt;/code&gt; 这种，还比如&lt;code&gt;省市&lt;/code&gt; 下拉数据，而这些数据可以不需要数据库来保存，也不需要用配置文件来保存，只需要一个枚举类即可，使用方法如下&lt;/p&gt;</description>
@@ -291,18 +104,18 @@ public Object apiConf() {
 	&amp;#34;3&amp;#34;: &amp;#34;升级命令&amp;#34;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用到web前端效果&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/10/enumeration-class-used-in-java/image-20211014110500057.png&#34; alt=&#34;image-20211014110500057&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/10/enumeration-class-used-in-java/image-20211014110500057.png&#34; alt=&#34;image-20211014110500057&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在业务代码使用枚举类时，还有中文提示，这个比常量好使很多呢&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/10/enumeration-class-used-in-java/image-20211014110845695.png&#34; alt=&#34;image-20211014110845695&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/10/enumeration-class-used-in-java/image-20211014110845695.png&#34; alt=&#34;image-20211014110845695&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
     <item>
       <title>Mybaits Plus Comes With Paging VS Com.github.pagehelper Paging Plug In</title>
-      <link>http://localhost:1313/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</link>
+      <link>https://ltan.me/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</link>
       <pubDate>Mon, 27 Sep 2021 16:49:31 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</guid>
+      <guid>https://ltan.me/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</guid>
       <description>&lt;h1 id=&#34;mybatis-plus-自带分页-和-comgithubpagehelper工具使用对比&#34;&gt;mybatis-plus 自带分页 和 com.github.pagehelper工具使用对比&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;对经常写中台列表数据管理接口的同学来说，需要经常使用到分页插件来提升自己的工作效率，通常我用过最多的两款插件如标题所示，这两款插件在写文章之前，我一直搞不清，浮躁，混为一谈，需要总结整理&lt;/p&gt;</description>
@@ -357,7 +170,7 @@ public Object apiConf() {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;navigateLastPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;web前端对接时看到有 prePage，nextPage 实现太香，不要不要的&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/image-20210927173234110.png&#34; alt=&#34;image-20210927173234110&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/image-20210927173234110.png&#34; alt=&#34;image-20210927173234110&#34;&gt;&lt;/p&gt;
 &lt;p&gt;代码使用：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; @GetMapping(&amp;#34;/list&amp;#34;)
    public Object pageList(@RequestParam(defaultValue = &amp;#34;1&amp;#34;) Integer pageNum,
@@ -374,10 +187,10 @@ public Object apiConf() {
     
     <item>
       <title>How to Do Not Release Resources After Uploading the Zip Package in Java</title>
-      <link>http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</link>
+      <link>https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</link>
       <pubDate>Wed, 12 May 2021 19:36:48 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</guid>
+      <guid>https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</guid>
       <description>&lt;h1 id=&#34;在windows系统中检验一个上传文件程序是否有bug另一种姿势&#34;&gt;在windows系统中检验一个上传文件程序是否有bug另一种姿势&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程&lt;/p&gt;
@@ -391,12 +204,12 @@ public Object apiConf() {
 &lt;p&gt;在windows 调试过程重新删除了己上传的文件，但发现不能删除的，这个问题也找了很久。&lt;/p&gt;
 &lt;p&gt;于是就重新梳理一下上传的流程。&lt;/p&gt;
 &lt;p&gt;发现以下问题&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194748766.png&#34; alt=&#34;image-20210512194748766&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194748766.png&#34; alt=&#34;image-20210512194748766&#34;&gt;&lt;/p&gt;
 &lt;p&gt;来调试代码&lt;/p&gt;
 &lt;p&gt;下面这段代码，上传zip后先保存到本地&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194834905.png&#34; alt=&#34;image-20210512194834905&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194834905.png&#34; alt=&#34;image-20210512194834905&#34;&gt;&lt;/p&gt;
 &lt;p&gt;接下来是解压zip&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194951003.png&#34; alt=&#34;image-20210512194951003&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194951003.png&#34; alt=&#34;image-20210512194951003&#34;&gt;&lt;/p&gt;
 &lt;p&gt;最后增加zipFile.close() 解决，增加in.close() 解决&lt;/p&gt;
 &lt;p&gt;问题总结：&lt;/p&gt;
 &lt;p&gt;​    论代码review 重要性，前期需要多多测试。&lt;/p&gt;
