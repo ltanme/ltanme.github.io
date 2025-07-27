@@ -9,52 +9,40 @@ on:
 jobs:
   change-color:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GH_TOKEN }}
-        fetch-depth: 0
-      
-    - name: Generate random color
-      id: random-color
-      run: |
-        # 定义可用的颜色列表
-        colors=("orange" "blue" "red" "green" "pink")
-        
-        # 使用日期作为种子生成随机颜色，确保同一天颜色一致
-        day_of_year=$(date +%j)
-        color_index=$((day_of_year % ${#colors[@]}))
-        selected_color=${colors[$color_index]}
-        
-        echo "Today's color: $selected_color"
-        echo "color=$selected_color" >> $GITHUB_OUTPUT
-        
-    - name: Update config.toml
-      run: |
-        # 使用sed命令更新config.toml中的ThemeColor
-        sed -i "s/ThemeColor = \"[^\"]*\"/ThemeColor = \"${{ steps.random-color.outputs.color }}\"/" config.toml
-        
-        # 显示更新后的配置
-        echo "Updated config.toml:"
-        grep "ThemeColor" config.toml
-        
-    - name: Setup Hugo
-      uses: peaceiris/actions-hugo@v2
-      with:
-        hugo-version: '0.148.1'
-        extended: true
-        
-    - name: Build site
-      run: |
-        # 重新构建网站以应用新的颜色
-        hugo --baseURL="https://ltan.me"
-        
-    - name: Commit and push changes
-      run: |
-        git config --local user.email "SwimBytes@ltan.me"
-        git config --local user.name "SwimBytes"
-        git add config.toml docs/
-        git commit -m "🎨 Daily color change: ${{ steps.random-color.outputs.color }}"
-        git push https://${{ secrets.GH_TOKEN }}@github.com/ltanme/ltanme.github.io.git HEAD:master 
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Generate random color
+        id: random-color
+        run: |
+          # 定义可用的颜色列表
+          colors=("orange" "blue" "red" "green" "pink")
+          
+          # 使用日期作为种子生成随机颜色，确保同一天颜色一致
+          day_of_year=$(date +%j)
+          color_index=$((day_of_year % ${#colors[@]}))
+          selected_color=${colors[$color_index]}
+          
+          echo "Today's color: $selected_color"
+          echo "color=$selected_color" >> $GITHUB_OUTPUT
+
+      - name: Update config.toml
+        run: |
+          # 使用sed命令更新config.toml中的ThemeColor
+          sed -i "s/ThemeColor = \"[^\"]*\"/ThemeColor = \"${{ steps.random-color.outputs.color }}\"/" config.toml
+          
+          # 显示更新后的配置
+          echo "Updated config.toml:"
+          grep "ThemeColor" config.toml
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "SwimBytes@ltan.me"
+          git config --local user.name "SwimBytes"
+          git add config.toml
+          git commit -m "🎨 Daily color change: ${{ steps.random-color.outputs.color }}"
+          git push
