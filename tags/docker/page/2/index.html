@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Docker :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/tags/docker/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Docker">
+<meta property="og:description" content="" />
+<meta property="og:url" content="https://ltan.me/tags/docker/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+
+
+
+  <link href="/tags/docker/index.xml" rel="alternate" type="application/rss+xml" title="LTAN.ME" />
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+  
+  <div class="posts">
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/">Headscale Migration from CentOS 7 to Ubuntu 24</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2024-11-04
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/headscale/">headscale</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/migration/">migration</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/centos/">CentOS</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/ubuntu/">Ubuntu</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <p>This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.</p>
+<h3 id="1-export-data-and-image-on-centos-7">1. Export Data and Image on CentOS 7</h3>
+<h4 id="export-configuration-and-database">Export Configuration and Database</h4>
+<p>To begin, export the configuration and database files from the <code>headscale</code> container:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker cp headscale:/etc/headscale/config.yaml ./config.yaml
+</span></span><span style="display:flex;"><span>docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite
+</span></span></code></pre></div><h4 id="export-docker-image">Export Docker Image</h4>
+<p>Use <code>docker save</code> to export the <code>headscale</code> Docker image:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1
+</span></span></code></pre></div><h3 id="2-transfer-files-to-ubuntu-24">2. Transfer Files to Ubuntu 24</h3>
+<p>Transfer the configuration, database, and image files to the Ubuntu 24 system using <code>scp</code>, <code>rsync</code>, or another file transfer tool:</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2024/11/headscalemigrationfromcentos7toubuntu24/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/">Resolving Verdaccio Permissions and Proxy Issues in Docker</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2024-06-06
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/verdaccio/">Verdaccio</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/docker/">Docker</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/nginx/">Nginx</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="resolving-verdaccio-permissions-and-proxy-issues-in-docker">Resolving Verdaccio Permissions and Proxy Issues in Docker</h1>
+<h1 id="问题-1无法在-docker-容器中创建目录">问题 1：无法在 Docker 容器中创建目录</h1>
+<h2 id="问题描述">问题描述：</h2>
+<blockquote>
+<p>在构建 Verdaccio 的 Docker 镜像时，尝试创建 /usr/rn-plugin/storage 和 /usr/rn-plugin/plugins 目录时，出现了权限不足的错误。</p></blockquote>
+<h2 id="解决方案">解决方案:</h2>
+<blockquote>
+<p>通过在 Dockerfile 中切换到 root 用户来创建目录，并设置适当的权限。然后切换回 verdaccio 用户</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># verdaccio.Dockerfile</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FROM harbor.example.com/cc_iot/verdaccio:latest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置 Verdaccio 配置</span>
+</span></span><span style="display:flex;"><span>COPY ./verdaccio/config.yaml /verdaccio/conf/config.yaml
+</span></span><span style="display:flex;"><span>COPY ./verdaccio/htpasswd /usr/rn-plugin/htpasswd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 创建存储和插件目录并设置权限</span>
+</span></span><span style="display:flex;"><span>USER root
+</span></span><span style="display:flex;"><span>RUN mkdir -p /usr/rn-plugin/storage /usr/rn-plugin/plugins <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    chown -R 10001:10001 /usr/rn-plugin/storage /usr/rn-plugin/plugins <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    chown 10001:10001 /usr/rn-plugin/htpasswd
+</span></span><span style="display:flex;"><span>USER verdaccio
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置存储和插件目录为卷</span>
+</span></span><span style="display:flex;"><span>VOLUME <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/usr/rn-plugin/storage&#34;</span>, <span style="color:#e6db74">&#34;/usr/rn-plugin/plugins&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 暴露 Verdaccio 端口</span>
+</span></span><span style="display:flex;"><span>EXPOSE <span style="color:#ae81ff">4873</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置 Verdaccio 环境变量</span>
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_APPDIR /verdaccio
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_USER verdaccio
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_PORT <span style="color:#ae81ff">4873</span>
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_PROTOCOL http
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_STORAGE /usr/rn-plugin/storage
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_PLUGINS /usr/rn-plugin/plugins
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_LOG_FORMAT pretty
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_LOG_LEVEL trace
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_PUBLIC_URL https://www.example.com/verdaccio
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ENTRYPOINT <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/usr/local/bin/verdaccio&#34;</span>, <span style="color:#e6db74">&#34;--config&#34;</span>, <span style="color:#e6db74">&#34;/verdaccio/conf/config.yaml&#34;</span>, <span style="color:#e6db74">&#34;--listen&#34;</span>, <span style="color:#e6db74">&#34;0.0.0.0:4873&#34;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><h1 id="问题-2本地宿主机目录权限不足">问题 2：本地宿主机目录权限不足</h1>
+<h2 id="问题描述-1">问题描述：</h2>
+<blockquote>
+<p>在容器中无法写入挂载的本地目录 /root/dd/storage 和 /root/dd/plugins。</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2024/04/headscale-server-setup-process/">Server setup process using Headscale with Docker.</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2024-04-15
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/tailscale/">tailscale</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/headscale/">headscale</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="server-setup-process-using-headscale-with-docker">Server setup process using Headscale with Docker.</h1>
+<h2 id="记录采用headscale--docker-异地组网过程">记录采用headscale &amp; docker 异地组网过程</h2>
+<h2 id="需求背景">需求背景</h2>
+<blockquote>
+<p>曾经我尝试使用<code>ZeroTier</code>，最初的体验非常不错。然而，随着时间的推移，我发现连接速度变得缓慢和卡顿，
+有时甚至需要借助特殊的网络加速技术来提高性能。后来，在<code>X</code>社区中，我看到有人分享了<code>Tailscale</code>的好评，
+这促使我安装了<code>Tailscale</code>的官方客户端。相较于<code>ZeroTier</code>，<code>Tailscale</code>在速度上有显著的提升，
+尽管偶尔也会遇到一些延迟。<code>Tailscale</code>依赖于其官方服务器，但它支持用户自建服务器，
+这一点非常吸引我。通过结合使用<code>Tailscale</code>客户端和官网，我们可以实现异地组网。
+为了达到更理想的连接速度，我决定自建异地组网系统。这样不仅能控制家中的<code>群晖</code>设备，还能优化<code>PT</code>下载等功能。</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2024/04/headscale-server-setup-process/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2024/02/record-an-error-during-node-red-deployment/">Record an Error During Node RED Deployment</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2024-02-22
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/nodered/">nodered</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/pm2/">pm2</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="记一次在docker-打包部署node-red-启动报错">记一次在docker 打包部署node red 启动报错</h1>
+<p>报错如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>---------------------------------------------------------------------
+</span></span><span style="display:flex;"><span>Your flow credentials file is encrypted using a system-generated key.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If the system-generated key is lost <span style="color:#66d9ef">for</span> any reason, your credentials
+</span></span><span style="display:flex;"><span>file will not be recoverable, you will have to delete it and re-enter
+</span></span><span style="display:flex;"><span>your credentials.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>You should set your own key using the <span style="color:#e6db74">&#39;credentialSecret&#39;</span> option in
+</span></span><span style="display:flex;"><span>your settings file. Node-RED will <span style="color:#66d9ef">then</span> re-encrypt your credentials
+</span></span><span style="display:flex;"><span>file using your chosen key the next time you deploy a change.
+</span></span><span style="display:flex;"><span>---------------------------------------------------------------------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:25 - <span style="color:#f92672">[</span>warn<span style="color:#f92672">]</span> Encrypted credentials not found
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:25 - <span style="color:#f92672">[</span>info<span style="color:#f92672">]</span> Server now running at http://127.0.0.1:3002/
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:25 - <span style="color:#f92672">[</span>info<span style="color:#f92672">]</span> Starting flows
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:25 - <span style="color:#f92672">[</span>info<span style="color:#f92672">]</span> Started flows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:35 - <span style="color:#f92672">[</span>warn<span style="color:#f92672">]</span> Flushing file /data/nodes to disk failed : Error: EISDIR: illegal operation on a directory, rename <span style="color:#e6db74">&#39;/data/nodes.$$$&#39;</span> -&gt; <span style="color:#e6db74">&#39;/data/nodes&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:35 - <span style="color:#f92672">[</span>warn<span style="color:#f92672">]</span> Error saving flows: EISDIR: illegal operation on a directory, rename <span style="color:#e6db74">&#39;/data/nodes.$$$&#39;</span> -&gt; <span style="color:#e6db74">&#39;/data/nodes&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:35 - <span style="color:#f92672">[</span>warn<span style="color:#f92672">]</span> Error: EISDIR: illegal operation on a directory, rename <span style="color:#e6db74">&#39;/data/nodes.$$$&#39;</span> -&gt; <span style="color:#e6db74">&#39;/data/nodes&#39;</span>
+</span></span></code></pre></div><h2 id="pm2启动信息">PM2启动信息</h2>
+<p>使用如下PM2配置文件启动Node-RED实例：</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2024/02/record-an-error-during-node-red-deployment/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/">Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2023-10-08
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/vmware/">vmware</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="解决因docker网络导致的网络问题无法ping通局域网ip">解决因docker网络导致的网络问题，无法ping通局域网ip</h1>
+<h2 id="背景">背景</h2>
+<p>在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网并 ping 通外部地址，但 CentOS 7 无法 ping 通宿主机。这让我非常困惑，并最初怀疑可能是公司的网管对我的 MAC 地址进行了某种限制。</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/">Reverse Proxy to Websocket Service Set Based on Apisix2</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-05-11
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/apisix/">apisix</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/websocket/">websocket</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/openresty/">openresty</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="基于apisix24网关反向代理到websocket服务集节点">基于apisix2.4网关反向代理到websocket服务集节点</h1>
+<p>问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点</p>
+<p>apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等</p>
+<p>本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/">Read more →</a>
+        </div>
+        
+      </div>
+    
+    <div class="pagination">
+  <div class="pagination__buttons">
+    
+      <span class="button previous">
+        <a href="/tags/docker/">
+          <span class="button__icon">←</span>
+          <span class="button__text">Newer posts</span>
+        </a>
+      </span>
+    
+    
+  </div>
+</div>
+
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

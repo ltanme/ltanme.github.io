@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+    <title>Common Docker Issues Solutions :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Docker 疑难杂症汇总 在使用 Docker 的过程中，可能会遇到各种各样的问题，尤其是在国内环境下，网络限制可能会导致一些操作困难。本文将汇总常见的 Docker 安装与使用过程中可能遇到的疑难杂症，并提供相应的解决方案。
+1. Docker 安装过程中网络问题 问题描述： 在国内使用 apt-get 安装 Docker 时，经常遇到无法连接到 Docker 官方仓库 download.docker.com 的问题，导致无法获取或更新 Docker 包。
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/post/2024/08/common-docker-issues-solutions/" />
+
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
+
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Common Docker Issues Solutions">
+<meta property="og:description" content="Docker 疑难杂症汇总 在使用 Docker 的过程中，可能会遇到各种各样的问题，尤其是在国内环境下，网络限制可能会导致一些操作困难。本文将汇总常见的 Docker 安装与使用过程中可能遇到的疑难杂症，并提供相应的解决方案。
+1. Docker 安装过程中网络问题 问题描述： 在国内使用 apt-get 安装 Docker 时，经常遇到无法连接到 Docker 官方仓库 download.docker.com 的问题，导致无法获取或更新 Docker 包。
+" />
+<meta property="og:url" content="http://localhost:1313/post/2024/08/common-docker-issues-solutions/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-08-15 16:13:23 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="http://localhost:1313/post/2024/08/common-docker-issues-solutions/">Common Docker Issues Solutions</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-08-15 [Mod: 2024-08-15]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="docker-疑难杂症汇总">Docker 疑难杂症汇总<a href="#docker-疑难杂症汇总" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>在使用 Docker 的过程中，可能会遇到各种各样的问题，尤其是在国内环境下，网络限制可能会导致一些操作困难。本文将汇总常见的 Docker 安装与使用过程中可能遇到的疑难杂症，并提供相应的解决方案。</p>
+<h2 id="1-docker-安装过程中网络问题">1. Docker 安装过程中网络问题<a href="#1-docker-安装过程中网络问题" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="问题描述">问题描述：<a href="#问题描述" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>在国内使用 <code>apt-get</code> 安装 Docker 时，经常遇到无法连接到 Docker 官方仓库 <code>download.docker.com</code> 的问题，导致无法获取或更新 Docker 包。</p>
+<h3 id="解决方案">解决方案：<a href="#解决方案" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ul>
+<li>
+<p><strong>使用国内镜像源：</strong> 通过修改 Docker 的 APT 源配置文件，切换到国内镜像源（如清华大学、阿里云、中科大等），可以有效解决网络连接问题。</p>
+<p>修改 <code>/etc/apt/sources.list.d/docker.list</code> 文件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>deb <span style="color:#f92672">[</span>arch<span style="color:#f92672">=</span>arm64<span style="color:#f92672">]</span> https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu jammy stable
+</span></span></code></pre></div></li>
+</ul>
+<h4 id="添加-gpg-公钥-如果遇到-gpg-公钥无法获取的问题可以手动下载并添加公钥">添加 GPG 公钥： 如果遇到 GPG 公钥无法获取的问题，可以手动下载并添加公钥：<a href="#添加-gpg-公钥-如果遇到-gpg-公钥无法获取的问题可以手动下载并添加公钥" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+</span></span></code></pre></div><h4 id="更换dns或使用vpn-如果镜像源依旧无法访问可以尝试更换dns或者使用vpn绕过网络限制">更换DNS或使用VPN： 如果镜像源依旧无法访问，可以尝试更换DNS，或者使用VPN绕过网络限制。<a href="#更换dns或使用vpn-如果镜像源依旧无法访问可以尝试更换dns或者使用vpn绕过网络限制" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<h1 id="gpg-公钥问题">GPG 公钥问题<a href="#gpg-公钥问题" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>问题描述：<br>
+在更新或安装 Docker 过程中，可能会出现关于 GPG 公钥的警告或错误，如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">The</span> <span style="color:#a6e22e">following</span> <span style="color:#a6e22e">signatures</span> <span style="color:#a6e22e">couldn</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">t</span> <span style="color:#a6e22e">be</span> <span style="color:#a6e22e">verified</span> <span style="color:#a6e22e">because</span> <span style="color:#a6e22e">the</span> <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">key</span> <span style="color:#a6e22e">is</span> <span style="color:#a6e22e">not</span> <span style="color:#a6e22e">available</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">NO_PUBKEY</span> <span style="color:#ae81ff">7</span><span style="color:#a6e22e">EA0A9C3F273FCD8</span>
+</span></span></code></pre></div><blockquote>
+<p>解决方案：<br>
+手动添加公钥：<br>
+使用以下命令手动添加公钥：</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker-ustc.gpg
+</span></span></code></pre></div><blockquote>
+<p>将公钥放置到正确的位置：
+确保公钥被正确地放置到 /etc/apt/keyrings/ 目录下，并更新 APT 源配置，指定 signed-by 参数。</p></blockquote>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

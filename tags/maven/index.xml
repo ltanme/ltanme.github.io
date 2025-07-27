@@ -1,0 +1,2070 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maven on LTAN.ME</title>
+    <link>https://ltan.me/tags/maven/</link>
+    <description>Recent content in Maven on LTAN.ME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 04 Sep 2021 17:16:44 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/maven/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Activemq Artemis Learning 3</title>
+      <link>https://ltan.me/post/2021/09/activemq-artemis-learning-3/</link>
+      <pubDate>Sat, 04 Sep 2021 17:16:44 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/09/activemq-artemis-learning-3/</guid>
+      <description>&lt;h1 id=&#34;验证activemq-artemis-源代码完整性&#34;&gt;验证activemq Artemis 源代码完整性&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;工作项目可能需要使用activemq artemis ，将使用在生产环境上部署，为了方便后面二次开发的需求可能，对其进行源代码完整性验证，主要工作是，把最新源代码下载到本地进行源码编译，一开始使用的windows死活编译不成功，报com.sum.sw jar 包错误。&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;验证activemq-artemis-源代码完整性&#34;&gt;验证activemq Artemis 源代码完整性&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;工作项目可能需要使用activemq artemis ，将使用在生产环境上部署，为了方便后面二次开发的需求可能，对其进行源代码完整性验证，主要工作是，把最新源代码下载到本地进行源码编译，一开始使用的windows死活编译不成功，报com.sum.sw jar 包错误。&lt;/p&gt;
+&lt;p&gt;然后还有一些jar 包无法下载，即使你换了国内的maven 阿里镜像也无法下载, 需要有一个彻底扶墙的网络环境才有可能全部编译通过。然后我在windows折腾几天没有成功，就是反复执行 mvn -Prealse install  命令，安装编译测试等环境，错误一大堆。项目复杂，庞大，不得不说apache 开源的项目，还是很强，功能很完善。这个项目目录结构也是十分复杂的。为了达 到目的，需要时间折腾的，后来我换了苹果电脑上面，也开起了扶墙网络模式。经过几次的人工重复执行  mvn -Prealse install  最终才编译成功的&lt;/p&gt;
+&lt;p&gt;这里说一下为什么需要重复，反复执行mvn -Prealse install ,因为项目的依赖都来自不同的网络，其主要的需要从maven 全球中央仓库下载，有时会因为网络掉线，访问服务器节点超时引起的编译程序中断导致，所以重复执行mvn 打包命令。是可以理解的&lt;/p&gt;
+&lt;p&gt;说到这里有人可能会问，为什么不用&lt;code&gt;github&lt;/code&gt; 自带的&lt;code&gt;workflow &lt;/code&gt;编译，因为那是国外环境，&lt;/p&gt;
+&lt;p&gt;当然没有墙的问题，在本地编译主要目的还是为了检验源代码完整性以及 后面二次开发扩展打基础。&lt;/p&gt;
+&lt;p&gt;以下是我编译的最后几部过程的全结果。  最后项目编译共花了&lt;code&gt;43分钟&lt;/code&gt; 包含测试用例，第一次成功编译后，后面编译就会有&lt;code&gt;cache&lt;/code&gt;, 顺利多了，编译后最终的程序打包是在 &lt;code&gt;artemis-distribution&lt;/code&gt; 模块下面&lt;/p&gt;&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mvn -Prelease install
+
+[INFO] --------&amp;lt; org.apache.activemq.examples.stomp:stomp-websockets &amp;gt;---------
+
+[INFO] Building ActiveMQ Artemis JMS StompWebSocketExample Example 2.18.0 [208/218]
+
+[INFO] --------------------------------[ jar ]---------------------------------
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-maven-version) @ stomp-websockets ---
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-java-version) @ stomp-websockets ---
+
+[INFO]
+
+[INFO] --- maven-dependency-plugin:3.1.1:unpack (copy) @ stomp-websockets ---
+
+[INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
+
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-websockets/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
+
+[INFO]
+
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (process-resource-bundles) @ stomp-websockets ---
+
+[INFO] Preparing remote bundle org.apache:apache-jar-resource-bundle:1.4
+
+[INFO] Copying 3 resources from 1 bundle.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ stomp-websockets ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] Copying 1 resource
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ stomp-websockets ---
+
+[INFO] Changes detected - recompiling the module!
+
+[INFO] Compiling 1 source file to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-websockets/target/classes
+
+[INFO]
+
+[INFO] --- maven-checkstyle-plugin:3.1.1:check (default) @ stomp-websockets ---
+
+[INFO] 开始检查……
+
+检查完成。
+
+[INFO] You have 0 Checkstyle violations.
+
+[INFO]
+
+[INFO] --- apache-rat-plugin:0.13:check (default) @ stomp-websockets ---
+
+[INFO] Enabled default license matchers.
+
+[INFO] Will parse SCM ignores for exclusions...
+
+[INFO] Finished adding exclusions from SCM ignore files.
+
+[INFO] 62 implicit excludes (use -debug for more details).
+
+[INFO] 53 explicit excludes (use -debug for more details).
+
+[INFO] 7 resources included (use -debug for more details)
+
+[INFO] Rat check: Summary over all files. Unapproved: 0, unknown: 0, generated: 0, approved: 7 licenses.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ stomp-websockets ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-websockets/src/test/resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ stomp-websockets ---
+
+[INFO] No sources to compile
+
+[INFO]
+
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ stomp-websockets ---
+
+[INFO]
+
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ stomp-websockets ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-websockets/target/stomp-websockets-2.18.0.jar
+
+[INFO]
+
+[INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ stomp-websockets ---
+
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
+
+[INFO]
+
+[INFO] --- maven-source-plugin:3.2.1:jar-no-fork (attach-sources) @ stomp-websockets ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-websockets/target/stomp-websockets-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] --- dependency-check-maven:6.1.0:check (default) @ stomp-websockets ---
+
+[INFO] Skipping dependency-check
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:create (create) @ stomp-websockets ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (start) @ stomp-websockets ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:runClient (runClient) @ stomp-websockets ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (stop) @ stomp-websockets ---
+
+[INFO]
+
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ stomp-websockets ---
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-websockets/target/stomp-websockets-2.18.0.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp-websockets/2.18.0/stomp-websockets-2.18.0.jar
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-websockets/pom.xml to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp-websockets/2.18.0/stomp-websockets-2.18.0.pom
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-websockets/target/stomp-websockets-2.18.0-sources.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp-websockets/2.18.0/stomp-websockets-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] ---&amp;lt; org.apache.activemq.examples.stomp:stomp-embedded-interceptor &amp;gt;----
+
+[INFO] Building ActiveMQ Artemis JMS Stomp Embedded Interceptor Example 2.18.0 [209/218]
+
+[INFO] --------------------------------[ jar ]---------------------------------
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-maven-version) @ stomp-embedded-interceptor ---
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-java-version) @ stomp-embedded-interceptor ---
+
+[INFO]
+
+[INFO] --- maven-dependency-plugin:3.1.1:unpack (copy) @ stomp-embedded-interceptor ---
+
+[INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
+
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-embedded-interceptor/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
+
+[INFO]
+
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (process-resource-bundles) @ stomp-embedded-interceptor ---
+
+[INFO] Preparing remote bundle org.apache:apache-jar-resource-bundle:1.4
+
+[INFO] Copying 3 resources from 1 bundle.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ stomp-embedded-interceptor ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] Copying 1 resource
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ stomp-embedded-interceptor ---
+
+[INFO] Changes detected - recompiling the module!
+
+[INFO] Compiling 3 source files to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-embedded-interceptor/target/classes
+
+[INFO]
+
+[INFO] --- maven-checkstyle-plugin:3.1.1:check (default) @ stomp-embedded-interceptor ---
+
+[INFO] 开始检查……
+
+检查完成。
+
+[INFO] You have 0 Checkstyle violations.
+
+[INFO]
+
+[INFO] --- apache-rat-plugin:0.13:check (default) @ stomp-embedded-interceptor ---
+
+[INFO] Enabled default license matchers.
+
+[INFO] Will parse SCM ignores for exclusions...
+
+[INFO] Finished adding exclusions from SCM ignore files.
+
+[INFO] 62 implicit excludes (use -debug for more details).
+
+[INFO] 53 explicit excludes (use -debug for more details).
+
+[INFO] 5 resources included (use -debug for more details)
+
+[INFO] Rat check: Summary over all files. Unapproved: 0, unknown: 0, generated: 0, approved: 5 licenses.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ stomp-embedded-interceptor ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-embedded-interceptor/src/test/resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ stomp-embedded-interceptor ---
+
+[INFO] No sources to compile
+
+[INFO]
+
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ stomp-embedded-interceptor ---
+
+[INFO]
+
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ stomp-embedded-interceptor ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-embedded-interceptor/target/stomp-embedded-interceptor-2.18.0.jar
+
+[INFO]
+
+[INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ stomp-embedded-interceptor ---
+
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
+
+[INFO]
+
+[INFO] --- maven-source-plugin:3.2.1:jar-no-fork (attach-sources) @ stomp-embedded-interceptor ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-embedded-interceptor/target/stomp-embedded-interceptor-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] --- dependency-check-maven:6.1.0:check (default) @ stomp-embedded-interceptor ---
+
+[INFO] Skipping dependency-check
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:create (create) @ stomp-embedded-interceptor ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (start) @ stomp-embedded-interceptor ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:runClient (runClient) @ stomp-embedded-interceptor ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (stop) @ stomp-embedded-interceptor ---
+
+[INFO]
+
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ stomp-embedded-interceptor ---
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-embedded-interceptor/target/stomp-embedded-interceptor-2.18.0.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp-embedded-interceptor/2.18.0/stomp-embedded-interceptor-2.18.0.jar
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-embedded-interceptor/pom.xml to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp-embedded-interceptor/2.18.0/stomp-embedded-interceptor-2.18.0.pom
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-embedded-interceptor/target/stomp-embedded-interceptor-2.18.0-sources.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp-embedded-interceptor/2.18.0/stomp-embedded-interceptor-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] ------------&amp;lt; org.apache.activemq.examples.stomp:stomp1.1 &amp;gt;-------------
+
+[INFO] Building ActiveMQ Artemis Stomp 1.1 Example 2.18.0       [210/218]
+
+[INFO] --------------------------------[ jar ]---------------------------------
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-maven-version) @ stomp1.1 ---
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-java-version) @ stomp1.1 ---
+
+[INFO]
+
+[INFO] --- maven-dependency-plugin:3.1.1:unpack (copy) @ stomp1.1 ---
+
+[INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
+
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.1/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
+
+[INFO]
+
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (process-resource-bundles) @ stomp1.1 ---
+
+[INFO] Preparing remote bundle org.apache:apache-jar-resource-bundle:1.4
+
+[INFO] Copying 3 resources from 1 bundle.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ stomp1.1 ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] Copying 1 resource
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ stomp1.1 ---
+
+[INFO] Changes detected - recompiling the module!
+
+[INFO] Compiling 1 source file to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.1/target/classes
+
+[INFO]
+
+[INFO] --- maven-checkstyle-plugin:3.1.1:check (default) @ stomp1.1 ---
+
+[INFO] 开始检查……
+
+检查完成。
+
+[INFO] You have 0 Checkstyle violations.
+
+[INFO]
+
+[INFO] --- apache-rat-plugin:0.13:check (default) @ stomp1.1 ---
+
+[INFO] Enabled default license matchers.
+
+[INFO] Will parse SCM ignores for exclusions...
+
+[INFO] Finished adding exclusions from SCM ignore files.
+
+[INFO] 62 implicit excludes (use -debug for more details).
+
+[INFO] 53 explicit excludes (use -debug for more details).
+
+[INFO] 3 resources included (use -debug for more details)
+
+[INFO] Rat check: Summary over all files. Unapproved: 0, unknown: 0, generated: 0, approved: 3 licenses.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ stomp1.1 ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.1/src/test/resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ stomp1.1 ---
+
+[INFO] No sources to compile
+
+[INFO]
+
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ stomp1.1 ---
+
+[INFO]
+
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ stomp1.1 ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.1/target/stomp1.1-2.18.0.jar
+
+[INFO]
+
+[INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ stomp1.1 ---
+
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
+
+[INFO]
+
+[INFO] --- maven-source-plugin:3.2.1:jar-no-fork (attach-sources) @ stomp1.1 ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.1/target/stomp1.1-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] --- dependency-check-maven:6.1.0:check (default) @ stomp1.1 ---
+
+[INFO] Skipping dependency-check
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:create (create) @ stomp1.1 ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (start) @ stomp1.1 ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:runClient (runClient) @ stomp1.1 ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (stop) @ stomp1.1 ---
+
+[INFO]
+
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ stomp1.1 ---
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.1/target/stomp1.1-2.18.0.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp1.1/2.18.0/stomp1.1-2.18.0.jar
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.1/pom.xml to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp1.1/2.18.0/stomp1.1-2.18.0.pom
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.1/target/stomp1.1-2.18.0-sources.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp1.1/2.18.0/stomp1.1-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] ------------&amp;lt; org.apache.activemq.examples.stomp:stomp1.2 &amp;gt;-------------
+
+[INFO] Building ActiveMQ Artemis Stomp 1.2 Example 2.18.0       [211/218]
+
+[INFO] --------------------------------[ jar ]---------------------------------
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-maven-version) @ stomp1.2 ---
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-java-version) @ stomp1.2 ---
+
+[INFO]
+
+[INFO] --- maven-dependency-plugin:3.1.1:unpack (copy) @ stomp1.2 ---
+
+[INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
+
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.2/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
+
+[INFO]
+
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (process-resource-bundles) @ stomp1.2 ---
+
+[INFO] Preparing remote bundle org.apache:apache-jar-resource-bundle:1.4
+
+[INFO] Copying 3 resources from 1 bundle.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ stomp1.2 ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] Copying 1 resource
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ stomp1.2 ---
+
+[INFO] Changes detected - recompiling the module!
+
+[INFO] Compiling 1 source file to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.2/target/classes
+
+[INFO]
+
+[INFO] --- maven-checkstyle-plugin:3.1.1:check (default) @ stomp1.2 ---
+
+[INFO] 开始检查……
+
+检查完成。
+
+[INFO] You have 0 Checkstyle violations.
+
+[INFO]
+
+[INFO] --- apache-rat-plugin:0.13:check (default) @ stomp1.2 ---
+
+[INFO] Enabled default license matchers.
+
+[INFO] Will parse SCM ignores for exclusions...
+
+[INFO] Finished adding exclusions from SCM ignore files.
+
+[INFO] 62 implicit excludes (use -debug for more details).
+
+[INFO] 53 explicit excludes (use -debug for more details).
+
+[INFO] 3 resources included (use -debug for more details)
+
+[INFO] Rat check: Summary over all files. Unapproved: 0, unknown: 0, generated: 0, approved: 3 licenses.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ stomp1.2 ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.2/src/test/resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ stomp1.2 ---
+
+[INFO] No sources to compile
+
+[INFO]
+
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ stomp1.2 ---
+
+[INFO]
+
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ stomp1.2 ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.2/target/stomp1.2-2.18.0.jar
+
+[INFO]
+
+[INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ stomp1.2 ---
+
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
+
+[INFO]
+
+[INFO] --- maven-source-plugin:3.2.1:jar-no-fork (attach-sources) @ stomp1.2 ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.2/target/stomp1.2-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] --- dependency-check-maven:6.1.0:check (default) @ stomp1.2 ---
+
+[INFO] Skipping dependency-check
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:create (create) @ stomp1.2 ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (start) @ stomp1.2 ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:runClient (runClient) @ stomp1.2 ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (stop) @ stomp1.2 ---
+
+[INFO]
+
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ stomp1.2 ---
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.2/target/stomp1.2-2.18.0.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp1.2/2.18.0/stomp1.2-2.18.0.jar
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.2/pom.xml to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp1.2/2.18.0/stomp1.2-2.18.0.pom
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp1.2/target/stomp1.2-2.18.0-sources.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp1.2/2.18.0/stomp1.2-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] ------------&amp;lt; org.apache.activemq.examples.stomp:stomp-jms &amp;gt;------------
+
+[INFO] Building ActiveMQ Artemis Stomp JMS Example 2.18.0       [212/218]
+
+[INFO] --------------------------------[ jar ]---------------------------------
+
+Downloading from apache.snapshots: https://repository.apache.org/content/repositories/snapshots/org/fusesource/stompjms/stompjms-client/1.19/stompjms-client-1.19.pom
+
+Downloading from central: https://repo.maven.apache.org/maven2/org/fusesource/stompjms/stompjms-client/1.19/stompjms-client-1.19.pom
+
+Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/stompjms/stompjms-client/1.19/stompjms-client-1.19.pom (5.8 kB at 3.6 kB/s)
+
+Downloading from apache.snapshots: https://repository.apache.org/content/repositories/snapshots/org/fusesource/stompjms/stompjms-project/1.19/stompjms-project-1.19.pom
+
+Downloading from central: https://repo.maven.apache.org/maven2/org/fusesource/stompjms/stompjms-project/1.19/stompjms-project-1.19.pom
+
+Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/stompjms/stompjms-project/1.19/stompjms-project-1.19.pom (9.2 kB at 13 kB/s)
+
+Downloading from apache.snapshots: https://repository.apache.org/content/repositories/snapshots/org/fusesource/hawtdispatch/hawtdispatch-transport/1.20/hawtdispatch-transport-1.20.pom
+
+Downloading from central: https://repo.maven.apache.org/maven2/org/fusesource/hawtdispatch/hawtdispatch-transport/1.20/hawtdispatch-transport-1.20.pom
+
+Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/hawtdispatch/hawtdispatch-transport/1.20/hawtdispatch-transport-1.20.pom (2.8 kB at 4.4 kB/s)
+
+Downloading from apache.snapshots: https://repository.apache.org/content/repositories/snapshots/org/fusesource/hawtdispatch/hawtdispatch-project/1.20/hawtdispatch-project-1.20.pom
+
+Downloading from central: https://repo.maven.apache.org/maven2/org/fusesource/hawtdispatch/hawtdispatch-project/1.20/hawtdispatch-project-1.20.pom
+
+Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/hawtdispatch/hawtdispatch-project/1.20/hawtdispatch-project-1.20.pom (13 kB at 14 kB/s)
+
+Downloading from apache.snapshots: https://repository.apache.org/content/repositories/snapshots/org/fusesource/hawtdispatch/hawtdispatch/1.20/hawtdispatch-1.20.pom
+
+Downloading from central: https://repo.maven.apache.org/maven2/org/fusesource/hawtdispatch/hawtdispatch/1.20/hawtdispatch-1.20.pom
+
+Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/hawtdispatch/hawtdispatch/1.20/hawtdispatch-1.20.pom (3.0 kB at 4.2 kB/s)
+
+Downloading from apache.snapshots: https://repository.apache.org/content/repositories/snapshots/org/fusesource/stompjms/stompjms-client/1.19/stompjms-client-1.19.jar
+
+Downloading from apache.snapshots: https://repository.apache.org/content/repositories/snapshots/org/fusesource/hawtdispatch/hawtdispatch-transport/1.20/hawtdispatch-transport-1.20.jar
+
+Downloading from apache.snapshots: https://repository.apache.org/content/repositories/snapshots/org/fusesource/hawtdispatch/hawtdispatch/1.20/hawtdispatch-1.20.jar
+
+Downloading from central: https://repo.maven.apache.org/maven2/org/fusesource/stompjms/stompjms-client/1.19/stompjms-client-1.19.jar
+
+Downloading from central: https://repo.maven.apache.org/maven2/org/fusesource/hawtdispatch/hawtdispatch-transport/1.20/hawtdispatch-transport-1.20.jar
+
+Downloading from central: https://repo.maven.apache.org/maven2/org/fusesource/hawtdispatch/hawtdispatch/1.20/hawtdispatch-1.20.jar
+
+Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/hawtdispatch/hawtdispatch/1.20/hawtdispatch-1.20.jar (119 kB at 63 kB/s)
+
+Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/hawtdispatch/hawtdispatch-transport/1.20/hawtdispatch-transport-1.20.jar (128 kB at 61 kB/s)
+
+Downloaded from central: https://repo.maven.apache.org/maven2/org/fusesource/stompjms/stompjms-client/1.19/stompjms-client-1.19.jar (213 kB at 55 kB/s)
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-maven-version) @ stomp-jms ---
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-java-version) @ stomp-jms ---
+
+[INFO]
+
+[INFO] --- maven-dependency-plugin:3.1.1:unpack (copy) @ stomp-jms ---
+
+[INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
+
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-jms/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
+
+[INFO]
+
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (process-resource-bundles) @ stomp-jms ---
+
+[INFO] Preparing remote bundle org.apache:apache-jar-resource-bundle:1.4
+
+[INFO] Copying 3 resources from 1 bundle.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ stomp-jms ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] Copying 1 resource
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ stomp-jms ---
+
+[INFO] Changes detected - recompiling the module!
+
+[INFO] Compiling 1 source file to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-jms/target/classes
+
+[INFO]
+
+[INFO] --- maven-checkstyle-plugin:3.1.1:check (default) @ stomp-jms ---
+
+[INFO] 开始检查……
+
+检查完成。
+
+[INFO] You have 0 Checkstyle violations.
+
+[INFO]
+
+[INFO] --- apache-rat-plugin:0.13:check (default) @ stomp-jms ---
+
+[INFO] Enabled default license matchers.
+
+[INFO] Will parse SCM ignores for exclusions...
+
+[INFO] Finished adding exclusions from SCM ignore files.
+
+[INFO] 62 implicit excludes (use -debug for more details).
+
+[INFO] 53 explicit excludes (use -debug for more details).
+
+[INFO] 3 resources included (use -debug for more details)
+
+[INFO] Rat check: Summary over all files. Unapproved: 0, unknown: 0, generated: 0, approved: 3 licenses.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ stomp-jms ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-jms/src/test/resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ stomp-jms ---
+
+[INFO] No sources to compile
+
+[INFO]
+
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ stomp-jms ---
+
+[INFO]
+
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ stomp-jms ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-jms/target/stomp-jms-2.18.0.jar
+
+[INFO]
+
+[INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ stomp-jms ---
+
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
+
+[INFO]
+
+[INFO] --- maven-source-plugin:3.2.1:jar-no-fork (attach-sources) @ stomp-jms ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-jms/target/stomp-jms-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] --- dependency-check-maven:6.1.0:check (default) @ stomp-jms ---
+
+[INFO] Skipping dependency-check
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:create (create) @ stomp-jms ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (start) @ stomp-jms ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:runClient (runClient) @ stomp-jms ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (stop) @ stomp-jms ---
+
+[INFO]
+
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ stomp-jms ---
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-jms/target/stomp-jms-2.18.0.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp-jms/2.18.0/stomp-jms-2.18.0.jar
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-jms/pom.xml to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp-jms/2.18.0/stomp-jms-2.18.0.pom
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/stomp/stomp-jms/target/stomp-jms-2.18.0-sources.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/stomp/stomp-jms/2.18.0/stomp-jms-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] ------&amp;lt; org.apache.activemq.examples.openwire:openwire-examples &amp;gt;-------
+
+[INFO] Building ActiveMQ Artemis Openwire Examples 2.18.0       [213/218]
+
+[INFO] --------------------------------[ pom ]---------------------------------
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-maven-version) @ openwire-examples ---
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-java-version) @ openwire-examples ---
+
+[INFO]
+
+[INFO] --- maven-dependency-plugin:3.1.1:unpack (copy) @ openwire-examples ---
+
+[INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
+
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
+
+[INFO]
+
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (process-resource-bundles) @ openwire-examples ---
+
+[INFO] Preparing remote bundle org.apache:apache-jar-resource-bundle:1.4
+
+[INFO] Copying 3 resources from 1 bundle.
+
+[INFO]
+
+[INFO] --- maven-checkstyle-plugin:3.1.1:check (default) @ openwire-examples ---
+
+[INFO] 开始检查……
+
+检查完成。
+
+[INFO] You have 0 Checkstyle violations.
+
+[INFO]
+
+[INFO] --- apache-rat-plugin:0.13:check (default) @ openwire-examples ---
+
+[INFO] Enabled default license matchers.
+
+[INFO] Will parse SCM ignores for exclusions...
+
+[INFO] Finished adding exclusions from SCM ignore files.
+
+[INFO] 67 implicit excludes (use -debug for more details).
+
+[INFO] 53 explicit excludes (use -debug for more details).
+
+[INFO] 1 resources included (use -debug for more details)
+
+[INFO] Rat check: Summary over all files. Unapproved: 0, unknown: 0, generated: 0, approved: 1 licenses.
+
+[INFO]
+
+[INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ openwire-examples ---
+
+[INFO] No site descriptor found: nothing to attach.
+
+[INFO]
+
+[INFO] --- maven-source-plugin:3.2.1:jar-no-fork (attach-sources) @ openwire-examples ---
+
+[INFO]
+
+[INFO] --- dependency-check-maven:6.1.0:check (default) @ openwire-examples ---
+
+[INFO] Skipping dependency-check
+
+[INFO]
+
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ openwire-examples ---
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/pom.xml to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/openwire-examples/2.18.0/openwire-examples-2.18.0.pom
+
+[INFO]
+
+[INFO] ---------&amp;lt; org.apache.activemq.examples.openwire:chat-example &amp;gt;---------
+
+[INFO] Building ActiveMQ Artemis Openwire chat Example 2.18.0     [214/218]
+
+[INFO] --------------------------------[ jar ]---------------------------------
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-maven-version) @ chat-example ---
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-java-version) @ chat-example ---
+
+[INFO]
+
+[INFO] --- maven-dependency-plugin:3.1.1:unpack (copy) @ chat-example ---
+
+[INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
+
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/chat/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
+
+[INFO]
+
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (process-resource-bundles) @ chat-example ---
+
+[INFO] Preparing remote bundle org.apache:apache-jar-resource-bundle:1.4
+
+[INFO] Copying 3 resources from 1 bundle.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ chat-example ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] Copying 2 resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ chat-example ---
+
+[INFO] Changes detected - recompiling the module!
+
+[INFO] Compiling 2 source files to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/chat/target/classes
+
+[INFO]
+
+[INFO] --- maven-checkstyle-plugin:3.1.1:check (default) @ chat-example ---
+
+[INFO] 开始检查……
+
+检查完成。
+
+[INFO] You have 0 Checkstyle violations.
+
+[INFO]
+
+[INFO] --- apache-rat-plugin:0.13:check (default) @ chat-example ---
+
+[INFO] Enabled default license matchers.
+
+[INFO] Will parse SCM ignores for exclusions...
+
+[INFO] Finished adding exclusions from SCM ignore files.
+
+[INFO] 62 implicit excludes (use -debug for more details).
+
+[INFO] 53 explicit excludes (use -debug for more details).
+
+[INFO] 5 resources included (use -debug for more details)
+
+[INFO] Rat check: Summary over all files. Unapproved: 0, unknown: 0, generated: 0, approved: 5 licenses.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ chat-example ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/chat/src/test/resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ chat-example ---
+
+[INFO] No sources to compile
+
+[INFO]
+
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ chat-example ---
+
+[INFO]
+
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ chat-example ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/chat/target/chat-example-2.18.0.jar
+
+[INFO]
+
+[INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ chat-example ---
+
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
+
+[INFO]
+
+[INFO] --- maven-source-plugin:3.2.1:jar-no-fork (attach-sources) @ chat-example ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/chat/target/chat-example-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] --- dependency-check-maven:6.1.0:check (default) @ chat-example ---
+
+[INFO] Skipping dependency-check
+
+[INFO]
+
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ chat-example ---
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/chat/target/chat-example-2.18.0.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/chat-example/2.18.0/chat-example-2.18.0.jar
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/chat/pom.xml to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/chat-example/2.18.0/chat-example-2.18.0.pom
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/chat/target/chat-example-2.18.0-sources.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/chat-example/2.18.0/chat-example-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] --------&amp;lt; org.apache.activemq.examples.openwire:queue-openwire &amp;gt;--------
+
+[INFO] Building ActiveMQ Artemis OpenWire JMS Queue Example 2.18.0  [215/218]
+
+[INFO] --------------------------------[ jar ]---------------------------------
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-maven-version) @ queue-openwire ---
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-java-version) @ queue-openwire ---
+
+[INFO]
+
+[INFO] --- maven-dependency-plugin:3.1.1:unpack (copy) @ queue-openwire ---
+
+[INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
+
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/queue/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
+
+[INFO]
+
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (process-resource-bundles) @ queue-openwire ---
+
+[INFO] Preparing remote bundle org.apache:apache-jar-resource-bundle:1.4
+
+[INFO] Copying 3 resources from 1 bundle.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ queue-openwire ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/queue/src/main/resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ queue-openwire ---
+
+[INFO] Changes detected - recompiling the module!
+
+[INFO] Compiling 1 source file to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/queue/target/classes
+
+[INFO]
+
+[INFO] --- maven-checkstyle-plugin:3.1.1:check (default) @ queue-openwire ---
+
+[INFO] 开始检查……
+
+检查完成。
+
+[INFO] You have 0 Checkstyle violations.
+
+[INFO]
+
+[INFO] --- apache-rat-plugin:0.13:check (default) @ queue-openwire ---
+
+[INFO] Enabled default license matchers.
+
+[INFO] Will parse SCM ignores for exclusions...
+
+[INFO] Finished adding exclusions from SCM ignore files.
+
+[INFO] 62 implicit excludes (use -debug for more details).
+
+[INFO] 53 explicit excludes (use -debug for more details).
+
+[INFO] 2 resources included (use -debug for more details)
+
+[INFO] Rat check: Summary over all files. Unapproved: 0, unknown: 0, generated: 0, approved: 2 licenses.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ queue-openwire ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/queue/src/test/resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ queue-openwire ---
+
+[INFO] No sources to compile
+
+[INFO]
+
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ queue-openwire ---
+
+[INFO]
+
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ queue-openwire ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/queue/target/queue-openwire-2.18.0.jar
+
+[INFO]
+
+[INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ queue-openwire ---
+
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
+
+[INFO]
+
+[INFO] --- maven-source-plugin:3.2.1:jar-no-fork (attach-sources) @ queue-openwire ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/queue/target/queue-openwire-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] --- dependency-check-maven:6.1.0:check (default) @ queue-openwire ---
+
+[INFO] Skipping dependency-check
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:create (create) @ queue-openwire ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (start) @ queue-openwire ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:runClient (runClient) @ queue-openwire ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (stop) @ queue-openwire ---
+
+[INFO]
+
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ queue-openwire ---
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/queue/target/queue-openwire-2.18.0.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/queue-openwire/2.18.0/queue-openwire-2.18.0.jar
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/queue/pom.xml to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/queue-openwire/2.18.0/queue-openwire-2.18.0.pom
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/queue/target/queue-openwire-2.18.0-sources.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/queue-openwire/2.18.0/queue-openwire-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] -------&amp;lt; org.apache.activemq.examples.openwire:message-listener &amp;gt;-------
+
+[INFO] Building ActiveMQ Artemis OpenWire JMS Message Listener Example 2.18.0 [216/218]
+
+[INFO] --------------------------------[ jar ]---------------------------------
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-maven-version) @ message-listener ---
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-java-version) @ message-listener ---
+
+[INFO]
+
+[INFO] --- maven-dependency-plugin:3.1.1:unpack (copy) @ message-listener ---
+
+[INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
+
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-listener/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
+
+[INFO]
+
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (process-resource-bundles) @ message-listener ---
+
+[INFO] Preparing remote bundle org.apache:apache-jar-resource-bundle:1.4
+
+[INFO] Copying 3 resources from 1 bundle.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ message-listener ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-listener/src/main/resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ message-listener ---
+
+[INFO] Changes detected - recompiling the module!
+
+[INFO] Compiling 1 source file to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-listener/target/classes
+
+[INFO]
+
+[INFO] --- maven-checkstyle-plugin:3.1.1:check (default) @ message-listener ---
+
+[INFO] 开始检查……
+
+检查完成。
+
+[INFO] You have 0 Checkstyle violations.
+
+[INFO]
+
+[INFO] --- apache-rat-plugin:0.13:check (default) @ message-listener ---
+
+[INFO] Enabled default license matchers.
+
+[INFO] Will parse SCM ignores for exclusions...
+
+[INFO] Finished adding exclusions from SCM ignore files.
+
+[INFO] 62 implicit excludes (use -debug for more details).
+
+[INFO] 53 explicit excludes (use -debug for more details).
+
+[INFO] 2 resources included (use -debug for more details)
+
+[INFO] Rat check: Summary over all files. Unapproved: 0, unknown: 0, generated: 0, approved: 2 licenses.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ message-listener ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-listener/src/test/resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ message-listener ---
+
+[INFO] No sources to compile
+
+[INFO]
+
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ message-listener ---
+
+[INFO]
+
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ message-listener ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-listener/target/message-listener-2.18.0.jar
+
+[INFO]
+
+[INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ message-listener ---
+
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
+
+[INFO]
+
+[INFO] --- maven-source-plugin:3.2.1:jar-no-fork (attach-sources) @ message-listener ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-listener/target/message-listener-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] --- dependency-check-maven:6.1.0:check (default) @ message-listener ---
+
+[INFO] Skipping dependency-check
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:create (create) @ message-listener ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (start) @ message-listener ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:runClient (runClient) @ message-listener ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (stop) @ message-listener ---
+
+[INFO]
+
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ message-listener ---
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-listener/target/message-listener-2.18.0.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/message-listener/2.18.0/message-listener-2.18.0.jar
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-listener/pom.xml to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/message-listener/2.18.0/message-listener-2.18.0.pom
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-listener/target/message-listener-2.18.0-sources.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/message-listener/2.18.0/message-listener-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] -------&amp;lt; org.apache.activemq.examples.openwire:message-recovery &amp;gt;-------
+
+[INFO] Building ActiveMQ Artemis OpenWire JMS Message Recovery Example 2.18.0 [217/218]
+
+[INFO] --------------------------------[ jar ]---------------------------------
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-maven-version) @ message-recovery ---
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-java-version) @ message-recovery ---
+
+[INFO]
+
+[INFO] --- maven-dependency-plugin:3.1.1:unpack (copy) @ message-recovery ---
+
+[INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
+
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-recovery/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
+
+[INFO]
+
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (process-resource-bundles) @ message-recovery ---
+
+[INFO] Preparing remote bundle org.apache:apache-jar-resource-bundle:1.4
+
+[INFO] Copying 3 resources from 1 bundle.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ message-recovery ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-recovery/src/main/resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ message-recovery ---
+
+[INFO] Changes detected - recompiling the module!
+
+[INFO] Compiling 1 source file to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-recovery/target/classes
+
+[INFO]
+
+[INFO] --- maven-checkstyle-plugin:3.1.1:check (default) @ message-recovery ---
+
+[INFO] 开始检查……
+
+检查完成。
+
+[INFO] You have 0 Checkstyle violations.
+
+[INFO]
+
+[INFO] --- apache-rat-plugin:0.13:check (default) @ message-recovery ---
+
+[INFO] Enabled default license matchers.
+
+[INFO] Will parse SCM ignores for exclusions...
+
+[INFO] Finished adding exclusions from SCM ignore files.
+
+[INFO] 62 implicit excludes (use -debug for more details).
+
+[INFO] 53 explicit excludes (use -debug for more details).
+
+[INFO] 2 resources included (use -debug for more details)
+
+[INFO] Rat check: Summary over all files. Unapproved: 0, unknown: 0, generated: 0, approved: 2 licenses.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ message-recovery ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-recovery/src/test/resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ message-recovery ---
+
+[INFO] No sources to compile
+
+[INFO]
+
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ message-recovery ---
+
+[INFO]
+
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ message-recovery ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-recovery/target/message-recovery-2.18.0.jar
+
+[INFO]
+
+[INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ message-recovery ---
+
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
+
+[INFO]
+
+[INFO] --- maven-source-plugin:3.2.1:jar-no-fork (attach-sources) @ message-recovery ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-recovery/target/message-recovery-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] --- dependency-check-maven:6.1.0:check (default) @ message-recovery ---
+
+[INFO] Skipping dependency-check
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:create (create) @ message-recovery ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:runClient (runClient) @ message-recovery ---
+
+[INFO]
+
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ message-recovery ---
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-recovery/target/message-recovery-2.18.0.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/message-recovery/2.18.0/message-recovery-2.18.0.jar
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-recovery/pom.xml to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/message-recovery/2.18.0/message-recovery-2.18.0.pom
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/message-recovery/target/message-recovery-2.18.0-sources.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/message-recovery/2.18.0/message-recovery-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] ----&amp;lt; org.apache.activemq.examples.openwire:virtual-topic-mapping &amp;gt;-----
+
+[INFO] Building ActiveMQ Artemis OpenWire Virtual Topic Mapping Example 2.18.0 [218/218]
+
+[INFO] --------------------------------[ jar ]---------------------------------
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-maven-version) @ virtual-topic-mapping ---
+
+[INFO]
+
+[INFO] --- maven-enforcer-plugin:3.0.0-M3:enforce (enforce-java-version) @ virtual-topic-mapping ---
+
+[INFO]
+
+[INFO] --- maven-dependency-plugin:3.1.1:unpack (copy) @ virtual-topic-mapping ---
+
+[INFO] Configured Artifact: org.apache.activemq:activemq-artemis-native:1.0.2:jar
+
+[INFO] Unpacking /Users/winfan/.m2/repository/org/apache/activemq/activemq-artemis-native/1.0.2/activemq-artemis-native-1.0.2.jar to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/virtual-topic-mapping/target/bin with includes &amp;#34;**/*.so&amp;#34; and excludes &amp;#34;&amp;#34;
+
+[INFO]
+
+[INFO] --- maven-remote-resources-plugin:1.7.0:process (process-resource-bundles) @ virtual-topic-mapping ---
+
+[INFO] Preparing remote bundle org.apache:apache-jar-resource-bundle:1.4
+
+[INFO] Copying 3 resources from 1 bundle.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ virtual-topic-mapping ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] Copying 1 resource
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ virtual-topic-mapping ---
+
+[INFO] Changes detected - recompiling the module!
+
+[INFO] Compiling 1 source file to /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/virtual-topic-mapping/target/classes
+
+[INFO]
+
+[INFO] --- maven-checkstyle-plugin:3.1.1:check (default) @ virtual-topic-mapping ---
+
+[INFO] 开始检查……
+
+检查完成。
+
+[INFO] You have 0 Checkstyle violations.
+
+[INFO]
+
+[INFO] --- apache-rat-plugin:0.13:check (default) @ virtual-topic-mapping ---
+
+[INFO] Enabled default license matchers.
+
+[INFO] Will parse SCM ignores for exclusions...
+
+[INFO] Finished adding exclusions from SCM ignore files.
+
+[INFO] 62 implicit excludes (use -debug for more details).
+
+[INFO] 53 explicit excludes (use -debug for more details).
+
+[INFO] 3 resources included (use -debug for more details)
+
+[INFO] Rat check: Summary over all files. Unapproved: 0, unknown: 0, generated: 0, approved: 3 licenses.
+
+[INFO]
+
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ virtual-topic-mapping ---
+
+[INFO] Using &amp;#39;UTF-8&amp;#39; encoding to copy filtered resources.
+
+[INFO] skip non existing resourceDirectory /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/virtual-topic-mapping/src/test/resources
+
+[INFO] Copying 3 resources
+
+[INFO]
+
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ virtual-topic-mapping ---
+
+[INFO] No sources to compile
+
+[INFO]
+
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ virtual-topic-mapping ---
+
+[INFO]
+
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ virtual-topic-mapping ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/virtual-topic-mapping/target/virtual-topic-mapping-2.18.0.jar
+
+[INFO]
+
+[INFO] --- maven-site-plugin:3.7.1:attach-descriptor (attach-descriptor) @ virtual-topic-mapping ---
+
+[INFO] Skipping because packaging &amp;#39;jar&amp;#39; is not pom.
+
+[INFO]
+
+[INFO] --- maven-source-plugin:3.2.1:jar-no-fork (attach-sources) @ virtual-topic-mapping ---
+
+[INFO] Building jar: /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/virtual-topic-mapping/target/virtual-topic-mapping-2.18.0-sources.jar
+
+[INFO]
+
+[INFO] --- dependency-check-maven:6.1.0:check (default) @ virtual-topic-mapping ---
+
+[INFO] Skipping dependency-check
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:create (create) @ virtual-topic-mapping ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (start) @ virtual-topic-mapping ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:runClient (runClient) @ virtual-topic-mapping ---
+
+[INFO]
+
+[INFO] --- artemis-maven-plugin:2.18.0:cli (stop) @ virtual-topic-mapping ---
+
+[INFO]
+
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ virtual-topic-mapping ---
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/virtual-topic-mapping/target/virtual-topic-mapping-2.18.0.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/virtual-topic-mapping/2.18.0/virtual-topic-mapping-2.18.0.jar
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/virtual-topic-mapping/pom.xml to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/virtual-topic-mapping/2.18.0/virtual-topic-mapping-2.18.0.pom
+
+[INFO] Installing /Users/winfan/Downloads/activemq-artemis-2.18.0/examples/protocols/openwire/virtual-topic-mapping/target/virtual-topic-mapping-2.18.0-sources.jar to /Users/winfan/.m2/repository/org/apache/activemq/examples/openwire/virtual-topic-mapping/2.18.0/virtual-topic-mapping-2.18.0-sources.jar
+
+[INFO] ------------------------------------------------------------------------
+
+[INFO] Reactor Summary for ActiveMQ Artemis Parent 2.18.0:
+
+[INFO]
+
+[INFO] ActiveMQ Artemis Parent ............................ SUCCESS [ 8.980 s]
+
+[INFO] ActiveMQ Artemis Commons ........................... SUCCESS [ 27.987 s]
+
+[INFO] ActiveMQ Artemis Selector Implementation ........... SUCCESS [ 3.429 s]
+
+[INFO] ActiveMQ Artemis Core Client ....................... SUCCESS [ 26.113 s]
+
+[INFO] ActiveMQ Artemis Journal ........................... SUCCESS [ 3.254 s]
+
+[INFO] ActiveMQ Artemis JDBC Store ........................ SUCCESS [ 7.538 s]
+
+[INFO] ActiveMQ Artemis Quorum API ........................ SUCCESS [ 2.155 s]
+
+[INFO] ActiveMQ Artemis Server ............................ SUCCESS [01:39 min]
+
+[INFO] ActiveMQ Artemis Protocols ......................... SUCCESS [ 0.389 s]
+
+[INFO] ActiveMQ Artemis AMQP Protocol ..................... SUCCESS [ 16.466 s]
+
+[INFO] ActiveMQ Artemis STOMP Protocol .................... SUCCESS [ 1.649 s]
+
+[INFO] ActiveMQ Artemis JMS Client ........................ SUCCESS [ 12.374 s]
+
+[INFO] ActiveMQ Artemis OpenWire Protocol ................. SUCCESS [ 9.264 s]
+
+[INFO] ActiveMQ Artemis HQClient Protocol ................. SUCCESS [ 0.929 s]
+
+[INFO] ActiveMQ Artemis HornetQ Protocol .................. SUCCESS [ 3.132 s]
+
+[INFO] ActiveMQ Artemis Service Extensions ................ SUCCESS [ 2.014 s]
+
+[INFO] ActiveMQ Artemis JMS Server ........................ SUCCESS [ 5.347 s]
+
+[INFO] ActiveMQ Artemis JUnit Rules ....................... SUCCESS [ 8.187 s]
+
+[INFO] ActiveMQ Artemis MQTT Protocol ..................... SUCCESS [ 5.973 s]
+
+[INFO] ActiveMQ Artemis DTO ............................... SUCCESS [ 2.958 s]
+
+[INFO] ActiveMQ Artemis CDI Integration ................... SUCCESS [ 6.244 s]
+
+[INFO] ActiveMQ Artemis Boot .............................. SUCCESS [ 0.373 s]
+
+[INFO] ActiveMQ Artemis CLI ............................... SUCCESS [03:26 min]
+
+[INFO] ActiveMQ Artemis Web ............................... SUCCESS [ 13.370 s]
+
+[INFO] ActiveMQ Artemis Web ............................... SUCCESS [ 59.245 s]
+
+[INFO] ActiveMQ Artemis Core Client All ................... SUCCESS [ 16.509 s]
+
+[INFO] ActiveMQ Artemis Client OSGi ....................... SUCCESS [ 1.389 s]
+
+[INFO] ActiveMQ Artemis JMS Client All .................... SUCCESS [ 10.803 s]
+
+[INFO] ActiveMQ Artemis JMS Client OSGi ................... SUCCESS [ 1.246 s]
+
+[INFO] ActiveMQ Artemis Jakarta Messaging Client .......... SUCCESS [ 1.204 s]
+
+[INFO] ActiveMQ Artemis Jakarta Messaging Server .......... SUCCESS [ 0.473 s]
+
+[INFO] ActiveMQ Artemis RAR POM ........................... SUCCESS [ 1.180 s]
+
+[INFO] ActiveMQ Artemis Jakarta RAR ....................... SUCCESS [ 0.403 s]
+
+[INFO] ActiveMQ Artemis REST Interface Implementation ..... SUCCESS [ 2.762 s]
+
+[INFO] ActiveMQ Artemis Jakarta Service Extensions ........ SUCCESS [ 0.346 s]
+
+[INFO] ActiveMQ Artemis Maven Plugin ...................... SUCCESS [ 3.549 s]
+
+[INFO] ActiveMQ Artemis Server OSGi ....................... SUCCESS [ 3.825 s]
+
+[INFO] ActiveMQ Artemis Cons .............................. SUCCESS [ 0.352 s]
+
+[INFO] ActiveMQ Artemis HawtIO Branding ................... SUCCESS [ 4.740 s]
+
+[INFO] ActiveMQ Artemis HawtIO Plugin ..................... SUCCESS [ 0.928 s]
+
+[INFO] ActiveMQ Artemis Console ........................... SUCCESS [ 1.859 s]
+
+[INFO] ActiveMQ Artemis Spring Integration ................ SUCCESS [ 0.671 s]
+
+[INFO] ActiveMQ Artemis Quorum RI ......................... SUCCESS [02:53 min]
+
+[INFO] Apache ActiveMQ Artemis Distribution ............... SUCCESS [ 29.024 s]
+
+[INFO] ActiveMQ Artemis Tests POM ......................... SUCCESS [ 0.897 s]
+
+[INFO] ActiveMQ Artemis Test Support ...................... SUCCESS [ 1.203 s]
+
+[INFO] ActiveMQ Artemis Unit Tests ........................ SUCCESS [ 2.543 s]
+
+[INFO] ActiveMQ Artemis Joram Tests ....................... SUCCESS [ 1.388 s]
+
+[INFO] ActiveMQ Artemis timing Tests ...................... SUCCESS [ 0.903 s]
+
+[INFO] ActiveMQ Artemis JMS Tests ......................... SUCCESS [ 1.897 s]
+
+[INFO] ActiveMQ Artemis Features .......................... SUCCESS [ 25.476 s]
+
+[INFO] ActiveMQ Artemis Integration Tests ................. SUCCESS [ 31.125 s]
+
+[INFO] ActiveMQ Artemis Karaf Client Integration Tests .... SUCCESS [ 0.926 s]
+
+[INFO] ActiveMQ Artemis Compatibility Tests ............... SUCCESS [ 7.362 s]
+
+[INFO] ActiveMQ Artemis soak Tests ........................ SUCCESS [ 1.330 s]
+
+[INFO] ActiveMQ Artemis stress Tests ...................... SUCCESS [ 1.033 s]
+
+[INFO] ActiveMQ Artemis performance Tests ................. SUCCESS [ 0.802 s]
+
+[INFO] Smoke Tests ........................................ SUCCESS [ 42.821 s]
+
+[INFO] ActiveMQ5.x unit tests ............................. SUCCESS [09:29 min]
+
+[INFO] ActiveMQ Artemis Examples .......................... SUCCESS [ 3.496 s]
+
+[INFO] ActiveMQ Artemis Features Examples ................. SUCCESS [ 0.607 s]
+
+[INFO] ActiveMQ Artemis Clustered Examples ................ SUCCESS [ 0.284 s]
+
+[INFO] ActiveMQ Artemis JMS Client Side Load Balancing Example SUCCESS [ 1.918 s]
+
+[INFO] ActiveMQ Artemis JMS Clustered Durable Subscription Example SUCCESS [ 0.849 s]
+
+[INFO] ActiveMQ Artemis JMS Clustered Grouping Example .... SUCCESS [ 0.827 s]
+
+[INFO] ActiveMQ Artemis JMS Clustered JGroups Example ..... SUCCESS [ 0.916 s]
+
+[INFO] ActiveMQ Artemis JMS Clustered Queue Example ....... SUCCESS [ 0.805 s]
+
+[INFO] ActiveMQ Artemis JMS Clustered Static One Way Example SUCCESS [ 1.507 s]
+
+[INFO] ActiveMQ Artemis JMS Clustered Static Discovery Example SUCCESS [ 1.181 s]
+
+[INFO] ActiveMQ Artemis JMS Clustered Static Discovery Example SUCCESS [ 1.079 s]
+
+[INFO] ActiveMQ Artemis JMS Clustered Topic Example ....... SUCCESS [ 1.174 s]
+
+[INFO] ActiveMQ Artemis JMS Clustered Topic URI Example ... SUCCESS [ 1.064 s]
+
+[INFO] ActiveMQ Artemis JMS Queue Message Redistribution Example SUCCESS [ 0.851 s]
+
+[INFO] ActiveMQ Artemis JMS Symmetric Cluster Example ..... SUCCESS [ 1.075 s]
+
+[INFO] ActiveMQ Artemis JMS Client Side Failover Listener Example SUCCESS [ 1.112 s]
+
+[INFO] ActiveMQ Artemis Broker Connection Examples ........ SUCCESS [ 0.230 s]
+
+[INFO] amqp-sending-messages .............................. SUCCESS [ 0.817 s]
+
+[INFO] amqp-receiving-messages ............................ SUCCESS [ 0.766 s]
+
+[INFO] amqp-ssl-enabled ................................... SUCCESS [ 0.682 s]
+
+[INFO] disaster-recovery .................................. SUCCESS [ 0.675 s]
+
+[INFO] ActiveMQ Artemis Broker Balancer Examples .......... SUCCESS [ 0.266 s]
+
+[INFO] evenly-redirect .................................... SUCCESS [ 0.708 s]
+
+[INFO] symmetric-redirect ................................. SUCCESS [ 0.762 s]
+
+[INFO] ActiveMQ Artemis Federation Examples ............... SUCCESS [ 0.286 s]
+
+[INFO] ActiveMQ Artemis Federated Queue Example ........... SUCCESS [ 0.819 s]
+
+[INFO] ActiveMQ Artemis Downstream Federated Queue Example SUCCESS [ 0.790 s]
+
+[INFO] ActiveMQ Artemis Downstream/Upstream Federated Queue Example SUCCESS [ 0.747 s]
+
+[INFO] ActiveMQ Artemis Federated Address Example ......... SUCCESS [ 1.016 s]
+
+[INFO] ActiveMQ Artemis Downstream Federated Address Example SUCCESS [ 0.878 s]
+
+[INFO] ActiveMQ Artemis Downstream/Upstream Federated Address Example SUCCESS [ 0.842 s]
+
+[INFO] ActiveMQ Artemis Federated Address Divert Example .. SUCCESS [ 0.711 s]
+
+[INFO] ActiveMQ Artemis Failover Examples ................. SUCCESS [ 0.239 s]
+
+[INFO] ActiveMQ Artemis JMS Application Layer Failover Example SUCCESS [ 1.251 s]
+
+[INFO] ActiveMQ Artemis JMS Client Side Failover Listener Example SUCCESS [ 1.326 s]
+
+[INFO] ActiveMQ Artemis JMS Colocated Failover Example .... SUCCESS [ 1.355 s]
+
+[INFO] ActiveMQ Artemis JMS Colocated Failover Recover Only Example SUCCESS [ 0.993 s]
+
+[INFO] ActiveMQ Artemis JMS HA Policy Auto backup example . SUCCESS [ 0.944 s]
+
+[INFO] ActiveMQ Artemis JMS Multiple Failover Example ..... SUCCESS [ 1.083 s]
+
+[INFO] ActiveMQ Artemis JMS Multiple Failover Failback Example SUCCESS [ 0.925 s]
+
+[INFO] ActiveMQ Artemis JMS Non Transaction Failover Example SUCCESS [ 0.796 s]
+
+[INFO] ActiveMQ Artemis JMS Replicated Failback Example ... SUCCESS [ 0.990 s]
+
+[INFO] ActiveMQ Artemis JMS Replicated Failback Static Example SUCCESS [ 0.996 s]
+
+[INFO] ActiveMQ Artemis JMS Replicated Multiple Failover Example SUCCESS [ 1.006 s]
+
+[INFO] ActiveMQ Artemis JMS Replicated Transaction Failover Example SUCCESS [ 0.824 s]
+
+[INFO] ActiveMQ Artemis JMS Scale Down Example ............ SUCCESS [ 0.921 s]
+
+[INFO] ActiveMQ Artemis JMS Stop Server Failover Example .. SUCCESS [ 0.708 s]
+
+[INFO] ActiveMQ Artemis JMS Transaction Failover Example .. SUCCESS [ 1.003 s]
+
+[INFO] ActiveMQ Artemis Zookeeper Single Pair Ordered Failback Example SUCCESS [ 0.888 s]
+
+[INFO] ActiveMQ Artemis Standard Examples ................. SUCCESS [ 0.260 s]
+
+[INFO] ActiveMQ Artemis JMS Auto Closable Example ......... SUCCESS [ 0.696 s]
+
+[INFO] ActiveMQ Artemis JMS Browser Example ............... SUCCESS [ 0.663 s]
+
+[INFO] ActiveMQ Artemis Broker Auth Plugin Example ........ SUCCESS [ 0.782 s]
+
+[INFO] ActiveMQ Artemis Broker Plugin Example ............. SUCCESS [ 0.797 s]
+
+[INFO] ActiveMQ Artemis Camel Example ..................... SUCCESS [ 0.209 s]
+
+[INFO] ActiveMQ Artemis Camel WAR Application ............. SUCCESS [03:23 min]
+
+[INFO] ActiveMQ Artemis Camel Broker ...................... SUCCESS [ 1.457 s]
+
+[INFO] ActiveMQ Artemis CDI Example ....................... SUCCESS [ 29.178 s]
+
+[INFO] ActiveMQ Artemis JMS Kick Off Example .............. SUCCESS [ 0.760 s]
+
+[INFO] ActiveMQ Artemis JMS Completion Listener Example ... SUCCESS [ 0.713 s]
+
+[INFO] ActiveMQ Artemis JMS Consumer Rate Limit Example ... SUCCESS [ 0.783 s]
+
+[INFO] ActiveMQ Artemis JMS Context Example ............... SUCCESS [ 0.763 s]
+
+[INFO] ActiveMQ Artemis Core Bridge Example ............... SUCCESS [ 0.971 s]
+
+[INFO] ActiveMQ Artemis JMS Database Example .............. SUCCESS [ 0.792 s]
+
+[INFO] ActiveMQ Artemis JMS Dead Letter Example ........... SUCCESS [ 0.751 s]
+
+[INFO] ActiveMQ Artemis JMS Delayed Redelivery Example .... SUCCESS [ 0.714 s]
+
+[INFO] ActiveMQ Artemis JMS Divert Example ................ SUCCESS [ 0.890 s]
+
+[INFO] ActiveMQ Artemis JMS Durable Subscription Example .. SUCCESS [ 0.874 s]
+
+[INFO] ActiveMQ Artemis JMS Embedded Example .............. SUCCESS [ 0.859 s]
+
+[INFO] ActiveMQ Artemis JMS Simple Embedded Example ....... SUCCESS [ 0.783 s]
+
+[INFO] ActiveMQ Artemis JMS Exclusive Queue Example ....... SUCCESS [ 0.828 s]
+
+[INFO] ActiveMQ Artemis JMS Expiry Example ................ SUCCESS [ 0.733 s]
+
+[INFO] ActiveMQ Artemis JMS Http Transport Example ........ SUCCESS [ 0.720 s]
+
+[INFO] ActiveMQ Artemis JMS Interceptor Example ........... SUCCESS [ 0.788 s]
+
+[INFO] ActiveMQ Artemis JMS Interceptor Client Example .... SUCCESS [ 0.755 s]
+
+[INFO] ActiveMQ Artemis MQTT Interceptor Example .......... SUCCESS [ 1.400 s]
+
+[INFO] ActiveMQ Artemis AMQP Interceptor Example .......... SUCCESS [ 1.061 s]
+
+[INFO] ActiveMQ Artemis JMS Instantiate Connection Factory Example SUCCESS [ 0.936 s]
+
+[INFO] ActiveMQ Artemis JMS Bridge Example ................ SUCCESS [ 1.110 s]
+
+[INFO] ActiveMQ Artemis JMS &amp;#34;JMX&amp;#34; Example ................. SUCCESS [ 0.753 s]
+
+[INFO] ActiveMQ Artemis JMS &amp;#34;JMX over SSL&amp;#34; Example ........ SUCCESS [ 0.705 s]
+
+[INFO] ActiveMQ Artemis JMS Large Message Example ......... SUCCESS [ 1.019 s]
+
+[INFO] ActiveMQ Artemis JMS Last Value Queue Example ...... SUCCESS [ 0.900 s]
+
+[INFO] ActiveMQ Artemis JMS Management Example ............ SUCCESS [ 0.773 s]
+
+[INFO] ActiveMQ Artemis JMS Management Notifications Example SUCCESS [ 0.744 s]
+
+[INFO] ActiveMQ Artemis JMS Message Counter Example ....... SUCCESS [ 0.873 s]
+
+[INFO] ActiveMQ Artemis JMS Message Group Example ......... SUCCESS [ 0.716 s]
+
+[INFO] ActiveMQ Artemis JMS Message Group Example 2 ....... SUCCESS [ 0.827 s]
+
+[INFO] ActiveMQ Artemis JMS MessagePriorityExample Example SUCCESS [ 0.825 s]
+
+[INFO] ActiveMQ Artemis JMS Netty OpenSSL Example ......... SUCCESS [ 0.827 s]
+
+[INFO] ActiveMQ Artemis JMS No Consumer Buffering Example . SUCCESS [ 0.665 s]
+
+[INFO] ActiveMQ Artemis JMS Paging Example ................ SUCCESS [ 0.751 s]
+
+[INFO] ActiveMQ Artemis JMS Pre Acknowledge Example ....... SUCCESS [ 0.723 s]
+
+[INFO] ActiveMQ Artemis JMS Producer Rate Limit Example ... SUCCESS [ 0.820 s]
+
+[INFO] ActiveMQ Artemis JMS Queue Example ................. SUCCESS [ 0.684 s]
+
+[INFO] ActiveMQ Artemis JMS Queue Requestor Example ....... SUCCESS [ 0.722 s]
+
+[INFO] ActiveMQ Artemis JMS Queue Selector Example ........ SUCCESS [ 0.794 s]
+
+[INFO] ActiveMQ Artemis JMS Reattach Node Example ......... SUCCESS [ 0.684 s]
+
+[INFO] ActiveMQ Artemis REST Examples ..................... SUCCESS [ 0.293 s]
+
+[INFO] Browser Chat App ................................... SUCCESS [ 10.299 s]
+
+[INFO] Mixed JMS and REST Producers/Consumers ............. SUCCESS [ 4.761 s]
+
+[INFO] Push Subscriptions ................................. SUCCESS [ 4.727 s]
+
+[INFO] Duplicate Send Example ............................. SUCCESS [ 4.538 s]
+
+[INFO] ActiveMQ Artemis JMS Request Reply Example ......... SUCCESS [ 0.873 s]
+
+[INFO] ActiveMQ Artemis JMS Scheduled Message Example ..... SUCCESS [ 0.707 s]
+
+[INFO] ActiveMQ Artemis JMS Security Example .............. SUCCESS [ 0.730 s]
+
+[INFO] ActiveMQ Artemis JMS Security Keycloak Example ..... SUCCESS [02:38 min]
+
+[INFO] ActiveMQ Artemis JMS Security LDAP Example ......... SUCCESS [03:29 min]
+
+[INFO] ActiveMQ Artemis JMS Security Manager Example ...... SUCCESS [ 1.208 s]
+
+[INFO] ActiveMQ Artemis JMS Send Acknowledgements Example . SUCCESS [ 0.754 s]
+
+[INFO] ActiveMQ Artemis JMS Shared Consumer Example ....... SUCCESS [ 0.703 s]
+
+[INFO] ActiveMQ Artemis JMS Slow Consumer Example ......... SUCCESS [ 0.785 s]
+
+[INFO] ActiveMQ Artemis JMS Spring Integration Example .... SUCCESS [ 0.837 s]
+
+[INFO] ActiveMQ Artemis JMS Spring Boot Integration Example SUCCESS [01:59 min]
+
+[INFO] ActiveMQ Artemis JMS SSL Enabled Example ........... SUCCESS [ 0.978 s]
+
+[INFO] ActiveMQ Artemis Mqtt CRL Example .................. SUCCESS [ 1.029 s]
+
+[INFO] ActiveMQ Artemis JMS SSL Enabled Dual Authentication Example SUCCESS [ 0.774 s]
+
+[INFO] ActiveMQ Artemis Static Selector Example ........... SUCCESS [ 0.910 s]
+
+[INFO] ActiveMQ Artemis JMS Temporary Queue Example ....... SUCCESS [ 0.796 s]
+
+[INFO] ActiveMQ Artemis JMS Topic Example ................. SUCCESS [ 0.669 s]
+
+[INFO] ActiveMQ Artemis JMS Topic Hierarchies Example ..... SUCCESS [ 0.681 s]
+
+[INFO] ActiveMQ Artemis JMS Topic Selector Example 1 ...... SUCCESS [ 0.748 s]
+
+[INFO] ActiveMQ Artemis JMS Topic Selector Example 2 ...... SUCCESS [ 0.840 s]
+
+[INFO] ActiveMQ Artemis JMS Transactional Example ......... SUCCESS [ 0.790 s]
+
+[INFO] ActiveMQ Artemis JMS XAHeuristicExample Example .... SUCCESS [ 0.917 s]
+
+[INFO] ActiveMQ Artemis JMS XA Receive Example ............ SUCCESS [ 1.095 s]
+
+[INFO] ActiveMQ Artemis JMS XA Send Example ............... SUCCESS [ 0.836 s]
+
+[INFO] ActiveMQ Artemis Modules Examples .................. SUCCESS [ 0.509 s]
+
+[INFO] ActiveMQ Artemis JMS RA ............................ SUCCESS [ 14.595 s]
+
+[INFO] ActiveMQ Artemis Inter-broker Bridging Examples .... SUCCESS [ 0.193 s]
+
+[INFO] Artemis JMS Bridge Example ......................... SUCCESS [ 32.611 s]
+
+[INFO] Artemis Tomcat JNDI Resources Example .............. SUCCESS [01:51 min]
+
+[INFO] ActiveMQ Artemis Performance Examples .............. SUCCESS [ 0.216 s]
+
+[INFO] ActiveMQ Artemis JMS Perf example for openwire ..... SUCCESS [ 4.818 s]
+
+[INFO] ActiveMQ Artemis Soak Normal Example ............... SUCCESS [ 0.846 s]
+
+[INFO] ActiveMQ Artemis Protocols Root Example ............ SUCCESS [ 0.329 s]
+
+[INFO] ActiveMQ Artemis amqp Examples ..................... SUCCESS [ 0.275 s]
+
+[INFO] ActiveMQ Artemis AMQP CPP Example .................. SUCCESS [ 0.850 s]
+
+[INFO] ActiveMQ Artemis AMQP CPP Example .................. SUCCESS [ 0.809 s]
+
+[INFO] ActiveMQ Artemis Proton-J Example .................. SUCCESS [ 0.629 s]
+
+[INFO] ActiveMQ Artemis Proton Ruby Example ............... SUCCESS [ 0.422 s]
+
+[INFO] ActiveMQ Artemis SASL-SCRAM Example ................ SUCCESS [ 0.673 s]
+
+[INFO] ActiveMQ Artemis MQTT Examples ..................... SUCCESS [ 0.385 s]
+
+[INFO] ActiveMQ Artemis MQTT Clustered Queue Example ...... SUCCESS [ 0.723 s]
+
+[INFO] ActiveMQ Artemis MQTT Publish/Subscribe Example .... SUCCESS [ 0.567 s]
+
+[INFO] ActiveMQ Artemis stomp Examples .................... SUCCESS [ 0.258 s]
+
+[INFO] ActiveMQ Artemis Stomp 1.0 Example ................. SUCCESS [ 1.103 s]
+
+[INFO] ActiveMQ Artemis Stomp Dual Authentication Example . SUCCESS [ 1.376 s]
+
+[INFO] ActiveMQ Artemis JMS StompWebSocketExample Example . SUCCESS [ 0.737 s]
+
+[INFO] ActiveMQ Artemis JMS Stomp Embedded Interceptor Example SUCCESS [ 1.027 s]
+
+[INFO] ActiveMQ Artemis Stomp 1.1 Example ................. SUCCESS [ 0.784 s]
+
+[INFO] ActiveMQ Artemis Stomp 1.2 Example ................. SUCCESS [ 0.775 s]
+
+[INFO] ActiveMQ Artemis Stomp JMS Example ................. SUCCESS [01:17 min]
+
+[INFO] ActiveMQ Artemis Openwire Examples ................. SUCCESS [ 0.294 s]
+
+[INFO] ActiveMQ Artemis Openwire chat Example ............. SUCCESS [ 1.063 s]
+
+[INFO] ActiveMQ Artemis OpenWire JMS Queue Example ........ SUCCESS [ 0.674 s]
+
+[INFO] ActiveMQ Artemis OpenWire JMS Message Listener Example SUCCESS [ 0.582 s]
+
+[INFO] ActiveMQ Artemis OpenWire JMS Message Recovery Example SUCCESS [ 1.443 s]
+
+[INFO] ActiveMQ Artemis OpenWire Virtual Topic Mapping Example SUCCESS [ 0.810 s]
+
+[INFO] ------------------------------------------------------------------------
+
+[INFO] BUILD SUCCESS
+
+[INFO] ------------------------------------------------------------------------
+
+[INFO] Total time: 43:08 min
+
+[INFO] Finished at: 2021-09-02T14:35:12+08:00
+
+[INFO] ------------------------------------------------------------------------
+&lt;/code&gt;&lt;/pre&gt;</content>
+    </item>
+    
+  </channel>
+</rss>

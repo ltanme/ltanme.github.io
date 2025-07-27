@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Librestychash on LTAN.ME</title>
+    <link>https://ltan.me/tags/librestychash/</link>
+    <description>Recent content in Librestychash on LTAN.ME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 30 May 2021 12:46:19 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/librestychash/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Application Based on lua-resty-balancer</title>
+      <link>https://ltan.me/post/2021/05/application-based-on-lua-resty-balancer/</link>
+      <pubDate>Sun, 30 May 2021 12:46:19 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/05/application-based-on-lua-resty-balancer/</guid>
+      <description>&lt;h1 id=&#34;基于openresty--lua-resty-balancer-模块实现自定义分流功能&#34;&gt;基于openresty  lua-resty-balancer 模块实现自定义分流功能&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;该模块为提供分流算法，抽离了hash算法, roundrobin轮询等，好处使业务灵活调用算法而分配对像。该对像不一定指服务器，也可以是数据对像或文件对像等等&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;1，下载https://github.com/openresty/lua-resty-balancer&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;基于openresty--lua-resty-balancer-模块实现自定义分流功能&#34;&gt;基于openresty  lua-resty-balancer 模块实现自定义分流功能&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;该模块为提供分流算法，抽离了hash算法, roundrobin轮询等，好处使业务灵活调用算法而分配对像。该对像不一定指服务器，也可以是数据对像或文件对像等等&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;1，下载https://github.com/openresty/lua-resty-balancer&lt;/p&gt;
+&lt;p&gt;编译安装balancer&lt;/p&gt;
+&lt;p&gt;在&lt;a href=&#34;https://github.com/openresty/lua-resty-balancer&#34;&gt;lua-resty-balancer&lt;/a&gt;目录下执行&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; gcc -O2 -fPIC -I/usr/local/include -c chash.c -o chash.o
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; gcc -shared -o librestychash.so chash.o
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;将编译后的so文件存放在openresty 安装目录下的lualib 文件夹下即可，&lt;/p&gt;
+&lt;p&gt;把 chash.lua   roundrobin.lua    两个文件复制到lualib/resty 目录下即可&lt;/p&gt;
+&lt;p&gt;2，应用业务代码&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-nginx&#34; data-lang=&#34;nginx&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;worker_processes&lt;/span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;error_log&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;logs/error.log&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;debug&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;events&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;worker_connections&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1024&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;http&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;init_by_lua_block&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	    &lt;span style=&#34;color:#f92672&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;resty_chash&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;require&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.chash&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;cjson&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;require(&amp;#34;cjson.safe&amp;#34;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;object_list_1999&lt;/span&gt; = {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#f92672&#34;&gt;[&amp;#34;1985&amp;#34;]&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;[&amp;#34;1986&amp;#34;]&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;str_null&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;string.char(0)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;pids,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;nodes&lt;/span&gt; = {}&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; {}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;pid,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;weight&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;pairs(object_list_1999)&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;id&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;string.gsub(pid,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;:&amp;#34;,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;str_null)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;pids[id]&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;pid&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;nodes[id]&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;weight&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;chash_up&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;resty_chash:new(nodes)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;package.loaded.my_chash_up_1999&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;chash_up&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;package.loaded.my_ids_1999&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;pids&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;server&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;listen&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#f92672&#34;&gt;charset&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;utf-8&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;/fpId&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		    &lt;span style=&#34;color:#f92672&#34;&gt;default_type&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;text/html&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			&lt;span style=&#34;color:#f92672&#34;&gt;content_by_lua_block&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#f92672&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;args,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;err&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;ngx.req.get_uri_args()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;userId&lt;/span&gt;  = &lt;span style=&#34;color:#e6db74&#34;&gt;args[&amp;#34;userId&amp;#34;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;chash_up&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;package.loaded.my_chash_up_1999&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;pid&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;package.loaded.my_ids_1999&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;id&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;chash_up:find(userId)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#e6db74&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;hit_id&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;pid[id]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;				&lt;span style=&#34;color:#e6db74&#34;&gt;ngx.say(&amp;#34;用户ID:&amp;#34;..userId..&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;命中了:&amp;#34;..hit_id)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;			&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Configure Direct Domain in Clash :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="In Clash, if you want a specific domain to bypass the proxy and connect directly, you can utilize the mixin and rules settings. Below is an example of how to set up a direct connection for the domain baolei.xxxx.com:
+dns: enable: true enhanced-mode: redir-host # 或者使用 fake-ip，根据你的需求选择 listen: 0.0.0.0:53 nameserver: - 172.20.128.2 # 你的首选DNS服务器,家庭内网dns,公司内网dns - 172.20.128.3 # 你的备用DNS服务器,家庭内网dns,公司内网dns # - &#34;8.8.8.8&#34; # 公共DNS，仅在访问互联网时使用 # - &#34;8.8.4.4&#34; # 公共DNS，仅在访问互联网时使用 fallback: # 当 nameserver 无法解析才使用以下dns解析 - &#34;8.8.8.8&#34; - &#34;8.8.4.4&#34; - &#34;1.1.1.1&#34; fallback-filter: geoip: true # 使用GeoIP规则过滤掉国内的IP地址 ipcidr: # 保证以下私有地址范围不使用fallback DNS - &#34;0.0.0.0/8&#34; - &#34;10.0.0.0/8&#34; - &#34;127.0.0.0/8&#34; - &#34;169.254.0.0/16&#34; - &#34;172.16.0.0/12&#34; - &#34;192.168.0.0/16&#34; - &#34;::1/128&#34; - &#34;fc00::/7&#34; - &#34;fe80::/10&#34; rules: - &#39;DOMAIN-SUFFIX,baolei.xxxx.com,DIRECT&#39; # 确保这条规则在任何可能触发代理的规则之前 # 其他规则... mixin: This setting allows you to modify the main configuration dynamically. It is useful when you want to have a base configuration and apply changes without affecting the main configuration.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/guides/configure-direct-domain-in-clash/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Configure Direct Domain in Clash">
+<meta property="og:description" content="In Clash, if you want a specific domain to bypass the proxy and connect directly, you can utilize the mixin and rules settings. Below is an example of how to set up a direct connection for the domain baolei.xxxx.com:
+dns: enable: true enhanced-mode: redir-host # 或者使用 fake-ip，根据你的需求选择 listen: 0.0.0.0:53 nameserver: - 172.20.128.2 # 你的首选DNS服务器,家庭内网dns,公司内网dns - 172.20.128.3 # 你的备用DNS服务器,家庭内网dns,公司内网dns # - &#34;8.8.8.8&#34; # 公共DNS，仅在访问互联网时使用 # - &#34;8.8.4.4&#34; # 公共DNS，仅在访问互联网时使用 fallback: # 当 nameserver 无法解析才使用以下dns解析 - &#34;8.8.8.8&#34; - &#34;8.8.4.4&#34; - &#34;1.1.1.1&#34; fallback-filter: geoip: true # 使用GeoIP规则过滤掉国内的IP地址 ipcidr: # 保证以下私有地址范围不使用fallback DNS - &#34;0.0.0.0/8&#34; - &#34;10.0.0.0/8&#34; - &#34;127.0.0.0/8&#34; - &#34;169.254.0.0/16&#34; - &#34;172.16.0.0/12&#34; - &#34;192.168.0.0/16&#34; - &#34;::1/128&#34; - &#34;fc00::/7&#34; - &#34;fe80::/10&#34; rules: - &#39;DOMAIN-SUFFIX,baolei.xxxx.com,DIRECT&#39; # 确保这条规则在任何可能触发代理的规则之前 # 其他规则... mixin: This setting allows you to modify the main configuration dynamically. It is useful when you want to have a base configuration and apply changes without affecting the main configuration.
+" />
+<meta property="og:url" content="https://ltan.me/guides/configure-direct-domain-in-clash/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2023-10-12 17:00:18 &#43;0800 &#43;0800" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/guides/configure-direct-domain-in-clash/">Configure Direct Domain in Clash</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2023-10-12 [Mod: 2023-10-12]
+      </span>
+    
+    
+  </div>
+
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>In Clash, if you want a specific domain to bypass the proxy and connect directly, you can utilize the <code>mixin</code> and <code>rules</code> settings. Below is an example of how to set up a direct connection for the domain <code>baolei.xxxx.com</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">dns</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enable</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enhanced-mode</span>: <span style="color:#ae81ff">redir-host</span> <span style="color:#75715e"># 或者使用 fake-ip，根据你的需求选择</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">listen</span>: <span style="color:#ae81ff">0.0.0.0</span>:<span style="color:#ae81ff">53</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">nameserver</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">172.20.128.2</span> <span style="color:#75715e"># 你的首选DNS服务器,家庭内网dns,公司内网dns</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">172.20.128.3</span> <span style="color:#75715e"># 你的备用DNS服务器,家庭内网dns,公司内网dns</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># - &#34;8.8.8.8&#34; # 公共DNS，仅在访问互联网时使用</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># - &#34;8.8.4.4&#34; # 公共DNS，仅在访问互联网时使用</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">fallback</span>: <span style="color:#75715e"># 当 nameserver 无法解析才使用以下dns解析</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;8.8.8.8&#34;</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;8.8.4.4&#34;</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;1.1.1.1&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">fallback-filter</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">geoip</span>: <span style="color:#66d9ef">true</span> <span style="color:#75715e"># 使用GeoIP规则过滤掉国内的IP地址</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ipcidr</span>: <span style="color:#75715e"># 保证以下私有地址范围不使用fallback DNS</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;0.0.0.0/8&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;10.0.0.0/8&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;127.0.0.0/8&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;169.254.0.0/16&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;172.16.0.0/12&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;192.168.0.0/16&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;::1/128&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;fc00::/7&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;fe80::/10&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#e6db74">&#39;DOMAIN-SUFFIX,baolei.xxxx.com,DIRECT&#39;</span> <span style="color:#75715e"># 确保这条规则在任何可能触发代理的规则之前</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># 其他规则...</span>
+</span></span></code></pre></div><p><code>mixin</code>: This setting allows you to modify the main configuration dynamically. It is useful when you want to have a base configuration and apply changes without affecting the main configuration.</p>
+<p><code>dns</code>: Inside the mixin, this section configures the DNS settings for Clash.</p>
+<p><code>enable</code>: true: This enables the DNS feature in Clash.<br>
+<code>listen</code>: :53: This instructs Clash to listen on port 53 for DNS requests.<br>
+<code>nameserver</code>: This specifies the default DNS servers that Clash will use to resolve domain names. In this case, Google&rsquo;s public DNS (8.8.8.8) is used.<br>
+<code>rules</code>: This section defines the rules for how domains are treated in terms of routing.</p>
+<p><code>DOMAIN-SUFFIX,baolei.xxxx.com,DIRECT</code>: This rule means that any domain ending with baolei.xxxx.com will connect directly, bypassing the proxy.
+By implementing this configuration, all traffic to baolei.xxxx.com will bypass the proxy and connect directly. It&rsquo;s useful when you want certain domains to have a direct connection, perhaps due to performance reasons or to bypass potential issues with proxying.</p>
+<h1 id="对于-direct-规则即使域名解析使用了-8888实际的数据流还是直连的">对于 DIRECT 规则，即使域名解析使用了 8.8.8.8，实际的数据流还是直连的<a href="#对于-direct-规则即使域名解析使用了-8888实际的数据流还是直连的" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

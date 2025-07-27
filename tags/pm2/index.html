@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Pm2 :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/tags/pm2/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Pm2">
+<meta property="og:description" content="" />
+<meta property="og:url" content="https://ltan.me/tags/pm2/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+
+
+
+  <link href="/tags/pm2/index.xml" rel="alternate" type="application/rss+xml" title="LTAN.ME" />
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+  
+  <div class="posts">
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2024/02/record-an-error-during-node-red-deployment/">Record an Error During Node RED Deployment</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2024-02-22
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/nodered/">nodered</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/pm2/">pm2</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="记一次在docker-打包部署node-red-启动报错">记一次在docker 打包部署node red 启动报错</h1>
+<p>报错如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>---------------------------------------------------------------------
+</span></span><span style="display:flex;"><span>Your flow credentials file is encrypted using a system-generated key.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If the system-generated key is lost <span style="color:#66d9ef">for</span> any reason, your credentials
+</span></span><span style="display:flex;"><span>file will not be recoverable, you will have to delete it and re-enter
+</span></span><span style="display:flex;"><span>your credentials.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>You should set your own key using the <span style="color:#e6db74">&#39;credentialSecret&#39;</span> option in
+</span></span><span style="display:flex;"><span>your settings file. Node-RED will <span style="color:#66d9ef">then</span> re-encrypt your credentials
+</span></span><span style="display:flex;"><span>file using your chosen key the next time you deploy a change.
+</span></span><span style="display:flex;"><span>---------------------------------------------------------------------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:25 - <span style="color:#f92672">[</span>warn<span style="color:#f92672">]</span> Encrypted credentials not found
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:25 - <span style="color:#f92672">[</span>info<span style="color:#f92672">]</span> Server now running at http://127.0.0.1:3002/
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:25 - <span style="color:#f92672">[</span>info<span style="color:#f92672">]</span> Starting flows
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:25 - <span style="color:#f92672">[</span>info<span style="color:#f92672">]</span> Started flows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:35 - <span style="color:#f92672">[</span>warn<span style="color:#f92672">]</span> Flushing file /data/nodes to disk failed : Error: EISDIR: illegal operation on a directory, rename <span style="color:#e6db74">&#39;/data/nodes.$$$&#39;</span> -&gt; <span style="color:#e6db74">&#39;/data/nodes&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:35 - <span style="color:#f92672">[</span>warn<span style="color:#f92672">]</span> Error saving flows: EISDIR: illegal operation on a directory, rename <span style="color:#e6db74">&#39;/data/nodes.$$$&#39;</span> -&gt; <span style="color:#e6db74">&#39;/data/nodes&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">22</span> Feb 20:47:35 - <span style="color:#f92672">[</span>warn<span style="color:#f92672">]</span> Error: EISDIR: illegal operation on a directory, rename <span style="color:#e6db74">&#39;/data/nodes.$$$&#39;</span> -&gt; <span style="color:#e6db74">&#39;/data/nodes&#39;</span>
+</span></span></code></pre></div><h2 id="pm2启动信息">PM2启动信息</h2>
+<p>使用如下PM2配置文件启动Node-RED实例：</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2024/02/record-an-error-during-node-red-deployment/">Read more →</a>
+        </div>
+        
+      </div>
+    
+    <div class="pagination">
+  <div class="pagination__buttons">
+    
+    
+  </div>
+</div>
+
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

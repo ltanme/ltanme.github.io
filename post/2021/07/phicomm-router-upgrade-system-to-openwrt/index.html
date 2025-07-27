@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Phicomm Router Upgrade System to Openwrt :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="OpenWrt Lede 系统 刷入 k2p 路由器 记录一下，过去经常用的k2p 刷入老毛子系统【padavan】 不用选闪存布局，分分钟成功刷入。但这次刷入OpenWrt 时发现死活进去路由器登录界面。经过在恩山发贴求助终于解决，感谢恩山大神们，真的很厉害！ 我刷入步骤是都先复位的，长按复位键 8到10秒，松开， 然后上传openwrt-ramips-mt7621-phicomm_k2p-initramfs-kernel.binn 文件， 然后点击更新，重启，就是不能进入openwrt 系统路由系统，关键是openwrt wifi ssid 搜索不到，没看到， 说明刷入不成功，我用网线链接电脑 ，电脑网线插上都不能有正常的ip 获取到
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Phicomm Router Upgrade System to Openwrt">
+<meta property="og:description" content="OpenWrt Lede 系统 刷入 k2p 路由器 记录一下，过去经常用的k2p 刷入老毛子系统【padavan】 不用选闪存布局，分分钟成功刷入。但这次刷入OpenWrt 时发现死活进去路由器登录界面。经过在恩山发贴求助终于解决，感谢恩山大神们，真的很厉害！ 我刷入步骤是都先复位的，长按复位键 8到10秒，松开， 然后上传openwrt-ramips-mt7621-phicomm_k2p-initramfs-kernel.binn 文件， 然后点击更新，重启，就是不能进入openwrt 系统路由系统，关键是openwrt wifi ssid 搜索不到，没看到， 说明刷入不成功，我用网线链接电脑 ，电脑网线插上都不能有正常的ip 获取到
+" />
+<meta property="og:url" content="https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-07-02 14:40:17 &#43;0800 &#43;0800" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/">Phicomm Router Upgrade System to Openwrt</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-07-02 [Mod: 2021-07-02]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/k2p/">k2p</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/openwrt/">openwrt</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/lede/">lede</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/padavan/">padavan</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="openwrt-lede-系统-刷入-k2p-路由器">OpenWrt Lede 系统 刷入 k2p 路由器<a href="#openwrt-lede-系统-刷入-k2p-路由器" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>记录一下，过去经常用的k2p 刷入老毛子系统【padavan】 不用选闪存布局，分分钟成功刷入。但这次刷入OpenWrt 时发现死活进去路由器登录界面。经过在恩山发贴求助终于解决，感谢恩山大神们，真的很厉害！
+我刷入步骤是都先复位的，长按复位键 8到10秒，松开，
+然后上传<code>openwrt-ramips-mt7621-phicomm_k2p-initramfs-kernel.binn </code>文件，
+然后点击更新，重启，就是不能进入<code>openwrt</code> 系统路由系统，关键是<code>openwrt wifi ssid </code>搜索不到，没看到， 说明刷入不成功，我用网线链接电脑 ，电脑网线插上都不能有正常的<code>ip</code> 获取到</p></blockquote>
+<blockquote>
+<p>登录界面如下图, 打开 http://192.168.10.10 就可以进入，如果找不到ip是多少，可以用ipconfig查看，必须是电脑 网线有线连接到 k2p lan口</p></blockquote>
+<p><img src="/post/2021/07/phicomm-router-upgrade-system-to-openwrt/image-20210702144843102.png" alt="image-20210702144843102"></p>
+<blockquote>
+<p>默认用户名 <code>root</code>   密码 <code>password</code></p></blockquote>
+<p><img src="/post/2021/07/phicomm-router-upgrade-system-to-openwrt/image-20210702144651741.png" alt="image-20210702144651741"></p>
+<blockquote>
+<p>刷入失败导致路由器不能工作，重新解决步骤   记录一下</p></blockquote>
+<p><img src="/post/2021/07/phicomm-router-upgrade-system-to-openwrt/image-20210702145346377.png" alt="image-20210702145346377"></p>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

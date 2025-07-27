@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Artemis Origin Null Is Not Allowed to Call This Agent :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Artemis Origin Null Is Not Allowed to Call This Agent 解决不能访问jolokia http interface 接口的问题，访问报403 状态错误 工作项目中需要使用到mq的消息管理api,如需要查询在线连接数，需要查看某一个clientId是否在线，需要整合到自身业务当中去，
+对于artemis 就是一个黑盒，虽然是开源的，而且是完全开放的源代码，没有必须去改里面源码达到需求，其实artemis 后台提供了
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Artemis Origin Null Is Not Allowed to Call This Agent">
+<meta property="og:description" content="Artemis Origin Null Is Not Allowed to Call This Agent 解决不能访问jolokia http interface 接口的问题，访问报403 状态错误 工作项目中需要使用到mq的消息管理api,如需要查询在线连接数，需要查看某一个clientId是否在线，需要整合到自身业务当中去，
+对于artemis 就是一个黑盒，虽然是开源的，而且是完全开放的源代码，没有必须去改里面源码达到需求，其实artemis 后台提供了
+" />
+<meta property="og:url" content="https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-09-03 11:14:53 &#43;0800 &#43;0800" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/">Artemis Origin Null Is Not Allowed to Call This Agent</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-09-03 [Mod: 2021-09-03]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/activemq-artemis/">activemq artemis</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/wireshark/">wireshark</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/jolokia/">jolokia</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="artemis-origin-null-is-not-allowed-to-call-this-agent">Artemis Origin Null Is Not Allowed to Call This Agent<a href="#artemis-origin-null-is-not-allowed-to-call-this-agent" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<h3 id="解决不能访问jolokia-http-interface-接口的问题访问报403-状态错误">解决不能访问jolokia http interface 接口的问题，访问报403 状态错误<a href="#解决不能访问jolokia-http-interface-接口的问题访问报403-状态错误" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<blockquote>
+<p>工作项目中需要使用到mq的消息管理api,如需要查询在线连接数，需要查看某一个clientId是否在线，需要整合到自身业务当中去，</p>
+<p>对于artemis 就是一个黑盒，虽然是开源的，而且是完全开放的源代码，没有必须去改里面源码达到需求，其实artemis 后台提供了</p>
+<p>丰富的http rest 接口。再比如根据某一个clientId 踢下线，超时设置，连接数查看，系统资源统计监控查询这些api 都是开放的</p>
+<p>但发现实际使用过程中，并不是很顺利，踩了一些坑，标题就是常见的问题之一</p></blockquote>
+<p>比如官方这篇文档有提到通过 jolokia 提供 接口对外暴露调用，以一下是连接地址</p>
+<p><a href="http://activemq.apache.org/components/artemis/documentation/latest/management.html#management-notifications">Management · ActiveMQ Artemis Documentation (apache.org)</a></p>
+<pre tabindex="0"><code>Exposing JMX using Jolokia
+The default Broker configuration ships with the Jolokia HTTP agent deployed as a web application. Jolokia is a remote JMX-over-HTTP bridge that exposes MBeans. For a full guide as to how to use it refer to Jolokia Documentation, however a simple example to query the broker&#39;s version would be to use a browser and go to the URL http://username:password@localhost:8161/console/jolokia/read/org.apache.activemq.artemis:broker=&#34;0.0.0.0&#34;/Version.
+
+This would give you back something like the following:
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{<span style="color:#f92672">&#34;request&#34;</span>:{<span style="color:#f92672">&#34;mbean&#34;</span>:<span style="color:#e6db74">&#34;org.apache.activemq.artemis:broker=\&#34;0.0.0.0\&#34;&#34;</span>,<span style="color:#f92672">&#34;attribute&#34;</span>:<span style="color:#e6db74">&#34;Version&#34;</span>,<span style="color:#f92672">&#34;type&#34;</span>:<span style="color:#e6db74">&#34;read&#34;</span>},<span style="color:#f92672">&#34;value&#34;</span>:<span style="color:#e6db74">&#34;2.0.0-SNAPSHOT&#34;</span>,<span style="color:#f92672">&#34;timestamp&#34;</span>:<span style="color:#ae81ff">1487017918</span>,<span style="color:#f92672">&#34;status&#34;</span>:<span style="color:#ae81ff">200</span>}
+</span></span></code></pre></div><p>访问格式如下，比如查询borker  版本</p>
+<pre tabindex="0"><code>http://username:password@localhost:8161/console/jolokia/read/org.apache.activemq.artemis:broker=&#34;0.0.0.0&#34;/Version
+</code></pre><p>但实际过程就是报错如下 ，常见403错误</p>
+<p>原因是 origin 这个参数是null, 官方也没有说清 origin 这个参数是怎么传过去，虽然做为开发对http接口协议还是有一点了解，</p>
+<p>origin 这个参数就是需要指明访问目标。通常在http header头 加上即可</p>
+<pre tabindex="0"><code>{
+
+  &#34;error_type&#34;: &#34;java.lang.Exception&#34;,
+
+  &#34;error&#34;: &#34;java.lang.Exception : Origin null is not allowed to call this agent&#34;,
+
+  &#34;status&#34;: 403
+
+}
+</code></pre><p><img src="/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903113004787.png" alt="image-20210903113004787"></p>
+<p>加上后果然访问正常了</p>
+<p><img src="/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903113348373.png" alt="image-20210903113348373"></p>
+<p>但在实际springboot 项目中，我们用restTemplate 这个http client 客户端，发现不行，还是403</p>
+<p>postman 是可以的，我们在spring boot 项目中，用restTemplate 访问不行。为什么，后面我们没有绕过这个问题，没有换过库</p>
+<p>没有使用postman 推荐的code ,以下是postman 推荐的，但没有尝试，我们还是坚持采用 restTemplate  客户端</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>Unirest.<span style="color:#a6e22e">setTimeouts</span>(0, 0);
+</span></span><span style="display:flex;"><span>HttpResponse<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> response <span style="color:#f92672">=</span> Unirest.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;http://admin:admin@172.20.151.90:8161/console/jolokia/&#34;</span>)
+</span></span><span style="display:flex;"><span>  .<span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Origin&#34;</span>, <span style="color:#e6db74">&#34; http://172.20.151.90:8161&#34;</span>)
+</span></span><span style="display:flex;"><span>  .<span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;application/json&#34;</span>)
+</span></span><span style="display:flex;"><span>  .<span style="color:#a6e22e">body</span>(<span style="color:#e6db74">&#34;{\&#34;type\&#34;:\&#34;exec\&#34;,\&#34;mbean\&#34;:\&#34;org.apache.activemq.artemis:broker=\\\&#34;d2403827fe6c\\\&#34;\&#34;,\&#34;operation\&#34;:\&#34;listConsumers(java.lang.String, int, int)\&#34;,\&#34;arguments\&#34;:[\&#34;{\\\&#34;field\\\&#34;:\\\&#34;CLIENT_ID\\\&#34;,\\\&#34;operation\\\&#34;:\\\&#34;EQUALS\\\&#34;,\\\&#34;value\\\&#34;:\\\&#34;86303335\\\&#34;,\\\&#34;sortOrder\\\&#34;:\\\&#34;asc\\\&#34;,\\\&#34;sortColumn\\\&#34;:\\\&#34;id\\\&#34;}\&#34;,1,10]}&#34;</span>)
+</span></span><span style="display:flex;"><span>  .<span style="color:#a6e22e">asString</span>();
+</span></span></code></pre></div><p>怀疑 restTemplate 并没有把orgin传过去,经过抓包 才发现</p>
+<p>于是我们用<code>wireshark</code> 工具抓包发现restTemplate 没有把orgin 参数传给atemis-server</p>
+<p><img src="/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/16306405458570.png" alt="img"></p>
+<p>然后在百度一下，发现以下csdn 博客解决了，增加一行配置即可</p>
+<pre tabindex="0"><code>System.setProperty(&#34;sun.net.http.allowRestrictedHeaders&#34;,&#34;true&#34;);
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Component</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ArtemisJmxHelper</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">@Autowired</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> RestTemplate restTemplate;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String username<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;admin&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String password<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;admin&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> Map <span style="color:#a6e22e">getTopicCosumer</span>(String topic){
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//这一行必须要加，才能让restTemplate 生效orgin参数 </span>
+</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">setProperty</span>(<span style="color:#e6db74">&#34;sun.net.http.allowRestrictedHeaders&#34;</span>,<span style="color:#e6db74">&#34;true&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//    String url=&#34;http://admin:admin@172.20.151.90:8161/console/jolokia&#34;;</span>
+</span></span><span style="display:flex;"><span>    String url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://172.20.151.90:8161/console/jolokia/&#34;</span>;
+</span></span><span style="display:flex;"><span>    JolokiaReq jolokiaReq <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JolokiaReq();
+</span></span><span style="display:flex;"><span>    jolokiaReq.<span style="color:#a6e22e">setType</span>(<span style="color:#e6db74">&#34;exec&#34;</span>);
+</span></span><span style="display:flex;"><span>    jolokiaReq.<span style="color:#a6e22e">setOperation</span>(<span style="color:#e6db74">&#34;listConsumers(java.lang.String, int, int)&#34;</span>);
+</span></span><span style="display:flex;"><span>    jolokiaReq.<span style="color:#a6e22e">setMbean</span>(<span style="color:#e6db74">&#34;org.apache.activemq.artemis:broker=\&#34;d2403827fe6c\&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    Map req <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap();
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    req.<span style="color:#a6e22e">put</span>(<span style="color:#e6db74">&#34;field&#34;</span>,<span style="color:#e6db74">&#34;CLIENT_ID&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    req.<span style="color:#a6e22e">put</span>(<span style="color:#e6db74">&#34;operation&#34;</span>,<span style="color:#e6db74">&#34;EQUALS&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    req.<span style="color:#a6e22e">put</span>(<span style="color:#e6db74">&#34;value&#34;</span>,<span style="color:#e6db74">&#34;deviceClient&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    req.<span style="color:#a6e22e">put</span>(<span style="color:#e6db74">&#34;sortOrder&#34;</span>,<span style="color:#e6db74">&#34;asc&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    req.<span style="color:#a6e22e">put</span>(<span style="color:#e6db74">&#34;sortColumn&#34;</span>,<span style="color:#e6db74">&#34;id&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    Object<span style="color:#f92672">[]</span> arguments<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> Object<span style="color:#f92672">[]</span>{JSON.<span style="color:#a6e22e">toJSONString</span>(req),1,10};
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    jolokiaReq.<span style="color:#a6e22e">setArguments</span>(arguments);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    HttpHeaders httpHeaders <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HttpHeaders();
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    httpHeaders.<span style="color:#a6e22e">setContentType</span>(MediaType.<span style="color:#a6e22e">APPLICATION_JSON</span>);
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    httpHeaders.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;Origin&#34;</span>,<span style="color:#e6db74">&#34;http://172.20.151.90:8161&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    String auth <span style="color:#f92672">=</span> username <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">+</span> password;
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> encodedAuth <span style="color:#f92672">=</span> Base64.<span style="color:#a6e22e">encodeBase64</span>(auth.<span style="color:#a6e22e">getBytes</span>(Charset.<span style="color:#a6e22e">forName</span>(<span style="color:#e6db74">&#34;US-ASCII&#34;</span>)));
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>    httpHeaders.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;Authorization&#34;</span>, <span style="color:#e6db74">&#34;Basic &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">new</span> String(encodedAuth));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    HttpEntity httpEntity <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HttpEntity(jolokiaReq,httpHeaders);
+</span></span><span style="display:flex;"><span>    String str <span style="color:#f92672">=</span> JSON.<span style="color:#a6e22e">toJSONString</span>(httpEntity);
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(str);
+</span></span><span style="display:flex;"><span>    ResponseEntity<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> responseEntity <span style="color:#f92672">=</span> restTemplate.<span style="color:#a6e22e">postForEntity</span>(url, str, String.<span style="color:#a6e22e">class</span>);
+</span></span><span style="display:flex;"><span>    String body <span style="color:#f92672">=</span> responseEntity.<span style="color:#a6e22e">getBody</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>加了后 <code>System.setProperty(&quot;sun.net.http.allowRestrictedHeaders&quot;,&quot;true&quot;);</code></p>
+<p><img src="/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903142612594.png" alt="image-20210903142612594"></p>
+<p>４０３问题 最后总结一下：</p>
+<p>有两点需要注意的，</p>
+<p>第一，请求时，需要加用户名和密码，在ｈｅａｄｅｒ头增加ｏｒｇｉｎ参数</p>
+<p>第二，需要在jolokia-access.xml设置给一下跨域访问为  cors <code>*//* </code></p>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

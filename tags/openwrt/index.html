@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>OpenWRT :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/tags/openwrt/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="OpenWRT">
+<meta property="og:description" content="" />
+<meta property="og:url" content="https://ltan.me/tags/openwrt/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+
+
+
+  <link href="/tags/openwrt/index.xml" rel="alternate" type="application/rss+xml" title="LTAN.ME" />
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+  
+  <div class="posts">
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/">Controlling Internet Access with OpenWRT Firewall: Blocking Websites and Disabling Internet</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2025-02-28
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/openwrt/">OpenWRT</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/firewall/">Firewall</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/networking/">Networking</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/parental-controls/">Parental Controls</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          Learn how to control internet access for devices on your network using OpenWRT&rsquo;s firewall capabilities, including blocking specific websites, managing access to NAS resources, and scheduling internet availability.
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/">How to Disk Partition Formatted in Openwrt System</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2022-04-11
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/openwrt/">openwrt</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="how-to-disk-partition-formatted-in-openwrt-system-and-improve-network-performance">How to Disk Partition Formatted in Openwrt System and Improve network performance</h1>
+<blockquote>
+<p>如何在openwrt系统下给磁盘分区，并且是给固态硬盘分区<code>nvme标识</code>
+最近在在淘宝买回一台小主机2.5g 4个网口的 cpu N5105 intel 赛扬,主要帮提升一下网络性能
+升级wifi6，升级家庭网络结构，提升局域网络复制文件速度，同时解决了4k视频播放本地播放传输慢卡顿问题
+店主省事帮我安装一openwrt x86系统，（不是arm，不是/dev/sda磁盘标识），没有把128G固态磁盘剩余的空间分区并格式化
+导致我收到主机后，登录openwrt系统查看不到剩余空间，开始怀疑是否发错错了，不是128G的，还是64G的？？？
+询问店主后得知没有分区剩下的磁盘空间，所以需要买家自己行解决，如果不是it出生的用户怎么办，想想也是，不是it人员不用这部分空间也
+也无所谓</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2021/08/main-route-and-soft-route-use-configuration/">Main Route and Soft Route Use Configuration</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-08-11
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/openwrt/">openwrt</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="软路由配置使用方法">软路由配置使用方法</h1>
+<blockquote>
+<p>为什么需要使用软路由，是为了不影响原来主路由上网配置，网络环境，增加一个软路由来专门来解析404网站，及特殊的网络连接</p>
+<p>满足上网需求，下图就是今天要介绍软路由其中一种设置方法，不影响原来的网络环境下，给增加一台软路由方法，ip设置方法</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2021/08/main-route-and-soft-route-use-configuration/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/">Phicomm Router Upgrade System to Openwrt</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-07-02
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/k2p/">k2p</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/openwrt/">openwrt</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/lede/">lede</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/padavan/">padavan</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="openwrt-lede-系统-刷入-k2p-路由器">OpenWrt Lede 系统 刷入 k2p 路由器</h1>
+<blockquote>
+<p>记录一下，过去经常用的k2p 刷入老毛子系统【padavan】 不用选闪存布局，分分钟成功刷入。但这次刷入OpenWrt 时发现死活进去路由器登录界面。经过在恩山发贴求助终于解决，感谢恩山大神们，真的很厉害！
+我刷入步骤是都先复位的，长按复位键 8到10秒，松开，
+然后上传<code>openwrt-ramips-mt7621-phicomm_k2p-initramfs-kernel.binn </code>文件，
+然后点击更新，重启，就是不能进入<code>openwrt</code> 系统路由系统，关键是<code>openwrt wifi ssid </code>搜索不到，没看到， 说明刷入不成功，我用网线链接电脑 ，电脑网线插上都不能有正常的<code>ip</code> 获取到</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2021/07/phicomm-router-upgrade-system-to-openwrt/">Read more →</a>
+        </div>
+        
+      </div>
+    
+    <div class="pagination">
+  <div class="pagination__buttons">
+    
+    
+  </div>
+</div>
+
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

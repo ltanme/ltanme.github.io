@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Mybaits Plus Comes With Paging VS Com.github.pagehelper Paging Plug In :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="mybatis-plus 自带分页 和 com.github.pagehelper工具使用对比 对经常写中台列表数据管理接口的同学来说，需要经常使用到分页插件来提升自己的工作效率，通常我用过最多的两款插件如标题所示，这两款插件在写文章之前，我一直搞不清，浮躁，混为一谈，需要总结整理
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Mybaits Plus Comes With Paging VS Com.github.pagehelper Paging Plug In">
+<meta property="og:description" content="mybatis-plus 自带分页 和 com.github.pagehelper工具使用对比 对经常写中台列表数据管理接口的同学来说，需要经常使用到分页插件来提升自己的工作效率，通常我用过最多的两款插件如标题所示，这两款插件在写文章之前，我一直搞不清，浮躁，混为一谈，需要总结整理
+" />
+<meta property="og:url" content="https://ltan.me/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-09-27 16:49:31 &#43;0800 &#43;0800" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/">Mybaits Plus Comes With Paging VS Com.github.pagehelper Paging Plug In</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-09-27 [Mod: 2021-09-27]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/mybaits-plus/">Mybaits Plus</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/com.github.pagehelper/">com.github.pagehelper</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/java/">java</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="mybatis-plus-自带分页-和-comgithubpagehelper工具使用对比">mybatis-plus 自带分页 和 com.github.pagehelper工具使用对比<a href="#mybatis-plus-自带分页-和-comgithubpagehelper工具使用对比" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>对经常写中台列表数据管理接口的同学来说，需要经常使用到分页插件来提升自己的工作效率，通常我用过最多的两款插件如标题所示，这两款插件在写文章之前，我一直搞不清，浮躁，混为一谈，需要总结整理</p>
+<p>今抽空花些时间来比较一下他们在返回<code>response body</code> 时内容, 观察到<code>pagehelper</code>不愧是术业有专攻啊，个人认为<code>pagehelper</code> 作为专业分页插件不得不说，其功能特点比<code>mybatis-plus</code> 完善多了，考虑到人性化，由期在前后端对接方面，大大提升了效率，少写很多代码，不过有时还是看需求场景，对于不需要web端展示的，我推荐<code>mybatis-plus 自带的page分页</code> ,它相比<code>pagehelper</code>插件提供的能力还是比较简单，比如没有提供<code>页码位置</code>，<code>前一页</code>，<code>后一页</code></p></blockquote>
+<h2 id="mybatis-plus-page">mybatis-plus page<a href="#mybatis-plus-page" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>以下为mybatis-plus 分页插件在返回data数据 结构如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;records&#34;</span>: [
+</span></span><span style="display:flex;"><span>           <span style="color:#960050;background-color:#1e0010">.....</span>		
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;total&#34;</span>: <span style="color:#ae81ff">7</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;size&#34;</span>: <span style="color:#ae81ff">10</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;current&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;orders&#34;</span>: [],
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;searchCount&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;pages&#34;</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>代码使用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>   <span style="color:#a6e22e">@GetMapping</span>(<span style="color:#e6db74">&#34;/list&#34;</span>)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">public</span> Object <span style="color:#a6e22e">pageList</span>(<span style="color:#a6e22e">@RequestParam</span>(defaultValue <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;1&#34;</span>) Integer pageNum,
+</span></span><span style="display:flex;"><span>                          <span style="color:#a6e22e">@RequestParam</span>(defaultValue <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;10&#34;</span>) Integer pageSize) {
+</span></span><span style="display:flex;"><span>	  QueryWrapper<span style="color:#f92672">&lt;</span>xxModel<span style="color:#f92672">&gt;</span> queryWrapper <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> QueryWrapper<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>      Page<span style="color:#f92672">&lt;</span>xxModel<span style="color:#f92672">&gt;</span> page <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Page<span style="color:#f92672">&lt;&gt;</span>(pageNum, pageSize); 
+</span></span><span style="display:flex;"><span>      IPage<span style="color:#f92672">&lt;</span>xxModel<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> xxService.<span style="color:#a6e22e">page</span>(page, queryWrapper);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> list
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="pagehelper">pagehelper<a href="#pagehelper" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>以下为pagehelper 的返回data数据，结构如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;total&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;list&#34;</span>: [
+</span></span><span style="display:flex;"><span>            <span style="color:#960050;background-color:#1e0010">.....</span>
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;pageNum&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;pageSize&#34;</span>: <span style="color:#ae81ff">10</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;size&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;startRow&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;endRow&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;pages&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;prePage&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;nextPage&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;isFirstPage&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;isLastPage&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;hasPreviousPage&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;hasNextPage&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;navigatePages&#34;</span>: <span style="color:#ae81ff">8</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;navigatepageNums&#34;</span>: [],
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;navigateFirstPage&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;navigateLastPage&#34;</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>web前端对接时看到有 prePage，nextPage 实现太香，不要不要的</p>
+<p><img src="/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/image-20210927173234110.png" alt="image-20210927173234110"></p>
+<p>代码使用：</p>
+<pre tabindex="0"><code> @GetMapping(&#34;/list&#34;)
+   public Object pageList(@RequestParam(defaultValue = &#34;1&#34;) Integer pageNum,
+                          @RequestParam(defaultValue = &#34;10&#34;) Integer pageSize) {
+      QueryWrapper&lt;xxModel&gt; queryWrapper = new QueryWrapper&lt;&gt;();
+      PageHelper.startPage(pageNum, pageSize); 
+	  List&lt;xxModel&gt; list = xxService.list(queryWrapper);
+      return new PageInfo&lt;&gt;(list)
+}
+</code></pre><p>最后总结：</p>
+<p>​     推荐大家按需求选自己最合适的分页插件，当然两者可以整合一起使用。有冲突的话则排除冲突，用 mybatis-plus 则重点在mybatis <code>dao</code>,<code>service</code>,<code>mapper</code> ，常见sql可以不写xml,不写service，除非特别的连表查询sql语句，而<code>pagehelper</code> 则重点在于分页，分页功能强大无敌，对于需要web前端分页的小伙伴，它可以帮你节省不少时间，另外对我当前使用的mybatis-plus 在默认的情况下，<code>mybatis-plus total 为0的问题</code>， 为了解决total字段为0的问题，百度,google搜索一大把关于它的文章，解决方法。还有个坑就是<code>mybatis-plus的分页，单页查询默认为500条限制</code></p>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

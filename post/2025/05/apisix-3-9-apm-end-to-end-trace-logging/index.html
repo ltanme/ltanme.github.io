@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>APISIX 3.9 &#43; APM 整合全链路追踪日志 :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="从零部署 Apache APISIX 3.9 并编写 W3C TraceContext 插件，实现在 APM 中按 trace ID 检索完整链路；记录全过程的坑点与排错。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="APISIX 3.9 &#43; APM 整合全链路追踪日志">
+<meta property="og:description" content="从零部署 Apache APISIX 3.9 并编写 W3C TraceContext 插件，实现在 APM 中按 trace ID 检索完整链路；记录全过程的坑点与排错。" />
+<meta property="og:url" content="https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2025-05-22 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/">APISIX 3.9 + APM 整合全链路追踪日志</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2025-05-22 [Mod: 2025-05-22]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/apisix/">APISIX</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/apm/">APM</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/w3c-trace-context/">W3C Trace Context</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/%E5%85%A8%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/">全链路追踪</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/docker-compose/">Docker Compose</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="目录">目录<a href="#目录" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ol>
+<li><a href="/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%83%8c%e6%99%af%e4%b8%8e%e7%9b%ae%e6%a0%87">背景与目标</a></li>
+<li><a href="/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87">环境准备</a></li>
+<li><a href="/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#docker-compose-%e6%9c%80%e5%b0%8f%e5%8f%af%e8%bf%90%e8%a1%8c%e6%a0%88">Docker Compose 最小可运行栈</a></li>
+<li><a href="/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%87%aa%e5%ae%9a%e4%b9%89-w3c-trace-inject-%e6%8f%92%e4%bb%b6">自定义 <code>w3c-trace-inject</code> 插件</a></li>
+<li><a href="/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e5%b8%b8%e8%a7%81%e6%8a%a5%e9%94%99%e4%b8%8e%e6%8e%92%e9%9a%9c%e7%ac%94%e8%ae%b0">常见报错与排障笔记</a></li>
+<li><a href="/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%b7%af%e7%94%b1--%e4%b8%8a%e6%b8%b8%e9%85%8d%e7%bd%ae%e4%b8%8e%e6%b5%8b%e8%af%95">路由 / 上游配置与测试</a></li>
+</ol>
+<hr>
+<h2 id="背景与目标">背景与目标<a href="#背景与目标" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><strong>业务痛点</strong>：跨服务排障时难以用一个 trace ID 串起整条调用链。</li>
+<li><strong>目标</strong>：
+<ol>
+<li>网关层为所有流量注入符合 W3C TraceContext 的 <code>traceparent / tracestate</code>。</li>
+<li>后端 Java 应用读到同一 trace ID，并将其写入日志 / 上报 APM。</li>
+<li>在 APM 里能通过 trace ID 搜到整条链路。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2 id="整体追踪逻辑图">整体追踪逻辑图<a href="#整体追踪逻辑图" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><img src="/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/trace_context.png" alt="trace_context.png"></p>
+<h2 id="环境准备">环境准备<a href="#环境准备" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<table>
+  <thead>
+      <tr>
+          <th>组件</th>
+          <th>版本</th>
+          <th>镜像</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>APISIX</td>
+          <td><code>3.9.0-debian</code></td>
+          <td><code>apache/apisix</code></td>
+      </tr>
+      <tr>
+          <td>Dashboard</td>
+          <td><code>3.0.0-alpine</code></td>
+          <td><code>apache/apisix-dashboard</code></td>
+      </tr>
+      <tr>
+          <td>etcd</td>
+          <td><code>3.5.11</code></td>
+          <td><code>bitnami/etcd</code></td>
+      </tr>
+      <tr>
+          <td>自定义插件</td>
+          <td>Lua 5.1 (OpenResty)</td>
+          <td>―</td>
+      </tr>
+  </tbody>
+</table>
+<blockquote>
+<p>宿主机：CentOS 7；Docker 24.0+；Docker-Compose v2 CLI。</p></blockquote>
+<hr>
+<h2 id="docker-compose-最小可运行栈">Docker Compose 最小可运行栈<a href="#docker-compose-最小可运行栈" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.8&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">etcd</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">bitnami/etcd:3.5.11</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">ALLOW_NONE_AUTHENTICATION=yes</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>: [<span style="color:#ae81ff">etcd_data:/etcd-data]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>: [<span style="color:#e6db74">&#34;2379:2379&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">apisix</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">apache/apisix:3.9.0-debian</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">APISIX_DEPLOYMENT_ETCD_HOST</span>: <span style="color:#e6db74">&#39;[&#34;http://etcd:2379&#34;]&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./apisix_conf/config.yaml:/usr/local/apisix/conf/config.yaml:ro</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./plugins/w3c-trace-inject.lua:/usr/local/apisix/apisix/plugins/w3c-trace-inject.lua:ro</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">logs:/usr/local/apisix/logs</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">command</span>: [<span style="color:#e6db74">&#34;sh&#34;</span>,<span style="color:#e6db74">&#34;-c&#34;</span>,<span style="color:#e6db74">&#34;rm -f /usr/local/apisix/logs/worker_events.sock &amp;&amp; apisix start&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>: [<span style="color:#e6db74">&#34;9080:9080&#34;</span>,<span style="color:#e6db74">&#34;9443:9443&#34;</span>,<span style="color:#e6db74">&#34;9180:9180&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">depends_on</span>: [<span style="color:#ae81ff">etcd]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dashboard</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">apache/apisix-dashboard:3.0.0-alpine</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">APISIX_LISTEN_ADDRESS=apisix:9180</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">ETCD_HOST=etcd:2379       </span> <span style="color:#75715e"># ⚠ 不要带 http://</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">DEFAULT_ADMIN_PASSWORD=admin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>: [<span style="color:#e6db74">&#34;9000:9000&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">depends_on</span>: [<span style="color:#ae81ff">apisix]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">etcd_data</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">logs</span>:
+</span></span></code></pre></div><h2 id="configyaml-关键片段">config.yaml 关键片段：<a href="#configyaml-关键片段" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">deployment</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">admin</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">allow_admin</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">0.0.0.0</span><span style="color:#ae81ff">/0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">admin_key</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">admin</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">key</span>: <span style="color:#ae81ff">edd1c9f034335f136f87ad84b625c8f1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">role</span>: <span style="color:#ae81ff">admin</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">plugins</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">w3c-trace-inject</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">prometheus</span>
+</span></span></code></pre></div><h2 id="自定义-w3c-trace-inject-插件">自定义 w3c-trace-inject 插件<a href="#自定义-w3c-trace-inject-插件" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span> <span style="color:#75715e">--</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--  插件名称 : w3c-trace-inject</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--  APISIX 3.9</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--  功能     : 为所有请求注入 / 校验 traceparent 与 tracestate，并把 traceparent 回写到响应头</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> core   <span style="color:#f92672">=</span> require(<span style="color:#e6db74">&#34;apisix.core&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> random <span style="color:#f92672">=</span> require(<span style="color:#e6db74">&#34;resty.random&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> str    <span style="color:#f92672">=</span> require(<span style="color:#e6db74">&#34;resty.string&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> plugin_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;w3c-trace-inject&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 插件元信息</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> _M <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    version  <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>,        <span style="color:#75715e">-- ↑ 0.3：新增 header_filter</span>
+</span></span><span style="display:flex;"><span>    priority <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>,
+</span></span><span style="display:flex;"><span>    name     <span style="color:#f92672">=</span> plugin_name,
+</span></span><span style="display:flex;"><span>    schema   <span style="color:#f92672">=</span> { type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;object&#34;</span> },   <span style="color:#75715e">-- 无需额外配置</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 工具函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">gen_hex</span>(bytes)           <span style="color:#75715e">-- 将随机字节转 16 进制</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> str.to_hex(random.bytes(bytes, <span style="color:#66d9ef">true</span>))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- traceparent 必须形如 00-32hex-16hex-2hex</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">valid_traceparent</span>(tp)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> tp
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">and</span> tp:match(<span style="color:#e6db74">&#34;^00%-%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%-%x%x$&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- tracestate 基础校验：≤512 字节，逗号分隔的 key=value，key 只能小写字母数字和 `_ - * /`</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">valid_tracestate</span>(ts)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> ts <span style="color:#f92672">or</span> <span style="color:#f92672">#</span>ts <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">512</span> <span style="color:#66d9ef">then</span> <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span> <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> entry <span style="color:#66d9ef">in</span> ts:gmatch(<span style="color:#e6db74">&#34;[^,]+&#34;</span>) <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">local</span> key, val <span style="color:#f92672">=</span> entry:match(<span style="color:#e6db74">&#34;^([%l%d%-%_%*/]+)=([%g]+)$&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> key <span style="color:#f92672">or</span> <span style="color:#f92672">not</span> val <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- access 阶段：注入 / 校验请求头</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">_M</span>.<span style="color:#a6e22e">access</span>(conf, ctx)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> headers <span style="color:#f92672">=</span> core.request.headers(ctx)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- 1️⃣ traceparent --------------------------------------------------</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> tp <span style="color:#f92672">=</span> headers[<span style="color:#e6db74">&#34;traceparent&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> valid_traceparent(tp) <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">local</span> trace_id <span style="color:#f92672">=</span> gen_hex(<span style="color:#ae81ff">16</span>)             <span style="color:#75715e">-- 128-bit</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">local</span> span_id  <span style="color:#f92672">=</span> gen_hex(<span style="color:#ae81ff">8</span>)              <span style="color:#75715e">-- 64-bit</span>
+</span></span><span style="display:flex;"><span>        tp <span style="color:#f92672">=</span> string.format(<span style="color:#e6db74">&#34;00-%s-%s-01&#34;</span>, trace_id, span_id)
+</span></span><span style="display:flex;"><span>        core.request.set_header(ctx, <span style="color:#e6db74">&#34;traceparent&#34;</span>, tp)
+</span></span><span style="display:flex;"><span>        ctx.trace_id <span style="color:#f92672">=</span> trace_id                  <span style="color:#75715e">-- 写入 ctx 供日志等使用</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        ctx.trace_id <span style="color:#f92672">=</span> tp:sub(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">35</span>)             <span style="color:#75715e">-- 提取已存在的 trace-id</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    ctx.response_traceparent <span style="color:#f92672">=</span> tp                <span style="color:#75715e">-- 留给 header_filter</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- 2️⃣ tracestate ---------------------------------------------------</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> ts <span style="color:#f92672">=</span> headers[<span style="color:#e6db74">&#34;tracestate&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> ts <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        ts <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;as=1&#34;</span>
+</span></span><span style="display:flex;"><span>        core.request.set_header(ctx, <span style="color:#e6db74">&#34;tracestate&#34;</span>, ts)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elseif</span> <span style="color:#f92672">not</span> valid_tracestate(ts) <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        core.request.clear_header(ctx, <span style="color:#e6db74">&#34;tracestate&#34;</span>)
+</span></span><span style="display:flex;"><span>        ts <span style="color:#f92672">=</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    ctx.response_tracestate <span style="color:#f92672">=</span> ts                 <span style="color:#75715e">-- 留给 header_filter</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- header_filter 阶段：把 trace 信息写回响应头</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">------------------------------------------------------------------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">_M</span>.<span style="color:#a6e22e">header_filter</span>(conf, ctx)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ctx.response_traceparent <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        ngx.header[<span style="color:#e6db74">&#34;traceparent&#34;</span>] <span style="color:#f92672">=</span> ctx.response_traceparent
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ctx.response_tracestate <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        ngx.header[<span style="color:#e6db74">&#34;tracestate&#34;</span>] <span style="color:#f92672">=</span> ctx.response_tracestate
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> _M
+</span></span></code></pre></div><h2 id="常见报错与排障笔记">常见报错与排障笔记<a href="#常见报错与排障笔记" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<table>
+  <thead>
+      <tr>
+          <th>Error / Log Message</th>
+          <th>Root Cause / Explanation</th>
+          <th>Quick Fix</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>malformed number near '10_000'</code></td>
+          <td>Lua 5.1 数字常量不支持下划线分隔符</td>
+          <td>把 <code>priority = 10000</code>（或其他纯整数），重新 <code>apisix reload</code>。</td>
+      </tr>
+      <tr>
+          <td><code>Admin API connection reset by peer</code></td>
+          <td><code>allow_admin</code> 未放通外部 IP；或 <code>admin_listen.ip</code>=127.0.0.1</td>
+          <td>在 <code>deployment.admin.allow_admin</code> 加 <code>0.0.0.0/0</code>，或改监听地址。</td>
+      </tr>
+      <tr>
+          <td><code>failed to fetch upstream info … id [N], response code: 404</code></td>
+          <td>Route 指向的 <code>upstream_id</code> 不存在</td>
+          <td>先创建对应 Upstream，或把 <code>upstream_id</code> 改成已存在的 ID。</td>
+      </tr>
+      <tr>
+          <td>Dashboard log → <code>dial tcp 0.0.0.0:2379: connect: connection refused</code></td>
+          <td>环境变量 <code>ETCD_HOST</code> 带了 <code>http://</code>，解析失败</td>
+          <td>改为 <code>ETCD_HOST=etcd:2379</code>，或用 conf.yaml 写 <code>&quot;http://etcd:2379&quot;</code></td>
+      </tr>
+      <tr>
+          <td><code>traceparent</code> 注入但响应头没有</td>
+          <td>仅在请求头 set，没有回写响应</td>
+          <td>在插件 <code>header_filter</code> 加 <code>ngx.header[&quot;traceparent&quot;]=…</code>，或用 <code>response-rewrite</code>。</td>
+      </tr>
+      <tr>
+          <td><code>503 Service Temporarily Unavailable</code></td>
+          <td>Upstream 不可达 / DNS 解析失败 / 健康检查判 unhealthy</td>
+          <td>在 APISIX 容器里 <code>curl</code> 目标地址；必要时关闭健康检查 or 修网络。</td>
+      </tr>
+      <tr>
+          <td>Dashboard 无限重启 <code>etcd get failed</code></td>
+          <td>Dashboard 没加载到自定义 <code>conf.yaml</code></td>
+          <td>确认 volume 路径正确；若用 env 则删掉冲突的 <code>conf.yaml</code> 挂载。</td>
+      </tr>
+      <tr>
+          <td><code>failed to check token</code> (401)</td>
+          <td>缺少或使用错误的 <code>X-API-KEY</code></td>
+          <td>用与 <code>admin_key</code> 对应的 key；或在 dev 环境把 <code>admin_key</code> 设空数组。</td>
+      </tr>
+      <tr>
+          <td><code>worker_events.sock Address already in use</code></td>
+          <td>上次启动失败残留 Unix Socket</td>
+          <td>启动脚本前 <code>rm -f /usr/local/apisix/logs/worker_events.sock</code>。</td>
+      </tr>
+      <tr>
+          <td>Route 404 但插件未执行</td>
+          <td>URI 不匹配或 Route 未启用插件</td>
+          <td>确认 <code>uri</code> 与请求一致；或在 Global Rule 里开启插件测试。</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="路由--上游配置与测试">路由 / 上游配置与测试<a href="#路由--上游配置与测试" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>bash-4.2# curl -X PUT http://localhost:9180/apisix/admin/upstreams/1 <span style="color:#ae81ff">\ </span>       <span style="color:#75715e"># 添加上游</span>
+</span></span><span style="display:flex;"><span>&gt;   -H <span style="color:#e6db74">&#39;X-API-KEY: edd1c9f034335f136f87ad84b625c8f1&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>&gt;   -d <span style="color:#e6db74">&#39;{
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&gt;         &#34;scheme&#34;:&#34;http&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&gt;         &#34;type&#34;:&#34;roundrobin&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&gt;         &#34;pass_host&#34;:&#34;rewrite&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&gt;         &#34;upstream_host&#34;:&#34;10.244.191.219&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&gt;         &#34;nodes&#34;:{&#34;10.244.191.219:8080&#34;:1}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&gt;       }&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;key&#34;</span>:<span style="color:#e6db74">&#34;/apisix/upstreams/1&#34;</span>,<span style="color:#e6db74">&#34;value&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;id&#34;</span>:<span style="color:#e6db74">&#34;1&#34;</span>,<span style="color:#e6db74">&#34;scheme&#34;</span>:<span style="color:#e6db74">&#34;http&#34;</span>,<span style="color:#e6db74">&#34;hash_on&#34;</span>:<span style="color:#e6db74">&#34;vars&#34;</span>,<span style="color:#e6db74">&#34;pass_host&#34;</span>:<span style="color:#e6db74">&#34;rewrite&#34;</span>,<span style="color:#e6db74">&#34;upstream_host&#34;</span>:<span style="color:#e6db74">&#34;10.244.191.219&#34;</span>,<span style="color:#e6db74">&#34;type&#34;</span>:<span style="color:#e6db74">&#34;roundrobin&#34;</span>,<span style="color:#e6db74">&#34;create_time&#34;</span>:1747881772,<span style="color:#e6db74">&#34;nodes&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;10.244.191.219:8080&#34;</span>:1<span style="color:#f92672">}</span>,<span style="color:#e6db74">&#34;update_time&#34;</span>:1747881772<span style="color:#f92672">}}</span>
+</span></span><span style="display:flex;"><span>-bash-4.2# curl -X PUT http://localhost:9180/apisix/admin/routes/1 <span style="color:#ae81ff">\ </span>       <span style="color:#75715e"># 添加路由</span>
+</span></span><span style="display:flex;"><span>&gt;   -H <span style="color:#e6db74">&#39;X-API-KEY: edd1c9f034335f136f87ad84b625c8f1&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>&gt;   -d <span style="color:#e6db74">&#39;{
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&gt;         &#34;uri&#34;:&#34;/rec/v2/testip&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&gt;         &#34;methods&#34;:[&#34;GET&#34;,&#34;POST&#34;],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&gt;         &#34;upstream_id&#34;:1,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&gt;         &#34;plugins&#34;:{&#34;w3c-trace-inject&#34;:{}}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&gt;       }&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;key&#34;</span>:<span style="color:#e6db74">&#34;/apisix/routes/1&#34;</span>,<span style="color:#e6db74">&#34;value&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;upstream_id&#34;</span>:1,<span style="color:#e6db74">&#34;id&#34;</span>:<span style="color:#e6db74">&#34;1&#34;</span>,<span style="color:#e6db74">&#34;status&#34;</span>:1,<span style="color:#e6db74">&#34;priority&#34;</span>:0,<span style="color:#e6db74">&#34;plugins&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;w3c-trace-inject&#34;</span>:<span style="color:#f92672">{}}</span>,<span style="color:#e6db74">&#34;create_time&#34;</span>:1747881778,<span style="color:#e6db74">&#34;update_time&#34;</span>:1747881778,<span style="color:#e6db74">&#34;methods&#34;</span>:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;GET&#34;</span>,<span style="color:#e6db74">&#34;POST&#34;</span><span style="color:#f92672">]</span>,<span style="color:#e6db74">&#34;uri&#34;</span>:<span style="color:#e6db74">&#34;/rec/v2/testip&#34;</span><span style="color:#f92672">}}</span>
+</span></span><span style="display:flex;"><span>-bash-4.2#
+</span></span><span style="display:flex;"><span>-bash-4.2# curl -i http://localhost:9080/rec/v2/testip     <span style="color:#75715e">#测试接口</span>
+</span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>Content-Type: application/json;charset<span style="color:#f92672">=</span>UTF-8
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">332</span>
+</span></span><span style="display:flex;"><span>Connection: keep-alive
+</span></span><span style="display:flex;"><span>Date: Thu, <span style="color:#ae81ff">22</span> May <span style="color:#ae81ff">2025</span> 02:43:12 GMT
+</span></span><span style="display:flex;"><span>Server: APISIX/3.9.0
+</span></span><span style="display:flex;"><span>traceparent: 00-76be9240e9f1b09cd5f8575b998cf82b-ea282e6c58efb57e-01      <span style="color:#75715e"># 这里是响应头 </span>
+</span></span><span style="display:flex;"><span>tracestate: as<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;code&#34;</span>:0,<span style="color:#e6db74">&#34;data&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;x-real-ip&#34;</span>:<span style="color:#e6db74">&#34;192.168.240.1&#34;</span>,<span style="color:#e6db74">&#34;tracestate&#34;</span>:<span style="color:#e6db74">&#34;as=1&#34;</span>,<span style="color:#e6db74">&#34;x-forwarded-proto&#34;</span>:<span style="color:#e6db74">&#34;http&#34;</span>,<span style="color:#e6db74">&#34;x-forwarded-host&#34;</span>:<span style="color:#e6db74">&#34;localhost&#34;</span>,<span style="color:#e6db74">&#34;traceparent&#34;</span>:<span style="color:#e6db74">&#34;00-76be9240e9f1b09cd5f8575b998cf82b-ea282e6c58efb57e-01&#34;</span>,<span style="color:#e6db74">&#34;clientIP&#34;</span>:<span style="color:#e6db74">&#34;192.168.240.1&#34;</span>,<span style="color:#e6db74">&#34;host&#34;</span>:<span style="color:#e6db74">&#34;10.244.191.219&#34;</span>,<span style="color:#e6db74">&#34;x-forwarded-port&#34;</span>:<span style="color:#e6db74">&#34;9080&#34;</span>,<span style="color:#e6db74">&#34;user-agent&#34;</span>:<span style="color:#e6db74">&#34;curl/7.29.0&#34;</span>,<span style="color:#e6db74">&#34;accept&#34;</span>:<span style="color:#e6db74">&#34;*/*&#34;</span><span style="color:#f92672">}</span>,<span style="color:#e6db74">&#34;msg&#34;</span>:<span style="color:#e6db74">&#34;success&#34;</span><span style="color:#f92672">}</span>-bash-4.2#
+</span></span><span style="display:flex;"><span>-bash-4.2#
+</span></span><span style="display:flex;"><span>-bash-4.2# curl -i http://localhost:9080/rec/v2/testip
+</span></span><span style="display:flex;"><span>HTTP/1.1 <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>Content-Type: application/json;charset<span style="color:#f92672">=</span>UTF-8
+</span></span><span style="display:flex;"><span>Content-Length: <span style="color:#ae81ff">332</span>
+</span></span><span style="display:flex;"><span>Connection: keep-alive
+</span></span><span style="display:flex;"><span>Date: Thu, <span style="color:#ae81ff">22</span> May <span style="color:#ae81ff">2025</span> 02:43:16 GMT
+</span></span><span style="display:flex;"><span>Server: APISIX/3.9.0
+</span></span><span style="display:flex;"><span>traceparent: 00-c968d17a84e4b2391ecd986259551550-44b21d2b9dcc18e5-01    <span style="color:#75715e"># 这里是响应头</span>
+</span></span><span style="display:flex;"><span>tracestate: as<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;code&#34;</span>:0,<span style="color:#e6db74">&#34;data&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;x-real-ip&#34;</span>:<span style="color:#e6db74">&#34;192.168.240.1&#34;</span>,<span style="color:#e6db74">&#34;tracestate&#34;</span>:<span style="color:#e6db74">&#34;as=1&#34;</span>,<span style="color:#e6db74">&#34;x-forwarded-proto&#34;</span>:<span style="color:#e6db74">&#34;http&#34;</span>,<span style="color:#e6db74">&#34;x-forwarded-host&#34;</span>:<span style="color:#e6db74">&#34;localhost&#34;</span>,<span style="color:#e6db74">&#34;traceparent&#34;</span>:<span style="color:#e6db74">&#34;00-c968d17a84e4b2391ecd986259551550-44b21d2b9dcc18e5-01&#34;</span>,<span style="color:#e6db74">&#34;clientIP&#34;</span>:<span style="color:#e6db74">&#34;192.168.240.1&#34;</span>,<span style="color:#e6db74">&#34;host&#34;</span>:<span style="color:#e6db74">&#34;10.244.191.219&#34;</span>,<span style="color:#e6db74">&#34;x-forwarded-port&#34;</span>:<span style="color:#e6db74">&#34;9080&#34;</span>,<span style="color:#e6db74">&#34;user-agent&#34;</span>:<span style="color:#e6db74">&#34;curl/7.29.0&#34;</span>,<span style="color:#e6db74">&#34;accept&#34;</span>:<span style="color:#e6db74">&#34;*/*&#34;</span><span style="color:#f92672">}</span>,<span style="color:#e6db74">&#34;msg&#34;</span>:<span style="color:#e6db74">&#34;success&#34;</span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="通过traceid查看-apm-dashbard-效果">通过trace.id查看 apm dashbard 效果<a href="#通过traceid查看-apm-dashbard-效果" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><img src="/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/image2025-5-22_10-48-50.png" alt="image2025-5-22_10-48-50.png"></p>
+<blockquote>
+</blockquote>
+<p><img src="/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/image2025-5-22_10-49-31.png" alt="image2025-5-22_10-49-31.png"></p>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

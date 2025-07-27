@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Anaconda on LTAN.ME</title>
+    <link>https://ltan.me/tags/anaconda/</link>
+    <description>Recent content in Anaconda on LTAN.ME</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 08 Jul 2021 20:58:37 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/anaconda/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Anaconda Modify the Domestic Mirror Ai Learning Section 1</title>
+      <link>https://ltan.me/post/2021/07/anaconda-modify-the-domestic-mirror-ai-learning-section-1/</link>
+      <pubDate>Thu, 08 Jul 2021 20:58:37 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/07/anaconda-modify-the-domestic-mirror-ai-learning-section-1/</guid>
+      <description>&lt;h1 id=&#34;我的ai学习第一课-anaconda-修改镜像源&#34;&gt;我的AI学习第一课 Anaconda 修改镜像源&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;为什么要修改镜像源，因为初次使用anaconda 发现下载太慢了，都是从官网服务器拉取模块，需要 等很漫长时间，&lt;/p&gt;
+&lt;p&gt;因此网上找了一上镜像源和修改源的方法，就用清华大学的源&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/](https://link.jianshu.com/?t=https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;大概分为三步&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;1首先找到conda安装目录&#34;&gt;1、首先找到conda安装目录&lt;/h2&gt;
+&lt;p&gt;这里我安装在&lt;code&gt;D:\anaconda3&lt;/code&gt;  然后找到&lt;code&gt;condabin&lt;/code&gt;目录&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;我的ai学习第一课-anaconda-修改镜像源&#34;&gt;我的AI学习第一课 Anaconda 修改镜像源&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;为什么要修改镜像源，因为初次使用anaconda 发现下载太慢了，都是从官网服务器拉取模块，需要 等很漫长时间，&lt;/p&gt;
+&lt;p&gt;因此网上找了一上镜像源和修改源的方法，就用清华大学的源&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/](https://link.jianshu.com/?t=https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;大概分为三步&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;1首先找到conda安装目录&#34;&gt;1、首先找到conda安装目录&lt;/h2&gt;
+&lt;p&gt;这里我安装在&lt;code&gt;D:\anaconda3&lt;/code&gt;  然后找到&lt;code&gt;condabin&lt;/code&gt;目录&lt;/p&gt;
+&lt;p&gt;在地址输入 &lt;code&gt;cmd&lt;/code&gt; 命令并回车执行，在弹窗的cmd 窗口输入以下两条命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;conda config --set show_channel_urls yes
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;此时，目录 C:\Users&amp;lt;你的用户名&amp;gt; 下就会生成配置文件.condarc，内容如下：&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&amp;gt;type .condarc
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;channels:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - defaults
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;show_channel_urls: true
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;2修改配置文件&#34;&gt;2、修改配置文件&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;删除上述配置文件 .condarc 中的第三行，然后保存，最终版本文件如下：&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;channels:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;show_channel_urls: true
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;3查看是生否生效&#34;&gt;3、查看是生否生效&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通过命令 conda info 查看当前配置信息，内容如下，即修改成功，关注 channel URLs 字段内容&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;D:&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;naconda3&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ondabin&amp;gt;conda info
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     active environment : None
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       user config file : C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\.&lt;/span&gt;condarc
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; populated config files : C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\.&lt;/span&gt;condarc
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          conda version : 4.10.3
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    conda-build version : 3.21.4
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         python version : 3.8.8.final.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       virtual packages : __cuda&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;11.0&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          __win&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          __archspec&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;x86_64
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       base environment : D:&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;naconda3  &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;writable&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      conda av data dir : D:&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;naconda3&lt;span style=&#34;color:#ae81ff&#34;&gt;\e&lt;/span&gt;tc&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;onda
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  conda av metadata url : None
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;           channel URLs : https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/win-64
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/noarch
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          https://repo.anaconda.com/pkgs/main/win-64
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          https://repo.anaconda.com/pkgs/main/noarch
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          https://repo.anaconda.com/pkgs/r/win-64
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          https://repo.anaconda.com/pkgs/r/noarch
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          https://repo.anaconda.com/pkgs/msys2/win-64
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          https://repo.anaconda.com/pkgs/msys2/noarch
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          package cache : D:&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;naconda3&lt;span style=&#34;color:#ae81ff&#34;&gt;\p&lt;/span&gt;kgs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\.&lt;/span&gt;conda&lt;span style=&#34;color:#ae81ff&#34;&gt;\p&lt;/span&gt;kgs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\A&lt;/span&gt;ppData&lt;span style=&#34;color:#ae81ff&#34;&gt;\L&lt;/span&gt;ocal&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;onda&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;onda&lt;span style=&#34;color:#ae81ff&#34;&gt;\p&lt;/span&gt;kgs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       envs directories : D:&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;naconda3&lt;span style=&#34;color:#ae81ff&#34;&gt;\e&lt;/span&gt;nvs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\.&lt;/span&gt;conda&lt;span style=&#34;color:#ae81ff&#34;&gt;\e&lt;/span&gt;nvs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\A&lt;/span&gt;ppData&lt;span style=&#34;color:#ae81ff&#34;&gt;\L&lt;/span&gt;ocal&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;onda&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;onda&lt;span style=&#34;color:#ae81ff&#34;&gt;\e&lt;/span&gt;nvs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;               platform : win-64
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;             user-agent : conda/4.10.3 requests/2.25.1 CPython/3.8.8 Windows/10 Windows/10.0.19041
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          administrator : True
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;             netrc file : None
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;           offline mode : False
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;很明显我上述加的 清华镜像源 己成功了，&lt;code&gt;win-64&lt;/code&gt;&lt;/p&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+    <title>Classpath Resource Not Found When Running as Jar :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="读取jar包resources目录下的groovy脚本并调用 工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断 所以采用生成groovy脚本形式来解决动态校验以及入库规则 项目初期设计不复杂，功能简单，直接按日志项名称编写groovy脚本规则,比如wifi日志，则规则文件名为wifi.groovy 当日志的http接口请求到wifi名称，则加载wifi.groovy规则文件并解析判断，包括入库，kafka队列等 groovy文件放在resources/logTemplate文件夹下，遇到在jar包模式运行不能读到文件的问题 而在idea能直接运行 java -jar xxx.jar 运行报错如下
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/post/2022/03/classpath-resource-not-found-when-running-as-jar/" />
+
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
+
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Classpath Resource Not Found When Running as Jar">
+<meta property="og:description" content="读取jar包resources目录下的groovy脚本并调用 工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断 所以采用生成groovy脚本形式来解决动态校验以及入库规则 项目初期设计不复杂，功能简单，直接按日志项名称编写groovy脚本规则,比如wifi日志，则规则文件名为wifi.groovy 当日志的http接口请求到wifi名称，则加载wifi.groovy规则文件并解析判断，包括入库，kafka队列等 groovy文件放在resources/logTemplate文件夹下，遇到在jar包模式运行不能读到文件的问题 而在idea能直接运行 java -jar xxx.jar 运行报错如下
+" />
+<meta property="og:url" content="http://localhost:1313/post/2022/03/classpath-resource-not-found-when-running-as-jar/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2022-03-08 09:45:39 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="http://localhost:1313/post/2022/03/classpath-resource-not-found-when-running-as-jar/">Classpath Resource Not Found When Running as Jar</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2022-03-08 [Mod: 2022-03-08]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="http://localhost:1313/tags/java/">java</a>&nbsp;
+    
+    #<a href="http://localhost:1313/tags/springboot/">springboot</a>&nbsp;
+    
+    #<a href="http://localhost:1313/tags/groovy/">groovy</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="读取jar包resources目录下的groovy脚本并调用">读取jar包resources目录下的groovy脚本并调用<a href="#读取jar包resources目录下的groovy脚本并调用" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断
+所以采用生成groovy脚本形式来解决动态校验以及入库规则
+项目初期设计不复杂，功能简单，直接按日志项名称编写groovy脚本规则,比如wifi日志，则规则文件名为wifi.groovy
+当日志的http接口请求到wifi名称，则加载wifi.groovy规则文件并解析判断，包括入库，kafka队列等
+groovy文件放在resources/logTemplate文件夹下，遇到在jar包模式运行不能读到文件的问题
+而在idea能直接运行
+java -jar xxx.jar 运行报错如下</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> Caused by: java.<span style="color:#a6e22e">lang</span>.<span style="color:#a6e22e">IllegalArgumentException</span>: URI is not hierarchical
+</span></span></code></pre></div><h1 id="解决方法通过jar包运行时不能以文件形式读取jar包里的内容参考google方法整理有如下几种方法解决">解决方法，通过jar包运行时，不能以文件形式读取jar包里的内容，参考google方法整理有如下几种方法解决<a href="#解决方法通过jar包运行时不能以文件形式读取jar包里的内容参考google方法整理有如下几种方法解决" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>第一种方法 Using IOUtils.toString (Apache Utils)</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>String result <span style="color:#f92672">=</span> IOUtils.<span style="color:#a6e22e">toString</span>(inputStream, StandardCharsets.<span style="color:#a6e22e">UTF_8</span>);
+</span></span></code></pre></div><blockquote>
+<p>第二种方法 Using CharStreams (Guava)</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> String result <span style="color:#f92672">=</span> CharStreams.<span style="color:#a6e22e">toString</span>(<span style="color:#66d9ef">new</span> InputStreamReader(
+</span></span><span style="display:flex;"><span>       inputStream, Charsets.<span style="color:#a6e22e">UTF_8</span>));
+</span></span></code></pre></div><blockquote>
+<p>第三种方法 Using Scanner (JDK)</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> Scanner s <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner(inputStream).<span style="color:#a6e22e">useDelimiter</span>(<span style="color:#e6db74">&#34;\\A&#34;</span>);
+</span></span><span style="display:flex;"><span> String result <span style="color:#f92672">=</span> s.<span style="color:#a6e22e">hasNext</span>() <span style="color:#f92672">?</span> s.<span style="color:#a6e22e">next</span>() : <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span></code></pre></div><blockquote>
+<p>第四种方法 Using Stream API (Java 8). Warning: This solution converts different line breaks (like \r\n) to \n.</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> String result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BufferedReader(<span style="color:#66d9ef">new</span> InputStreamReader(inputStream))
+</span></span><span style="display:flex;"><span>   .<span style="color:#a6e22e">lines</span>().<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">joining</span>(<span style="color:#e6db74">&#34;\n&#34;</span>));
+</span></span></code></pre></div><blockquote>
+<p>第五种方法 Using parallel Stream API (Java 8). Warning: This solution converts different line breaks (like \r\n) to \n.</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> String result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BufferedReader(<span style="color:#66d9ef">new</span> InputStreamReader(inputStream))
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">lines</span>().<span style="color:#a6e22e">parallel</span>().<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">joining</span>(<span style="color:#e6db74">&#34;\n&#34;</span>));
+</span></span></code></pre></div><blockquote>
+<p>第六种方法 Using InputStreamReader and StringBuilder (JDK)</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> <span style="color:#66d9ef">int</span> bufferSize <span style="color:#f92672">=</span> 1024;
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">[</span>bufferSize<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span> StringBuilder out <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuilder();
+</span></span><span style="display:flex;"><span> Reader in <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> InputStreamReader(stream, StandardCharsets.<span style="color:#a6e22e">UTF_8</span>);
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> numRead; (numRead <span style="color:#f92672">=</span> in.<span style="color:#a6e22e">read</span>(buffer, 0, buffer.<span style="color:#a6e22e">length</span>)) <span style="color:#f92672">&gt;</span> 0; ) {
+</span></span><span style="display:flex;"><span>     out.<span style="color:#a6e22e">append</span>(buffer, 0, numRead);
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> out.<span style="color:#a6e22e">toString</span>();
+</span></span></code></pre></div><blockquote>
+<p>第七种方法 Using StringWriter and IOUtils.copy (Apache Commons)</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> StringWriter writer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringWriter();
+</span></span><span style="display:flex;"><span> IOUtils.<span style="color:#a6e22e">copy</span>(inputStream, writer, <span style="color:#e6db74">&#34;UTF-8&#34;</span>);
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> writer.<span style="color:#a6e22e">toString</span>();
+</span></span></code></pre></div><blockquote>
+<p>第八种方法 Using ByteArrayOutputStream and inputStream.read (JDK)</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> ByteArrayOutputStream result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ByteArrayOutputStream();
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>1024<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> length; (length <span style="color:#f92672">=</span> inputStream.<span style="color:#a6e22e">read</span>(buffer)) <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span>1; ) {
+</span></span><span style="display:flex;"><span>     result.<span style="color:#a6e22e">write</span>(buffer, 0, length);
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">// StandardCharsets.UTF_8.name() &gt; JDK 7</span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> result.<span style="color:#a6e22e">toString</span>(<span style="color:#e6db74">&#34;UTF-8&#34;</span>);
+</span></span></code></pre></div><blockquote>
+<p>第九种方法 Using ByteArrayOutputStream and inputStream.read (JDK)</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> String newLine <span style="color:#f92672">=</span> System.<span style="color:#a6e22e">getProperty</span>(<span style="color:#e6db74">&#34;line.separator&#34;</span>);
+</span></span><span style="display:flex;"><span> BufferedReader reader <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BufferedReader(
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">new</span> InputStreamReader(inputStream));
+</span></span><span style="display:flex;"><span> StringBuilder result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuilder();
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">for</span> (String line; (line <span style="color:#f92672">=</span> reader.<span style="color:#a6e22e">readLine</span>()) <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>; ) {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span> (result.<span style="color:#a6e22e">length</span>() <span style="color:#f92672">&gt;</span> 0) {
+</span></span><span style="display:flex;"><span>         result.<span style="color:#a6e22e">append</span>(newLine);
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     result.<span style="color:#a6e22e">append</span>(line);
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> result.<span style="color:#a6e22e">toString</span>();
+</span></span></code></pre></div><blockquote>
+<p>第十种方法 Using BufferedInputStream and ByteArrayOutputStream (JDK)</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>BufferedInputStream bis <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BufferedInputStream(inputStream);
+</span></span><span style="display:flex;"><span>ByteArrayOutputStream buf <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ByteArrayOutputStream();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> result <span style="color:#f92672">=</span> bis.<span style="color:#a6e22e">read</span>(); result <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span>1; result <span style="color:#f92672">=</span> bis.<span style="color:#a6e22e">read</span>()) {
+</span></span><span style="display:flex;"><span>    buf.<span style="color:#a6e22e">write</span>((<span style="color:#66d9ef">byte</span>) result);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// StandardCharsets.UTF_8.name() &gt; JDK 7</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> buf.<span style="color:#a6e22e">toString</span>(<span style="color:#e6db74">&#34;UTF-8&#34;</span>);
+</span></span></code></pre></div><blockquote>
+<p>第十一种方法 Using inputStream.read() and StringBuilder (JDK). Warning: This solution has problems with Unicode, for example with Russian text (works correctly only with non-Unicode text)</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>StringBuilder sb <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuilder();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> ch; (ch <span style="color:#f92672">=</span> inputStream.<span style="color:#a6e22e">read</span>()) <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span>1; ) {
+</span></span><span style="display:flex;"><span>    sb.<span style="color:#a6e22e">append</span>((<span style="color:#66d9ef">char</span>) ch);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> sb.<span style="color:#a6e22e">toString</span>();
+</span></span></code></pre></div><blockquote>
+<p>根据场景需求我最终选择第四种方法来解决读取jar包里的文件内容
+本文来自：https://stackoverflow.com/questions/309424/how-do-i-read-convert-an-inputstream-into-a-string-in-java</p></blockquote>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

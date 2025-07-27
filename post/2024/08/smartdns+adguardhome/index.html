@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Smartdns&#43;adguardhome :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="
+文档参考记录 https://disc8888.com/10775.html https://cloud.tencent.com/developer/article/2296129 smartdns https://www.nodeseek.com/post-53938-1
+docker run &ndash;name adguardhome2 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf -p 15332:53/udp -p 15332:53/tcp -p 3002:3000/tcp -d adguard/adguardhome:latest
+docker run &ndash;name adguardhome1 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard1/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard1/conf:/opt/adguardhome/conf -p 15331:53/udp -p 15331:53/tcp -p 3001:3000/tcp -d adguard/adguardhome:latest
+docker run &ndash;name adguardhome1 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf &ndash;network host -d adguard/adguardhome:latest
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2024/08/smartdns&#43;adguardhome/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Smartdns&#43;adguardhome">
+<meta property="og:description" content="
+文档参考记录 https://disc8888.com/10775.html https://cloud.tencent.com/developer/article/2296129 smartdns https://www.nodeseek.com/post-53938-1
+docker run &ndash;name adguardhome2 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf -p 15332:53/udp -p 15332:53/tcp -p 3002:3000/tcp -d adguard/adguardhome:latest
+docker run &ndash;name adguardhome1 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard1/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard1/conf:/opt/adguardhome/conf -p 15331:53/udp -p 15331:53/tcp -p 3001:3000/tcp -d adguard/adguardhome:latest
+docker run &ndash;name adguardhome1 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf &ndash;network host -d adguard/adguardhome:latest
+" />
+<meta property="og:url" content="https://ltan.me/post/2024/08/smartdns&#43;adguardhome/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-08-07 20:28:21 &#43;0800 &#43;0800" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2024/08/smartdns&#43;adguardhome/">Smartdns+adguardhome</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-08-07 [Mod: 2024-08-07]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/smartdns/">smartdns</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/adguardhome/">adguardhome</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p><img src="/post/2024/08/smartdns&#43;adguardhome/img.png" alt="img.png"></p>
+<p>文档参考记录
+<a href="https://disc8888.com/10775.html">https://disc8888.com/10775.html</a>
+<a href="https://cloud.tencent.com/developer/article/2296129">https://cloud.tencent.com/developer/article/2296129</a>
+smartdns
+<a href="https://www.nodeseek.com/post-53938-1">https://www.nodeseek.com/post-53938-1</a></p>
+<p>docker run &ndash;name adguardhome2 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf -p 15332:53/udp -p 15332:53/tcp -p 3002:3000/tcp -d adguard/adguardhome:latest</p>
+<p>docker run &ndash;name adguardhome1 <br>
+&ndash;restart unless-stopped <br>
+-v /overlay/upper/opt/docker/volumes/adguard1/work:/opt/adguardhome/work <br>
+-v /overlay/upper/opt/docker/volumes/adguard1/conf:/opt/adguardhome/conf <br>
+-p 15331:53/udp <br>
+-p 15331:53/tcp <br>
+-p 3001:3000/tcp <br>
+-d adguard/adguardhome:latest</p>
+<p>docker run &ndash;name adguardhome1 <br>
+&ndash;restart unless-stopped <br>
+-v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work <br>
+-v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf <br>
+&ndash;network host <br>
+-d adguard/adguardhome:latest</p>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

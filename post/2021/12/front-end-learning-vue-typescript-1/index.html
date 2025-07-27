@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Front End Learning Vue Typescript 1 :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="前端学习【vue-typescript-1】 基于模板代码学习编写最前沿技术框架vue-typescript-admin-template , 这里直接省略环境搭建npm node vue 请自行安装, vue 以最新版本为准 vue3.x 首先确定一个本次学习目标需求，通过web前端页面把后台的一个接口内容显示输出在页面上即可，实现点击按钮弹窗的效果
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2021/12/front-end-learning-vue-typescript-1/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Front End Learning Vue Typescript 1">
+<meta property="og:description" content="前端学习【vue-typescript-1】 基于模板代码学习编写最前沿技术框架vue-typescript-admin-template , 这里直接省略环境搭建npm node vue 请自行安装, vue 以最新版本为准 vue3.x 首先确定一个本次学习目标需求，通过web前端页面把后台的一个接口内容显示输出在页面上即可，实现点击按钮弹窗的效果
+" />
+<meta property="og:url" content="https://ltan.me/post/2021/12/front-end-learning-vue-typescript-1/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-12-21 21:53:30 &#43;0800 &#43;0800" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2021/12/front-end-learning-vue-typescript-1/">Front End Learning Vue Typescript 1</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-12-21 [Mod: 2021-12-21]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/vue/">vue</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/typescript/">typescript</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="前端学习vue-typescript-1">前端学习【vue-typescript-1】<a href="#前端学习vue-typescript-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>基于模板代码学习编写最前沿技术框架<code>vue-typescript-admin-template</code> , 这里直接省略环境搭建npm node vue 请自行安装, vue 以最新版本为准 vue3.x
+首先确定一个本次学习目标需求，通过web前端页面把后台的一个接口内容显示输出在页面上即可，实现点击按钮弹窗的效果</p>
+<p>我的后台接口地址是http://www.hell.com/iplocation/ipuu/getInfo?ip=111.44.1.3</p>
+<p>我浏览器访问地址是<code>[hello-world](http://localhost:8080/hell)</code></p></blockquote>
+<h3 id="构建初始化项目">构建初始化项目<a href="#构建初始化项目" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<pre tabindex="0"><code>vue create hello-world
+</code></pre><h3 id="构建路由创建一个新的页面">构建路由创建一个新的页面<a href="#构建路由创建一个新的页面" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h5 id="1-在-appvue-文件加入-一个-超链接标签-router-link--可实现html-a标签-href跳转功能">1. 在 App.vue 文件加入 一个 超链接标签 <code>router-link</code>  可实现html a标签 href跳转功能<a href="#1-在-appvue-文件加入-一个-超链接标签-router-link--可实现html-a标签-href跳转功能" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<pre tabindex="0"><code> &lt;router-link to=&#34;/hell&#34;&gt;hell&lt;/router-link&gt;
+</code></pre><h5 id="2-在router目录下indexts文件里增加如下代码处理hell-路由的指向文件">2. 在router目录下index.ts文件里增加如下代码，处理/hell 路由的指向文件<a href="#2-在router目录下indexts文件里增加如下代码处理hell-路由的指向文件" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">routes</span>: <span style="color:#66d9ef">Array</span>&lt;<span style="color:#f92672">RouteConfig</span>&gt; <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//原有的路由保持不动，增加以下/hell路由指向处理
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> { 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;/hell&#39;</span>, 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hell&#39;</span>, 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span>()<span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">import</span>(<span style="color:#e6db74">&#39;../views/hell.vue&#39;</span>) 
+</span></span><span style="display:flex;"><span> } 
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><h5 id="3-在utils目录下新增requestts文件">3. 在utils目录下新增<code>request.ts</code>文件<a href="#3-在utils目录下新增requestts文件" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">axios</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;axios&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">config</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;chai&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">service</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">create</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">baseURL</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;/api&#34;</span>, 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">timeout</span>: <span style="color:#66d9ef">5000</span>
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">service</span>.<span style="color:#a6e22e">interceptors</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">use</span>(
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">config</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">config</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">error</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Promise</span>.<span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">error</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">service</span>.<span style="color:#a6e22e">interceptors</span>.<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">use</span>(
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">response</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">data</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">res</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">error</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#ae81ff">11111111</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">service</span>
+</span></span></code></pre></div><h5 id="4-在src目录下创建api目录用于专门api函数与后台交互的api接口处理">4. 在src目录下创建api目录，用于专门api函数，与后台交互的api接口处理<a href="#4-在src目录下创建api目录用于专门api函数与后台交互的api接口处理" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">request</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@/utils/request&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getIpInfo</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">request</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;iplocation/ipuu/getInfo?ip=111.44.1.3&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;get&#39;</span>
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h5 id="5-在maints文件加入核心依赖库需要用到el-标签icon库el样式都需要导入以下maints原文件加入注释的都新增代码">5. 在main.ts文件加入核心依赖库，需要用到el 标签，icon库，el样式都需要导入，以下main.ts原文件加入注释的都新增代码<a href="#5-在maints文件加入核心依赖库需要用到el-标签icon库el样式都需要导入以下maints原文件加入注释的都新增代码" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Vue</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>  <span style="color:#75715e">//新加入的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./App.vue&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ElementUI</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;element-ui&#39;</span> <span style="color:#75715e">//新加入的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">SvgIcon</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;vue-svgicon&#39;</span> <span style="color:#75715e">//新加入的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;element-ui/lib/theme-chalk/index.css&#39;</span>   <span style="color:#75715e">//新加入的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;./registerServiceWorker&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">router</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./router&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">store</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./store&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">ElementUI</span>, {}) <span style="color:#75715e">//新加入的，需要注册到vue,否则控制台报错，不存在该标签
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">productionTip</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vue</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">router</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">store</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">render</span>: <span style="color:#66d9ef">h</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">h</span>(<span style="color:#a6e22e">App</span>)
+</span></span><span style="display:flex;"><span>}).<span style="color:#a6e22e">$mount</span>(<span style="color:#e6db74">&#39;#app&#39;</span>)
+</span></span></code></pre></div><h5 id="6-在views-目录下创建hellvue-文件">6. 在views 目录下创建hell.vue 文件<a href="#6-在views-目录下创建hellvue-文件" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span> &lt;<span style="color:#f92672">template</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span>&gt; 
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h1</span>&gt; this is hell page..........&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!--这个aa来自类属性变量--&gt;</span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;{{aa}}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt; 
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">el-button</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cancel-btn&#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">size</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;small&#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">icon</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;el-icon-refresh&#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;warning&#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;aabbba&#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">click</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;clickfunc(111)&#34;</span>
+</span></span><span style="display:flex;"><span>            &gt;
+</span></span><span style="display:flex;"><span>                  &lt;<span style="color:#f92672">h1</span>&gt;按钮点击&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">el-button</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">template</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ts&#39;</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//导入依赖vue
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Component</span>, <span style="color:#a6e22e">Vue</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;vue-property-decorator&#39;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//导入ip接口文件库
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">getIpInfo</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;@/api/ip&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//必须增加@commponet注解，否则无效created无效
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">Component</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Vue</span> { 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">aa</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//继承了vue特性 created 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">created</span>(){
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getIpInfo</span>()
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//当点击时会调用这个函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">clickfunc</span>(<span style="color:#a6e22e">row</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>) {
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">alert</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">aa</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//异步调用getipinfo接口
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">getIpInfo</span>(){
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">data</span> } <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">getIpInfo</span>()
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">aa</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><h5 id="7-设置项目接口访问解决访问接口在开发环境跨域的问题在vueconfigjs">7. 设置项目接口访问，解决访问接口在开发环境跨域的问题，在vue.config.js<a href="#7-设置项目接口访问解决访问接口在开发环境跨域的问题在vueconfigjs" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<pre tabindex="0"><code>module.exports = {
+  devServer: {
+    headers: {
+      &#39;Access-Control-Allow-Origin&#39;: &#39;*&#39;
+    },
+    proxy: {
+      &#39;/api&#39;: {
+        ws: true,  //是否启用websockets
+        changeOrigin: true,  //开启代理： 在本地会创建一个虚拟服务端，然后发送请求数据，并且同时接收请求数据，这样客户端和服务端进行数据的交互就不会有跨域问题
+        target: &#39;http://www.hell.com&#39;,  // 要访问的跨域的域名
+        pathRewrite: {
+          [&#39;^/api&#39;]: &#39;&#39;
+        }
+      }
+    }
+  },
+}
+</code></pre><h5 id="8-安装依赖依次执行">8. 安装依赖，依次执行<a href="#8-安装依赖依次执行" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<pre tabindex="0"><code>npm install element-ui --save  
+npm install axios --save
+npm install element-ui --save
+</code></pre><h5 id="9-运行">9. 运行<a href="#9-运行" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<pre tabindex="0"><code># npm run serve
+
+You may use special comments to disable some warnings.    
+Use // eslint-disable-next-line to ignore the next line.  
+Use /* eslint-disable */ to ignore all warnings in a file.
+No type errors found
+Version: typescript 4.1.6
+Time: 2614ms
+
+  App running at:
+  - Local:   http://localhost:8080/
+  - Network: http://172.20.148.107:8080/
+</code></pre><p>最终效果:</p>
+<p><img src="/post/2021/12/front-end-learning-vue-typescript-1/image-20211221223034552.png" alt="image-20211221223034552"></p>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

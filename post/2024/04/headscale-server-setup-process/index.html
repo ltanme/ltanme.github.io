@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Server setup process using Headscale with Docker. :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Server setup process using Headscale with Docker. 记录采用headscale &amp; docker 异地组网过程 需求背景 曾经我尝试使用ZeroTier，最初的体验非常不错。然而，随着时间的推移，我发现连接速度变得缓慢和卡顿， 有时甚至需要借助特殊的网络加速技术来提高性能。后来，在X社区中，我看到有人分享了Tailscale的好评， 这促使我安装了Tailscale的官方客户端。相较于ZeroTier，Tailscale在速度上有显著的提升， 尽管偶尔也会遇到一些延迟。Tailscale依赖于其官方服务器，但它支持用户自建服务器， 这一点非常吸引我。通过结合使用Tailscale客户端和官网，我们可以实现异地组网。 为了达到更理想的连接速度，我决定自建异地组网系统。这样不仅能控制家中的群晖设备，还能优化PT下载等功能。
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2024/04/headscale-server-setup-process/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Server setup process using Headscale with Docker.">
+<meta property="og:description" content="Server setup process using Headscale with Docker. 记录采用headscale &amp; docker 异地组网过程 需求背景 曾经我尝试使用ZeroTier，最初的体验非常不错。然而，随着时间的推移，我发现连接速度变得缓慢和卡顿， 有时甚至需要借助特殊的网络加速技术来提高性能。后来，在X社区中，我看到有人分享了Tailscale的好评， 这促使我安装了Tailscale的官方客户端。相较于ZeroTier，Tailscale在速度上有显著的提升， 尽管偶尔也会遇到一些延迟。Tailscale依赖于其官方服务器，但它支持用户自建服务器， 这一点非常吸引我。通过结合使用Tailscale客户端和官网，我们可以实现异地组网。 为了达到更理想的连接速度，我决定自建异地组网系统。这样不仅能控制家中的群晖设备，还能优化PT下载等功能。
+" />
+<meta property="og:url" content="https://ltan.me/post/2024/04/headscale-server-setup-process/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-04-15 21:21:29 &#43;0800 &#43;0800" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2024/04/headscale-server-setup-process/">Server setup process using Headscale with Docker.</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-04-15 [Mod: 2024-04-15]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/tailscale/">tailscale</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/headscale/">headscale</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="server-setup-process-using-headscale-with-docker">Server setup process using Headscale with Docker.<a href="#server-setup-process-using-headscale-with-docker" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<h2 id="记录采用headscale--docker-异地组网过程">记录采用headscale &amp; docker 异地组网过程<a href="#记录采用headscale--docker-异地组网过程" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h2 id="需求背景">需求背景<a href="#需求背景" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<blockquote>
+<p>曾经我尝试使用<code>ZeroTier</code>，最初的体验非常不错。然而，随着时间的推移，我发现连接速度变得缓慢和卡顿，
+有时甚至需要借助特殊的网络加速技术来提高性能。后来，在<code>X</code>社区中，我看到有人分享了<code>Tailscale</code>的好评，
+这促使我安装了<code>Tailscale</code>的官方客户端。相较于<code>ZeroTier</code>，<code>Tailscale</code>在速度上有显著的提升，
+尽管偶尔也会遇到一些延迟。<code>Tailscale</code>依赖于其官方服务器，但它支持用户自建服务器，
+这一点非常吸引我。通过结合使用<code>Tailscale</code>客户端和官网，我们可以实现异地组网。
+为了达到更理想的连接速度，我决定自建异地组网系统。这样不仅能控制家中的<code>群晖</code>设备，还能优化<code>PT</code>下载等功能。</p></blockquote>
+<h2 id="搭建headscale服务端">搭建<code>headscale</code>服务端<a href="#搭建headscale服务端" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<blockquote>
+<p>1,准备环境<code>linux(centos7/ubuntu)</code><br>
+2,安装<code>docker</code>,<br>
+3,申请好域名,准备<code>https</code>证书 推荐<code>cf</code>,并解析到自己的服务器<br>
+<code>ssl_certificate</code> 和 <code>ssl_certificate_key</code> 为自己申请的域名证书从cf导出来的文件<br>
+4,安装好<code>nginx</code>,<code>nginx</code>配置如下,打码地方为自己的域名，箭头处需要开启<code>websocket</code><br>
+<img src="/post/2024/04/headscale-server-setup-process/img.png" alt="img.png"></p></blockquote>
+<h3 id="准备headscale-配置文件">准备<code>headscale</code> 配置文件<a href="#准备headscale-配置文件" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<blockquote>
+<p>创建目录</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mkdir -p /root/mydocker/config
+</span></span><span style="display:flex;"><span>chmod -R a+x /root/mydocker/config
+</span></span></code></pre></div><blockquote>
+<p>从以下链接地址下载配置文件</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>wget -O /root/mydocker/conf/config.yaml https://raw.githubusercontent.com/juanfont/headscale/main/config-example.yaml
+</span></span></code></pre></div><blockquote>
+<p>修改配置文件<code>config.yaml</code> 文件</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> server_url: https://你的域名:443
+</span></span><span style="display:flex;"><span> listen_addr: 0.0.0.0:8080
+</span></span><span style="display:flex;"><span> metrics_listen_addr: 0.0.0.0:9090
+</span></span><span style="display:flex;"><span> noise:
+</span></span><span style="display:flex;"><span>    private_key_path: /etc/headscale/noise_private.key
+</span></span><span style="display:flex;"><span> database:
+</span></span><span style="display:flex;"><span>  type: sqlite3
+</span></span><span style="display:flex;"><span>  sqlite:
+</span></span><span style="display:flex;"><span>    path: /etc/headscale/db.sqlite
+</span></span></code></pre></div><h2 id="部署headscale">部署headscale<a href="#部署headscale" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<blockquote>
+<p>启动docker, 我是在/root/mydocker/ 目录启动的</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>  docker run --name headscale --detach --volume <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>/config:/etc/headscale/ --publish 0.0.0.0:8080:8080 --publish 0.0.0.0:9090:9090 headscale/headscale:0.23.0-alpha5 serve
+</span></span></code></pre></div><h2 id="在windows或客户端安装tailscale官网下载并安装好">在windows或客户端安装tailscale(官网下载并安装好)<a href="#在windows或客户端安装tailscale官网下载并安装好" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<blockquote>
+<p>以win10 为例 直接采用命令行登录<br>
+<img src="/post/2024/04/headscale-server-setup-process/img_1.png" alt="img_1.png"><br>
+会得到以下地址:<br>
+https://你的域名:443/register/mkey:23234kflasdjf&hellip;..
+mkey 后面请复制一下
+进入到headscale 服务器命令行，执行以下命令，将<code>23234kflasdjf.....</code> 注册即可</p></blockquote>
+<h2 id="进入服务器执行命令注册登录的设备">进入服务器,执行命令注册登录的设备<a href="#进入服务器执行命令注册登录的设备" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<blockquote>
+<p>执行以下命令，因为是docker安装的<br>
+mywin10 就表示对应需要组网的机器</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker exec headscale headscale users create mywin10
+</span></span><span style="display:flex;"><span>docker exec headscale headscale nodes register --user admin --key mkey:23234kflasdjf.....
+</span></span></code></pre></div><blockquote>
+<p>以下是我执行的上面两条docker命令的示例</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@racknerd-6d4dab3 ~<span style="color:#f92672">]</span><span style="color:#75715e"># docker exec headscale headscale users create admin</span>
+</span></span><span style="display:flex;"><span>2024-04-08T12:28:08Z TRC DNS configuration loaded dns_config<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;Nameservers&#34;</span>:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;1.1.1.1&#34;</span><span style="color:#f92672">]</span>,<span style="color:#e6db74">&#34;Proxied&#34;</span>:true,<span style="color:#e6db74">&#34;Resolvers&#34;</span>:<span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;Addr&#34;</span>:<span style="color:#e6db74">&#34;1.1.1.1&#34;</span><span style="color:#f92672">}]}</span>
+</span></span><span style="display:flex;"><span>User created
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@racknerd-6d4dab3 ~<span style="color:#f92672">]</span><span style="color:#75715e"># docker exec headscale headscale nodes register --user admin --key mkey:2342342344444444444444fb3ce635336028bc8989fa9615e233343434</span>
+</span></span><span style="display:flex;"><span>2024-04-08T12:28:14Z TRC DNS configuration loaded dns_config<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;Nameservers&#34;</span>:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;1.1.1.1&#34;</span><span style="color:#f92672">]</span>,<span style="color:#e6db74">&#34;Proxied&#34;</span>:true,<span style="color:#e6db74">&#34;Resolvers&#34;</span>:<span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;Addr&#34;</span>:<span style="color:#e6db74">&#34;1.1.1.1&#34;</span><span style="color:#f92672">}]}</span>
+</span></span><span style="display:flex;"><span>Node desktop-mms156b registered
+</span></span></code></pre></div><blockquote>
+<p>接下来就看到以下成功信息<br>
+<img src="/post/2024/04/headscale-server-setup-process/img_1.png" alt="img_1.png"></p></blockquote>
+<blockquote>
+<p>tailscale 客户端自动显示当前状态<br>
+<img src="/post/2024/04/headscale-server-setup-process/img_3.png" alt="img_3.png"></p></blockquote>
+<blockquote>
+<p>接下来就可以远程登录我的win10了，我要从100.64.0.2 的机器远程登录100.64.0.7的机器  <br>
+<img src="/post/2024/04/headscale-server-setup-process/img_4.png" alt="img_4.png"></p></blockquote>
+<blockquote>
+<p>远程登录win10 速度很赞，几乎和本地一样操作流畅，而且无需科学<br>
+<img src="/post/2024/04/headscale-server-setup-process/img_5.png" alt="img_5.png"></p>
+<p>解决以上需要在每一台电脑上都要安装tailscale 客户端的问题
+利用群晖做数据转发，只需要在群晖上安装tailscale客户端即可</p></blockquote>
+<h2 id="群晖子网路由subnet-router设置">群晖子网路由（Subnet Router）设置<a href="#群晖子网路由subnet-router设置" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="问题解决方案">问题解决方案<a href="#问题解决方案" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<blockquote>
+<p>使用群晖NAS作为子网路由（Subnet Router）可以让所有家庭网络中的设备无需安装Tailscale客户端即可访问Tailscale网络。
+只需在群晖上安装一次Tailscale客户端，并进行适当配置，就可以实现整个内网的访问。</p></blockquote>
+<h3 id="详细步骤">详细步骤<a href="#详细步骤" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h4 id="1-在群晖上启用ipv4转发功能">1. 在群晖上启用IPv4转发功能<a href="#1-在群晖上启用ipv4转发功能" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<blockquote>
+<p>通过SSH登录到群晖，执行以下命令启用IPv4转发：</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 检查当前IPv4转发状态</span>
+</span></span><span style="display:flex;"><span>sysctl net.ipv4.ip_forward
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 临时启用IPv4转发</span>
+</span></span><span style="display:flex;"><span>sudo sysctl -w net.ipv4.ip_forward<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 永久启用IPv4转发（在重启后仍然生效）</span>
+</span></span><span style="display:flex;"><span>sudo echo <span style="color:#e6db74">&#34;net.ipv4.ip_forward = 1&#34;</span> &gt;&gt; /etc/sysctl.conf
+</span></span><span style="display:flex;"><span>sudo sysctl -p
+</span></span></code></pre></div><h4 id="2-在headscale服务器上允许子网路由广播">2. 在Headscale服务器上允许子网路由广播<a href="#2-在headscale服务器上允许子网路由广播" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<blockquote>
+<p>在Headscale服务器上执行以下命令，允许用户advertise routes（广播路由）：</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 格式：headscale routes enable-route [子网CIDR] [节点ID]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 例如：允许群晖广播192.168.1.0/24子网</span>
+</span></span><span style="display:flex;"><span>docker exec headscale headscale routes list
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看当前节点ID和广播的路由</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 启用子网路由（使用实际的子网CIDR和节点ID）</span>
+</span></span><span style="display:flex;"><span>docker exec headscale headscale routes enable --route 192.168.1.0/24 --node-id <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><blockquote>
+<p>以下是我实际执行的命令和结果：</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@racknerd-6d4dab ~<span style="color:#f92672">]</span><span style="color:#75715e"># docker exec headscale headscale routes enable \</span>
+</span></span><span style="display:flex;"><span>&gt;   --route <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>&gt;   --force
+</span></span><span style="display:flex;"><span>2025-04-05T06:53:57Z WRN An updated version of Headscale has been found <span style="color:#f92672">(</span>0.25.1 vs. your current v0.23.0-beta1<span style="color:#f92672">)</span>. Check it out https://github.com/juanfont/headscale/releases
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@racknerd-6d4dab ~<span style="color:#f92672">]</span><span style="color:#75715e"># docker exec headscale headscale routes list</span>
+</span></span><span style="display:flex;"><span>2025-04-05T06:54:14Z WRN An updated version of Headscale has been found <span style="color:#f92672">(</span>0.25.1 vs. your current v0.23.0-beta1<span style="color:#f92672">)</span>. Check it out https://github.com/juanfont/headscale/releases
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ID | Node        | Prefix           | Advertised | Enabled | Primary
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>  | diskstation | 192.168.100.0/24 | true       | true    | true
+</span></span></code></pre></div><blockquote>
+<p>从上面的结果可以看到，我的群晖设备名为<code>diskstation</code>，它已经成功广播了<code>192.168.100.0/24</code>子网，并且该路由已启用。</p></blockquote>
+<h4 id="3-在群晖nas上配置tailscale">3. 在群晖NAS上配置Tailscale<a href="#3-在群晖nas上配置tailscale" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<blockquote>
+<p>在群晖上配置Tailscale客户端以广播子网路由：</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 在群晖上执行此命令来重新配置Tailscale客户端</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 注意：--advertise-routes参数指定要广播的子网</span>
+</span></span><span style="display:flex;"><span>sudo tailscale up --accept-routes --advertise-routes<span style="color:#f92672">=</span>192.168.1.0/24 --login-server<span style="color:#f92672">=</span>https://你的域名
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看Tailscale状态确认子网路由是否生效</span>
+</span></span><span style="display:flex;"><span>tailscale status
+</span></span></code></pre></div><blockquote>
+<p>注意：不需要重新登录，只需执行上述命令即可启用子网路由。</p></blockquote>
+<h3 id="验证子网路由是否成功">验证子网路由是否成功<a href="#验证子网路由是否成功" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h4 id="在android手机上验证">在Android手机上验证<a href="#在android手机上验证" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<blockquote>
+<ol>
+<li>在Android手机上安装Tailscale客户端</li>
+<li>使用你的域名作为登录服务器（https://你的域名）登录</li>
+<li>成功登录后，你应该能够访问家里内网的IP地址（如192.168.1.x）</li>
+</ol></blockquote>
+<h4 id="检查路由状态">检查路由状态<a href="#检查路由状态" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 在Headscale服务器上检查路由状态</span>
+</span></span><span style="display:flex;"><span>docker exec headscale headscale routes list
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 在群晖上检查Tailscale状态</span>
+</span></span><span style="display:flex;"><span>tailscale status
+</span></span></code></pre></div><p><img src="/post/2024/04/headscale-server-setup-process/img_6.png" alt="img_6.png"></p>
+<blockquote>
+<p>成功配置后，任何连接到你的Tailscale网络的设备都可以直接访问家庭内网的所有设备，而无需在每台设备上安装Tailscale客户端。
+这大大简化了网络管理，并允许访问那些无法安装Tailscale的设备（如智能家居设备、打印机等）。</p></blockquote>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>

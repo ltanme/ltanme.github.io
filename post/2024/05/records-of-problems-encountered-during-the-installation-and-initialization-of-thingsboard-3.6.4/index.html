@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4 :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="#　Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4
+记录thingsboard3.6.4在导入 IntelliJ IDEA 2022.2.3 编译报错的一些问题
+记录 如何从thingsboard3.6.4弃坑到thingsboard3.6.3最后又回到了thingsboard3.6.4
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4">
+<meta property="og:description" content="#　Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4
+记录thingsboard3.6.4在导入 IntelliJ IDEA 2022.2.3 编译报错的一些问题
+记录 如何从thingsboard3.6.4弃坑到thingsboard3.6.3最后又回到了thingsboard3.6.4
+" />
+<meta property="og:url" content="https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-05-10 10:41:26 &#43;0800 &#43;0800" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/">Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-05-10 [Mod: 2024-05-10]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/thingsboard/">thingsboard</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/iot/">IoT</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/lombok/">lombok</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/jdk17/">JDK17</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>#　Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4</p>
+<blockquote>
+<p>记录<code>thingsboard3.6.4</code>在导入 <code>IntelliJ IDEA 2022.2.3</code> 编译报错的一些问题<br>
+记录 如何从<code>thingsboard3.6.4</code>弃坑到<code>thingsboard3.6.3</code>最后又回到了<code>thingsboard3.6.4</code></p></blockquote>
+<blockquote>
+<p>导入步骤简单说一下，先从github下载thingsboard3.6.4 源码
+导入代码前提准备是环境，我的环境如下
+windows 10<br>
+maven version 3.8.1 给 IntelliJ IDEA 2022.2.3 配置好settings.xml 采用从maven官方仓库拉取依赖<br>
+IntelliJ IDEA 2022.2.3  <br>
+IntelliJ IDEA 只需要安装 protocol buffers 和 lombook 就可以了<br>
+JDK17,不是jdk11<br>
+在本地安装postgreSQL,创建好数据库名<code>thingsboard364</code><br>
+然后导入到IntelliJ IDEA 2022.2.3。<br>
+从复制sql脚本到application的<code>src/main/data/</code>目录下<br>
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img.png" alt="img.png">
+把 <strong>IntelliJ IDEA</strong> maven 设置跳过skip test,避免测试过程中遇到地域性测试，语言文本测试 导致通测试不过<br>
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_1.png" alt="img_1.png">
+最后点击 <strong>IntelliJ IDEA</strong> maven package 进行编译项目 <br>
+我遇到的问题如下：</p>
+<p><em>问题1 lombok 在jdk17下版本太低不兼容</em></p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>class lombok.javac.apt.LombokProcessor <span style="color:#f92672">(</span>in unnamed module @0x719f35fe<span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span>cannot access class com.sun.tools.javac.processing.JavacProcessingEnvironment
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>in module jdk.compiler<span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span> because module jdk.compiler does not export com.sun.tools.javac.processing to
+</span></span><span style="display:flex;"><span>  unnamed module @0x719f35fe
+</span></span></code></pre></div><blockquote>
+<p>解决lombok 报错
+The issue you are facing with the error &ldquo;java.lang.IllegalAccessError: class lombok.javac.apt.LombokProcessor&rdquo; is related to compatibility problems between Lombok and JDK versions. To resolve this issue, you need to ensure that you are using a compatible version of Lombok with your JDK. Upgrading Lombok to version 1.18.22 or higher should address this problem. Additionally, make sure that Lombok is set up correctly in your project configuration.
+The error occurs because Java 17 enforces strong encapsulation, and using an older version of Lombok can lead to this issue. By upgrading to Lombok version 1.18.22 or newer, you should be able to resolve the problem. It&rsquo;s crucial to verify that you are indeed using the correct version of Lombok for your build to avoid compatibility issues<br>
+解决方方如下：
+这个错误是因为Java 17 强制执行强封装，使用较旧版本的Lombok可能会导致此问题。通过升级到Lombok 1.18.22或更新版本，您应该能够解决这个问题。务必验证您确实正在使用正确的Lombok版本来构建，以避免兼容性问题。</p></blockquote>
+<p>在<code>thingsboard</code> 根项目目录下<code>pom.xml</code> 修改 第85行
+&lt;lombok.version&gt;1.18.18&lt;/lombok.version&gt;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;lombok.version&gt;</span>1.18.26<span style="color:#f92672">&lt;/lombok.version&gt;</span>
+</span></span></code></pre></div><blockquote>
+<p><em>问题2 gradle问题</em>
+解决方法更换版本 jdk 11,maven 版本为3.8.2</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> --- gradle-maven-plugin:1.0.11:invoke <span style="color:#f92672">(</span>default<span style="color:#f92672">)</span> @ http ---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> jvmArgs: <span style="color:#f92672">[</span>Ljava.lang.String;@519c5122
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> gradleProjectDirectory: E:<span style="color:#ae81ff">\w</span>orkProject<span style="color:#ae81ff">\j</span>ava5<span style="color:#ae81ff">\t</span>hingsboard<span style="color:#ae81ff">\t</span>ransport<span style="color:#ae81ff">\h</span>ttp<span style="color:#ae81ff">\.</span>.<span style="color:#ae81ff">\.</span>.<span style="color:#ae81ff">\p</span>ackaging<span style="color:#ae81ff">\j</span>ava
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Build
+</span></span><span style="display:flex;"><span>Downloading https://services.gradle.org/distributions/gradle-7.1.1-bin.zip
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Download https://services.gradle.org/distributions/gradle-7.1.1-bin.zip
+</span></span><span style="display:flex;"><span>...........................................................................................................
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Build
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Starting Gradle Daemon
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Connecting to Gradle Daemon
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Starting Gradle Daemon
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Build
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Run build
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Evaluate settings
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Run build
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Configure build
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Load projects
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Configure build
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Configure project :
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Compiling build file <span style="color:#e6db74">&#39;build.gradle&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Configure project :
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Configure build
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Run build
+</span></span><span style="display:flex;"><span>FAILURE: Build failed with an exception.
+</span></span><span style="display:flex;"><span>* Where:
+</span></span><span style="display:flex;"><span>Build file <span style="color:#e6db74">&#39;E:\workProject\java5\thingsboard\packaging\java\build.gradle&#39;</span>
+</span></span><span style="display:flex;"><span>* What went wrong:
+</span></span><span style="display:flex;"><span>Could not compile build file <span style="color:#e6db74">&#39;E:\workProject\java5\thingsboard\packaging\java\build.gradle&#39;</span>.
+</span></span><span style="display:flex;"><span>&gt; startup failed:
+</span></span><span style="display:flex;"><span>  General error during conversion: Unsupported class file major version <span style="color:#ae81ff">61</span>
+</span></span><span style="display:flex;"><span>  java.lang.IllegalArgumentException: Unsupported class file major version <span style="color:#ae81ff">61</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">1</span> error
+</span></span><span style="display:flex;"><span>* Try:
+</span></span><span style="display:flex;"><span>Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+</span></span><span style="display:flex;"><span>* Get more help at https://help.gradle.org
+</span></span><span style="display:flex;"><span>BUILD FAILED in 18m 29s
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Build
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Deleting unused version-specific caches in E:<span style="color:#ae81ff">\w</span>orkProject<span style="color:#ae81ff">\j</span>ava5<span style="color:#ae81ff">\t</span>hingsboard<span style="color:#ae81ff">\p</span>ackaging<span style="color:#ae81ff">\j</span>ava<span style="color:#ae81ff">\.</span>gradle
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> Build
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> 
+</span></span></code></pre></div><blockquote>
+<p><em>问题3 angular js的问题</em>
+解决方法：换3.6.3版本<br>
+试了梯子没有问题，全局下载tun模式。依然无效
+最后解决了主要是问题，yarn cache问题，清理干净重新下载即可
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_2.png" alt="img_2.png">
+报错如下</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>error<span style="color:#f92672">]</span> TypeError: Cannot read properties of undefined <span style="color:#f92672">(</span>reading <span style="color:#e6db74">&#39;pluginOptions&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>at module.exports <span style="color:#f92672">(</span>E:<span style="color:#ae81ff">\w</span>orkProject<span style="color:#ae81ff">\j</span>ava5<span style="color:#ae81ff">\t</span>hingsboard<span style="color:#ae81ff">\u</span>i-ngx<span style="color:#ae81ff">\e</span>xtra-webpack.config.js:71:57<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>at CustomWebpackBuilder.&lt;anonymous&gt; <span style="color:#f92672">(</span>E:<span style="color:#ae81ff">\w</span>orkProject<span style="color:#ae81ff">\j</span>ava5<span style="color:#ae81ff">\t</span>hingsboard<span style="color:#ae81ff">\u</span>i-ngx<span style="color:#ae81ff">\n</span>ode_modules<span style="color:#ae81ff">\@</span>angular-builders<span style="color:#ae81ff">\c</span>ustom-webpack<span style="color:#ae81ff">\d</span>ist<span style="color:#ae81ff">\c</span>ustom-webpack-builder.js:32:50<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>at Generator.next <span style="color:#f92672">(</span>&lt;anonymous&gt;<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>at fulfilled <span style="color:#f92672">(</span>E:<span style="color:#ae81ff">\w</span>orkProject<span style="color:#ae81ff">\j</span>ava5<span style="color:#ae81ff">\t</span>hingsboard<span style="color:#ae81ff">\u</span>i-ngx<span style="color:#ae81ff">\n</span>ode_modules<span style="color:#ae81ff">\@</span>angular-builders<span style="color:#ae81ff">\c</span>ustom-webpack<span style="color:#ae81ff">\d</span>ist<span style="color:#ae81ff">\c</span>ustom-webpack-builder.js:5:58<span style="color:#f92672">)</span>
+</span></span></code></pre></div><ul>
+<li>提示maven在编译打包ui-ngx时注意几个目录</li>
+<li>maven 编译</li>
+</ul>
+<blockquote>
+<p>mvn clean package  -DskipTests -s settings.xml</p></blockquote>
+<h1 id="pgsql数据库初始化">pgsql数据库初始化<a href="#pgsql数据库初始化" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<ul>
+<li>登录到pgsql</li>
+</ul>
+<blockquote>
+<p>psql -h localhost -p 5432 -U thingsboard -d thingsboard</p></blockquote>
+<ul>
+<li>增加pg数据库用户root 密码为root</li>
+</ul>
+<blockquote>
+<p>CREATE ROLE root WITH LOGIN PASSWORD &ldquo;root&rdquo;;</p></blockquote>
+<ul>
+<li>增加角色给root</li>
+</ul>
+<blockquote>
+<p>GRANT thingsboard TO root;</p></blockquote>
+<ul>
+<li>设置远程访问 pg_hba.conf,不管是docker安装thingsboard这里也适用</li>
+<li>docker thingsboard的<code>postgresql</code> 配置位置位于<code>/data/db/</code></li>
+<li>在pg_hba.conf增加一行在文件末行</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>host    all             all             0.0.0.0/0               md5  
+</span></span></code></pre></div><p>在postgresql.conf中修改以下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>listen_addresses<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;*&#39;</span>  
+</span></span></code></pre></div><ul>
+<li>WINDOWS 10 解决node.exe占用</li>
+</ul>
+<blockquote>
+<p>tasklist /V |findstr node.exe  找到进程ID<br>
+taskkill /F /PID 7132  删除该进程ID</p></blockquote>
+<ul>
+<li>maven编译ui-ngx几个缓存 <code>E:\maven_repository\.m2\</code> 这个是我下载的组件</li>
+<li>如果你之前在你的windows电脑上尝试过多个版本进打包编译，小心缓存</li>
+</ul>
+<blockquote>
+<p>E:\maven_repository.m2\repository\com\github\eirslett\node\<br>
+E:\maven_repository.m2\repository\com\github\eirslett\yarn\1.22.17\<br>
+E:\maven_repository.m2\repository\com\github\eirslett<br>
+C:\Users\admin\AppData\Local\Yarn  #这个缓存目录很坑，动不动几个G的文件</p></blockquote>
+<p>在ui-ngx目录下执行</p>
+<blockquote>
+<p>target\node\yarn\dist\bin\yarn.cmd cache clean <br>
+也可以手动执行安装，还可以看到进度条，通过maven的插件运行不太友好 <br>
+<code>target\node\yarn\dist\bin\yarn.cmd install</code>如果这一条命令手动执行成功后，可以用mvn package 对ui-ngx打成jar包了 <br>
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_4.png" alt="img_4.png">
+yarn 清理缓存如下
+清除yarn cache成功</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>yarn cache v1.22.17
+</span></span><span style="display:flex;"><span>success Cleared cache.
+</span></span><span style="display:flex;"><span>Done in 57.70s.
+</span></span></code></pre></div><blockquote>
+<p>删除target 目录用 <code>del /P target</code><br>
+删除js <code>del /P node_modules</code> <br>
+总之清理缓存需要清理yarn的缓存，yarn,node程序自身的程序，maven下载所产生的包</p></blockquote>
+<h1 id="关于thingsboard-docker启动及修改docker里的pgsql-配置的工具调式">关于thingsboard docker启动，及修改docker里的pgsql 配置的工具调式<a href="#关于thingsboard-docker启动及修改docker里的pgsql-配置的工具调式" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>apt-get update # 更新<br>
+docker exec -it -u root [container_name_or_id] /bin/bash  # 进入容器<br>
+apt-get install -y net-tools  # 安装netstart<br>
+apt-get install -y vim # 安装vim 修改配置<br>
+最简单的docker compose 配置 快速启动</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>version: &#39;3.0&#39;
+</span></span><span style="display:flex;"><span>services:
+</span></span><span style="display:flex;"><span>  mytb:
+</span></span><span style="display:flex;"><span>    restart: always
+</span></span><span style="display:flex;"><span>    image: &#34;thingsboard/tb-postgres:3.6.3&#34;
+</span></span><span style="display:flex;"><span>    ports:
+</span></span><span style="display:flex;"><span>      - &#34;8080:9090&#34;
+</span></span><span style="display:flex;"><span>      - &#34;1883:1883&#34;
+</span></span><span style="display:flex;"><span>      - &#34;7070:7070&#34;
+</span></span><span style="display:flex;"><span>      - &#34;15432:5432&#34;
+</span></span><span style="display:flex;"><span>      - &#34;5683-5688:5683-5688/udp&#34;
+</span></span><span style="display:flex;"><span>    environment:
+</span></span><span style="display:flex;"><span>      TB_QUEUE_TYPE: in-memory
+</span></span><span style="display:flex;"><span>    volumes:
+</span></span><span style="display:flex;"><span>      - /data/program/thingsboard/tb-data-363:/data
+</span></span><span style="display:flex;"><span>      - /data/program/thingsboard/logs:/var/log/thingsboard
+</span></span></code></pre></div><h1 id="关于thingsboard-protoc-文件显示问题">关于thingsboard protoc 文件显示问题<a href="#关于thingsboard-protoc-文件显示问题" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p><img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_7.png" alt="img_7.png"><br>
+插件只安装一个，否则与第一个冲突，这是我遇到的问题<br>
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_8.png" alt="img_8.png"><br>
+将生成的proto java 类必须让maven知道这是源文件，右键目录选择<code>Mark Directory as</code>  设置为<code>Generated Sources root</code><br>
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_9.png" alt="img_9.png"><br>
+TransportProts 飘红问题
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_10.png" alt="img_10.png">
+如果完全安装后错误仍然存在，则这是 IDE 的问题。打开&quot;Edit Custom Properties&hellip;&quot;（或者可能以不同的方式调用）并添加以下行： <br>
+idea.max.intellisense.filesize=20000 <br>
+通过<code>ctrl+shift+A</code>打开后输入上述配置 <br>
+这个文件其实idea目录下的bin下  <br>
+custom IntelliJ IDEA properties (expand/override &lsquo;bin\idea.properties&rsquo;)   <br>
+idea.max.intellisense.filesize=20000 <br>
+保存后 重新运行：mvn clean install -DskipTests <br>
+小心点打开这个文件非常卡，我的内存吃不消了<br>
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_11.png" alt="img_11.png"></p>
+<h1 id="说在最后">说在最后<a href="#说在最后" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>在maven 编译时，一定要使用windows 管理员权限执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mvn clean package  -DskipTests -s settings.xml
+</span></span><span style="display:flex;"><span>mvn clean install -U  -s settings.xml
+</span></span></code></pre></div><p>如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，需要挂梯子
+./node_modules/@angular/material/fesm2020/badge.mjs:7:0-77 - Error: Module not found: Error: Can&rsquo;t resolve &lsquo;@angular/platform-browser/animations&rsquo; in &lsquo;E:\workProject\java5\thingsboard\ui-ngx\node_modules@angular\material\fesm2020&rsquo;<br>
+主要是因为网络问题在下载以下两个包需要很长时间</p>
+<blockquote>
+<p>出现以下两行特别坑，非常慢，从windowsm网络监控看，明显示下载速度降低了，可以挂梯子试试更换节点地区试试</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> warning <span style="color:#e6db74">&#34; &gt; @flowjs/ngx-flow@0.6.0&#34;</span> has incorrect peer dependency <span style="color:#e6db74">&#34;@angular/common@^14.0.0-&#34;</span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> warning <span style="color:#e6db74">&#34; &gt; @flowjs/ngx-flow@0.6.0&#34;</span> has incorrect peer dependency <span style="color:#e6db74">&#34;@angular/core@^14.0.0-&#34;</span>.
+</span></span></code></pre></div><p>这些包更不要单独安装<br>
+npm install @angular/common@^14.0.0 @angular/core@^14.0.0
+也不排除一些情况在网络载中，某个js包下载不全导致编译报错，这种情况也会发生的。<br>
+随时查看网络情况以及电脑使用内存情况，由其是内存的问题，如果同时多个yarn install 然后又开了 IntelliJ IDEA 2022.2.3<br>
+多个任务，会导致内存接近极限，我电脑32G，被干到了31G，这样的话非常慢，重启电脑大法再来吧</p>
+<p><img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_3.png" alt="img_3.png">
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_5.png" alt="img_5.png"></p>
+<p>最后展示编译thingsboard ui-ngx 3.6.3和3.6.4都编译通过了</p>
+<blockquote>
+<p>以下是3.6.4 ui-ngx 编译成功</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\D</span>ownloads<span style="color:#ae81ff">\t</span>hingsboard-3.6.3<span style="color:#ae81ff">\u</span>i-ngx&gt;target<span style="color:#ae81ff">\n</span>ode<span style="color:#ae81ff">\y</span>arn<span style="color:#ae81ff">\d</span>ist<span style="color:#ae81ff">\b</span>in<span style="color:#ae81ff">\y</span>arn.cmd install
+</span></span><span style="display:flex;"><span>yarn install v1.22.17
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>1/4<span style="color:#f92672">]</span> Resolving packages...
+</span></span><span style="display:flex;"><span>warning Resolution field <span style="color:#e6db74">&#34;cacache@17.0.4&#34;</span> is incompatible with requested version <span style="color:#e6db74">&#34;cacache@^16.1.0&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2/4<span style="color:#f92672">]</span> Fetching packages...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>3/4<span style="color:#f92672">]</span> Linking dependencies...
+</span></span><span style="display:flex;"><span>warning <span style="color:#e6db74">&#34; &gt; @flowjs/ngx-flow@0.6.0&#34;</span> has incorrect peer dependency <span style="color:#e6db74">&#34;@angular/common@^14.0.0-&#34;</span>.
+</span></span><span style="display:flex;"><span>warning <span style="color:#e6db74">&#34; &gt; @flowjs/ngx-flow@0.6.0&#34;</span> has incorrect peer dependency <span style="color:#e6db74">&#34;@angular/core@^14.0.0-&#34;</span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>4/4<span style="color:#f92672">]</span> Building fresh packages...
+</span></span><span style="display:flex;"><span>$ patch-package
+</span></span><span style="display:flex;"><span>patch-package 6.5.1
+</span></span><span style="display:flex;"><span>Applying patches...
+</span></span><span style="display:flex;"><span>@angular/core@15.2.10 ✔
+</span></span><span style="display:flex;"><span>@mat-datetimepicker/core@11.0.3 ✔
+</span></span><span style="display:flex;"><span>canvas-gauges@2.1.7 ✔
+</span></span><span style="display:flex;"><span>echarts@5.5.0 ✔
+</span></span><span style="display:flex;"><span>Done in 19.36s.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\D</span>ownloads<span style="color:#ae81ff">\t</span>hingsboard-3.6.3<span style="color:#ae81ff">\u</span>i-ngx&gt;npm run start
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; thingsboard@3.6.3 start
+</span></span><span style="display:flex;"><span>&gt; node --max_old_space_size<span style="color:#f92672">=</span><span style="color:#ae81ff">8048</span> ./node_modules/@angular/cli/bin/ng serve --configuration development --host 0.0.0.0 --open
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Warning: This is a simple server <span style="color:#66d9ef">for</span> use in testing or debugging Angular applications
+</span></span><span style="display:flex;"><span>locally. It hasn<span style="color:#e6db74">&#39;t been reviewed for security issues.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Binding this server to an open connection can result in compromising your application or
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">computer. Using a different host than the one passed to the &#34;--host&#34; flag might result in
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">websocket connection issues. You might need to use &#34;--disable-host-check&#34; if that&#39;</span>s the
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">case</span>.
+</span></span><span style="display:flex;"><span>✔ Browser application bundle generation complete.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Initial Chunk Files                                                                                     | Names                                            |  Raw Size
+</span></span></code></pre></div><blockquote>
+<p>以下是3.6.4 ui-ngx 编译成功</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\D</span>ownloads<span style="color:#ae81ff">\t</span>hingsboard-3.6.4_a.tar<span style="color:#ae81ff">\3</span>64<span style="color:#ae81ff">\t</span>hingsboard-3.6.4<span style="color:#ae81ff">\u</span>i-ngx&gt;target<span style="color:#ae81ff">\n</span>ode<span style="color:#ae81ff">\y</span>arn<span style="color:#ae81ff">\d</span>ist<span style="color:#ae81ff">\b</span>in<span style="color:#ae81ff">\y</span>arn.cmd install
+</span></span><span style="display:flex;"><span>yarn install v1.22.17
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>1/4<span style="color:#f92672">]</span> Resolving packages...
+</span></span><span style="display:flex;"><span>warning Resolution field <span style="color:#e6db74">&#34;cacache@17.0.4&#34;</span> is incompatible with requested version <span style="color:#e6db74">&#34;cacache@^16.1.0&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2/4<span style="color:#f92672">]</span> Fetching packages...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>3/4<span style="color:#f92672">]</span> Linking dependencies...
+</span></span><span style="display:flex;"><span>warning <span style="color:#e6db74">&#34; &gt; @flowjs/ngx-flow@0.6.0&#34;</span> has incorrect peer dependency <span style="color:#e6db74">&#34;@angular/common@^14.0.0-&#34;</span>.
+</span></span><span style="display:flex;"><span>warning <span style="color:#e6db74">&#34; &gt; @flowjs/ngx-flow@0.6.0&#34;</span> has incorrect peer dependency <span style="color:#e6db74">&#34;@angular/core@^14.0.0-&#34;</span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>4/4<span style="color:#f92672">]</span> Building fresh packages...
+</span></span><span style="display:flex;"><span>$ patch-package
+</span></span><span style="display:flex;"><span>patch-package 6.5.1
+</span></span><span style="display:flex;"><span>Applying patches...
+</span></span><span style="display:flex;"><span>@angular/core@15.2.10 ✔
+</span></span><span style="display:flex;"><span>@mat-datetimepicker/core@11.0.3 ✔
+</span></span><span style="display:flex;"><span>canvas-gauges@2.1.7 ✔
+</span></span><span style="display:flex;"><span>echarts@5.5.0 ✔
+</span></span><span style="display:flex;"><span>Done in 18.75s.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\D</span>ownloads<span style="color:#ae81ff">\t</span>hingsboard-3.6.4_a.tar<span style="color:#ae81ff">\3</span>64<span style="color:#ae81ff">\t</span>hingsboard-3.6.4<span style="color:#ae81ff">\u</span>i-ngx&gt;
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\D</span>ownloads<span style="color:#ae81ff">\t</span>hingsboard-3.6.4_a.tar<span style="color:#ae81ff">\3</span>64<span style="color:#ae81ff">\t</span>hingsboard-3.6.4<span style="color:#ae81ff">\u</span>i-ngx&gt;
+</span></span><span style="display:flex;"><span>C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\a</span>dmin<span style="color:#ae81ff">\D</span>ownloads<span style="color:#ae81ff">\t</span>hingsboard-3.6.4_a.tar<span style="color:#ae81ff">\3</span>64<span style="color:#ae81ff">\t</span>hingsboard-3.6.4<span style="color:#ae81ff">\u</span>i-ngx&gt;npm run start
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; thingsboard@3.6.4 start
+</span></span><span style="display:flex;"><span>&gt; node --max_old_space_size<span style="color:#f92672">=</span><span style="color:#ae81ff">8048</span> ./node_modules/@angular/cli/bin/ng serve --configuration development --host 0.0.0.0 --open
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Warning: This is a simple server <span style="color:#66d9ef">for</span> use in testing or debugging Angular applications
+</span></span><span style="display:flex;"><span>locally. It hasn<span style="color:#e6db74">&#39;t been reviewed for security issues.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Binding this server to an open connection can result in compromising your application or
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">computer. Using a different host than the one passed to the &#34;--host&#34; flag might result in
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">websocket connection issues. You might need to use &#34;--disable-host-check&#34; if that&#39;</span>s the
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">case</span>.
+</span></span></code></pre></div><p>我还没有执行mvn 打包所有的java 光前端ui-ngx 2个G了<br>
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_6.png" alt="img_6.png">
+最终我运行的环境<br>
+C:\Users\admin&gt;mvn -version<br>
+Apache Maven 3.8.2 (ea98e05a04480131370aa0c110b8c54cf726c06f)<br>
+Maven home: D:\apache-maven-3.8.2<br>
+Java version: 11.0.11, vendor: AdoptOpenJDK, runtime: D:\Java_jdk\Java\jdk1.11.0-11<br>
+Default locale: zh_CN, platform encoding: GBK<br>
+OS name: &ldquo;windows 10&rdquo;, version: &ldquo;10.0&rdquo;, arch: &ldquo;amd64&rdquo;, family: &ldquo;windows&rdquo;</p>
+
+      </div></div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+  
+</div>
+
+</body>
+</html>
