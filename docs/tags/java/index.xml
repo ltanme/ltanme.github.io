@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>java on LTAN.ME</title>
+    <title>Java on LTAN.ME</title>
     <link>https://ltan.me/tags/java/</link>
-    <description>Recent content in java on LTAN.ME</description>
+    <description>Recent content in Java on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Mon, 28 Nov 2022 16:05:03 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Localdatetime to Date Format Java</title>
@@ -13,47 +13,51 @@
       <pubDate>Mon, 28 Nov 2022 16:05:03 +0800</pubDate>
       
       <guid>https://ltan.me/post/2022/11/localdatetime-to-date-format-java/</guid>
-      <description>Localdatetime to Date Format Java 在使用java时间的api个人感觉非常不方便，很多时候存在格式转换，类型转换 比如date 转localDate localDateTime转换为 Date 等这种操作，二者的相互转换并不是一步到位哪么简单</description>
+      <description>&lt;h1 id=&#34;localdatetime-to-date-format-java&#34;&gt;Localdatetime to Date Format Java&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在使用&lt;code&gt;java&lt;/code&gt;时间的&lt;code&gt;api&lt;/code&gt;个人感觉非常不方便，很多时候存在格式转换，类型转换 比如&lt;code&gt;date&lt;/code&gt; 转&lt;code&gt;localDate&lt;/code&gt;
+&lt;code&gt;localDateTime&lt;/code&gt;转换为 &lt;code&gt;Date&lt;/code&gt; 等这种操作，二者的相互转换并不是一步到位哪么简单的，所以，还是在
+这里记录一下转换的&lt;code&gt;api&lt;/code&gt;备忘一下, &lt;code&gt;localDate&lt;/code&gt;只处理&lt;code&gt;yyyyMMdd&lt;/code&gt;格式，&lt;code&gt;localTime&lt;/code&gt;只处理&lt;code&gt;HHmmss&lt;/code&gt;格式,而
+&lt;code&gt;localDateTime&lt;/code&gt; 可以处理 &lt;code&gt;yyyy-MM-dd HH:mm:ss&lt;/code&gt;&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;localdatetime-to-date-format-java&#34;&gt;Localdatetime to Date Format Java&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在使用&lt;code&gt;java&lt;/code&gt;时间的&lt;code&gt;api&lt;/code&gt;个人感觉非常不方便，很多时候存在格式转换，类型转换 比如&lt;code&gt;date&lt;/code&gt; 转&lt;code&gt;localDate&lt;/code&gt;
 &lt;code&gt;localDateTime&lt;/code&gt;转换为 &lt;code&gt;Date&lt;/code&gt; 等这种操作，二者的相互转换并不是一步到位哪么简单的，所以，还是在
 这里记录一下转换的&lt;code&gt;api&lt;/code&gt;备忘一下, &lt;code&gt;localDate&lt;/code&gt;只处理&lt;code&gt;yyyyMMdd&lt;/code&gt;格式，&lt;code&gt;localTime&lt;/code&gt;只处理&lt;code&gt;HHmmss&lt;/code&gt;格式,而
-&lt;code&gt;localDateTime&lt;/code&gt; 可以处理 &lt;code&gt;yyyy-MM-dd HH:mm:ss&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;code&gt;localDateTime&lt;/code&gt; 可以处理 &lt;code&gt;yyyy-MM-dd HH:mm:ss&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;date-to-localdatetime&#34;&gt;Date to LocalDateTime&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    Date date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Date&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt; 
-    LocalDateTime ldt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; date&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toInstant&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt;
-            &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;atZone&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;ZoneId&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;systemDefault&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
-            &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toLocalDateTime&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt; 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;localdatetime-to-date&#34;&gt;LocalDateTime to Date&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;   LocalDateTime date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; LocalDateTime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;now&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt; 
-   Date date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Date&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt; localDateTime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;atZone&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt; ZoneId&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;systemDefault&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()).&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toInstant&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;());&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;生成时间序列&#34;&gt;生成时间序列&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Date&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getDayList&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;String startDate&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; gap&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-      String pattern &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yyyy-MM-dd HH:mm:ss&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-      DateTimeFormatter dateFormat &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DateTimeFormatter&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ofPattern&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;pattern&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt; 
-      &lt;span style=&#34;color:#75715e&#34;&gt;// 生成年月日的日期序列
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;      List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Date&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArrayList&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt; 
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; gap&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt; i&lt;span style=&#34;color:#f92672&#34;&gt;++)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-         LocalDateTime newDate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; LocalDateTime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;parse&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;startDate&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; dateFormat&lt;span style=&#34;color:#f92672&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plusDays&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;i&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-         Date date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Date&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;newDate&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;atZone&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;ZoneId&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;systemDefault&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()).&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toInstant&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;());&lt;/span&gt;
-         res&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;add&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;date&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-      &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-   &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-   &lt;span style=&#34;color:#75715e&#34;&gt;//调用
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;      String startDate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2022-11-01 01:01:11&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; gap &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 30&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-      List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Date&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; dayList &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; getDayList&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;startDate&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; gap&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-      SimpleDateFormat sdf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; SimpleDateFormat&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yyyy-MM-dd&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-      
-      dayList&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;item &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-         String luanar &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; testLuanars&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;item&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;//输出农历
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;         String format &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sdf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;format&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;item&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-         System&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;out&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;format &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;=======&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; luanar&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-      &lt;span style=&#34;color:#f92672&#34;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Date date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Date(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    LocalDateTime ldt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; date.&lt;span style=&#34;color:#a6e22e&#34;&gt;toInstant&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            .&lt;span style=&#34;color:#a6e22e&#34;&gt;atZone&lt;/span&gt;(ZoneId.&lt;span style=&#34;color:#a6e22e&#34;&gt;systemDefault&lt;/span&gt;() )
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            .&lt;span style=&#34;color:#a6e22e&#34;&gt;toLocalDateTime&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;localdatetime-to-date&#34;&gt;LocalDateTime to Date&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   LocalDateTime date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; LocalDateTime.&lt;span style=&#34;color:#a6e22e&#34;&gt;now&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   Date date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Date.&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;( localDateTime.&lt;span style=&#34;color:#a6e22e&#34;&gt;atZone&lt;/span&gt;( ZoneId.&lt;span style=&#34;color:#a6e22e&#34;&gt;systemDefault&lt;/span&gt;()).&lt;span style=&#34;color:#a6e22e&#34;&gt;toInstant&lt;/span&gt;());
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;生成时间序列&#34;&gt;生成时间序列&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Date&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getDayList&lt;/span&gt;(String startDate, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; gap) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      String pattern &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yyyy-MM-dd HH:mm:ss&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      DateTimeFormatter dateFormat &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DateTimeFormatter.&lt;span style=&#34;color:#a6e22e&#34;&gt;ofPattern&lt;/span&gt;(pattern); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#75715e&#34;&gt;// 生成年月日的日期序列&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Date&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArrayList&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; gap; i&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         LocalDateTime newDate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; LocalDateTime.&lt;span style=&#34;color:#a6e22e&#34;&gt;parse&lt;/span&gt;(startDate, dateFormat).&lt;span style=&#34;color:#a6e22e&#34;&gt;plusDays&lt;/span&gt;(i);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         Date date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Date.&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;(newDate.&lt;span style=&#34;color:#a6e22e&#34;&gt;atZone&lt;/span&gt;(ZoneId.&lt;span style=&#34;color:#a6e22e&#34;&gt;systemDefault&lt;/span&gt;()).&lt;span style=&#34;color:#a6e22e&#34;&gt;toInstant&lt;/span&gt;());
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         res.&lt;span style=&#34;color:#a6e22e&#34;&gt;add&lt;/span&gt;(date);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#75715e&#34;&gt;//调用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      String startDate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2022-11-01 01:01:11&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; gap &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 30;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Date&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; dayList &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; getDayList(startDate, gap);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      SimpleDateFormat sdf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; SimpleDateFormat(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yyyy-MM-dd&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      dayList.&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;(item &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         String luanar &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; testLuanars(item); &lt;span style=&#34;color:#75715e&#34;&gt;//输出农历&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         String format &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sdf.&lt;span style=&#34;color:#a6e22e&#34;&gt;format&lt;/span&gt;(item);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         System.&lt;span style=&#34;color:#a6e22e&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;println&lt;/span&gt;(format &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;=======&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; luanar);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      });
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
     <item>
@@ -62,7 +66,15 @@
       <pubDate>Tue, 08 Mar 2022 09:45:39 +0800</pubDate>
       
       <guid>https://ltan.me/post/2022/03/classpath-resource-not-found-when-running-as-jar/</guid>
-      <description>读取jar包resources目录下的groovy脚本并调用 工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断 所以采用生成groovy脚本形式来解决动态校验以及入库规</description>
+      <description>&lt;h1 id=&#34;读取jar包resources目录下的groovy脚本并调用&#34;&gt;读取jar包resources目录下的groovy脚本并调用&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断
+所以采用生成groovy脚本形式来解决动态校验以及入库规则
+项目初期设计不复杂，功能简单，直接按日志项名称编写groovy脚本规则,比如wifi日志，则规则文件名为wifi.groovy
+当日志的http接口请求到wifi名称，则加载wifi.groovy规则文件并解析判断，包括入库，kafka队列等
+groovy文件放在resources/logTemplate文件夹下，遇到在jar包模式运行不能读到文件的问题
+而在idea能直接运行
+java -jar xxx.jar 运行报错如下&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;读取jar包resources目录下的groovy脚本并调用&#34;&gt;读取jar包resources目录下的groovy脚本并调用&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断
@@ -71,97 +83,84 @@
 当日志的http接口请求到wifi名称，则加载wifi.groovy规则文件并解析判断，包括入库，kafka队列等
 groovy文件放在resources/logTemplate文件夹下，遇到在jar包模式运行不能读到文件的问题
 而在idea能直接运行
-java -jar xxx.jar 运行报错如下&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; Caused by&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; java&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;lang&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;IllegalArgumentException&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; URI is not hierarchical
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;解决方法通过jar包运行时不能以文件形式读取jar包里的内容参考google方法整理有如下几种方法解决&#34;&gt;解决方法，通过jar包运行时，不能以文件形式读取jar包里的内容，参考google方法整理有如下几种方法解决&lt;/h1&gt;
+java -jar xxx.jar 运行报错如下&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; Caused by: java.&lt;span style=&#34;color:#a6e22e&#34;&gt;lang&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;IllegalArgumentException&lt;/span&gt;: URI is not hierarchical
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;解决方法通过jar包运行时不能以文件形式读取jar包里的内容参考google方法整理有如下几种方法解决&#34;&gt;解决方法，通过jar包运行时，不能以文件形式读取jar包里的内容，参考google方法整理有如下几种方法解决&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;第一种方法 Using IOUtils.toString (Apache Utils)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; IOUtils&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;inputStream&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; StandardCharsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;UTF_8&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第二种方法 Using CharStreams (Guava)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CharStreams&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;
-       inputStream&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; Charsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;UTF_8&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;));&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第三种方法 Using Scanner (JDK)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; Scanner s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Scanner&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;inputStream&lt;span style=&#34;color:#f92672&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;useDelimiter&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\\A&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
- String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;hasNext&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; s&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;next&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第四种方法 Using Stream API (Java 8). Warning: This solution converts different line breaks (like \r\n) to \n.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;inputStream&lt;span style=&#34;color:#f92672&#34;&gt;))&lt;/span&gt;
-   &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;lines&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;().&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;collect&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;Collectors&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;joining&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;));&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第五种方法 Using parallel Stream API (Java 8). Warning: This solution converts different line breaks (like \r\n) to \n.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;inputStream&lt;span style=&#34;color:#f92672&#34;&gt;))&lt;/span&gt;
-    &lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;lines&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;().&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;parallel&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;().&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;collect&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;Collectors&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;joining&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;));&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第六种方法 Using InputStreamReader and StringBuilder (JDK)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; bufferSize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 1024&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
- &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; buffer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;bufferSize&lt;span style=&#34;color:#f92672&#34;&gt;];&lt;/span&gt;
- StringBuilder out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringBuilder&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
- Reader in &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;stream&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; StandardCharsets&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;UTF_8&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
- &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; numRead&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;numRead &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; in&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;buffer&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; 0&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; buffer&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;))&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; 0&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-     out&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;buffer&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; 0&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; numRead&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
- &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
- &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; out&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第七种方法 Using StringWriter and IOUtils.copy (Apache Commons)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; StringWriter writer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringWriter&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
- IOUtils&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;copy&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;inputStream&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; writer&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
- &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; writer&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第八种方法 Using ByteArrayOutputStream and inputStream.read (JDK)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; ByteArrayOutputStream result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ByteArrayOutputStream&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
- &lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; buffer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1024&lt;span style=&#34;color:#f92672&#34;&gt;];&lt;/span&gt;
- &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; length&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inputStream&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;buffer&lt;span style=&#34;color:#f92672&#34;&gt;))&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-     result&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;write&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;buffer&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; 0&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; length&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
- &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
- &lt;span style=&#34;color:#75715e&#34;&gt;// StandardCharsets.UTF_8.name() &amp;gt; JDK 7
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; result&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第九种方法 Using ByteArrayOutputStream and inputStream.read (JDK)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; String newLine &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; System&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;getProperty&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;line.separator&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
- BufferedReader reader &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;
-         &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;inputStream&lt;span style=&#34;color:#f92672&#34;&gt;));&lt;/span&gt;
- StringBuilder result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringBuilder&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
- &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;String line&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;line &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; reader&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;readLine&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;())&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-     &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;result&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; 0&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-         result&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;newLine&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-     &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-     result&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;line&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
- &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
- &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; result&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第十种方法 Using BufferedInputStream and ByteArrayOutputStream (JDK)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;BufferedInputStream bis &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedInputStream&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;inputStream&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-ByteArrayOutputStream buf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ByteArrayOutputStream&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bis&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt; result &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt; result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bis&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;())&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-    buf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;write&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;((&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; result&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;// StandardCharsets.UTF_8.name() &amp;gt; JDK 7
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; buf&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;第十一种方法 Using inputStream.read() and StringBuilder (JDK). Warning: This solution has problems with Unicode, for example with Russian text (works correctly only with non-Unicode text)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;StringBuilder sb &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringBuilder&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; ch&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;ch &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inputStream&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;())&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-    sb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;((&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; ch&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; sb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第一种方法 Using IOUtils.toString (Apache Utils)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; IOUtils.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(inputStream, StandardCharsets.&lt;span style=&#34;color:#a6e22e&#34;&gt;UTF_8&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第二种方法 Using CharStreams (Guava)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CharStreams.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       inputStream, Charsets.&lt;span style=&#34;color:#a6e22e&#34;&gt;UTF_8&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第三种方法 Using Scanner (JDK)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; Scanner s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Scanner(inputStream).&lt;span style=&#34;color:#a6e22e&#34;&gt;useDelimiter&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\\A&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.&lt;span style=&#34;color:#a6e22e&#34;&gt;hasNext&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; s.&lt;span style=&#34;color:#a6e22e&#34;&gt;next&lt;/span&gt;() : &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第四种方法 Using Stream API (Java 8). Warning: This solution converts different line breaks (like \r\n) to \n.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader(&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(inputStream))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   .&lt;span style=&#34;color:#a6e22e&#34;&gt;lines&lt;/span&gt;().&lt;span style=&#34;color:#a6e22e&#34;&gt;collect&lt;/span&gt;(Collectors.&lt;span style=&#34;color:#a6e22e&#34;&gt;joining&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第五种方法 Using parallel Stream API (Java 8). Warning: This solution converts different line breaks (like \r\n) to \n.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader(&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(inputStream))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    .&lt;span style=&#34;color:#a6e22e&#34;&gt;lines&lt;/span&gt;().&lt;span style=&#34;color:#a6e22e&#34;&gt;parallel&lt;/span&gt;().&lt;span style=&#34;color:#a6e22e&#34;&gt;collect&lt;/span&gt;(Collectors.&lt;span style=&#34;color:#a6e22e&#34;&gt;joining&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第六种方法 Using InputStreamReader and StringBuilder (JDK)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; bufferSize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 1024;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; buffer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;bufferSize&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; StringBuilder out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringBuilder();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; Reader in &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(stream, StandardCharsets.&lt;span style=&#34;color:#a6e22e&#34;&gt;UTF_8&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; numRead; (numRead &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; in.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;(buffer, 0, buffer.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; 0; ) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     out.&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;(buffer, 0, numRead);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; out.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第七种方法 Using StringWriter and IOUtils.copy (Apache Commons)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; StringWriter writer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringWriter();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; IOUtils.&lt;span style=&#34;color:#a6e22e&#34;&gt;copy&lt;/span&gt;(inputStream, writer, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; writer.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第八种方法 Using ByteArrayOutputStream and inputStream.read (JDK)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; ByteArrayOutputStream result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ByteArrayOutputStream();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; buffer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1024&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; length; (length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inputStream.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;(buffer)) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1; ) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     result.&lt;span style=&#34;color:#a6e22e&#34;&gt;write&lt;/span&gt;(buffer, 0, length);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// StandardCharsets.UTF_8.name() &amp;gt; JDK 7&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; result.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第九种方法 Using ByteArrayOutputStream and inputStream.read (JDK)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String newLine &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; System.&lt;span style=&#34;color:#a6e22e&#34;&gt;getProperty&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;line.separator&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; BufferedReader reader &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(inputStream));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; StringBuilder result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringBuilder();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (String line; (line &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; reader.&lt;span style=&#34;color:#a6e22e&#34;&gt;readLine&lt;/span&gt;()) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;; ) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (result.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; 0) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         result.&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;(newLine);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     result.&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;(line);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; result.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第十种方法 Using BufferedInputStream and ByteArrayOutputStream (JDK)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;BufferedInputStream bis &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedInputStream(inputStream);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ByteArrayOutputStream buf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ByteArrayOutputStream();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bis.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;(); result &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1; result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bis.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    buf.&lt;span style=&#34;color:#a6e22e&#34;&gt;write&lt;/span&gt;((&lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;) result);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// StandardCharsets.UTF_8.name() &amp;gt; JDK 7&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; buf.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第十一种方法 Using inputStream.read() and StringBuilder (JDK). Warning: This solution has problems with Unicode, for example with Russian text (works correctly only with non-Unicode text)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;StringBuilder sb &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringBuilder();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; ch; (ch &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inputStream.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;()) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1; ) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    sb.&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;((&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;) ch);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; sb.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;根据场景需求我最终选择第四种方法来解决读取jar包里的文件内容
-本文来自：https://stackoverflow.com/questions/309424/how-do-i-read-convert-an-inputstream-into-a-string-in-java&lt;/p&gt;
-&lt;/blockquote&gt;
+本文来自：https://stackoverflow.com/questions/309424/how-do-i-read-convert-an-inputstream-into-a-string-in-java&lt;/p&gt;&lt;/blockquote&gt;
 </content>
     </item>
     
@@ -171,27 +170,27 @@ ByteArrayOutputStream buf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&g
       <pubDate>Fri, 11 Feb 2022 12:12:06 +0800</pubDate>
       
       <guid>https://ltan.me/post/2022/02/mybatis-failed-to-save-data/</guid>
-      <description>记一次遇到mybaits写入数据不成功问题 工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到 mysql client 执行sql执行并没有问题，但是调用接口时，写</description>
+      <description>&lt;h1 id=&#34;记一次遇到mybaits写入数据不成功问题&#34;&gt;记一次遇到mybaits写入数据不成功问题&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到
+mysql client 执行sql执行并没有问题，但是调用接口时，写入mysql不成功，也不报错，遇到这种问题特别
+困惑，特记录一下，&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;记一次遇到mybaits写入数据不成功问题&#34;&gt;记一次遇到mybaits写入数据不成功问题&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到
 mysql client 执行sql执行并没有问题，但是调用接口时，写入mysql不成功，也不报错，遇到这种问题特别
-困惑，特记录一下，&lt;/p&gt;
-&lt;/blockquote&gt;
+困惑，特记录一下，&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;找了一下午才发现问题，最怕就是程序不报错，语句执行成功，但数据库没有数据这样的问题呢
 主要问题是接口请求实体类有几个版本字段是用的Long 类型的，而mysql表对应的字段是int类型的
 在用mybatis-generate 插件生成表的 mapper.xml、dao、model时，mysql字段为int类型的生成对应的integer类型
 但是代码定义的dto 接口请求实体类，字段是long类型，入库时，存在long 转 integer 的行为，行为非法，但执行时sql不报错
-由于时间关系没有进一步查为什么不报错提示，xml生成的字段类型都是 java.lang.Integer&lt;/p&gt;
-&lt;/blockquote&gt;
+由于时间关系没有进一步查为什么不报错提示，xml生成的字段类型都是 java.lang.Integer&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;解决方法 统一 字段类型即可&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;解决方法 统一 字段类型即可&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在mysql数据库里，int类型占4个字节对应java的Integer类型，
-而mysql中的bigint 类型占用8个字节对应java的Long类型, 在mybaits xml 文件没有Long类型，只有BIGINT&lt;/p&gt;
-&lt;/blockquote&gt;
+而mysql中的bigint 类型占用8个字节对应java的Long类型, 在mybaits xml 文件没有Long类型，只有BIGINT&lt;/p&gt;&lt;/blockquote&gt;
 </content>
     </item>
     
@@ -201,22 +200,24 @@ mysql client 执行sql执行并没有问题，但是调用接口时，写入mysq
       <pubDate>Tue, 07 Dec 2021 09:54:05 +0800</pubDate>
       
       <guid>https://ltan.me/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</guid>
-      <description>一次上线遇到的问mysql版本使用问题CLIENT_PLUGIN_AUTH 当在项目做好即将上线时，突然发现线上数据库版本太低而报如题错误，导致程序上线启动失败，现有数据库己被很多老的项目在使用着，不可</description>
+      <description>&lt;h1 id=&#34;一次上线遇到的问mysql版本使用问题client_plugin_auth&#34;&gt;一次上线遇到的问mysql版本使用问题CLIENT_PLUGIN_AUTH&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当在项目做好即将上线时，突然发现线上数据库版本太低而报如题错误，导致程序上线启动失败，现有数据库己被很多老的项目在使用着，不可能让dba去更新数据库版本，或另开服务器。&lt;/p&gt;
+&lt;p&gt;找了一下原因，是因为使用spring boot 2.x版本，相对比较新，而默认使用的数据库版本为mysql-connect 库 8.x，而需要手动给mysql connect jar包库版本降级，从8.x降到5.1.48&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;一次上线遇到的问mysql版本使用问题client_plugin_auth&#34;&gt;一次上线遇到的问mysql版本使用问题CLIENT_PLUGIN_AUTH&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;当在项目做好即将上线时，突然发现线上数据库版本太低而报如题错误，导致程序上线启动失败，现有数据库己被很多老的项目在使用着，不可能让dba去更新数据库版本，或另开服务器。&lt;/p&gt;
 &lt;p&gt;找了一下原因，是因为使用spring boot 2.x版本，相对比较新，而默认使用的数据库版本为mysql-connect 库 8.x，而需要手动给mysql connect jar包库版本降级，从8.x降到5.1.48&lt;/p&gt;
 &lt;p&gt;主要处理方法是&lt;/p&gt;
 &lt;p&gt;第一、需要在 父pom.xml 文件里先指定&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;mysql.version&amp;gt;&lt;/span&gt;5.1.48&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/mysql.version&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第二、修改jdbc使用驱动jar包类&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;mysql.version&amp;gt;&lt;/span&gt;5.1.48&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/mysql.version&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第二、修改jdbc使用驱动jar包类&lt;/p&gt;
 &lt;p&gt;由&lt;code&gt;com.mysql.cj.jdbc.Driver&lt;/code&gt; 改为 &lt;code&gt;com.mysql.jdbc.Driver&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;链接url&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;url&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;jdbc:mysql://172.20.1.2:3406/xxx?useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;useJDBCCompliantTimezoneShift=true&amp;amp;useLegacyDatetimeCode=false&amp;amp;serverTimezone=Asia/Shanghai&amp;amp;zeroDateTimeBehavior=CONVERT_TO_NULL&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;改为：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;jdbc:mysql://172.20.1.2:3406/xxx?useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;useJDBCCompliantTimezoneShift=true&amp;amp;useLegacyDatetimeCode=false&amp;amp;serverTimezone=Asia/Shanghai&amp;amp;zeroDateTimeBehavior=convertToNull&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;CONVERT_TO_NULL  &lt;/code&gt;  to  &lt;code&gt;convertToNull&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;url&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;jdbc:mysql://172.20.1.2:3406/xxx?useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;useJDBCCompliantTimezoneShift=true&amp;amp;useLegacyDatetimeCode=false&amp;amp;serverTimezone=Asia/Shanghai&amp;amp;zeroDateTimeBehavior=CONVERT_TO_NULL&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;改为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;jdbc:mysql://172.20.1.2:3406/xxx?useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;amp;useJDBCCompliantTimezoneShift=true&amp;amp;useLegacyDatetimeCode=false&amp;amp;serverTimezone=Asia/Shanghai&amp;amp;zeroDateTimeBehavior=convertToNull&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;CONVERT_TO_NULL  &lt;/code&gt;  to  &lt;code&gt;convertToNull&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;大功告成，顺利上线&lt;/p&gt;
 </content>
     </item>
@@ -227,72 +228,72 @@ mysql client 执行sql执行并没有问题，但是调用接口时，写入mysq
       <pubDate>Thu, 14 Oct 2021 10:45:23 +0800</pubDate>
       
       <guid>https://ltan.me/post/2021/10/enumeration-class-used-in-java/</guid>
-      <description>枚举类在java中使用方法之一 在后数据中台中，有些数据不需要放在数据库当中，只需要一个枚举类即可，比如web ui select 选择器下拉数据，男，女 这种，还比如省市 下拉数据，而这些数据可以不需要数据库来保存，也不需</description>
+      <description>&lt;h1 id=&#34;枚举类在java中使用方法之一&#34;&gt;枚举类在java中使用方法之一&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在后数据中台中，有些数据不需要放在数据库当中，只需要一个枚举类即可，比如web ui select 选择器下拉数据，&lt;code&gt;男&lt;/code&gt;，&lt;code&gt;女&lt;/code&gt; 这种，还比如&lt;code&gt;省市&lt;/code&gt; 下拉数据，而这些数据可以不需要数据库来保存，也不需要用配置文件来保存，只需要一个枚举类即可，使用方法如下&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;枚举类在java中使用方法之一&#34;&gt;枚举类在java中使用方法之一&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;在后数据中台中，有些数据不需要放在数据库当中，只需要一个枚举类即可，比如web ui select 选择器下拉数据，&lt;code&gt;男&lt;/code&gt;，&lt;code&gt;女&lt;/code&gt; 这种，还比如&lt;code&gt;省市&lt;/code&gt; 下拉数据，而这些数据可以不需要数据库来保存，也不需要用配置文件来保存，只需要一个枚举类即可，使用方法如下&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-JAVA&#34; data-lang=&#34;JAVA&#34;&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;enum&lt;/span&gt; AppCmdEnum &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-
-   APP_INSTALL&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;安装命令&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;),&lt;/span&gt;
-   APP_UNINSTALL&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;卸载命令&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;),&lt;/span&gt;
-   APP_UPGRADE&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;3&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;升级命令&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-
-   Integer code&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-   String name&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; Map&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Integer&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; KEYS_MAP &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; HashMap&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; Map&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; KEYS_MAP_SS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; HashMap&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
-
-   &lt;span style=&#34;color:#75715e&#34;&gt;//初始化枚举类资源类型数据返回，
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;AppCmdEnum item &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; AppCmdEnum&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;values&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;())&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-         KEYS_MAP&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;put&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;item&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; item&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-         KEYS_MAP_SS&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;put&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;item&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(),&lt;/span&gt; item&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-      &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-   &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; Map&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Integer&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getKeysMap&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; KEYS_MAP&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-   &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; Map&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getKeysMapSS&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; KEYS_MAP_SS&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-   &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-
-   &lt;span style=&#34;color:#75715e&#34;&gt;//增加一个构造函数，丰富描述该枚举类的作用，和功能，字段含义
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;   &lt;span style=&#34;color:#75715e&#34;&gt;//根据业务需求可以，可以增加很多的属性字段，扩展非常灵活
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;   AppCmdEnum&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;Integer code&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; String name&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; code&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; name&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-   &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Integer &lt;span style=&#34;color:#a6e22e&#34;&gt;getCode&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-   &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#a6e22e&#34;&gt;getName&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
-   &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在spring boot项目调用方法&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@GetMapping(&amp;quot;/api_conf&amp;quot;)
+&lt;p&gt;在后数据中台中，有些数据不需要放在数据库当中，只需要一个枚举类即可，比如web ui select 选择器下拉数据，&lt;code&gt;男&lt;/code&gt;，&lt;code&gt;女&lt;/code&gt; 这种，还比如&lt;code&gt;省市&lt;/code&gt; 下拉数据，而这些数据可以不需要数据库来保存，也不需要用配置文件来保存，只需要一个枚举类即可，使用方法如下&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-JAVA&#34; data-lang=&#34;JAVA&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;enum&lt;/span&gt; AppCmdEnum {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   APP_INSTALL(1, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;安装命令&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   APP_UNINSTALL(2, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;卸载命令&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   APP_UPGRADE(3, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;升级命令&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   Integer code;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   String name;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; Map&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Integer, String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; KEYS_MAP &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; HashMap&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; Map&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String, String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; KEYS_MAP_SS &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; HashMap&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#75715e&#34;&gt;//初始化枚举类资源类型数据返回，&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (AppCmdEnum item : AppCmdEnum.&lt;span style=&#34;color:#a6e22e&#34;&gt;values&lt;/span&gt;()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         KEYS_MAP.&lt;span style=&#34;color:#a6e22e&#34;&gt;put&lt;/span&gt;(item.&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt;, item.&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         KEYS_MAP_SS.&lt;span style=&#34;color:#a6e22e&#34;&gt;put&lt;/span&gt;(item.&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(), item.&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; Map&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Integer, String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getKeysMap&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; KEYS_MAP;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; Map&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String, String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getKeysMapSS&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; KEYS_MAP_SS;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#75715e&#34;&gt;//增加一个构造函数，丰富描述该枚举类的作用，和功能，字段含义&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#75715e&#34;&gt;//根据业务需求可以，可以增加很多的属性字段，扩展非常灵活&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   AppCmdEnum(Integer code, String name) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; code;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; name;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Integer &lt;span style=&#34;color:#a6e22e&#34;&gt;getCode&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;code&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; String &lt;span style=&#34;color:#a6e22e&#34;&gt;getName&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在spring boot项目调用方法&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;@GetMapping(&amp;#34;/api_conf&amp;#34;)
 public Object apiConf() {
    Map&amp;lt;Integer, String&amp;gt; keysMap = AppCmdEnum.getKeysMap();
    return keysMap;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;该接口返回内容如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;{
-	&amp;quot;1&amp;quot;: &amp;quot;安装命令&amp;quot;,
-	&amp;quot;2&amp;quot;: &amp;quot;卸载命令&amp;quot;,
-	&amp;quot;3&amp;quot;: &amp;quot;升级命令&amp;quot;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;{
+	&amp;#34;1&amp;#34;: &amp;#34;安装命令&amp;#34;,
+	&amp;#34;2&amp;#34;: &amp;#34;卸载命令&amp;#34;,
+	&amp;#34;3&amp;#34;: &amp;#34;升级命令&amp;#34;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用到web前端效果&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;image-20211014110500057.png&#34; alt=&#34;image-20211014110500057&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/10/enumeration-class-used-in-java/image-20211014110500057.png&#34; alt=&#34;image-20211014110500057&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在业务代码使用枚举类时，还有中文提示，这个比常量好使很多呢&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;image-20211014110845695.png&#34; alt=&#34;image-20211014110845695&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/10/enumeration-class-used-in-java/image-20211014110845695.png&#34; alt=&#34;image-20211014110845695&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
@@ -302,65 +303,65 @@ public Object apiConf() {
       <pubDate>Mon, 27 Sep 2021 16:49:31 +0800</pubDate>
       
       <guid>https://ltan.me/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</guid>
-      <description>mybatis-plus 自带分页 和 com.github.pagehelper工具使用对比 对经常写中台列表数据管理接口的同学来说，需要经常使用到分页插件来提升自己的工作效率，通常我用过最多的两款插件如标题所示，这两款插件在写</description>
+      <description>&lt;h1 id=&#34;mybatis-plus-自带分页-和-comgithubpagehelper工具使用对比&#34;&gt;mybatis-plus 自带分页 和 com.github.pagehelper工具使用对比&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对经常写中台列表数据管理接口的同学来说，需要经常使用到分页插件来提升自己的工作效率，通常我用过最多的两款插件如标题所示，这两款插件在写文章之前，我一直搞不清，浮躁，混为一谈，需要总结整理&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;mybatis-plus-自带分页-和-comgithubpagehelper工具使用对比&#34;&gt;mybatis-plus 自带分页 和 com.github.pagehelper工具使用对比&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;对经常写中台列表数据管理接口的同学来说，需要经常使用到分页插件来提升自己的工作效率，通常我用过最多的两款插件如标题所示，这两款插件在写文章之前，我一直搞不清，浮躁，混为一谈，需要总结整理&lt;/p&gt;
-&lt;p&gt;今抽空花些时间来比较一下他们在返回&lt;code&gt;response body&lt;/code&gt; 时内容, 观察到&lt;code&gt;pagehelper&lt;/code&gt;不愧是术业有专攻啊，个人认为&lt;code&gt;pagehelper&lt;/code&gt; 作为专业分页插件不得不说，其功能特点比&lt;code&gt;mybatis-plus&lt;/code&gt; 完善多了，考虑到人性化，由期在前后端对接方面，大大提升了效率，少写很多代码，不过有时还是看需求场景，对于不需要web端展示的，我推荐&lt;code&gt;mybatis-plus 自带的page分页&lt;/code&gt; ,它相比&lt;code&gt;pagehelper&lt;/code&gt;插件提供的能力还是比较简单，比如没有提供&lt;code&gt;页码位置&lt;/code&gt;，&lt;code&gt;前一页&lt;/code&gt;，&lt;code&gt;后一页&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;今抽空花些时间来比较一下他们在返回&lt;code&gt;response body&lt;/code&gt; 时内容, 观察到&lt;code&gt;pagehelper&lt;/code&gt;不愧是术业有专攻啊，个人认为&lt;code&gt;pagehelper&lt;/code&gt; 作为专业分页插件不得不说，其功能特点比&lt;code&gt;mybatis-plus&lt;/code&gt; 完善多了，考虑到人性化，由期在前后端对接方面，大大提升了效率，少写很多代码，不过有时还是看需求场景，对于不需要web端展示的，我推荐&lt;code&gt;mybatis-plus 自带的page分页&lt;/code&gt; ,它相比&lt;code&gt;pagehelper&lt;/code&gt;插件提供的能力还是比较简单，比如没有提供&lt;code&gt;页码位置&lt;/code&gt;，&lt;code&gt;前一页&lt;/code&gt;，&lt;code&gt;后一页&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;mybatis-plus-page&#34;&gt;mybatis-plus page&lt;/h2&gt;
 &lt;p&gt;以下为mybatis-plus 分页插件在返回data数据 结构如下&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;records&amp;#34;&lt;/span&gt;: [
-           &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;.....&lt;/span&gt;		
-        ],
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;total&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;size&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;current&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;orders&amp;#34;&lt;/span&gt;: [],
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;searchCount&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;pages&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
-    }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;代码使用：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;   &lt;span style=&#34;color:#a6e22e&#34;&gt;@GetMapping&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/list&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Object &lt;span style=&#34;color:#a6e22e&#34;&gt;pageList&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@RequestParam&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;defaultValue &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; Integer pageNum&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt;
-                          &lt;span style=&#34;color:#a6e22e&#34;&gt;@RequestParam&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;defaultValue &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; Integer pageSize&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
-	  QueryWrapper&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;xxModel&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; queryWrapper &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; QueryWrapper&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
-      Page&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;xxModel&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; page &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Page&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;gt;(&lt;/span&gt;pageNum&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; pageSize&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt; 
-      IPage&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;xxModel&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; list &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xxService&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;page&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;page&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; queryWrapper&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
-      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; list
-&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;pagehelper&#34;&gt;pagehelper&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;records&amp;#34;&lt;/span&gt;: [
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;           &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;.....&lt;/span&gt;		
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;total&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;size&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;current&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;orders&amp;#34;&lt;/span&gt;: [],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;searchCount&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;pages&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;代码使用：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#a6e22e&#34;&gt;@GetMapping&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/list&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Object &lt;span style=&#34;color:#a6e22e&#34;&gt;pageList&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;@RequestParam&lt;/span&gt;(defaultValue &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;) Integer pageNum,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                          &lt;span style=&#34;color:#a6e22e&#34;&gt;@RequestParam&lt;/span&gt;(defaultValue &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10&amp;#34;&lt;/span&gt;) Integer pageSize) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	  QueryWrapper&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;xxModel&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; queryWrapper &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; QueryWrapper&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      Page&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;xxModel&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; page &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Page&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;(pageNum, pageSize); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      IPage&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;xxModel&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; list &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xxService.&lt;span style=&#34;color:#a6e22e&#34;&gt;page&lt;/span&gt;(page, queryWrapper);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; list
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;pagehelper&#34;&gt;pagehelper&lt;/h2&gt;
 &lt;p&gt;以下为pagehelper 的返回data数据，结构如下&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;total&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;list&amp;#34;&lt;/span&gt;: [
-            &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;.....&lt;/span&gt;
-        ],
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;pageNum&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;pageSize&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;size&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;startRow&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;endRow&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;pages&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;prePage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;nextPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;isFirstPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;isLastPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;hasPreviousPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;hasNextPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;navigatePages&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;navigatepageNums&amp;#34;&lt;/span&gt;: [],
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;navigateFirstPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
-        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;navigateLastPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;web前端对接时看到有 prePage，nextPage 实现太香，不要不要的&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;image-20210927173234110.png&#34; alt=&#34;image-20210927173234110&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;total&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;list&amp;#34;&lt;/span&gt;: [
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;.....&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;pageNum&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;pageSize&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;size&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;startRow&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;endRow&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;pages&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;prePage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;nextPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;isFirstPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;isLastPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;hasPreviousPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;hasNextPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;navigatePages&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;navigatepageNums&amp;#34;&lt;/span&gt;: [],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;navigateFirstPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;navigateLastPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;web前端对接时看到有 prePage，nextPage 实现太香，不要不要的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/image-20210927173234110.png&#34; alt=&#34;image-20210927173234110&#34;&gt;&lt;/p&gt;
 &lt;p&gt;代码使用：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt; @GetMapping(&amp;quot;/list&amp;quot;)
-   public Object pageList(@RequestParam(defaultValue = &amp;quot;1&amp;quot;) Integer pageNum,
-                          @RequestParam(defaultValue = &amp;quot;10&amp;quot;) Integer pageSize) {
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; @GetMapping(&amp;#34;/list&amp;#34;)
+   public Object pageList(@RequestParam(defaultValue = &amp;#34;1&amp;#34;) Integer pageNum,
+                          @RequestParam(defaultValue = &amp;#34;10&amp;#34;) Integer pageSize) {
       QueryWrapper&amp;lt;xxModel&amp;gt; queryWrapper = new QueryWrapper&amp;lt;&amp;gt;();
       PageHelper.startPage(pageNum, pageSize); 
 	  List&amp;lt;xxModel&amp;gt; list = xxService.list(queryWrapper);
@@ -377,23 +378,25 @@ public Object apiConf() {
       <pubDate>Wed, 12 May 2021 19:36:48 +0800</pubDate>
       
       <guid>https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</guid>
-      <description>在windows系统中检验一个上传文件程序是否有bug另一种姿势 某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程 在windows系统调试一个文件上传程</description>
+      <description>&lt;h1 id=&#34;在windows系统中检验一个上传文件程序是否有bug另一种姿势&#34;&gt;在windows系统中检验一个上传文件程序是否有bug另一种姿势&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程&lt;/p&gt;
+&lt;p&gt;在windows系统调试一个文件上传程序，手贱想重新删除原文件，重新上传，结果这一删除发现windows 弹窗，报窗&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;在windows系统中检验一个上传文件程序是否有bug另一种姿势&#34;&gt;在windows系统中检验一个上传文件程序是否有bug另一种姿势&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程&lt;/p&gt;
 &lt;p&gt;在windows系统调试一个文件上传程序，手贱想重新删除原文件，重新上传，结果这一删除发现windows 弹窗，报窗&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;文件正常使用&lt;/em&gt;    错误提示。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;文件正常使用&lt;/em&gt;    错误提示。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;这个程序需求就是把一个zip包上传到ftp当中，流程是先上传到服务器本地，然后同步到ftp当中&lt;/p&gt;
 &lt;p&gt;在windows 调试过程重新删除了己上传的文件，但发现不能删除的，这个问题也找了很久。&lt;/p&gt;
 &lt;p&gt;于是就重新梳理一下上传的流程。&lt;/p&gt;
 &lt;p&gt;发现以下问题&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210512194748766.png&#34; alt=&#34;image-20210512194748766&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194748766.png&#34; alt=&#34;image-20210512194748766&#34;&gt;&lt;/p&gt;
 &lt;p&gt;来调试代码&lt;/p&gt;
 &lt;p&gt;下面这段代码，上传zip后先保存到本地&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210512194834905.png&#34; alt=&#34;image-20210512194834905&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194834905.png&#34; alt=&#34;image-20210512194834905&#34;&gt;&lt;/p&gt;
 &lt;p&gt;接下来是解压zip&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210512194951003.png&#34; alt=&#34;image-20210512194951003&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194951003.png&#34; alt=&#34;image-20210512194951003&#34;&gt;&lt;/p&gt;
 &lt;p&gt;最后增加zipFile.close() 解决，增加in.close() 解决&lt;/p&gt;
 &lt;p&gt;问题总结：&lt;/p&gt;
 &lt;p&gt;​    论代码review 重要性，前期需要多多测试。&lt;/p&gt;

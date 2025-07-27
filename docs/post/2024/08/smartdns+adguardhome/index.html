@@ -6,7 +6,12 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="文档参考记录 https://disc8888.com/10775.html https://cloud.tencent.com/developer/article/2296129 smartdns https://www.nodeseek.com/post-53938-1 docker run &amp;ndash;name adguardhome2 &amp;ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf -p 15332:53/udp -p 15332:53/tcp -p 3002:3000/tcp -d adguard/adguardhome:latest docker run &amp;ndash;name adguardhome1 &amp;ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard1/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard1/conf:/opt/adguardhome/conf -p 15331:53/udp -p 15331:53/tcp -p 3001:3000/tcp -d adguard/adguardhome:latest docker run &amp;ndash;name adguardhome1 &amp;ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf &amp;ndash;network host -d adguard/adguardhome:latest" />
+<meta name="description" content="
+文档参考记录 https://disc8888.com/10775.html https://cloud.tencent.com/developer/article/2296129 smartdns https://www.nodeseek.com/post-53938-1
+docker run &ndash;name adguardhome2 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf -p 15332:53/udp -p 15332:53/tcp -p 3002:3000/tcp -d adguard/adguardhome:latest
+docker run &ndash;name adguardhome1 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard1/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard1/conf:/opt/adguardhome/conf -p 15331:53/udp -p 15331:53/tcp -p 3001:3000/tcp -d adguard/adguardhome:latest
+docker run &ndash;name adguardhome1 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf &ndash;network host -d adguard/adguardhome:latest
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2024/08/smartdns&#43;adguardhome/" />
@@ -39,7 +44,12 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Smartdns&#43;adguardhome">
-<meta property="og:description" content="文档参考记录 https://disc8888.com/10775.html https://cloud.tencent.com/developer/article/2296129 smartdns https://www.nodeseek.com/post-53938-1 docker run &amp;ndash;name adguardhome2 &amp;ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf -p 15332:53/udp -p 15332:53/tcp -p 3002:3000/tcp -d adguard/adguardhome:latest docker run &amp;ndash;name adguardhome1 &amp;ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard1/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard1/conf:/opt/adguardhome/conf -p 15331:53/udp -p 15331:53/tcp -p 3001:3000/tcp -d adguard/adguardhome:latest docker run &amp;ndash;name adguardhome1 &amp;ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf &amp;ndash;network host -d adguard/adguardhome:latest" />
+<meta property="og:description" content="
+文档参考记录 https://disc8888.com/10775.html https://cloud.tencent.com/developer/article/2296129 smartdns https://www.nodeseek.com/post-53938-1
+docker run &ndash;name adguardhome2 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf -p 15332:53/udp -p 15332:53/tcp -p 3002:3000/tcp -d adguard/adguardhome:latest
+docker run &ndash;name adguardhome1 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard1/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard1/conf:/opt/adguardhome/conf -p 15331:53/udp -p 15331:53/tcp -p 3001:3000/tcp -d adguard/adguardhome:latest
+docker run &ndash;name adguardhome1 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf &ndash;network host -d adguard/adguardhome:latest
+" />
 <meta property="og:url" content="https://ltan.me/post/2024/08/smartdns&#43;adguardhome/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -166,26 +176,26 @@
   
 
   <div class="post-content"><div>
-        <p><img src="img.png" alt="img.png"></p>
+        <p><img src="/post/2024/08/smartdns&#43;adguardhome/img.png" alt="img.png"></p>
 <p>文档参考记录
 <a href="https://disc8888.com/10775.html">https://disc8888.com/10775.html</a>
 <a href="https://cloud.tencent.com/developer/article/2296129">https://cloud.tencent.com/developer/article/2296129</a>
 smartdns
 <a href="https://www.nodeseek.com/post-53938-1">https://www.nodeseek.com/post-53938-1</a></p>
 <p>docker run &ndash;name adguardhome2 &ndash;restart unless-stopped -v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf -p 15332:53/udp -p 15332:53/tcp -p 3002:3000/tcp -d adguard/adguardhome:latest</p>
-<p>docker run &ndash;name adguardhome1<br>
-&ndash;restart unless-stopped<br>
--v /overlay/upper/opt/docker/volumes/adguard1/work:/opt/adguardhome/work<br>
--v /overlay/upper/opt/docker/volumes/adguard1/conf:/opt/adguardhome/conf<br>
--p 15331:53/udp<br>
--p 15331:53/tcp<br>
--p 3001:3000/tcp<br>
+<p>docker run &ndash;name adguardhome1 <br>
+&ndash;restart unless-stopped <br>
+-v /overlay/upper/opt/docker/volumes/adguard1/work:/opt/adguardhome/work <br>
+-v /overlay/upper/opt/docker/volumes/adguard1/conf:/opt/adguardhome/conf <br>
+-p 15331:53/udp <br>
+-p 15331:53/tcp <br>
+-p 3001:3000/tcp <br>
 -d adguard/adguardhome:latest</p>
-<p>docker run &ndash;name adguardhome1<br>
-&ndash;restart unless-stopped<br>
--v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work<br>
--v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf<br>
-&ndash;network host<br>
+<p>docker run &ndash;name adguardhome1 <br>
+&ndash;restart unless-stopped <br>
+-v /overlay/upper/opt/docker/volumes/adguard2/work:/opt/adguardhome/work <br>
+-v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf <br>
+&ndash;network host <br>
 -d adguard/adguardhome:latest</p>
 
       </div></div>

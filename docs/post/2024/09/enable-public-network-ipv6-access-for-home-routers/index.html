@@ -6,7 +6,11 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等 我的设备为广东移动&#43;openwrt(r5s)， 我上网模式是光猫拨号，路由器nat 1.找到登录光猫后台用户名和密码 2.设置如下状态" />
+<meta name="description" content="记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等 我的设备为广东移动&#43;openwrt(r5s)， 我上网模式是光猫拨号，路由器nat
+1.找到登录光猫后台用户名和密码
+2.设置如下状态如下-&gt;如图所示
+先把这里的沟去掉吧，后续再优化，看能否通网
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/" />
@@ -39,7 +43,11 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Enable Public Network IPv6 Access for Home Routers">
-<meta property="og:description" content="记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等 我的设备为广东移动&#43;openwrt(r5s)， 我上网模式是光猫拨号，路由器nat 1.找到登录光猫后台用户名和密码 2.设置如下状态" />
+<meta property="og:description" content="记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等 我的设备为广东移动&#43;openwrt(r5s)， 我上网模式是光猫拨号，路由器nat
+1.找到登录光猫后台用户名和密码
+2.设置如下状态如下-&gt;如图所示
+先把这里的沟去掉吧，后续再优化，看能否通网
+" />
 <meta property="og:url" content="https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -168,29 +176,26 @@
 <blockquote>
 <p>我的设备为广东移动+openwrt(r5s)， 我上网模式是光猫拨号，路由器nat<br>
 1.找到登录光猫后台用户名和密码<br>
-<img src="img.png" alt="img.png"><br>
-2.设置如下状态如下-&gt;如图所示</p>
-</blockquote>
-<p><img src="img_1.png" alt="img_1.png">
+<img src="/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img.png" alt="img.png"><br>
+2.设置如下状态如下-&gt;如图所示</p></blockquote>
+<p><img src="/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_1.png" alt="img_1.png">
 先把这里的沟去掉吧，后续再优化，看能否通网<br>
-<img src="img_2.png" alt="img_2.png">
-<img src="img_3.png" alt="img_3.png"><br>
-<img src="img_4.png" alt="img_4.png"><br>
-<img src="img_5.png" alt="img_5.png"></p>
+<img src="/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_2.png" alt="img_2.png">
+<img src="/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_3.png" alt="img_3.png"><br>
+<img src="/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_4.png" alt="img_4.png"><br>
+<img src="/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_5.png" alt="img_5.png"></p>
 <blockquote>
 <p>3.openwrt设置-&gt; 如图所示<br>
 以下也是全部选择接受，从wan口到lan口接受
 先看是否能通，后续慢慢做安全优化
-<img src="img_6.png" alt="img_6.png"><br>
-<img src="img_7.png" alt="img_7.png"><br>
-<img src="img_8.png" alt="img_8.png"><br>
-<img src="img_9.png" alt="img_9.png"><br>
-<img src="img_10.png" alt="img_10.png"></p>
-</blockquote>
+<img src="/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_6.png" alt="img_6.png"><br>
+<img src="/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_7.png" alt="img_7.png"><br>
+<img src="/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_8.png" alt="img_8.png"><br>
+<img src="/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_9.png" alt="img_9.png"><br>
+<img src="/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_10.png" alt="img_10.png"></p></blockquote>
 <blockquote>
 <p>测试 用手机5g流量,浏览器打开访问 <br>
-<img src="img_11.png" alt="img_11.png"></p>
-</blockquote>
+<img src="/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_11.png" alt="img_11.png"></p></blockquote>
 <p>ipv6 通网成功,不过后续ipv6 地址经常变动，但可以在pt站点查看做种的ip地址</p>
 
       </div></div>

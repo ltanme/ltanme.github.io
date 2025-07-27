@@ -6,7 +6,10 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="activemq artmis 项目所依赖模块说明整理 artemis-boot ：项目主要的程序入口，man函数在此 artemis-cdi-client : cdi 集成 它既可以使用嵌入代理，也可以连接到远程代理。通过实现 artemis clientconfiguration 接口提供配置 artemis-cli: 提供命令工具使用，可以通过命令窗口运行东西，如创建用户，" />
+<meta name="description" content="activemq artmis 项目所依赖模块说明整理 artemis-boot ：项目主要的程序入口，man函数在此
+artemis-cdi-client : cdi 集成 它既可以使用嵌入代理，也可以连接到远程代理。通过实现 artemis clientconfiguration 接口提供配置
+artemis-cli: 提供命令工具使用，可以通过命令窗口运行东西，如创建用户，创建address
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2021/08/activemq-artemis-learning-2/" />
@@ -39,7 +42,10 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Activemq Artemis Learning 2">
-<meta property="og:description" content="activemq artmis 项目所依赖模块说明整理 artemis-boot ：项目主要的程序入口，man函数在此 artemis-cdi-client : cdi 集成 它既可以使用嵌入代理，也可以连接到远程代理。通过实现 artemis clientconfiguration 接口提供配置 artemis-cli: 提供命令工具使用，可以通过命令窗口运行东西，如创建用户，" />
+<meta property="og:description" content="activemq artmis 项目所依赖模块说明整理 artemis-boot ：项目主要的程序入口，man函数在此
+artemis-cdi-client : cdi 集成 它既可以使用嵌入代理，也可以连接到远程代理。通过实现 artemis clientconfiguration 接口提供配置
+artemis-cli: 提供命令工具使用，可以通过命令窗口运行东西，如创建用户，创建address
+" />
 <meta property="og:url" content="https://ltan.me/post/2021/08/activemq-artemis-learning-2/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -166,116 +172,79 @@
   <div class="post-content"><div>
         <h1 id="activemq-artmis-项目所依赖模块说明整理">activemq artmis 项目所依赖模块说明整理<a href="#activemq-artmis-项目所依赖模块说明整理" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <blockquote>
-<p>artemis-boot ：项目主要的程序入口，man函数在此</p>
-</blockquote>
+<p>artemis-boot ：项目主要的程序入口，man函数在此</p></blockquote>
 <blockquote>
-<p>artemis-cdi-client : cdi 集成 它既可以使用嵌入代理，也可以连接到远程代理。通过实现 <code>artemis clientconfiguration</code> 接口提供配置</p>
-</blockquote>
+<p>artemis-cdi-client : cdi 集成 它既可以使用嵌入代理，也可以连接到远程代理。通过实现 <code>artemis clientconfiguration</code> 接口提供配置</p></blockquote>
 <blockquote>
-<p>artemis-cli: 提供命令工具使用，可以通过命令窗口运行东西，如创建用户，创建<code>address</code></p>
-</blockquote>
+<p>artemis-cli: 提供命令工具使用，可以通过命令窗口运行东西，如创建用户，创建<code>address</code></p></blockquote>
 <blockquote>
-<p>artemis-commons: 为整个项目提供 api 的统一异常库，网络连接心跳逻辑，日志打印库，连接池，集合库，线程原子锁，uuid生成工具库，时间工具类库</p>
-</blockquote>
+<p>artemis-commons: 为整个项目提供 api 的统一异常库，网络连接心跳逻辑，日志打印库，连接池，集合库，线程原子锁，uuid生成工具库，时间工具类库</p></blockquote>
 <blockquote>
-<p>artemis-core-client:   客户端连接sdk包</p>
-</blockquote>
+<p>artemis-core-client:   客户端连接sdk包</p></blockquote>
 <blockquote>
-<p>artemis-core-client-all: 全局的客户端sdk包</p>
-</blockquote>
+<p>artemis-core-client-all: 全局的客户端sdk包</p></blockquote>
 <blockquote>
-<p>artemis-core-client-osgi: 开放服务网关协议的客户端工具sdk包</p>
-</blockquote>
+<p>artemis-core-client-osgi: 开放服务网关协议的客户端工具sdk包</p></blockquote>
 <blockquote>
-<p>artemis-distribution:  打成wapper包 重要模块，决定你的项目打包后最终的结构</p>
-</blockquote>
+<p>artemis-distribution:  打成wapper包 重要模块，决定你的项目打包后最终的结构</p></blockquote>
 <blockquote>
-<p>artemis-docker: docker build 镜像脚本</p>
-</blockquote>
+<p>artemis-docker: docker build 镜像脚本</p></blockquote>
 <blockquote>
-<p>artemis-dto: 数据层传输 对像</p>
-</blockquote>
+<p>artemis-dto: 数据层传输 对像</p></blockquote>
 <blockquote>
-<p>artemis-features: 项目特性配置，初始化数据配置，端口，依赖版本等配置</p>
-</blockquote>
+<p>artemis-features: 项目特性配置，初始化数据配置，端口，依赖版本等配置</p></blockquote>
 <blockquote>
-<p>artemis-hawtio:  基于hawtio  用于管理Java东西的模块化Web控制台。 简而言之，这是一个带有插件的网络控制台。 它有<a href="http://hawt.io/plugins/index.html">大量的插件</a> ，可以自定义和扩展以满足您的需求，web修改，扩展都这里面改，关于web页面的增加，删除等功能</p>
-</blockquote>
+<p>artemis-hawtio:  基于hawtio  用于管理Java东西的模块化Web控制台。 简而言之，这是一个带有插件的网络控制台。 它有<a href="http://hawt.io/plugins/index.html">大量的插件</a> ，可以自定义和扩展以满足您的需求，web修改，扩展都这里面改，关于web页面的增加，删除等功能</p></blockquote>
 <blockquote>
-<p><code>artemis-jakarta-client</code>,<code>artemis-jakarta-ra</code>,<code>artemis-jakarta-server</code>,<code>artemis-jakarta-service-extensions</code> : 	Jakarta是Apache组织下的一套Java解决方案的开源软件的名称</p>
-</blockquote>
+<p><code>artemis-jakarta-client</code>,<code>artemis-jakarta-ra</code>,<code>artemis-jakarta-server</code>,<code>artemis-jakarta-service-extensions</code> : 	Jakarta是Apache组织下的一套Java解决方案的开源软件的名称</p></blockquote>
 <blockquote>
-<p>artemis-jdbc-store:  基于jdbc 数据存储类，如mysql,db2,postgres 等</p>
-</blockquote>
+<p>artemis-jdbc-store:  基于jdbc 数据存储类，如mysql,db2,postgres 等</p></blockquote>
 <blockquote>
-<p>artemis-jms-client:</p>
-</blockquote>
+<p>artemis-jms-client:</p></blockquote>
 <blockquote>
-<p>artemis-jms-client-all:</p>
-</blockquote>
+<p>artemis-jms-client-all:</p></blockquote>
 <blockquote>
-<p>artemis-jms-client-osgi:</p>
-</blockquote>
+<p>artemis-jms-client-osgi:</p></blockquote>
 <blockquote>
-<p>artemis-jms-server:</p>
-</blockquote>
+<p>artemis-jms-server:</p></blockquote>
 <blockquote>
-<p>artemis-journal:</p>
-</blockquote>
+<p>artemis-journal:</p></blockquote>
 <blockquote>
-<p>artemis-junit</p>
-</blockquote>
+<p>artemis-junit</p></blockquote>
 <blockquote>
-<p>artemis-maven-plugin</p>
-</blockquote>
+<p>artemis-maven-plugin</p></blockquote>
 <blockquote>
-<p>artemis-protocols</p>
-</blockquote>
+<p>artemis-protocols</p></blockquote>
 <blockquote>
-<p>artemis-quorum-api</p>
-</blockquote>
+<p>artemis-quorum-api</p></blockquote>
 <blockquote>
-<p>artemis-quorum-ri</p>
-</blockquote>
+<p>artemis-quorum-ri</p></blockquote>
 <blockquote>
-<p>artemis-ra</p>
-</blockquote>
+<p>artemis-ra</p></blockquote>
 <blockquote>
-<p>artemis-rest</p>
-</blockquote>
+<p>artemis-rest</p></blockquote>
 <blockquote>
-<p>artemis-selector</p>
-</blockquote>
+<p>artemis-selector</p></blockquote>
 <blockquote>
-<p>artemis-server</p>
-</blockquote>
+<p>artemis-server</p></blockquote>
 <blockquote>
-<p>artemis-server-osgi</p>
-</blockquote>
+<p>artemis-server-osgi</p></blockquote>
 <blockquote>
-<p>artemis-service-extensions</p>
-</blockquote>
+<p>artemis-service-extensions</p></blockquote>
 <blockquote>
-<p>artemis-web</p>
-</blockquote>
+<p>artemis-web</p></blockquote>
 <blockquote>
-<p>artemis-website</p>
-</blockquote>
+<p>artemis-website</p></blockquote>
 <blockquote>
-<p>docs</p>
-</blockquote>
+<p>docs</p></blockquote>
 <blockquote>
-<p>etc</p>
-</blockquote>
+<p>etc</p></blockquote>
 <blockquote>
-<p>examples</p>
-</blockquote>
+<p>examples</p></blockquote>
 <blockquote>
-<p>integration</p>
-</blockquote>
+<p>integration</p></blockquote>
 <blockquote>
-<p>scripts</p>
-</blockquote>
+<p>scripts</p></blockquote>
 
       </div></div>
 

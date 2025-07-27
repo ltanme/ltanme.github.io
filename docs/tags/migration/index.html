@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>migration :: LTAN.ME</title>
+    <title>Migration :: LTAN.ME</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +38,7 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="migration">
+<meta property="og:title" content="Migration">
 <meta property="og:description" content="" />
 <meta property="og:url" content="https://ltan.me/tags/migration/" />
 <meta property="og:site_name" content="LTAN.ME" />
@@ -174,10 +174,17 @@
         <div class="post-content">
           
           
-          This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.
-1. Export Data and Image on CentOS 7 Export Configuration and Database To begin, export the configuration and database files from the headscale container:
-docker cp headscale:/etc/headscale/config.yaml ./config.yaml docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite Export Docker Image Use docker save to export the headscale Docker image:
-docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1 2. Transfer Files to Ubuntu 24 Transfer the configuration, database, and image files to the Ubuntu 24 system using scp, rsync, or another file transfer tool:
+          <p>This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.</p>
+<h3 id="1-export-data-and-image-on-centos-7">1. Export Data and Image on CentOS 7</h3>
+<h4 id="export-configuration-and-database">Export Configuration and Database</h4>
+<p>To begin, export the configuration and database files from the <code>headscale</code> container:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker cp headscale:/etc/headscale/config.yaml ./config.yaml
+</span></span><span style="display:flex;"><span>docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite
+</span></span></code></pre></div><h4 id="export-docker-image">Export Docker Image</h4>
+<p>Use <code>docker save</code> to export the <code>headscale</code> Docker image:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1
+</span></span></code></pre></div><h3 id="2-transfer-files-to-ubuntu-24">2. Transfer Files to Ubuntu 24</h3>
+<p>Transfer the configuration, database, and image files to the Ubuntu 24 system using <code>scp</code>, <code>rsync</code>, or another file transfer tool:</p>
           
           
         </div>
@@ -185,7 +192,7 @@ docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1 2. Tr
         
         <div>
           <a class="read-more button"
-            href="/post/2024/11/headscalemigrationfromcentos7toubuntu24/">Read more →</a>
+            href="/post/2024/11/headscalemigrationfromcentos7toubuntu24/"> →</a>
         </div>
         
       </div>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>lapck on LTAN.ME</title>
+    <title>Lapck on LTAN.ME</title>
     <link>https://ltan.me/tags/lapck/</link>
-    <description>Recent content in lapck on LTAN.ME</description>
+    <description>Recent content in Lapck on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Sat, 08 May 2021 17:47:39 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/lapck/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Lua Language Parsing Private Protocol Package</title>
@@ -13,46 +13,56 @@
       <pubDate>Sat, 08 May 2021 17:47:39 +0800</pubDate>
       
       <guid>https://ltan.me/post/2021/05/lua-language-parsing-private-protocol-package/</guid>
-      <description>使用lua语言解析tcp私有协议包示例 为什么需要lua来解析tcp 私有协议包？ 因为lua语言生态内，有强大的openresty 技术可使用，而openresty可以提供强劲的web 并发性能，能提供tcp</description>
-      <content>&lt;h1 id=&#34;使用lua语言解析tcp私有协议包示例&#34;&gt;使用lua语言解析tcp私有协议包示例&lt;/h1&gt;
+      <description>&lt;h1 id=&#34;使用lua语言解析tcp私有协议包示例&#34;&gt;使用lua语言解析tcp私有协议包示例&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;为什么需要lua来解析tcp 私有协议包？&lt;/p&gt;
-&lt;p&gt;因为lua语言生态内，有强大的openresty 技术可使用，而openresty可以提供强劲的web 并发性能，能提供tcp 长链接通道 技术&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;因为lua语言生态内，有强大的openresty 技术可使用，而openresty可以提供强劲的web 并发性能，能提供tcp 长链接通道 技术&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;首先需要lapck包对其解析&#34;&gt;首先需要lapck包对其解析&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;git clone  https://github.com/Kong/lua-pack 
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone  https://github.com/Kong/lua-pack 
 或
 git clone https://github.com/lilien1010/lpack
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装lapck包需要编译&#34;&gt;安装lapck包需要编译&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210508175332849.png&#34; alt=&#34;image-20210508175332849&#34;&gt;&lt;/p&gt;
-&lt;h1 id=&#34;--编译时找不到luah头文件需要增加以下参数其目的是让编译是找到luajit-luah头文件--&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/lua-language-parsing-private-protocol-package/image-20210508175332849.png&#34; alt=&#34;image-20210508175332849&#34;&gt;&lt;/p&gt;
+&lt;h1&gt;&lt;/h1&gt;
+&lt;p&gt;在编译时遇到 lua.h No such file or directory #include &amp;quot; lua.h&amp;quot; ？ 问题时，需要遇增加如下参数&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;使用lua语言解析tcp私有协议包示例&#34;&gt;使用lua语言解析tcp私有协议包示例&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;为什么需要lua来解析tcp 私有协议包？&lt;/p&gt;
+&lt;p&gt;因为lua语言生态内，有强大的openresty 技术可使用，而openresty可以提供强劲的web 并发性能，能提供tcp 长链接通道 技术&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;首先需要lapck包对其解析&#34;&gt;首先需要lapck包对其解析&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone  https://github.com/Kong/lua-pack 
+或
+git clone https://github.com/lilien1010/lpack
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;安装lapck包需要编译&#34;&gt;安装lapck包需要编译&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/lua-language-parsing-private-protocol-package/image-20210508175332849.png&#34; alt=&#34;image-20210508175332849&#34;&gt;&lt;/p&gt;
+&lt;h1&gt;&lt;/h1&gt;
 &lt;p&gt;在编译时遇到 lua.h No such file or directory #include &amp;quot; lua.h&amp;quot; ？ 问题时，需要遇增加如下参数&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;-DLUA_INCLUDE_DIR=/usr/local/openresty/luajit/include/luajit-2.1/ 
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;-DLUA_INCLUDE_DIR=/usr/local/openresty/luajit/include/luajit-2.1/ 
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最终编译命令如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;#DLUA_INCLUDE_DIR 表示lua.h 存放的位置 LUA_LIBRARY指定luajit库，so文件，
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#DLUA_INCLUDE_DIR 表示lua.h 存放的位置 LUA_LIBRARY指定luajit库，so文件，
 cmake ./  -DLUA_INCLUDE_DIR=/usr/local/openresty/luajit/include/luajit-2.1/  -DLUA_LIBRARY=/usr/local/lib/libluajit-5.1.so
 make  #编译成so文件，得到pack.so
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;详细解析tcp私有代码如下&#34;&gt;详细解析tcp私有代码如下&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;require(&amp;quot;pack&amp;quot;)
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;require(&amp;#34;pack&amp;#34;)
 local mypack    = string.pack
 local myunpack    = string.unpack
 local sock = ngx.req.socket(true)
 if sock then
-    ngx.say(&amp;quot;got the request socket&amp;quot;)
+    ngx.say(&amp;#34;got the request socket&amp;#34;)
 else
-    ngx.say(&amp;quot;failed to get the request socket: &amp;quot;, err)
+    ngx.say(&amp;#34;failed to get the request socket: &amp;#34;, err)
     return
 end
 while true do
     --先尝试读取固定头 6个字节
     local data, err = sock:receive(6)
     --如果遇到timeout,或者close的情况，则break 本次循环读取，继续下一条读取
-    if err==&#39;timeout&#39; or err ==&#39;close&#39; then
+    if err==&amp;#39;timeout&amp;#39; or err ==&amp;#39;close&amp;#39; then
         break
     end
     --按pmtp协议读取返回的参数，type1为消息类型，ver2为pmtp协议版本号，time待命时间，len4为消息体的长度，不包含头的长度
     --默认字节顺序为 大端，&amp;gt;ccHH
-    local succ,succLen,type1,Ver2,Time3,Len4 = pcall(myunpack,data,&amp;quot;&amp;gt;ccHH&amp;quot;)
+    local succ,succLen,type1,Ver2,Time3,Len4 = pcall(myunpack,data,&amp;#34;&amp;gt;ccHH&amp;#34;)
     --读取剩余的消息体长度内容
     local body, err = sock:receive(Len4)
     --如果读取body为空，则退出
@@ -60,10 +70,10 @@ while true do
         break
     end
     --打印body消息内容
-    ngx.log(ngx.ERR, &amp;quot;------bdy &amp;quot;, body)
+    ngx.log(ngx.ERR, &amp;#34;------bdy &amp;#34;, body)
 end
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;通过客户端链接后发送tcp私有协议包的一模拟效果&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210508175828796.png&#34; alt=&#34;image-20210508175828796&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/lua-language-parsing-private-protocol-package/image-20210508175828796.png&#34; alt=&#34;image-20210508175828796&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     

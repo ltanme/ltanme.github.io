@@ -6,7 +6,8 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="OpenWrt Lede 系统 刷入 k2p 路由器 记录一下，过去经常用的k2p 刷入老毛子系统【padavan】 不用选闪存布局，分分钟成功刷入。但这次刷入OpenWrt 时发现死活进去路由器登录界面。经过在恩山发贴求助终于解决，感谢恩" />
+<meta name="description" content="OpenWrt Lede 系统 刷入 k2p 路由器 记录一下，过去经常用的k2p 刷入老毛子系统【padavan】 不用选闪存布局，分分钟成功刷入。但这次刷入OpenWrt 时发现死活进去路由器登录界面。经过在恩山发贴求助终于解决，感谢恩山大神们，真的很厉害！ 我刷入步骤是都先复位的，长按复位键 8到10秒，松开， 然后上传openwrt-ramips-mt7621-phicomm_k2p-initramfs-kernel.binn 文件， 然后点击更新，重启，就是不能进入openwrt 系统路由系统，关键是openwrt wifi ssid 搜索不到，没看到， 说明刷入不成功，我用网线链接电脑 ，电脑网线插上都不能有正常的ip 获取到
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/" />
@@ -39,7 +40,8 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Phicomm Router Upgrade System to Openwrt">
-<meta property="og:description" content="OpenWrt Lede 系统 刷入 k2p 路由器 记录一下，过去经常用的k2p 刷入老毛子系统【padavan】 不用选闪存布局，分分钟成功刷入。但这次刷入OpenWrt 时发现死活进去路由器登录界面。经过在恩山发贴求助终于解决，感谢恩" />
+<meta property="og:description" content="OpenWrt Lede 系统 刷入 k2p 路由器 记录一下，过去经常用的k2p 刷入老毛子系统【padavan】 不用选闪存布局，分分钟成功刷入。但这次刷入OpenWrt 时发现死活进去路由器登录界面。经过在恩山发贴求助终于解决，感谢恩山大神们，真的很厉害！ 我刷入步骤是都先复位的，长按复位键 8到10秒，松开， 然后上传openwrt-ramips-mt7621-phicomm_k2p-initramfs-kernel.binn 文件， 然后点击更新，重启，就是不能进入openwrt 系统路由系统，关键是openwrt wifi ssid 搜索不到，没看到， 说明刷入不成功，我用网线链接电脑 ，电脑网线插上都不能有正常的ip 获取到
+" />
 <meta property="og:url" content="https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -175,20 +177,16 @@
 <p>记录一下，过去经常用的k2p 刷入老毛子系统【padavan】 不用选闪存布局，分分钟成功刷入。但这次刷入OpenWrt 时发现死活进去路由器登录界面。经过在恩山发贴求助终于解决，感谢恩山大神们，真的很厉害！
 我刷入步骤是都先复位的，长按复位键 8到10秒，松开，
 然后上传<code>openwrt-ramips-mt7621-phicomm_k2p-initramfs-kernel.binn </code>文件，
-然后点击更新，重启，就是不能进入<code>openwrt</code> 系统路由系统，关键是<code>openwrt wifi ssid </code>搜索不到，没看到， 说明刷入不成功，我用网线链接电脑 ，电脑网线插上都不能有正常的<code>ip</code> 获取到</p>
-</blockquote>
+然后点击更新，重启，就是不能进入<code>openwrt</code> 系统路由系统，关键是<code>openwrt wifi ssid </code>搜索不到，没看到， 说明刷入不成功，我用网线链接电脑 ，电脑网线插上都不能有正常的<code>ip</code> 获取到</p></blockquote>
 <blockquote>
-<p>登录界面如下图, 打开 http://192.168.10.10 就可以进入，如果找不到ip是多少，可以用ipconfig查看，必须是电脑 网线有线连接到 k2p lan口</p>
-</blockquote>
-<p><img src="image-20210702144843102.png" alt="image-20210702144843102"></p>
+<p>登录界面如下图, 打开 http://192.168.10.10 就可以进入，如果找不到ip是多少，可以用ipconfig查看，必须是电脑 网线有线连接到 k2p lan口</p></blockquote>
+<p><img src="/post/2021/07/phicomm-router-upgrade-system-to-openwrt/image-20210702144843102.png" alt="image-20210702144843102"></p>
 <blockquote>
-<p>默认用户名 <code>root</code>   密码 <code>password</code></p>
-</blockquote>
-<p><img src="image-20210702144651741.png" alt="image-20210702144651741"></p>
+<p>默认用户名 <code>root</code>   密码 <code>password</code></p></blockquote>
+<p><img src="/post/2021/07/phicomm-router-upgrade-system-to-openwrt/image-20210702144651741.png" alt="image-20210702144651741"></p>
 <blockquote>
-<p>刷入失败导致路由器不能工作，重新解决步骤   记录一下</p>
-</blockquote>
-<p><img src="image-20210702145346377.png" alt="image-20210702145346377"></p>
+<p>刷入失败导致路由器不能工作，重新解决步骤   记录一下</p></blockquote>
+<p><img src="/post/2021/07/phicomm-router-upgrade-system-to-openwrt/image-20210702145346377.png" alt="image-20210702145346377"></p>
 
       </div></div>
 

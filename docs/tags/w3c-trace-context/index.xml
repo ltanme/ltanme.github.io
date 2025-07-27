@@ -5,7 +5,7 @@
     <link>https://ltan.me/tags/w3c-trace-context/</link>
     <description>Recent content in W3C Trace Context on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Thu, 22 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ltan.me/tags/w3c-trace-context/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>APISIX 3.9 &#43; APM 整合全链路追踪日志</title>
@@ -13,15 +13,14 @@
       <pubDate>Thu, 22 May 2025 00:00:00 +0000</pubDate>
       
       <guid>https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/</guid>
-      <description>目录 背景与目标 环境准备 Docker Compose 最小可运行栈 自定义 w3c-trace-inject 插件 常见报错与排障笔记 路由 / 上游配置与测试 背景与目标 业务痛点：跨服务排障时难以用一个 trace ID 串起整条调用链。 目标： 网关层为所有流量注入符合 W3C TraceContext 的 traceparent / trace</description>
-      <content>&lt;h2 id=&#34;目录&#34;&gt;目录&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;目录&#34;&gt;目录&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;#%E8%83%8C%E6%99%AF%E4%B8%8E%E7%9B%AE%E6%A0%87&#34;&gt;背景与目标&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87&#34;&gt;环境准备&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#docker-compose-%E6%9C%80%E5%B0%8F%E5%8F%AF%E8%BF%90%E8%A1%8C%E6%A0%88&#34;&gt;Docker Compose 最小可运行栈&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#%E8%87%AA%E5%AE%9A%E4%B9%89-w3c-trace-inject-%E6%8F%92%E4%BB%B6&#34;&gt;自定义 &lt;code&gt;w3c-trace-inject&lt;/code&gt; 插件&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#%E5%B8%B8%E8%A7%81%E6%8A%A5%E9%94%99%E4%B8%8E%E6%8E%92%E9%9A%9C%E7%AC%94%E8%AE%B0&#34;&gt;常见报错与排障笔记&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#%E8%B7%AF%E7%94%B1--%E4%B8%8A%E6%B8%B8%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%B5%8B%E8%AF%95&#34;&gt;路由 / 上游配置与测试&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%83%8c%e6%99%af%e4%b8%8e%e7%9b%ae%e6%a0%87&#34;&gt;背景与目标&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87&#34;&gt;环境准备&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#docker-compose-%e6%9c%80%e5%b0%8f%e5%8f%af%e8%bf%90%e8%a1%8c%e6%a0%88&#34;&gt;Docker Compose 最小可运行栈&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%87%aa%e5%ae%9a%e4%b9%89-w3c-trace-inject-%e6%8f%92%e4%bb%b6&#34;&gt;自定义 &lt;code&gt;w3c-trace-inject&lt;/code&gt; 插件&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e5%b8%b8%e8%a7%81%e6%8a%a5%e9%94%99%e4%b8%8e%e6%8e%92%e9%9a%9c%e7%ac%94%e8%ae%b0&#34;&gt;常见报错与排障笔记&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%b7%af%e7%94%b1--%e4%b8%8a%e6%b8%b8%e9%85%8d%e7%bd%ae%e4%b8%8e%e6%b5%8b%e8%af%95&#34;&gt;路由 / 上游配置与测试&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;背景与目标&#34;&gt;背景与目标&lt;/h2&gt;
@@ -37,296 +36,317 @@
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;整体追踪逻辑图&#34;&gt;整体追踪逻辑图&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;trace_context.png&#34; alt=&#34;trace_context.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/trace_context.png&#34; alt=&#34;trace_context.png&#34;&gt;&lt;/p&gt;</description>
+      <content>&lt;h2 id=&#34;目录&#34;&gt;目录&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%83%8c%e6%99%af%e4%b8%8e%e7%9b%ae%e6%a0%87&#34;&gt;背景与目标&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87&#34;&gt;环境准备&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#docker-compose-%e6%9c%80%e5%b0%8f%e5%8f%af%e8%bf%90%e8%a1%8c%e6%a0%88&#34;&gt;Docker Compose 最小可运行栈&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%87%aa%e5%ae%9a%e4%b9%89-w3c-trace-inject-%e6%8f%92%e4%bb%b6&#34;&gt;自定义 &lt;code&gt;w3c-trace-inject&lt;/code&gt; 插件&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e5%b8%b8%e8%a7%81%e6%8a%a5%e9%94%99%e4%b8%8e%e6%8e%92%e9%9a%9c%e7%ac%94%e8%ae%b0&#34;&gt;常见报错与排障笔记&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/#%e8%b7%af%e7%94%b1--%e4%b8%8a%e6%b8%b8%e9%85%8d%e7%bd%ae%e4%b8%8e%e6%b5%8b%e8%af%95&#34;&gt;路由 / 上游配置与测试&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;背景与目标&#34;&gt;背景与目标&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;业务痛点&lt;/strong&gt;：跨服务排障时难以用一个 trace ID 串起整条调用链。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目标&lt;/strong&gt;：
+&lt;ol&gt;
+&lt;li&gt;网关层为所有流量注入符合 W3C TraceContext 的 &lt;code&gt;traceparent / tracestate&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;后端 Java 应用读到同一 trace ID，并将其写入日志 / 上报 APM。&lt;/li&gt;
+&lt;li&gt;在 APM 里能通过 trace ID 搜到整条链路。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;整体追踪逻辑图&#34;&gt;整体追踪逻辑图&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/trace_context.png&#34; alt=&#34;trace_context.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;环境准备&#34;&gt;环境准备&lt;/h2&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;组件&lt;/th&gt;
-&lt;th&gt;版本&lt;/th&gt;
-&lt;th&gt;镜像&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;APISIX&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;3.9.0-debian&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;apache/apisix&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Dashboard&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;3.0.0-alpine&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;apache/apisix-dashboard&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;etcd&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;3.5.11&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;bitnami/etcd&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;自定义插件&lt;/td&gt;
-&lt;td&gt;Lua 5.1 (OpenResty)&lt;/td&gt;
-&lt;td&gt;―&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;组件&lt;/th&gt;
+          &lt;th&gt;版本&lt;/th&gt;
+          &lt;th&gt;镜像&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;APISIX&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;3.9.0-debian&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;apache/apisix&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Dashboard&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;3.0.0-alpine&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;apache/apisix-dashboard&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;etcd&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;3.5.11&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;bitnami/etcd&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;自定义插件&lt;/td&gt;
+          &lt;td&gt;Lua 5.1 (OpenResty)&lt;/td&gt;
+          &lt;td&gt;―&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;blockquote&gt;
-&lt;p&gt;宿主机：CentOS 7；Docker 24.0+；Docker-Compose v2 CLI。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;宿主机：CentOS 7；Docker 24.0+；Docker-Compose v2 CLI。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;docker-compose-最小可运行栈&#34;&gt;Docker Compose 最小可运行栈&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;version&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;3.8&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;services&lt;/span&gt;:
-  &lt;span style=&#34;color:#f92672&#34;&gt;etcd&lt;/span&gt;:
-    &lt;span style=&#34;color:#f92672&#34;&gt;image&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;bitnami/etcd:3.5.11&lt;/span&gt;
-    &lt;span style=&#34;color:#f92672&#34;&gt;environment&lt;/span&gt;:
-      - &lt;span style=&#34;color:#ae81ff&#34;&gt;ALLOW_NONE_AUTHENTICATION=yes&lt;/span&gt;
-      - &lt;span style=&#34;color:#ae81ff&#34;&gt;ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379&lt;/span&gt;
-      - &lt;span style=&#34;color:#ae81ff&#34;&gt;ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379&lt;/span&gt;
-    &lt;span style=&#34;color:#f92672&#34;&gt;volumes&lt;/span&gt;: [&lt;span style=&#34;color:#ae81ff&#34;&gt;etcd_data:/etcd-data]&lt;/span&gt;
-    &lt;span style=&#34;color:#f92672&#34;&gt;ports&lt;/span&gt;: [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2379:2379&amp;#34;&lt;/span&gt;]
-
-  &lt;span style=&#34;color:#f92672&#34;&gt;apisix&lt;/span&gt;:
-    &lt;span style=&#34;color:#f92672&#34;&gt;image&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;apache/apisix:3.9.0-debian&lt;/span&gt;
-    &lt;span style=&#34;color:#f92672&#34;&gt;environment&lt;/span&gt;:
-      &lt;span style=&#34;color:#f92672&#34;&gt;APISIX_DEPLOYMENT_ETCD_HOST&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[&amp;#34;http://etcd:2379&amp;#34;]&amp;#39;&lt;/span&gt;
-    &lt;span style=&#34;color:#f92672&#34;&gt;volumes&lt;/span&gt;:
-      - &lt;span style=&#34;color:#ae81ff&#34;&gt;./apisix_conf/config.yaml:/usr/local/apisix/conf/config.yaml:ro&lt;/span&gt;
-      - &lt;span style=&#34;color:#ae81ff&#34;&gt;./plugins/w3c-trace-inject.lua:/usr/local/apisix/apisix/plugins/w3c-trace-inject.lua:ro&lt;/span&gt;
-      - &lt;span style=&#34;color:#ae81ff&#34;&gt;logs:/usr/local/apisix/logs&lt;/span&gt;
-    &lt;span style=&#34;color:#f92672&#34;&gt;command&lt;/span&gt;: [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sh&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-c&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rm -f /usr/local/apisix/logs/worker_events.sock &amp;amp;&amp;amp; apisix start&amp;#34;&lt;/span&gt;]
-    &lt;span style=&#34;color:#f92672&#34;&gt;ports&lt;/span&gt;: [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9080:9080&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9443:9443&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9180:9180&amp;#34;&lt;/span&gt;]
-    &lt;span style=&#34;color:#f92672&#34;&gt;depends_on&lt;/span&gt;: [&lt;span style=&#34;color:#ae81ff&#34;&gt;etcd]&lt;/span&gt;
-
-  &lt;span style=&#34;color:#f92672&#34;&gt;dashboard&lt;/span&gt;:
-    &lt;span style=&#34;color:#f92672&#34;&gt;image&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;apache/apisix-dashboard:3.0.0-alpine&lt;/span&gt;
-    &lt;span style=&#34;color:#f92672&#34;&gt;environment&lt;/span&gt;:
-      &lt;span style=&#34;color:#ae81ff&#34;&gt;APISIX_LISTEN_ADDRESS=apisix:9180&lt;/span&gt;
-      &lt;span style=&#34;color:#ae81ff&#34;&gt;ETCD_HOST=etcd:2379       &lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# ⚠ 不要带 http://&lt;/span&gt;
-      &lt;span style=&#34;color:#ae81ff&#34;&gt;DEFAULT_ADMIN_PASSWORD=admin&lt;/span&gt;
-    &lt;span style=&#34;color:#f92672&#34;&gt;ports&lt;/span&gt;: [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9000:9000&amp;#34;&lt;/span&gt;]
-    &lt;span style=&#34;color:#f92672&#34;&gt;depends_on&lt;/span&gt;: [&lt;span style=&#34;color:#ae81ff&#34;&gt;apisix]&lt;/span&gt;
-
-&lt;span style=&#34;color:#f92672&#34;&gt;volumes&lt;/span&gt;:
-  &lt;span style=&#34;color:#f92672&#34;&gt;etcd_data&lt;/span&gt;:
-  &lt;span style=&#34;color:#f92672&#34;&gt;logs&lt;/span&gt;:
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;configyaml-关键片段&#34;&gt;config.yaml 关键片段：&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;deployment&lt;/span&gt;:
-  &lt;span style=&#34;color:#f92672&#34;&gt;admin&lt;/span&gt;:
-    &lt;span style=&#34;color:#f92672&#34;&gt;allow_admin&lt;/span&gt;:
-      - &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0.0.0&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;/0&lt;/span&gt;
-    &lt;span style=&#34;color:#f92672&#34;&gt;admin_key&lt;/span&gt;:
-      - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;admin&lt;/span&gt;
-        &lt;span style=&#34;color:#f92672&#34;&gt;key&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;edd1c9f034335f136f87ad84b625c8f1&lt;/span&gt;
-        &lt;span style=&#34;color:#f92672&#34;&gt;role&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;admin&lt;/span&gt;
-
-&lt;span style=&#34;color:#f92672&#34;&gt;plugins&lt;/span&gt;:
-  - &lt;span style=&#34;color:#ae81ff&#34;&gt;w3c-trace-inject&lt;/span&gt;
-  - &lt;span style=&#34;color:#ae81ff&#34;&gt;prometheus&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;自定义-w3c-trace-inject-插件&#34;&gt;自定义 w3c-trace-inject 插件&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt; &lt;span style=&#34;color:#75715e&#34;&gt;--&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;--  插件名称 : w3c-trace-inject&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;--  APISIX 3.9&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;--  功能     : 为所有请求注入 / 校验 traceparent 与 tracestate，并把 traceparent 回写到响应头&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;--&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; core   &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;apisix.core&amp;#34;&lt;/span&gt;)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; random &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.random&amp;#34;&lt;/span&gt;)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; str    &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.string&amp;#34;&lt;/span&gt;)
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; plugin_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;w3c-trace-inject&amp;#34;&lt;/span&gt;
-
-&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;-- 插件元信息&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; _M &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
-    version  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.3&lt;/span&gt;,        &lt;span style=&#34;color:#75715e&#34;&gt;-- ↑ 0.3：新增 header_filter&lt;/span&gt;
-    priority &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10000&lt;/span&gt;,
-    name     &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; plugin_name,
-    schema   &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; { type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;object&amp;#34;&lt;/span&gt; },   &lt;span style=&#34;color:#75715e&#34;&gt;-- 无需额外配置&lt;/span&gt;
-}
-
-&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;-- 工具函数&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;gen_hex&lt;/span&gt;(bytes)           &lt;span style=&#34;color:#75715e&#34;&gt;-- 将随机字节转 16 进制&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; str.to_hex(random.bytes(bytes, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;))
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-&lt;span style=&#34;color:#75715e&#34;&gt;-- traceparent 必须形如 00-32hex-16hex-2hex&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;valid_traceparent&lt;/span&gt;(tp)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; tp
-       &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; tp:match(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;^00%-%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%-%x%x$&amp;#34;&lt;/span&gt;)
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-&lt;span style=&#34;color:#75715e&#34;&gt;-- tracestate 基础校验：≤512 字节，逗号分隔的 key=value，key 只能小写字母数字和 `_ - * /`&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;valid_tracestate&lt;/span&gt;(ts)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; ts &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;ts &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; entry &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; ts:gmatch(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[^,]+&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; key, val &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; entry:match(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;^([%l%d%-%_%*/]+)=([%g]+)$&amp;#34;&lt;/span&gt;)
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; key &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; val &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;-- access 阶段：注入 / 校验请求头&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_M&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;access&lt;/span&gt;(conf, ctx)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; headers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; core.request.headers(ctx)
-
-    &lt;span style=&#34;color:#75715e&#34;&gt;-- 1️⃣ traceparent --------------------------------------------------&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; tp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; headers[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;traceparent&amp;#34;&lt;/span&gt;]
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; valid_traceparent(tp) &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; trace_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gen_hex(&lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;)             &lt;span style=&#34;color:#75715e&#34;&gt;-- 128-bit&lt;/span&gt;
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; span_id  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gen_hex(&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;)              &lt;span style=&#34;color:#75715e&#34;&gt;-- 64-bit&lt;/span&gt;
-        tp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.format(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;00-%s-%s-01&amp;#34;&lt;/span&gt;, trace_id, span_id)
-        core.request.set_header(ctx, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;traceparent&amp;#34;&lt;/span&gt;, tp)
-        ctx.trace_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; trace_id                  &lt;span style=&#34;color:#75715e&#34;&gt;-- 写入 ctx 供日志等使用&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
-        ctx.trace_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tp:sub(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;35&lt;/span&gt;)             &lt;span style=&#34;color:#75715e&#34;&gt;-- 提取已存在的 trace-id&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-    ctx.response_traceparent &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tp                &lt;span style=&#34;color:#75715e&#34;&gt;-- 留给 header_filter&lt;/span&gt;
-
-    &lt;span style=&#34;color:#75715e&#34;&gt;-- 2️⃣ tracestate ---------------------------------------------------&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; ts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; headers[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;]
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; ts &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-        ts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;as=1&amp;#34;&lt;/span&gt;
-        core.request.set_header(ctx, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;, ts)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;elseif&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; valid_tracestate(ts) &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-        core.request.clear_header(ctx, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;)
-        ts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-    ctx.response_tracestate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ts                 &lt;span style=&#34;color:#75715e&#34;&gt;-- 留给 header_filter&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;-- header_filter 阶段：把 trace 信息写回响应头&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_M&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;header_filter&lt;/span&gt;(conf, ctx)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ctx.response_traceparent &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-        ngx.header[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;traceparent&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ctx.response_traceparent
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ctx.response_tracestate &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
-        ngx.header[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ctx.response_tracestate
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; _M
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;常见报错与排障笔记&#34;&gt;常见报错与排障笔记&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;version&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;3.8&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;services&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;etcd&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;image&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;bitnami/etcd:3.5.11&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;environment&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;ALLOW_NONE_AUTHENTICATION=yes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;volumes&lt;/span&gt;: [&lt;span style=&#34;color:#ae81ff&#34;&gt;etcd_data:/etcd-data]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;ports&lt;/span&gt;: [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2379:2379&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;apisix&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;image&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;apache/apisix:3.9.0-debian&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;environment&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;APISIX_DEPLOYMENT_ETCD_HOST&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[&amp;#34;http://etcd:2379&amp;#34;]&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;volumes&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;./apisix_conf/config.yaml:/usr/local/apisix/conf/config.yaml:ro&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;./plugins/w3c-trace-inject.lua:/usr/local/apisix/apisix/plugins/w3c-trace-inject.lua:ro&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;logs:/usr/local/apisix/logs&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;command&lt;/span&gt;: [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sh&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-c&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rm -f /usr/local/apisix/logs/worker_events.sock &amp;amp;&amp;amp; apisix start&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;ports&lt;/span&gt;: [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9080:9080&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9443:9443&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9180:9180&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;depends_on&lt;/span&gt;: [&lt;span style=&#34;color:#ae81ff&#34;&gt;etcd]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;dashboard&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;image&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;apache/apisix-dashboard:3.0.0-alpine&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;environment&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;APISIX_LISTEN_ADDRESS=apisix:9180&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;ETCD_HOST=etcd:2379       &lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# ⚠ 不要带 http://&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;DEFAULT_ADMIN_PASSWORD=admin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;ports&lt;/span&gt;: [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9000:9000&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;depends_on&lt;/span&gt;: [&lt;span style=&#34;color:#ae81ff&#34;&gt;apisix]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;volumes&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;etcd_data&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;logs&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;configyaml-关键片段&#34;&gt;config.yaml 关键片段：&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;deployment&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;admin&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;allow_admin&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#ae81ff&#34;&gt;0.0.0.0&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;/0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;admin_key&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;admin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;key&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;edd1c9f034335f136f87ad84b625c8f1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;role&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;admin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;plugins&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;w3c-trace-inject&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#ae81ff&#34;&gt;prometheus&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;自定义-w3c-trace-inject-插件&#34;&gt;自定义 w3c-trace-inject 插件&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;--&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;--  插件名称 : w3c-trace-inject&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;--  APISIX 3.9&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;--  功能     : 为所有请求注入 / 校验 traceparent 与 tracestate，并把 traceparent 回写到响应头&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;--&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; core   &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;apisix.core&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; random &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.random&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; str    &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;resty.string&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; plugin_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;w3c-trace-inject&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- 插件元信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; _M &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    version  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.3&lt;/span&gt;,        &lt;span style=&#34;color:#75715e&#34;&gt;-- ↑ 0.3：新增 header_filter&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    priority &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10000&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    name     &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; plugin_name,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    schema   &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; { type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;object&amp;#34;&lt;/span&gt; },   &lt;span style=&#34;color:#75715e&#34;&gt;-- 无需额外配置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- 工具函数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;gen_hex&lt;/span&gt;(bytes)           &lt;span style=&#34;color:#75715e&#34;&gt;-- 将随机字节转 16 进制&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; str.to_hex(random.bytes(bytes, &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- traceparent 必须形如 00-32hex-16hex-2hex&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;valid_traceparent&lt;/span&gt;(tp)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; tp
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; tp:match(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;^00%-%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%-%x%x$&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- tracestate 基础校验：≤512 字节，逗号分隔的 key=value，key 只能小写字母数字和 `_ - * /`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;valid_tracestate&lt;/span&gt;(ts)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; ts &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;#&lt;/span&gt;ts &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; entry &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; ts:gmatch(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[^,]+&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; key, val &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; entry:match(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;^([%l%d%-%_%*/]+)=([%g]+)$&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; key &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; val &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- access 阶段：注入 / 校验请求头&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_M&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;access&lt;/span&gt;(conf, ctx)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; headers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; core.request.headers(ctx)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;-- 1️⃣ traceparent --------------------------------------------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; tp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; headers[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;traceparent&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; valid_traceparent(tp) &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; trace_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gen_hex(&lt;span style=&#34;color:#ae81ff&#34;&gt;16&lt;/span&gt;)             &lt;span style=&#34;color:#75715e&#34;&gt;-- 128-bit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; span_id  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; gen_hex(&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;)              &lt;span style=&#34;color:#75715e&#34;&gt;-- 64-bit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        tp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; string.format(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;00-%s-%s-01&amp;#34;&lt;/span&gt;, trace_id, span_id)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        core.request.set_header(ctx, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;traceparent&amp;#34;&lt;/span&gt;, tp)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ctx.trace_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; trace_id                  &lt;span style=&#34;color:#75715e&#34;&gt;-- 写入 ctx 供日志等使用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ctx.trace_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tp:sub(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;35&lt;/span&gt;)             &lt;span style=&#34;color:#75715e&#34;&gt;-- 提取已存在的 trace-id&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ctx.response_traceparent &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tp                &lt;span style=&#34;color:#75715e&#34;&gt;-- 留给 header_filter&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;-- 2️⃣ tracestate ---------------------------------------------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;local&lt;/span&gt; ts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; headers[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; ts &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;as=1&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        core.request.set_header(ctx, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;, ts)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;elseif&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; valid_tracestate(ts) &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        core.request.clear_header(ctx, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ts &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;nil&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ctx.response_tracestate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ts                 &lt;span style=&#34;color:#75715e&#34;&gt;-- 留给 header_filter&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- header_filter 阶段：把 trace 信息写回响应头&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;------------------------------------------------------------------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_M&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;header_filter&lt;/span&gt;(conf, ctx)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ctx.response_traceparent &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ngx.header[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;traceparent&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ctx.response_traceparent
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ctx.response_tracestate &lt;span style=&#34;color:#66d9ef&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ngx.header[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ctx.response_tracestate
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; _M
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;常见报错与排障笔记&#34;&gt;常见报错与排障笔记&lt;/h2&gt;
 &lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Error / Log Message&lt;/th&gt;
-&lt;th&gt;Root Cause / Explanation&lt;/th&gt;
-&lt;th&gt;Quick Fix&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;malformed number near &#39;10_000&#39;&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Lua 5.1 数字常量不支持下划线分隔符&lt;/td&gt;
-&lt;td&gt;把 &lt;code&gt;priority = 10000&lt;/code&gt;（或其他纯整数），重新 &lt;code&gt;apisix reload&lt;/code&gt;。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;Admin API connection reset by peer&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;allow_admin&lt;/code&gt; 未放通外部 IP；或 &lt;code&gt;admin_listen.ip&lt;/code&gt;=127.0.0.1&lt;/td&gt;
-&lt;td&gt;在 &lt;code&gt;deployment.admin.allow_admin&lt;/code&gt; 加 &lt;code&gt;0.0.0.0/0&lt;/code&gt;，或改监听地址。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;failed to fetch upstream info … id [N], response code: 404&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Route 指向的 &lt;code&gt;upstream_id&lt;/code&gt; 不存在&lt;/td&gt;
-&lt;td&gt;先创建对应 Upstream，或把 &lt;code&gt;upstream_id&lt;/code&gt; 改成已存在的 ID。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Dashboard log → &lt;code&gt;dial tcp 0.0.0.0:2379: connect: connection refused&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;环境变量 &lt;code&gt;ETCD_HOST&lt;/code&gt; 带了 &lt;code&gt;http://&lt;/code&gt;，解析失败&lt;/td&gt;
-&lt;td&gt;改为 &lt;code&gt;ETCD_HOST=etcd:2379&lt;/code&gt;，或用 conf.yaml 写 &lt;code&gt;&amp;quot;http://etcd:2379&amp;quot;&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;traceparent&lt;/code&gt; 注入但响应头没有&lt;/td&gt;
-&lt;td&gt;仅在请求头 set，没有回写响应&lt;/td&gt;
-&lt;td&gt;在插件 &lt;code&gt;header_filter&lt;/code&gt; 加 &lt;code&gt;ngx.header[&amp;quot;traceparent&amp;quot;]=…&lt;/code&gt;，或用 &lt;code&gt;response-rewrite&lt;/code&gt;。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;503 Service Temporarily Unavailable&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Upstream 不可达 / DNS 解析失败 / 健康检查判 unhealthy&lt;/td&gt;
-&lt;td&gt;在 APISIX 容器里 &lt;code&gt;curl&lt;/code&gt; 目标地址；必要时关闭健康检查 or 修网络。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Dashboard 无限重启 &lt;code&gt;etcd get failed&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Dashboard 没加载到自定义 &lt;code&gt;conf.yaml&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;确认 volume 路径正确；若用 env 则删掉冲突的 &lt;code&gt;conf.yaml&lt;/code&gt; 挂载。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;failed to check token&lt;/code&gt; (401)&lt;/td&gt;
-&lt;td&gt;缺少或使用错误的 &lt;code&gt;X-API-KEY&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;用与 &lt;code&gt;admin_key&lt;/code&gt; 对应的 key；或在 dev 环境把 &lt;code&gt;admin_key&lt;/code&gt; 设空数组。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;worker_events.sock Address already in use&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;上次启动失败残留 Unix Socket&lt;/td&gt;
-&lt;td&gt;启动脚本前 &lt;code&gt;rm -f /usr/local/apisix/logs/worker_events.sock&lt;/code&gt;。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Route 404 但插件未执行&lt;/td&gt;
-&lt;td&gt;URI 不匹配或 Route 未启用插件&lt;/td&gt;
-&lt;td&gt;确认 &lt;code&gt;uri&lt;/code&gt; 与请求一致；或在 Global Rule 里开启插件测试。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Error / Log Message&lt;/th&gt;
+          &lt;th&gt;Root Cause / Explanation&lt;/th&gt;
+          &lt;th&gt;Quick Fix&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;malformed number near &#39;10_000&#39;&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Lua 5.1 数字常量不支持下划线分隔符&lt;/td&gt;
+          &lt;td&gt;把 &lt;code&gt;priority = 10000&lt;/code&gt;（或其他纯整数），重新 &lt;code&gt;apisix reload&lt;/code&gt;。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;Admin API connection reset by peer&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;allow_admin&lt;/code&gt; 未放通外部 IP；或 &lt;code&gt;admin_listen.ip&lt;/code&gt;=127.0.0.1&lt;/td&gt;
+          &lt;td&gt;在 &lt;code&gt;deployment.admin.allow_admin&lt;/code&gt; 加 &lt;code&gt;0.0.0.0/0&lt;/code&gt;，或改监听地址。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;failed to fetch upstream info … id [N], response code: 404&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Route 指向的 &lt;code&gt;upstream_id&lt;/code&gt; 不存在&lt;/td&gt;
+          &lt;td&gt;先创建对应 Upstream，或把 &lt;code&gt;upstream_id&lt;/code&gt; 改成已存在的 ID。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Dashboard log → &lt;code&gt;dial tcp 0.0.0.0:2379: connect: connection refused&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;环境变量 &lt;code&gt;ETCD_HOST&lt;/code&gt; 带了 &lt;code&gt;http://&lt;/code&gt;，解析失败&lt;/td&gt;
+          &lt;td&gt;改为 &lt;code&gt;ETCD_HOST=etcd:2379&lt;/code&gt;，或用 conf.yaml 写 &lt;code&gt;&amp;quot;http://etcd:2379&amp;quot;&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;traceparent&lt;/code&gt; 注入但响应头没有&lt;/td&gt;
+          &lt;td&gt;仅在请求头 set，没有回写响应&lt;/td&gt;
+          &lt;td&gt;在插件 &lt;code&gt;header_filter&lt;/code&gt; 加 &lt;code&gt;ngx.header[&amp;quot;traceparent&amp;quot;]=…&lt;/code&gt;，或用 &lt;code&gt;response-rewrite&lt;/code&gt;。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;503 Service Temporarily Unavailable&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Upstream 不可达 / DNS 解析失败 / 健康检查判 unhealthy&lt;/td&gt;
+          &lt;td&gt;在 APISIX 容器里 &lt;code&gt;curl&lt;/code&gt; 目标地址；必要时关闭健康检查 or 修网络。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Dashboard 无限重启 &lt;code&gt;etcd get failed&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Dashboard 没加载到自定义 &lt;code&gt;conf.yaml&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;确认 volume 路径正确；若用 env 则删掉冲突的 &lt;code&gt;conf.yaml&lt;/code&gt; 挂载。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;failed to check token&lt;/code&gt; (401)&lt;/td&gt;
+          &lt;td&gt;缺少或使用错误的 &lt;code&gt;X-API-KEY&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;用与 &lt;code&gt;admin_key&lt;/code&gt; 对应的 key；或在 dev 环境把 &lt;code&gt;admin_key&lt;/code&gt; 设空数组。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;worker_events.sock Address already in use&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;上次启动失败残留 Unix Socket&lt;/td&gt;
+          &lt;td&gt;启动脚本前 &lt;code&gt;rm -f /usr/local/apisix/logs/worker_events.sock&lt;/code&gt;。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Route 404 但插件未执行&lt;/td&gt;
+          &lt;td&gt;URI 不匹配或 Route 未启用插件&lt;/td&gt;
+          &lt;td&gt;确认 &lt;code&gt;uri&lt;/code&gt; 与请求一致；或在 Global Rule 里开启插件测试。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h2 id=&#34;路由--上游配置与测试&#34;&gt;路由 / 上游配置与测试&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;bash-4.2# curl -X PUT http://localhost:9180/apisix/admin/upstreams/1 &lt;span style=&#34;color:#ae81ff&#34;&gt;\ &lt;/span&gt;       &lt;span style=&#34;color:#75715e&#34;&gt;# 添加上游&lt;/span&gt;
-&amp;gt;   -H &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;X-API-KEY: edd1c9f034335f136f87ad84b625c8f1&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&amp;gt;   -d &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;scheme&amp;#34;:&amp;#34;http&amp;#34;,
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;type&amp;#34;:&amp;#34;roundrobin&amp;#34;,
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;pass_host&amp;#34;:&amp;#34;rewrite&amp;#34;,
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;upstream_host&amp;#34;:&amp;#34;10.244.191.219&amp;#34;,
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;nodes&amp;#34;:{&amp;#34;10.244.191.219:8080&amp;#34;:1}
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;       }&amp;#39;&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;key&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/apisix/upstreams/1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;scheme&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hash_on&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vars&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pass_host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rewrite&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;upstream_host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.244.191.219&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;roundrobin&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;create_time&amp;#34;&lt;/span&gt;:1747881772,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;nodes&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.244.191.219:8080&amp;#34;&lt;/span&gt;:1&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;update_time&amp;#34;&lt;/span&gt;:1747881772&lt;span style=&#34;color:#f92672&#34;&gt;}}&lt;/span&gt;
--bash-4.2# curl -X PUT http://localhost:9180/apisix/admin/routes/1 &lt;span style=&#34;color:#ae81ff&#34;&gt;\ &lt;/span&gt;       &lt;span style=&#34;color:#75715e&#34;&gt;# 添加路由&lt;/span&gt;
-&amp;gt;   -H &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;X-API-KEY: edd1c9f034335f136f87ad84b625c8f1&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&amp;gt;   -d &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;uri&amp;#34;:&amp;#34;/rec/v2/testip&amp;#34;,
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;methods&amp;#34;:[&amp;#34;GET&amp;#34;,&amp;#34;POST&amp;#34;],
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;upstream_id&amp;#34;:1,
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;plugins&amp;#34;:{&amp;#34;w3c-trace-inject&amp;#34;:{}}
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;       }&amp;#39;&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;key&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/apisix/routes/1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;upstream_id&amp;#34;&lt;/span&gt;:1,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;status&amp;#34;&lt;/span&gt;:1,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;priority&amp;#34;&lt;/span&gt;:0,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;plugins&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;w3c-trace-inject&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{}}&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;create_time&amp;#34;&lt;/span&gt;:1747881778,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;update_time&amp;#34;&lt;/span&gt;:1747881778,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;methods&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GET&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;POST&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;uri&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/rec/v2/testip&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}}&lt;/span&gt;
--bash-4.2#
--bash-4.2# curl -i http://localhost:9080/rec/v2/testip     &lt;span style=&#34;color:#75715e&#34;&gt;#测试接口&lt;/span&gt;
-HTTP/1.1 &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;
-Content-Type: application/json;charset&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;UTF-8
-Content-Length: &lt;span style=&#34;color:#ae81ff&#34;&gt;332&lt;/span&gt;
-Connection: keep-alive
-Date: Thu, &lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt; May &lt;span style=&#34;color:#ae81ff&#34;&gt;2025&lt;/span&gt; 02:43:12 GMT
-Server: APISIX/3.9.0
-traceparent: 00-76be9240e9f1b09cd5f8575b998cf82b-ea282e6c58efb57e-01      &lt;span style=&#34;color:#75715e&#34;&gt;# 这里是响应头 &lt;/span&gt;
-tracestate: as&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
- 
-&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;code&amp;#34;&lt;/span&gt;:0,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;data&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-real-ip&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.240.1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;as=1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-proto&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;localhost&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;traceparent&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;00-76be9240e9f1b09cd5f8575b998cf82b-ea282e6c58efb57e-01&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clientIP&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.240.1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.244.191.219&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-port&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9080&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;user-agent&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;curl/7.29.0&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;accept&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;*/*&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;msg&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;success&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;-bash-4.2#
--bash-4.2#
--bash-4.2# curl -i http://localhost:9080/rec/v2/testip
-HTTP/1.1 &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;
-Content-Type: application/json;charset&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;UTF-8
-Content-Length: &lt;span style=&#34;color:#ae81ff&#34;&gt;332&lt;/span&gt;
-Connection: keep-alive
-Date: Thu, &lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt; May &lt;span style=&#34;color:#ae81ff&#34;&gt;2025&lt;/span&gt; 02:43:16 GMT
-Server: APISIX/3.9.0
-traceparent: 00-c968d17a84e4b2391ecd986259551550-44b21d2b9dcc18e5-01    &lt;span style=&#34;color:#75715e&#34;&gt;# 这里是响应头&lt;/span&gt;
-tracestate: as&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
- 
-&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;code&amp;#34;&lt;/span&gt;:0,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;data&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-real-ip&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.240.1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;as=1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-proto&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;localhost&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;traceparent&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;00-c968d17a84e4b2391ecd986259551550-44b21d2b9dcc18e5-01&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clientIP&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.240.1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.244.191.219&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-port&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9080&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;user-agent&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;curl/7.29.0&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;accept&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;*/*&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;msg&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;success&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;通过traceid查看-apm-dashbard-效果&#34;&gt;通过trace.id查看 apm dashbard 效果&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;image2025-5-22_10-48-50.png&#34; alt=&#34;image2025-5-22_10-48-50.png&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bash-4.2# curl -X PUT http://localhost:9180/apisix/admin/upstreams/1 &lt;span style=&#34;color:#ae81ff&#34;&gt;\ &lt;/span&gt;       &lt;span style=&#34;color:#75715e&#34;&gt;# 添加上游&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt;   -H &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;X-API-KEY: edd1c9f034335f136f87ad84b625c8f1&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&amp;gt;   -d &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;scheme&amp;#34;:&amp;#34;http&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;type&amp;#34;:&amp;#34;roundrobin&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;pass_host&amp;#34;:&amp;#34;rewrite&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;upstream_host&amp;#34;:&amp;#34;10.244.191.219&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;nodes&amp;#34;:{&amp;#34;10.244.191.219:8080&amp;#34;:1}
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;       }&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;key&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/apisix/upstreams/1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;scheme&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hash_on&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vars&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pass_host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rewrite&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;upstream_host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.244.191.219&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;roundrobin&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;create_time&amp;#34;&lt;/span&gt;:1747881772,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;nodes&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.244.191.219:8080&amp;#34;&lt;/span&gt;:1&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;update_time&amp;#34;&lt;/span&gt;:1747881772&lt;span style=&#34;color:#f92672&#34;&gt;}}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-bash-4.2# curl -X PUT http://localhost:9180/apisix/admin/routes/1 &lt;span style=&#34;color:#ae81ff&#34;&gt;\ &lt;/span&gt;       &lt;span style=&#34;color:#75715e&#34;&gt;# 添加路由&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt;   -H &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;X-API-KEY: edd1c9f034335f136f87ad84b625c8f1&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&amp;gt;   -d &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;uri&amp;#34;:&amp;#34;/rec/v2/testip&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;methods&amp;#34;:[&amp;#34;GET&amp;#34;,&amp;#34;POST&amp;#34;],
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;upstream_id&amp;#34;:1,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;         &amp;#34;plugins&amp;#34;:{&amp;#34;w3c-trace-inject&amp;#34;:{}}
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;       }&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;key&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/apisix/routes/1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;upstream_id&amp;#34;&lt;/span&gt;:1,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;status&amp;#34;&lt;/span&gt;:1,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;priority&amp;#34;&lt;/span&gt;:0,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;plugins&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;w3c-trace-inject&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{}}&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;create_time&amp;#34;&lt;/span&gt;:1747881778,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;update_time&amp;#34;&lt;/span&gt;:1747881778,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;methods&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GET&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;POST&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;uri&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/rec/v2/testip&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-bash-4.2#
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-bash-4.2# curl -i http://localhost:9080/rec/v2/testip     &lt;span style=&#34;color:#75715e&#34;&gt;#测试接口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;HTTP/1.1 &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Content-Type: application/json;charset&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;UTF-8
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Content-Length: &lt;span style=&#34;color:#ae81ff&#34;&gt;332&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Connection: keep-alive
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Date: Thu, &lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt; May &lt;span style=&#34;color:#ae81ff&#34;&gt;2025&lt;/span&gt; 02:43:12 GMT
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Server: APISIX/3.9.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;traceparent: 00-76be9240e9f1b09cd5f8575b998cf82b-ea282e6c58efb57e-01      &lt;span style=&#34;color:#75715e&#34;&gt;# 这里是响应头 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tracestate: as&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;code&amp;#34;&lt;/span&gt;:0,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;data&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-real-ip&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.240.1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;as=1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-proto&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;localhost&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;traceparent&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;00-76be9240e9f1b09cd5f8575b998cf82b-ea282e6c58efb57e-01&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clientIP&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.240.1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.244.191.219&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-port&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9080&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;user-agent&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;curl/7.29.0&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;accept&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;*/*&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;msg&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;success&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;-bash-4.2#
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-bash-4.2#
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-bash-4.2# curl -i http://localhost:9080/rec/v2/testip
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;HTTP/1.1 &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Content-Type: application/json;charset&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;UTF-8
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Content-Length: &lt;span style=&#34;color:#ae81ff&#34;&gt;332&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Connection: keep-alive
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Date: Thu, &lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt; May &lt;span style=&#34;color:#ae81ff&#34;&gt;2025&lt;/span&gt; 02:43:16 GMT
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Server: APISIX/3.9.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;traceparent: 00-c968d17a84e4b2391ecd986259551550-44b21d2b9dcc18e5-01    &lt;span style=&#34;color:#75715e&#34;&gt;# 这里是响应头&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tracestate: as&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;code&amp;#34;&lt;/span&gt;:0,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;data&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-real-ip&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.240.1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;tracestate&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;as=1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-proto&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;localhost&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;traceparent&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;00-c968d17a84e4b2391ecd986259551550-44b21d2b9dcc18e5-01&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clientIP&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.240.1&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;host&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.244.191.219&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;x-forwarded-port&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;9080&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;user-agent&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;curl/7.29.0&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;accept&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;*/*&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;msg&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;success&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;通过traceid查看-apm-dashbard-效果&#34;&gt;通过trace.id查看 apm dashbard 效果&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/image2025-5-22_10-48-50.png&#34; alt=&#34;image2025-5-22_10-48-50.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;image2025-5-22_10-49-31.png&#34; alt=&#34;image2025-5-22_10-49-31.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/image2025-5-22_10-49-31.png&#34; alt=&#34;image2025-5-22_10-49-31.png&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     

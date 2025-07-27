@@ -6,7 +6,8 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="一种 AES（128位）&#43;RSA混合加密，iv为前16个0字符，使用java和ngx.lua编写的加解密方法 使用 openresty 和 ngx_lua 编写的服务端 HTTP 接口，旨在提供给 Android 设备提交加密数据上报、日志采集等功能。 主要流流程如下" />
+<meta name="description" content="一种 AES（128位）&#43;RSA混合加密，iv为前16个0字符，使用java和ngx.lua编写的加解密方法 使用 openresty 和 ngx_lua 编写的服务端 HTTP 接口，旨在提供给 Android 设备提交加密数据上报、日志采集等功能。
+主要流流程如下 " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/" />
@@ -39,7 +40,8 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Hybrid Encryption With AES 128 Bit and RSA Using Java and Ngx_lua">
-<meta property="og:description" content="一种 AES（128位）&#43;RSA混合加密，iv为前16个0字符，使用java和ngx.lua编写的加解密方法 使用 openresty 和 ngx_lua 编写的服务端 HTTP 接口，旨在提供给 Android 设备提交加密数据上报、日志采集等功能。 主要流流程如下" />
+<meta property="og:description" content="一种 AES（128位）&#43;RSA混合加密，iv为前16个0字符，使用java和ngx.lua编写的加解密方法 使用 openresty 和 ngx_lua 编写的服务端 HTTP 接口，旨在提供给 Android 设备提交加密数据上报、日志采集等功能。
+主要流流程如下 " />
 <meta property="og:url" content="https://ltan.me/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -173,7 +175,7 @@
         <h2 id="一种-aes128位rsa混合加密iv为前16个0字符使用java和ngxlua编写的加解密方法">一种 AES（128位）+RSA混合加密，iv为前16个0字符，使用java和ngx.lua编写的加解密方法<a href="#一种-aes128位rsa混合加密iv为前16个0字符使用java和ngxlua编写的加解密方法" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>使用 openresty 和 ngx_lua 编写的服务端 HTTP 接口，旨在提供给 Android 设备提交加密数据上报、日志采集等功能。<br>
 主要流流程如下
-<img src="./swim-road-flow.PNG" alt="aes+rsa混合常见流程"></p>
+<img src="/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/swim-road-flow.PNG" alt="aes&#43;rsa混合常见流程"></p>
 <blockquote>
 <p><code>local enable_padding = true</code>：定义一个布尔变量<code> enable_padding</code> 并赋值为 <code>true</code>，用于启用填充功能。
 <code>local aes_128_cbc_with_padding = aes:new(key, nil, aes.cipher(128,&quot;cbc&quot;), {iv = string.rep('\0', 16)}, nil, nil, enable_padding)</code>：
@@ -182,202 +184,197 @@
 <code>nil</code> 表示没有额外的选项参数。<br>
 <code>aes.cipher(128, &quot;cbc&quot;)</code> 指定使用<code>AES-128</code> 位密钥和 <code>CBC (Cipher Block Chaining)</code> 模式进行加密。<br>
 <code>{iv = string.rep('\0', 16)}</code> 是初始化向量 <code>(IV)</code>，其中 <code>string.rep('\0', 16)</code> 创建了一个由 <code>16</code> 个空字符组成的字符串作为 <code>IV</code>。<br>
-最后一个参数 <code>enable_padding</code> 是用于启用填充功能的布尔变量。</p>
-</blockquote>
+最后一个参数 <code>enable_padding</code> 是用于启用填充功能的布尔变量。</p></blockquote>
 <blockquote>
-<p>以下是lua加密流程</p>
-</blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua"><span style="color:#66d9ef">local</span> rsa_priv_key<span style="color:#f92672">=</span><span style="color:#e6db74">[[
-</span><span style="color:#e6db74">-------BEGIN PRIVATE KEY-----
-</span><span style="color:#e6db74">your rsa private key code here 
-</span><span style="color:#e6db74">-------END PRIVATE KEY-----
-</span><span style="color:#e6db74">]]</span>
-
- 
-<span style="color:#66d9ef">local</span> rsa_pub_key<span style="color:#f92672">=</span><span style="color:#e6db74">[[
-</span><span style="color:#e6db74">-------BEGIN PUBLIC KEY-----
-</span><span style="color:#e6db74">your rsa public key code here 
-</span><span style="color:#e6db74">-------END PUBLIC KEY-----
-</span><span style="color:#e6db74">]]</span>
-
-<span style="color:#66d9ef">local</span> resty_rsa <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.rsa&#34;</span>
-<span style="color:#66d9ef">local</span> resty_aes <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.aes&#34;</span>
-<span style="color:#66d9ef">local</span> resty_rand <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.random&#34;</span>
-<span style="color:#66d9ef">local</span> resty_str <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.string&#34;</span>
-
-<span style="color:#75715e">-- Base64 encode with URL safe and no padding</span>
-<span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">encode_base64url</span>(input)
-    <span style="color:#66d9ef">local</span> encoded <span style="color:#f92672">=</span> ngx.encode_base64(input)
-    <span style="color:#66d9ef">local</span> url_encoded <span style="color:#f92672">=</span> string.gsub(encoded, <span style="color:#e6db74">&#39;+&#39;</span>, <span style="color:#e6db74">&#39;-&#39;</span>)
-    url_encoded <span style="color:#f92672">=</span> string.gsub(url_encoded, <span style="color:#e6db74">&#39;/&#39;</span>, <span style="color:#e6db74">&#39;_&#39;</span>)
-    url_encoded <span style="color:#f92672">=</span> string.gsub(url_encoded, <span style="color:#e6db74">&#39;=&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
-    <span style="color:#66d9ef">return</span> url_encoded
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#75715e">-- RSA encryption function</span>
-<span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">rsa_encrypted</span>(aes_key)
-    <span style="color:#66d9ef">local</span> pub, err <span style="color:#f92672">=</span> resty_rsa:new({ public_key <span style="color:#f92672">=</span> rsa_pub_key })
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> pub <span style="color:#66d9ef">then</span>
-        ngx.say(<span style="color:#e6db74">&#34;new rsa err: &#34;</span>, err)
-        <span style="color:#66d9ef">return</span>
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">local</span> encrypted <span style="color:#f92672">=</span> pub:encrypt(aes_key)
-    <span style="color:#66d9ef">return</span> encrypted
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#75715e">-- AES encryption function</span>
-<span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">aes_encrypted</span>(aes_key, content)
-    <span style="color:#66d9ef">local</span> aes_128_cbc_with_padding <span style="color:#f92672">=</span> resty_aes:new(
-            aes_key, <span style="color:#66d9ef">nil</span>, resty_aes.cipher(<span style="color:#ae81ff">128</span>,<span style="color:#e6db74">&#34;cbc&#34;</span>), {iv <span style="color:#f92672">=</span> string.rep(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\0</span><span style="color:#e6db74">&#39;</span>, <span style="color:#ae81ff">16</span>)}, <span style="color:#66d9ef">nil</span>,
-            <span style="color:#66d9ef">nil</span>, <span style="color:#66d9ef">true</span>)
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> aes_128_cbc_with_padding <span style="color:#66d9ef">then</span>
-        ngx.say(<span style="color:#e6db74">&#39;Failed to create aes_128_cbc_with_padding&#39;</span>)
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">local</span> encrypted <span style="color:#f92672">=</span> aes_128_cbc_with_padding:encrypt(content)
-    <span style="color:#66d9ef">return</span> encrypted
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#75715e">-- Main encryption function</span>
-<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">encrypt</span>(content)
-    <span style="color:#75715e">-- 1. Generate random AES key</span>
-    <span style="color:#66d9ef">local</span> aes_key <span style="color:#f92672">=</span> resty_rand.bytes(<span style="color:#ae81ff">16</span>)
-
-    <span style="color:#75715e">-- 2. Use RSA algorithm + RSA public key to encrypt the AES key</span>
-    <span style="color:#66d9ef">local</span> encrypted_aes_key <span style="color:#f92672">=</span> rsa_encrypted(aes_key)
-    <span style="color:#66d9ef">if</span> encrypted_aes_key <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
-        ngx.say(<span style="color:#e6db74">&#34;Failed to encrypt AES key&#34;</span>)
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-    <span style="color:#66d9ef">end</span>
-
-    <span style="color:#75715e">-- 3. Use AES to encrypt the content</span>
-    <span style="color:#66d9ef">local</span> encrypted_content <span style="color:#f92672">=</span> aes_encrypted(aes_key, content)
-    <span style="color:#66d9ef">if</span> encrypted_content <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
-        ngx.say(<span style="color:#e6db74">&#34;Failed to encrypt content&#34;</span>)
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-    <span style="color:#66d9ef">end</span>
-
-    <span style="color:#75715e">-- Return the base64url encoded encrypted AES key and content</span>
-    <span style="color:#66d9ef">return</span> encode_base64url(encrypted_aes_key), encode_base64url(encrypted_content)
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#75715e">-- Your content to encrypt</span>
-<span style="color:#66d9ef">local</span> content <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Your content here&#34;</span>
-
-<span style="color:#75715e">-- Call the encrypt function</span>
-<span style="color:#66d9ef">local</span> encryptedAesKey, encryptedContent <span style="color:#f92672">=</span> encrypt(content)
-
-<span style="color:#75715e">-- Print the base64url encoded encrypted AES key and content</span>
-ngx.say(<span style="color:#e6db74">&#34;Encrypted AES Key: &#34;</span>, encryptedAesKey)
-ngx.say(<span style="color:#e6db74">&#34;Encrypted Content: &#34;</span>, encryptedContent) 
-</code></pre></div><blockquote>
-<p>以下是解密流程代码</p>
-</blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua"><span style="color:#66d9ef">local</span> rsa_priv_key<span style="color:#f92672">=</span><span style="color:#e6db74">[[
-</span><span style="color:#e6db74">-------BEGIN PRIVATE KEY-----
-</span><span style="color:#e6db74">your rsa private key code here 
-</span><span style="color:#e6db74">-------END PRIVATE KEY-----
-</span><span style="color:#e6db74">]]</span>
-
-<span style="color:#66d9ef">local</span> rsa_pub_key<span style="color:#f92672">=</span><span style="color:#e6db74">[[
-</span><span style="color:#e6db74">-------BEGIN PUBLIC KEY-----
-</span><span style="color:#e6db74">your rsa public key code here 
-</span><span style="color:#e6db74">-------END PUBLIC KEY-----
-</span><span style="color:#e6db74">]]</span>
-
-<span style="color:#66d9ef">local</span> resty_str <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.string&#34;</span>
-
-<span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">stringToHex</span>(input)
-    <span style="color:#66d9ef">return</span> resty_str.to_hex(input)
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#75715e">-- Base64 decode with URL safe and no padding</span>
-<span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">decode_base64url</span>(input)
-    <span style="color:#66d9ef">local</span> remainder <span style="color:#f92672">=</span> <span style="color:#f92672">#</span>input <span style="color:#f92672">%</span> <span style="color:#ae81ff">4</span>
-    <span style="color:#66d9ef">if</span> remainder <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span>
-        <span style="color:#66d9ef">local</span> padding <span style="color:#f92672">=</span> string.rep(<span style="color:#e6db74">&#39;=&#39;</span>, <span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span> remainder)
-        input <span style="color:#f92672">=</span> input <span style="color:#f92672">..</span> padding
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">local</span> url_decoded <span style="color:#f92672">=</span> string.gsub(input, <span style="color:#e6db74">&#39;-&#39;</span>, <span style="color:#e6db74">&#39;+&#39;</span>)
-    url_decoded <span style="color:#f92672">=</span> string.gsub(url_decoded, <span style="color:#e6db74">&#39;_&#39;</span>, <span style="color:#e6db74">&#39;/&#39;</span>)
-    <span style="color:#66d9ef">local</span> decoded <span style="color:#f92672">=</span> ngx.decode_base64(url_decoded)
-    <span style="color:#66d9ef">return</span> decoded
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#75715e">-- Base64 decode with no padding</span>
-<span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">decode_base64nopad</span>(input)
-    <span style="color:#66d9ef">local</span> remainder <span style="color:#f92672">=</span> <span style="color:#f92672">#</span>input <span style="color:#f92672">%</span> <span style="color:#ae81ff">4</span>
-    <span style="color:#66d9ef">if</span> remainder <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span>
-        <span style="color:#66d9ef">local</span> padding <span style="color:#f92672">=</span> string.rep(<span style="color:#e6db74">&#39;=&#39;</span>, <span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span> remainder)
-        input <span style="color:#f92672">=</span> input <span style="color:#f92672">..</span> padding
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">local</span> decoded <span style="color:#f92672">=</span> ngx.decode_base64(input)
-    <span style="color:#66d9ef">return</span> decoded
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#75715e">-- RSA decryption function</span>
-<span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">rsa_decrypted</span>(base64url_str)
-   <span style="color:#66d9ef">local</span> resty_rsa <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.rsa&#34;</span>
-   <span style="color:#66d9ef">if</span> base64url_str <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
-      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-   <span style="color:#66d9ef">end</span>
-   <span style="color:#66d9ef">local</span> decoded_str <span style="color:#f92672">=</span> decode_base64url(base64url_str)
-
-   <span style="color:#66d9ef">if</span> decoded_str <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
-      ngx.say(<span style="color:#e6db74">&#34;Failed to decode base64url string: &#34;</span>, base64url_str)
-      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-   <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">local</span> priv, err <span style="color:#f92672">=</span> resty_rsa:new({ private_key <span style="color:#f92672">=</span> rsa_priv_key })
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> priv <span style="color:#66d9ef">then</span>
-       ngx.say(<span style="color:#e6db74">&#34;new rsa err: &#34;</span>, err)
-       <span style="color:#66d9ef">return</span>
-   <span style="color:#66d9ef">end</span>
-   <span style="color:#66d9ef">local</span> decrypted <span style="color:#f92672">=</span> priv:decrypt(decoded_str)
-
-   <span style="color:#66d9ef">return</span>  decrypted
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#75715e">-- AES decryption function</span>
-<span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">aes_decrypted</span>(key, str)
-   <span style="color:#66d9ef">if</span> key <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">or</span> str <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
-      ngx.say(<span style="color:#e6db74">&#39;key or str is nil&#39;</span>)
-      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-   <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">local</span> decode_str <span style="color:#f92672">=</span> decode_base64url(str)
-   <span style="color:#66d9ef">local</span> aes <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.aes&#34;</span>
-   <span style="color:#66d9ef">local</span> enable_padding <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
-   <span style="color:#66d9ef">local</span> aes_128_cbc_with_padding <span style="color:#f92672">=</span> aes:new(
-       key, <span style="color:#66d9ef">nil</span>, aes.cipher(<span style="color:#ae81ff">128</span>,<span style="color:#e6db74">&#34;cbc&#34;</span>), {iv <span style="color:#f92672">=</span> string.rep(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\0</span><span style="color:#e6db74">&#39;</span>, <span style="color:#ae81ff">16</span>)}, <span style="color:#66d9ef">nil</span>,
-       <span style="color:#66d9ef">nil</span>, enable_padding)
-   <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> aes_128_cbc_with_padding <span style="color:#66d9ef">then</span>
-        ngx.say(<span style="color:#e6db74">&#39;Failed to create aes_256_cbc_with_padding&#39;</span>)
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-   <span style="color:#66d9ef">end</span>
-   <span style="color:#66d9ef">local</span> decrypted <span style="color:#f92672">=</span> aes_128_cbc_with_padding:decrypt(decode_str)
-   <span style="color:#66d9ef">return</span> decrypted
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#75715e">-- Main decryption function</span>
-<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">decrypt</span>(content, encryptAesKey)
-    <span style="color:#66d9ef">local</span> decoded_key <span style="color:#f92672">=</span> rsa_decrypted(encryptAesKey)
-
-    <span style="color:#66d9ef">if</span> decoded_key <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
-        ngx.say(<span style="color:#e6db74">&#34;Failed to decrypt AES key&#34;</span>)
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">local</span> decrypted_content <span style="color:#f92672">=</span> aes_decrypted(decoded_key, content)
-    <span style="color:#66d9ef">return</span> decrypted_content
-<span style="color:#66d9ef">end</span>
-<span style="color:#75715e">-- Your encrypted content and key</span>
-<span style="color:#66d9ef">local</span> content <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;your encrypt content&#34;</span>
-<span style="color:#66d9ef">local</span> encryptAesKey <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;your aes key code here by java&#34;</span>
-<span style="color:#75715e">-- Call the decrypt function</span>
-<span style="color:#66d9ef">local</span> decryptedContent <span style="color:#f92672">=</span> decrypt(content,encryptAesKey)
-<span style="color:#75715e">-- Print the decrypted content</span>
-ngx.say(decryptedContent)
-
-
-</code></pre></div>
+<p>以下是lua加密流程</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span><span style="color:#66d9ef">local</span> rsa_priv_key<span style="color:#f92672">=</span><span style="color:#e6db74">[[
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-------BEGIN PRIVATE KEY-----
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">your rsa private key code here 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-------END PRIVATE KEY-----
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">]]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> rsa_pub_key<span style="color:#f92672">=</span><span style="color:#e6db74">[[
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-------BEGIN PUBLIC KEY-----
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">your rsa public key code here 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-------END PUBLIC KEY-----
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">]]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> resty_rsa <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.rsa&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> resty_aes <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.aes&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> resty_rand <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.random&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> resty_str <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.string&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Base64 encode with URL safe and no padding</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">encode_base64url</span>(input)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> encoded <span style="color:#f92672">=</span> ngx.encode_base64(input)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> url_encoded <span style="color:#f92672">=</span> string.gsub(encoded, <span style="color:#e6db74">&#39;+&#39;</span>, <span style="color:#e6db74">&#39;-&#39;</span>)
+</span></span><span style="display:flex;"><span>    url_encoded <span style="color:#f92672">=</span> string.gsub(url_encoded, <span style="color:#e6db74">&#39;/&#39;</span>, <span style="color:#e6db74">&#39;_&#39;</span>)
+</span></span><span style="display:flex;"><span>    url_encoded <span style="color:#f92672">=</span> string.gsub(url_encoded, <span style="color:#e6db74">&#39;=&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> url_encoded
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- RSA encryption function</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">rsa_encrypted</span>(aes_key)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> pub, err <span style="color:#f92672">=</span> resty_rsa:new({ public_key <span style="color:#f92672">=</span> rsa_pub_key })
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> pub <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        ngx.say(<span style="color:#e6db74">&#34;new rsa err: &#34;</span>, err)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> encrypted <span style="color:#f92672">=</span> pub:encrypt(aes_key)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> encrypted
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- AES encryption function</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">aes_encrypted</span>(aes_key, content)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> aes_128_cbc_with_padding <span style="color:#f92672">=</span> resty_aes:new(
+</span></span><span style="display:flex;"><span>            aes_key, <span style="color:#66d9ef">nil</span>, resty_aes.cipher(<span style="color:#ae81ff">128</span>,<span style="color:#e6db74">&#34;cbc&#34;</span>), {iv <span style="color:#f92672">=</span> string.rep(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\0</span><span style="color:#e6db74">&#39;</span>, <span style="color:#ae81ff">16</span>)}, <span style="color:#66d9ef">nil</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">nil</span>, <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> aes_128_cbc_with_padding <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        ngx.say(<span style="color:#e6db74">&#39;Failed to create aes_128_cbc_with_padding&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> encrypted <span style="color:#f92672">=</span> aes_128_cbc_with_padding:encrypt(content)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> encrypted
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Main encryption function</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">encrypt</span>(content)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- 1. Generate random AES key</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> aes_key <span style="color:#f92672">=</span> resty_rand.bytes(<span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- 2. Use RSA algorithm + RSA public key to encrypt the AES key</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> encrypted_aes_key <span style="color:#f92672">=</span> rsa_encrypted(aes_key)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> encrypted_aes_key <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        ngx.say(<span style="color:#e6db74">&#34;Failed to encrypt AES key&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- 3. Use AES to encrypt the content</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> encrypted_content <span style="color:#f92672">=</span> aes_encrypted(aes_key, content)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> encrypted_content <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        ngx.say(<span style="color:#e6db74">&#34;Failed to encrypt content&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Return the base64url encoded encrypted AES key and content</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> encode_base64url(encrypted_aes_key), encode_base64url(encrypted_content)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Your content to encrypt</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> content <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Your content here&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Call the encrypt function</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> encryptedAesKey, encryptedContent <span style="color:#f92672">=</span> encrypt(content)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Print the base64url encoded encrypted AES key and content</span>
+</span></span><span style="display:flex;"><span>ngx.say(<span style="color:#e6db74">&#34;Encrypted AES Key: &#34;</span>, encryptedAesKey)
+</span></span><span style="display:flex;"><span>ngx.say(<span style="color:#e6db74">&#34;Encrypted Content: &#34;</span>, encryptedContent) 
+</span></span></code></pre></div><blockquote>
+<p>以下是解密流程代码</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span><span style="color:#66d9ef">local</span> rsa_priv_key<span style="color:#f92672">=</span><span style="color:#e6db74">[[
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-------BEGIN PRIVATE KEY-----
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">your rsa private key code here 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-------END PRIVATE KEY-----
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">]]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> rsa_pub_key<span style="color:#f92672">=</span><span style="color:#e6db74">[[
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-------BEGIN PUBLIC KEY-----
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">your rsa public key code here 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-------END PUBLIC KEY-----
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">]]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> resty_str <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.string&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">stringToHex</span>(input)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> resty_str.to_hex(input)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Base64 decode with URL safe and no padding</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">decode_base64url</span>(input)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> remainder <span style="color:#f92672">=</span> <span style="color:#f92672">#</span>input <span style="color:#f92672">%</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> remainder <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">local</span> padding <span style="color:#f92672">=</span> string.rep(<span style="color:#e6db74">&#39;=&#39;</span>, <span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span> remainder)
+</span></span><span style="display:flex;"><span>        input <span style="color:#f92672">=</span> input <span style="color:#f92672">..</span> padding
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> url_decoded <span style="color:#f92672">=</span> string.gsub(input, <span style="color:#e6db74">&#39;-&#39;</span>, <span style="color:#e6db74">&#39;+&#39;</span>)
+</span></span><span style="display:flex;"><span>    url_decoded <span style="color:#f92672">=</span> string.gsub(url_decoded, <span style="color:#e6db74">&#39;_&#39;</span>, <span style="color:#e6db74">&#39;/&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> decoded <span style="color:#f92672">=</span> ngx.decode_base64(url_decoded)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> decoded
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Base64 decode with no padding</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">decode_base64nopad</span>(input)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> remainder <span style="color:#f92672">=</span> <span style="color:#f92672">#</span>input <span style="color:#f92672">%</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> remainder <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">local</span> padding <span style="color:#f92672">=</span> string.rep(<span style="color:#e6db74">&#39;=&#39;</span>, <span style="color:#ae81ff">4</span> <span style="color:#f92672">-</span> remainder)
+</span></span><span style="display:flex;"><span>        input <span style="color:#f92672">=</span> input <span style="color:#f92672">..</span> padding
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> decoded <span style="color:#f92672">=</span> ngx.decode_base64(input)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> decoded
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- RSA decryption function</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">rsa_decrypted</span>(base64url_str)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">local</span> resty_rsa <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.rsa&#34;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> base64url_str <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">local</span> decoded_str <span style="color:#f92672">=</span> decode_base64url(base64url_str)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> decoded_str <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>      ngx.say(<span style="color:#e6db74">&#34;Failed to decode base64url string: &#34;</span>, base64url_str)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> priv, err <span style="color:#f92672">=</span> resty_rsa:new({ private_key <span style="color:#f92672">=</span> rsa_priv_key })
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> priv <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>       ngx.say(<span style="color:#e6db74">&#34;new rsa err: &#34;</span>, err)
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">local</span> decrypted <span style="color:#f92672">=</span> priv:decrypt(decoded_str)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span>  decrypted
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- AES decryption function</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">aes_decrypted</span>(key, str)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> key <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#f92672">or</span> str <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>      ngx.say(<span style="color:#e6db74">&#39;key or str is nil&#39;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> decode_str <span style="color:#f92672">=</span> decode_base64url(str)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">local</span> aes <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.aes&#34;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">local</span> enable_padding <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">local</span> aes_128_cbc_with_padding <span style="color:#f92672">=</span> aes:new(
+</span></span><span style="display:flex;"><span>       key, <span style="color:#66d9ef">nil</span>, aes.cipher(<span style="color:#ae81ff">128</span>,<span style="color:#e6db74">&#34;cbc&#34;</span>), {iv <span style="color:#f92672">=</span> string.rep(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\0</span><span style="color:#e6db74">&#39;</span>, <span style="color:#ae81ff">16</span>)}, <span style="color:#66d9ef">nil</span>,
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">nil</span>, enable_padding)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> aes_128_cbc_with_padding <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        ngx.say(<span style="color:#e6db74">&#39;Failed to create aes_256_cbc_with_padding&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">local</span> decrypted <span style="color:#f92672">=</span> aes_128_cbc_with_padding:decrypt(decode_str)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> decrypted
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Main decryption function</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">decrypt</span>(content, encryptAesKey)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> decoded_key <span style="color:#f92672">=</span> rsa_decrypted(encryptAesKey)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> decoded_key <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        ngx.say(<span style="color:#e6db74">&#34;Failed to decrypt AES key&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">local</span> decrypted_content <span style="color:#f92672">=</span> aes_decrypted(decoded_key, content)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> decrypted_content
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Your encrypted content and key</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> content <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;your encrypt content&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> encryptAesKey <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;your aes key code here by java&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Call the decrypt function</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">local</span> decryptedContent <span style="color:#f92672">=</span> decrypt(content,encryptAesKey)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Print the decrypted content</span>
+</span></span><span style="display:flex;"><span>ngx.say(decryptedContent)
+</span></span></code></pre></div>
       </div></div>
 
   

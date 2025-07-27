@@ -1,190 +1,35 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>thingsboard on LTAN.ME</title>
+    <title>ThingsBoard on LTAN.ME</title>
     <link>https://ltan.me/tags/thingsboard/</link>
-    <description>Recent content in thingsboard on LTAN.ME</description>
+    <description>Recent content in ThingsBoard on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 04 Jul 2024 21:01:07 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/thingsboard/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Thingsboard Getway Debug</title>
-      <link>https://ltan.me/post/2024/07/thingsboard-getway-debug/</link>
-      <pubDate>Thu, 04 Jul 2024 21:01:07 +0800</pubDate>
-      
-      <guid>https://ltan.me/post/2024/07/thingsboard-getway-debug/</guid>
-      <description>记一次thingsboard gateway 调试总结 背景 在使用 ThingsBoard 3.6.4 网关thingsboard gateway 3.5.1的过程中，我们需要配置和调试 MQTT 连接器，以便子设备能够正确处理来自网关的 RPC 请求。此次调试过程中，遇到了一些问题，</description>
-      <content>&lt;h1 id=&#34;记一次thingsboard-gateway-调试总结&#34;&gt;记一次thingsboard gateway 调试总结&lt;/h1&gt;
-&lt;h3 id=&#34;背景&#34;&gt;背景&lt;/h3&gt;
-&lt;p&gt;在使用 &lt;code&gt;ThingsBoard 3.6.4&lt;/code&gt; 网关&lt;code&gt;thingsboard gateway 3.5.1&lt;/code&gt;的过程中，我们需要配置和调试 &lt;code&gt;MQTT&lt;/code&gt; 连接器，以便子设备能够正确处理来自网关的 &lt;code&gt;RPC&lt;/code&gt; 请求。此次调试过程中，遇到了一些问题，包括 &lt;code&gt;JSON&lt;/code&gt; 格式错误、消息未正确替换变量、以及消息处理超时等。
-但凡遇到网关问题，官方文档少知又少。github issue 有人遇到同样的问题无人回复,本人折腾了2天终于让子设备通网了&lt;/p&gt;
-&lt;p&gt;我模拟网关的网络结构如下：
-其中 &lt;code&gt;Demo Device 1&lt;/code&gt; 和 &lt;code&gt;Demo Device 2&lt;/code&gt; 作为 &lt;code&gt;thingsboard gateway&lt;/code&gt; 的子设备&lt;br&gt;
-&lt;img src=&#34;img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
-&lt;h3 id=&#34;问题总结&#34;&gt;问题总结&lt;/h3&gt;
-&lt;h4 id=&#34;1-json-格式错误&#34;&gt;1. JSON 格式错误&lt;/h4&gt;
-&lt;p&gt;在配置 &lt;code&gt;valueExpression&lt;/code&gt; 时，生成的 &lt;code&gt;JSON&lt;/code&gt; 字符串格式不正确，导致子设备在解析时出错。具体表现为双引号重复或逗号缺失。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;解决方法：&lt;/strong&gt;
-确保 &lt;code&gt;valueExpression&lt;/code&gt; 格式正确，避免重复的双引号。最终的 &lt;code&gt;valueExpression&lt;/code&gt; 如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;valueExpression&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{\&amp;#34;method\&amp;#34;:${method}, \&amp;#34;params\&amp;#34;:${params}, \&amp;#34;id\&amp;#34;:${id}}&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;2-变量未正确替换&#34;&gt;2. 变量未正确替换&lt;/h4&gt;
-&lt;p&gt;在最初的调试过程中，发现 &lt;code&gt;methodName&lt;/code&gt; 和 &lt;code&gt;requestId&lt;/code&gt; 变量未能正确替换，导致子设备接收到的消息中包含未解析的变量字符串。
-原因是因为变量名写错了&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;解决方法：&lt;/strong&gt;
-确保 &lt;code&gt;mqtt-connector.json&lt;/code&gt; 中的变量能够正确替换。最终的配置如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
-  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;serverSideRpc&amp;#34;&lt;/span&gt;: [
-    {
-      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;deviceNameFilter&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Demo Device 1&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;methodFilter&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;setValue&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;requestTopicExpression&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rpc/request/84c0b49-3bea-4949-a6b6-d815f9fac3e5/${method}/${id}&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;responseTopicExpression&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rpc/response/84c0b49-3bea-4949-a6b6-d815f9fac3e5/${method}/${id}&amp;#34;&lt;/span&gt;,
-      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;responseTimeout&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;10000&lt;/span&gt;,
-      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;valueExpression&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;{\&amp;#34;method\&amp;#34;:${method}, \&amp;#34;params\&amp;#34;:${params}, \&amp;#34;id\&amp;#34;:${id}}&amp;#34;&lt;/span&gt;
-    }
-  ]
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;3-rpc-请求超时&#34;&gt;3. RPC 请求超时&lt;/h4&gt;
-&lt;p&gt;网关日志显示 RPC 请求被取消或超时，导致未能正确处理子设备的响应。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;解决方法：&lt;/strong&gt;
-在网关下的子设备上面 增加调试信息，确保子设备在处理消息时能够正确响应。更新后的 &lt;code&gt;publisher.py&lt;/code&gt; 如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; random
-&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; time
-&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; json
-&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; paho.mqtt &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; client &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; mqtt_client
-
-broker &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;127.0.0.1&amp;#39;&lt;/span&gt;
-port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1884&lt;/span&gt;
-topic &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;data/&amp;#39;&lt;/span&gt;
-device_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;84c0b49-3bea-4949-a6b6-d815f9fac3e5&amp;#39;&lt;/span&gt; 
-rpc_request_topic &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rpc/request/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;device_id&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/#&amp;#39;&lt;/span&gt;
-client_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;publish-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;random&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randint(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;)&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;connect_mqtt&lt;/span&gt;():
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on_connect&lt;/span&gt;(client, userdata, flags, rc):
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; rc &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;:
-            print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Connected to MQTT Broker!&amp;#34;&lt;/span&gt;)
-            client&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;subscribe(rpc_request_topic)  
-            print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Subscribed to topic: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;rpc_request_topic&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-            print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Failed to connect, return code &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;rc&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
-
-    client &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mqtt_client&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Client(client_id)
-    client&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;on_connect &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; on_connect
-    client&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;on_message &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; on_message 
-    client&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;connect(broker, port)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; client
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on_message&lt;/span&gt;(client, userdata, msg):
-    print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Received `&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;msg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;payload&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode()&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;` from `&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;msg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;topic&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;` topic&amp;#34;&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
-        rpc_request &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; json&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;loads(msg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;payload&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode())
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; isinstance(rpc_request, dict):
-            handle_rpc_request(client, rpc_request)
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-            print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Received non-JSON message: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;rpc_request&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; json&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;JSONDecodeError &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; e:
-        print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Error processing message: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;e&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;handle_rpc_request&lt;/span&gt;(client, rpc_request):
-    method &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rpc_request&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;method&amp;#39;&lt;/span&gt;)
-    params &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rpc_request&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;params&amp;#39;&lt;/span&gt;)
-    request_id &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; rpc_request&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;id&amp;#39;&lt;/span&gt;)
-    print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Handling RPC request: method=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;method&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;, params=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;params&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;, id=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;request_id&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
-
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; method &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;setValue&amp;#39;&lt;/span&gt;:
-        response &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; handle_set_value(params)
-        response_topic &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rpc/response/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;device_id&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;method&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;request_id&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;
-        client&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;publish(response_topic, json&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dumps(response))
-        print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Published response to topic: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;response_topic&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;, response: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;response&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-        print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Unknown RPC method: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;method&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;handle_set_value&lt;/span&gt;(params):
-    print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Handling setValue with params: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;params&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;status&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;success&amp;#34;&lt;/span&gt;}
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;make_msg&lt;/span&gt;():
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; json&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dumps({
-        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;frequency&amp;#39;&lt;/span&gt;: random&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randint(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;),
-        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;power&amp;#39;&lt;/span&gt;: random&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randint(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;),
-        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;temperature&amp;#39;&lt;/span&gt;: random&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randint(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;),
-        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;humidity&amp;#39;&lt;/span&gt;: random&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;randint(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;)
-    })
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;publish&lt;/span&gt;(client):
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;:
-        msg &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; make_msg()
-        result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; client&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;publish(topic, msg)
-        status &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; result[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; status &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;:
-            print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Send `&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;msg&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;` to topic `&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;topic&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&amp;#34;&lt;/span&gt;)
-        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
-            print(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Failed to send message to topic &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;topic&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
-
-        time&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sleep(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;run&lt;/span&gt;():
-    client &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; connect_mqtt()
-    client&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;loop_start()
-    publish(client)
-    client&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;loop_stop()
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; __name__ &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;:
-    print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;STARTED&amp;#34;&lt;/span&gt;)
-    run()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;验证与测试&#34;&gt;验证与测试&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;重新启动 ThingsBoard 网关&lt;/strong&gt;，确保新的配置生效。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;确保 MQTT Broker 正常运行&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;重新启动 &lt;code&gt;publisher.py&lt;/code&gt; 脚本&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;发布 RPC 请求&lt;/strong&gt;：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mosquitto_pub -h 127.0.0.1 -p &lt;span style=&#34;color:#ae81ff&#34;&gt;1884&lt;/span&gt; -t &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rpc/request/84c0b49-3bea-4949-a6b6-d815f9fac3e5/setValue/req1&amp;#34;&lt;/span&gt; -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{&amp;#34;method&amp;#34;:&amp;#34;setValue&amp;#34;,&amp;#34;params&amp;#34;:true,&amp;#34;id&amp;#34;:&amp;#34;req1&amp;#34;}&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;观察网关和子设备日志&lt;/strong&gt;，确保请求和响应正确处理。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;通过以上步骤，我们成功解决了 JSON 格式错误、变量未正确替换以及 RPC 请求超时等问题，确保了 ThingsBoard 网关和子设备能够正确通信。&lt;/p&gt;
-&lt;p&gt;thingsboard与gate&amp;amp;子设备最关键的部分，链接器配置json
-&lt;img src=&#34;img.png&#34; alt=&#34;img.png&#34;&gt;
-我的设备列表如下
-&lt;img src=&#34;img_1.png&#34; alt=&#34;img_1.png&#34;&gt;
-分别配置了两个按钮给设备1和设备2发送消息
-&lt;img src=&#34;img_2.png&#34; alt=&#34;img_2.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;子设备收到消息
-Received &lt;code&gt;{&amp;quot;method&amp;quot;:&amp;quot;setValue&amp;quot;, &amp;quot;params&amp;quot;:false, &amp;quot;id&amp;quot;:299}&lt;/code&gt; from &lt;code&gt;rpc/request/84c0b49-3bea-4949-a6b6-d815f9fac3e5/setValue/299&lt;/code&gt; topic
-&lt;img src=&#34;img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;网关与子设备的关联关系
-&lt;img src=&#34;img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;网关打印的日志&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;
-2024-07-04 13:13:20 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mqtt_connector.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - mqtt_connector - _process_on_message - &lt;span style=&#34;color:#ae81ff&#34;&gt;732&lt;/span&gt; - RPC response arrived. Forwarding it to thingsboard.
-2024-07-04 13:13:20 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;tb_gateway_service.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - tb_gateway_service - rpc_with_reply_processing - &lt;span style=&#34;color:#ae81ff&#34;&gt;1399&lt;/span&gt; - Outgoing RPC. Device: Demo Device 1, ID: &lt;span style=&#34;color:#ae81ff&#34;&gt;291&lt;/span&gt;
-2024-07-04 13:13:26 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mqtt_connector.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - mqtt_connector - rpc_cancel_processing - &lt;span style=&#34;color:#ae81ff&#34;&gt;938&lt;/span&gt; - RPC canceled or terminated. Unsubscribing from rpc/response/84c0b49-3bea-4949-a6b6-d815f9fac3e5/setValue/286
-2024-07-04 13:13:28 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mqtt_connector.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - mqtt_connector - rpc_cancel_processing - &lt;span style=&#34;color:#ae81ff&#34;&gt;938&lt;/span&gt; - RPC canceled or terminated. Unsubscribing from rpc/response/84c0b49-3bea-4949-a6b6-d815f9fac3e5/setValue/287
-2024-07-04 13:13:29 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mqtt_connector.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - mqtt_connector - rpc_cancel_processing - &lt;span style=&#34;color:#ae81ff&#34;&gt;938&lt;/span&gt; - RPC canceled or terminated. Unsubscribing from rpc/response/84c0b49-3bea-4949-a6b6-d815f9fac3e5/setValue/288
-2024-07-04 13:13:29 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mqtt_connector.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - mqtt_connector - rpc_cancel_processing - &lt;span style=&#34;color:#ae81ff&#34;&gt;938&lt;/span&gt; - RPC canceled or terminated. Unsubscribing from rpc/response/84c0b49-3bea-4949-a6b6-d815f9fac3e5/setValue/289
-2024-07-04 13:13:29 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mqtt_connector.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - mqtt_connector - rpc_cancel_processing - &lt;span style=&#34;color:#ae81ff&#34;&gt;938&lt;/span&gt; - RPC canceled or terminated. Unsubscribing from rpc/response/84c0b49-3bea-4949-a6b6-d815f9fac3e5/setValue/290
-2024-07-04 13:13:30 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mqtt_connector.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - mqtt_connector - rpc_cancel_processing - &lt;span style=&#34;color:#ae81ff&#34;&gt;938&lt;/span&gt; - RPC canceled or terminated. Unsubscribing from rpc/response/84c0b49-3bea-4949-a6b6-d815f9fac3e5/setValue/291
-2024-07-04 13:13:47 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mqtt_connector.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - mqtt_connector - server_side_rpc_handler - &lt;span style=&#34;color:#ae81ff&#34;&gt;895&lt;/span&gt; - Incoming server-side RPC: &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;device&amp;#39;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Demo Device 1&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;data&amp;#39;&lt;/span&gt;: &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;id&amp;#39;&lt;/span&gt;: 292, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;method&amp;#39;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;setValue&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;params&amp;#39;&lt;/span&gt;: True&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;id&amp;#39;&lt;/span&gt;: &amp;lt;tb_gateway_mqtt.TBGatewayMqttClient object at 0x7f245a1c5690&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-2024-07-04 13:13:47 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mqtt_connector.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - mqtt_connector - __process_rpc_request - &lt;span style=&#34;color:#ae81ff&#34;&gt;807&lt;/span&gt; - Candidate RPC handler found
-2024-07-04 13:13:47 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mqtt_connector.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - mqtt_connector - __process_rpc_request - &lt;span style=&#34;color:#ae81ff&#34;&gt;826&lt;/span&gt; - Subscribing to: rpc/response/84c0b49-3bea-4949-a6b6-d815f9fac3e5/setValue/292
-2024-07-04 13:13:47 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mqtt_connector.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - mqtt_connector - _on_subscribe - &lt;span style=&#34;color:#ae81ff&#34;&gt;485&lt;/span&gt; - &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&amp;lt;paho.mqtt.properties.Properties object at 0x7f2448fcda10&amp;gt;,&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
-2024-07-04 13:13:47 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mqtt_connector.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - mqtt_connector - _on_subscr
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you have any questions about ThingsBoard, please add my WeChat at any time. Welcome!
-My WeChat ID: 83975256&lt;/p&gt;
-</content>
-    </item>
-    
+    <language>en</language>
+    <lastBuildDate>Tue, 11 Jun 2024 18:52:36 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/thingsboard/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vmware and Ubuntu</title>
       <link>https://ltan.me/post/2024/06/vmware-and-ubuntu/</link>
       <pubDate>Tue, 11 Jun 2024 18:52:36 +0800</pubDate>
       
       <guid>https://ltan.me/post/2024/06/vmware-and-ubuntu/</guid>
-      <description>在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建 我的虚拟机设置情况 要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南： 下载 Ubuntu 20.04.6 LTS ISO 文件 访问 Ubuntu 官方下载页面: 打开浏览器</description>
+      <description>&lt;h2 id=&#34;在vmware安装ubuntu-2004-lts-版本与windows-10-共享文件环境搭建&#34;&gt;在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建&lt;/h2&gt;
+&lt;p&gt;我的虚拟机设置情况&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/06/vmware-and-ubuntu/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南：&lt;/p&gt;
+&lt;h3 id=&#34;下载-ubuntu-20046-lts-iso-文件&#34;&gt;下载 Ubuntu 20.04.6 LTS ISO 文件&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;访问 Ubuntu 官方下载页面&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;打开浏览器，访问 &lt;a href=&#34;https://releases.ubuntu.com/20.04/&#34;&gt;Ubuntu 20.04.6 LTS 下载页面&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;选择下载合适的 ISO 文件&lt;/strong&gt;:&lt;/p&gt;</description>
       <content>&lt;h2 id=&#34;在vmware安装ubuntu-2004-lts-版本与windows-10-共享文件环境搭建&#34;&gt;在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建&lt;/h2&gt;
 &lt;p&gt;我的虚拟机设置情况&lt;br&gt;
-&lt;img src=&#34;img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/06/vmware-and-ubuntu/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南：&lt;/p&gt;
 &lt;h3 id=&#34;下载-ubuntu-20046-lts-iso-文件&#34;&gt;下载 Ubuntu 20.04.6 LTS ISO 文件&lt;/h3&gt;
 &lt;ol&gt;
@@ -325,17 +170,17 @@ My WeChat ID: 83975256&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;更新系统&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;打开终端，运行以下命令更新系统：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt update
-sudo apt upgrade -y
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt upgrade -y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;安装编译工具&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;运行以下命令安装编译 ThingsBoard 源码所需的工具：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt install -y openjdk-11-jdk maven git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y openjdk-11-jdk maven git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -345,17 +190,17 @@ sudo apt upgrade -y
 &lt;p&gt;&lt;strong&gt;克隆 ThingsBoard 仓库&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;运行以下命令克隆 ThingsBoard 源码：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;git clone https://github.com/thingsboard/thingsboard.git
-cd thingsboard
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/thingsboard/thingsboard.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd thingsboard
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;编译源码&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;使用 Maven 编译 ThingsBoard 源码：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;mvn clean install -DskipTests
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mvn clean install -DskipTests
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -460,16 +305,16 @@ cd thingsboard
 &lt;/ol&gt;
 &lt;h3 id=&#34;图示操作&#34;&gt;图示操作&lt;/h3&gt;
 &lt;p&gt;确保选项如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;[X] Install OpenSSH server
-
-Import SSH identity: [ No  ▼]
-You can import your SSH keys from GitHub or Launchpad.
-
-[X] Allow password authentication over SSH
-
-[ Done ]
-[ Back ]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;完成这些步骤后，安装程序将继续进行剩余的安装过程。安装完成后，你将能够通过 SSH 远程连接到你的 Ubuntu 服务器。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[X] Install OpenSSH server
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Import SSH identity: [ No  ▼]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;You can import your SSH keys from GitHub or Launchpad.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[X] Allow password authentication over SSH
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[ Done ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[ Back ]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;完成这些步骤后，安装程序将继续进行剩余的安装过程。安装完成后，你将能够通过 SSH 远程连接到你的 Ubuntu 服务器。&lt;/p&gt;
 &lt;h3 id=&#34;总结&#34;&gt;总结&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;确保 &lt;code&gt;Install OpenSSH server&lt;/code&gt; 选项已选中。&lt;/li&gt;
@@ -484,7 +329,7 @@ You can import your SSH keys from GitHub or Launchpad.
 &lt;li&gt;&lt;strong&gt;选择 Docker&lt;/strong&gt;：
 &lt;ul&gt;
 &lt;li&gt;使用箭头键移动到 &lt;code&gt;docker&lt;/code&gt; 选项。&lt;/li&gt;
-&lt;li&gt;按空格键选择 &lt;code&gt;docker&lt;/code&gt;（选择后会显示 &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; ）。&lt;/li&gt;
+&lt;li&gt;按空格键选择 &lt;code&gt;docker&lt;/code&gt;（选择后会显示 [X]）。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -505,91 +350,91 @@ You can import your SSH keys from GitHub or Launchpad.
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;更新系统&lt;/strong&gt;：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt update
-sudo apt upgrade -y
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt upgrade -y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;确保 SSH 服务已安装并启动&lt;/strong&gt;：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt install -y openssh-server
-sudo systemctl enable ssh
-sudo systemctl start ssh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y openssh-server
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl enable ssh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl start ssh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;安装-python-310&#34;&gt;安装 Python 3.10&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;添加 deadsnakes PPA 并安装 Python 3.10&lt;/strong&gt;：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt install -y software-properties-common
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update
-sudo apt install -y python3.10 python3.10-venv python3.10-dev
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y software-properties-common
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo add-apt-repository ppa:deadsnakes/ppa
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y python3.10 python3.10-venv python3.10-dev
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;安装-java-jdk-11&#34;&gt;安装 Java JDK 11&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;安装 OpenJDK 11&lt;/strong&gt;：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt install -y openjdk-11-jdk
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y openjdk-11-jdk
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;安装-google-protobuf&#34;&gt;安装 Google Protobuf&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;安装 Protobuf&lt;/strong&gt;：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt install -y protobuf-compiler
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y protobuf-compiler
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;安装-thingsboard-依赖项&#34;&gt;安装 ThingsBoard 依赖项&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;安装 Maven 和 Git&lt;/strong&gt;：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt install -y maven git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y maven git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;克隆并编译-thingsboard-源码-1&#34;&gt;克隆并编译 ThingsBoard 源码&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;克隆 ThingsBoard 仓库&lt;/strong&gt;：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;git clone https://github.com/thingsboard/thingsboard.git
-cd thingsboard
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/thingsboard/thingsboard.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd thingsboard
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;编译 ThingsBoard 源码&lt;/strong&gt;：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;mvn clean install -DskipTests
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mvn clean install -DskipTests
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;示例命令汇总&#34;&gt;示例命令汇总&lt;/h3&gt;
 &lt;p&gt;以下是你可以复制粘贴到终端中执行的一系列命令，以确保安装所需的所有依赖项：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 更新系统&lt;/span&gt;
-sudo apt update
-sudo apt upgrade -y
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 SSH 服务&lt;/span&gt;
-sudo apt install -y openssh-server
-sudo systemctl enable ssh
-sudo systemctl start ssh
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Docker&lt;/span&gt;
-sudo apt install -y docker.io
-sudo systemctl enable docker
-sudo systemctl start docker
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Python 3.10&lt;/span&gt;
-sudo apt install -y software-properties-common
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update
-sudo apt install -y python3.10 python3.10-venv python3.10-dev
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 OpenJDK 11&lt;/span&gt;
-sudo apt install -y openjdk-11-jdk
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Google Protobuf&lt;/span&gt;
-sudo apt install -y protobuf-compiler
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Maven 和 Git&lt;/span&gt;
-sudo apt install -y maven git
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 克隆并编译 ThingsBoard 源码&lt;/span&gt;
-git clone https://github.com/thingsboard/thingsboard.git
-cd thingsboard
-mvn clean install -DskipTests
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行上述命令后，你将会安装并配置好所有所需的软件和依赖项，以便在 Ubuntu 20.04.6 LTS 上编译和运行 ThingsBoard。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 更新系统&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt upgrade -y
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 SSH 服务&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y openssh-server
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl enable ssh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl start ssh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Docker&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y docker.io
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl enable docker
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl start docker
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Python 3.10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y software-properties-common
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo add-apt-repository ppa:deadsnakes/ppa
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y python3.10 python3.10-venv python3.10-dev
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 OpenJDK 11&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y openjdk-11-jdk
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Google Protobuf&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y protobuf-compiler
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Maven 和 Git&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y maven git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 克隆并编译 ThingsBoard 源码&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/thingsboard/thingsboard.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd thingsboard
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mvn clean install -DskipTests
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行上述命令后，你将会安装并配置好所有所需的软件和依赖项，以便在 Ubuntu 20.04.6 LTS 上编译和运行 ThingsBoard。&lt;/p&gt;
 &lt;h2 id=&#34;安装vmware-tools-工具&#34;&gt;安装vmware tools 工具，&lt;/h2&gt;
 &lt;p&gt;*** 找到vmware pro 17 安装目录下的linux.iso 文件将添加到vmware cdrom中
 要在 VMware 虚拟机中挂载 Windows 10 宿主机上的文件，可以使用 VMware 提供的共享文件夹功能。以下是详细的步骤指南：&lt;/p&gt;
@@ -615,20 +460,20 @@ mvn clean install -DskipTests
 &lt;ul&gt;
 &lt;li&gt;在 Ubuntu 虚拟机中，打开终端。&lt;/li&gt;
 &lt;li&gt;输入以下命令将光驱内容挂载到 &lt;code&gt;/mnt&lt;/code&gt; 目录：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo mount /dev/cdrom /mnt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mount /dev/cdrom /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;解压并安装 VMware Tools&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;解压 VMware Tools 安装包：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;tar -zxvf /mnt/VMwareTools-*.tar.gz -C /tmp/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tar -zxvf /mnt/VMwareTools-*.tar.gz -C /tmp/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;进入解压后的目录并运行安装脚本：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;cd /tmp/vmware-tools-distrib
-sudo ./vmware-install.pl
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd /tmp/vmware-tools-distrib
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ./vmware-install.pl
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;按照提示完成安装过程。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
@@ -664,11 +509,11 @@ sudo ./vmware-install.pl
 &lt;ul&gt;
 &lt;li&gt;在 Ubuntu 虚拟机中，打开终端。&lt;/li&gt;
 &lt;li&gt;创建挂载点目录：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;mkdir ~/shared
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir ~/shared
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;挂载共享文件夹（假设共享文件夹名称为 &lt;code&gt;share&lt;/code&gt;）：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo mount -t vmhgfs .host:/share ~/shared
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mount -t vmhgfs .host:/share ~/shared
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -679,21 +524,21 @@ sudo ./vmware-install.pl
 &lt;p&gt;&lt;strong&gt;编辑 &lt;code&gt;/etc/fstab&lt;/code&gt; 文件&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;打开终端并编辑 &lt;code&gt;/etc/fstab&lt;/code&gt; 文件：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo nano /etc/fstab
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo nano /etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;添加挂载条目&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;在文件末尾添加以下条目：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;.host:/share /home/your-username/shared vmhgfs defaults 0 0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.host:/share /home/your-username/shared vmhgfs defaults 0 0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;以下是我自己的环境所添加的示例
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;.host:/workProject /mnt/hgfs/workProject fuse.vmhgfs-fuse defaults,allow_other 0 0
-.host:/e /mnt/hgfs/e fuse.vmhgfs-fuse defaults,allow_other 0 0
-.host:/d /mnt/hgfs/d fuse.vmhgfs-fuse defaults,allow_other 0 0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.host:/workProject /mnt/hgfs/workProject fuse.vmhgfs-fuse defaults,allow_other 0 0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.host:/e /mnt/hgfs/e fuse.vmhgfs-fuse defaults,allow_other 0 0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.host:/d /mnt/hgfs/d fuse.vmhgfs-fuse defaults,allow_other 0 0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -710,33 +555,33 @@ sudo ./vmware-install.pl
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;确认 &lt;code&gt;open-vm-tools&lt;/code&gt; 已经安装并运行&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo systemctl status open-vm-tools
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl status open-vm-tools
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;&lt;strong&gt;创建挂载点目录&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo mkdir -p /mnt/hgfs/workProject
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mkdir -p /mnt/hgfs/workProject
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;&lt;strong&gt;挂载共享文件夹&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo vmhgfs-fuse .host:/workProject /mnt/hgfs/workProject -o allow_other
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;验证挂载&#34;&gt;验证挂载&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo vmhgfs-fuse .host:/workProject /mnt/hgfs/workProject -o allow_other
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;验证挂载&#34;&gt;验证挂载&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;检查挂载结果&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;df -h
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;df -h
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;&lt;strong&gt;查看共享文件夹内容&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;ls /mnt/hgfs/workProject
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;总结-1&#34;&gt;总结&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ls /mnt/hgfs/workProject
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;总结-1&#34;&gt;总结&lt;/h3&gt;
 &lt;p&gt;通过这些步骤，你应该能够成功挂载 &lt;code&gt;vmware-hgfsclient&lt;/code&gt; 显示的共享文件夹。如果在过程中遇到任何问题，请提供详细的错误信息或输出内容，以便进一步排查。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;admin@ubuntu-server:~$ ls /mnt/hgfs/workProject/
-apache-tomcat-7.0.103  c_node_modules  docker-emqx      easy-rules  holiday-cn-2022.01.01  java2  java5  node          php     rust
-apisix                 deploy          docker-node-red  go          html                   java3  js     node-red_bak  python
-artemis-rest           docker          drama-engine     hawtio      java                   java4  lua    openresty     remote
-admin@ubuntu-server:~$ 
-admin@ubuntu-server:~$ 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;admin@ubuntu-server:~$ ls /mnt/hgfs/workProject/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;apache-tomcat-7.0.103  c_node_modules  docker-emqx      easy-rules  holiday-cn-2022.01.01  java2  java5  node          php     rust
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;apisix                 deploy          docker-node-red  go          html                   java3  js     node-red_bak  python
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;artemis-rest           docker          drama-engine     hawtio      java                   java4  lua    openresty     remote
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;admin@ubuntu-server:~$ 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;admin@ubuntu-server:~$ 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/06/vmware-and-ubuntu/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
@@ -746,12 +591,14 @@ admin@ubuntu-server:~$
       <pubDate>Fri, 10 May 2024 10:41:26 +0800</pubDate>
       
       <guid>https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/</guid>
-      <description># Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4 记录thingsboard3.6.4在导入 IntelliJ IDEA 2022.2.3 编译报错的一些问题 记录 如何从thingsboard3.6.4弃坑到thingsboard3.6.3最后又回到了thingsbo</description>
+      <description>&lt;p&gt;#　Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;记录&lt;code&gt;thingsboard3.6.4&lt;/code&gt;在导入 &lt;code&gt;IntelliJ IDEA 2022.2.3&lt;/code&gt; 编译报错的一些问题&lt;br&gt;
+记录 如何从&lt;code&gt;thingsboard3.6.4&lt;/code&gt;弃坑到&lt;code&gt;thingsboard3.6.3&lt;/code&gt;最后又回到了&lt;code&gt;thingsboard3.6.4&lt;/code&gt;&lt;/p&gt;</description>
       <content>&lt;p&gt;#　Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;记录&lt;code&gt;thingsboard3.6.4&lt;/code&gt;在导入 &lt;code&gt;IntelliJ IDEA 2022.2.3&lt;/code&gt; 编译报错的一些问题&lt;br&gt;
-记录 如何从&lt;code&gt;thingsboard3.6.4&lt;/code&gt;弃坑到&lt;code&gt;thingsboard3.6.3&lt;/code&gt;最后又回到了&lt;code&gt;thingsboard3.6.4&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+记录 如何从&lt;code&gt;thingsboard3.6.4&lt;/code&gt;弃坑到&lt;code&gt;thingsboard3.6.3&lt;/code&gt;最后又回到了&lt;code&gt;thingsboard3.6.4&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;导入步骤简单说一下，先从github下载thingsboard3.6.4 源码
 导入代码前提准备是环境，我的环境如下
@@ -763,127 +610,117 @@ JDK17,不是jdk11&lt;br&gt;
 在本地安装postgreSQL,创建好数据库名&lt;code&gt;thingsboard364&lt;/code&gt;&lt;br&gt;
 然后导入到IntelliJ IDEA 2022.2.3。&lt;br&gt;
 从复制sql脚本到application的&lt;code&gt;src/main/data/&lt;/code&gt;目录下&lt;br&gt;
-&lt;img src=&#34;img.png&#34; alt=&#34;img.png&#34;&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img.png&#34; alt=&#34;img.png&#34;&gt;
 把 &lt;strong&gt;IntelliJ IDEA&lt;/strong&gt; maven 设置跳过skip test,避免测试过程中遇到地域性测试，语言文本测试 导致通测试不过&lt;br&gt;
-&lt;img src=&#34;img_1.png&#34; alt=&#34;img_1.png&#34;&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;
 最后点击 &lt;strong&gt;IntelliJ IDEA&lt;/strong&gt; maven package 进行编译项目 &lt;br&gt;
 我遇到的问题如下：&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;问题1 lombok 在jdk17下版本太低不兼容&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;class lombok.javac.apt.LombokProcessor &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;in unnamed module @0x719f35fe&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 
-cannot access class com.sun.tools.javac.processing.JavacProcessingEnvironment
- &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;in module jdk.compiler&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 
- because module jdk.compiler does not export com.sun.tools.javac.processing to
-  unnamed module @0x719f35fe
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;问题1 lombok 在jdk17下版本太低不兼容&lt;/em&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;class lombok.javac.apt.LombokProcessor &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;in unnamed module @0x719f35fe&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cannot access class com.sun.tools.javac.processing.JavacProcessingEnvironment
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;in module jdk.compiler&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; because module jdk.compiler does not export com.sun.tools.javac.processing to
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  unnamed module @0x719f35fe
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;解决lombok 报错
 The issue you are facing with the error &amp;ldquo;java.lang.IllegalAccessError: class lombok.javac.apt.LombokProcessor&amp;rdquo; is related to compatibility problems between Lombok and JDK versions. To resolve this issue, you need to ensure that you are using a compatible version of Lombok with your JDK. Upgrading Lombok to version 1.18.22 or higher should address this problem. Additionally, make sure that Lombok is set up correctly in your project configuration.
 The error occurs because Java 17 enforces strong encapsulation, and using an older version of Lombok can lead to this issue. By upgrading to Lombok version 1.18.22 or newer, you should be able to resolve the problem. It&amp;rsquo;s crucial to verify that you are indeed using the correct version of Lombok for your build to avoid compatibility issues&lt;br&gt;
 解决方方如下：
-这个错误是因为Java 17 强制执行强封装，使用较旧版本的Lombok可能会导致此问题。通过升级到Lombok 1.18.22或更新版本，您应该能够解决这个问题。务必验证您确实正在使用正确的Lombok版本来构建，以避免兼容性问题。&lt;/p&gt;
-&lt;/blockquote&gt;
+这个错误是因为Java 17 强制执行强封装，使用较旧版本的Lombok可能会导致此问题。通过升级到Lombok 1.18.22或更新版本，您应该能够解决这个问题。务必验证您确实正在使用正确的Lombok版本来构建，以避免兼容性问题。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;在&lt;code&gt;thingsboard&lt;/code&gt; 根项目目录下&lt;code&gt;pom.xml&lt;/code&gt; 修改 第85行
 &amp;lt;lombok.version&amp;gt;1.18.18&amp;lt;/lombok.version&amp;gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;lombok.version&amp;gt;&lt;/span&gt;1.18.26&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/lombok.version&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;lombok.version&amp;gt;&lt;/span&gt;1.18.26&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;/lombok.version&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;em&gt;问题2 gradle问题&lt;/em&gt;
-解决方法更换版本 jdk 11,maven 版本为3.8.2&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; --- gradle-maven-plugin:1.0.11:invoke &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;default&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; @ http ---
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; jvmArgs: &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Ljava.lang.String;@519c5122
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; gradleProjectDirectory: E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;ransport&lt;span style=&#34;color:#ae81ff&#34;&gt;\h&lt;/span&gt;ttp&lt;span style=&#34;color:#ae81ff&#34;&gt;\.&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;\.&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;\p&lt;/span&gt;ackaging&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
-Downloading https://services.gradle.org/distributions/gradle-7.1.1-bin.zip
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Download https://services.gradle.org/distributions/gradle-7.1.1-bin.zip
-...........................................................................................................
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Starting Gradle Daemon
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Connecting to Gradle Daemon
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Starting Gradle Daemon
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Run build
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Evaluate settings
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Run build
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure build
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Load projects
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure build
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure project :
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Compiling build file &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;build.gradle&amp;#39;&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure project :
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure build
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Run build
-FAILURE: Build failed with an exception.
-* Where:
-Build file &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;E:\workProject\java5\thingsboard\packaging\java\build.gradle&amp;#39;&lt;/span&gt;
-* What went wrong:
-Could not compile build file &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;E:\workProject\java5\thingsboard\packaging\java\build.gradle&amp;#39;&lt;/span&gt;.
-&amp;gt; startup failed:
-  General error during conversion: Unsupported class file major version &lt;span style=&#34;color:#ae81ff&#34;&gt;61&lt;/span&gt;
-  java.lang.IllegalArgumentException: Unsupported class file major version &lt;span style=&#34;color:#ae81ff&#34;&gt;61&lt;/span&gt;
-  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; error
-* Try:
-Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
-* Get more help at https://help.gradle.org
-BUILD FAILED in 18m 29s
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Deleting unused version-specific caches in E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\p&lt;/span&gt;ackaging&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava&lt;span style=&#34;color:#ae81ff&#34;&gt;\.&lt;/span&gt;gradle
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+解决方法更换版本 jdk 11,maven 版本为3.8.2&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; --- gradle-maven-plugin:1.0.11:invoke &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;default&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; @ http ---
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; jvmArgs: &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Ljava.lang.String;@519c5122
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; gradleProjectDirectory: E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;ransport&lt;span style=&#34;color:#ae81ff&#34;&gt;\h&lt;/span&gt;ttp&lt;span style=&#34;color:#ae81ff&#34;&gt;\.&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;\.&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;\p&lt;/span&gt;ackaging&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Downloading https://services.gradle.org/distributions/gradle-7.1.1-bin.zip
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Download https://services.gradle.org/distributions/gradle-7.1.1-bin.zip
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;...........................................................................................................
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Starting Gradle Daemon
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Connecting to Gradle Daemon
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Starting Gradle Daemon
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Run build
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Evaluate settings
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Run build
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure build
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Load projects
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure build
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure project :
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Compiling build file &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;build.gradle&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure project :
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Configure build
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Run build
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;FAILURE: Build failed with an exception.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;* Where:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Build file &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;E:\workProject\java5\thingsboard\packaging\java\build.gradle&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;* What went wrong:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Could not compile build file &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;E:\workProject\java5\thingsboard\packaging\java\build.gradle&amp;#39;&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; startup failed:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  General error during conversion: Unsupported class file major version &lt;span style=&#34;color:#ae81ff&#34;&gt;61&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  java.lang.IllegalArgumentException: Unsupported class file major version &lt;span style=&#34;color:#ae81ff&#34;&gt;61&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; error
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;* Try:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;* Get more help at https://help.gradle.org
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;BUILD FAILED in 18m 29s
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Deleting unused version-specific caches in E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\p&lt;/span&gt;ackaging&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava&lt;span style=&#34;color:#ae81ff&#34;&gt;\.&lt;/span&gt;gradle
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Build
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;em&gt;问题3 angular js的问题&lt;/em&gt;
 解决方法：换3.6.3版本&lt;br&gt;
 试了梯子没有问题，全局下载tun模式。依然无效
 最后解决了主要是问题，yarn cache问题，清理干净重新下载即可
-&lt;img src=&#34;img_2.png&#34; alt=&#34;img_2.png&#34;&gt;
-报错如下&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;error&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; TypeError: Cannot read properties of undefined &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;reading &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;pluginOptions&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
-at module.exports &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&lt;span style=&#34;color:#ae81ff&#34;&gt;\e&lt;/span&gt;xtra-webpack.config.js:71:57&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
-at CustomWebpackBuilder.&amp;lt;anonymous&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;ode_modules&lt;span style=&#34;color:#ae81ff&#34;&gt;\@&lt;/span&gt;angular-builders&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ist&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack-builder.js:32:50&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
-at Generator.next &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&amp;lt;anonymous&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
-at fulfilled &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;ode_modules&lt;span style=&#34;color:#ae81ff&#34;&gt;\@&lt;/span&gt;angular-builders&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ist&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack-builder.js:5:58&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;
+报错如下&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;error&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; TypeError: Cannot read properties of undefined &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;reading &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;pluginOptions&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;at module.exports &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&lt;span style=&#34;color:#ae81ff&#34;&gt;\e&lt;/span&gt;xtra-webpack.config.js:71:57&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;at CustomWebpackBuilder.&amp;lt;anonymous&amp;gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;ode_modules&lt;span style=&#34;color:#ae81ff&#34;&gt;\@&lt;/span&gt;angular-builders&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ist&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack-builder.js:32:50&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;at Generator.next &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&amp;lt;anonymous&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;at fulfilled &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;ode_modules&lt;span style=&#34;color:#ae81ff&#34;&gt;\@&lt;/span&gt;angular-builders&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ist&lt;span style=&#34;color:#ae81ff&#34;&gt;\c&lt;/span&gt;ustom-webpack-builder.js:5:58&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;提示maven在编译打包ui-ngx时注意几个目录&lt;/li&gt;
 &lt;li&gt;maven 编译&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;mvn clean package  -DskipTests -s settings.xml&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;mvn clean package  -DskipTests -s settings.xml&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h1 id=&#34;pgsql数据库初始化&#34;&gt;pgsql数据库初始化&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;登录到pgsql&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;psql -h localhost -p 5432 -U thingsboard -d thingsboard&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;psql -h localhost -p 5432 -U thingsboard -d thingsboard&lt;/p&gt;&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;增加pg数据库用户root 密码为root&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;CREATE ROLE root WITH LOGIN PASSWORD &amp;ldquo;root&amp;rdquo;;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;CREATE ROLE root WITH LOGIN PASSWORD &amp;ldquo;root&amp;rdquo;;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;增加角色给root&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;GRANT thingsboard TO root;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;GRANT thingsboard TO root;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;设置远程访问 pg_hba.conf,不管是docker安装thingsboard这里也适用&lt;/li&gt;
 &lt;li&gt;docker thingsboard的&lt;code&gt;postgresql&lt;/code&gt; 配置位置位于&lt;code&gt;/data/db/&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;在pg_hba.conf增加一行在文件末行&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;host    all             all             0.0.0.0/0               md5  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在postgresql.conf中修改以下&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;listen_addresses&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;host    all             all             0.0.0.0/0               md5  
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在postgresql.conf中修改以下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;listen_addresses&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;WINDOWS 10 解决node.exe占用&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;tasklist /V |findstr node.exe  找到进程ID&lt;br&gt;
-taskkill /F /PID 7132  删除该进程ID&lt;/p&gt;
-&lt;/blockquote&gt;
+taskkill /F /PID 7132  删除该进程ID&lt;/p&gt;&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;maven编译ui-ngx几个缓存 &lt;code&gt;E:\maven_repository\.m2\&lt;/code&gt; 这个是我下载的组件&lt;/li&gt;
 &lt;li&gt;如果你之前在你的windows电脑上尝试过多个版本进打包编译，小心缓存&lt;/li&gt;
@@ -892,57 +729,53 @@ taskkill /F /PID 7132  删除该进程ID&lt;/p&gt;
 &lt;p&gt;E:\maven_repository.m2\repository\com\github\eirslett\node\&lt;br&gt;
 E:\maven_repository.m2\repository\com\github\eirslett\yarn\1.22.17\&lt;br&gt;
 E:\maven_repository.m2\repository\com\github\eirslett&lt;br&gt;
-C:\Users\admin\AppData\Local\Yarn  #这个缓存目录很坑，动不动几个G的文件&lt;/p&gt;
-&lt;/blockquote&gt;
+C:\Users\admin\AppData\Local\Yarn  #这个缓存目录很坑，动不动几个G的文件&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;在ui-ngx目录下执行&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;target\node\yarn\dist\bin\yarn.cmd cache clean &lt;br&gt;
 也可以手动执行安装，还可以看到进度条，通过maven的插件运行不太友好 &lt;br&gt;
 &lt;code&gt;target\node\yarn\dist\bin\yarn.cmd install&lt;/code&gt;如果这一条命令手动执行成功后，可以用mvn package 对ui-ngx打成jar包了 &lt;br&gt;
-&lt;img src=&#34;img_4.png&#34; alt=&#34;img_4.png&#34;&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;
 yarn 清理缓存如下
-清除yarn cache成功&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;yarn cache v1.22.17
-success Cleared cache.
-Done in 57.70s.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+清除yarn cache成功&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;yarn cache v1.22.17
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;success Cleared cache.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Done in 57.70s.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;删除target 目录用 &lt;code&gt;del /P target&lt;/code&gt;&lt;br&gt;
 删除js &lt;code&gt;del /P node_modules&lt;/code&gt; &lt;br&gt;
-总之清理缓存需要清理yarn的缓存，yarn,node程序自身的程序，maven下载所产生的包&lt;/p&gt;
-&lt;/blockquote&gt;
+总之清理缓存需要清理yarn的缓存，yarn,node程序自身的程序，maven下载所产生的包&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h1 id=&#34;关于thingsboard-docker启动及修改docker里的pgsql-配置的工具调式&#34;&gt;关于thingsboard docker启动，及修改docker里的pgsql 配置的工具调式&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;apt-get update # 更新&lt;br&gt;
 docker exec -it -u root [container_name_or_id] /bin/bash  # 进入容器&lt;br&gt;
 apt-get install -y net-tools  # 安装netstart&lt;br&gt;
 apt-get install -y vim # 安装vim 修改配置&lt;br&gt;
-最简单的docker compose 配置 快速启动&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;version: &amp;#39;3.0&amp;#39;
-services:
-  mytb:
-    restart: always
-    image: &amp;#34;thingsboard/tb-postgres:3.6.3&amp;#34;
-    ports:
-      - &amp;#34;8080:9090&amp;#34;
-      - &amp;#34;1883:1883&amp;#34;
-      - &amp;#34;7070:7070&amp;#34;
-      - &amp;#34;15432:5432&amp;#34;
-      - &amp;#34;5683-5688:5683-5688/udp&amp;#34;
-    environment:
-      TB_QUEUE_TYPE: in-memory
-    volumes:
-      - /data/program/thingsboard/tb-data-363:/data
-      - /data/program/thingsboard/logs:/var/log/thingsboard
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;关于thingsboard-protoc-文件显示问题&#34;&gt;关于thingsboard protoc 文件显示问题&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&#34;img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;br&gt;
+最简单的docker compose 配置 快速启动&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;version: &amp;#39;3.0&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;services:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  mytb:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    restart: always
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    image: &amp;#34;thingsboard/tb-postgres:3.6.3&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &amp;#34;8080:9090&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &amp;#34;1883:1883&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &amp;#34;7070:7070&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &amp;#34;15432:5432&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &amp;#34;5683-5688:5683-5688/udp&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    environment:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      TB_QUEUE_TYPE: in-memory
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    volumes:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - /data/program/thingsboard/tb-data-363:/data
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - /data/program/thingsboard/logs:/var/log/thingsboard
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;关于thingsboard-protoc-文件显示问题&#34;&gt;关于thingsboard protoc 文件显示问题&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;br&gt;
 插件只安装一个，否则与第一个冲突，这是我遇到的问题&lt;br&gt;
-&lt;img src=&#34;img_8.png&#34; alt=&#34;img_8.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_8.png&#34; alt=&#34;img_8.png&#34;&gt;&lt;br&gt;
 将生成的proto java 类必须让maven知道这是源文件，右键目录选择&lt;code&gt;Mark Directory as&lt;/code&gt;  设置为&lt;code&gt;Generated Sources root&lt;/code&gt;&lt;br&gt;
-&lt;img src=&#34;img_9.png&#34; alt=&#34;img_9.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_9.png&#34; alt=&#34;img_9.png&#34;&gt;&lt;br&gt;
 TransportProts 飘红问题
-&lt;img src=&#34;img_10.png&#34; alt=&#34;img_10.png&#34;&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_10.png&#34; alt=&#34;img_10.png&#34;&gt;
 如果完全安装后错误仍然存在，则这是 IDE 的问题。打开&amp;quot;Edit Custom Properties&amp;hellip;&amp;quot;（或者可能以不同的方式调用）并添加以下行： &lt;br&gt;
 idea.max.intellisense.filesize=20000 &lt;br&gt;
 通过&lt;code&gt;ctrl+shift+A&lt;/code&gt;打开后输入上述配置 &lt;br&gt;
@@ -951,101 +784,97 @@ custom IntelliJ IDEA properties (expand/override &amp;lsquo;bin\idea.properties&
 idea.max.intellisense.filesize=20000 &lt;br&gt;
 保存后 重新运行：mvn clean install -DskipTests &lt;br&gt;
 小心点打开这个文件非常卡，我的内存吃不消了&lt;br&gt;
-&lt;img src=&#34;img_11.png&#34; alt=&#34;img_11.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_11.png&#34; alt=&#34;img_11.png&#34;&gt;&lt;/p&gt;
 &lt;h1 id=&#34;说在最后&#34;&gt;说在最后&lt;/h1&gt;
 &lt;p&gt;在maven 编译时，一定要使用windows 管理员权限执行&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;mvn clean package  -DskipTests -s settings.xml
-mvn clean install -U  -s settings.xml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，需要挂梯子
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mvn clean package  -DskipTests -s settings.xml
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mvn clean install -U  -s settings.xml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果ui-ngx打包遇到以下问题 Module not found 字样，则是网络的问题，需要挂梯子
 ./node_modules/@angular/material/fesm2020/badge.mjs:7:0-77 - Error: Module not found: Error: Can&amp;rsquo;t resolve &amp;lsquo;@angular/platform-browser/animations&amp;rsquo; in &amp;lsquo;E:\workProject\java5\thingsboard\ui-ngx\node_modules@angular\material\fesm2020&amp;rsquo;&lt;br&gt;
 主要是因为网络问题在下载以下两个包需要很长时间&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;出现以下两行特别坑，非常慢，从windowsm网络监控看，明显示下载速度降低了，可以挂梯子试试更换节点地区试试&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/common@^14.0.0-&amp;#34;&lt;/span&gt;.
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/core@^14.0.0-&amp;#34;&lt;/span&gt;.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这些包更不要单独安装&lt;br&gt;
+&lt;p&gt;出现以下两行特别坑，非常慢，从windowsm网络监控看，明显示下载速度降低了，可以挂梯子试试更换节点地区试试&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/common@^14.0.0-&amp;#34;&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;INFO&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/core@^14.0.0-&amp;#34;&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这些包更不要单独安装&lt;br&gt;
 npm install @angular/common@^14.0.0 @angular/core@^14.0.0
 也不排除一些情况在网络载中，某个js包下载不全导致编译报错，这种情况也会发生的。&lt;br&gt;
 随时查看网络情况以及电脑使用内存情况，由其是内存的问题，如果同时多个yarn install 然后又开了 IntelliJ IDEA 2022.2.3&lt;br&gt;
 多个任务，会导致内存接近极限，我电脑32G，被干到了31G，这样的话非常慢，重启电脑大法再来吧&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;img_3.png&#34; alt=&#34;img_3.png&#34;&gt;
-&lt;img src=&#34;img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;最后展示编译thingsboard ui-ngx 3.6.3和3.6.4都编译通过了&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;以下是3.6.4 ui-ngx 编译成功&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.3&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;target&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;ode&lt;span style=&#34;color:#ae81ff&#34;&gt;\y&lt;/span&gt;arn&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ist&lt;span style=&#34;color:#ae81ff&#34;&gt;\b&lt;/span&gt;in&lt;span style=&#34;color:#ae81ff&#34;&gt;\y&lt;/span&gt;arn.cmd install
-yarn install v1.22.17
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Resolving packages...
-warning Resolution field &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cacache@17.0.4&amp;#34;&lt;/span&gt; is incompatible with requested version &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cacache@^16.1.0&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;2/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Fetching packages...
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;3/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Linking dependencies...
-warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/common@^14.0.0-&amp;#34;&lt;/span&gt;.
-warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/core@^14.0.0-&amp;#34;&lt;/span&gt;.
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;4/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Building fresh packages...
-$ patch-package
-patch-package 6.5.1
-Applying patches...
-@angular/core@15.2.10 ✔
-@mat-datetimepicker/core@11.0.3 ✔
-canvas-gauges@2.1.7 ✔
-echarts@5.5.0 ✔
-Done in 19.36s.
-
-C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.3&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;npm run start
-
-&amp;gt; thingsboard@3.6.3 start
-&amp;gt; node --max_old_space_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8048&lt;/span&gt; ./node_modules/@angular/cli/bin/ng serve --configuration development --host 0.0.0.0 --open
-
-Warning: This is a simple server &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; use in testing or debugging Angular applications
-locally. It hasn&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;t been reviewed for security issues.
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Binding this server to an open connection can result in compromising your application or
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;computer. Using a different host than the one passed to the &amp;#34;--host&amp;#34; flag might result in
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;websocket connection issues. You might need to use &amp;#34;--disable-host-check&amp;#34; if that&amp;#39;&lt;/span&gt;s the
-&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt;.
-✔ Browser application bundle generation complete.
-
-Initial Chunk Files                                                                                     | Names                                            |  Raw Size
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;以下是3.6.4 ui-ngx 编译成功&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4_a.tar&lt;span style=&#34;color:#ae81ff&#34;&gt;\3&lt;/span&gt;64&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;target&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;ode&lt;span style=&#34;color:#ae81ff&#34;&gt;\y&lt;/span&gt;arn&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ist&lt;span style=&#34;color:#ae81ff&#34;&gt;\b&lt;/span&gt;in&lt;span style=&#34;color:#ae81ff&#34;&gt;\y&lt;/span&gt;arn.cmd install
-yarn install v1.22.17
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Resolving packages...
-warning Resolution field &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cacache@17.0.4&amp;#34;&lt;/span&gt; is incompatible with requested version &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cacache@^16.1.0&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;2/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Fetching packages...
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;3/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Linking dependencies...
-warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/common@^14.0.0-&amp;#34;&lt;/span&gt;.
-warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/core@^14.0.0-&amp;#34;&lt;/span&gt;.
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;4/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Building fresh packages...
-$ patch-package
-patch-package 6.5.1
-Applying patches...
-@angular/core@15.2.10 ✔
-@mat-datetimepicker/core@11.0.3 ✔
-canvas-gauges@2.1.7 ✔
-echarts@5.5.0 ✔
-Done in 18.75s.
-
-C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4_a.tar&lt;span style=&#34;color:#ae81ff&#34;&gt;\3&lt;/span&gt;64&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;
-C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4_a.tar&lt;span style=&#34;color:#ae81ff&#34;&gt;\3&lt;/span&gt;64&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;
-C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4_a.tar&lt;span style=&#34;color:#ae81ff&#34;&gt;\3&lt;/span&gt;64&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;npm run start
-
-&amp;gt; thingsboard@3.6.4 start
-&amp;gt; node --max_old_space_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8048&lt;/span&gt; ./node_modules/@angular/cli/bin/ng serve --configuration development --host 0.0.0.0 --open
-
-Warning: This is a simple server &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; use in testing or debugging Angular applications
-locally. It hasn&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;t been reviewed for security issues.
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Binding this server to an open connection can result in compromising your application or
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;computer. Using a different host than the one passed to the &amp;#34;--host&amp;#34; flag might result in
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;websocket connection issues. You might need to use &amp;#34;--disable-host-check&amp;#34; if that&amp;#39;&lt;/span&gt;s the
-&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt;.
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我还没有执行mvn 打包所有的java 光前端ui-ngx 2个G了&lt;br&gt;
-&lt;img src=&#34;img_6.png&#34; alt=&#34;img_6.png&#34;&gt;
+&lt;p&gt;以下是3.6.4 ui-ngx 编译成功&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.3&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;target&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;ode&lt;span style=&#34;color:#ae81ff&#34;&gt;\y&lt;/span&gt;arn&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ist&lt;span style=&#34;color:#ae81ff&#34;&gt;\b&lt;/span&gt;in&lt;span style=&#34;color:#ae81ff&#34;&gt;\y&lt;/span&gt;arn.cmd install
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;yarn install v1.22.17
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Resolving packages...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;warning Resolution field &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cacache@17.0.4&amp;#34;&lt;/span&gt; is incompatible with requested version &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cacache@^16.1.0&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;2/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Fetching packages...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;3/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Linking dependencies...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/common@^14.0.0-&amp;#34;&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/core@^14.0.0-&amp;#34;&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;4/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Building fresh packages...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ patch-package
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;patch-package 6.5.1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Applying patches...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;@angular/core@15.2.10 ✔
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;@mat-datetimepicker/core@11.0.3 ✔
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;canvas-gauges@2.1.7 ✔
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echarts@5.5.0 ✔
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Done in 19.36s.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.3&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;npm run start
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; thingsboard@3.6.3 start
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; node --max_old_space_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8048&lt;/span&gt; ./node_modules/@angular/cli/bin/ng serve --configuration development --host 0.0.0.0 --open
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Warning: This is a simple server &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; use in testing or debugging Angular applications
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;locally. It hasn&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;t been reviewed for security issues.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Binding this server to an open connection can result in compromising your application or
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;computer. Using a different host than the one passed to the &amp;#34;--host&amp;#34; flag might result in
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;websocket connection issues. You might need to use &amp;#34;--disable-host-check&amp;#34; if that&amp;#39;&lt;/span&gt;s the
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;✔ Browser application bundle generation complete.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Initial Chunk Files                                                                                     | Names                                            |  Raw Size
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;以下是3.6.4 ui-ngx 编译成功&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4_a.tar&lt;span style=&#34;color:#ae81ff&#34;&gt;\3&lt;/span&gt;64&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;target&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;ode&lt;span style=&#34;color:#ae81ff&#34;&gt;\y&lt;/span&gt;arn&lt;span style=&#34;color:#ae81ff&#34;&gt;\d&lt;/span&gt;ist&lt;span style=&#34;color:#ae81ff&#34;&gt;\b&lt;/span&gt;in&lt;span style=&#34;color:#ae81ff&#34;&gt;\y&lt;/span&gt;arn.cmd install
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;yarn install v1.22.17
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Resolving packages...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;warning Resolution field &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cacache@17.0.4&amp;#34;&lt;/span&gt; is incompatible with requested version &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cacache@^16.1.0&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;2/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Fetching packages...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;3/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Linking dependencies...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/common@^14.0.0-&amp;#34;&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;warning &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;gt; @flowjs/ngx-flow@0.6.0&amp;#34;&lt;/span&gt; has incorrect peer dependency &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@angular/core@^14.0.0-&amp;#34;&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;4/4&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Building fresh packages...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ patch-package
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;patch-package 6.5.1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Applying patches...
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;@angular/core@15.2.10 ✔
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;@mat-datetimepicker/core@11.0.3 ✔
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;canvas-gauges@2.1.7 ✔
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echarts@5.5.0 ✔
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Done in 18.75s.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4_a.tar&lt;span style=&#34;color:#ae81ff&#34;&gt;\3&lt;/span&gt;64&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4_a.tar&lt;span style=&#34;color:#ae81ff&#34;&gt;\3&lt;/span&gt;64&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;C:&lt;span style=&#34;color:#ae81ff&#34;&gt;\U&lt;/span&gt;sers&lt;span style=&#34;color:#ae81ff&#34;&gt;\a&lt;/span&gt;dmin&lt;span style=&#34;color:#ae81ff&#34;&gt;\D&lt;/span&gt;ownloads&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4_a.tar&lt;span style=&#34;color:#ae81ff&#34;&gt;\3&lt;/span&gt;64&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard-3.6.4&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&amp;gt;npm run start
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; thingsboard@3.6.4 start
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; node --max_old_space_size&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;8048&lt;/span&gt; ./node_modules/@angular/cli/bin/ng serve --configuration development --host 0.0.0.0 --open
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Warning: This is a simple server &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; use in testing or debugging Angular applications
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;locally. It hasn&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;t been reviewed for security issues.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Binding this server to an open connection can result in compromising your application or
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;computer. Using a different host than the one passed to the &amp;#34;--host&amp;#34; flag might result in
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;websocket connection issues. You might need to use &amp;#34;--disable-host-check&amp;#34; if that&amp;#39;&lt;/span&gt;s the
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我还没有执行mvn 打包所有的java 光前端ui-ngx 2个G了&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;
 最终我运行的环境&lt;br&gt;
 C:\Users\admin&amp;gt;mvn -version&lt;br&gt;
 Apache Maven 3.8.2 (ea98e05a04480131370aa0c110b8c54cf726c06f)&lt;br&gt;
@@ -1062,25 +891,27 @@ OS name: &amp;ldquo;windows 10&amp;rdquo;, version: &amp;ldquo;10.0&amp;rdquo;, 
       <pubDate>Wed, 08 May 2024 21:36:49 +0800</pubDate>
       
       <guid>https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/</guid>
-      <description>Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard 记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机 当然这并不是真实过程对接调式，只是通过模拟的方法来熟练一下thingsboard的ruleCh</description>
+      <description>&lt;h1 id=&#34;automating-climate-control-leveraging-dual-thermometers-for-smart-air-conditioning-via-thingsboard&#34;&gt;Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机&lt;br&gt;
+当然这并不是真实过程对接调式，只是通过模拟的方法来熟练一下thingsboard的ruleChain&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;automating-climate-control-leveraging-dual-thermometers-for-smart-air-conditioning-via-thingsboard&#34;&gt;Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机&lt;br&gt;
-当然这并不是真实过程对接调式，只是通过模拟的方法来熟练一下thingsboard的ruleChain&lt;/p&gt;
-&lt;/blockquote&gt;
+当然这并不是真实过程对接调式，只是通过模拟的方法来熟练一下thingsboard的ruleChain&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;第一步创建一个空的规则链名称就叫两个温度计控制空调的规则链&#34;&gt;第一步，创建一个空的规则链，名称就叫&lt;code&gt;两个温度计控制空调的规则链&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&#34;img_2.png&#34; alt=&#34;img_2.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;第二步创建一个设备配置名称就叫两个温度计控制空调的设备配置&#34;&gt;第二步，创建一个设备配置，名称就叫&lt;code&gt;两个温度计控制空调的设备配置&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&#34;img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;第三步分别添加三个设备温度计1温度计2空调&#34;&gt;第三步，分别添加三个设备&lt;code&gt;温度计1&lt;/code&gt;、&lt;code&gt;温度计2&lt;/code&gt;、&lt;code&gt;空调&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&#34;img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;第四步给温度计1温度计2-设备添加关联关系&#34;&gt;第四步，给&lt;code&gt;温度计1&lt;/code&gt;,&lt;code&gt;温度计2&lt;/code&gt; 设备添加关联关系&lt;/h3&gt;
 &lt;p&gt;添加关系的原因是，因为&lt;code&gt;温度计1&lt;/code&gt;,&lt;code&gt;温度计2&lt;/code&gt; 的温度都满足了条件需要给&lt;code&gt;空调&lt;/code&gt;发送rpc控制消息
 才需创建关联空调的，这里可以理解是&lt;code&gt;温度计&lt;/code&gt;控制&lt;code&gt;空调&lt;/code&gt;，所以创建温度计&lt;code&gt;向外的关联&lt;/code&gt;（&lt;code&gt;from&lt;/code&gt;）的关系
 同理也可以理解，空调需要接受温度计的控制消息&lt;code&gt;向内的关联&lt;/code&gt;（&lt;code&gt;to&lt;/code&gt;）的关系，这两个关系方向都可以
 这里以from关系为例创建，但请注意，这里的&lt;code&gt;关系类型&lt;/code&gt;一定要唯一，不能一样我这里建立了两条关系分别是&lt;code&gt;relation1&lt;/code&gt;,
 &lt;code&gt;relation2&lt;/code&gt;
-&lt;img src=&#34;img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;第五步给两个温度计控制空调的规则链这个空白的规则链编写规则链这是最核心的部分&#34;&gt;第五步，给&lt;code&gt;两个温度计控制空调的规则链&lt;/code&gt;这个空白的规则链编写规则链，这是最核心的部分&lt;/h3&gt;
 &lt;p&gt;梳理自己的流程需求，我这里的流程是前提条件，&lt;code&gt;温度计1&lt;/code&gt;、&lt;code&gt;温度计2&lt;/code&gt;、&lt;code&gt;空调&lt;/code&gt; 这三个设备已经连上了&lt;code&gt;thingsboard&lt;/code&gt; &lt;code&gt;1883&lt;/code&gt; &lt;code&gt;mqqt&lt;/code&gt; 端口
 且处理活动状态，在实体设备可以看到设备状态。
@@ -1089,44 +920,43 @@ OS name: &amp;ldquo;windows 10&amp;rdquo;, version: &amp;ldquo;10.0&amp;rdquo;, 
 当接受到&lt;code&gt;温度计1&lt;/code&gt;的遥测数据时，再查询&lt;code&gt;温度计2&lt;/code&gt;的遥测温度数据，并把&lt;code&gt;温度计2&lt;/code&gt;的数据保存在元数据中&lt;code&gt;metadata&lt;/code&gt;
 这是由&lt;code&gt;related device attrbuite&lt;/code&gt; 查询得到&lt;code&gt;温度计2&lt;/code&gt;的数据
 如果&lt;code&gt; success&lt;/code&gt; 然后接下来由&lt;code&gt; switch&lt;/code&gt; 判断两个温度数据是否满足，代码如下&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;temperature1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;temperature&lt;/span&gt;;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;temperature2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;temperature&lt;/span&gt;; &lt;span style=&#34;color:#75715e&#34;&gt;//从元数据获取temperature数据
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nextRelation&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;) {
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;other&amp;#39;&lt;/span&gt;];
-}
-&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;msgType&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;POST_TELEMETRY_REQUEST&amp;#39;&lt;/span&gt;) {
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;temperature1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;temperature2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;){
-       &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;温度计1&amp;gt;30且温度计2&amp;gt;40&amp;#34;&lt;/span&gt;];
-    }&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;temperature1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;temperature2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;){
-       &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;温度计1&amp;lt;30且温度计2&amp;lt;40&amp;#34;&lt;/span&gt;];
-    }
-}
-&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nextRelation&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;); 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以下&lt;code&gt;switch&lt;/code&gt;节点产生了两个分支，接下来到了&lt;code&gt;change originator&lt;/code&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;temperature1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;temperature&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;temperature2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;temperature&lt;/span&gt;; &lt;span style=&#34;color:#75715e&#34;&gt;//从元数据获取temperature数据
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nextRelation&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;other&amp;#39;&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;msgType&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;POST_TELEMETRY_REQUEST&amp;#39;&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;temperature1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;temperature2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;温度计1&amp;gt;30且温度计2&amp;gt;40&amp;#34;&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;temperature1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;temperature2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;温度计1&amp;lt;30且温度计2&amp;lt;40&amp;#34;&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nextRelation&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以下&lt;code&gt;switch&lt;/code&gt;节点产生了两个分支，接下来到了&lt;code&gt;change originator&lt;/code&gt;
 这一步是关键，因为我们上述所说到是由温度计把消息发送给空调这是错误的理解，
 因为需要空调&lt;code&gt;（self）&lt;/code&gt;自已给自己发送消息才能控制空调，所以这一步目的是将发送消息者切换为空调本身
 当切换&lt;code&gt;success&lt;/code&gt;成后，接下来是&lt;code&gt;script&lt;/code&gt; 转换节点 主要是组装空调能解析的数据结构
 我这里定义的是数据如下, 消息体为&lt;code&gt;newMsg&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;newMsg&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
-   &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;method&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;setKongTiao&amp;#34;&lt;/span&gt;,
-   &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;params&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
-       &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;state&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;OFF&amp;#34;&lt;/span&gt;
-    }
-}
-&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; {&lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;newMsg&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;msgType&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;msgType&lt;/span&gt;};
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;newMsg&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;method&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;setKongTiao&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;params&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;state&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;OFF&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; {&lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;newMsg&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;msgType&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;msgType&lt;/span&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;第六步debug调试&#34;&gt;第六步，debug调试&lt;/h3&gt;
 &lt;p&gt;用网页模拟成功，红色区域为打开空调
-&lt;img src=&#34;img_5.png&#34; alt=&#34;img_5.png&#34;&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;
 打开调式
-&lt;img src=&#34;img_6.png&#34; alt=&#34;img_6.png&#34;&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;
 点击事件，查看数据，看数据是否符合预期
-&lt;img src=&#34;img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;通过以上步骤，我们可以构建一个高效且自动化的空调控制系统，使室内环境保持在舒适的温度范围内。这不仅提高了居住或工作环境的舒适度，同时也有助于节约能源。
 希望这次介绍能够帮助你更好地理解在ThingsBoard平台上如何实现复杂的设备互动和自动化控制。如果需要进一步的信息或有其他疑问，请继续关注我的博客或提出咨询。&lt;/p&gt;
-&lt;p&gt;不得不说thingsboard非常强大，你无需编写查询sql语句去获取数据，相反如果用了nodered做流处理，需要编写sql语句来获取设备数据的&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;不得不说thingsboard非常强大，你无需编写查询sql语句去获取数据，相反如果用了nodered做流处理，需要编写sql语句来获取设备数据的&lt;/p&gt;&lt;/blockquote&gt;
 </content>
     </item>
     

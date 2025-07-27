@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>headscale :: LTAN.ME</title>
+    <title>Headscale :: LTAN.ME</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +38,7 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="headscale">
+<meta property="og:title" content="Headscale">
 <meta property="og:description" content="" />
 <meta property="og:url" content="https://ltan.me/tags/headscale/" />
 <meta property="og:site_name" content="LTAN.ME" />
@@ -174,10 +174,17 @@
         <div class="post-content">
           
           
-          This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.
-1. Export Data and Image on CentOS 7 Export Configuration and Database To begin, export the configuration and database files from the headscale container:
-docker cp headscale:/etc/headscale/config.yaml ./config.yaml docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite Export Docker Image Use docker save to export the headscale Docker image:
-docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1 2. Transfer Files to Ubuntu 24 Transfer the configuration, database, and image files to the Ubuntu 24 system using scp, rsync, or another file transfer tool:
+          <p>This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.</p>
+<h3 id="1-export-data-and-image-on-centos-7">1. Export Data and Image on CentOS 7</h3>
+<h4 id="export-configuration-and-database">Export Configuration and Database</h4>
+<p>To begin, export the configuration and database files from the <code>headscale</code> container:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker cp headscale:/etc/headscale/config.yaml ./config.yaml
+</span></span><span style="display:flex;"><span>docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite
+</span></span></code></pre></div><h4 id="export-docker-image">Export Docker Image</h4>
+<p>Use <code>docker save</code> to export the <code>headscale</code> Docker image:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1
+</span></span></code></pre></div><h3 id="2-transfer-files-to-ubuntu-24">2. Transfer Files to Ubuntu 24</h3>
+<p>Transfer the configuration, database, and image files to the Ubuntu 24 system using <code>scp</code>, <code>rsync</code>, or another file transfer tool:</p>
           
           
         </div>
@@ -185,7 +192,7 @@ docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1 2. Tr
         
         <div>
           <a class="read-more button"
-            href="/post/2024/11/headscalemigrationfromcentos7toubuntu24/">Read more →</a>
+            href="/post/2024/11/headscalemigrationfromcentos7toubuntu24/"> →</a>
         </div>
         
       </div>
@@ -218,7 +225,16 @@ docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1 2. Tr
         <div class="post-content">
           
           
-          Server setup process using Headscale with Docker. 记录采用headscale &amp; docker 异地组网过程 需求背景 曾经我尝试使用ZeroTier，最初的体验非常不错。然而，随着时间的推移，我发现连接速度变得缓慢和卡顿， 有时甚至需要借助特殊的网络加速技
+          <h1 id="server-setup-process-using-headscale-with-docker">Server setup process using Headscale with Docker.</h1>
+<h2 id="记录采用headscale--docker-异地组网过程">记录采用headscale &amp; docker 异地组网过程</h2>
+<h2 id="需求背景">需求背景</h2>
+<blockquote>
+<p>曾经我尝试使用<code>ZeroTier</code>，最初的体验非常不错。然而，随着时间的推移，我发现连接速度变得缓慢和卡顿，
+有时甚至需要借助特殊的网络加速技术来提高性能。后来，在<code>X</code>社区中，我看到有人分享了<code>Tailscale</code>的好评，
+这促使我安装了<code>Tailscale</code>的官方客户端。相较于<code>ZeroTier</code>，<code>Tailscale</code>在速度上有显著的提升，
+尽管偶尔也会遇到一些延迟。<code>Tailscale</code>依赖于其官方服务器，但它支持用户自建服务器，
+这一点非常吸引我。通过结合使用<code>Tailscale</code>客户端和官网，我们可以实现异地组网。
+为了达到更理想的连接速度，我决定自建异地组网系统。这样不仅能控制家中的<code>群晖</code>设备，还能优化<code>PT</code>下载等功能。</p>
           
           
         </div>
@@ -226,7 +242,7 @@ docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1 2. Tr
         
         <div>
           <a class="read-more button"
-            href="/post/2024/04/headscale-server-setup-process/">Read more →</a>
+            href="/post/2024/04/headscale-server-setup-process/"> →</a>
         </div>
         
       </div>

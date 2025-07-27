@@ -6,7 +6,9 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Java 8中的 Date和LocalDateTime类在工作中遇到的问题 java 8 中的 LocalDateTime 比 date 速度快很多，而且在处理时间方法比较灵活，在日期计算方面，日期比较简单易用，而Date 要繁琐很多 我在工作中遇到一个实体类创建" />
+<meta name="description" content="Java 8中的 Date和LocalDateTime类在工作中遇到的问题 java 8 中的 LocalDateTime 比 date 速度快很多，而且在处理时间方法比较灵活，在日期计算方面，日期比较简单易用，而Date 要繁琐很多
+我在工作中遇到一个实体类创建时间字段原来为Date类型， 在ｍｙｂａｔｉｓ　时间创建数据库记录时，需要用到自动填充当前时间为创建时间，
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2021/09/date-and-localdatetime-in-java-8/" />
@@ -39,7 +41,9 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Date and LocalDatetime in Java 8">
-<meta property="og:description" content="Java 8中的 Date和LocalDateTime类在工作中遇到的问题 java 8 中的 LocalDateTime 比 date 速度快很多，而且在处理时间方法比较灵活，在日期计算方面，日期比较简单易用，而Date 要繁琐很多 我在工作中遇到一个实体类创建" />
+<meta property="og:description" content="Java 8中的 Date和LocalDateTime类在工作中遇到的问题 java 8 中的 LocalDateTime 比 date 速度快很多，而且在处理时间方法比较灵活，在日期计算方面，日期比较简单易用，而Date 要繁琐很多
+我在工作中遇到一个实体类创建时间字段原来为Date类型， 在ｍｙｂａｔｉｓ　时间创建数据库记录时，需要用到自动填充当前时间为创建时间，
+" />
 <meta property="og:url" content="https://ltan.me/post/2021/09/date-and-localdatetime-in-java-8/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -170,41 +174,40 @@
 <blockquote>
 <p>java 8 中的 LocalDateTime  比 date 速度快很多，而且在处理时间方法比较灵活，在日期计算方面，日期比较简单易用，而Date 要繁琐很多</p>
 <p>我在工作中遇到一个实体类<code>创建时间</code>字段原来为Date类型， 在ｍｙｂａｔｉｓ　时间创建数据库记录时，需要用到自动填充当前时间为创建时间，</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@TableField</span><span style="color:#f92672">(</span>fill <span style="color:#f92672">=</span> FieldFill<span style="color:#f92672">.</span><span style="color:#a6e22e">INSERT_UPDATE</span><span style="color:#f92672">)</span>
-<span style="color:#66d9ef">private</span> Date lastUpdateTime<span style="color:#f92672">;</span>
-</code></pre></div><p>发现报错如下具体原因是因为<code>Date</code>在转换 <code>LocalDateTime.now()</code>出问题了，报错误不匹配</p>
-</blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
-
-  <span style="color:#f92672">&#34;timestamp&#34;</span>: <span style="color:#e6db74">&#34;2021-09-26T13:17:55.034+0000&#34;</span>,
-
-  <span style="color:#f92672">&#34;status&#34;</span>: <span style="color:#ae81ff">500</span>,
-
-  <span style="color:#f92672">&#34;error&#34;</span>: <span style="color:#e6db74">&#34;Internal Server Error&#34;</span>,
-
-  <span style="color:#f92672">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;nested exception is org.apache.ibatis.reflection.ReflectionException: Could not set property &#39;createTime&#39; of &#39;class com.company.device.control.api.model.Command&#39; with value &#39;2021-09-26T21:17:54.966&#39; Cause: java.lang.IllegalArgumentException: argument type mismatch&#34;</span>,
-
-  <span style="color:#f92672">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;/comm/add&#34;</span>
-
-}
-</code></pre></div><p>是我用了mybatis自动填充, 也就是自动转换，但类型不一样，所以导致错误</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MybatisObjectHandler</span> <span style="color:#66d9ef">implements</span> MetaObjectHandler <span style="color:#f92672">{</span>
-    <span style="color:#a6e22e">@Override</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insertFill</span><span style="color:#f92672">(</span>MetaObject metaObject<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        setFieldValByName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;createTime&#34;</span><span style="color:#f92672">,</span> LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">(),</span> metaObject<span style="color:#f92672">);</span>
-        setFieldValByName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;updateTime&#34;</span><span style="color:#f92672">,</span> LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">(),</span> metaObject<span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-
-    <span style="color:#a6e22e">@Override</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updateFill</span><span style="color:#f92672">(</span>MetaObject metaObject<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        <span style="color:#75715e">//更新时 需要填充字段
-</span><span style="color:#75715e"></span>        setFieldValByName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;updateTime&#34;</span><span style="color:#f92672">,</span> LocalDateTime<span style="color:#f92672">.</span><span style="color:#a6e22e">now</span><span style="color:#f92672">(),</span> metaObject<span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p>解决方法为，把原来自动用mybatis gen tool 生成的实体类类型字段，手动改成LocalDateTime 即可,如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@TableField</span><span style="color:#f92672">(</span>fill <span style="color:#f92672">=</span> FieldFill<span style="color:#f92672">.</span><span style="color:#a6e22e">INSERT_UPDATE</span><span style="color:#f92672">)</span>
-<span style="color:#66d9ef">private</span> LocalDateTime lastUpdateTime<span style="color:#f92672">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@TableField</span>(fill <span style="color:#f92672">=</span> FieldFill.<span style="color:#a6e22e">INSERT_UPDATE</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> Date lastUpdateTime;
+</span></span></code></pre></div><p>发现报错如下具体原因是因为<code>Date</code>在转换 <code>LocalDateTime.now()</code>出问题了，报错误不匹配</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;timestamp&#34;</span>: <span style="color:#e6db74">&#34;2021-09-26T13:17:55.034+0000&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;status&#34;</span>: <span style="color:#ae81ff">500</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;error&#34;</span>: <span style="color:#e6db74">&#34;Internal Server Error&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;nested exception is org.apache.ibatis.reflection.ReflectionException: Could not set property &#39;createTime&#39; of &#39;class com.company.device.control.api.model.Command&#39; with value &#39;2021-09-26T21:17:54.966&#39; Cause: java.lang.IllegalArgumentException: argument type mismatch&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;/comm/add&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>是我用了mybatis自动填充, 也就是自动转换，但类型不一样，所以导致错误</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MybatisObjectHandler</span> <span style="color:#66d9ef">implements</span> MetaObjectHandler {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insertFill</span>(MetaObject metaObject) {
+</span></span><span style="display:flex;"><span>        setFieldValByName(<span style="color:#e6db74">&#34;createTime&#34;</span>, LocalDateTime.<span style="color:#a6e22e">now</span>(), metaObject);
+</span></span><span style="display:flex;"><span>        setFieldValByName(<span style="color:#e6db74">&#34;updateTime&#34;</span>, LocalDateTime.<span style="color:#a6e22e">now</span>(), metaObject);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updateFill</span>(MetaObject metaObject) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//更新时 需要填充字段</span>
+</span></span><span style="display:flex;"><span>        setFieldValByName(<span style="color:#e6db74">&#34;updateTime&#34;</span>, LocalDateTime.<span style="color:#a6e22e">now</span>(), metaObject);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>解决方法为，把原来自动用mybatis gen tool 生成的实体类类型字段，手动改成LocalDateTime 即可,如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@TableField</span>(fill <span style="color:#f92672">=</span> FieldFill.<span style="color:#a6e22e">INSERT_UPDATE</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> LocalDateTime lastUpdateTime;
+</span></span></code></pre></div>
       </div></div>
 
   

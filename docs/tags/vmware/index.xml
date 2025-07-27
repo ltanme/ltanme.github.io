@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>vmware on LTAN.ME</title>
+    <title>Vmware on LTAN.ME</title>
     <link>https://ltan.me/tags/vmware/</link>
-    <description>Recent content in vmware on LTAN.ME</description>
+    <description>Recent content in Vmware on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Tue, 11 Jun 2024 18:52:36 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/vmware/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vmware and Ubuntu</title>
@@ -13,10 +13,23 @@
       <pubDate>Tue, 11 Jun 2024 18:52:36 +0800</pubDate>
       
       <guid>https://ltan.me/post/2024/06/vmware-and-ubuntu/</guid>
-      <description>在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建 我的虚拟机设置情况 要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南： 下载 Ubuntu 20.04.6 LTS ISO 文件 访问 Ubuntu 官方下载页面: 打开浏览器</description>
+      <description>&lt;h2 id=&#34;在vmware安装ubuntu-2004-lts-版本与windows-10-共享文件环境搭建&#34;&gt;在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建&lt;/h2&gt;
+&lt;p&gt;我的虚拟机设置情况&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/06/vmware-and-ubuntu/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南：&lt;/p&gt;
+&lt;h3 id=&#34;下载-ubuntu-20046-lts-iso-文件&#34;&gt;下载 Ubuntu 20.04.6 LTS ISO 文件&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;访问 Ubuntu 官方下载页面&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;打开浏览器，访问 &lt;a href=&#34;https://releases.ubuntu.com/20.04/&#34;&gt;Ubuntu 20.04.6 LTS 下载页面&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;选择下载合适的 ISO 文件&lt;/strong&gt;:&lt;/p&gt;</description>
       <content>&lt;h2 id=&#34;在vmware安装ubuntu-2004-lts-版本与windows-10-共享文件环境搭建&#34;&gt;在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建&lt;/h2&gt;
 &lt;p&gt;我的虚拟机设置情况&lt;br&gt;
-&lt;img src=&#34;img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/06/vmware-and-ubuntu/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南：&lt;/p&gt;
 &lt;h3 id=&#34;下载-ubuntu-20046-lts-iso-文件&#34;&gt;下载 Ubuntu 20.04.6 LTS ISO 文件&lt;/h3&gt;
 &lt;ol&gt;
@@ -157,17 +170,17 @@
 &lt;p&gt;&lt;strong&gt;更新系统&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;打开终端，运行以下命令更新系统：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt update
-sudo apt upgrade -y
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt upgrade -y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;安装编译工具&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;运行以下命令安装编译 ThingsBoard 源码所需的工具：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt install -y openjdk-11-jdk maven git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y openjdk-11-jdk maven git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -177,17 +190,17 @@ sudo apt upgrade -y
 &lt;p&gt;&lt;strong&gt;克隆 ThingsBoard 仓库&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;运行以下命令克隆 ThingsBoard 源码：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;git clone https://github.com/thingsboard/thingsboard.git
-cd thingsboard
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/thingsboard/thingsboard.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd thingsboard
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;编译源码&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;使用 Maven 编译 ThingsBoard 源码：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;mvn clean install -DskipTests
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mvn clean install -DskipTests
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -292,16 +305,16 @@ cd thingsboard
 &lt;/ol&gt;
 &lt;h3 id=&#34;图示操作&#34;&gt;图示操作&lt;/h3&gt;
 &lt;p&gt;确保选项如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;[X] Install OpenSSH server
-
-Import SSH identity: [ No  ▼]
-You can import your SSH keys from GitHub or Launchpad.
-
-[X] Allow password authentication over SSH
-
-[ Done ]
-[ Back ]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;完成这些步骤后，安装程序将继续进行剩余的安装过程。安装完成后，你将能够通过 SSH 远程连接到你的 Ubuntu 服务器。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[X] Install OpenSSH server
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Import SSH identity: [ No  ▼]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;You can import your SSH keys from GitHub or Launchpad.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[X] Allow password authentication over SSH
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[ Done ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[ Back ]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;完成这些步骤后，安装程序将继续进行剩余的安装过程。安装完成后，你将能够通过 SSH 远程连接到你的 Ubuntu 服务器。&lt;/p&gt;
 &lt;h3 id=&#34;总结&#34;&gt;总结&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;确保 &lt;code&gt;Install OpenSSH server&lt;/code&gt; 选项已选中。&lt;/li&gt;
@@ -316,7 +329,7 @@ You can import your SSH keys from GitHub or Launchpad.
 &lt;li&gt;&lt;strong&gt;选择 Docker&lt;/strong&gt;：
 &lt;ul&gt;
 &lt;li&gt;使用箭头键移动到 &lt;code&gt;docker&lt;/code&gt; 选项。&lt;/li&gt;
-&lt;li&gt;按空格键选择 &lt;code&gt;docker&lt;/code&gt;（选择后会显示 &lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; ）。&lt;/li&gt;
+&lt;li&gt;按空格键选择 &lt;code&gt;docker&lt;/code&gt;（选择后会显示 [X]）。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -337,91 +350,91 @@ You can import your SSH keys from GitHub or Launchpad.
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;更新系统&lt;/strong&gt;：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt update
-sudo apt upgrade -y
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt upgrade -y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;确保 SSH 服务已安装并启动&lt;/strong&gt;：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt install -y openssh-server
-sudo systemctl enable ssh
-sudo systemctl start ssh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y openssh-server
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl enable ssh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl start ssh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;安装-python-310&#34;&gt;安装 Python 3.10&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;添加 deadsnakes PPA 并安装 Python 3.10&lt;/strong&gt;：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt install -y software-properties-common
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update
-sudo apt install -y python3.10 python3.10-venv python3.10-dev
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y software-properties-common
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo add-apt-repository ppa:deadsnakes/ppa
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y python3.10 python3.10-venv python3.10-dev
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;安装-java-jdk-11&#34;&gt;安装 Java JDK 11&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;安装 OpenJDK 11&lt;/strong&gt;：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt install -y openjdk-11-jdk
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y openjdk-11-jdk
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;安装-google-protobuf&#34;&gt;安装 Google Protobuf&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;安装 Protobuf&lt;/strong&gt;：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt install -y protobuf-compiler
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y protobuf-compiler
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;安装-thingsboard-依赖项&#34;&gt;安装 ThingsBoard 依赖项&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;安装 Maven 和 Git&lt;/strong&gt;：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo apt install -y maven git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y maven git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;克隆并编译-thingsboard-源码-1&#34;&gt;克隆并编译 ThingsBoard 源码&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;克隆 ThingsBoard 仓库&lt;/strong&gt;：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;git clone https://github.com/thingsboard/thingsboard.git
-cd thingsboard
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/thingsboard/thingsboard.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd thingsboard
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;编译 ThingsBoard 源码&lt;/strong&gt;：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;mvn clean install -DskipTests
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mvn clean install -DskipTests
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;示例命令汇总&#34;&gt;示例命令汇总&lt;/h3&gt;
 &lt;p&gt;以下是你可以复制粘贴到终端中执行的一系列命令，以确保安装所需的所有依赖项：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 更新系统&lt;/span&gt;
-sudo apt update
-sudo apt upgrade -y
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 SSH 服务&lt;/span&gt;
-sudo apt install -y openssh-server
-sudo systemctl enable ssh
-sudo systemctl start ssh
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Docker&lt;/span&gt;
-sudo apt install -y docker.io
-sudo systemctl enable docker
-sudo systemctl start docker
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Python 3.10&lt;/span&gt;
-sudo apt install -y software-properties-common
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update
-sudo apt install -y python3.10 python3.10-venv python3.10-dev
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 OpenJDK 11&lt;/span&gt;
-sudo apt install -y openjdk-11-jdk
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Google Protobuf&lt;/span&gt;
-sudo apt install -y protobuf-compiler
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Maven 和 Git&lt;/span&gt;
-sudo apt install -y maven git
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 克隆并编译 ThingsBoard 源码&lt;/span&gt;
-git clone https://github.com/thingsboard/thingsboard.git
-cd thingsboard
-mvn clean install -DskipTests
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行上述命令后，你将会安装并配置好所有所需的软件和依赖项，以便在 Ubuntu 20.04.6 LTS 上编译和运行 ThingsBoard。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 更新系统&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt upgrade -y
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 SSH 服务&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y openssh-server
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl enable ssh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl start ssh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Docker&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y docker.io
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl enable docker
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl start docker
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Python 3.10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y software-properties-common
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo add-apt-repository ppa:deadsnakes/ppa
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y python3.10 python3.10-venv python3.10-dev
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 OpenJDK 11&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y openjdk-11-jdk
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Google Protobuf&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y protobuf-compiler
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Maven 和 Git&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y maven git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 克隆并编译 ThingsBoard 源码&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/thingsboard/thingsboard.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd thingsboard
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mvn clean install -DskipTests
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;执行上述命令后，你将会安装并配置好所有所需的软件和依赖项，以便在 Ubuntu 20.04.6 LTS 上编译和运行 ThingsBoard。&lt;/p&gt;
 &lt;h2 id=&#34;安装vmware-tools-工具&#34;&gt;安装vmware tools 工具，&lt;/h2&gt;
 &lt;p&gt;*** 找到vmware pro 17 安装目录下的linux.iso 文件将添加到vmware cdrom中
 要在 VMware 虚拟机中挂载 Windows 10 宿主机上的文件，可以使用 VMware 提供的共享文件夹功能。以下是详细的步骤指南：&lt;/p&gt;
@@ -447,20 +460,20 @@ mvn clean install -DskipTests
 &lt;ul&gt;
 &lt;li&gt;在 Ubuntu 虚拟机中，打开终端。&lt;/li&gt;
 &lt;li&gt;输入以下命令将光驱内容挂载到 &lt;code&gt;/mnt&lt;/code&gt; 目录：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo mount /dev/cdrom /mnt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mount /dev/cdrom /mnt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;解压并安装 VMware Tools&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;解压 VMware Tools 安装包：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;tar -zxvf /mnt/VMwareTools-*.tar.gz -C /tmp/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tar -zxvf /mnt/VMwareTools-*.tar.gz -C /tmp/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;进入解压后的目录并运行安装脚本：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;cd /tmp/vmware-tools-distrib
-sudo ./vmware-install.pl
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd /tmp/vmware-tools-distrib
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ./vmware-install.pl
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;按照提示完成安装过程。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
@@ -496,11 +509,11 @@ sudo ./vmware-install.pl
 &lt;ul&gt;
 &lt;li&gt;在 Ubuntu 虚拟机中，打开终端。&lt;/li&gt;
 &lt;li&gt;创建挂载点目录：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;mkdir ~/shared
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir ~/shared
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;挂载共享文件夹（假设共享文件夹名称为 &lt;code&gt;share&lt;/code&gt;）：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo mount -t vmhgfs .host:/share ~/shared
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mount -t vmhgfs .host:/share ~/shared
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -511,21 +524,21 @@ sudo ./vmware-install.pl
 &lt;p&gt;&lt;strong&gt;编辑 &lt;code&gt;/etc/fstab&lt;/code&gt; 文件&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;打开终端并编辑 &lt;code&gt;/etc/fstab&lt;/code&gt; 文件：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo nano /etc/fstab
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo nano /etc/fstab
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;添加挂载条目&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;在文件末尾添加以下条目：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;.host:/share /home/your-username/shared vmhgfs defaults 0 0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.host:/share /home/your-username/shared vmhgfs defaults 0 0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;以下是我自己的环境所添加的示例
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;.host:/workProject /mnt/hgfs/workProject fuse.vmhgfs-fuse defaults,allow_other 0 0
-.host:/e /mnt/hgfs/e fuse.vmhgfs-fuse defaults,allow_other 0 0
-.host:/d /mnt/hgfs/d fuse.vmhgfs-fuse defaults,allow_other 0 0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.host:/workProject /mnt/hgfs/workProject fuse.vmhgfs-fuse defaults,allow_other 0 0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.host:/e /mnt/hgfs/e fuse.vmhgfs-fuse defaults,allow_other 0 0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.host:/d /mnt/hgfs/d fuse.vmhgfs-fuse defaults,allow_other 0 0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -542,33 +555,33 @@ sudo ./vmware-install.pl
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;确认 &lt;code&gt;open-vm-tools&lt;/code&gt; 已经安装并运行&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo systemctl status open-vm-tools
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl status open-vm-tools
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;&lt;strong&gt;创建挂载点目录&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo mkdir -p /mnt/hgfs/workProject
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mkdir -p /mnt/hgfs/workProject
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;&lt;strong&gt;挂载共享文件夹&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;sudo vmhgfs-fuse .host:/workProject /mnt/hgfs/workProject -o allow_other
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;验证挂载&#34;&gt;验证挂载&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo vmhgfs-fuse .host:/workProject /mnt/hgfs/workProject -o allow_other
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;验证挂载&#34;&gt;验证挂载&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;检查挂载结果&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;df -h
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;df -h
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;&lt;strong&gt;查看共享文件夹内容&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;ls /mnt/hgfs/workProject
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;总结-1&#34;&gt;总结&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ls /mnt/hgfs/workProject
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;总结-1&#34;&gt;总结&lt;/h3&gt;
 &lt;p&gt;通过这些步骤，你应该能够成功挂载 &lt;code&gt;vmware-hgfsclient&lt;/code&gt; 显示的共享文件夹。如果在过程中遇到任何问题，请提供详细的错误信息或输出内容，以便进一步排查。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;admin@ubuntu-server:~$ ls /mnt/hgfs/workProject/
-apache-tomcat-7.0.103  c_node_modules  docker-emqx      easy-rules  holiday-cn-2022.01.01  java2  java5  node          php     rust
-apisix                 deploy          docker-node-red  go          html                   java3  js     node-red_bak  python
-artemis-rest           docker          drama-engine     hawtio      java                   java4  lua    openresty     remote
-admin@ubuntu-server:~$ 
-admin@ubuntu-server:~$ 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;admin@ubuntu-server:~$ ls /mnt/hgfs/workProject/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;apache-tomcat-7.0.103  c_node_modules  docker-emqx      easy-rules  holiday-cn-2022.01.01  java2  java5  node          php     rust
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;apisix                 deploy          docker-node-red  go          html                   java3  js     node-red_bak  python
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;artemis-rest           docker          drama-engine     hawtio      java                   java4  lua    openresty     remote
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;admin@ubuntu-server:~$ 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;admin@ubuntu-server:~$ 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/06/vmware-and-ubuntu/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
@@ -578,36 +591,36 @@ admin@ubuntu-server:~$
       <pubDate>Sun, 08 Oct 2023 19:16:07 +0800</pubDate>
       
       <guid>https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</guid>
-      <description>解决因docker网络导致的网络问题，无法ping通局域网ip 背景 在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网</description>
+      <description>&lt;h1 id=&#34;解决因docker网络导致的网络问题无法ping通局域网ip&#34;&gt;解决因docker网络导致的网络问题，无法ping通局域网ip&lt;/h1&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网并 ping 通外部地址，但 CentOS 7 无法 ping 通宿主机。这让我非常困惑，并最初怀疑可能是公司的网管对我的 MAC 地址进行了某种限制。&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;解决因docker网络导致的网络问题无法ping通局域网ip&#34;&gt;解决因docker网络导致的网络问题，无法ping通局域网ip&lt;/h1&gt;
 &lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
 &lt;p&gt;在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网并 ping 通外部地址，但 CentOS 7 无法 ping 通宿主机。这让我非常困惑，并最初怀疑可能是公司的网管对我的 MAC 地址进行了某种限制。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# route -n&lt;/span&gt;
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-0.0.0.0         172.22.128.1    0.0.0.0         UG    &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; ens33
-172.17.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; docker0
-172.18.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-6b8659f8f886
-172.19.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-89bc77a42b8a
-172.20.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-b4e656893ece
-172.22.128.0    0.0.0.0         255.255.240.0   U     &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; ens33
-172.26.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-5b7ab2df8a43
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# route -n&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kernel IP routing table
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0.0.0.0         172.22.128.1    0.0.0.0         UG    &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; ens33
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;172.17.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; docker0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;172.18.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-6b8659f8f886
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;172.19.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-89bc77a42b8a
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;172.20.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-b4e656893ece
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;172.22.128.0    0.0.0.0         255.255.240.0   U     &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; ens33
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;172.26.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-5b7ab2df8a43
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;虚拟机上有多个 Docker 网络，其中一个网络（br-b4e656893ece）与宿主机的网络冲突。&lt;br&gt;
 这意味着， 尝试 ping 宿主机时，数据包可能被发送到了 Docker 网络，而不是真正的物理网络。&lt;br&gt;
-这是最关键的问题所在&lt;/p&gt;
-&lt;/blockquote&gt;
+这是最关键的问题所在&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;问现现像&#34;&gt;问现现像&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;我的一个局域网ip ping不通&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ping 172.20.151.90&lt;/span&gt;
-PING 172.20.151.90 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;172.20.151.90&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 56&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;84&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; bytes of data.
-From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; Destination Host Unreachable
-From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; Destination Host Unreachable
-From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; Destination Host Unreachable
-From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; Destination Host Unreachable
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;诊断过程&#34;&gt;诊断过程&lt;/h2&gt;
+&lt;p&gt;我的一个局域网ip ping不通&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ping 172.20.151.90&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;PING 172.20.151.90 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;172.20.151.90&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 56&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;84&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; bytes of data.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; Destination Host Unreachable
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; Destination Host Unreachable
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; Destination Host Unreachable
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; Destination Host Unreachable
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;诊断过程&#34;&gt;诊断过程&lt;/h2&gt;
 &lt;p&gt;经过一系列的诊断步骤，包括：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;检查 VMware 的网络模式设置。&lt;/li&gt;
@@ -619,111 +632,109 @@ From 172.20.0.1 icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;
 &lt;h2 id=&#34;解决方法&#34;&gt;解决方法&lt;/h2&gt;
 &lt;p&gt;最终确定是 Docker 网络与宿主机网络冲突导致的问题。为了解决这个问题，我采取了以下步骤：&lt;/p&gt;
 &lt;p&gt;第一步, 停止 Docker 服务。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;sudo systemctl stop docker.service
-sudo systemctl stop docker.socket
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第二步, 手动删除冲突的 Docker 网络或修改其 IP 地址。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#我选择删除&lt;/span&gt;
-sudo route del -net 172.20.0.0 netmask 255.255.0.0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第三步, 重启 Docker 服务和 CentOS 虚拟机。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl stop docker.service
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl stop docker.socket
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第二步, 手动删除冲突的 Docker 网络或修改其 IP 地址。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#我选择删除&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo route del -net 172.20.0.0 netmask 255.255.0.0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;第三步, 重启 Docker 服务和 CentOS 虚拟机。&lt;/p&gt;
 &lt;p&gt;经过上述步骤，CentOS 7 虚拟机成功 ping 通了宿主机。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# check test,it worked!&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ping 172.20.151.90&lt;/span&gt;
-PING 172.20.151.90 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;172.20.151.90&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 56&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;84&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; bytes of data.
-&lt;span style=&#34;color:#ae81ff&#34;&gt;64&lt;/span&gt; bytes from 172.20.151.90: icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; ttl&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;63&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0.422 ms
-&lt;span style=&#34;color:#ae81ff&#34;&gt;64&lt;/span&gt; bytes from 172.20.151.90: icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; ttl&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;63&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0.362 ms
-&lt;span style=&#34;color:#ae81ff&#34;&gt;64&lt;/span&gt; bytes from 172.20.151.90: icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; ttl&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;63&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0.555 ms
-^C
---- 172.20.151.90 ping statistics ---
-&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; packets transmitted, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; received, 0% packet loss, time 2000ms
-rtt min/avg/max/mdev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0.362/0.446/0.555/0.082 ms
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;主要原因是我上周折腾开环境时，在centos7 使用docker-compose搭建了kafka，使用如下的一个&lt;code&gt;docker-compose.yml&lt;/code&gt;文件
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# check test,it worked!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ping 172.20.151.90&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;PING 172.20.151.90 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;172.20.151.90&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; 56&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;84&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; bytes of data.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;64&lt;/span&gt; bytes from 172.20.151.90: icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; ttl&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;63&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0.422 ms
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;64&lt;/span&gt; bytes from 172.20.151.90: icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; ttl&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;63&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0.362 ms
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;64&lt;/span&gt; bytes from 172.20.151.90: icmp_seq&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; ttl&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;63&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0.555 ms
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;^C
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;--- 172.20.151.90 ping statistics ---
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; packets transmitted, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; received, 0% packet loss, time 2000ms
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rtt min/avg/max/mdev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0.362/0.446/0.555/0.082 ms
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;主要原因是我上周折腾开环境时，在centos7 使用docker-compose搭建了kafka，使用如下的一个&lt;code&gt;docker-compose.yml&lt;/code&gt;文件
 从以下docker-compose文件看，并没有设置网络相关的东西，所以导致使用了默认的docker网络容器&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;version: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2&amp;#39;&lt;/span&gt;
-
-services:
-  zookeeper:
-    image: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bitnami/zookeeper:latest&amp;#39;&lt;/span&gt;
-    ports:
-      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2181:2181&amp;#39;&lt;/span&gt;
-    environment:
-      - ALLOW_ANONYMOUS_LOGIN&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yes
-
-  kafka:
-    image: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bitnami/kafka:latest&amp;#39;&lt;/span&gt;
-    ports:
-      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;9092:9092&amp;#39;&lt;/span&gt;
-    environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;zookeeper:2181
-      - ALLOW_PLAINTEXT_LISTENER&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yes
-      - KAFKA_CFG_ADVERTISED_LISTENERS&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;PLAINTEXT://localhost:9092
-    depends_on:
-      - zookeeper
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;为了不会使每天开机启动系统，自动创建了172.20.0.0这一条路由记录，我决定对docker-compose.yml进行修改网络
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;version: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;services:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  zookeeper:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    image: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bitnami/zookeeper:latest&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2181:2181&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    environment:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - ALLOW_ANONYMOUS_LOGIN&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yes
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  kafka:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    image: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bitnami/kafka:latest&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;9092:9092&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    environment:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - KAFKA_CFG_ZOOKEEPER_CONNECT&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;zookeeper:2181
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - ALLOW_PLAINTEXT_LISTENER&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yes
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - KAFKA_CFG_ADVERTISED_LISTENERS&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;PLAINTEXT://localhost:9092
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    depends_on:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - zookeeper
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;为了不会使每天开机启动系统，自动创建了172.20.0.0这一条路由记录，我决定对docker-compose.yml进行修改网络
 指定子网段ip   该ip由docker自动创建的br-b4e656893ece 网卡id号&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost kafka&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# route -n&lt;/span&gt;
-Kernel IP routing table
-Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-0.0.0.0         172.17.64.1     0.0.0.0         UG    &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; ens33
-172.17.64.0     0.0.0.0         255.255.240.0   U     &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; ens33
-172.18.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-6b8659f8f886
-172.19.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-89bc77a42b8a
-172.20.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-b4e656893ece
-172.26.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-5b7ab2df8a43
-192.168.89.0    0.0.0.0         255.255.255.0   U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; docker0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;通过&lt;code&gt;docker network ls&lt;/code&gt; 命令发现&lt;code&gt;b4e656893ece&lt;/code&gt; 为 kafka-default所创建的&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker network ls&lt;/span&gt;
-NETWORK ID     NAME                        DRIVER    SCOPE
-6b8659f8f886   bigdata_default             bridge    local
-1bbd6235ef1e   bridge                      bridge    local
-5b7ab2df8a43   docker-compose_default      bridge    local
-89bc77a42b8a   docker-compose_my_network   bridge    local
-330d08b4c24b   host                        host      local
-b4e656893ece   kafka_default               bridge    local
-5501efb5d97b   none                        null      local
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最终修改为docker-compose.yml 如下&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;version: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2&amp;#39;&lt;/span&gt;
-
-services:
-  zookeeper:
-    image: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bitnami/zookeeper:latest&amp;#39;&lt;/span&gt;
-    ports:
-      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2181:2181&amp;#39;&lt;/span&gt;
-    environment:
-      - ALLOW_ANONYMOUS_LOGIN&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yes
-    networks:
-      - custom_network
-
-  kafka:
-    image: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bitnami/kafka:latest&amp;#39;&lt;/span&gt;
-    ports:
-      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;9092:9092&amp;#39;&lt;/span&gt;
-    environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;zookeeper:2181
-      - ALLOW_PLAINTEXT_LISTENER&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yes
-      - KAFKA_CFG_ADVERTISED_LISTENERS&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;PLAINTEXT://localhost:9092
-    depends_on:
-      - zookeeper
-    networks:
-      - custom_network
-
-networks:
-  custom_network:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.30.0.0/16 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果不修改docker-compose.yml文件重新执行的话，下面解决方法也可以&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#need to delete kafka_deafalut&lt;/span&gt;
-docker network rm kafka_default
-&lt;span style=&#34;color:#75715e&#34;&gt;#re create network, then vaild subnet,it worked!&lt;/span&gt;
-docker network create --subnet&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;172.30.0.0/16 kafka_default 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;结论&#34;&gt;结论&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost kafka&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# route -n&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kernel IP routing table
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0.0.0.0         172.17.64.1     0.0.0.0         UG    &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; ens33
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;172.17.64.0     0.0.0.0         255.255.240.0   U     &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; ens33
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;172.18.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-6b8659f8f886
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;172.19.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-89bc77a42b8a
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;172.20.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-b4e656893ece
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;172.26.0.0      0.0.0.0         255.255.0.0     U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; br-5b7ab2df8a43
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;192.168.89.0    0.0.0.0         255.255.255.0   U     &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;        &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; docker0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;通过&lt;code&gt;docker network ls&lt;/code&gt; 命令发现&lt;code&gt;b4e656893ece&lt;/code&gt; 为 kafka-default所创建的&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@localhost ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker network ls&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;NETWORK ID     NAME                        DRIVER    SCOPE
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;6b8659f8f886   bigdata_default             bridge    local
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1bbd6235ef1e   bridge                      bridge    local
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;5b7ab2df8a43   docker-compose_default      bridge    local
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;89bc77a42b8a   docker-compose_my_network   bridge    local
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;330d08b4c24b   host                        host      local
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;b4e656893ece   kafka_default               bridge    local
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;5501efb5d97b   none                        null      local
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最终修改为docker-compose.yml 如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;version: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;services:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  zookeeper:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    image: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bitnami/zookeeper:latest&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2181:2181&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    environment:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - ALLOW_ANONYMOUS_LOGIN&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yes
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - custom_network
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  kafka:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    image: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;bitnami/kafka:latest&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ports:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;9092:9092&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    environment:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - KAFKA_CFG_ZOOKEEPER_CONNECT&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;zookeeper:2181
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - ALLOW_PLAINTEXT_LISTENER&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yes
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - KAFKA_CFG_ADVERTISED_LISTENERS&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;PLAINTEXT://localhost:9092
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    depends_on:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - zookeeper
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - custom_network
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;networks:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  custom_network:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    driver: bridge
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ipam:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      config:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        - subnet: 172.30.0.0/16 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果不修改docker-compose.yml文件重新执行的话，下面解决方法也可以&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#need to delete kafka_deafalut&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker network rm kafka_default
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#re create network, then vaild subnet,it worked!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker network create --subnet&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;172.30.0.0/16 kafka_default 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;结论&#34;&gt;结论&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;这次的经验教训是，当遇到网络通信问题时，不仅要检查常见的网络配置和防火墙设置，&lt;br&gt;
 还要考虑到其他可能影响网络的因素，例如 Docker 或其他虚拟化技术。而最重要的是，&lt;br&gt;
-不要过早地得出结论或怀疑其他人，因为问题的根源可能出乎意料。&lt;/p&gt;
-&lt;/blockquote&gt;
+不要过早地得出结论或怀疑其他人，因为问题的根源可能出乎意料。&lt;/p&gt;&lt;/blockquote&gt;
 </content>
     </item>
     

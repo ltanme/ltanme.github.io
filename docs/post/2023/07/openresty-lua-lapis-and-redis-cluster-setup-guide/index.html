@@ -6,7 +6,11 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="安装模块 下载并安装lua-resty-redis-cluster模块 lua-resty-redis-cluster模块的GitHub地址：https://github.com/iresty/lua-r" />
+<meta name="description" content="安装模块 下载并安装lua-resty-redis-cluster模块 lua-resty-redis-cluster模块的GitHub地址：https://github.com/iresty/lua-resty-redis-cluster
+这个模块可以用来连接redis集群。
+请将这个模块下载到任意的目录下。
+下载完成后，你只需要在包中找到rediscluster.lua和redis_slot.c两个文件。
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2023/07/openresty-lua-lapis-and-redis-cluster-setup-guide/" />
@@ -39,7 +43,11 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="OpenResty Lua Lapis and Redis Cluster Setup Guide">
-<meta property="og:description" content="安装模块 下载并安装lua-resty-redis-cluster模块 lua-resty-redis-cluster模块的GitHub地址：https://github.com/iresty/lua-r" />
+<meta property="og:description" content="安装模块 下载并安装lua-resty-redis-cluster模块 lua-resty-redis-cluster模块的GitHub地址：https://github.com/iresty/lua-resty-redis-cluster
+这个模块可以用来连接redis集群。
+请将这个模块下载到任意的目录下。
+下载完成后，你只需要在包中找到rediscluster.lua和redis_slot.c两个文件。
+" />
 <meta property="og:url" content="https://ltan.me/post/2023/07/openresty-lua-lapis-and-redis-cluster-setup-guide/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -185,8 +193,7 @@
 </li>
 </ul>
 <blockquote>
-<p>注意：<code>.c</code>文件无法直接在nginx配置文件中引入，所以我们需要将它编译成<code>.so</code>文件。以下是编译命令：</p>
-</blockquote>
+<p>注意：<code>.c</code>文件无法直接在nginx配置文件中引入，所以我们需要将它编译成<code>.so</code>文件。以下是编译命令：</p></blockquote>
 <pre><code>gcc SOURCE_FILES -fPIC -shared -o TARGET 
 </code></pre>
 <ul>
@@ -221,8 +228,7 @@
 </li>
 </ul>
 <blockquote>
-<p>Note: The <code>.c</code> file can&rsquo;t be directly imported into the Nginx configuration file, so it needs to be compiled into a <code>.so</code> file. The compilation command is:</p>
-</blockquote>
+<p>Note: The <code>.c</code> file can&rsquo;t be directly imported into the Nginx configuration file, so it needs to be compiled into a <code>.so</code> file. The compilation command is:</p></blockquote>
 <pre><code>gcc SOURCE_FILES -fPIC -shared -o TARGET 
 </code></pre>
 <ul>

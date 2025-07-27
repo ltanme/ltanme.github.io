@@ -6,7 +6,11 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建 我的虚拟机设置情况 要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南： 下载 Ubuntu 20.04.6 LTS ISO 文件 访问 Ubuntu 官方下载页面: 打开浏览器" />
+<meta name="description" content="在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建 我的虚拟机设置情况
+要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南：
+下载 Ubuntu 20.04.6 LTS ISO 文件 访问 Ubuntu 官方下载页面:
+打开浏览器，访问 Ubuntu 20.04.6 LTS 下载页面. 选择下载合适的 ISO 文件:
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2024/06/vmware-and-ubuntu/" />
@@ -39,7 +43,11 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Vmware and Ubuntu">
-<meta property="og:description" content="在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建 我的虚拟机设置情况 要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南： 下载 Ubuntu 20.04.6 LTS ISO 文件 访问 Ubuntu 官方下载页面: 打开浏览器" />
+<meta property="og:description" content="在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建 我的虚拟机设置情况
+要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南：
+下载 Ubuntu 20.04.6 LTS ISO 文件 访问 Ubuntu 官方下载页面:
+打开浏览器，访问 Ubuntu 20.04.6 LTS 下载页面. 选择下载合适的 ISO 文件:
+" />
 <meta property="og:url" content="https://ltan.me/post/2024/06/vmware-and-ubuntu/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -170,7 +178,7 @@
   <div class="post-content"><div>
         <h2 id="在vmware安装ubuntu-2004-lts-版本与windows-10-共享文件环境搭建">在Vmware安装Ubuntu 20.04 LTS 版本与windows 10 共享文件，环境搭建<a href="#在vmware安装ubuntu-2004-lts-版本与windows-10-共享文件环境搭建" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>我的虚拟机设置情况<br>
-<img src="img_1.png" alt="img_1.png"></p>
+<img src="/post/2024/06/vmware-and-ubuntu/img_1.png" alt="img_1.png"></p>
 <p>要在 VMware 上安装 Ubuntu 20.04.6 LTS (64-bit) 版本以便编译 ThingsBoard 源码，以下是详细的步骤指南：</p>
 <h3 id="下载-ubuntu-20046-lts-iso-文件">下载 Ubuntu 20.04.6 LTS ISO 文件<a href="#下载-ubuntu-20046-lts-iso-文件" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <ol>
@@ -311,17 +319,17 @@
 <p><strong>更新系统</strong>:</p>
 <ul>
 <li>打开终端，运行以下命令更新系统：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt update
-sudo apt upgrade -y
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt upgrade -y
+</span></span></code></pre></div></li>
 </ul>
 </li>
 <li>
 <p><strong>安装编译工具</strong>:</p>
 <ul>
 <li>运行以下命令安装编译 ThingsBoard 源码所需的工具：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt install -y openjdk-11-jdk maven git
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install -y openjdk-11-jdk maven git
+</span></span></code></pre></div></li>
 </ul>
 </li>
 </ol>
@@ -331,17 +339,17 @@ sudo apt upgrade -y
 <p><strong>克隆 ThingsBoard 仓库</strong>:</p>
 <ul>
 <li>运行以下命令克隆 ThingsBoard 源码：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git clone https://github.com/thingsboard/thingsboard.git
-cd thingsboard
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/thingsboard/thingsboard.git
+</span></span><span style="display:flex;"><span>cd thingsboard
+</span></span></code></pre></div></li>
 </ul>
 </li>
 <li>
 <p><strong>编译源码</strong>:</p>
 <ul>
 <li>使用 Maven 编译 ThingsBoard 源码：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mvn clean install -DskipTests
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>mvn clean install -DskipTests
+</span></span></code></pre></div></li>
 </ul>
 </li>
 </ol>
@@ -446,16 +454,16 @@ cd thingsboard
 </ol>
 <h3 id="图示操作">图示操作<a href="#图示操作" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>确保选项如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">[X] Install OpenSSH server
-
-Import SSH identity: [ No  ▼]
-You can import your SSH keys from GitHub or Launchpad.
-
-[X] Allow password authentication over SSH
-
-[ Done ]
-[ Back ]
-</code></pre></div><p>完成这些步骤后，安装程序将继续进行剩余的安装过程。安装完成后，你将能够通过 SSH 远程连接到你的 Ubuntu 服务器。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>[X] Install OpenSSH server
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Import SSH identity: [ No  ▼]
+</span></span><span style="display:flex;"><span>You can import your SSH keys from GitHub or Launchpad.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[X] Allow password authentication over SSH
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[ Done ]
+</span></span><span style="display:flex;"><span>[ Back ]
+</span></span></code></pre></div><p>完成这些步骤后，安装程序将继续进行剩余的安装过程。安装完成后，你将能够通过 SSH 远程连接到你的 Ubuntu 服务器。</p>
 <h3 id="总结">总结<a href="#总结" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <ol>
 <li>确保 <code>Install OpenSSH server</code> 选项已选中。</li>
@@ -470,7 +478,7 @@ You can import your SSH keys from GitHub or Launchpad.
 <li><strong>选择 Docker</strong>：
 <ul>
 <li>使用箭头键移动到 <code>docker</code> 选项。</li>
-<li>按空格键选择 <code>docker</code>（选择后会显示 <input checked="" disabled="" type="checkbox"> ）。</li>
+<li>按空格键选择 <code>docker</code>（选择后会显示 [X]）。</li>
 </ul>
 </li>
 </ol>
@@ -491,91 +499,91 @@ You can import your SSH keys from GitHub or Launchpad.
 <ol>
 <li>
 <p><strong>更新系统</strong>：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt update
-sudo apt upgrade -y
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt upgrade -y
+</span></span></code></pre></div></li>
 <li>
 <p><strong>确保 SSH 服务已安装并启动</strong>：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt install -y openssh-server
-sudo systemctl enable ssh
-sudo systemctl start ssh
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install -y openssh-server
+</span></span><span style="display:flex;"><span>sudo systemctl enable ssh
+</span></span><span style="display:flex;"><span>sudo systemctl start ssh
+</span></span></code></pre></div></li>
 </ol>
 <h3 id="安装-python-310">安装 Python 3.10<a href="#安装-python-310" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <ol>
 <li><strong>添加 deadsnakes PPA 并安装 Python 3.10</strong>：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt install -y software-properties-common
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update
-sudo apt install -y python3.10 python3.10-venv python3.10-dev
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install -y software-properties-common
+</span></span><span style="display:flex;"><span>sudo add-apt-repository ppa:deadsnakes/ppa
+</span></span><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt install -y python3.10 python3.10-venv python3.10-dev
+</span></span></code></pre></div></li>
 </ol>
 <h3 id="安装-java-jdk-11">安装 Java JDK 11<a href="#安装-java-jdk-11" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <ol>
 <li><strong>安装 OpenJDK 11</strong>：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt install -y openjdk-11-jdk
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install -y openjdk-11-jdk
+</span></span></code></pre></div></li>
 </ol>
 <h3 id="安装-google-protobuf">安装 Google Protobuf<a href="#安装-google-protobuf" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <ol>
 <li><strong>安装 Protobuf</strong>：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt install -y protobuf-compiler
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install -y protobuf-compiler
+</span></span></code></pre></div></li>
 </ol>
 <h3 id="安装-thingsboard-依赖项">安装 ThingsBoard 依赖项<a href="#安装-thingsboard-依赖项" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <ol>
 <li><strong>安装 Maven 和 Git</strong>：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt install -y maven git
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install -y maven git
+</span></span></code></pre></div></li>
 </ol>
 <h3 id="克隆并编译-thingsboard-源码-1">克隆并编译 ThingsBoard 源码<a href="#克隆并编译-thingsboard-源码-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <ol>
 <li>
 <p><strong>克隆 ThingsBoard 仓库</strong>：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git clone https://github.com/thingsboard/thingsboard.git
-cd thingsboard
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/thingsboard/thingsboard.git
+</span></span><span style="display:flex;"><span>cd thingsboard
+</span></span></code></pre></div></li>
 <li>
 <p><strong>编译 ThingsBoard 源码</strong>：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mvn clean install -DskipTests
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>mvn clean install -DskipTests
+</span></span></code></pre></div></li>
 </ol>
 <h3 id="示例命令汇总">示例命令汇总<a href="#示例命令汇总" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>以下是你可以复制粘贴到终端中执行的一系列命令，以确保安装所需的所有依赖项：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 更新系统</span>
-sudo apt update
-sudo apt upgrade -y
-
-<span style="color:#75715e"># 安装 SSH 服务</span>
-sudo apt install -y openssh-server
-sudo systemctl enable ssh
-sudo systemctl start ssh
-
-<span style="color:#75715e"># 安装 Docker</span>
-sudo apt install -y docker.io
-sudo systemctl enable docker
-sudo systemctl start docker
-
-<span style="color:#75715e"># 安装 Python 3.10</span>
-sudo apt install -y software-properties-common
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update
-sudo apt install -y python3.10 python3.10-venv python3.10-dev
-
-<span style="color:#75715e"># 安装 OpenJDK 11</span>
-sudo apt install -y openjdk-11-jdk
-
-<span style="color:#75715e"># 安装 Google Protobuf</span>
-sudo apt install -y protobuf-compiler
-
-<span style="color:#75715e"># 安装 Maven 和 Git</span>
-sudo apt install -y maven git
-
-<span style="color:#75715e"># 克隆并编译 ThingsBoard 源码</span>
-git clone https://github.com/thingsboard/thingsboard.git
-cd thingsboard
-mvn clean install -DskipTests
-</code></pre></div><p>执行上述命令后，你将会安装并配置好所有所需的软件和依赖项，以便在 Ubuntu 20.04.6 LTS 上编译和运行 ThingsBoard。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 更新系统</span>
+</span></span><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt upgrade -y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 安装 SSH 服务</span>
+</span></span><span style="display:flex;"><span>sudo apt install -y openssh-server
+</span></span><span style="display:flex;"><span>sudo systemctl enable ssh
+</span></span><span style="display:flex;"><span>sudo systemctl start ssh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 安装 Docker</span>
+</span></span><span style="display:flex;"><span>sudo apt install -y docker.io
+</span></span><span style="display:flex;"><span>sudo systemctl enable docker
+</span></span><span style="display:flex;"><span>sudo systemctl start docker
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 安装 Python 3.10</span>
+</span></span><span style="display:flex;"><span>sudo apt install -y software-properties-common
+</span></span><span style="display:flex;"><span>sudo add-apt-repository ppa:deadsnakes/ppa
+</span></span><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt install -y python3.10 python3.10-venv python3.10-dev
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 安装 OpenJDK 11</span>
+</span></span><span style="display:flex;"><span>sudo apt install -y openjdk-11-jdk
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 安装 Google Protobuf</span>
+</span></span><span style="display:flex;"><span>sudo apt install -y protobuf-compiler
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 安装 Maven 和 Git</span>
+</span></span><span style="display:flex;"><span>sudo apt install -y maven git
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 克隆并编译 ThingsBoard 源码</span>
+</span></span><span style="display:flex;"><span>git clone https://github.com/thingsboard/thingsboard.git
+</span></span><span style="display:flex;"><span>cd thingsboard
+</span></span><span style="display:flex;"><span>mvn clean install -DskipTests
+</span></span></code></pre></div><p>执行上述命令后，你将会安装并配置好所有所需的软件和依赖项，以便在 Ubuntu 20.04.6 LTS 上编译和运行 ThingsBoard。</p>
 <h2 id="安装vmware-tools-工具">安装vmware tools 工具，<a href="#安装vmware-tools-工具" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>*** 找到vmware pro 17 安装目录下的linux.iso 文件将添加到vmware cdrom中
 要在 VMware 虚拟机中挂载 Windows 10 宿主机上的文件，可以使用 VMware 提供的共享文件夹功能。以下是详细的步骤指南：</p>
@@ -601,20 +609,20 @@ mvn clean install -DskipTests
 <ul>
 <li>在 Ubuntu 虚拟机中，打开终端。</li>
 <li>输入以下命令将光驱内容挂载到 <code>/mnt</code> 目录：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo mount /dev/cdrom /mnt
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo mount /dev/cdrom /mnt
+</span></span></code></pre></div></li>
 </ul>
 </li>
 <li>
 <p><strong>解压并安装 VMware Tools</strong>：</p>
 <ul>
 <li>解压 VMware Tools 安装包：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tar -zxvf /mnt/VMwareTools-*.tar.gz -C /tmp/
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>tar -zxvf /mnt/VMwareTools-*.tar.gz -C /tmp/
+</span></span></code></pre></div></li>
 <li>进入解压后的目录并运行安装脚本：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd /tmp/vmware-tools-distrib
-sudo ./vmware-install.pl
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cd /tmp/vmware-tools-distrib
+</span></span><span style="display:flex;"><span>sudo ./vmware-install.pl
+</span></span></code></pre></div></li>
 <li>按照提示完成安装过程。</li>
 </ul>
 </li>
@@ -650,11 +658,11 @@ sudo ./vmware-install.pl
 <ul>
 <li>在 Ubuntu 虚拟机中，打开终端。</li>
 <li>创建挂载点目录：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mkdir ~/shared
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>mkdir ~/shared
+</span></span></code></pre></div></li>
 <li>挂载共享文件夹（假设共享文件夹名称为 <code>share</code>）：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo mount -t vmhgfs .host:/share ~/shared
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo mount -t vmhgfs .host:/share ~/shared
+</span></span></code></pre></div></li>
 </ul>
 </li>
 </ol>
@@ -665,21 +673,21 @@ sudo ./vmware-install.pl
 <p><strong>编辑 <code>/etc/fstab</code> 文件</strong>：</p>
 <ul>
 <li>打开终端并编辑 <code>/etc/fstab</code> 文件：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo nano /etc/fstab
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo nano /etc/fstab
+</span></span></code></pre></div></li>
 </ul>
 </li>
 <li>
 <p><strong>添加挂载条目</strong>：</p>
 <ul>
 <li>在文件末尾添加以下条目：
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">.host:/share /home/your-username/shared vmhgfs defaults 0 0
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>.host:/share /home/your-username/shared vmhgfs defaults 0 0
+</span></span></code></pre></div></li>
 <li>以下是我自己的环境所添加的示例
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plaintext" data-lang="plaintext">.host:/workProject /mnt/hgfs/workProject fuse.vmhgfs-fuse defaults,allow_other 0 0
-.host:/e /mnt/hgfs/e fuse.vmhgfs-fuse defaults,allow_other 0 0
-.host:/d /mnt/hgfs/d fuse.vmhgfs-fuse defaults,allow_other 0 0
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>.host:/workProject /mnt/hgfs/workProject fuse.vmhgfs-fuse defaults,allow_other 0 0
+</span></span><span style="display:flex;"><span>.host:/e /mnt/hgfs/e fuse.vmhgfs-fuse defaults,allow_other 0 0
+</span></span><span style="display:flex;"><span>.host:/d /mnt/hgfs/d fuse.vmhgfs-fuse defaults,allow_other 0 0
+</span></span></code></pre></div></li>
 </ul>
 </li>
 <li>
@@ -696,33 +704,33 @@ sudo ./vmware-install.pl
 <ol>
 <li><strong>确认 <code>open-vm-tools</code> 已经安装并运行</strong></li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo systemctl status open-vm-tools
-</code></pre></div><ol start="2">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo systemctl status open-vm-tools
+</span></span></code></pre></div><ol start="2">
 <li><strong>创建挂载点目录</strong></li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo mkdir -p /mnt/hgfs/workProject
-</code></pre></div><ol start="3">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo mkdir -p /mnt/hgfs/workProject
+</span></span></code></pre></div><ol start="3">
 <li><strong>挂载共享文件夹</strong></li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo vmhgfs-fuse .host:/workProject /mnt/hgfs/workProject -o allow_other
-</code></pre></div><h3 id="验证挂载">验证挂载<a href="#验证挂载" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo vmhgfs-fuse .host:/workProject /mnt/hgfs/workProject -o allow_other
+</span></span></code></pre></div><h3 id="验证挂载">验证挂载<a href="#验证挂载" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <ol>
 <li><strong>检查挂载结果</strong></li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">df -h
-</code></pre></div><ol start="2">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>df -h
+</span></span></code></pre></div><ol start="2">
 <li><strong>查看共享文件夹内容</strong></li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ls /mnt/hgfs/workProject
-</code></pre></div><h3 id="总结-1">总结<a href="#总结-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ls /mnt/hgfs/workProject
+</span></span></code></pre></div><h3 id="总结-1">总结<a href="#总结-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>通过这些步骤，你应该能够成功挂载 <code>vmware-hgfsclient</code> 显示的共享文件夹。如果在过程中遇到任何问题，请提供详细的错误信息或输出内容，以便进一步排查。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">admin@ubuntu-server:~$ ls /mnt/hgfs/workProject/
-apache-tomcat-7.0.103  c_node_modules  docker-emqx      easy-rules  holiday-cn-2022.01.01  java2  java5  node          php     rust
-apisix                 deploy          docker-node-red  go          html                   java3  js     node-red_bak  python
-artemis-rest           docker          drama-engine     hawtio      java                   java4  lua    openresty     remote
-admin@ubuntu-server:~$ 
-admin@ubuntu-server:~$ 
-</code></pre></div><p><img src="img.png" alt="img.png"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>admin@ubuntu-server:~$ ls /mnt/hgfs/workProject/
+</span></span><span style="display:flex;"><span>apache-tomcat-7.0.103  c_node_modules  docker-emqx      easy-rules  holiday-cn-2022.01.01  java2  java5  node          php     rust
+</span></span><span style="display:flex;"><span>apisix                 deploy          docker-node-red  go          html                   java3  js     node-red_bak  python
+</span></span><span style="display:flex;"><span>artemis-rest           docker          drama-engine     hawtio      java                   java4  lua    openresty     remote
+</span></span><span style="display:flex;"><span>admin@ubuntu-server:~$ 
+</span></span><span style="display:flex;"><span>admin@ubuntu-server:~$ 
+</span></span></code></pre></div><p><img src="/post/2024/06/vmware-and-ubuntu/img.png" alt="img.png"></p>
 
       </div></div>
 

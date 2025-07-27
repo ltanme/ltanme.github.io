@@ -6,7 +6,9 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="在windows系统中检验一个上传文件程序是否有bug另一种姿势 某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程 在windows系统调试一个文件上传程" />
+<meta name="description" content="在windows系统中检验一个上传文件程序是否有bug另一种姿势 某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程
+在windows系统调试一个文件上传程序，手贱想重新删除原文件，重新上传，结果这一删除发现windows 弹窗，报窗
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/" />
@@ -39,7 +41,9 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="How to Do Not Release Resources After Uploading the Zip Package in Java">
-<meta property="og:description" content="在windows系统中检验一个上传文件程序是否有bug另一种姿势 某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程 在windows系统调试一个文件上传程" />
+<meta property="og:description" content="在windows系统中检验一个上传文件程序是否有bug另一种姿势 某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程
+在windows系统调试一个文件上传程序，手贱想重新删除原文件，重新上传，结果这一删除发现windows 弹窗，报窗
+" />
 <meta property="og:url" content="https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -170,18 +174,17 @@
 <blockquote>
 <p>某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程</p>
 <p>在windows系统调试一个文件上传程序，手贱想重新删除原文件，重新上传，结果这一删除发现windows 弹窗，报窗</p>
-<p><em>文件正常使用</em>    错误提示。</p>
-</blockquote>
+<p><em>文件正常使用</em>    错误提示。</p></blockquote>
 <p>这个程序需求就是把一个zip包上传到ftp当中，流程是先上传到服务器本地，然后同步到ftp当中</p>
 <p>在windows 调试过程重新删除了己上传的文件，但发现不能删除的，这个问题也找了很久。</p>
 <p>于是就重新梳理一下上传的流程。</p>
 <p>发现以下问题</p>
-<p><img src="./image-20210512194748766.png" alt="image-20210512194748766"></p>
+<p><img src="/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194748766.png" alt="image-20210512194748766"></p>
 <p>来调试代码</p>
 <p>下面这段代码，上传zip后先保存到本地</p>
-<p><img src="./image-20210512194834905.png" alt="image-20210512194834905"></p>
+<p><img src="/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194834905.png" alt="image-20210512194834905"></p>
 <p>接下来是解压zip</p>
-<p><img src="./image-20210512194951003.png" alt="image-20210512194951003"></p>
+<p><img src="/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194951003.png" alt="image-20210512194951003"></p>
 <p>最后增加zipFile.close() 解决，增加in.close() 解决</p>
 <p>问题总结：</p>
 <p>​    论代码review 重要性，前期需要多多测试。</p>

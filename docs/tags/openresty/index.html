@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>openresty :: LTAN.ME</title>
+    <title>Openresty :: LTAN.ME</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +38,7 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="openresty">
+<meta property="og:title" content="Openresty">
 <meta property="og:description" content="" />
 <meta property="og:url" content="https://ltan.me/tags/openresty/" />
 <meta property="og:site_name" content="LTAN.ME" />
@@ -172,7 +172,10 @@
         <div class="post-content">
           
           
-          基于openresty lua-resty-balancer 模块实现自定义分流功能 该模块为提供分流算法，抽离了hash算法, roundrobin轮询等，好处使业务灵活调用算法而分配对像。该对像不一定指服务器，也可以是数据对像或文件对像等
+          <h1 id="基于openresty--lua-resty-balancer-模块实现自定义分流功能">基于openresty  lua-resty-balancer 模块实现自定义分流功能</h1>
+<blockquote>
+<p>该模块为提供分流算法，抽离了hash算法, roundrobin轮询等，好处使业务灵活调用算法而分配对像。该对像不一定指服务器，也可以是数据对像或文件对像等等</p></blockquote>
+<p>1，下载https://github.com/openresty/lua-resty-balancer</p>
           
           
         </div>
@@ -180,7 +183,7 @@
         
         <div>
           <a class="read-more button"
-            href="/post/2021/05/application-based-on-lua-resty-balancer/">Read more →</a>
+            href="/post/2021/05/application-based-on-lua-resty-balancer/"> →</a>
         </div>
         
       </div>
@@ -215,7 +218,9 @@
         <div class="post-content">
           
           
-          基于openresty 自定义tcp 请求流量转发到不同消息处理服务器 有个消息推荐项目，netty 框架技术架构，客户端采用netty client 封装的私有tcp 协议 请求消息服务器。需要一套tcp 分流处理网关来分发请
+          <h1 id="基于openresty-自定义tcp-请求流量转发到不同消息处理服务器">基于openresty 自定义tcp 请求流量转发到不同消息处理服务器</h1>
+<blockquote>
+<p>有个消息推荐项目，netty 框架技术架构，客户端采用netty client 封装的私有tcp 协议 请求消息服务器。需要一套tcp 分流处理网关来分发请求流量到不同的tcp 消息处理器，现采用openresty 基本可以满足，主要是是用到openresy  balancer</p>
           
           
         </div>
@@ -223,7 +228,7 @@
         
         <div>
           <a class="read-more button"
-            href="/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/">Read more →</a>
+            href="/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/"> →</a>
         </div>
         
       </div>
@@ -258,7 +263,10 @@
         <div class="post-content">
           
           
-          基于apisix2.4网关反向代理到websocket服务集节点 问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点 apisix就是基于open
+          <h1 id="基于apisix24网关反向代理到websocket服务集节点">基于apisix2.4网关反向代理到websocket服务集节点</h1>
+<p>问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点</p>
+<p>apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等</p>
+<p>本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟</p>
           
           
         </div>
@@ -266,7 +274,7 @@
         
         <div>
           <a class="read-more button"
-            href="/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/">Read more →</a>
+            href="/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/"> →</a>
         </div>
         
       </div>
@@ -299,7 +307,18 @@
         <div class="post-content">
           
           
-          使用lua语言解析tcp私有协议包示例 为什么需要lua来解析tcp 私有协议包？ 因为lua语言生态内，有强大的openresty 技术可使用，而openresty可以提供强劲的web 并发性能，能提供tcp
+          <h1 id="使用lua语言解析tcp私有协议包示例">使用lua语言解析tcp私有协议包示例</h1>
+<blockquote>
+<p>为什么需要lua来解析tcp 私有协议包？</p>
+<p>因为lua语言生态内，有强大的openresty 技术可使用，而openresty可以提供强劲的web 并发性能，能提供tcp 长链接通道 技术</p></blockquote>
+<h2 id="首先需要lapck包对其解析">首先需要lapck包对其解析</h2>
+<pre tabindex="0"><code>git clone  https://github.com/Kong/lua-pack 
+或
+git clone https://github.com/lilien1010/lpack
+</code></pre><h2 id="安装lapck包需要编译">安装lapck包需要编译</h2>
+<p><img src="/post/2021/05/lua-language-parsing-private-protocol-package/image-20210508175332849.png" alt="image-20210508175332849"></p>
+<h1></h1>
+<p>在编译时遇到 lua.h No such file or directory #include &quot; lua.h&quot; ？ 问题时，需要遇增加如下参数</p>
           
           
         </div>
@@ -307,7 +326,7 @@
         
         <div>
           <a class="read-more button"
-            href="/post/2021/05/lua-language-parsing-private-protocol-package/">Read more →</a>
+            href="/post/2021/05/lua-language-parsing-private-protocol-package/"> →</a>
         </div>
         
       </div>

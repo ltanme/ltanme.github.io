@@ -6,7 +6,8 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="how to get started with developing kodi plugins 开发kodi插件如何入门，通过学习kodi插件开发，你可以实现自己的想要自动化播放音影服务 主要是实现基于kodi实现开机自动播放影片或者音乐或者iptv等，记忆播放等能力 学习kodi插" />
+<meta name="description" content="how to get started with developing kodi plugins 开发kodi插件如何入门，通过学习kodi插件开发，你可以实现自己的想要自动化播放音影服务 主要是实现基于kodi实现开机自动播放影片或者音乐或者iptv等，记忆播放等能力 学习kodi插件开发除了需要一些编程经验外，还需要了解kodi系统插件运行环境，开发环境等 今天特记录一下如何搭建kodi开发环境， 搭建开发环境需要准备以下步骤，以windows 10&#43; python2.7&#43; vmware 操作环境为例
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/" />
@@ -39,7 +40,8 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="How to Get Started With Developing Kodi Plugins">
-<meta property="og:description" content="how to get started with developing kodi plugins 开发kodi插件如何入门，通过学习kodi插件开发，你可以实现自己的想要自动化播放音影服务 主要是实现基于kodi实现开机自动播放影片或者音乐或者iptv等，记忆播放等能力 学习kodi插" />
+<meta property="og:description" content="how to get started with developing kodi plugins 开发kodi插件如何入门，通过学习kodi插件开发，你可以实现自己的想要自动化播放音影服务 主要是实现基于kodi实现开机自动播放影片或者音乐或者iptv等，记忆播放等能力 学习kodi插件开发除了需要一些编程经验外，还需要了解kodi系统插件运行环境，开发环境等 今天特记录一下如何搭建kodi开发环境， 搭建开发环境需要准备以下步骤，以windows 10&#43; python2.7&#43; vmware 操作环境为例
+" />
 <meta property="og:url" content="https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -176,70 +178,65 @@
 主要是实现基于kodi实现开机自动播放影片或者音乐或者iptv等，记忆播放等能力
 学习kodi插件开发除了需要一些编程经验外，还需要了解kodi系统插件运行环境，开发环境等
 今天特记录一下如何搭建kodi开发环境，
-搭建开发环境需要准备以下步骤，以windows 10+ python2.7+ vmware 操作环境为例</p>
-</blockquote>
+搭建开发环境需要准备以下步骤，以windows 10+ python2.7+ vmware 操作环境为例</p></blockquote>
 <blockquote>
 <p>1 利用vmware安装libreELEC 系统，libreELEC 就是一个阉割版本的Linux+kodi整合而成
 安装libreELEC，首先是去官网下载libreELEC OVA文件<br>
 官网：https://libreelec.tv/downloads/generic/<br>
-<img src="libreELEC-OVA.png" alt="libreELEC"></p>
-</blockquote>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/libreELEC-OVA.png" alt="libreELEC"></p></blockquote>
 <blockquote>
 <p>2 用vmware打开下载好的libreELEC OVA 文件即可运行<br>
-<img src="vmware-open-libreelec-ova.png" alt="libreELEC"><br>
-启动后，启用ssh 设置ssh密码，启用smb服务</p>
-</blockquote>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/vmware-open-libreelec-ova.png" alt="libreELEC"><br>
+启动后，启用ssh 设置ssh密码，启用smb服务</p></blockquote>
 <blockquote>
 <p>3 设置windows10 与 libreELEC 网络互通，并且还要让libreelec 访问外网，vmware需要设置桥接模式 或者 nat网络模式，让libreelec 可以访问网外网，
 我这边设置NAT模式，需要知道vmware nat 的ip 范围，一般nat模式，vmware会自动分配一个ip给libreelec的，我这里设置静态，不然ip会变动
 影响后面开发<br>
-<img src="kodi-set-static-ip.png" alt="libreELEC"><br>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/kodi-set-static-ip.png" alt="libreELEC"><br>
 4 配置libreELEC 系统文件共享给windows 10访问，ip为libreELEC系统的刚设置的ip<br>
 只要下图片窗口能正常打开，即网络能访问通<br>
-<img src="map-drive-ip-sharefile.png" alt="libreELEC"><br>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/map-drive-ip-sharefile.png" alt="libreELEC"><br>
 映射windows盘符,这步很重要，不然会影响后面代码开发<br>
-<img src="map-drive-x.png" alt="libreELEC"><br>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/map-drive-x.png" alt="libreELEC"><br>
 5 进入libreELEC系统，安装hellworld模块<br>
 下载hellworld模块，下载地址如下<br>
 <a href="https://github.com/zag2me/script.hello.world/archive/master.zip">https://github.com/zag2me/script.hello.world/archive/master.zip</a><br>
 选择安装从zip 文件 安装插件，安装前提是需要设置安装来源允许 未知来源<code>unkown</code>安装<br>
-<img src="kodi-install-from-zip.png" alt="libreELEC"><br>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/kodi-install-from-zip.png" alt="libreELEC"><br>
 6 用命令行工具登录libreELEC系统并进入到<code>/storage/.kodi/userdata/</code> 创建<code>project</code>，移动<code>script.hello.world</code>插件目录到<code>/storage/.kodi/userdata/</code>共享目录下
-并做好script.hello.world软链接，这一步需要把插件目录移动共享目录让windows10可见能访问，原来的libreELEC插件目录做好软链接</p>
-</blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">      cd /storage/.kodi/userdata/   
-       
-      mkdir project 
-        
-      mv /storage/.kodi/addons/script.hello.world  /storage/.kodi/userdata/project   
-      
-      ln -sf /storage/.kodi/addons/script.hello.world  /storage/.kodi/userdata/project/script.hello.world
-</code></pre></div><blockquote>
+并做好script.hello.world软链接，这一步需要把插件目录移动共享目录让windows10可见能访问，原来的libreELEC插件目录做好软链接</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>      cd /storage/.kodi/userdata/   
+</span></span><span style="display:flex;"><span>       
+</span></span><span style="display:flex;"><span>      mkdir project 
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>      mv /storage/.kodi/addons/script.hello.world  /storage/.kodi/userdata/project   
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      ln -sf /storage/.kodi/addons/script.hello.world  /storage/.kodi/userdata/project/script.hello.world
+</span></span></code></pre></div><blockquote>
 <p>7 上一步成功后，应该可以用pycharm 打开<code>script.hello.world</code> 项目了<br>
 windows 10 打开可以看到如下结果<br>
-<img src="script.hello.world-project-dir.png" alt="libreELEC"><br>
-<img src="pycharm-open-helloworld.png" alt="libreELEC"><br>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/script.hello.world-project-dir.png" alt="libreELEC"><br>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/pycharm-open-helloworld.png" alt="libreELEC"><br>
 8 安装pycharm 插件，该插件用于pycharm python 代码自动提示<br>
-<img src="kodi-pugin-install-pycharm.png" alt="libreELEC"><br>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/kodi-pugin-install-pycharm.png" alt="libreELEC"><br>
 9 修改kodi helloworld插件代码并运行<br>
 addon.py为主要执行文件，插件入口文件，<br>
-<img src="helloworld-code.png" alt="libreELEC"><br>
-<img src="run-code.png" alt="libreELEC"><br>
-<img src="run-kodi-code1.png" alt="libreELEC"><br>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/helloworld-code.png" alt="libreELEC"><br>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/run-code.png" alt="libreELEC"><br>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/run-kodi-code1.png" alt="libreELEC"><br>
 再次修改代码，再次运行
-<img src="kodi-code2.png" alt="libreELEC"><br>
-<img src="run-kodi-code2.png" alt="libreELEC"><br>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/kodi-code2.png" alt="libreELEC"><br>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/run-kodi-code2.png" alt="libreELEC"><br>
 日志查看<br>
 tail -f  /storage/.kodi/temp/kodi.log <br>
-<img src="tail--f-log.png" alt="libreELEC"><br>
+<img src="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/tail--f-log.png" alt="libreELEC"><br>
 xbmc打开窗口，并显示音乐播放列表<br>
-xbmc.executebuiltin(&ldquo;ActivateWindow(Music,special:/storage/ad/bj.m3u)&quot;)<br>
+xbmc.executebuiltin(&ldquo;ActivateWindow(Music,special:/storage/ad/bj.m3u)&rdquo;)<br>
 xbmc打印日志<br>
 xbmc.log(&ldquo;message&rdquo;,level=xbmc.LOGNOTICE)<br>
 参考文档官网<br>
 <a href="https://kodi.wiki/view/HOW-TO:HelloWorld_addon">https://kodi.wiki/view/HOW-TO:HelloWorld_addon</a><br>
-<a href="https://kodi.wiki/view/Add-on_development">https://kodi.wiki/view/Add-on_development</a></p>
-</blockquote>
+<a href="https://kodi.wiki/view/Add-on_development">https://kodi.wiki/view/Add-on_development</a></p></blockquote>
 
       </div></div>
 

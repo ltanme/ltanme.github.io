@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>headscale on LTAN.ME</title>
+    <title>Headscale on LTAN.ME</title>
     <link>https://ltan.me/tags/headscale/</link>
-    <description>Recent content in headscale on LTAN.ME</description>
+    <description>Recent content in Headscale on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Mon, 04 Nov 2024 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/headscale/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Headscale Migration from CentOS 7 to Ubuntu 24</title>
@@ -13,45 +13,52 @@
       <pubDate>Mon, 04 Nov 2024 10:00:00 +0800</pubDate>
       
       <guid>https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/</guid>
-      <description>This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.
-1. Export Data and Image on CentOS 7 Export Configuration and Database To begin, export the configuration and database files from the headscale container:
-docker cp headscale:/etc/headscale/config.yaml ./config.yaml docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite Export Docker Image Use docker save to export the headscale Docker image:
-docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1 2. Transfer Files to Ubuntu 24 Transfer the configuration, database, and image files to the Ubuntu 24 system using scp, rsync, or another file transfer tool:</description>
+      <description>&lt;p&gt;This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.&lt;/p&gt;
+&lt;h3 id=&#34;1-export-data-and-image-on-centos-7&#34;&gt;1. Export Data and Image on CentOS 7&lt;/h3&gt;
+&lt;h4 id=&#34;export-configuration-and-database&#34;&gt;Export Configuration and Database&lt;/h4&gt;
+&lt;p&gt;To begin, export the configuration and database files from the &lt;code&gt;headscale&lt;/code&gt; container:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker cp headscale:/etc/headscale/config.yaml ./config.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;export-docker-image&#34;&gt;Export Docker Image&lt;/h4&gt;
+&lt;p&gt;Use &lt;code&gt;docker save&lt;/code&gt; to export the &lt;code&gt;headscale&lt;/code&gt; Docker image:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;2-transfer-files-to-ubuntu-24&#34;&gt;2. Transfer Files to Ubuntu 24&lt;/h3&gt;
+&lt;p&gt;Transfer the configuration, database, and image files to the Ubuntu 24 system using &lt;code&gt;scp&lt;/code&gt;, &lt;code&gt;rsync&lt;/code&gt;, or another file transfer tool:&lt;/p&gt;</description>
       <content>&lt;p&gt;This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.&lt;/p&gt;
 &lt;h3 id=&#34;1-export-data-and-image-on-centos-7&#34;&gt;1. Export Data and Image on CentOS 7&lt;/h3&gt;
 &lt;h4 id=&#34;export-configuration-and-database&#34;&gt;Export Configuration and Database&lt;/h4&gt;
 &lt;p&gt;To begin, export the configuration and database files from the &lt;code&gt;headscale&lt;/code&gt; container:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker cp headscale:/etc/headscale/config.yaml ./config.yaml
-docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;export-docker-image&#34;&gt;Export Docker Image&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker cp headscale:/etc/headscale/config.yaml ./config.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;export-docker-image&#34;&gt;Export Docker Image&lt;/h4&gt;
 &lt;p&gt;Use &lt;code&gt;docker save&lt;/code&gt; to export the &lt;code&gt;headscale&lt;/code&gt; Docker image:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;2-transfer-files-to-ubuntu-24&#34;&gt;2. Transfer Files to Ubuntu 24&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;2-transfer-files-to-ubuntu-24&#34;&gt;2. Transfer Files to Ubuntu 24&lt;/h3&gt;
 &lt;p&gt;Transfer the configuration, database, and image files to the Ubuntu 24 system using &lt;code&gt;scp&lt;/code&gt;, &lt;code&gt;rsync&lt;/code&gt;, or another file transfer tool:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;scp config.yaml db.sqlite headscale_image_backup.tar user@ubuntu-server:/path/to/backup/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;3-import-data-on-ubuntu-24&#34;&gt;3. Import Data on Ubuntu 24&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;scp config.yaml db.sqlite headscale_image_backup.tar user@ubuntu-server:/path/to/backup/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;3-import-data-on-ubuntu-24&#34;&gt;3. Import Data on Ubuntu 24&lt;/h3&gt;
 &lt;h4 id=&#34;load-docker-image&#34;&gt;Load Docker Image&lt;/h4&gt;
 &lt;p&gt;On the Ubuntu system, use &lt;code&gt;docker load&lt;/code&gt; to import the Docker image:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker load -i /path/to/backup/headscale_image_backup.tar
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;create-headscale-container&#34;&gt;Create Headscale Container&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker load -i /path/to/backup/headscale_image_backup.tar
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;create-headscale-container&#34;&gt;Create Headscale Container&lt;/h4&gt;
 &lt;p&gt;Move the configuration and database files to &lt;code&gt;/etc/headscale/&lt;/code&gt; and create the container:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo mkdir -p /etc/headscale
-sudo mv /path/to/backup/config.yaml /etc/headscale/
-sudo mv /path/to/backup/db.sqlite /etc/headscale/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Run the container with volume mounts:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker run -d &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  --name headscale &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  -v /etc/headscale/config.yaml:/etc/headscale/config.yaml &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  -v /etc/headscale/db.sqlite:/etc/headscale/db.sqlite &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  -p 8080:8080 &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  -p 9090:9090 &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  headscale/headscale:0.23.0-beta1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;4-verify-the-migration&#34;&gt;4. Verify the Migration&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mkdir -p /etc/headscale
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mv /path/to/backup/config.yaml /etc/headscale/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mv /path/to/backup/db.sqlite /etc/headscale/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Run the container with volume mounts:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -d &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  --name headscale &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  -v /etc/headscale/config.yaml:/etc/headscale/config.yaml &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  -v /etc/headscale/db.sqlite:/etc/headscale/db.sqlite &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  -p 8080:8080 &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  -p 9090:9090 &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  headscale/headscale:0.23.0-beta1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;4-verify-the-migration&#34;&gt;4. Verify the Migration&lt;/h3&gt;
 &lt;p&gt;Check the container status:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker ps
-docker logs headscale
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After completing these steps, Headscale should successfully run on Ubuntu 24.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</content>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker ps
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker logs headscale
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After completing these steps, Headscale should successfully run on Ubuntu 24.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</content>
     </item>
     
     <item>
@@ -60,7 +67,16 @@ docker logs headscale
       <pubDate>Mon, 15 Apr 2024 21:21:29 +0800</pubDate>
       
       <guid>https://ltan.me/post/2024/04/headscale-server-setup-process/</guid>
-      <description>Server setup process using Headscale with Docker. 记录采用headscale &amp;amp; docker 异地组网过程 需求背景 曾经我尝试使用ZeroTier，最初的体验非常不错。然而，随着时间的推移，我发现连接速度变得缓慢和卡顿， 有时甚至需要借助特殊的网络加速技</description>
+      <description>&lt;h1 id=&#34;server-setup-process-using-headscale-with-docker&#34;&gt;Server setup process using Headscale with Docker.&lt;/h1&gt;
+&lt;h2 id=&#34;记录采用headscale--docker-异地组网过程&#34;&gt;记录采用headscale &amp;amp; docker 异地组网过程&lt;/h2&gt;
+&lt;h2 id=&#34;需求背景&#34;&gt;需求背景&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;曾经我尝试使用&lt;code&gt;ZeroTier&lt;/code&gt;，最初的体验非常不错。然而，随着时间的推移，我发现连接速度变得缓慢和卡顿，
+有时甚至需要借助特殊的网络加速技术来提高性能。后来，在&lt;code&gt;X&lt;/code&gt;社区中，我看到有人分享了&lt;code&gt;Tailscale&lt;/code&gt;的好评，
+这促使我安装了&lt;code&gt;Tailscale&lt;/code&gt;的官方客户端。相较于&lt;code&gt;ZeroTier&lt;/code&gt;，&lt;code&gt;Tailscale&lt;/code&gt;在速度上有显著的提升，
+尽管偶尔也会遇到一些延迟。&lt;code&gt;Tailscale&lt;/code&gt;依赖于其官方服务器，但它支持用户自建服务器，
+这一点非常吸引我。通过结合使用&lt;code&gt;Tailscale&lt;/code&gt;客户端和官网，我们可以实现异地组网。
+为了达到更理想的连接速度，我决定自建异地组网系统。这样不仅能控制家中的&lt;code&gt;群晖&lt;/code&gt;设备，还能优化&lt;code&gt;PT&lt;/code&gt;下载等功能。&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;server-setup-process-using-headscale-with-docker&#34;&gt;Server setup process using Headscale with Docker.&lt;/h1&gt;
 &lt;h2 id=&#34;记录采用headscale--docker-异地组网过程&#34;&gt;记录采用headscale &amp;amp; docker 异地组网过程&lt;/h2&gt;
 &lt;h2 id=&#34;需求背景&#34;&gt;需求背景&lt;/h2&gt;
@@ -70,8 +86,7 @@ docker logs headscale
 这促使我安装了&lt;code&gt;Tailscale&lt;/code&gt;的官方客户端。相较于&lt;code&gt;ZeroTier&lt;/code&gt;，&lt;code&gt;Tailscale&lt;/code&gt;在速度上有显著的提升，
 尽管偶尔也会遇到一些延迟。&lt;code&gt;Tailscale&lt;/code&gt;依赖于其官方服务器，但它支持用户自建服务器，
 这一点非常吸引我。通过结合使用&lt;code&gt;Tailscale&lt;/code&gt;客户端和官网，我们可以实现异地组网。
-为了达到更理想的连接速度，我决定自建异地组网系统。这样不仅能控制家中的&lt;code&gt;群晖&lt;/code&gt;设备，还能优化&lt;code&gt;PT&lt;/code&gt;下载等功能。&lt;/p&gt;
-&lt;/blockquote&gt;
+为了达到更理想的连接速度，我决定自建异地组网系统。这样不仅能控制家中的&lt;code&gt;群晖&lt;/code&gt;设备，还能优化&lt;code&gt;PT&lt;/code&gt;下载等功能。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;搭建headscale服务端&#34;&gt;搭建&lt;code&gt;headscale&lt;/code&gt;服务端&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;1,准备环境&lt;code&gt;linux(centos7/ubuntu)&lt;/code&gt;&lt;br&gt;
@@ -79,138 +94,119 @@ docker logs headscale
 3,申请好域名,准备&lt;code&gt;https&lt;/code&gt;证书 推荐&lt;code&gt;cf&lt;/code&gt;,并解析到自己的服务器&lt;br&gt;
 &lt;code&gt;ssl_certificate&lt;/code&gt; 和 &lt;code&gt;ssl_certificate_key&lt;/code&gt; 为自己申请的域名证书从cf导出来的文件&lt;br&gt;
 4,安装好&lt;code&gt;nginx&lt;/code&gt;,&lt;code&gt;nginx&lt;/code&gt;配置如下,打码地方为自己的域名，箭头处需要开启&lt;code&gt;websocket&lt;/code&gt;&lt;br&gt;
-&lt;img src=&#34;img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;准备headscale-配置文件&#34;&gt;准备&lt;code&gt;headscale&lt;/code&gt; 配置文件&lt;/h3&gt;
 &lt;blockquote&gt;
-&lt;p&gt;创建目录&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;mkdir -p /root/mydocker/config
-chmod -R a+x /root/mydocker/config
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;从以下链接地址下载配置文件&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;wget -O /root/mydocker/conf/config.yaml https://raw.githubusercontent.com/juanfont/headscale/main/config-example.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;修改配置文件&lt;code&gt;config.yaml&lt;/code&gt; 文件&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt; server_url: https://你的域名:443
- listen_addr: 0.0.0.0:8080
- metrics_listen_addr: 0.0.0.0:9090
- noise:
-    private_key_path: /etc/headscale/noise_private.key
- database:
-  type: sqlite3
-  sqlite:
-    path: /etc/headscale/db.sqlite
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;部署headscale&#34;&gt;部署headscale&lt;/h2&gt;
+&lt;p&gt;创建目录&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir -p /root/mydocker/config
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;chmod -R a+x /root/mydocker/config
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;从以下链接地址下载配置文件&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wget -O /root/mydocker/conf/config.yaml https://raw.githubusercontent.com/juanfont/headscale/main/config-example.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;修改配置文件&lt;code&gt;config.yaml&lt;/code&gt; 文件&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; server_url: https://你的域名:443
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; listen_addr: 0.0.0.0:8080
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; metrics_listen_addr: 0.0.0.0:9090
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; noise:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    private_key_path: /etc/headscale/noise_private.key
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; database:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  type: sqlite3
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  sqlite:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    path: /etc/headscale/db.sqlite
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;部署headscale&#34;&gt;部署headscale&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;启动docker, 我是在/root/mydocker/ 目录启动的&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;  docker run --name headscale --detach --volume &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;pwd&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;/config:/etc/headscale/ --publish 0.0.0.0:8080:8080 --publish 0.0.0.0:9090:9090 headscale/headscale:0.23.0-alpha5 serve
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;在windows或客户端安装tailscale官网下载并安装好&#34;&gt;在windows或客户端安装tailscale(官网下载并安装好)&lt;/h2&gt;
+&lt;p&gt;启动docker, 我是在/root/mydocker/ 目录启动的&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  docker run --name headscale --detach --volume &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;pwd&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;/config:/etc/headscale/ --publish 0.0.0.0:8080:8080 --publish 0.0.0.0:9090:9090 headscale/headscale:0.23.0-alpha5 serve
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;在windows或客户端安装tailscale官网下载并安装好&#34;&gt;在windows或客户端安装tailscale(官网下载并安装好)&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;以win10 为例 直接采用命令行登录&lt;br&gt;
-&lt;img src=&#34;img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;br&gt;
 会得到以下地址:&lt;br&gt;
 https://你的域名:443/register/mkey:23234kflasdjf&amp;hellip;..
 mkey 后面请复制一下
-进入到headscale 服务器命令行，执行以下命令，将&lt;code&gt;23234kflasdjf.....&lt;/code&gt; 注册即可&lt;/p&gt;
-&lt;/blockquote&gt;
+进入到headscale 服务器命令行，执行以下命令，将&lt;code&gt;23234kflasdjf.....&lt;/code&gt; 注册即可&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;进入服务器执行命令注册登录的设备&#34;&gt;进入服务器,执行命令注册登录的设备&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;执行以下命令，因为是docker安装的&lt;br&gt;
-mywin10 就表示对应需要组网的机器&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;docker exec headscale headscale users create mywin10
-docker exec headscale headscale nodes register --user admin --key mkey:23234kflasdjf.....
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;以下是我执行的上面两条docker命令的示例&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@racknerd-6d4dab3 ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker exec headscale headscale users create admin&lt;/span&gt;
-2024-04-08T12:28:08Z TRC DNS configuration loaded dns_config&lt;span style=&#34;color:#f92672&#34;&gt;={&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Nameservers&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.1.1.1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Proxied&amp;#34;&lt;/span&gt;:true,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Resolvers&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Addr&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.1.1.1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}]}&lt;/span&gt;
-User created
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@racknerd-6d4dab3 ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker exec headscale headscale nodes register --user admin --key mkey:2342342344444444444444fb3ce635336028bc8989fa9615e233343434&lt;/span&gt;
-2024-04-08T12:28:14Z TRC DNS configuration loaded dns_config&lt;span style=&#34;color:#f92672&#34;&gt;={&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Nameservers&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.1.1.1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Proxied&amp;#34;&lt;/span&gt;:true,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Resolvers&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Addr&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.1.1.1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}]}&lt;/span&gt;
-Node desktop-mms156b registered
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+mywin10 就表示对应需要组网的机器&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker exec headscale headscale users create mywin10
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker exec headscale headscale nodes register --user admin --key mkey:23234kflasdjf.....
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;以下是我执行的上面两条docker命令的示例&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@racknerd-6d4dab3 ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker exec headscale headscale users create admin&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;2024-04-08T12:28:08Z TRC DNS configuration loaded dns_config&lt;span style=&#34;color:#f92672&#34;&gt;={&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Nameservers&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.1.1.1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Proxied&amp;#34;&lt;/span&gt;:true,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Resolvers&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Addr&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.1.1.1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}]}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;User created
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@racknerd-6d4dab3 ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker exec headscale headscale nodes register --user admin --key mkey:2342342344444444444444fb3ce635336028bc8989fa9615e233343434&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;2024-04-08T12:28:14Z TRC DNS configuration loaded dns_config&lt;span style=&#34;color:#f92672&#34;&gt;={&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Nameservers&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.1.1.1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Proxied&amp;#34;&lt;/span&gt;:true,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Resolvers&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#f92672&#34;&gt;[{&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Addr&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1.1.1.1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}]}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Node desktop-mms156b registered
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;接下来就看到以下成功信息&lt;br&gt;
-&lt;img src=&#34;img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;tailscale 客户端自动显示当前状态&lt;br&gt;
-&lt;img src=&#34;img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;接下来就可以远程登录我的win10了，我要从100.64.0.2 的机器远程登录100.64.0.7的机器  &lt;br&gt;
-&lt;img src=&#34;img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;远程登录win10 速度很赞，几乎和本地一样操作流畅，而且无需科学&lt;br&gt;
-&lt;img src=&#34;img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;解决以上需要在每一台电脑上都要安装tailscale 客户端的问题
-利用群晖做数据转发，只需要在群晖上安装tailscale客户端即可&lt;/p&gt;
-&lt;/blockquote&gt;
+利用群晖做数据转发，只需要在群晖上安装tailscale客户端即可&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;群晖子网路由subnet-router设置&#34;&gt;群晖子网路由（Subnet Router）设置&lt;/h2&gt;
 &lt;h3 id=&#34;问题解决方案&#34;&gt;问题解决方案&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;使用群晖NAS作为子网路由（Subnet Router）可以让所有家庭网络中的设备无需安装Tailscale客户端即可访问Tailscale网络。
-只需在群晖上安装一次Tailscale客户端，并进行适当配置，就可以实现整个内网的访问。&lt;/p&gt;
-&lt;/blockquote&gt;
+只需在群晖上安装一次Tailscale客户端，并进行适当配置，就可以实现整个内网的访问。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;详细步骤&#34;&gt;详细步骤&lt;/h3&gt;
 &lt;h4 id=&#34;1-在群晖上启用ipv4转发功能&#34;&gt;1. 在群晖上启用IPv4转发功能&lt;/h4&gt;
 &lt;blockquote&gt;
-&lt;p&gt;通过SSH登录到群晖，执行以下命令启用IPv4转发：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 检查当前IPv4转发状态&lt;/span&gt;
-sysctl net.ipv4.ip_forward
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 临时启用IPv4转发&lt;/span&gt;
-sudo sysctl -w net.ipv4.ip_forward&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 永久启用IPv4转发（在重启后仍然生效）&lt;/span&gt;
-sudo echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;net.ipv4.ip_forward = 1&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /etc/sysctl.conf
-sudo sysctl -p
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;2-在headscale服务器上允许子网路由广播&#34;&gt;2. 在Headscale服务器上允许子网路由广播&lt;/h4&gt;
+&lt;p&gt;通过SSH登录到群晖，执行以下命令启用IPv4转发：&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 检查当前IPv4转发状态&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sysctl net.ipv4.ip_forward
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 临时启用IPv4转发&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo sysctl -w net.ipv4.ip_forward&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 永久启用IPv4转发（在重启后仍然生效）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;net.ipv4.ip_forward = 1&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /etc/sysctl.conf
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo sysctl -p
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;2-在headscale服务器上允许子网路由广播&#34;&gt;2. 在Headscale服务器上允许子网路由广播&lt;/h4&gt;
 &lt;blockquote&gt;
-&lt;p&gt;在Headscale服务器上执行以下命令，允许用户advertise routes（广播路由）：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 格式：headscale routes enable-route [子网CIDR] [节点ID]&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# 例如：允许群晖广播192.168.1.0/24子网&lt;/span&gt;
-docker exec headscale headscale routes list
-&lt;span style=&#34;color:#75715e&#34;&gt;# 查看当前节点ID和广播的路由&lt;/span&gt;
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 启用子网路由（使用实际的子网CIDR和节点ID）&lt;/span&gt;
-docker exec headscale headscale routes enable --route 192.168.1.0/24 --node-id &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;以下是我实际执行的命令和结果：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@racknerd-6d4dab ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker exec headscale headscale routes enable \&lt;/span&gt;
-&amp;gt;   --route &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&amp;gt;   --force
-2025-04-05T06:53:57Z WRN An updated version of Headscale has been found &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;0.25.1 vs. your current v0.23.0-beta1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;. Check it out https://github.com/juanfont/headscale/releases
-
-&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@racknerd-6d4dab ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker exec headscale headscale routes list&lt;/span&gt;
-2025-04-05T06:54:14Z WRN An updated version of Headscale has been found &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;0.25.1 vs. your current v0.23.0-beta1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;. Check it out https://github.com/juanfont/headscale/releases
-
-ID | Node        | Prefix           | Advertised | Enabled | Primary
-&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  | diskstation | 192.168.100.0/24 | true       | true    | true
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;从上面的结果可以看到，我的群晖设备名为&lt;code&gt;diskstation&lt;/code&gt;，它已经成功广播了&lt;code&gt;192.168.100.0/24&lt;/code&gt;子网，并且该路由已启用。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;在Headscale服务器上执行以下命令，允许用户advertise routes（广播路由）：&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 格式：headscale routes enable-route [子网CIDR] [节点ID]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 例如：允许群晖广播192.168.1.0/24子网&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker exec headscale headscale routes list
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 查看当前节点ID和广播的路由&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 启用子网路由（使用实际的子网CIDR和节点ID）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker exec headscale headscale routes enable --route 192.168.1.0/24 --node-id &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;以下是我实际执行的命令和结果：&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@racknerd-6d4dab ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker exec headscale headscale routes enable \&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt;   --route &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&amp;gt;   --force
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;2025-04-05T06:53:57Z WRN An updated version of Headscale has been found &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;0.25.1 vs. your current v0.23.0-beta1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;. Check it out https://github.com/juanfont/headscale/releases
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@racknerd-6d4dab ~&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# docker exec headscale headscale routes list&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;2025-04-05T06:54:14Z WRN An updated version of Headscale has been found &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;0.25.1 vs. your current v0.23.0-beta1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;. Check it out https://github.com/juanfont/headscale/releases
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ID | Node        | Prefix           | Advertised | Enabled | Primary
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;  | diskstation | 192.168.100.0/24 | true       | true    | true
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;从上面的结果可以看到，我的群晖设备名为&lt;code&gt;diskstation&lt;/code&gt;，它已经成功广播了&lt;code&gt;192.168.100.0/24&lt;/code&gt;子网，并且该路由已启用。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h4 id=&#34;3-在群晖nas上配置tailscale&#34;&gt;3. 在群晖NAS上配置Tailscale&lt;/h4&gt;
 &lt;blockquote&gt;
-&lt;p&gt;在群晖上配置Tailscale客户端以广播子网路由：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 在群晖上执行此命令来重新配置Tailscale客户端&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# 注意：--advertise-routes参数指定要广播的子网&lt;/span&gt;
-sudo tailscale up --accept-routes --advertise-routes&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;192.168.1.0/24 --login-server&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;https://你的域名
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 查看Tailscale状态确认子网路由是否生效&lt;/span&gt;
-tailscale status
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;注意：不需要重新登录，只需执行上述命令即可启用子网路由。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;在群晖上配置Tailscale客户端以广播子网路由：&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 在群晖上执行此命令来重新配置Tailscale客户端&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 注意：--advertise-routes参数指定要广播的子网&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo tailscale up --accept-routes --advertise-routes&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;192.168.1.0/24 --login-server&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;https://你的域名
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 查看Tailscale状态确认子网路由是否生效&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tailscale status
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;注意：不需要重新登录，只需执行上述命令即可启用子网路由。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;验证子网路由是否成功&#34;&gt;验证子网路由是否成功&lt;/h3&gt;
 &lt;h4 id=&#34;在android手机上验证&#34;&gt;在Android手机上验证&lt;/h4&gt;
 &lt;blockquote&gt;
@@ -218,19 +214,17 @@ tailscale status
 &lt;li&gt;在Android手机上安装Tailscale客户端&lt;/li&gt;
 &lt;li&gt;使用你的域名作为登录服务器（https://你的域名）登录&lt;/li&gt;
 &lt;li&gt;成功登录后，你应该能够访问家里内网的IP地址（如192.168.1.x）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
+&lt;/ol&gt;&lt;/blockquote&gt;
 &lt;h4 id=&#34;检查路由状态&#34;&gt;检查路由状态&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 在Headscale服务器上检查路由状态&lt;/span&gt;
-docker exec headscale headscale routes list
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# 在群晖上检查Tailscale状态&lt;/span&gt;
-tailscale status
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 在Headscale服务器上检查路由状态&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker exec headscale headscale routes list
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 在群晖上检查Tailscale状态&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tailscale status
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;成功配置后，任何连接到你的Tailscale网络的设备都可以直接访问家庭内网的所有设备，而无需在每台设备上安装Tailscale客户端。
-这大大简化了网络管理，并允许访问那些无法安装Tailscale的设备（如智能家居设备、打印机等）。&lt;/p&gt;
-&lt;/blockquote&gt;
+这大大简化了网络管理，并允许访问那些无法安装Tailscale的设备（如智能家居设备、打印机等）。&lt;/p&gt;&lt;/blockquote&gt;
 </content>
     </item>
     

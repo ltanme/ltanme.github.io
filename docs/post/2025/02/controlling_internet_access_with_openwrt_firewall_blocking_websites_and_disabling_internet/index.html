@@ -193,223 +193,220 @@
 </ul>
 <h2 id="script-1-controlling-proxy-mode-with-openclash">Script 1: Controlling Proxy Mode with OpenClash<a href="#script-1-controlling-proxy-mode-with-openclash" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>OpenClash is a popular proxy tool for OpenWRT that allows traffic routing through different rules. This script toggles between &ldquo;Rule&rdquo; mode (selective proxy) and &ldquo;Direct&rdquo; mode (bypass proxy):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span><span style="color:#75715e"># switch_openclash_mode.sh</span>
-
-<span style="color:#75715e"># Determine mode based on parameter</span>
-<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;enable&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-    MODE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Rule&#34;</span>
-<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;disable&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-    MODE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Direct&#34;</span>
-<span style="color:#66d9ef">else</span>
-    echo <span style="color:#e6db74">&#34;Usage: </span>$0<span style="color:#e6db74"> enable|disable&#34;</span>
-    exit <span style="color:#ae81ff">1</span>
-<span style="color:#66d9ef">fi</span>
-
-<span style="color:#75715e"># Generate JSON payload</span>
-JSON_PAYLOAD<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo <span style="color:#e6db74">&#39;{}&#39;</span> | jq -c --arg mode <span style="color:#e6db74">&#34;</span>$MODE<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#39;.mode = $mode&#39;</span><span style="color:#66d9ef">)</span>
-
-<span style="color:#75715e"># Target URL</span>
-URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://192.168.100.200:9090/configs&#34;</span>
-
-<span style="color:#75715e"># Construct curl command</span>
-CURL_CMD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;curl -X PATCH \&#34;</span>$URL<span style="color:#e6db74">\&#34; \
-</span><span style="color:#e6db74">-H \&#34;Accept: application/json, text/plain, */*\&#34; \
-</span><span style="color:#e6db74">-H \&#34;Accept-Encoding: gzip, deflate\&#34; \
-</span><span style="color:#e6db74">-H \&#34;Accept-Language: en,zh-CN;q=0.9,zh;q=0.8,en-GB;q=0.7,en-US;q=0.6\&#34; \
-</span><span style="color:#e6db74">-H \&#34;Authorization: Bearer xxxxxxxxxxxx\&#34; \
-</span><span style="color:#e6db74">-H \&#34;Connection: keep-alive\&#34; \
-</span><span style="color:#e6db74">-H \&#34;Content-Type: application/json\&#34; \
-</span><span style="color:#e6db74">-H \&#34;Host: 192.168.100.200:9090\&#34; \
-</span><span style="color:#e6db74">-H \&#34;Origin: http://192.168.100.200:9090\&#34; \
-</span><span style="color:#e6db74">-H \&#34;Referer: http://192.168.100.200:9090/ui/dashboard/\&#34; \
-</span><span style="color:#e6db74">-H \&#34;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36\&#34; \
-</span><span style="color:#e6db74">-d &#39;</span>$JSON_PAYLOAD<span style="color:#e6db74">&#39; -w \&#34;\\nHTTP_CODE:%{http_code}\&#34;&#34;</span>
-
-<span style="color:#75715e"># Print and execute command</span>
-echo <span style="color:#e6db74">&#34;Executing command:&#34;</span>
-echo <span style="color:#e6db74">&#34;</span>$CURL_CMD<span style="color:#e6db74">&#34;</span>
-OUTPUT<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>eval <span style="color:#e6db74">&#34;</span>$CURL_CMD<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>
-echo <span style="color:#e6db74">&#34;</span>$OUTPUT<span style="color:#e6db74">&#34;</span>
-</code></pre></div><p><strong>Usage:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e"># switch_openclash_mode.sh</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Determine mode based on parameter</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;enable&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    MODE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Rule&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;disable&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    MODE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Direct&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Usage: </span>$0<span style="color:#e6db74"> enable|disable&#34;</span>
+</span></span><span style="display:flex;"><span>    exit <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Generate JSON payload</span>
+</span></span><span style="display:flex;"><span>JSON_PAYLOAD<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo <span style="color:#e6db74">&#39;{}&#39;</span> | jq -c --arg mode <span style="color:#e6db74">&#34;</span>$MODE<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#39;.mode = $mode&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Target URL</span>
+</span></span><span style="display:flex;"><span>URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://192.168.100.200:9090/configs&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Construct curl command</span>
+</span></span><span style="display:flex;"><span>CURL_CMD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;curl -X PATCH \&#34;</span>$URL<span style="color:#e6db74">\&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-H \&#34;Accept: application/json, text/plain, */*\&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-H \&#34;Accept-Encoding: gzip, deflate\&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-H \&#34;Accept-Language: en,zh-CN;q=0.9,zh;q=0.8,en-GB;q=0.7,en-US;q=0.6\&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-H \&#34;Authorization: Bearer xxxxxxxxxxxx\&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-H \&#34;Connection: keep-alive\&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-H \&#34;Content-Type: application/json\&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-H \&#34;Host: 192.168.100.200:9090\&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-H \&#34;Origin: http://192.168.100.200:9090\&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-H \&#34;Referer: http://192.168.100.200:9090/ui/dashboard/\&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-H \&#34;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36\&#34; \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-d &#39;</span>$JSON_PAYLOAD<span style="color:#e6db74">&#39; -w \&#34;\\nHTTP_CODE:%{http_code}\&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Print and execute command</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Executing command:&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;</span>$CURL_CMD<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>OUTPUT<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>eval <span style="color:#e6db74">&#34;</span>$CURL_CMD<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;</span>$OUTPUT<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p><strong>Usage:</strong></p>
 <ul>
 <li><code>./clashlimit.sh enable</code> - Switches to Rule mode</li>
 <li><code>./clashlimit.sh disable</code> - Switches to Direct mode</li>
 </ul>
 <blockquote>
-<p><strong>Note:</strong> Replace the Authorization token with your own OpenClash API token.</p>
-</blockquote>
+<p><strong>Note:</strong> Replace the Authorization token with your own OpenClash API token.</p></blockquote>
 <h2 id="script-2-restricting-access-to-nas-resources">Script 2: Restricting Access to NAS Resources<a href="#script-2-restricting-access-to-nas-resources" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>This script allows you to control which devices can access your NAS by MAC address:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e"># Define NAS IP address</span>
-NAS_IP<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;192.168.100.193&#34;</span>
-
-<span style="color:#75715e"># List of MAC addresses to control</span>
-MAC_LIST<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX&#34;</span>
-
-<span style="color:#75715e"># Get first parameter (disable or enable)</span>
-ACTION<span style="color:#f92672">=</span>$1
-
-<span style="color:#75715e"># Process based on parameter</span>
-<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$ACTION<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;disable&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-    <span style="color:#75715e"># Disable access - add firewall rule for each MAC address</span>
-    <span style="color:#66d9ef">for</span> MAC in $MAC_LIST; <span style="color:#66d9ef">do</span>
-        iptables -A FORWARD -d $NAS_IP -m mac --mac-source $MAC -j REJECT
-        echo <span style="color:#e6db74">&#34;Disabled: </span>$MAC<span style="color:#e6db74"> access to </span>$NAS_IP<span style="color:#e6db74">&#34;</span>
-    <span style="color:#66d9ef">done</span>
-<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$ACTION<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;enable&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-    <span style="color:#75715e"># Enable access - remove firewall rule for each MAC address</span>
-    <span style="color:#66d9ef">for</span> MAC in $MAC_LIST; <span style="color:#66d9ef">do</span>
-        iptables -D FORWARD -d $NAS_IP -m mac --mac-source $MAC -j REJECT
-        echo <span style="color:#e6db74">&#34;Enabled: </span>$MAC<span style="color:#e6db74"> access to </span>$NAS_IP<span style="color:#e6db74">&#34;</span>
-    <span style="color:#66d9ef">done</span>
-<span style="color:#66d9ef">else</span>
-    echo <span style="color:#e6db74">&#34;Error: Parameter must be &#39;disable&#39; or &#39;enable&#39;&#34;</span>
-    exit <span style="color:#ae81ff">1</span>
-<span style="color:#66d9ef">fi</span>
-</code></pre></div><p><strong>Usage:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/sh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Define NAS IP address</span>
+</span></span><span style="display:flex;"><span>NAS_IP<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;192.168.100.193&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># List of MAC addresses to control</span>
+</span></span><span style="display:flex;"><span>MAC_LIST<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get first parameter (disable or enable)</span>
+</span></span><span style="display:flex;"><span>ACTION<span style="color:#f92672">=</span>$1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Process based on parameter</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$ACTION<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;disable&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Disable access - add firewall rule for each MAC address</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> MAC in $MAC_LIST; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>        iptables -A FORWARD -d $NAS_IP -m mac --mac-source $MAC -j REJECT
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;Disabled: </span>$MAC<span style="color:#e6db74"> access to </span>$NAS_IP<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$ACTION<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;enable&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Enable access - remove firewall rule for each MAC address</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> MAC in $MAC_LIST; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>        iptables -D FORWARD -d $NAS_IP -m mac --mac-source $MAC -j REJECT
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;Enabled: </span>$MAC<span style="color:#e6db74"> access to </span>$NAS_IP<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Error: Parameter must be &#39;disable&#39; or &#39;enable&#39;&#34;</span>
+</span></span><span style="display:flex;"><span>    exit <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span></code></pre></div><p><strong>Usage:</strong></p>
 <ul>
 <li><code>./naslimit.sh disable</code> - Blocks specified devices from accessing the NAS</li>
 <li><code>./naslimit.sh enable</code> - Allows specified devices to access the NAS</li>
 </ul>
 <blockquote>
-<p><strong>Note:</strong> Replace the MAC addresses with those of the devices you want to control.</p>
-</blockquote>
+<p><strong>Note:</strong> Replace the MAC addresses with those of the devices you want to control.</p></blockquote>
 <h2 id="script-3-controlling-internet-access-by-mac-address">Script 3: Controlling Internet Access by MAC Address<a href="#script-3-controlling-internet-access-by-mac-address" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>This script enables or disables internet access completely for specified devices:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e"># Configure MAC addresses to manage</span>
-MAC_LIST<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX&#34;</span>
-
-manage_mac<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">for</span> mac in $MAC_LIST; <span style="color:#66d9ef">do</span>
-        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> in
-            disable<span style="color:#f92672">)</span>
-                <span style="color:#75715e"># Check if DROP rule already exists, if not add it</span>
-                iptables -C FORWARD -m mac --mac-source <span style="color:#e6db74">&#34;</span>$mac<span style="color:#e6db74">&#34;</span> -j DROP 2&gt;/dev/null
-                <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $? -ne <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-                    iptables -I FORWARD -m mac --mac-source <span style="color:#e6db74">&#34;</span>$mac<span style="color:#e6db74">&#34;</span> -j DROP
-                    logger -p info -t <span style="color:#e6db74">&#34;timeset&#34;</span> <span style="color:#e6db74">&#34;Blocked internet access for MAC address </span>$mac<span style="color:#e6db74">&#34;</span>
-                <span style="color:#66d9ef">else</span>
-                    logger -p info -t <span style="color:#e6db74">&#34;timeset&#34;</span> <span style="color:#e6db74">&#34;MAC address </span>$mac<span style="color:#e6db74"> already blocked&#34;</span>
-                <span style="color:#66d9ef">fi</span>
-                ;;
-            enable<span style="color:#f92672">)</span>
-                <span style="color:#75715e"># Check if DROP rule exists, if yes remove it</span>
-                iptables -C FORWARD -m mac --mac-source <span style="color:#e6db74">&#34;</span>$mac<span style="color:#e6db74">&#34;</span> -j DROP 2&gt;/dev/null
-                <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $? -eq <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-                    iptables -D FORWARD -m mac --mac-source <span style="color:#e6db74">&#34;</span>$mac<span style="color:#e6db74">&#34;</span> -j DROP
-                    logger -p info -t <span style="color:#e6db74">&#34;timeset&#34;</span> <span style="color:#e6db74">&#34;Allowed internet access for MAC address </span>$mac<span style="color:#e6db74">&#34;</span>
-                <span style="color:#66d9ef">else</span>
-                    logger -p info -t <span style="color:#e6db74">&#34;timeset&#34;</span> <span style="color:#e6db74">&#34;MAC address </span>$mac<span style="color:#e6db74"> already allowed&#34;</span>
-                <span style="color:#66d9ef">fi</span>
-                ;;
-            *<span style="color:#f92672">)</span>
-                logger -p err -t <span style="color:#e6db74">&#34;timeset&#34;</span> <span style="color:#e6db74">&#34;Unsupported parameter: </span>$1<span style="color:#e6db74">. Use disable or enable.&#34;</span>
-                ;;
-        <span style="color:#66d9ef">esac</span>
-    <span style="color:#66d9ef">done</span>
-<span style="color:#f92672">}</span>
-
-<span style="color:#75715e"># Call function with provided parameter</span>
-manage_mac <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
-</code></pre></div><p><strong>Usage:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/sh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Configure MAC addresses to manage</span>
+</span></span><span style="display:flex;"><span>MAC_LIST<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX XX:XX:XX:XX:XX:XX&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>manage_mac<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> mac in $MAC_LIST; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> in
+</span></span><span style="display:flex;"><span>            disable<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Check if DROP rule already exists, if not add it</span>
+</span></span><span style="display:flex;"><span>                iptables -C FORWARD -m mac --mac-source <span style="color:#e6db74">&#34;</span>$mac<span style="color:#e6db74">&#34;</span> -j DROP 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $? -ne <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>                    iptables -I FORWARD -m mac --mac-source <span style="color:#e6db74">&#34;</span>$mac<span style="color:#e6db74">&#34;</span> -j DROP
+</span></span><span style="display:flex;"><span>                    logger -p info -t <span style="color:#e6db74">&#34;timeset&#34;</span> <span style="color:#e6db74">&#34;Blocked internet access for MAC address </span>$mac<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>                    logger -p info -t <span style="color:#e6db74">&#34;timeset&#34;</span> <span style="color:#e6db74">&#34;MAC address </span>$mac<span style="color:#e6db74"> already blocked&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>                ;;
+</span></span><span style="display:flex;"><span>            enable<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Check if DROP rule exists, if yes remove it</span>
+</span></span><span style="display:flex;"><span>                iptables -C FORWARD -m mac --mac-source <span style="color:#e6db74">&#34;</span>$mac<span style="color:#e6db74">&#34;</span> -j DROP 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $? -eq <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>                    iptables -D FORWARD -m mac --mac-source <span style="color:#e6db74">&#34;</span>$mac<span style="color:#e6db74">&#34;</span> -j DROP
+</span></span><span style="display:flex;"><span>                    logger -p info -t <span style="color:#e6db74">&#34;timeset&#34;</span> <span style="color:#e6db74">&#34;Allowed internet access for MAC address </span>$mac<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>                    logger -p info -t <span style="color:#e6db74">&#34;timeset&#34;</span> <span style="color:#e6db74">&#34;MAC address </span>$mac<span style="color:#e6db74"> already allowed&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>                ;;
+</span></span><span style="display:flex;"><span>            *<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                logger -p err -t <span style="color:#e6db74">&#34;timeset&#34;</span> <span style="color:#e6db74">&#34;Unsupported parameter: </span>$1<span style="color:#e6db74">. Use disable or enable.&#34;</span>
+</span></span><span style="display:flex;"><span>                ;;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">esac</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Call function with provided parameter</span>
+</span></span><span style="display:flex;"><span>manage_mac <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p><strong>Usage:</strong></p>
 <ul>
 <li><code>./netlimit.sh disable</code> - Blocks internet access for specified devices</li>
 <li><code>./netlimit.sh enable</code> - Enables internet access for specified devices</li>
 </ul>
 <h2 id="script-4-blocking-specific-websites-with-adguard-home">Script 4: Blocking Specific Websites with AdGuard Home<a href="#script-4-blocking-specific-websites-with-adguard-home" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>This script manages filtering rules in AdGuard Home to block or allow access to specific websites:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e"># Preset rules (fixed rules, unchangeable)</span>
-PRESET_RULES<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;[&#34;||gamesgo.net^&#34;,&#34;||game.moe.ms^&#34;,&#34;||265.com^&#34;,&#34;||yandex.com^&#34;,&#34;||papergaes.io^&#34;,&#34;||17yoo.cn^&#34;,&#34;||gamemonetize.com^&#34;,&#34;||gamemonetize.video^&#34;,&#34;||gamemonetize.co^&#34;,&#34;||finder.video.qq.com^&#34;,&#34;||szextshort.weixin.qq.com^&#34;,&#34;||360.cn^&#34;,&#34;||msn.cn^&#34;,&#34;||4399.com^&#34;,&#34;||18183.com^&#34;,&#34;||Y8.com^&#34;,&#34;||addictinggames.com^&#34;,&#34;||7k7k.com^&#34;,&#34;||freeonlinegames.com^&#34;,&#34;||armorgames.com^&#34;,&#34;||html5games.com^&#34;,&#34;||kongregate.com^&#34;,&#34;||17173.com^&#34;,&#34;||2436.cn^&#34;,&#34;||3199.cn^&#34;,&#34;||17yy.com^&#34;,&#34;||pogo.com^&#34;,&#34;||douying.com^&#34;,&#34;||douyin.com^&#34;,&#34;||acfun.cn^&#34;,&#34;||ixigua.com^&#34;,&#34;||shifen.aazzgames.com^&#34;,&#34;@@||jia.360.cn^$important&#34;]&#39;</span>
-
-<span style="color:#75715e"># Additional rules (configurable as needed)</span>
-ADDITIONAL_RULES_DISABLE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;[&#34;||poki.com^&#34;,&#34;||youtube.com^&#34;]&#39;</span>
-ADDITIONAL_RULES_ENABLE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;[]&#39;</span>  <span style="color:#75715e"># Empty when enabling</span>
-
-<span style="color:#75715e"># AdGuard Home credentials</span>
-USERNAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;admin&#34;</span>
-PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span>
-
-<span style="color:#75715e"># Merge rules function</span>
-merge_rules<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;disable&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-        <span style="color:#75715e"># Merge preset rules with additional disable rules</span>
-        BODY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo <span style="color:#e6db74">&#34;</span>$PRESET_RULES<span style="color:#e6db74">&#34;</span> | jq -c --argjson additional <span style="color:#e6db74">&#34;</span>$ADDITIONAL_RULES_DISABLE<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#39;. + $additional&#39;</span><span style="color:#66d9ef">)</span>
-        BODY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{\&#34;rules\&#34;:</span>$BODY<span style="color:#e6db74">}&#34;</span>
-    <span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;enable&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-        <span style="color:#75715e"># Use only preset rules when enabling</span>
-        BODY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo <span style="color:#e6db74">&#34;</span>$PRESET_RULES<span style="color:#e6db74">&#34;</span> | jq -c --argjson additional <span style="color:#e6db74">&#34;</span>$ADDITIONAL_RULES_ENABLE<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#39;. + $additional&#39;</span><span style="color:#66d9ef">)</span>
-        BODY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{\&#34;rules\&#34;:</span>$BODY<span style="color:#e6db74">}&#34;</span>
-    <span style="color:#66d9ef">fi</span>
-<span style="color:#f92672">}</span>
-
-<span style="color:#75715e"># Function to send POST request</span>
-send_post_request<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-    HTTP_CODE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>curl -o /dev/null -w <span style="color:#e6db74">&#39;%{http_code}&#39;</span> -X POST <span style="color:#e6db74">&#34;http://192.168.100.1:3000/control/filtering/set_rules&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -u <span style="color:#e6db74">&#34;</span>$USERNAME<span style="color:#e6db74">:</span>$PASSWORD<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Accept: application/json, text/plain, */*&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Accept-Encoding: gzip, deflate&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Connection: keep-alive&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Cookie: agh_session=xxxxxxxxxxxxxxxxxxxxxxxxx&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Host: 192.168.100.1:3000&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Origin: http://192.168.100.1:3000&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Referer: http://192.168.100.1:3000/&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -d <span style="color:#e6db74">&#34;</span>$BODY<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>
-    echo <span style="color:#e6db74">&#34;HTTP Status Code: </span>$HTTP_CODE<span style="color:#e6db74">&#34;</span>
-<span style="color:#f92672">}</span>
-
-<span style="color:#75715e"># Process based on parameter</span>
-<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> in
-    disable<span style="color:#f92672">)</span>
-        echo <span style="color:#e6db74">&#34;Applying restriction rules...&#34;</span>
-        merge_rules <span style="color:#e6db74">&#34;disable&#34;</span>
-        echo <span style="color:#e6db74">&#34;Request Body: </span>$BODY<span style="color:#e6db74">&#34;</span>
-        send_post_request
-        ;;
-    enable<span style="color:#f92672">)</span>
-        echo <span style="color:#e6db74">&#34;Removing restriction rules...&#34;</span>
-        merge_rules <span style="color:#e6db74">&#34;enable&#34;</span>
-        echo <span style="color:#e6db74">&#34;Request Body: </span>$BODY<span style="color:#e6db74">&#34;</span>
-        send_post_request
-        ;;
-    *<span style="color:#f92672">)</span>
-        echo <span style="color:#e6db74">&#34;Invalid parameter: </span>$1<span style="color:#e6db74">. Use disable or enable.&#34;</span>
-        exit <span style="color:#ae81ff">1</span>
-        ;;
-<span style="color:#66d9ef">esac</span>
-</code></pre></div><p><strong>Usage:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Preset rules (fixed rules, unchangeable)</span>
+</span></span><span style="display:flex;"><span>PRESET_RULES<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;[&#34;||gamesgo.net^&#34;,&#34;||game.moe.ms^&#34;,&#34;||265.com^&#34;,&#34;||yandex.com^&#34;,&#34;||papergaes.io^&#34;,&#34;||17yoo.cn^&#34;,&#34;||gamemonetize.com^&#34;,&#34;||gamemonetize.video^&#34;,&#34;||gamemonetize.co^&#34;,&#34;||finder.video.qq.com^&#34;,&#34;||szextshort.weixin.qq.com^&#34;,&#34;||360.cn^&#34;,&#34;||msn.cn^&#34;,&#34;||4399.com^&#34;,&#34;||18183.com^&#34;,&#34;||Y8.com^&#34;,&#34;||addictinggames.com^&#34;,&#34;||7k7k.com^&#34;,&#34;||freeonlinegames.com^&#34;,&#34;||armorgames.com^&#34;,&#34;||html5games.com^&#34;,&#34;||kongregate.com^&#34;,&#34;||17173.com^&#34;,&#34;||2436.cn^&#34;,&#34;||3199.cn^&#34;,&#34;||17yy.com^&#34;,&#34;||pogo.com^&#34;,&#34;||douying.com^&#34;,&#34;||douyin.com^&#34;,&#34;||acfun.cn^&#34;,&#34;||ixigua.com^&#34;,&#34;||shifen.aazzgames.com^&#34;,&#34;@@||jia.360.cn^$important&#34;]&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Additional rules (configurable as needed)</span>
+</span></span><span style="display:flex;"><span>ADDITIONAL_RULES_DISABLE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;[&#34;||poki.com^&#34;,&#34;||youtube.com^&#34;]&#39;</span>
+</span></span><span style="display:flex;"><span>ADDITIONAL_RULES_ENABLE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;[]&#39;</span>  <span style="color:#75715e"># Empty when enabling</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># AdGuard Home credentials</span>
+</span></span><span style="display:flex;"><span>USERNAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;admin&#34;</span>
+</span></span><span style="display:flex;"><span>PASSWORD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Merge rules function</span>
+</span></span><span style="display:flex;"><span>merge_rules<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;disable&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Merge preset rules with additional disable rules</span>
+</span></span><span style="display:flex;"><span>        BODY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo <span style="color:#e6db74">&#34;</span>$PRESET_RULES<span style="color:#e6db74">&#34;</span> | jq -c --argjson additional <span style="color:#e6db74">&#34;</span>$ADDITIONAL_RULES_DISABLE<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#39;. + $additional&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>        BODY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{\&#34;rules\&#34;:</span>$BODY<span style="color:#e6db74">}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;enable&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Use only preset rules when enabling</span>
+</span></span><span style="display:flex;"><span>        BODY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo <span style="color:#e6db74">&#34;</span>$PRESET_RULES<span style="color:#e6db74">&#34;</span> | jq -c --argjson additional <span style="color:#e6db74">&#34;</span>$ADDITIONAL_RULES_ENABLE<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#39;. + $additional&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>        BODY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{\&#34;rules\&#34;:</span>$BODY<span style="color:#e6db74">}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Function to send POST request</span>
+</span></span><span style="display:flex;"><span>send_post_request<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    HTTP_CODE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>curl -o /dev/null -w <span style="color:#e6db74">&#39;%{http_code}&#39;</span> -X POST <span style="color:#e6db74">&#34;http://192.168.100.1:3000/control/filtering/set_rules&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -u <span style="color:#e6db74">&#34;</span>$USERNAME<span style="color:#e6db74">:</span>$PASSWORD<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Accept: application/json, text/plain, */*&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Accept-Encoding: gzip, deflate&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Connection: keep-alive&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Cookie: agh_session=xxxxxxxxxxxxxxxxxxxxxxxxx&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Host: 192.168.100.1:3000&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Origin: http://192.168.100.1:3000&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;Referer: http://192.168.100.1:3000/&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -H <span style="color:#e6db74">&#34;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -d <span style="color:#e6db74">&#34;</span>$BODY<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;HTTP Status Code: </span>$HTTP_CODE<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Process based on parameter</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> in
+</span></span><span style="display:flex;"><span>    disable<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;Applying restriction rules...&#34;</span>
+</span></span><span style="display:flex;"><span>        merge_rules <span style="color:#e6db74">&#34;disable&#34;</span>
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;Request Body: </span>$BODY<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        send_post_request
+</span></span><span style="display:flex;"><span>        ;;
+</span></span><span style="display:flex;"><span>    enable<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;Removing restriction rules...&#34;</span>
+</span></span><span style="display:flex;"><span>        merge_rules <span style="color:#e6db74">&#34;enable&#34;</span>
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;Request Body: </span>$BODY<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        send_post_request
+</span></span><span style="display:flex;"><span>        ;;
+</span></span><span style="display:flex;"><span>    *<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;Invalid parameter: </span>$1<span style="color:#e6db74">. Use disable or enable.&#34;</span>
+</span></span><span style="display:flex;"><span>        exit <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        ;;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">esac</span>
+</span></span></code></pre></div><p><strong>Usage:</strong></p>
 <ul>
 <li><code>./weblimit100_1.sh disable</code> - Blocks additional websites (like YouTube)</li>
 <li><code>./weblimit100_1.sh enable</code> - Removes additional blocks</li>
 </ul>
 <blockquote>
-<p><strong>Note:</strong> Replace the username, password, and cookie with your AdGuard Home credentials.</p>
-</blockquote>
+<p><strong>Note:</strong> Replace the username, password, and cookie with your AdGuard Home credentials.</p></blockquote>
 <h2 id="scheduling-with-cron-jobs">Scheduling with Cron Jobs<a href="#scheduling-with-cron-jobs" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>To automate these scripts based on time schedules, you can use cron jobs on your OpenWRT router. Here are some examples:</p>
 <h3 id="example-1-block-games-and-social-media-during-study-hours">Example 1: Block Games and Social Media During Study Hours<a href="#example-1-block-games-and-social-media-during-study-hours" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<pre><code># Block access to entertainment sites on weekdays during school hours
+<pre tabindex="0"><code># Block access to entertainment sites on weekdays during school hours
 0 8 * * 1-5 /root/weblimit100_1.sh disable
 0 17 * * 1-5 /root/weblimit100_1.sh enable
 </code></pre><h3 id="example-2-disable-internet-access-at-night-for-childrens-devices">Example 2: Disable Internet Access at Night for Children&rsquo;s Devices<a href="#example-2-disable-internet-access-at-night-for-childrens-devices" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<pre><code># Disable internet for kids' devices at night
+<pre tabindex="0"><code># Disable internet for kids&#39; devices at night
 0 22 * * * /root/netlimit.sh disable
 0 7 * * * /root/netlimit.sh enable
 </code></pre><h3 id="example-3-restrict-nas-access-during-work-hours">Example 3: Restrict NAS Access During Work Hours<a href="#example-3-restrict-nas-access-during-work-hours" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<pre><code># Block NAS access during work hours
+<pre tabindex="0"><code># Block NAS access during work hours
 0 9 * * 1-5 /root/naslimit.sh disable
 0 18 * * 1-5 /root/naslimit.sh enable
 </code></pre><h3 id="example-4-switch-proxy-mode-based-on-time-of-day">Example 4: Switch Proxy Mode Based on Time of Day<a href="#example-4-switch-proxy-mode-based-on-time-of-day" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<pre><code># Use Rule mode during daytime, Direct mode at night
+<pre tabindex="0"><code># Use Rule mode during daytime, Direct mode at night
 0 8 * * * /root/clashlimit.sh enable
 0 23 * * * /root/clashlimit.sh disable
 </code></pre><h2 id="adding-cron-jobs-in-openwrt">Adding Cron Jobs in OpenWRT<a href="#adding-cron-jobs-in-openwrt" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
@@ -417,12 +414,12 @@ send_post_request<span style="color:#f92672">()</span> <span style="color:#f9267
 <ol>
 <li>SSH into your router</li>
 <li>Edit the crontab:
-<pre><code>crontab -e
+<pre tabindex="0"><code>crontab -e
 </code></pre></li>
 <li>Add your desired schedules using the format shown above</li>
 <li>Save and exit</li>
 <li>Restart the cron service:
-<pre><code>/etc/init.d/cron restart
+<pre tabindex="0"><code>/etc/init.d/cron restart
 </code></pre></li>
 </ol>
 <p>You can also add cron jobs through the LuCI web interface under System → Scheduled Tasks.</p>

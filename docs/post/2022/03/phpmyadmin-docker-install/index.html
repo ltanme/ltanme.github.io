@@ -6,7 +6,10 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="phpmyadmin runs in the docker environment 快速部署phpmyadmin mysql客户端管理工具，用于开发环境调用，测试用途，开源助免费 如果只是简单查询修改数据，推荐此工具 phpmyadmin mysql web管理工具 安装docker 环境后，直接运行以下命令，" />
+<meta name="description" content="phpmyadmin runs in the docker environment 快速部署phpmyadmin mysql客户端管理工具，用于开发环境调用，测试用途，开源助免费
+如果只是简单查询修改数据，推荐此工具 phpmyadmin mysql web管理工具
+安装docker 环境后，直接运行以下命令，高级功能请查询官方文档
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2022/03/phpmyadmin-docker-install/" />
@@ -39,7 +42,10 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Phpmyadmin Docker Install">
-<meta property="og:description" content="phpmyadmin runs in the docker environment 快速部署phpmyadmin mysql客户端管理工具，用于开发环境调用，测试用途，开源助免费 如果只是简单查询修改数据，推荐此工具 phpmyadmin mysql web管理工具 安装docker 环境后，直接运行以下命令，" />
+<meta property="og:description" content="phpmyadmin runs in the docker environment 快速部署phpmyadmin mysql客户端管理工具，用于开发环境调用，测试用途，开源助免费
+如果只是简单查询修改数据，推荐此工具 phpmyadmin mysql web管理工具
+安装docker 环境后，直接运行以下命令，高级功能请查询官方文档
+" />
 <meta property="og:url" content="https://ltan.me/post/2022/03/phpmyadmin-docker-install/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -168,10 +174,9 @@
 <blockquote>
 <p>快速部署phpmyadmin mysql客户端管理工具，用于开发环境调用，测试用途，开源助免费<br>
 如果只是简单查询修改数据，推荐此工具 phpmyadmin mysql web管理工具<br>
-安装docker 环境后，直接运行以下命令，高级功能请查询官方文档</p>
-</blockquote>
+安装docker 环境后，直接运行以下命令，高级功能请查询官方文档</p></blockquote>
 <h2 id="命令">命令<a href="#命令" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<pre><code class="language-jshelllanguage" data-lang="jshelllanguage">#下载容器
+<pre tabindex="0"><code class="language-jshelllanguage" data-lang="jshelllanguage">#下载容器
 docker pull phpmyadmin/phpmyadmin
 #运行容器，PMA_ARBITRARY=1表示可以连接任意mysql数据库服务器
 docker run --name myadmin -d -e PMA_ARBITRARY=1   -p 8081:80  phpmyadmin/phpmyadmin
@@ -179,8 +184,7 @@ docker run --name myadmin -d -e PMA_ARBITRARY=1   -p 8081:80  phpmyadmin/phpmyad
 <blockquote>
 <p>如果遇到登录不上的，请检查你的mysql端口和用户名，密码<br>
 需要填写mysql username or password<br>
-<img src="phpmyadmin-docker-use-login.png" alt="phpmyadmin-use"></p>
-</blockquote>
+<img src="/post/2022/03/phpmyadmin-docker-install/phpmyadmin-docker-use-login.png" alt="phpmyadmin-use"></p></blockquote>
 
       </div></div>
 

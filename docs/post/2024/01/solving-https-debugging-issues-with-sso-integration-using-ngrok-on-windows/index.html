@@ -6,7 +6,8 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="介绍 在这篇文章中，我们将探讨如何使用ngrok在Windows环境下解决与公司SSO系统对接时的HTTPS调试问题。我们将逐步介绍如何配置ngrok以实现内网穿透，从而允许远程服务器访问您的本地开发环" />
+<meta name="description" content="介绍 在这篇文章中，我们将探讨如何使用ngrok在Windows环境下解决与公司SSO系统对接时的HTTPS调试问题。我们将逐步介绍如何配置ngrok以实现内网穿透，从而允许远程服务器访问您的本地开发环境。
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/" />
@@ -39,7 +40,8 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Solving HTTPS Debugging Issues with SSO Integration Using Ngrok on Windows">
-<meta property="og:description" content="介绍 在这篇文章中，我们将探讨如何使用ngrok在Windows环境下解决与公司SSO系统对接时的HTTPS调试问题。我们将逐步介绍如何配置ngrok以实现内网穿透，从而允许远程服务器访问您的本地开发环" />
+<meta property="og:description" content="介绍 在这篇文章中，我们将探讨如何使用ngrok在Windows环境下解决与公司SSO系统对接时的HTTPS调试问题。我们将逐步介绍如何配置ngrok以实现内网穿透，从而允许远程服务器访问您的本地开发环境。
+" />
 <meta property="og:url" content="https://ltan.me/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -189,7 +191,7 @@
 </li>
 <li>
 <p>在命令提示符中运行以下命令以验证安装：</p>
-<pre><code>ngrok --version
+<pre tabindex="0"><code>ngrok --version
 </code></pre><p>这应该会显示安装的ngrok版本。</p>
 </li>
 </ol>
@@ -199,17 +201,17 @@
 ngrok config add-authtoken  [您的授权令牌]
 ```
 </code></pre>
-<p><img src="./screenshot-20240102-205845.png" alt="">
+<p><img src="/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/screenshot-20240102-205845.png" alt="">
 配置文件保存如下<br>
-<img src="./screenshot-20240102-205956.png" alt=""></p>
+<img src="/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/screenshot-20240102-205956.png" alt=""></p>
 <h2 id="步骤3-启动ngrok隧道">步骤3: 启动ngrok隧道<a href="#步骤3-启动ngrok隧道" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>现在，启动ngrok隧道以连接到您的本地开发服务器。假设您的本地服务器运行在端口1880上，您可以使用以下命令启动ngrok隧道：</p>
 <pre><code>```
 ngrok http 1880
 ```
 </code></pre>
-<p><img src="./screenshot-20240102-210046.png" alt="">
-<img src="./screenshot-20240102-205914.png" alt=""></p>
+<p><img src="/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/screenshot-20240102-210046.png" alt="">
+<img src="/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/screenshot-20240102-205914.png" alt=""></p>
 <h2 id="步骤4-配置sso系统">步骤4: 配置SSO系统<a href="#步骤4-配置sso系统" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>最后一步是在您的SSO系统中配置ngrok提供的公共URL。这将允许SSO系统通过ngrok隧道访问您的本地服务器。</p>
 <h2 id="结论">结论<a href="#结论" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>pip :: LTAN.ME</title>
+    <title>Pip :: LTAN.ME</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +38,7 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="pip">
+<meta property="og:title" content="Pip">
 <meta property="og:description" content="" />
 <meta property="og:url" content="https://ltan.me/tags/pip/" />
 <meta property="og:site_name" content="LTAN.ME" />
@@ -172,7 +172,12 @@
         <div class="post-content">
           
           
-          windows 环境pycharm python 多环境开发设置 在python项目开发中，很多情况每个项目采用不同的python 环境，一般常见的系统默认python 版本为 python 2.7但如果又不想破坏系统原来的python 环境，则可以
+          <h1 id="windows-环境pycharm-python-多环境开发设置">windows 环境pycharm python 多环境开发设置</h1>
+<blockquote>
+<p>在python项目开发中，很多情况每个项目采用不同的python 环境，一般常见的系统默认python 版本为
+python 2.7但如果又不想破坏系统原来的python 环境，则可以安装virualenv 依赖解决多版本的问题
+virtualen 采用pip install 安装，不管是采用python3版本的pip,还是 python2版本的pip都可以安
+装这个依赖，pycharm 具体设置如下：</p>
           
           
         </div>
@@ -180,7 +185,7 @@
         
         <div>
           <a class="read-more button"
-            href="/post/2022/02/pycharm-terminal-virtualenv-setting/">Read more →</a>
+            href="/post/2022/02/pycharm-terminal-virtualenv-setting/"> →</a>
         </div>
         
       </div>
@@ -211,7 +216,51 @@
         <div class="post-content">
           
           
-          windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available 因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7 具体错误代码如下： SNIMissingWarning d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre vents urllib3 from configuring SSL appropriately and may
+          <h1 id="windows-下pyhon27环境pip-install-模块报错a-true-sslcontext-object-is-not-available">windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available</h1>
+<blockquote>
+<p>因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7<br>
+具体错误代码如下：<br>
+SNIMissingWarning
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Could not find a version that satisfies the requirement ndg-httpsclient (from versions: )
+No matching distribution found for ndg-httpsclient
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning</p>
           
           
         </div>
@@ -219,7 +268,7 @@
         
         <div>
           <a class="read-more button"
-            href="/post/2022/02/a-true-sslcontext-object-is-not-available/">Read more →</a>
+            href="/post/2022/02/a-true-sslcontext-object-is-not-available/"> →</a>
         </div>
         
       </div>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>python2.7 :: LTAN.ME</title>
+    <title>Python2.7 :: LTAN.ME</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +38,7 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="python2.7">
+<meta property="og:title" content="Python2.7">
 <meta property="og:description" content="" />
 <meta property="og:url" content="https://ltan.me/tags/python2.7/" />
 <meta property="og:site_name" content="LTAN.ME" />
@@ -172,7 +172,13 @@
         <div class="post-content">
           
           
-          how to get started with developing kodi plugins 开发kodi插件如何入门，通过学习kodi插件开发，你可以实现自己的想要自动化播放音影服务 主要是实现基于kodi实现开机自动播放影片或者音乐或者iptv等，记忆播放等能力 学习kodi插
+          <h1 id="how-to-get-started-with-developing-kodi-plugins">how to get started with developing kodi plugins</h1>
+<blockquote>
+<p>开发kodi插件如何入门，通过学习kodi插件开发，你可以实现自己的想要自动化播放音影服务
+主要是实现基于kodi实现开机自动播放影片或者音乐或者iptv等，记忆播放等能力
+学习kodi插件开发除了需要一些编程经验外，还需要了解kodi系统插件运行环境，开发环境等
+今天特记录一下如何搭建kodi开发环境，
+搭建开发环境需要准备以下步骤，以windows 10+ python2.7+ vmware 操作环境为例</p>
           
           
         </div>
@@ -180,7 +186,7 @@
         
         <div>
           <a class="read-more button"
-            href="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/">Read more →</a>
+            href="/post/2022/06/how-to-get-started-with-developing-kodi-plugins/"> →</a>
         </div>
         
       </div>
@@ -215,7 +221,12 @@
         <div class="post-content">
           
           
-          windows 环境pycharm python 多环境开发设置 在python项目开发中，很多情况每个项目采用不同的python 环境，一般常见的系统默认python 版本为 python 2.7但如果又不想破坏系统原来的python 环境，则可以
+          <h1 id="windows-环境pycharm-python-多环境开发设置">windows 环境pycharm python 多环境开发设置</h1>
+<blockquote>
+<p>在python项目开发中，很多情况每个项目采用不同的python 环境，一般常见的系统默认python 版本为
+python 2.7但如果又不想破坏系统原来的python 环境，则可以安装virualenv 依赖解决多版本的问题
+virtualen 采用pip install 安装，不管是采用python3版本的pip,还是 python2版本的pip都可以安
+装这个依赖，pycharm 具体设置如下：</p>
           
           
         </div>
@@ -223,7 +234,7 @@
         
         <div>
           <a class="read-more button"
-            href="/post/2022/02/pycharm-terminal-virtualenv-setting/">Read more →</a>
+            href="/post/2022/02/pycharm-terminal-virtualenv-setting/"> →</a>
         </div>
         
       </div>
@@ -254,7 +265,51 @@
         <div class="post-content">
           
           
-          windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available 因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7 具体错误代码如下： SNIMissingWarning d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre vents urllib3 from configuring SSL appropriately and may
+          <h1 id="windows-下pyhon27环境pip-install-模块报错a-true-sslcontext-object-is-not-available">windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available</h1>
+<blockquote>
+<p>因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7<br>
+具体错误代码如下：<br>
+SNIMissingWarning
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Could not find a version that satisfies the requirement ndg-httpsclient (from versions: )
+No matching distribution found for ndg-httpsclient
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning</p>
           
           
         </div>
@@ -262,7 +317,7 @@
         
         <div>
           <a class="read-more button"
-            href="/post/2022/02/a-true-sslcontext-object-is-not-available/">Read more →</a>
+            href="/post/2022/02/a-true-sslcontext-object-is-not-available/"> →</a>
         </div>
         
       </div>
@@ -295,7 +350,9 @@
         <div class="post-content">
           
           
-          python 日常笔记 记录工作要用的python 使用工具，或者常用的代码片段。 Python 是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于PHP和Perl语言。Python 是交互式语言： 这意味着，您可以在一个
+          <h1 id="python-日常笔记">python 日常笔记</h1>
+<blockquote>
+<p>记录工作要用的python 使用工具，或者常用的代码片段。 Python 是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于PHP和Perl语言。Python 是交互式语言： 这意味着，您可以在一个 Python 提示符 &raquo;&gt; 后直接执行代码。Python 是面向对象语言: 这意味着Python支持面向对象的风格或代码封装在对象的编程技术。Python 是初学者的语言：Python 对初级程序员而言，是一种伟大的语言，它支持广泛的应用程序开发，从简单的文字处理到 WWW 浏览器再到游戏。</p>
           
           
         </div>
@@ -303,7 +360,7 @@
         
         <div>
           <a class="read-more button"
-            href="/post/2021/07/my-python2.7-notes/">Read more →</a>
+            href="/post/2021/07/my-python2.7-notes/"> →</a>
         </div>
         
       </div>
@@ -334,7 +391,10 @@
         <div class="post-content">
           
           
-          珠心算二笔、三笔、五笔、十笔一位加减混合计算题自动生成 珠算是以算盘为工具，数学理论为基础，运用手指拨珠，进行运算的一门计算技术，它是我国古代劳动人民重要的发明创造之一，千百年来这一技术不断扩散，传播到
+          <h1 id="珠心算二笔三笔五笔十笔一位加减混合计算题自动生成">珠心算二笔、三笔、五笔、十笔一位加减混合计算题自动生成</h1>
+<blockquote>
+<p>珠算是以算盘为工具，数学理论为基础，运用手指拨珠，进行运算的一门计算技术，它是我国古代劳动人民重要的发明创造之一，千百年来这一技术不断扩散，传播到世界各国，推进着人类文明的发展历程。</p>
+<p>珠心算只有三个符号即1、5和0;数学有10个符号，即0、1、2、3、4、5、6、7、8、9。可见珠心算运算的简捷性。珠心算的直观模型作用能培养小孩子的数学概念能力，珠心算的分析模型作用能帮助小孩子理解应用题的结构关系和数量关系，提高解题能力。</p>
           
           
         </div>
@@ -342,7 +402,7 @@
         
         <div>
           <a class="read-more button"
-            href="/post/2021/06/abacus-mental-arithmetic-problem-generation/">Read more →</a>
+            href="/post/2021/06/abacus-mental-arithmetic-problem-generation/"> →</a>
         </div>
         
       </div>

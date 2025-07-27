@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>zipFile on LTAN.ME</title>
+    <title>ZipFile on LTAN.ME</title>
     <link>https://ltan.me/tags/zipfile/</link>
-    <description>Recent content in zipFile on LTAN.ME</description>
+    <description>Recent content in ZipFile on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Wed, 12 May 2021 19:36:48 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/zipfile/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Do Not Release Resources After Uploading the Zip Package in Java</title>
@@ -13,23 +13,25 @@
       <pubDate>Wed, 12 May 2021 19:36:48 +0800</pubDate>
       
       <guid>https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</guid>
-      <description>在windows系统中检验一个上传文件程序是否有bug另一种姿势 某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程 在windows系统调试一个文件上传程</description>
+      <description>&lt;h1 id=&#34;在windows系统中检验一个上传文件程序是否有bug另一种姿势&#34;&gt;在windows系统中检验一个上传文件程序是否有bug另一种姿势&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程&lt;/p&gt;
+&lt;p&gt;在windows系统调试一个文件上传程序，手贱想重新删除原文件，重新上传，结果这一删除发现windows 弹窗，报窗&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;在windows系统中检验一个上传文件程序是否有bug另一种姿势&#34;&gt;在windows系统中检验一个上传文件程序是否有bug另一种姿势&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程&lt;/p&gt;
 &lt;p&gt;在windows系统调试一个文件上传程序，手贱想重新删除原文件，重新上传，结果这一删除发现windows 弹窗，报窗&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;文件正常使用&lt;/em&gt;    错误提示。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;文件正常使用&lt;/em&gt;    错误提示。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;这个程序需求就是把一个zip包上传到ftp当中，流程是先上传到服务器本地，然后同步到ftp当中&lt;/p&gt;
 &lt;p&gt;在windows 调试过程重新删除了己上传的文件，但发现不能删除的，这个问题也找了很久。&lt;/p&gt;
 &lt;p&gt;于是就重新梳理一下上传的流程。&lt;/p&gt;
 &lt;p&gt;发现以下问题&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210512194748766.png&#34; alt=&#34;image-20210512194748766&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194748766.png&#34; alt=&#34;image-20210512194748766&#34;&gt;&lt;/p&gt;
 &lt;p&gt;来调试代码&lt;/p&gt;
 &lt;p&gt;下面这段代码，上传zip后先保存到本地&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210512194834905.png&#34; alt=&#34;image-20210512194834905&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194834905.png&#34; alt=&#34;image-20210512194834905&#34;&gt;&lt;/p&gt;
 &lt;p&gt;接下来是解压zip&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;./image-20210512194951003.png&#34; alt=&#34;image-20210512194951003&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194951003.png&#34; alt=&#34;image-20210512194951003&#34;&gt;&lt;/p&gt;
 &lt;p&gt;最后增加zipFile.close() 解决，增加in.close() 解决&lt;/p&gt;
 &lt;p&gt;问题总结：&lt;/p&gt;
 &lt;p&gt;​    论代码review 重要性，前期需要多多测试。&lt;/p&gt;

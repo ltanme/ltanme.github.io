@@ -6,7 +6,8 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="python 日常笔记 记录工作要用的python 使用工具，或者常用的代码片段。 Python 是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于PHP和Perl语言。Python 是交互式语言： 这意味着，您可以在一个" />
+<meta name="description" content="python 日常笔记 记录工作要用的python 使用工具，或者常用的代码片段。 Python 是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于PHP和Perl语言。Python 是交互式语言： 这意味着，您可以在一个 Python 提示符 &raquo;&gt; 后直接执行代码。Python 是面向对象语言: 这意味着Python支持面向对象的风格或代码封装在对象的编程技术。Python 是初学者的语言：Python 对初级程序员而言，是一种伟大的语言，它支持广泛的应用程序开发，从简单的文字处理到 WWW 浏览器再到游戏。
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2021/07/my-python2.7-notes/" />
@@ -39,7 +40,8 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="My Python2.7 Notes">
-<meta property="og:description" content="python 日常笔记 记录工作要用的python 使用工具，或者常用的代码片段。 Python 是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于PHP和Perl语言。Python 是交互式语言： 这意味着，您可以在一个" />
+<meta property="og:description" content="python 日常笔记 记录工作要用的python 使用工具，或者常用的代码片段。 Python 是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于PHP和Perl语言。Python 是交互式语言： 这意味着，您可以在一个 Python 提示符 &raquo;&gt; 后直接执行代码。Python 是面向对象语言: 这意味着Python支持面向对象的风格或代码封装在对象的编程技术。Python 是初学者的语言：Python 对初级程序员而言，是一种伟大的语言，它支持广泛的应用程序开发，从简单的文字处理到 WWW 浏览器再到游戏。
+" />
 <meta property="og:url" content="https://ltan.me/post/2021/07/my-python2.7-notes/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -170,62 +172,61 @@
   <div class="post-content"><div>
         <h1 id="python-日常笔记">python 日常笔记<a href="#python-日常笔记" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <blockquote>
-<p>记录工作要用的python 使用工具，或者常用的代码片段。 Python 是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于PHP和Perl语言。Python 是交互式语言： 这意味着，您可以在一个 Python 提示符 &raquo;&gt; 后直接执行代码。Python 是面向对象语言: 这意味着Python支持面向对象的风格或代码封装在对象的编程技术。Python 是初学者的语言：Python 对初级程序员而言，是一种伟大的语言，它支持广泛的应用程序开发，从简单的文字处理到 WWW 浏览器再到游戏。</p>
-</blockquote>
+<p>记录工作要用的python 使用工具，或者常用的代码片段。 Python 是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于PHP和Perl语言。Python 是交互式语言： 这意味着，您可以在一个 Python 提示符 &raquo;&gt; 后直接执行代码。Python 是面向对象语言: 这意味着Python支持面向对象的风格或代码封装在对象的编程技术。Python 是初学者的语言：Python 对初级程序员而言，是一种伟大的语言，它支持广泛的应用程序开发，从简单的文字处理到 WWW 浏览器再到游戏。</p></blockquote>
 <h3 id="时间转换">时间转换<a href="#时间转换" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-<span style="color:#f92672">import</span> time
-date_time <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>fromtimestamp(long(<span style="color:#e6db74">&#34;1528797322&#34;</span>))
-print date_time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">, %H:%M:%S&#34;</span>)
- 
- 
-<span style="color:#f92672">import</span> datetime
-date1 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>strptime(<span style="color:#e6db74">&#34;2019-12-11 09:35:10&#34;</span>, <span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M:%S&#34;</span>)
-a <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime(date1[<span style="color:#ae81ff">0</span>],date1[<span style="color:#ae81ff">1</span>],date1[<span style="color:#ae81ff">2</span>],date1[<span style="color:#ae81ff">3</span>],date1[<span style="color:#ae81ff">4</span>],date1[<span style="color:#ae81ff">5</span>])
- 
- 
-strftime <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>strptime(<span style="color:#e6db74">&#34;2017-11-02 09:31:10&#34;</span>, <span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M:%S&#34;</span>)
-strftime2 <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>strptime(<span style="color:#e6db74">&#34;2017-11-02 09:30:10&#34;</span>, <span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M:%S&#34;</span>)
-print(<span style="color:#e6db74">&#34;32&#34;</span>,strftime<span style="color:#f92672">&gt;</span>strftime2)
- 
- 
-<span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-<span style="color:#f92672">import</span> time
-print datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>timetuple()
-print time<span style="color:#f92672">.</span>mktime(datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>timetuple())
- 
- 
-<span style="color:#f92672">import</span> datetime
-<span style="color:#f92672">import</span> time
-date1 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>strptime(<span style="color:#e6db74">&#34;2019-12-11 09:35:10&#34;</span>, <span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M:%S&#34;</span>)
-print long(time<span style="color:#f92672">.</span>mktime(date1) <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
-</code></pre></div><h3 id="where-in-mysql-使用">where in mysql 使用<a href="#where-in-mysql-使用" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_config_list</span>(conn, cur, aid, keys):
- sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;select `key`,label from config where id = </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> and `key` in (</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">) &#34;</span> <span style="color:#f92672">%</span> (
-    aid, <span style="color:#e6db74">&#39;,&#39;</span><span style="color:#f92672">.</span>join([<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">*</span> len(keys)))
-    cur<span style="color:#f92672">.</span>execute(sql, keys)
-    data <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>fetchall()
-    <span style="color:#66d9ef">return</span> data
-</code></pre></div><h3 id="实现类似java-stream-grouping-by-to-map-效果">实现类似java stream grouping by to map 效果<a href="#实现类似java-stream-grouping-by-to-map-效果" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">clist <span style="color:#f92672">=</span> get_config_list(conn, cur,item[<span style="color:#e6db74">&#34;id&#34;</span>],keys)
-print clist
-clist <span style="color:#f92672">=</span> {v[<span style="color:#e6db74">&#39;key&#39;</span>]:v[<span style="color:#e6db74">&#39;label&#39;</span>] <span style="color:#66d9ef">for</span> i, v <span style="color:#f92672">in</span> enumerate(clist)}
-print clist
-</code></pre></div><h3 id="三目表达式应用">三目表达式应用<a href="#三目表达式应用" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">device[<span style="color:#e6db74">&#34;size&#34;</span>] <span style="color:#f92672">=</span> clist[<span style="color:#e6db74">&#34;ram_size&#34;</span>] <span style="color:#66d9ef">if</span> clist[<span style="color:#e6db74">&#34;ram_size&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span>
- 
-device[<span style="color:#e6db74">&#34;reso&#34;</span>] <span style="color:#f92672">=</span> clist[<span style="color:#e6db74">&#34;resolution&#34;</span>] <span style="color:#66d9ef">if</span> clist[<span style="color:#e6db74">&#34;resolution&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span>
- 
-device[<span style="color:#e6db74">&#34;viseo&#34;</span>] <span style="color:#f92672">=</span> clist[<span style="color:#e6db74">&#34;content_source&#34;</span>] <span style="color:#66d9ef">if</span> clist[<span style="color:#e6db74">&#34;content_source&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span>
- 
-device[<span style="color:#e6db74">&#34;sourname&#34;</span>] <span style="color:#f92672">=</span> clist[<span style="color:#e6db74">&#34;source&#34;</span>] <span style="color:#66d9ef">if</span> clist[<span style="color:#e6db74">&#34;source&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span>
- 
-device[<span style="color:#e6db74">&#34;brad&#34;</span>] <span style="color:#f92672">=</span> clist[<span style="color:#e6db74">&#34;brand&#34;</span>] <span style="color:#66d9ef">if</span> clist[<span style="color:#e6db74">&#34;brand&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span>
-</code></pre></div><h3 id="批量插入mysql">批量插入mysql<a href="#批量插入mysql" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">c<span style="color:#f92672">.</span>executemany( <span style="color:#e6db74">&#34;&#34;&#34;INSERT INTO breakfast (name, spam, eggs, sausage, price) VALUES (</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">)&#34;&#34;&#34;</span>, [ (<span style="color:#e6db74">&#34;Spam and Sausage Lover&#39;s Plate&#34;</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">7.95</span> ), (<span style="color:#e6db74">&#34;Not So Much Spam Plate&#34;</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3.95</span> ), (<span style="color:#e6db74">&#34;Don&#39;t Wany ANY SPAM! Plate&#34;</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5.95</span> ) ] )
-<span style="color:#75715e">#so in your case:</span>
-c<span style="color:#f92672">.</span>executemany(<span style="color:#e6db74">&#34;insert into T (F1,F2) values (</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">)&#34;</span>, [(<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>),(<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;d&#39;</span>)])
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span>date_time <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>fromtimestamp(long(<span style="color:#e6db74">&#34;1528797322&#34;</span>))
+</span></span><span style="display:flex;"><span>print date_time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">, %H:%M:%S&#34;</span>)
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> datetime
+</span></span><span style="display:flex;"><span>date1 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>strptime(<span style="color:#e6db74">&#34;2019-12-11 09:35:10&#34;</span>, <span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M:%S&#34;</span>)
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime(date1[<span style="color:#ae81ff">0</span>],date1[<span style="color:#ae81ff">1</span>],date1[<span style="color:#ae81ff">2</span>],date1[<span style="color:#ae81ff">3</span>],date1[<span style="color:#ae81ff">4</span>],date1[<span style="color:#ae81ff">5</span>])
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>strftime <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>strptime(<span style="color:#e6db74">&#34;2017-11-02 09:31:10&#34;</span>, <span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M:%S&#34;</span>)
+</span></span><span style="display:flex;"><span>strftime2 <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>strptime(<span style="color:#e6db74">&#34;2017-11-02 09:30:10&#34;</span>, <span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M:%S&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;32&#34;</span>,strftime<span style="color:#f92672">&gt;</span>strftime2)
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> datetime <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span>print datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>timetuple()
+</span></span><span style="display:flex;"><span>print time<span style="color:#f92672">.</span>mktime(datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>timetuple())
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> datetime
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span>date1 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>strptime(<span style="color:#e6db74">&#34;2019-12-11 09:35:10&#34;</span>, <span style="color:#e6db74">&#34;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M:%S&#34;</span>)
+</span></span><span style="display:flex;"><span>print long(time<span style="color:#f92672">.</span>mktime(date1) <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
+</span></span></code></pre></div><h3 id="where-in-mysql-使用">where in mysql 使用<a href="#where-in-mysql-使用" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_config_list</span>(conn, cur, aid, keys):
+</span></span><span style="display:flex;"><span> sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;select `key`,label from config where id = </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> and `key` in (</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">) &#34;</span> <span style="color:#f92672">%</span> (
+</span></span><span style="display:flex;"><span>    aid, <span style="color:#e6db74">&#39;,&#39;</span><span style="color:#f92672">.</span>join([<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">*</span> len(keys)))
+</span></span><span style="display:flex;"><span>    cur<span style="color:#f92672">.</span>execute(sql, keys)
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>fetchall()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> data
+</span></span></code></pre></div><h3 id="实现类似java-stream-grouping-by-to-map-效果">实现类似java stream grouping by to map 效果<a href="#实现类似java-stream-grouping-by-to-map-效果" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>clist <span style="color:#f92672">=</span> get_config_list(conn, cur,item[<span style="color:#e6db74">&#34;id&#34;</span>],keys)
+</span></span><span style="display:flex;"><span>print clist
+</span></span><span style="display:flex;"><span>clist <span style="color:#f92672">=</span> {v[<span style="color:#e6db74">&#39;key&#39;</span>]:v[<span style="color:#e6db74">&#39;label&#39;</span>] <span style="color:#66d9ef">for</span> i, v <span style="color:#f92672">in</span> enumerate(clist)}
+</span></span><span style="display:flex;"><span>print clist
+</span></span></code></pre></div><h3 id="三目表达式应用">三目表达式应用<a href="#三目表达式应用" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>device[<span style="color:#e6db74">&#34;size&#34;</span>] <span style="color:#f92672">=</span> clist[<span style="color:#e6db74">&#34;ram_size&#34;</span>] <span style="color:#66d9ef">if</span> clist[<span style="color:#e6db74">&#34;ram_size&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>device[<span style="color:#e6db74">&#34;reso&#34;</span>] <span style="color:#f92672">=</span> clist[<span style="color:#e6db74">&#34;resolution&#34;</span>] <span style="color:#66d9ef">if</span> clist[<span style="color:#e6db74">&#34;resolution&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>device[<span style="color:#e6db74">&#34;viseo&#34;</span>] <span style="color:#f92672">=</span> clist[<span style="color:#e6db74">&#34;content_source&#34;</span>] <span style="color:#66d9ef">if</span> clist[<span style="color:#e6db74">&#34;content_source&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>device[<span style="color:#e6db74">&#34;sourname&#34;</span>] <span style="color:#f92672">=</span> clist[<span style="color:#e6db74">&#34;source&#34;</span>] <span style="color:#66d9ef">if</span> clist[<span style="color:#e6db74">&#34;source&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>device[<span style="color:#e6db74">&#34;brad&#34;</span>] <span style="color:#f92672">=</span> clist[<span style="color:#e6db74">&#34;brand&#34;</span>] <span style="color:#66d9ef">if</span> clist[<span style="color:#e6db74">&#34;brand&#34;</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span></code></pre></div><h3 id="批量插入mysql">批量插入mysql<a href="#批量插入mysql" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>c<span style="color:#f92672">.</span>executemany( <span style="color:#e6db74">&#34;&#34;&#34;INSERT INTO breakfast (name, spam, eggs, sausage, price) VALUES (</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">)&#34;&#34;&#34;</span>, [ (<span style="color:#e6db74">&#34;Spam and Sausage Lover&#39;s Plate&#34;</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">7.95</span> ), (<span style="color:#e6db74">&#34;Not So Much Spam Plate&#34;</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3.95</span> ), (<span style="color:#e6db74">&#34;Don&#39;t Wany ANY SPAM! Plate&#34;</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5.95</span> ) ] )
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#so in your case:</span>
+</span></span><span style="display:flex;"><span>c<span style="color:#f92672">.</span>executemany(<span style="color:#e6db74">&#34;insert into T (F1,F2) values (</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">)&#34;</span>, [(<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>),(<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;d&#39;</span>)])
+</span></span></code></pre></div>
       </div></div>
 
   

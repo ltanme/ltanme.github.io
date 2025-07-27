@@ -6,7 +6,10 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Resolving Verdaccio Permissions and Proxy Issues in Docker 问题 1：无法在 Docker 容器中创建目录 问题描述： 在构建 Verdaccio 的 Docker 镜像时，尝试创建 /usr/rn-plugin/storage 和 /usr/rn-plugin/plugins 目录时，出现了权限不足的错误。 解决方案: 通过在 Dockerfile 中切换到 root 用户来创建目录，并设置适当的权限。然后切换回 verdaccio 用户 #" />
+<meta name="description" content="Resolving Verdaccio Permissions and Proxy Issues in Docker 问题 1：无法在 Docker 容器中创建目录 问题描述： 在构建 Verdaccio 的 Docker 镜像时，尝试创建 /usr/rn-plugin/storage 和 /usr/rn-plugin/plugins 目录时，出现了权限不足的错误。
+解决方案: 通过在 Dockerfile 中切换到 root 用户来创建目录，并设置适当的权限。然后切换回 verdaccio 用户
+# verdaccio.Dockerfile FROM harbor.example.com/cc_iot/verdaccio:latest # 设置 Verdaccio 配置 COPY ./verdaccio/config.yaml /verdaccio/conf/config.yaml COPY ./verdaccio/htpasswd /usr/rn-plugin/htpasswd # 创建存储和插件目录并设置权限 USER root RUN mkdir -p /usr/rn-plugin/storage /usr/rn-plugin/plugins &amp;&amp; \ chown -R 10001:10001 /usr/rn-plugin/storage /usr/rn-plugin/plugins &amp;&amp; \ chown 10001:10001 /usr/rn-plugin/htpasswd USER verdaccio # 设置存储和插件目录为卷 VOLUME [&#34;/usr/rn-plugin/storage&#34;, &#34;/usr/rn-plugin/plugins&#34;] # 暴露 Verdaccio 端口 EXPOSE 4873 # 设置 Verdaccio 环境变量 ENV VERDACCIO_APPDIR /verdaccio ENV VERDACCIO_USER verdaccio ENV VERDACCIO_PORT 4873 ENV VERDACCIO_PROTOCOL http ENV VERDACCIO_STORAGE /usr/rn-plugin/storage ENV VERDACCIO_PLUGINS /usr/rn-plugin/plugins ENV VERDACCIO_LOG_FORMAT pretty ENV VERDACCIO_LOG_LEVEL trace ENV VERDACCIO_PUBLIC_URL https://www.example.com/verdaccio ENTRYPOINT [&#34;/usr/local/bin/verdaccio&#34;, &#34;--config&#34;, &#34;/verdaccio/conf/config.yaml&#34;, &#34;--listen&#34;, &#34;0.0.0.0:4873&#34;] 问题 2：本地宿主机目录权限不足 问题描述： 在容器中无法写入挂载的本地目录 /root/dd/storage 和 /root/dd/plugins。
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/" />
@@ -39,7 +42,10 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Resolving Verdaccio Permissions and Proxy Issues in Docker">
-<meta property="og:description" content="Resolving Verdaccio Permissions and Proxy Issues in Docker 问题 1：无法在 Docker 容器中创建目录 问题描述： 在构建 Verdaccio 的 Docker 镜像时，尝试创建 /usr/rn-plugin/storage 和 /usr/rn-plugin/plugins 目录时，出现了权限不足的错误。 解决方案: 通过在 Dockerfile 中切换到 root 用户来创建目录，并设置适当的权限。然后切换回 verdaccio 用户 #" />
+<meta property="og:description" content="Resolving Verdaccio Permissions and Proxy Issues in Docker 问题 1：无法在 Docker 容器中创建目录 问题描述： 在构建 Verdaccio 的 Docker 镜像时，尝试创建 /usr/rn-plugin/storage 和 /usr/rn-plugin/plugins 目录时，出现了权限不足的错误。
+解决方案: 通过在 Dockerfile 中切换到 root 用户来创建目录，并设置适当的权限。然后切换回 verdaccio 用户
+# verdaccio.Dockerfile FROM harbor.example.com/cc_iot/verdaccio:latest # 设置 Verdaccio 配置 COPY ./verdaccio/config.yaml /verdaccio/conf/config.yaml COPY ./verdaccio/htpasswd /usr/rn-plugin/htpasswd # 创建存储和插件目录并设置权限 USER root RUN mkdir -p /usr/rn-plugin/storage /usr/rn-plugin/plugins &amp;&amp; \ chown -R 10001:10001 /usr/rn-plugin/storage /usr/rn-plugin/plugins &amp;&amp; \ chown 10001:10001 /usr/rn-plugin/htpasswd USER verdaccio # 设置存储和插件目录为卷 VOLUME [&#34;/usr/rn-plugin/storage&#34;, &#34;/usr/rn-plugin/plugins&#34;] # 暴露 Verdaccio 端口 EXPOSE 4873 # 设置 Verdaccio 环境变量 ENV VERDACCIO_APPDIR /verdaccio ENV VERDACCIO_USER verdaccio ENV VERDACCIO_PORT 4873 ENV VERDACCIO_PROTOCOL http ENV VERDACCIO_STORAGE /usr/rn-plugin/storage ENV VERDACCIO_PLUGINS /usr/rn-plugin/plugins ENV VERDACCIO_LOG_FORMAT pretty ENV VERDACCIO_LOG_LEVEL trace ENV VERDACCIO_PUBLIC_URL https://www.example.com/verdaccio ENTRYPOINT [&#34;/usr/local/bin/verdaccio&#34;, &#34;--config&#34;, &#34;/verdaccio/conf/config.yaml&#34;, &#34;--listen&#34;, &#34;0.0.0.0:4873&#34;] 问题 2：本地宿主机目录权限不足 问题描述： 在容器中无法写入挂载的本地目录 /root/dd/storage 和 /root/dd/plugins。
+" />
 <meta property="og:url" content="https://ltan.me/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -172,172 +178,160 @@
 <h1 id="问题-1无法在-docker-容器中创建目录">问题 1：无法在 Docker 容器中创建目录<a href="#问题-1无法在-docker-容器中创建目录" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <h2 id="问题描述">问题描述：<a href="#问题描述" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <blockquote>
-<p>在构建 Verdaccio 的 Docker 镜像时，尝试创建 /usr/rn-plugin/storage 和 /usr/rn-plugin/plugins 目录时，出现了权限不足的错误。</p>
-</blockquote>
+<p>在构建 Verdaccio 的 Docker 镜像时，尝试创建 /usr/rn-plugin/storage 和 /usr/rn-plugin/plugins 目录时，出现了权限不足的错误。</p></blockquote>
 <h2 id="解决方案">解决方案:<a href="#解决方案" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <blockquote>
-<p>通过在 Dockerfile 中切换到 root 用户来创建目录，并设置适当的权限。然后切换回 verdaccio 用户</p>
-</blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># verdaccio.Dockerfile</span>
-
-FROM harbor.example.com/cc_iot/verdaccio:latest
-
-<span style="color:#75715e"># 设置 Verdaccio 配置</span>
-COPY ./verdaccio/config.yaml /verdaccio/conf/config.yaml
-COPY ./verdaccio/htpasswd /usr/rn-plugin/htpasswd
-
-<span style="color:#75715e"># 创建存储和插件目录并设置权限</span>
-USER root
-RUN mkdir -p /usr/rn-plugin/storage /usr/rn-plugin/plugins <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    chown -R 10001:10001 /usr/rn-plugin/storage /usr/rn-plugin/plugins <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    chown 10001:10001 /usr/rn-plugin/htpasswd
-USER verdaccio
-
-<span style="color:#75715e"># 设置存储和插件目录为卷</span>
-VOLUME <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/usr/rn-plugin/storage&#34;</span>, <span style="color:#e6db74">&#34;/usr/rn-plugin/plugins&#34;</span><span style="color:#f92672">]</span>
-
-<span style="color:#75715e"># 暴露 Verdaccio 端口</span>
-EXPOSE <span style="color:#ae81ff">4873</span>
-
-<span style="color:#75715e"># 设置 Verdaccio 环境变量</span>
-ENV VERDACCIO_APPDIR /verdaccio
-ENV VERDACCIO_USER verdaccio
-ENV VERDACCIO_PORT <span style="color:#ae81ff">4873</span>
-ENV VERDACCIO_PROTOCOL http
-ENV VERDACCIO_STORAGE /usr/rn-plugin/storage
-ENV VERDACCIO_PLUGINS /usr/rn-plugin/plugins
-ENV VERDACCIO_LOG_FORMAT pretty
-ENV VERDACCIO_LOG_LEVEL trace
-ENV VERDACCIO_PUBLIC_URL https://www.example.com/verdaccio
-
-ENTRYPOINT <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/usr/local/bin/verdaccio&#34;</span>, <span style="color:#e6db74">&#34;--config&#34;</span>, <span style="color:#e6db74">&#34;/verdaccio/conf/config.yaml&#34;</span>, <span style="color:#e6db74">&#34;--listen&#34;</span>, <span style="color:#e6db74">&#34;0.0.0.0:4873&#34;</span><span style="color:#f92672">]</span>
-
-</code></pre></div><h1 id="问题-2本地宿主机目录权限不足">问题 2：本地宿主机目录权限不足<a href="#问题-2本地宿主机目录权限不足" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>通过在 Dockerfile 中切换到 root 用户来创建目录，并设置适当的权限。然后切换回 verdaccio 用户</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># verdaccio.Dockerfile</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FROM harbor.example.com/cc_iot/verdaccio:latest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置 Verdaccio 配置</span>
+</span></span><span style="display:flex;"><span>COPY ./verdaccio/config.yaml /verdaccio/conf/config.yaml
+</span></span><span style="display:flex;"><span>COPY ./verdaccio/htpasswd /usr/rn-plugin/htpasswd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 创建存储和插件目录并设置权限</span>
+</span></span><span style="display:flex;"><span>USER root
+</span></span><span style="display:flex;"><span>RUN mkdir -p /usr/rn-plugin/storage /usr/rn-plugin/plugins <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    chown -R 10001:10001 /usr/rn-plugin/storage /usr/rn-plugin/plugins <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    chown 10001:10001 /usr/rn-plugin/htpasswd
+</span></span><span style="display:flex;"><span>USER verdaccio
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置存储和插件目录为卷</span>
+</span></span><span style="display:flex;"><span>VOLUME <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/usr/rn-plugin/storage&#34;</span>, <span style="color:#e6db74">&#34;/usr/rn-plugin/plugins&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 暴露 Verdaccio 端口</span>
+</span></span><span style="display:flex;"><span>EXPOSE <span style="color:#ae81ff">4873</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置 Verdaccio 环境变量</span>
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_APPDIR /verdaccio
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_USER verdaccio
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_PORT <span style="color:#ae81ff">4873</span>
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_PROTOCOL http
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_STORAGE /usr/rn-plugin/storage
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_PLUGINS /usr/rn-plugin/plugins
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_LOG_FORMAT pretty
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_LOG_LEVEL trace
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_PUBLIC_URL https://www.example.com/verdaccio
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ENTRYPOINT <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/usr/local/bin/verdaccio&#34;</span>, <span style="color:#e6db74">&#34;--config&#34;</span>, <span style="color:#e6db74">&#34;/verdaccio/conf/config.yaml&#34;</span>, <span style="color:#e6db74">&#34;--listen&#34;</span>, <span style="color:#e6db74">&#34;0.0.0.0:4873&#34;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><h1 id="问题-2本地宿主机目录权限不足">问题 2：本地宿主机目录权限不足<a href="#问题-2本地宿主机目录权限不足" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <h2 id="问题描述-1">问题描述：<a href="#问题描述-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <blockquote>
-<p>在容器中无法写入挂载的本地目录 /root/dd/storage 和 /root/dd/plugins。</p>
-</blockquote>
+<p>在容器中无法写入挂载的本地目录 /root/dd/storage 和 /root/dd/plugins。</p></blockquote>
 <h2 id="解决方案-1">解决方案：<a href="#解决方案-1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <blockquote>
-<p>在宿主机上设置正确的目录权限，确保 Docker 容器内的用户可以写入这些目录。</p>
-</blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo chown -R 10001:10001 /root/dd/storage /root/dd/plugins 
-</code></pre></div><h1 id="问题-3nginx-代理设置导致资源路径不正确">问题 3：Nginx 代理设置导致资源路径不正确<a href="#问题-3nginx-代理设置导致资源路径不正确" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>在宿主机上设置正确的目录权限，确保 Docker 容器内的用户可以写入这些目录。</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo chown -R 10001:10001 /root/dd/storage /root/dd/plugins 
+</span></span></code></pre></div><h1 id="问题-3nginx-代理设置导致资源路径不正确">问题 3：Nginx 代理设置导致资源路径不正确<a href="#问题-3nginx-代理设置导致资源路径不正确" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <h2 id="问题描述-2">问题描述：<a href="#问题描述-2" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <blockquote>
-<p>设置 Nginx 代理后，访问 Verdaccio 首页出现 404 错误。</p>
-</blockquote>
+<p>设置 Nginx 代理后，访问 Verdaccio 首页出现 404 错误。</p></blockquote>
 <h2 id="解决方案-2">解决方案：<a href="#解决方案-2" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <blockquote>
-<p>在 Verdaccio 的配置文件 config.yaml 中设置 url_prefix，并配置 Nginx 代理以正确处理前缀。</p>
-</blockquote>
+<p>在 Verdaccio 的配置文件 config.yaml 中设置 url_prefix，并配置 Nginx 代理以正确处理前缀。</p></blockquote>
 <h2 id="verdaccio-配置">Verdaccio 配置：<a href="#verdaccio-配置" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># config.yaml</span>
-storage: /usr/rn-plugin/storage
-plugins: /usr/rn-plugin/plugins
-
-web:
-  title: Verdaccio
-
-auth:
-  htpasswd:
-    file: /usr/rn-plugin/htpasswd
-
-uplinks:
-  npmjs:
-    url: https://registry.npmjs.org/
-    cache: false
-
-packages:
-  <span style="color:#e6db74">&#39;@*/*&#39;</span>:
-    access: $all
-    publish: $authenticated
-    unpublish: $authenticated
-    proxy: npmjs
-
-  <span style="color:#e6db74">&#39;**&#39;</span>:
-    access: $all
-    publish: $authenticated
-    unpublish: $authenticated
-    proxy: npmjs
-
-server:
-  keepAliveTimeout: <span style="color:#ae81ff">60</span>
-
-url_prefix: <span style="color:#e6db74">&#39;/verdaccio/&#39;</span>
-
-log:
-  type: stdout
-  format: pretty
-  level: trace
-
-</code></pre></div><h2 id="nginx-配置">Nginx 配置：<a href="#nginx-配置" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">location /verdaccio/ <span style="color:#f92672">{</span>
-    proxy_pass http://172.20.151.17:4873/;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_set_header X-Forwarded-Prefix /verdaccio;
-    proxy_buffering off;
-<span style="color:#f92672">}</span>
-
-location /verdaccio/-/ <span style="color:#f92672">{</span>
-    proxy_pass http://172.20.151.17:4873/-/;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_set_header X-Forwarded-Prefix /verdaccio;
-    proxy_buffering off;
-<span style="color:#f92672">}</span>
-
-</code></pre></div><h1 id="问题-4权限不足无法创建用户">问题 4：权限不足无法创建用户<a href="#问题-4权限不足无法创建用户" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># config.yaml</span>
+</span></span><span style="display:flex;"><span>storage: /usr/rn-plugin/storage
+</span></span><span style="display:flex;"><span>plugins: /usr/rn-plugin/plugins
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>web:
+</span></span><span style="display:flex;"><span>  title: Verdaccio
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>auth:
+</span></span><span style="display:flex;"><span>  htpasswd:
+</span></span><span style="display:flex;"><span>    file: /usr/rn-plugin/htpasswd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>uplinks:
+</span></span><span style="display:flex;"><span>  npmjs:
+</span></span><span style="display:flex;"><span>    url: https://registry.npmjs.org/
+</span></span><span style="display:flex;"><span>    cache: false
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>packages:
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;@*/*&#39;</span>:
+</span></span><span style="display:flex;"><span>    access: $all
+</span></span><span style="display:flex;"><span>    publish: $authenticated
+</span></span><span style="display:flex;"><span>    unpublish: $authenticated
+</span></span><span style="display:flex;"><span>    proxy: npmjs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;**&#39;</span>:
+</span></span><span style="display:flex;"><span>    access: $all
+</span></span><span style="display:flex;"><span>    publish: $authenticated
+</span></span><span style="display:flex;"><span>    unpublish: $authenticated
+</span></span><span style="display:flex;"><span>    proxy: npmjs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>server:
+</span></span><span style="display:flex;"><span>  keepAliveTimeout: <span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>url_prefix: <span style="color:#e6db74">&#39;/verdaccio/&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>log:
+</span></span><span style="display:flex;"><span>  type: stdout
+</span></span><span style="display:flex;"><span>  format: pretty
+</span></span><span style="display:flex;"><span>  level: trace
+</span></span></code></pre></div><h2 id="nginx-配置">Nginx 配置：<a href="#nginx-配置" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>location /verdaccio/ <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    proxy_pass http://172.20.151.17:4873/;
+</span></span><span style="display:flex;"><span>    proxy_set_header Host $host;
+</span></span><span style="display:flex;"><span>    proxy_set_header X-Real-IP $remote_addr;
+</span></span><span style="display:flex;"><span>    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span></span><span style="display:flex;"><span>    proxy_set_header X-Forwarded-Proto $scheme;
+</span></span><span style="display:flex;"><span>    proxy_set_header X-Forwarded-Prefix /verdaccio;
+</span></span><span style="display:flex;"><span>    proxy_buffering off;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>location /verdaccio/-/ <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    proxy_pass http://172.20.151.17:4873/-/;
+</span></span><span style="display:flex;"><span>    proxy_set_header Host $host;
+</span></span><span style="display:flex;"><span>    proxy_set_header X-Real-IP $remote_addr;
+</span></span><span style="display:flex;"><span>    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span></span><span style="display:flex;"><span>    proxy_set_header X-Forwarded-Proto $scheme;
+</span></span><span style="display:flex;"><span>    proxy_set_header X-Forwarded-Prefix /verdaccio;
+</span></span><span style="display:flex;"><span>    proxy_buffering off;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h1 id="问题-4权限不足无法创建用户">问题 4：权限不足无法创建用户<a href="#问题-4权限不足无法创建用户" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <h2 id="问题描述-3">问题描述：<a href="#问题描述-3" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <blockquote>
-<p>尝试在 Verdaccio 中创建用户时出现权限不足的错误。</p>
-</blockquote>
+<p>尝试在 Verdaccio 中创建用户时出现权限不足的错误。</p></blockquote>
 <h2 id="解决方案-3">解决方案：<a href="#解决方案-3" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <blockquote>
-<p>确保在 Dockerfile 中设置适当的权限，并在宿主机上设置正确的目录权限。</p>
-</blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># verdaccio.Dockerfile</span>
-
-FROM harbor.example.com/cc_iot/verdaccio:latest
-
-<span style="color:#75715e"># 设置 Verdaccio 配置</span>
-COPY ./verdaccio/config.yaml /verdaccio/conf/config.yaml
-COPY ./verdaccio/htpasswd /usr/rn-plugin/htpasswd
-
-<span style="color:#75715e"># 创建存储和插件目录并设置权限</span>
-USER root
-RUN mkdir -p /usr/rn-plugin/storage /usr/rn-plugin/plugins <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    chown -R 10001:10001 /usr/rn-plugin/storage /usr/rn-plugin/plugins <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    chown 10001:10001 /usr/rn-plugin/htpasswd
-USER verdaccio
-
-<span style="color:#75715e"># 设置存储和插件目录为卷</span>
-VOLUME <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/usr/rn-plugin/storage&#34;</span>, <span style="color:#e6db74">&#34;/usr/rn-plugin/plugins&#34;</span><span style="color:#f92672">]</span>
-
-<span style="color:#75715e"># 暴露 Verdaccio 端口</span>
-EXPOSE <span style="color:#ae81ff">4873</span>
-
-<span style="color:#75715e"># 设置 Verdaccio 环境变量</span>
-ENV VERDACCIO_APPDIR /verdaccio
-ENV VERDACCIO_USER verdaccio
-ENV VERDACCIO_PORT <span style="color:#ae81ff">4873</span>
-ENV VERDACCIO_PROTOCOL http
-ENV VERDACCIO_STORAGE /usr/rn-plugin/storage
-ENV VERDACCIO_PLUGINS /usr/rn-plugin/plugins
-ENV VERDACCIO_LOG_FORMAT pretty
-ENV VERDACCIO_LOG_LEVEL trace
-ENV VERDACCIO_PUBLIC_URL https://www.example.com/verdaccio
-
-ENTRYPOINT <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/usr/local/bin/verdaccio&#34;</span>, <span style="color:#e6db74">&#34;--config&#34;</span>, <span style="color:#e6db74">&#34;/verdaccio/conf/config.yaml&#34;</span>, <span style="color:#e6db74">&#34;--listen&#34;</span>, <span style="color:#e6db74">&#34;0.0.0.0:4873&#34;</span><span style="color:#f92672">]</span>
-
-</code></pre></div><h2 id="宿主机权限设置">宿主机权限设置：<a href="#宿主机权限设置" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo chown -R 10001:10001 /root/dd/storage /root/dd/plugins
-</code></pre></div>
+<p>确保在 Dockerfile 中设置适当的权限，并在宿主机上设置正确的目录权限。</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># verdaccio.Dockerfile</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FROM harbor.example.com/cc_iot/verdaccio:latest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置 Verdaccio 配置</span>
+</span></span><span style="display:flex;"><span>COPY ./verdaccio/config.yaml /verdaccio/conf/config.yaml
+</span></span><span style="display:flex;"><span>COPY ./verdaccio/htpasswd /usr/rn-plugin/htpasswd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 创建存储和插件目录并设置权限</span>
+</span></span><span style="display:flex;"><span>USER root
+</span></span><span style="display:flex;"><span>RUN mkdir -p /usr/rn-plugin/storage /usr/rn-plugin/plugins <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    chown -R 10001:10001 /usr/rn-plugin/storage /usr/rn-plugin/plugins <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    chown 10001:10001 /usr/rn-plugin/htpasswd
+</span></span><span style="display:flex;"><span>USER verdaccio
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置存储和插件目录为卷</span>
+</span></span><span style="display:flex;"><span>VOLUME <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/usr/rn-plugin/storage&#34;</span>, <span style="color:#e6db74">&#34;/usr/rn-plugin/plugins&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 暴露 Verdaccio 端口</span>
+</span></span><span style="display:flex;"><span>EXPOSE <span style="color:#ae81ff">4873</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置 Verdaccio 环境变量</span>
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_APPDIR /verdaccio
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_USER verdaccio
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_PORT <span style="color:#ae81ff">4873</span>
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_PROTOCOL http
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_STORAGE /usr/rn-plugin/storage
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_PLUGINS /usr/rn-plugin/plugins
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_LOG_FORMAT pretty
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_LOG_LEVEL trace
+</span></span><span style="display:flex;"><span>ENV VERDACCIO_PUBLIC_URL https://www.example.com/verdaccio
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ENTRYPOINT <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/usr/local/bin/verdaccio&#34;</span>, <span style="color:#e6db74">&#34;--config&#34;</span>, <span style="color:#e6db74">&#34;/verdaccio/conf/config.yaml&#34;</span>, <span style="color:#e6db74">&#34;--listen&#34;</span>, <span style="color:#e6db74">&#34;0.0.0.0:4873&#34;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><h2 id="宿主机权限设置">宿主机权限设置：<a href="#宿主机权限设置" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo chown -R 10001:10001 /root/dd/storage /root/dd/plugins
+</span></span></code></pre></div>
       </div></div>
 
   
