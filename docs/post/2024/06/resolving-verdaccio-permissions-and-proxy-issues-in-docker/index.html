@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
     <title>Resolving Verdaccio Permissions and Proxy Issues in Docker :: LTAN.ME</title>
   
@@ -12,23 +12,23 @@
 " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="https://ltan.me/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/" />
+<link rel="canonical" href="http://localhost:1313/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/" />
 
 
 
 
-<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
 
-  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
 
 
 
@@ -48,18 +48,18 @@
 解决方案: 通过在 Dockerfile 中切换到 root 用户来创建目录，并设置适当的权限。然后切换回 verdaccio 用户
 # verdaccio.Dockerfile FROM harbor.example.com/cc_iot/verdaccio:latest # 设置 Verdaccio 配置 COPY ./verdaccio/config.yaml /verdaccio/conf/config.yaml COPY ./verdaccio/htpasswd /usr/rn-plugin/htpasswd # 创建存储和插件目录并设置权限 USER root RUN mkdir -p /usr/rn-plugin/storage /usr/rn-plugin/plugins &amp;&amp; \ chown -R 10001:10001 /usr/rn-plugin/storage /usr/rn-plugin/plugins &amp;&amp; \ chown 10001:10001 /usr/rn-plugin/htpasswd USER verdaccio # 设置存储和插件目录为卷 VOLUME [&#34;/usr/rn-plugin/storage&#34;, &#34;/usr/rn-plugin/plugins&#34;] # 暴露 Verdaccio 端口 EXPOSE 4873 # 设置 Verdaccio 环境变量 ENV VERDACCIO_APPDIR /verdaccio ENV VERDACCIO_USER verdaccio ENV VERDACCIO_PORT 4873 ENV VERDACCIO_PROTOCOL http ENV VERDACCIO_STORAGE /usr/rn-plugin/storage ENV VERDACCIO_PLUGINS /usr/rn-plugin/plugins ENV VERDACCIO_LOG_FORMAT pretty ENV VERDACCIO_LOG_LEVEL trace ENV VERDACCIO_PUBLIC_URL https://www.example.com/verdaccio ENTRYPOINT [&#34;/usr/local/bin/verdaccio&#34;, &#34;--config&#34;, &#34;/verdaccio/conf/config.yaml&#34;, &#34;--listen&#34;, &#34;0.0.0.0:4873&#34;] 问题 2：本地宿主机目录权限不足 问题描述： 在容器中无法写入挂载的本地目录 /root/dd/storage 和 /root/dd/plugins。
 " />
-<meta property="og:url" content="https://ltan.me/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/" />
+<meta property="og:url" content="http://localhost:1313/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
 <meta property="og:image:height" content="1024">
 
 
-  <meta property="article:published_time" content="2024-06-06 20:55:44 &#43;0800 &#43;0800" />
+  <meta property="article:published_time" content="2024-06-06 20:55:44 &#43;0800 CST" />
 
 
 
@@ -149,7 +149,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="https://ltan.me/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/">Resolving Verdaccio Permissions and Proxy Issues in Docker</a></h1>
+    <a href="http://localhost:1313/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/">Resolving Verdaccio Permissions and Proxy Issues in Docker</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -162,11 +162,11 @@
   
   <span class="post-tags">
     
-    #<a href="https://ltan.me/tags/verdaccio/">Verdaccio</a>&nbsp;
+    #<a href="http://localhost:1313/tags/verdaccio/">Verdaccio</a>&nbsp;
     
-    #<a href="https://ltan.me/tags/docker/">Docker</a>&nbsp;
+    #<a href="http://localhost:1313/tags/docker/">Docker</a>&nbsp;
     
-    #<a href="https://ltan.me/tags/nginx/">Nginx</a>&nbsp;
+    #<a href="http://localhost:1313/tags/nginx/">Nginx</a>&nbsp;
     
   </span>
   
@@ -365,8 +365,8 @@
   </div>
 </footer>
 
-<script src="https://ltan.me/assets/main.js"></script>
-<script src="https://ltan.me/assets/prism.js"></script>
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
 
 
 
