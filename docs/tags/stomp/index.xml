@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Stomp on LTAN.ME</title>
-    <link>https://ltan.me/tags/stomp/</link>
+    <link>http://localhost:1313/tags/stomp/</link>
     <description>Recent content in Stomp on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 04 Sep 2021 17:16:44 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/stomp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Sep 2021 17:16:44 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/stomp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Activemq Artemis Learning 3</title>
-      <link>https://ltan.me/post/2021/09/activemq-artemis-learning-3/</link>
+      <link>http://localhost:1313/post/2021/09/activemq-artemis-learning-3/</link>
       <pubDate>Sat, 04 Sep 2021 17:16:44 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/09/activemq-artemis-learning-3/</guid>
+      <guid>http://localhost:1313/post/2021/09/activemq-artemis-learning-3/</guid>
       <description>&lt;h1 id=&#34;验证activemq-artemis-源代码完整性&#34;&gt;验证activemq Artemis 源代码完整性&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;工作项目可能需要使用activemq artemis ，将使用在生产环境上部署，为了方便后面二次开发的需求可能，对其进行源代码完整性验证，主要工作是，把最新源代码下载到本地进行源码编译，一开始使用的windows死活编译不成功，报com.sum.sw jar 包错误。&lt;/p&gt;</description>
