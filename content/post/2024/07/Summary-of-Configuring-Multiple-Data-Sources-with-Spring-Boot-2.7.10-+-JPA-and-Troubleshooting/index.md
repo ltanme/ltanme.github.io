@@ -305,7 +305,6 @@ example-multi-datasource-project
 └── README.md
 ```
 
-这种格式应该在 Hugo 中正确渲染。如果仍然遇到问题，可以检查 Hugo 的渲染配置，确保 Markdown 文件的解析设置正确。
 
 
 #### 调试与验证

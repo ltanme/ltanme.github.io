@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on LTAN.ME</title>
-    <link>http://localhost:1313/tags/java/</link>
+    <link>http://localhost:54137/tags/java/</link>
     <description>Recent content in Java on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 28 Nov 2022 16:05:03 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Nov 2022 16:05:03 +0800</lastBuildDate><atom:link href="http://localhost:54137/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Localdatetime to Date Format Java</title>
-      <link>http://localhost:1313/post/2022/11/localdatetime-to-date-format-java/</link>
+      <link>http://localhost:54137/post/2022/11/localdatetime-to-date-format-java/</link>
       <pubDate>Mon, 28 Nov 2022 16:05:03 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2022/11/localdatetime-to-date-format-java/</guid>
+      <guid>http://localhost:54137/post/2022/11/localdatetime-to-date-format-java/</guid>
       <description>&lt;h1 id=&#34;localdatetime-to-date-format-java&#34;&gt;Localdatetime to Date Format Java&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在使用&lt;code&gt;java&lt;/code&gt;时间的&lt;code&gt;api&lt;/code&gt;个人感觉非常不方便，很多时候存在格式转换，类型转换 比如&lt;code&gt;date&lt;/code&gt; 转&lt;code&gt;localDate&lt;/code&gt;
@@ -62,10 +62,10 @@
     
     <item>
       <title>Classpath Resource Not Found When Running as Jar</title>
-      <link>http://localhost:1313/post/2022/03/classpath-resource-not-found-when-running-as-jar/</link>
+      <link>http://localhost:54137/post/2022/03/classpath-resource-not-found-when-running-as-jar/</link>
       <pubDate>Tue, 08 Mar 2022 09:45:39 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2022/03/classpath-resource-not-found-when-running-as-jar/</guid>
+      <guid>http://localhost:54137/post/2022/03/classpath-resource-not-found-when-running-as-jar/</guid>
       <description>&lt;h1 id=&#34;读取jar包resources目录下的groovy脚本并调用&#34;&gt;读取jar包resources目录下的groovy脚本并调用&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断
@@ -166,10 +166,10 @@ java -jar xxx.jar 运行报错如下&lt;/p&gt;&lt;/blockquote&gt;
     
     <item>
       <title>Mybatis Failed to Save Data</title>
-      <link>http://localhost:1313/post/2022/02/mybatis-failed-to-save-data/</link>
+      <link>http://localhost:54137/post/2022/02/mybatis-failed-to-save-data/</link>
       <pubDate>Fri, 11 Feb 2022 12:12:06 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2022/02/mybatis-failed-to-save-data/</guid>
+      <guid>http://localhost:54137/post/2022/02/mybatis-failed-to-save-data/</guid>
       <description>&lt;h1 id=&#34;记一次遇到mybaits写入数据不成功问题&#34;&gt;记一次遇到mybaits写入数据不成功问题&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到
@@ -202,10 +202,10 @@ mysql client 执行sql执行并没有问题，但是调用接口时，写入mysq
     
     <item>
       <title>How to solve SpringBoot Mysql CLIENT_PLUGIN_AUTH Is Required error</title>
-      <link>http://localhost:1313/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</link>
+      <link>http://localhost:54137/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</link>
       <pubDate>Tue, 07 Dec 2021 09:54:05 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</guid>
+      <guid>http://localhost:54137/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</guid>
       <description>&lt;h1 id=&#34;一次上线遇到的问mysql版本使用问题client_plugin_auth&#34;&gt;一次上线遇到的问mysql版本使用问题CLIENT_PLUGIN_AUTH&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;当在项目做好即将上线时，突然发现线上数据库版本太低而报如题错误，导致程序上线启动失败，现有数据库己被很多老的项目在使用着，不可能让dba去更新数据库版本，或另开服务器。&lt;/p&gt;
@@ -230,10 +230,10 @@ mysql client 执行sql执行并没有问题，但是调用接口时，写入mysq
     
     <item>
       <title>Enumeration Class Used in Java</title>
-      <link>http://localhost:1313/post/2021/10/enumeration-class-used-in-java/</link>
+      <link>http://localhost:54137/post/2021/10/enumeration-class-used-in-java/</link>
       <pubDate>Thu, 14 Oct 2021 10:45:23 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/10/enumeration-class-used-in-java/</guid>
+      <guid>http://localhost:54137/post/2021/10/enumeration-class-used-in-java/</guid>
       <description>&lt;h1 id=&#34;枚举类在java中使用方法之一&#34;&gt;枚举类在java中使用方法之一&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在后数据中台中，有些数据不需要放在数据库当中，只需要一个枚举类即可，比如web ui select 选择器下拉数据，&lt;code&gt;男&lt;/code&gt;，&lt;code&gt;女&lt;/code&gt; 这种，还比如&lt;code&gt;省市&lt;/code&gt; 下拉数据，而这些数据可以不需要数据库来保存，也不需要用配置文件来保存，只需要一个枚举类即可，使用方法如下&lt;/p&gt;&lt;/blockquote&gt;
@@ -342,18 +342,18 @@ public Object apiConf() {
 	&amp;#34;3&amp;#34;: &amp;#34;升级命令&amp;#34;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用到web前端效果&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/10/enumeration-class-used-in-java/image-20211014110500057.png&#34; alt=&#34;image-20211014110500057&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2021/10/enumeration-class-used-in-java/image-20211014110500057.png&#34; alt=&#34;image-20211014110500057&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在业务代码使用枚举类时，还有中文提示，这个比常量好使很多呢&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/10/enumeration-class-used-in-java/image-20211014110845695.png&#34; alt=&#34;image-20211014110845695&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2021/10/enumeration-class-used-in-java/image-20211014110845695.png&#34; alt=&#34;image-20211014110845695&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
     <item>
       <title>Mybaits Plus Comes With Paging VS Com.github.pagehelper Paging Plug In</title>
-      <link>http://localhost:1313/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</link>
+      <link>http://localhost:54137/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</link>
       <pubDate>Mon, 27 Sep 2021 16:49:31 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</guid>
+      <guid>http://localhost:54137/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</guid>
       <description>&lt;h1 id=&#34;mybatis-plus-自带分页-和-comgithubpagehelper工具使用对比&#34;&gt;mybatis-plus 自带分页 和 com.github.pagehelper工具使用对比&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;对经常写中台列表数据管理接口的同学来说，需要经常使用到分页插件来提升自己的工作效率，通常我用过最多的两款插件如标题所示，这两款插件在写文章之前，我一直搞不清，浮躁，混为一谈，需要总结整理&lt;/p&gt;
@@ -409,7 +409,7 @@ public Object apiConf() {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;navigateLastPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;web前端对接时看到有 prePage，nextPage 实现太香，不要不要的&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/image-20210927173234110.png&#34; alt=&#34;image-20210927173234110&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/image-20210927173234110.png&#34; alt=&#34;image-20210927173234110&#34;&gt;&lt;/p&gt;
 &lt;p&gt;代码使用：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; @GetMapping(&amp;#34;/list&amp;#34;)
    public Object pageList(@RequestParam(defaultValue = &amp;#34;1&amp;#34;) Integer pageNum,
@@ -426,10 +426,10 @@ public Object apiConf() {
     
     <item>
       <title>How to Do Not Release Resources After Uploading the Zip Package in Java</title>
-      <link>http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</link>
+      <link>http://localhost:54137/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</link>
       <pubDate>Wed, 12 May 2021 19:36:48 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</guid>
+      <guid>http://localhost:54137/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</guid>
       <description>&lt;h1 id=&#34;在windows系统中检验一个上传文件程序是否有bug另一种姿势&#34;&gt;在windows系统中检验一个上传文件程序是否有bug另一种姿势&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程&lt;/p&gt;
@@ -445,12 +445,12 @@ public Object apiConf() {
 &lt;p&gt;在windows 调试过程重新删除了己上传的文件，但发现不能删除的，这个问题也找了很久。&lt;/p&gt;
 &lt;p&gt;于是就重新梳理一下上传的流程。&lt;/p&gt;
 &lt;p&gt;发现以下问题&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194748766.png&#34; alt=&#34;image-20210512194748766&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194748766.png&#34; alt=&#34;image-20210512194748766&#34;&gt;&lt;/p&gt;
 &lt;p&gt;来调试代码&lt;/p&gt;
 &lt;p&gt;下面这段代码，上传zip后先保存到本地&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194834905.png&#34; alt=&#34;image-20210512194834905&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194834905.png&#34; alt=&#34;image-20210512194834905&#34;&gt;&lt;/p&gt;
 &lt;p&gt;接下来是解压zip&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194951003.png&#34; alt=&#34;image-20210512194951003&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194951003.png&#34; alt=&#34;image-20210512194951003&#34;&gt;&lt;/p&gt;
 &lt;p&gt;最后增加zipFile.close() 解决，增加in.close() 解决&lt;/p&gt;
 &lt;p&gt;问题总结：&lt;/p&gt;
 &lt;p&gt;​    论代码review 重要性，前期需要多多测试。&lt;/p&gt;

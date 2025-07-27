@@ -5,7 +5,7 @@
 </div>
 {{ end }}
 <div class="posts">
-    {{ range first 10 ( where (where .Site.Pages "Type" "post") ".Params.featured" "=" true )}}
+    {{ range first 10 ( where (where .Site.RegularPages "Type" "post") ".Params.featured" "=" true )}}
     <div class="post on-list">
         <h1 class="post-title">
             <a href="{{ .Permalink }}">{{ .Title | markdownify }}</a>
@@ -39,9 +39,7 @@
             {{ else if .Description }}
             {{ .Description | markdownify }}
             {{ else }}
-            {{ if .Truncated }}
             {{ .Summary }}
-            {{ end }}
             {{ end }}
         </div>
 
@@ -55,4 +53,4 @@
     {{ end }}
     {{ partial "pagination.html" . }}
 </div>
-{{ end }}
+{{ end }} 

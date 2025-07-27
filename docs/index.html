@@ -142,41 +142,58 @@
 
   <div class="content">
     
-  
-  <div class="posts">
-    
-    
 
+<div class="posts">
     
-    
-      
-    
-    
-
-    
-      <div class="post on-list">
+    <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:1313/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/">APISIX 3.9 + APM 整合全链路追踪日志</a>
+            <a href="http://localhost:1313/post/2024/07/summary-of-configuring-multiple-data-sources-with-spring-boot-2.7.10-&#43;-jpa-and-troubleshooting/">Summary of Configuring Multiple Data Sources With Spring Boot 2.7.10 + JPA and Troubleshooting</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
-            2025-05-22
+            2024-07-29
           </span>
-          
+            
         </div>
 
         
-          <span class="post-tags">
+
+        
+
+        <div class="post-content">
             
-            #<a href="http://localhost:1313/tags/apisix/">APISIX</a>&nbsp;
+            <h3 id="配置-spring-boot-2710--jpa-支持多数据源-使用-postgresql-和-nacos-配置">配置 Spring Boot 2.7.10 + JPA 支持多数据源 (使用 PostgreSQL 和 Nacos 配置)</h3>
+<h4 id="总结spring-boot-2710--jpa-多数据源配置与问题解决">总结Spring Boot 2.7.10 + JPA 多数据源配置与问题解决</h4>
+<h3 id="summary-of-configuring-multiple-data-sources-with-spring-boot-2710--jpa-and-troubleshooting">Summary of Configuring Multiple Data Sources with Spring Boot 2.7.10 + JPA and Troubleshooting</h3>
+<p>我有一个项目需要访问多个数据库源，ccdb接口访问服务器ip为:<code>10.10.5.10</code>的ccdb数据库，而tbdb接口需要访问服务器ip为:<code>10.10.5.9</code>的tbdb数据库
+ccdb接口和tbdb接口都属于同一个<code>jar</code>包代码，所以需要多数据库解决方案，
+但在解决<code>Spring Boot 2.7.10</code>项目中配置多数据源和JPA访问数据库的过程中，遇到了一系列问题。以下是详细问题描述及解决方案：</p>
             
-            #<a href="http://localhost:1313/tags/apm/">APM</a>&nbsp;
+        </div>
+
+        
+        <div>
+            <a class="read-more button"
+               href="/post/2024/07/summary-of-configuring-multiple-data-sources-with-spring-boot-2.7.10-&#43;-jpa-and-troubleshooting/">Read more →</a>
+        </div>
+        
+    </div>
+    
+    <div class="post on-list">
+        <h1 class="post-title">
+            <a href="http://localhost:1313/post/2024/07/thingsboard-getway-debug/">Thingsboard Getway Debug</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2024-07-04
+          </span>
             
-            #<a href="http://localhost:1313/tags/w3c-trace-context/">W3C Trace Context</a>&nbsp;
+        </div>
+
+        
+        <span class="post-tags">
             
-            #<a href="http://localhost:1313/tags/%E5%85%A8%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/">全链路追踪</a>&nbsp;
-            
-            #<a href="http://localhost:1313/tags/docker-compose/">Docker Compose</a>&nbsp;
+            #<a href="http://localhost:1313/tags/thingsboard-/">thingsboard </a>&nbsp;
             
           </span>
         
@@ -184,40 +201,43 @@
         
 
         <div class="post-content">
-          
-          从零部署 Apache APISIX 3.9 并编写 W3C TraceContext 插件，实现在 APM 中按 trace ID 检索完整链路；记录全过程的坑点与排错。
-          
+            
+            <h1 id="记一次thingsboard-gateway-调试总结">记一次thingsboard gateway 调试总结</h1>
+<h3 id="背景">背景</h3>
+<p>在使用 <code>ThingsBoard 3.6.4</code> 网关<code>thingsboard gateway 3.5.1</code>的过程中，我们需要配置和调试 <code>MQTT</code> 连接器，以便子设备能够正确处理来自网关的 <code>RPC</code> 请求。此次调试过程中，遇到了一些问题，包括 <code>JSON</code> 格式错误、消息未正确替换变量、以及消息处理超时等。
+但凡遇到网关问题，官方文档少知又少。github issue 有人遇到同样的问题无人回复,本人折腾了2天终于让子设备通网了</p>
+            
         </div>
 
         
         <div>
-          <a class="read-more button"
-            href="/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/">Read more →</a>
+            <a class="read-more button"
+               href="/post/2024/07/thingsboard-getway-debug/">Read more →</a>
         </div>
         
-      </div>
+    </div>
     
-      <div class="post on-list">
+    <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:1313/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/">Controlling Internet Access with OpenWRT Firewall: Blocking Websites and Disabling Internet</a>
+            <a href="http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/">Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
-            2025-02-28
+            2024-05-10
           </span>
-          
+            
         </div>
 
         
-          <span class="post-tags">
+        <span class="post-tags">
             
-            #<a href="http://localhost:1313/tags/openwrt/">OpenWRT</a>&nbsp;
+            #<a href="http://localhost:1313/tags/thingsboard/">thingsboard</a>&nbsp;
             
-            #<a href="http://localhost:1313/tags/firewall/">Firewall</a>&nbsp;
+            #<a href="http://localhost:1313/tags/iot/">IoT</a>&nbsp;
             
-            #<a href="http://localhost:1313/tags/networking/">Networking</a>&nbsp;
+            #<a href="http://localhost:1313/tags/lombok/">lombok</a>&nbsp;
             
-            #<a href="http://localhost:1313/tags/parental-controls/">Parental Controls</a>&nbsp;
+            #<a href="http://localhost:1313/tags/jdk17/">JDK17</a>&nbsp;
             
           </span>
         
@@ -225,46 +245,59 @@
         
 
         <div class="post-content">
-          
-          Learn how to control internet access for devices on your network using OpenWRT&rsquo;s firewall capabilities, including blocking specific websites, managing access to NAS resources, and scheduling internet availability.
-          
+            
+            <p>#　Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4</p>
+<blockquote>
+<p>记录<code>thingsboard3.6.4</code>在导入 <code>IntelliJ IDEA 2022.2.3</code> 编译报错的一些问题<br>
+记录 如何从<code>thingsboard3.6.4</code>弃坑到<code>thingsboard3.6.3</code>最后又回到了<code>thingsboard3.6.4</code></p></blockquote>
+<blockquote>
+<p>导入步骤简单说一下，先从github下载thingsboard3.6.4 源码
+导入代码前提准备是环境，我的环境如下
+windows 10<br>
+maven version 3.8.1 给 IntelliJ IDEA 2022.2.3 配置好settings.xml 采用从maven官方仓库拉取依赖<br>
+IntelliJ IDEA 2022.2.3  <br>
+IntelliJ IDEA 只需要安装 protocol buffers 和 lombook 就可以了<br>
+JDK17,不是jdk11<br>
+在本地安装postgreSQL,创建好数据库名<code>thingsboard364</code><br>
+然后导入到IntelliJ IDEA 2022.2.3。<br>
+从复制sql脚本到application的<code>src/main/data/</code>目录下<br>
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img.png" alt="img.png">
+把 <strong>IntelliJ IDEA</strong> maven 设置跳过skip test,避免测试过程中遇到地域性测试，语言文本测试 导致通测试不过<br>
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_1.png" alt="img_1.png">
+最后点击 <strong>IntelliJ IDEA</strong> maven package 进行编译项目 <br>
+我遇到的问题如下：</p>
+            
         </div>
 
         
         <div>
-          <a class="read-more button"
-            href="/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/">Read more →</a>
+            <a class="read-more button"
+               href="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/">Read more →</a>
         </div>
         
-      </div>
+    </div>
     
-      <div class="post on-list">
+    <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:1313/post/2025/07/browserguard-parental-control-browser-monitoring-tool/">BrowserGuard - 智能浏览器监控工具，助力家长控制与学习管理</a>
+            <a href="http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/">Smart Air Conditioning Control With ThingsBoard</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
-            2025-01-27
+            2024-05-08
           </span>
-          
+            
         </div>
 
         
-          <span class="post-tags">
+        <span class="post-tags">
             
-            #<a href="http://localhost:1313/tags/electron/">Electron</a>&nbsp;
+            #<a href="http://localhost:1313/tags/thingsboard/">thingsboard</a>&nbsp;
             
-            #<a href="http://localhost:1313/tags/react/">React</a>&nbsp;
+            #<a href="http://localhost:1313/tags/iot/">IoT</a>&nbsp;
             
-            #<a href="http://localhost:1313/tags/typescript/">TypeScript</a>&nbsp;
+            #<a href="http://localhost:1313/tags/rulechain/">ruleChain</a>&nbsp;
             
-            #<a href="http://localhost:1313/tags/parental-control/">Parental Control</a>&nbsp;
-            
-            #<a href="http://localhost:1313/tags/browser-monitoring/">Browser Monitoring</a>&nbsp;
-            
-            #<a href="http://localhost:1313/tags/desktop-app/">Desktop App</a>&nbsp;
-            
-            #<a href="http://localhost:1313/tags/cross-platform/">Cross Platform</a>&nbsp;
+            #<a href="http://localhost:1313/tags/nodered/">nodered</a>&nbsp;
             
           </span>
         
@@ -272,86 +305,54 @@
         
 
         <div class="post-content">
-          
-          为家庭电脑学习管理设计的智能浏览器监控工具。基于 Electron + React + TypeScript 技术栈开发，支持 macOS 和 Windows 双平台，通过实时监控浏览器访问行为，帮助家长和孩子建立健康的上网习惯。
-          
+            
+            <h1 id="automating-climate-control-leveraging-dual-thermometers-for-smart-air-conditioning-via-thingsboard">Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard</h1>
+<blockquote>
+<p>记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机<br>
+当然这并不是真实过程对接调式，只是通过模拟的方法来熟练一下thingsboard的ruleChain</p></blockquote>
+<h3 id="第一步创建一个空的规则链名称就叫两个温度计控制空调的规则链">第一步，创建一个空的规则链，名称就叫<code>两个温度计控制空调的规则链</code></h3>
+<p><img src="/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_2.png" alt="img_2.png"></p>
+<h3 id="第二步创建一个设备配置名称就叫两个温度计控制空调的设备配置">第二步，创建一个设备配置，名称就叫<code>两个温度计控制空调的设备配置</code></h3>
+<p><img src="/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_3.png" alt="img_3.png"></p>
+<h3 id="第三步分别添加三个设备温度计1温度计2空调">第三步，分别添加三个设备<code>温度计1</code>、<code>温度计2</code>、<code>空调</code></h3>
+<p><img src="/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_4.png" alt="img_4.png"></p>
+<h3 id="第四步给温度计1温度计2-设备添加关联关系">第四步，给<code>温度计1</code>,<code>温度计2</code> 设备添加关联关系</h3>
+<p>添加关系的原因是，因为<code>温度计1</code>,<code>温度计2</code> 的温度都满足了条件需要给<code>空调</code>发送rpc控制消息
+才需创建关联空调的，这里可以理解是<code>温度计</code>控制<code>空调</code>，所以创建温度计<code>向外的关联</code>（<code>from</code>）的关系
+同理也可以理解，空调需要接受温度计的控制消息<code>向内的关联</code>（<code>to</code>）的关系，这两个关系方向都可以
+这里以from关系为例创建，但请注意，这里的<code>关系类型</code>一定要唯一，不能一样我这里建立了两条关系分别是<code>relation1</code>,
+<code>relation2</code>
+<img src="/post/2024/05/smart-air-conditioning-control-with-thingsboard/img.png" alt="img.png"></p>
+            
         </div>
 
         
         <div>
-          <a class="read-more button"
-            href="/post/2025/07/browserguard-parental-control-browser-monitoring-tool/">Read more →</a>
+            <a class="read-more button"
+               href="/post/2024/05/smart-air-conditioning-control-with-thingsboard/">Read more →</a>
         </div>
         
-      </div>
+    </div>
     
-      <div class="post on-list">
+    <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:1313/post/2024/11/exportcommanddatafromphpmyadmin/">Export Command Data from PhpMyAdmin</a>
+            <a href="http://localhost:1313/post/2024/04/headscale-server-setup-process/">Server setup process using Headscale with Docker.</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
-            2024-11-04
+            2024-04-15
           </span>
-          
+            
         </div>
 
         
-          <span class="post-tags">
+        <span class="post-tags">
             
-            #<a href="http://localhost:1313/tags/phpmyadmin/">phpmyadmin</a>&nbsp;
-            
-            #<a href="http://localhost:1313/tags/data-export/">data export</a>&nbsp;
-            
-            #<a href="http://localhost:1313/tags/automation/">automation</a>&nbsp;
-            
-            #<a href="http://localhost:1313/tags/python/">python</a>&nbsp;
-            
-            #<a href="http://localhost:1313/tags/excel/">Excel</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          <p>在使用 PhpMyAdmin 时，您可能会遇到一个问题：当某些字段内容较长时，界面无法完整显示这些字段内容，只能看到部分数据。这种情况下，PhpMyAdmin 默认的导出功能可能无法满足需求，因为网页导出的数据也会被截断，手动复制粘贴又非常耗时且容易出错。</p>
-<p>因此，我们可以通过编写 Python 脚本直接调用 PhpMyAdmin 的接口，自动化获取完整数据并保存为 Excel 文件。这样做的主要原因包括：</p>
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/post/2024/11/exportcommanddatafromphpmyadmin/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
-          <a href="http://localhost:1313/post/2024/11/headscalemigrationfromcentos7toubuntu24/">Headscale Migration from CentOS 7 to Ubuntu 24</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2024-11-04
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
+            #<a href="http://localhost:1313/tags/tailscale/">tailscale</a>&nbsp;
             
             #<a href="http://localhost:1313/tags/headscale/">headscale</a>&nbsp;
             
-            #<a href="http://localhost:1313/tags/migration/">migration</a>&nbsp;
-            
             #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
-            
-            #<a href="http://localhost:1313/tags/centos/">CentOS</a>&nbsp;
-            
-            #<a href="http://localhost:1313/tags/ubuntu/">Ubuntu</a>&nbsp;
             
           </span>
         
@@ -359,35 +360,298 @@
         
 
         <div class="post-content">
-          
-          <p>This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.</p>
-<h3 id="1-export-data-and-image-on-centos-7">1. Export Data and Image on CentOS 7</h3>
-<h4 id="export-configuration-and-database">Export Configuration and Database</h4>
-<p>To begin, export the configuration and database files from the <code>headscale</code> container:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker cp headscale:/etc/headscale/config.yaml ./config.yaml
-</span></span><span style="display:flex;"><span>docker cp headscale:/etc/headscale/db.sqlite ./db.sqlite
-</span></span></code></pre></div><h4 id="export-docker-image">Export Docker Image</h4>
-<p>Use <code>docker save</code> to export the <code>headscale</code> Docker image:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1
-</span></span></code></pre></div><h3 id="2-transfer-files-to-ubuntu-24">2. Transfer Files to Ubuntu 24</h3>
-<p>Transfer the configuration, database, and image files to the Ubuntu 24 system using <code>scp</code>, <code>rsync</code>, or another file transfer tool:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scp config.yaml db.sqlite headscale_image_backup.tar user@ubuntu-server:/path/to/backup/
-</span></span></code></pre></div><h3 id="3-import-data-on-ubuntu-24">3. Import Data on Ubuntu 24</h3>
-<h4 id="load-docker-image">Load Docker Image</h4>
-<p>On the Ubuntu system, use <code>docker load</code> to import the Docker image:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker load -i /path/to/backup/headscale_image_backup.tar
-</span></span></code></pre></div><h4 id="create-headscale-container">Create Headscale Container</h4>
-<p>Move the configuration and database files to <code>/etc/headscale/</code> and create the container:</p>
-          
+            
+            <h1 id="server-setup-process-using-headscale-with-docker">Server setup process using Headscale with Docker.</h1>
+<h2 id="记录采用headscale--docker-异地组网过程">记录采用headscale &amp; docker 异地组网过程</h2>
+<h2 id="需求背景">需求背景</h2>
+<blockquote>
+<p>曾经我尝试使用<code>ZeroTier</code>，最初的体验非常不错。然而，随着时间的推移，我发现连接速度变得缓慢和卡顿，
+有时甚至需要借助特殊的网络加速技术来提高性能。后来，在<code>X</code>社区中，我看到有人分享了<code>Tailscale</code>的好评，
+这促使我安装了<code>Tailscale</code>的官方客户端。相较于<code>ZeroTier</code>，<code>Tailscale</code>在速度上有显著的提升，
+尽管偶尔也会遇到一些延迟。<code>Tailscale</code>依赖于其官方服务器，但它支持用户自建服务器，
+这一点非常吸引我。通过结合使用<code>Tailscale</code>客户端和官网，我们可以实现异地组网。
+为了达到更理想的连接速度，我决定自建异地组网系统。这样不仅能控制家中的<code>群晖</code>设备，还能优化<code>PT</code>下载等功能。</p>
+            
         </div>
 
         
         <div>
-          <a class="read-more button"
-            href="/post/2024/11/headscalemigrationfromcentos7toubuntu24/">Read more →</a>
+            <a class="read-more button"
+               href="/post/2024/04/headscale-server-setup-process/">Read more →</a>
         </div>
         
-      </div>
+    </div>
+    
+    <div class="post on-list">
+        <h1 class="post-title">
+            <a href="http://localhost:1313/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/">Solving HTTPS Debugging Issues with SSO Integration Using Ngrok on Windows</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2024-01-02
+          </span>
+            
+        </div>
+
+        
+        <span class="post-tags">
+            
+            #<a href="http://localhost:1313/tags/sso/">SSO</a>&nbsp;
+            
+            #<a href="http://localhost:1313/tags/https/">HTTPS</a>&nbsp;
+            
+            #<a href="http://localhost:1313/tags/ngrok/">Ngrok</a>&nbsp;
+            
+            #<a href="http://localhost:1313/tags/windows/">Windows</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+            
+            <h2 id="介绍">介绍</h2>
+<p>在这篇文章中，我们将探讨如何使用ngrok在Windows环境下解决与公司SSO系统对接时的HTTPS调试问题。我们将逐步介绍如何配置ngrok以实现内网穿透，从而允许远程服务器访问您的本地开发环境。</p>
+<h2 id="步骤1-安装ngrok">步骤1: 安装ngrok</h2>
+<p>首先，需要在Windows系统上安装ngrok。请按照以下步骤操作：</p>
+<ol>
+<li>
+<p>访问<a href="https://ngrok.com/download">ngrok官网</a>。</p>
+</li>
+<li>
+<p>下载适用于Windows的ngrok安装包。</p>
+            
+        </div>
+
+        
+        <div>
+            <a class="read-more button"
+               href="/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/">Read more →</a>
+        </div>
+        
+    </div>
+    
+    <div class="post on-list">
+        <h1 class="post-title">
+            <a href="http://localhost:1313/guides/configure-direct-domain-in-clash/">Configure Direct Domain in Clash</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2023-10-12
+          </span>
+            
+        </div>
+
+        
+
+        
+
+        <div class="post-content">
+            
+            <p>In Clash, if you want a specific domain to bypass the proxy and connect directly, you can utilize the <code>mixin</code> and <code>rules</code> settings. Below is an example of how to set up a direct connection for the domain <code>baolei.xxxx.com</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">dns</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enable</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enhanced-mode</span>: <span style="color:#ae81ff">redir-host</span> <span style="color:#75715e"># 或者使用 fake-ip，根据你的需求选择</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">listen</span>: <span style="color:#ae81ff">0.0.0.0</span>:<span style="color:#ae81ff">53</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">nameserver</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">172.20.128.2</span> <span style="color:#75715e"># 你的首选DNS服务器,家庭内网dns,公司内网dns</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">172.20.128.3</span> <span style="color:#75715e"># 你的备用DNS服务器,家庭内网dns,公司内网dns</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># - &#34;8.8.8.8&#34; # 公共DNS，仅在访问互联网时使用</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># - &#34;8.8.4.4&#34; # 公共DNS，仅在访问互联网时使用</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">fallback</span>: <span style="color:#75715e"># 当 nameserver 无法解析才使用以下dns解析</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;8.8.8.8&#34;</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;8.8.4.4&#34;</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;1.1.1.1&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">fallback-filter</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">geoip</span>: <span style="color:#66d9ef">true</span> <span style="color:#75715e"># 使用GeoIP规则过滤掉国内的IP地址</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ipcidr</span>: <span style="color:#75715e"># 保证以下私有地址范围不使用fallback DNS</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;0.0.0.0/8&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;10.0.0.0/8&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;127.0.0.0/8&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;169.254.0.0/16&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;172.16.0.0/12&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;192.168.0.0/16&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;::1/128&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;fc00::/7&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;fe80::/10&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#e6db74">&#39;DOMAIN-SUFFIX,baolei.xxxx.com,DIRECT&#39;</span> <span style="color:#75715e"># 确保这条规则在任何可能触发代理的规则之前</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># 其他规则...</span>
+</span></span></code></pre></div><p><code>mixin</code>: This setting allows you to modify the main configuration dynamically. It is useful when you want to have a base configuration and apply changes without affecting the main configuration.</p>
+            
+        </div>
+
+        
+        <div>
+            <a class="read-more button"
+               href="/guides/configure-direct-domain-in-clash/">Read more →</a>
+        </div>
+        
+    </div>
+    
+    <div class="post on-list">
+        <h1 class="post-title">
+            <a href="http://localhost:1313/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/">Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2023-10-08
+          </span>
+            
+        </div>
+
+        
+        <span class="post-tags">
+            
+            #<a href="http://localhost:1313/tags/vmware/">vmware</a>&nbsp;
+            
+            #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+            
+            <h1 id="解决因docker网络导致的网络问题无法ping通局域网ip">解决因docker网络导致的网络问题，无法ping通局域网ip</h1>
+<h2 id="背景">背景</h2>
+<p>在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网并 ping 通外部地址，但 CentOS 7 无法 ping 通宿主机。这让我非常困惑，并最初怀疑可能是公司的网管对我的 MAC 地址进行了某种限制。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># route -n</span>
+</span></span><span style="display:flex;"><span>Kernel IP routing table
+</span></span><span style="display:flex;"><span>Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+</span></span><span style="display:flex;"><span>0.0.0.0         172.22.128.1    0.0.0.0         UG    <span style="color:#ae81ff">100</span>    <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> ens33
+</span></span><span style="display:flex;"><span>172.17.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> docker0
+</span></span><span style="display:flex;"><span>172.18.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-6b8659f8f886
+</span></span><span style="display:flex;"><span>172.19.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-89bc77a42b8a
+</span></span><span style="display:flex;"><span>172.20.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-b4e656893ece
+</span></span><span style="display:flex;"><span>172.22.128.0    0.0.0.0         255.255.240.0   U     <span style="color:#ae81ff">100</span>    <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> ens33
+</span></span><span style="display:flex;"><span>172.26.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-5b7ab2df8a43
+</span></span></code></pre></div><blockquote>
+<p>虚拟机上有多个 Docker 网络，其中一个网络（br-b4e656893ece）与宿主机的网络冲突。<br>
+这意味着， 尝试 ping 宿主机时，数据包可能被发送到了 Docker 网络，而不是真正的物理网络。<br>
+这是最关键的问题所在</p>
+            
+        </div>
+
+        
+        <div>
+            <a class="read-more button"
+               href="/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/">Read more →</a>
+        </div>
+        
+    </div>
+    
+    <div class="post on-list">
+        <h1 class="post-title">
+            <a href="http://localhost:1313/post/2023/07/openresty-lua-lapis-and-redis-cluster-setup-guide/">OpenResty Lua Lapis and Redis Cluster Setup Guide</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2023-07-05
+          </span>
+            
+        </div>
+
+        
+        <span class="post-tags">
+            
+            #<a href="http://localhost:1313/tags/openrest/">openrest</a>&nbsp;
+            
+            #<a href="http://localhost:1313/tags/lapis/">lapis</a>&nbsp;
+            
+            #<a href="http://localhost:1313/tags/redis/">redis</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+            
+            <h1 id="安装模块">安装模块</h1>
+<h2 id="下载并安装lua-resty-redis-cluster模块">下载并安装lua-resty-redis-cluster模块</h2>
+<ul>
+<li>
+<p>lua-resty-redis-cluster模块的GitHub地址：<a href="https://github.com/iresty/lua-resty-redis-cluster">https://github.com/iresty/lua-resty-redis-cluster</a></p>
+</li>
+<li>
+<p>这个模块可以用来连接redis集群。</p>
+</li>
+<li>
+<p>请将这个模块下载到任意的目录下。</p>
+</li>
+<li>
+<p>下载完成后，你只需要在包中找到<code>rediscluster.lua</code>和<code>redis_slot.c</code>两个文件。</p>
+</li>
+</ul>
+<blockquote>
+<p>注意：<code>.c</code>文件无法直接在nginx配置文件中引入，所以我们需要将它编译成<code>.so</code>文件。以下是编译命令：</p>
+            
+        </div>
+
+        
+        <div>
+            <a class="read-more button"
+               href="/post/2023/07/openresty-lua-lapis-and-redis-cluster-setup-guide/">Read more →</a>
+        </div>
+        
+    </div>
+    
+    <div class="post on-list">
+        <h1 class="post-title">
+            <a href="http://localhost:1313/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/">Hybrid Encryption With AES 128 Bit and RSA Using Java and Ngx_lua</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2023-06-08
+          </span>
+            
+        </div>
+
+        
+        <span class="post-tags">
+            
+            #<a href="http://localhost:1313/tags/aes/">AES</a>&nbsp;
+            
+            #<a href="http://localhost:1313/tags/rsa/">RSA</a>&nbsp;
+            
+            #<a href="http://localhost:1313/tags/ngx_lua/">ngx_lua</a>&nbsp;
+            
+            #<a href="http://localhost:1313/tags/encryption/">encryption</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+            
+            <h2 id="一种-aes128位rsa混合加密iv为前16个0字符使用java和ngxlua编写的加解密方法">一种 AES（128位）+RSA混合加密，iv为前16个0字符，使用java和ngx.lua编写的加解密方法</h2>
+<p>使用 openresty 和 ngx_lua 编写的服务端 HTTP 接口，旨在提供给 Android 设备提交加密数据上报、日志采集等功能。<br>
+主要流流程如下
+<img src="/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/swim-road-flow.PNG" alt="aes&#43;rsa混合常见流程"></p>
+<blockquote>
+<p><code>local enable_padding = true</code>：定义一个布尔变量<code> enable_padding</code> 并赋值为 <code>true</code>，用于启用填充功能。
+<code>local aes_128_cbc_with_padding = aes:new(key, nil, aes.cipher(128,&quot;cbc&quot;), {iv = string.rep('\0', 16)}, nil, nil, enable_padding)</code>：
+<code>aes:new()</code> 是创建 <code>AES</code> 加密算法实例的函数。<br>
+<code>key</code> 是用于加密和解密的密钥。<br>
+<code>nil</code> 表示没有额外的选项参数。<br>
+<code>aes.cipher(128, &quot;cbc&quot;)</code> 指定使用<code>AES-128</code> 位密钥和 <code>CBC (Cipher Block Chaining)</code> 模式进行加密。<br>
+<code>{iv = string.rep('\0', 16)}</code> 是初始化向量 <code>(IV)</code>，其中 <code>string.rep('\0', 16)</code> 创建了一个由 <code>16</code> 个空字符组成的字符串作为 <code>IV</code>。<br>
+最后一个参数 <code>enable_padding</code> 是用于启用填充功能的布尔变量。</p>
+            
+        </div>
+
+        
+        <div>
+            <a class="read-more button"
+               href="/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/">Read more →</a>
+        </div>
+        
+    </div>
     
     <div class="pagination">
   <div class="pagination__buttons">
@@ -403,7 +667,7 @@
   </div>
 </div>
 
-  </div>
+</div>
 
   </div>
 

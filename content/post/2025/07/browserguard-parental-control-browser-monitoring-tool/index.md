@@ -1,8 +1,8 @@
 ---
 title: "BrowserGuard - 智能浏览器监控工具，助力家长控制与学习管理"
-date: 2025-01-27T14:00:00+08:00
+date: 2025-07-27T14:00:00+08:00
 tags: ["Electron", "React", "TypeScript", "Parental Control", "Browser Monitoring", "Desktop App", "Cross Platform"]
-featured: true
+featured: false
 description: 为家庭电脑学习管理设计的智能浏览器监控工具。基于 Electron + React + TypeScript 技术栈开发，支持 macOS 和 Windows 双平台，通过实时监控浏览器访问行为，帮助家长和孩子建立健康的上网习惯。
 ---
 

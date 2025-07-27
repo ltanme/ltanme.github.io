@@ -1,36 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=54137&amp;path=livereload" data-no-instant defer></script>
   
     <title>Enable Public Network IPv6 Access for Home Routers :: LTAN.ME</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等 我的设备为广东移动&#43;openwrt(r5s)， 我上网模式是光猫拨号，路由器nat
-1.找到登录光猫后台用户名和密码
-2.设置如下状态如下-&gt;如图所示
-先把这里的沟去掉吧，后续再优化，看能否通网
-3.openwrt设置-&gt; 如图所示
-以下也是全部选择接受，从wan口到lan口接受 先看是否能通，后续慢慢做安全优化 " />
+<meta name="description" content="记录如何为家庭路由器开启公网IPv6访问，实现远程访问NAS、照片同步等需求，适用于广东移动&#43;OpenWrt环境，包含光猫与路由器详细设置步骤。" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/" />
+<link rel="canonical" href="http://localhost:54137/post/2024/09/enable-public-network-ipv6-access-for-home-routers/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
+<link rel="stylesheet" href="http://localhost:54137/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:54137/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:54137/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:54137/img/favicon/green.png">
 
 
 
@@ -46,17 +41,12 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Enable Public Network IPv6 Access for Home Routers">
-<meta property="og:description" content="记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等 我的设备为广东移动&#43;openwrt(r5s)， 我上网模式是光猫拨号，路由器nat
-1.找到登录光猫后台用户名和密码
-2.设置如下状态如下-&gt;如图所示
-先把这里的沟去掉吧，后续再优化，看能否通网
-3.openwrt设置-&gt; 如图所示
-以下也是全部选择接受，从wan口到lan口接受 先看是否能通，后续慢慢做安全优化 " />
-<meta property="og:url" content="http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/" />
+<meta property="og:description" content="记录如何为家庭路由器开启公网IPv6访问，实现远程访问NAS、照片同步等需求，适用于广东移动&#43;OpenWrt环境，包含光猫与路由器详细设置步骤。" />
+<meta property="og:url" content="http://localhost:54137/post/2024/09/enable-public-network-ipv6-access-for-home-routers/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:54137/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -153,7 +143,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/">Enable Public Network IPv6 Access for Home Routers</a></h1>
+    <a href="http://localhost:54137/post/2024/09/enable-public-network-ipv6-access-for-home-routers/">Enable Public Network IPv6 Access for Home Routers</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -166,7 +156,7 @@
   
   <span class="post-tags">
     
-    #<a href="http://localhost:1313/tags/ipv6/">ipv6</a>&nbsp;
+    #<a href="http://localhost:54137/tags/ipv6/">ipv6</a>&nbsp;
     
   </span>
   
@@ -214,7 +204,7 @@
     <div class="pagination__buttons">
         
         <span class="button previous">
-            <a href="http://localhost:1313/post/2024/11/headscalemigrationfromcentos7toubuntu24/">
+            <a href="http://localhost:54137/post/2024/11/headscalemigrationfromcentos7toubuntu24/">
                 <span class="button__icon">←</span>
                 <span class="button__text">Headscale Migration from CentOS 7 to Ubuntu 24</span>
             </a>
@@ -222,7 +212,7 @@
         
         
         <span class="button next">
-            <a href="http://localhost:1313/post/2024/08/common-docker-issues-solutions/">
+            <a href="http://localhost:54137/post/2024/08/common-docker-issues-solutions/">
                 <span class="button__text">Common Docker Issues Solutions</span>
                 <span class="button__icon">→</span>
             </a>
@@ -260,8 +250,8 @@
   </div>
 </footer>
 
-<script src="http://localhost:1313/assets/main.js"></script>
-<script src="http://localhost:1313/assets/prism.js"></script>
+<script src="http://localhost:54137/assets/main.js"></script>
+<script src="http://localhost:54137/assets/prism.js"></script>
 
 
 

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Thingsboard  on LTAN.ME</title>
-    <link>http://localhost:1313/tags/thingsboard-/</link>
+    <link>http://localhost:54137/tags/thingsboard-/</link>
     <description>Recent content in Thingsboard  on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 04 Jul 2024 21:01:07 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/thingsboard-/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Jul 2024 21:01:07 +0800</lastBuildDate><atom:link href="http://localhost:54137/tags/thingsboard-/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Thingsboard Getway Debug</title>
-      <link>http://localhost:1313/post/2024/07/thingsboard-getway-debug/</link>
+      <link>http://localhost:54137/post/2024/07/thingsboard-getway-debug/</link>
       <pubDate>Thu, 04 Jul 2024 21:01:07 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2024/07/thingsboard-getway-debug/</guid>
+      <guid>http://localhost:54137/post/2024/07/thingsboard-getway-debug/</guid>
       <description>&lt;h1 id=&#34;记一次thingsboard-gateway-调试总结&#34;&gt;记一次thingsboard gateway 调试总结&lt;/h1&gt;
 &lt;h3 id=&#34;背景&#34;&gt;背景&lt;/h3&gt;
 &lt;p&gt;在使用 &lt;code&gt;ThingsBoard 3.6.4&lt;/code&gt; 网关&lt;code&gt;thingsboard gateway 3.5.1&lt;/code&gt;的过程中，我们需要配置和调试 &lt;code&gt;MQTT&lt;/code&gt; 连接器，以便子设备能够正确处理来自网关的 &lt;code&gt;RPC&lt;/code&gt; 请求。此次调试过程中，遇到了一些问题，包括 &lt;code&gt;JSON&lt;/code&gt; 格式错误、消息未正确替换变量、以及消息处理超时等。
@@ -23,7 +23,7 @@
 但凡遇到网关问题，官方文档少知又少。github issue 有人遇到同样的问题无人回复,本人折腾了2天终于让子设备通网了&lt;/p&gt;
 &lt;p&gt;我模拟网关的网络结构如下：
 其中 &lt;code&gt;Demo Device 1&lt;/code&gt; 和 &lt;code&gt;Demo Device 2&lt;/code&gt; 作为 &lt;code&gt;thingsboard gateway&lt;/code&gt; 的子设备&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/07/thingsboard-getway-debug/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:54137/post/2024/07/thingsboard-getway-debug/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;问题总结&#34;&gt;问题总结&lt;/h3&gt;
 &lt;h4 id=&#34;1-json-格式错误&#34;&gt;1. JSON 格式错误&lt;/h4&gt;
 &lt;p&gt;在配置 &lt;code&gt;valueExpression&lt;/code&gt; 时，生成的 &lt;code&gt;JSON&lt;/code&gt; 字符串格式不正确，导致子设备在解析时出错。具体表现为双引号重复或逗号缺失。&lt;/p&gt;
@@ -148,16 +148,16 @@
 &lt;/ol&gt;
 &lt;p&gt;通过以上步骤，我们成功解决了 JSON 格式错误、变量未正确替换以及 RPC 请求超时等问题，确保了 ThingsBoard 网关和子设备能够正确通信。&lt;/p&gt;
 &lt;p&gt;thingsboard与gate&amp;amp;子设备最关键的部分，链接器配置json
-&lt;img src=&#34;http://localhost:1313/post/2024/07/thingsboard-getway-debug/img.png&#34; alt=&#34;img.png&#34;&gt;
+&lt;img src=&#34;http://localhost:54137/post/2024/07/thingsboard-getway-debug/img.png&#34; alt=&#34;img.png&#34;&gt;
 我的设备列表如下
-&lt;img src=&#34;http://localhost:1313/post/2024/07/thingsboard-getway-debug/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;
+&lt;img src=&#34;http://localhost:54137/post/2024/07/thingsboard-getway-debug/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;
 分别配置了两个按钮给设备1和设备2发送消息
-&lt;img src=&#34;http://localhost:1313/post/2024/07/thingsboard-getway-debug/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:54137/post/2024/07/thingsboard-getway-debug/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;子设备收到消息
 Received &lt;code&gt;{&amp;quot;method&amp;quot;:&amp;quot;setValue&amp;quot;, &amp;quot;params&amp;quot;:false, &amp;quot;id&amp;quot;:299}&lt;/code&gt; from &lt;code&gt;rpc/request/84c0b49-3bea-4949-a6b6-d815f9fac3e5/setValue/299&lt;/code&gt; topic
-&lt;img src=&#34;http://localhost:1313/post/2024/07/thingsboard-getway-debug/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:54137/post/2024/07/thingsboard-getway-debug/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;网关与子设备的关联关系
-&lt;img src=&#34;http://localhost:1313/post/2024/07/thingsboard-getway-debug/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:54137/post/2024/07/thingsboard-getway-debug/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;网关打印的日志&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;2024-07-04 13:13:20 - |INFO| - &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;mqtt_connector.py&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; - mqtt_connector - _process_on_message - &lt;span style=&#34;color:#ae81ff&#34;&gt;732&lt;/span&gt; - RPC response arrived. Forwarding it to thingsboard.

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python3 on LTAN.ME</title>
-    <link>http://localhost:1313/tags/python3/</link>
+    <link>http://localhost:54137/tags/python3/</link>
     <description>Recent content in Python3 on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 11 May 2023 15:25:41 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/python3/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 May 2023 15:25:41 +0800</lastBuildDate><atom:link href="http://localhost:54137/tags/python3/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Install Apache Spark on Windows Setup PySpark</title>
-      <link>http://localhost:1313/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</link>
+      <link>http://localhost:54137/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</link>
       <pubDate>Thu, 11 May 2023 15:25:41 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</guid>
+      <guid>http://localhost:54137/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</guid>
       <description>&lt;h2 id=&#34;为什么要在windows-10上运行scala-spark程序&#34;&gt;为什么要在Windows 10上运行Scala Spark程序&lt;/h2&gt;
 &lt;h3 id=&#34;开发环境设置简单&#34;&gt;开发环境设置简单：&lt;/h3&gt;
 &lt;p&gt;对于许多开发者来说，Windows是他们最熟悉的操作系统，
@@ -178,16 +178,16 @@ Version: &lt;code&gt;1.7&lt;/code&gt;（或您想使用的其他版本）&lt;br&
     
     <item>
       <title>Calculations Are Automatically Generated</title>
-      <link>http://localhost:1313/post/2023/02/calculations-are-automatically-generated/</link>
+      <link>http://localhost:54137/post/2023/02/calculations-are-automatically-generated/</link>
       <pubDate>Fri, 03 Feb 2023 15:18:02 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2023/02/calculations-are-automatically-generated/</guid>
+      <guid>http://localhost:54137/post/2023/02/calculations-are-automatically-generated/</guid>
       <description>&lt;h1 id=&#34;自动生成小学生算式题代码&#34;&gt;自动生成小学生算式题代码&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;自动生成100以内的2个操作数的加减运算算式，要求运算结果也在100以内
 规避结果为负数，题目数量可定制，生成到excel，可以直接打印，样式如下图
 感谢xkm提供代码&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2023/02/calculations-are-automatically-generated/calculations.jpg&#34; alt=&#34;自动生成小学算式题&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2023/02/calculations-are-automatically-generated/calculations.jpg&#34; alt=&#34;自动生成小学算式题&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;代码如下，运行环境python3.x&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#author:xkm&lt;/span&gt;
@@ -269,7 +269,7 @@ Version: &lt;code&gt;1.7&lt;/code&gt;（或您想使用的其他版本）&lt;br&
 &lt;p&gt;自动生成100以内的2个操作数的加减运算算式，要求运算结果也在100以内
 规避结果为负数，题目数量可定制，生成到excel，可以直接打印，样式如下图
 感谢xkm提供代码&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2023/02/calculations-are-automatically-generated/calculations.jpg&#34; alt=&#34;自动生成小学算式题&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2023/02/calculations-are-automatically-generated/calculations.jpg&#34; alt=&#34;自动生成小学算式题&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;代码如下，运行环境python3.x&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#author:xkm&lt;/span&gt;

@@ -3,6 +3,8 @@ title: "Enable Public Network IPv6 Access for Home Routers"
 date: 2024-09-11T20:52:28+08:00
 draft: false
 tags: ["ipv6"]
+description: "记录如何为家庭路由器开启公网IPv6访问，实现远程访问NAS、照片同步等需求，适用于广东移动+OpenWrt环境，包含光猫与路由器详细设置步骤。"
+
 ---
 # 记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等
 > 我的设备为广东移动+openwrt(r5s)， 我上网模式是光猫拨号，路由器nat   

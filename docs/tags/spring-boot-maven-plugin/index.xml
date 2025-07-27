@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Spring-Boot-Maven-Plugin on LTAN.ME</title>
-    <link>http://localhost:1313/tags/spring-boot-maven-plugin/</link>
+    <link>http://localhost:54137/tags/spring-boot-maven-plugin/</link>
     <description>Recent content in Spring-Boot-Maven-Plugin on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 08 May 2021 16:39:39 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/spring-boot-maven-plugin/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 May 2021 16:39:39 +0800</lastBuildDate><atom:link href="http://localhost:54137/tags/spring-boot-maven-plugin/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Solve the Problem of Maven Packaging Static Resource Coding</title>
-      <link>http://localhost:1313/post/2021/05/solve-the-problem-of-maven-packaging-static-resource-coding/</link>
+      <link>http://localhost:54137/post/2021/05/solve-the-problem-of-maven-packaging-static-resource-coding/</link>
       <pubDate>Sat, 08 May 2021 16:39:39 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/05/solve-the-problem-of-maven-packaging-static-resource-coding/</guid>
+      <guid>http://localhost:54137/post/2021/05/solve-the-problem-of-maven-packaging-static-resource-coding/</guid>
       <description>&lt;h1 id=&#34;解决maven生成jar包时字体不能正常显示&#34;&gt;解决maven生成jar包时字体不能正常显示&lt;/h1&gt;
 &lt;p&gt;由于前端人手不够，今天做了一个小项目，这个项目是用spring boot  + layui 构建的后台管理系统。就没有用到前后端分离的方式去开发&lt;/p&gt;
 &lt;p&gt;项目做完后在打包时运行时发现浏览器显示字体损坏，导致网站icon图标不能正常显示&lt;/p&gt;
@@ -92,7 +92,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;问题原因&#34;&gt;问题原因:&lt;/h2&gt;
 &lt;p&gt;经过发现在不加上面打包代码时，不排除font 字体目录时，发现maven在打包复制时，对其font字体文件编译，导致文件被改写，编码和原来的字体文件不一样，导致打包前，打包前文件md5不一样，font 字体损坏，最终浏览器显示字体损坏&lt;/p&gt;
 &lt;p&gt;打包后可以对比一下字体md5文件，就知道mvn在编译打包时，损坏了font&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/solve-the-problem-of-maven-packaging-static-resource-coding/image-20210508170557174.png&#34; alt=&#34;image-20210508170557174&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:54137/post/2021/05/solve-the-problem-of-maven-packaging-static-resource-coding/image-20210508170557174.png&#34; alt=&#34;image-20210508170557174&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     

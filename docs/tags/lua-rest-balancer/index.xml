@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lua-Rest-Balancer on LTAN.ME</title>
-    <link>http://localhost:1313/tags/lua-rest-balancer/</link>
+    <link>http://localhost:54137/tags/lua-rest-balancer/</link>
     <description>Recent content in Lua-Rest-Balancer on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 30 May 2021 12:46:19 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/lua-rest-balancer/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 May 2021 12:46:19 +0800</lastBuildDate><atom:link href="http://localhost:54137/tags/lua-rest-balancer/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Application Based on lua-resty-balancer</title>
-      <link>http://localhost:1313/post/2021/05/application-based-on-lua-resty-balancer/</link>
+      <link>http://localhost:54137/post/2021/05/application-based-on-lua-resty-balancer/</link>
       <pubDate>Sun, 30 May 2021 12:46:19 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/05/application-based-on-lua-resty-balancer/</guid>
+      <guid>http://localhost:54137/post/2021/05/application-based-on-lua-resty-balancer/</guid>
       <description>&lt;h1 id=&#34;基于openresty--lua-resty-balancer-模块实现自定义分流功能&#34;&gt;基于openresty  lua-resty-balancer 模块实现自定义分流功能&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;该模块为提供分流算法，抽离了hash算法, roundrobin轮询等，好处使业务灵活调用算法而分配对像。该对像不一定指服务器，也可以是数据对像或文件对像等等&lt;/p&gt;&lt;/blockquote&gt;
