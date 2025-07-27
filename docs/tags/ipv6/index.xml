@@ -2,53 +2,53 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ipv6 on LTAN.ME</title>
-    <link>http://localhost:1313/tags/ipv6/</link>
+    <link>https://ltan.me/tags/ipv6/</link>
     <description>Recent content in Ipv6 on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 11 Sep 2024 20:52:28 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/ipv6/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Sep 2024 20:52:28 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/ipv6/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Enable Public Network IPv6 Access for Home Routers</title>
-      <link>http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/</link>
+      <link>https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/</link>
       <pubDate>Wed, 11 Sep 2024 20:52:28 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/</guid>
+      <guid>https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/</guid>
       <description>&lt;h1 id=&#34;记一次开启给家庭网络开通公网ip访问方便远程访问nas同步照片资料等&#34;&gt;记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;我的设备为广东移动+openwrt(r5s)， 我上网模式是光猫拨号，路由器nat&lt;br&gt;
 1.找到登录光猫后台用户名和密码&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;br&gt;
 2.设置如下状态如下-&amp;gt;如图所示&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;
 先把这里的沟去掉吧，后续再优化，看能否通网&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;</description>
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;记一次开启给家庭网络开通公网ip访问方便远程访问nas同步照片资料等&#34;&gt;记一次开启给家庭网络开通公网ip访问，方便远程访问nas同步照片，资料等&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;我的设备为广东移动+openwrt(r5s)， 我上网模式是光猫拨号，路由器nat&lt;br&gt;
 1.找到登录光猫后台用户名和密码&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;br&gt;
 2.设置如下状态如下-&amp;gt;如图所示&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;
 先把这里的沟去掉吧，后续再优化，看能否通网&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;3.openwrt设置-&amp;gt; 如图所示&lt;br&gt;
 以下也是全部选择接受，从wan口到lan口接受
 先看是否能通，后续慢慢做安全优化
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_8.png&#34; alt=&#34;img_8.png&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_9.png&#34; alt=&#34;img_9.png&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_10.png&#34; alt=&#34;img_10.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_8.png&#34; alt=&#34;img_8.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_9.png&#34; alt=&#34;img_9.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_10.png&#34; alt=&#34;img_10.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;测试 用手机5g流量,浏览器打开访问 &lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_11.png&#34; alt=&#34;img_11.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/09/enable-public-network-ipv6-access-for-home-routers/img_11.png&#34; alt=&#34;img_11.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;ipv6 通网成功,不过后续ipv6 地址经常变动，但可以在pt站点查看做种的ip地址&lt;/p&gt;
 </content>
     </item>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Phpmyadmin on LTAN.ME</title>
-    <link>http://localhost:1313/tags/phpmyadmin/</link>
+    <link>https://ltan.me/tags/phpmyadmin/</link>
     <description>Recent content in Phpmyadmin on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Nov 2024 12:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/phpmyadmin/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Nov 2024 12:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/phpmyadmin/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Export Command Data from PhpMyAdmin</title>
-      <link>http://localhost:1313/post/2024/11/exportcommanddatafromphpmyadmin/</link>
+      <link>https://ltan.me/post/2024/11/exportcommanddatafromphpmyadmin/</link>
       <pubDate>Mon, 04 Nov 2024 12:00:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2024/11/exportcommanddatafromphpmyadmin/</guid>
+      <guid>https://ltan.me/post/2024/11/exportcommanddatafromphpmyadmin/</guid>
       <description>&lt;p&gt;在使用 PhpMyAdmin 时，您可能会遇到一个问题：当某些字段内容较长时，界面无法完整显示这些字段内容，只能看到部分数据。这种情况下，PhpMyAdmin 默认的导出功能可能无法满足需求，因为网页导出的数据也会被截断，手动复制粘贴又非常耗时且容易出错。&lt;/p&gt;</description>
       <content>&lt;p&gt;在使用 PhpMyAdmin 时，您可能会遇到一个问题：当某些字段内容较长时，界面无法完整显示这些字段内容，只能看到部分数据。这种情况下，PhpMyAdmin 默认的导出功能可能无法满足需求，因为网页导出的数据也会被截断，手动复制粘贴又非常耗时且容易出错。&lt;/p&gt;
 &lt;p&gt;因此，我们可以通过编写 Python 脚本直接调用 PhpMyAdmin 的接口，自动化获取完整数据并保存为 Excel 文件。这样做的主要原因包括：&lt;/p&gt;
@@ -98,35 +98,6 @@
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
  
 &lt;/code&gt;&lt;/pre&gt;</content>
-    </item>
-    
-    <item>
-      <title>Phpmyadmin Docker Install</title>
-      <link>http://localhost:1313/post/2022/03/phpmyadmin-docker-install/</link>
-      <pubDate>Mon, 28 Mar 2022 18:14:36 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/2022/03/phpmyadmin-docker-install/</guid>
-      <description>&lt;h1 id=&#34;phpmyadmin-runs-in-the-docker-environment&#34;&gt;phpmyadmin runs in the docker environment&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;快速部署phpmyadmin mysql客户端管理工具，用于开发环境调用，测试用途，开源助免费&lt;br&gt;
-如果只是简单查询修改数据，推荐此工具 phpmyadmin mysql web管理工具&lt;br&gt;
-安装docker 环境后，直接运行以下命令，高级功能请查询官方文档&lt;/p&gt;</description>
-      <content>&lt;h1 id=&#34;phpmyadmin-runs-in-the-docker-environment&#34;&gt;phpmyadmin runs in the docker environment&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;快速部署phpmyadmin mysql客户端管理工具，用于开发环境调用，测试用途，开源助免费&lt;br&gt;
-如果只是简单查询修改数据，推荐此工具 phpmyadmin mysql web管理工具&lt;br&gt;
-安装docker 环境后，直接运行以下命令，高级功能请查询官方文档&lt;/p&gt;&lt;/blockquote&gt;
-&lt;h2 id=&#34;命令&#34;&gt;命令&lt;/h2&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-jshelllanguage&#34; data-lang=&#34;jshelllanguage&#34;&gt;#下载容器
-docker pull phpmyadmin/phpmyadmin
-#运行容器，PMA_ARBITRARY=1表示可以连接任意mysql数据库服务器
-docker run --name myadmin -d -e PMA_ARBITRARY=1   -p 8081:80  phpmyadmin/phpmyadmin
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;##运行结果如下&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;如果遇到登录不上的，请检查你的mysql端口和用户名，密码&lt;br&gt;
-需要填写mysql username or password&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/03/phpmyadmin-docker-install/phpmyadmin-docker-use-login.png&#34; alt=&#34;phpmyadmin-use&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
-</content>
     </item>
     
   </channel>
