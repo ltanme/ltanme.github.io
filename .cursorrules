@@ -1,0 +1,199 @@
+# Cursor Rules for LTAN Blog Project
+
+## 项目概述
+这是一个基于Hugo的静态博客项目，使用terminal主题，部署在GitHub Pages上。
+项目作者：SwimBytes <SwimBytes@ltan.me>
+
+## 文件结构规则
+
+### 博客文章路径规则
+- 文章路径: `content/post/年份/月份/文章目录/`
+- 文章目录命名: 使用英文，kebab-case格式（用连字符分隔）
+- 示例: `content/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/`
+
+### 文章文件结构
+```
+content/post/年份/月份/文章目录/
+├── index.md          # 文章主文件
+├── image1.png        # 文章相关图片
+├── image2.jpg        # 文章相关图片
+└── ...
+```
+
+### 图片存放规则
+- **文章图片**: 直接放在文章目录下，与index.md同级
+- **全局图片**: 放在 `docs/images/` 或 `docs/img/` 目录下
+- **图片引用**: 使用相对路径，如 `![](./image.png)`
+
+## 编码规范
+
+### Front Matter格式
+```yaml
+---
+title: "文章标题"
+date: 2024-01-02T10:00:00+08:00
+tags: ["标签1", "标签2", "标签3"]
+featured: true  # 可选，是否置顶
+---
+```
+
+### Markdown编写规范
+- 使用中文编写内容
+- 标题使用 `##` 开始（因为 `#` 是文章标题）
+- 代码块使用 ``` 包围
+- 图片使用 `![](./image.png)` 格式
+- 链接使用 `[文本](URL)` 格式
+
+### 标签规范
+- 使用英文标签
+- 标签用双引号包围
+- 标签按重要性排序
+- 常见标签: ["Java", "Spring Boot", "Docker", "Python", "Linux", "Networking"]
+
+## 创建新博客的步骤
+
+1. **创建目录结构**:
+   ```bash
+   mkdir -p content/post/$(date +%Y)/$(date +%m)/your-article-title
+   ```
+
+2. **创建文章文件**:
+   ```bash
+   touch content/post/$(date +%Y)/$(date +%m)/your-article-title/index.md
+   ```
+
+3. **添加Front Matter模板**:
+   ```yaml
+   ---
+   title: "你的文章标题"
+   date: $(date -u +%Y-%m-%dT%H:%M:%S+08:00)
+   tags: ["标签1", "标签2"]
+   featured: false
+   ---
+   ```
+
+## 项目配置
+
+### 重要配置文件
+- `config.toml`: 主要配置文件
+- `config.yaml`: 备用配置文件
+- `themes/terminal/`: 主题文件
+- `docs/`: 生成的静态文件（GitHub Pages）
+
+### 构建和部署
+- 构建命令: `hugo`
+- 发布目录: `docs/`
+- 主题: terminal
+- 分页: 每页5篇文章
+
+## 最佳实践
+
+### 文章编写
+1. 使用清晰的标题和结构
+2. 添加适当的标签便于分类
+3. 图片文件名使用描述性名称
+4. 代码示例要完整可运行
+5. 添加适当的链接和引用
+
+### 图片处理
+1. 压缩图片以减小文件大小
+2. 使用PNG格式保存截图
+3. 使用JPG格式保存照片
+4. 图片文件名使用英文
+
+### 版本控制
+1. 提交前先本地构建测试
+2. 图片文件也要提交到Git
+3. 使用描述性的提交信息
+4. 定期备份重要内容
+
+## 常见任务
+
+### 创建新文章
+```bash
+# 创建目录
+mkdir -p content/post/$(date +%Y)/$(date +%m)/your-article-title
+
+# 创建文章文件
+cat > content/post/$(date +%Y)/$(date +%m)/your-article-title/index.md << 'EOF'
+---
+title: "文章标题"
+date: $(date -u +%Y-%m-%dT%H:%M:%S+08:00)
+tags: ["标签1", "标签2"]
+featured: false
+---
+
+## 介绍
+在这里写文章介绍...
+
+## 正文内容
+在这里写正文内容...
+
+EOF
+```
+
+### 本地预览
+```bash
+hugo server -D
+```
+
+### 构建部署
+```bash
+# 生产环境构建（使用正确的baseURL）
+hugo --baseURL="https://ltan.me"
+
+# 本地开发预览
+hugo server -D
+
+# 提交到Git
+git add .
+git commit -m "Add new article: 文章标题"
+git push
+```
+
+## 注意事项
+- 确保所有图片文件都正确提交到Git
+- 文章日期使用UTC+8时区
+- 标签使用英文，便于国际化
+- 定期检查构建是否成功
+- 保持文章目录结构的一致性
+
+## 常见问题解决
+
+### CSS加载错误
+如果遇到 `%25!s%28%3cnil%3e%29.css` 错误，这是因为主题颜色配置问题：
+1. 确保 `config.toml` 中使用 `ThemeColor = "blue"`（或其他有效颜色）
+2. 或者创建自定义的 `layouts/partials/head.html` 文件来修复模板逻辑
+
+### 内容不居中问题
+如果页面内容不居中，检查以下配置：
+1. 确保 `config.toml` 中只有一个 `[params]` 部分
+2. 在 `[params]` 中设置 `CenterTheme = true`
+3. 确保参数名称正确（使用大写开头）
+
+### Read More按钮文本
+如果需要自定义"Read more"按钮的文本：
+1. 在 `[params]` 部分添加 `ReadMore = "自定义文本"`
+2. 例如：`ReadMore = "查看更多"` 会显示为"查看更多 →"
+
+### 主题颜色设置
+如果需要更改整站的主题颜色：
+1. 在 `[params]` 部分设置 `ThemeColor = "颜色名"`
+2. 可用颜色：["orange", "blue", "red", "green", "pink"]
+3. 颜色会影响：accent颜色、按钮、链接、边框等
+4. 确保使用主题的原始模板，不要覆盖head.html
+
+### Tags页面配置
+如果tags页面不显示标签云：
+1. 删除 `content/tags/index.md` 文件，让Hugo自动生成taxonomy页面
+2. 确保 `config.toml` 中有 `[taxonomies]` 配置：`tag = "tags"`
+3. Hugo会自动使用主题的 `terms.html` 模板生成标签云页面
+
+### 每日自动更换颜色
+项目配置了GitHub Actions来自动每天更换主题颜色：
+1. **工作流文件**: `.github/workflows/daily-color-change.yml`
+2. **执行时间**: 每天凌晨2点（UTC时间，北京时间10点）
+3. **颜色列表**: ["orange", "blue", "red", "green", "pink"]
+4. **手动触发**: 在GitHub Actions页面可以手动触发
+5. **测试脚本**: `./test-color-generator.sh` 可以预览未来几天的颜色
+6. **算法**: 使用日期作为种子，确保同一天颜色一致 
