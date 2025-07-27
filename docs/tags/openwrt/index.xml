@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>OpenWRT on LTAN.ME</title>
-    <link>https://ltan.me/tags/openwrt/</link>
+    <link>http://localhost:1313/tags/openwrt/</link>
     <description>Recent content in OpenWRT on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 28 Feb 2025 17:03:23 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/openwrt/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Feb 2025 17:03:23 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/openwrt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Controlling Internet Access with OpenWRT Firewall: Blocking Websites and Disabling Internet</title>
-      <link>https://ltan.me/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/</link>
+      <link>http://localhost:1313/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/</link>
       <pubDate>Fri, 28 Feb 2025 17:03:23 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/</guid>
+      <guid>http://localhost:1313/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;In today&amp;rsquo;s connected world, managing internet access within a home or small office network has become increasingly important. Whether you&amp;rsquo;re implementing parental controls, limiting non-productive internet usage during specific hours, or securing access to network resources, OpenWRT provides powerful tools to accomplish these tasks.&lt;/p&gt;
 &lt;p&gt;This article demonstrates several practical scripts for controlling internet access using an OpenWRT router. We&amp;rsquo;ll cover:&lt;/p&gt;
@@ -304,10 +304,10 @@
     
     <item>
       <title>How to Disk Partition Formatted in Openwrt System</title>
-      <link>https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/</link>
+      <link>http://localhost:1313/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/</link>
       <pubDate>Mon, 11 Apr 2022 19:50:44 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/</guid>
+      <guid>http://localhost:1313/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/</guid>
       <description>&lt;h1 id=&#34;how-to-disk-partition-formatted-in-openwrt-system-and-improve-network-performance&#34;&gt;How to Disk Partition Formatted in Openwrt System and Improve network performance&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;如何在openwrt系统下给磁盘分区，并且是给固态硬盘分区&lt;code&gt;nvme标识&lt;/code&gt;
@@ -338,7 +338,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;3, 挂载分区，使用命令临时挂载，一次性的，需要开机则挂机，则需要添加init.d命令，这里推荐用图形界面挂载比
 比较简单,选择UUID,挂载点后点击保存即可
-&lt;img src=&#34;https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/openwrt-mount.png&#34; alt=&#34;openwrt mount disk&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;http://localhost:1313/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/openwrt-mount.png&#34; alt=&#34;openwrt mount disk&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;以下是用命令操作分区格式化的过程&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;root@OpenWrt:~# mount /dev/nvme0n1p3 /data/
@@ -1012,11 +1012,11 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# root @ FusionWrt in /data [21:42:47]&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;升级网线买的号称万兆网线有点小贵看材质就不一样&#34;&gt;升级网线，买的号称万兆网线，有点小贵，看材质就不一样&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/netline.png&#34; alt=&#34;netline&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/netline.png&#34; alt=&#34;netline&#34;&gt;&lt;/p&gt;
 &lt;h1 id=&#34;浏览器pc有线测速家里宽带安装的移动300mbs&#34;&gt;浏览器pc有线测速，家里宽带安装的移动300Mbs&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/spedtestbrower.png&#34; alt=&#34;netline&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/spedtestbrower.png&#34; alt=&#34;netline&#34;&gt;&lt;/p&gt;
 &lt;h1 id=&#34;手机wifi测速&#34;&gt;手机wifi测速&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/speedtestcn.jpg&#34; alt=&#34;netline&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/speedtestcn.jpg&#34; alt=&#34;netline&#34;&gt;&lt;/p&gt;
 &lt;h1 id=&#34;主路由器主要提供拨号各种插件安装&#34;&gt;主路由器，主要提供拨号，各种插件安装&lt;/h1&gt;
 &lt;p&gt;N5105 4个网口 2.5g&lt;/p&gt;
 &lt;h1 id=&#34;wifi-ap路由器主要提供wifi移动设备连接&#34;&gt;wifi ap路由器，主要提供wifi移动设备连接&lt;/h1&gt;
@@ -1026,10 +1026,10 @@
     
     <item>
       <title>Main Route and Soft Route Use Configuration</title>
-      <link>https://ltan.me/post/2021/08/main-route-and-soft-route-use-configuration/</link>
+      <link>http://localhost:1313/post/2021/08/main-route-and-soft-route-use-configuration/</link>
       <pubDate>Wed, 11 Aug 2021 15:58:44 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/08/main-route-and-soft-route-use-configuration/</guid>
+      <guid>http://localhost:1313/post/2021/08/main-route-and-soft-route-use-configuration/</guid>
       <description>&lt;h1 id=&#34;软路由配置使用方法&#34;&gt;软路由配置使用方法&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;为什么需要使用软路由，是为了不影响原来主路由上网配置，网络环境，增加一个软路由来专门来解析404网站，及特殊的网络连接&lt;/p&gt;
@@ -1038,23 +1038,23 @@
 &lt;blockquote&gt;
 &lt;p&gt;为什么需要使用软路由，是为了不影响原来主路由上网配置，网络环境，增加一个软路由来专门来解析404网站，及特殊的网络连接&lt;/p&gt;
 &lt;p&gt;满足上网需求，下图就是今天要介绍软路由其中一种设置方法，不影响原来的网络环境下，给增加一台软路由方法，ip设置方法&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/08/main-route-and-soft-route-use-configuration/image-20210811160444222.png&#34; alt=&#34;image-20210811160444222&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/08/main-route-and-soft-route-use-configuration/image-20210811160444222.png&#34; alt=&#34;image-20210811160444222&#34;&gt;&lt;/p&gt;
 &lt;p&gt;当电视或者手机需要打开404网站，则需要单独配置 dns 和网关ip,即可正常扶梯&lt;/p&gt;
 &lt;p&gt;上图为作者家用宽带  移动运营商300M 速度，上行30M, 下行300M,实际用speedtest测速apk，测试速度上行为4m, 下行为50M/s&lt;/p&gt;
 &lt;p&gt;主要设置注意点：&lt;/p&gt;
 &lt;p&gt;1,k2p 做为软路由，需要连使用lan口 接入主路由，k2p 自身需要接入lan口 而不是wan 口，接入wan口的话，则会产生的ip和主路由ip不在同一个网段，这样以来你的局域网访问就麻烦，这样默认情况下如果链接的软路由wifi的的手访问不了 群晖，最终你家里如果有多个路由器且都不在同一个网段的话，结果设备访问会多一层nat转发&lt;/p&gt;
 &lt;p&gt;2，关于测速，很多朋友对自己家里网速并不关心，不知道自己家里的路由器最大能不能跑满运营商给的网络环境。我经常会碰到运营商打电话给我推销网络提速套餐，然而自己家里路由是个十几年前的百兆路由器tplink的，如果提速成功了，往往网速还停留在原来的样子&lt;/p&gt;
 &lt;p&gt;这样是不是很坑，花的网络费用价值缺没有最大化，这里给大家推荐 手机 安装一款speedtest apk ,以后你可以时不时的点击一下测试你自己家里网速情况。当我加装了软路由器后，我再用speedtest 测速，并没有达到理想的值，于是在找原因，也打过几次电话给运营商投诉，后面发现是路由器本身发热温度太高了，导致的网速变慢，于是需要买风扇了，降温效果很明显，再次测试网速，可以正常了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/08/main-route-and-soft-route-use-configuration/image-20210811164100204.png&#34; alt=&#34;image-20210811164100204&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/08/main-route-and-soft-route-use-configuration/image-20210811164100204.png&#34; alt=&#34;image-20210811164100204&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
     <item>
       <title>Phicomm Router Upgrade System to Openwrt</title>
-      <link>https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/</link>
+      <link>http://localhost:1313/post/2021/07/phicomm-router-upgrade-system-to-openwrt/</link>
       <pubDate>Fri, 02 Jul 2021 14:40:17 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/</guid>
+      <guid>http://localhost:1313/post/2021/07/phicomm-router-upgrade-system-to-openwrt/</guid>
       <description>&lt;h1 id=&#34;openwrt-lede-系统-刷入-k2p-路由器&#34;&gt;OpenWrt Lede 系统 刷入 k2p 路由器&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;记录一下，过去经常用的k2p 刷入老毛子系统【padavan】 不用选闪存布局，分分钟成功刷入。但这次刷入OpenWrt 时发现死活进去路由器登录界面。经过在恩山发贴求助终于解决，感谢恩山大神们，真的很厉害！
@@ -1069,13 +1069,13 @@
 然后点击更新，重启，就是不能进入&lt;code&gt;openwrt&lt;/code&gt; 系统路由系统，关键是&lt;code&gt;openwrt wifi ssid &lt;/code&gt;搜索不到，没看到， 说明刷入不成功，我用网线链接电脑 ，电脑网线插上都不能有正常的&lt;code&gt;ip&lt;/code&gt; 获取到&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;登录界面如下图, 打开 http://192.168.10.10 就可以进入，如果找不到ip是多少，可以用ipconfig查看，必须是电脑 网线有线连接到 k2p lan口&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/image-20210702144843102.png&#34; alt=&#34;image-20210702144843102&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/07/phicomm-router-upgrade-system-to-openwrt/image-20210702144843102.png&#34; alt=&#34;image-20210702144843102&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;默认用户名 &lt;code&gt;root&lt;/code&gt;   密码 &lt;code&gt;password&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/image-20210702144651741.png&#34; alt=&#34;image-20210702144651741&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/07/phicomm-router-upgrade-system-to-openwrt/image-20210702144651741.png&#34; alt=&#34;image-20210702144651741&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;刷入失败导致路由器不能工作，重新解决步骤   记录一下&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/07/phicomm-router-upgrade-system-to-openwrt/image-20210702145346377.png&#34; alt=&#34;image-20210702145346377&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/07/phicomm-router-upgrade-system-to-openwrt/image-20210702145346377.png&#34; alt=&#34;image-20210702145346377&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     

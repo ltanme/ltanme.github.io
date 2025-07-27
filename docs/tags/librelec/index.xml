@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>LibrELEC on LTAN.ME</title>
-    <link>https://ltan.me/tags/librelec/</link>
+    <link>http://localhost:1313/tags/librelec/</link>
     <description>Recent content in LibrELEC on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 04 Sep 2021 17:16:13 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/librelec/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Sep 2021 17:16:13 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/librelec/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mount Network Share on LibrEelec or on CoreElec</title>
-      <link>https://ltan.me/post/2021/09/mount-network-share-on-libreelec-or-on-coreelec/</link>
+      <link>http://localhost:1313/post/2021/09/mount-network-share-on-libreelec-or-on-coreelec/</link>
       <pubDate>Sat, 04 Sep 2021 17:16:13 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/09/mount-network-share-on-libreelec-or-on-coreelec/</guid>
+      <guid>http://localhost:1313/post/2021/09/mount-network-share-on-libreelec-or-on-coreelec/</guid>
       <description>&lt;h1 id=&#34;如何在coreelec-系统挂在nas共享目录支持自动开机播放播放内容安排&#34;&gt;如何在coreelec 系统挂在nas共享目录，支持自动开机播放，播放内容安排&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;背景需求是打造家庭定时定点播放内容，内容包含音视频，现有环境闲置的n1盒子一台，音响一套，小米智能插座一个，nas ds218群晖一台，设定每天定时，定点播放不同内容，内容来自群晖硬盘，或者网络离线内容。需要解决以下关键问题如下&lt;/p&gt;</description>
@@ -126,10 +126,10 @@ WantedBy=multi-user.target
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Options=username=MyUser,password=MyPass,sec=ntlm,vers=1.0
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;SMB v1.0 is widely considered to be insecure, but TimeCapsules no longer receive software updates and there is no alternative; SMB v2/v3 are not supported.&lt;/p&gt;
 &lt;p&gt;最后效果，以下三个目录是我挂载进来的，如果你挂music, videos目录不建议，会报错的，估计是系统不留吧&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/mount-network-share-on-libreelec-or-on-coreelec/image-20210904174106369.png&#34; alt=&#34;image-20210904174106369&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/09/mount-network-share-on-libreelec-or-on-coreelec/image-20210904174106369.png&#34; alt=&#34;image-20210904174106369&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在 /storage/.config/system.d/目录下，默认系统提供了用例sample,模板，你可以直接更改为mount就可以用&lt;/p&gt;
 &lt;p&gt;mount文件内容格式一定要按上面格式填写才能生效，否则报错bad set&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/mount-network-share-on-libreelec-or-on-coreelec/image-20210904174307171.png&#34; alt=&#34;image-20210904174307171&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/09/mount-network-share-on-libreelec-or-on-coreelec/image-20210904174307171.png&#34; alt=&#34;image-20210904174307171&#34;&gt;&lt;/p&gt;
 &lt;p&gt;开机自启脚本如下：&lt;/p&gt;
 &lt;p&gt;在/storage/.kodi/userdata/ 目录下 创建 autoexec.py 文件 ，输入代码如下&lt;/p&gt;
 &lt;p&gt;python 脚本，这里借助xbmc 库，可以充分发挥你的想像力&lt;/p&gt;

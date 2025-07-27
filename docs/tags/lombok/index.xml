@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lombok on LTAN.ME</title>
-    <link>https://ltan.me/tags/lombok/</link>
+    <link>http://localhost:1313/tags/lombok/</link>
     <description>Recent content in Lombok on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 10 May 2024 10:41:26 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/lombok/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 10 May 2024 10:41:26 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/lombok/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4</title>
-      <link>https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/</link>
+      <link>http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/</link>
       <pubDate>Fri, 10 May 2024 10:41:26 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/</guid>
+      <guid>http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/</guid>
       <description>&lt;p&gt;#　Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;记录&lt;code&gt;thingsboard3.6.4&lt;/code&gt;在导入 &lt;code&gt;IntelliJ IDEA 2022.2.3&lt;/code&gt; 编译报错的一些问题&lt;br&gt;
@@ -32,9 +32,9 @@ JDK17,不是jdk11&lt;br&gt;
 在本地安装postgreSQL,创建好数据库名&lt;code&gt;thingsboard364&lt;/code&gt;&lt;br&gt;
 然后导入到IntelliJ IDEA 2022.2.3。&lt;br&gt;
 从复制sql脚本到application的&lt;code&gt;src/main/data/&lt;/code&gt;目录下&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img.png&#34; alt=&#34;img.png&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img.png&#34; alt=&#34;img.png&#34;&gt;
 把 &lt;strong&gt;IntelliJ IDEA&lt;/strong&gt; maven 设置跳过skip test,避免测试过程中遇到地域性测试，语言文本测试 导致通测试不过&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;
 最后点击 &lt;strong&gt;IntelliJ IDEA&lt;/strong&gt; maven package 进行编译项目 &lt;br&gt;
 我遇到的问题如下：&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;问题1 lombok 在jdk17下版本太低不兼容&lt;/em&gt;&lt;/p&gt;&lt;/blockquote&gt;
@@ -100,7 +100,7 @@ The error occurs because Java 17 enforces strong encapsulation, and using an old
 解决方法：换3.6.3版本&lt;br&gt;
 试了梯子没有问题，全局下载tun模式。依然无效
 最后解决了主要是问题，yarn cache问题，清理干净重新下载即可
-&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;
 报错如下&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;error&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; TypeError: Cannot read properties of undefined &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;reading &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;pluginOptions&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;at module.exports &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;E:&lt;span style=&#34;color:#ae81ff&#34;&gt;\w&lt;/span&gt;orkProject&lt;span style=&#34;color:#ae81ff&#34;&gt;\j&lt;/span&gt;ava5&lt;span style=&#34;color:#ae81ff&#34;&gt;\t&lt;/span&gt;hingsboard&lt;span style=&#34;color:#ae81ff&#34;&gt;\u&lt;/span&gt;i-ngx&lt;span style=&#34;color:#ae81ff&#34;&gt;\e&lt;/span&gt;xtra-webpack.config.js:71:57&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
@@ -157,7 +157,7 @@ C:\Users\admin\AppData\Local\Yarn  #这个缓存目录很坑，动不动几个G�
 &lt;p&gt;target\node\yarn\dist\bin\yarn.cmd cache clean &lt;br&gt;
 也可以手动执行安装，还可以看到进度条，通过maven的插件运行不太友好 &lt;br&gt;
 &lt;code&gt;target\node\yarn\dist\bin\yarn.cmd install&lt;/code&gt;如果这一条命令手动执行成功后，可以用mvn package 对ui-ngx打成jar包了 &lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;
 yarn 清理缓存如下
 清除yarn cache成功&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;yarn cache v1.22.17
@@ -191,13 +191,13 @@ apt-get install -y vim # 安装vim 修改配置&lt;br&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - /data/program/thingsboard/tb-data-363:/data
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - /data/program/thingsboard/logs:/var/log/thingsboard
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;关于thingsboard-protoc-文件显示问题&#34;&gt;关于thingsboard protoc 文件显示问题&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;br&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;br&gt;
 插件只安装一个，否则与第一个冲突，这是我遇到的问题&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_8.png&#34; alt=&#34;img_8.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_8.png&#34; alt=&#34;img_8.png&#34;&gt;&lt;br&gt;
 将生成的proto java 类必须让maven知道这是源文件，右键目录选择&lt;code&gt;Mark Directory as&lt;/code&gt;  设置为&lt;code&gt;Generated Sources root&lt;/code&gt;&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_9.png&#34; alt=&#34;img_9.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_9.png&#34; alt=&#34;img_9.png&#34;&gt;&lt;br&gt;
 TransportProts 飘红问题
-&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_10.png&#34; alt=&#34;img_10.png&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_10.png&#34; alt=&#34;img_10.png&#34;&gt;
 如果完全安装后错误仍然存在，则这是 IDE 的问题。打开&amp;quot;Edit Custom Properties&amp;hellip;&amp;quot;（或者可能以不同的方式调用）并添加以下行： &lt;br&gt;
 idea.max.intellisense.filesize=20000 &lt;br&gt;
 通过&lt;code&gt;ctrl+shift+A&lt;/code&gt;打开后输入上述配置 &lt;br&gt;
@@ -206,7 +206,7 @@ custom IntelliJ IDEA properties (expand/override &amp;lsquo;bin\idea.properties&
 idea.max.intellisense.filesize=20000 &lt;br&gt;
 保存后 重新运行：mvn clean install -DskipTests &lt;br&gt;
 小心点打开这个文件非常卡，我的内存吃不消了&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_11.png&#34; alt=&#34;img_11.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_11.png&#34; alt=&#34;img_11.png&#34;&gt;&lt;/p&gt;
 &lt;h1 id=&#34;说在最后&#34;&gt;说在最后&lt;/h1&gt;
 &lt;p&gt;在maven 编译时，一定要使用windows 管理员权限执行&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mvn clean package  -DskipTests -s settings.xml
@@ -223,8 +223,8 @@ npm install @angular/common@^14.0.0 @angular/core@^14.0.0
 也不排除一些情况在网络载中，某个js包下载不全导致编译报错，这种情况也会发生的。&lt;br&gt;
 随时查看网络情况以及电脑使用内存情况，由其是内存的问题，如果同时多个yarn install 然后又开了 IntelliJ IDEA 2022.2.3&lt;br&gt;
 多个任务，会导致内存接近极限，我电脑32G，被干到了31G，这样的话非常慢，重启电脑大法再来吧&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;最后展示编译thingsboard ui-ngx 3.6.3和3.6.4都编译通过了&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;以下是3.6.4 ui-ngx 编译成功&lt;/p&gt;&lt;/blockquote&gt;
@@ -296,7 +296,7 @@ npm install @angular/common@^14.0.0 @angular/core@^14.0.0
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;websocket connection issues. You might need to use &amp;#34;--disable-host-check&amp;#34; if that&amp;#39;&lt;/span&gt;s the
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt;.
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我还没有执行mvn 打包所有的java 光前端ui-ngx 2个G了&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;
 最终我运行的环境&lt;br&gt;
 C:\Users\admin&amp;gt;mvn -version&lt;br&gt;
 Apache Maven 3.8.2 (ea98e05a04480131370aa0c110b8c54cf726c06f)&lt;br&gt;
