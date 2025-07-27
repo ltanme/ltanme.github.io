@@ -14,7 +14,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GH_TOKEN }}
       
     - name: Generate random color
       id: random-color
@@ -39,10 +39,21 @@ jobs:
         echo "Updated config.toml:"
         grep "ThemeColor" config.toml
         
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: '0.148.1'
+        extended: true
+        
+    - name: Build site
+      run: |
+        # 重新构建网站以应用新的颜色
+        hugo --baseURL="https://ltan.me"
+        
     - name: Commit and push changes
       run: |
         git config --local user.email "SwimBytes@ltan.me"
         git config --local user.name "SwimBytes"
-        git add config.toml
+        git add config.toml docs/
         git commit -m "🎨 Daily color change: ${{ steps.random-color.outputs.color }}"
         git push 
