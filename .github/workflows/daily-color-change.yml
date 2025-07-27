@@ -57,6 +57,4 @@ jobs:
         git config --local user.name "SwimBytes"
         git add config.toml docs/
         git commit -m "🎨 Daily color change: ${{ steps.random-color.outputs.color }}"
-        git push
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }} 
+        git push https://${{ secrets.GH_TOKEN }}@github.com/ltanme/ltanme.github.io.git HEAD:master 
