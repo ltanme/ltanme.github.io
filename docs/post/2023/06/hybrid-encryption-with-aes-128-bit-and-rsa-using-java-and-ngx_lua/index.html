@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55668&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
     <title>Hybrid Encryption With AES 128 Bit and RSA Using Java and Ngx_lua :: LTAN.ME</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="一种 AES（128位）&#43;RSA混合加密，iv为前16个0字符，使用java和ngx.lua编写的加解密方法 使用 openresty 和 ngx_lua 编写的服务端 HTTP 接口，旨在提供给 Android 设备提交加密数据上报、日志采集等功能。
-主要流流程如下 " />
+主要流流程如下 local enable_padding = true：定义一个布尔变量 enable_padding 并赋值为 true，用于启用填充功能。 local aes_128_cbc_with_padding = aes:new(key, nil, aes.cipher(128,&quot;cbc&quot;), {iv = string.rep(&#39;\0&#39;, 16)}, nil, nil, enable_padding)： aes:new() 是创建 AES 加密算法实例的函数。
+key 是用于加密和解密的密钥。
+nil 表示没有额外的选项参数。
+aes.cipher(128, &quot;cbc&quot;) 指定使用AES-128 位密钥和 CBC (Cipher Block Chaining) 模式进行加密。
+{iv = string.rep(&#39;\0&#39;, 16)} 是初始化向量 (IV)，其中 string.rep(&#39;\0&#39;, 16) 创建了一个由 16 个空字符组成的字符串作为 IV。
+最后一个参数 enable_padding 是用于启用填充功能的布尔变量。
+" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:55668/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/" />
+<link rel="canonical" href="http://localhost:1313/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:55668/assets/style.css">
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:55668/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:55668/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:55668/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
 
 
 
@@ -43,12 +49,18 @@
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Hybrid Encryption With AES 128 Bit and RSA Using Java and Ngx_lua">
 <meta property="og:description" content="一种 AES（128位）&#43;RSA混合加密，iv为前16个0字符，使用java和ngx.lua编写的加解密方法 使用 openresty 和 ngx_lua 编写的服务端 HTTP 接口，旨在提供给 Android 设备提交加密数据上报、日志采集等功能。
-主要流流程如下 " />
-<meta property="og:url" content="http://localhost:55668/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/" />
+主要流流程如下 local enable_padding = true：定义一个布尔变量 enable_padding 并赋值为 true，用于启用填充功能。 local aes_128_cbc_with_padding = aes:new(key, nil, aes.cipher(128,&quot;cbc&quot;), {iv = string.rep(&#39;\0&#39;, 16)}, nil, nil, enable_padding)： aes:new() 是创建 AES 加密算法实例的函数。
+key 是用于加密和解密的密钥。
+nil 表示没有额外的选项参数。
+aes.cipher(128, &quot;cbc&quot;) 指定使用AES-128 位密钥和 CBC (Cipher Block Chaining) 模式进行加密。
+{iv = string.rep(&#39;\0&#39;, 16)} 是初始化向量 (IV)，其中 string.rep(&#39;\0&#39;, 16) 创建了一个由 16 个空字符组成的字符串作为 IV。
+最后一个参数 enable_padding 是用于启用填充功能的布尔变量。
+" />
+<meta property="og:url" content="http://localhost:1313/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:55668/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -145,7 +157,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="http://localhost:55668/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/">Hybrid Encryption With AES 128 Bit and RSA Using Java and Ngx_lua</a></h1>
+    <a href="http://localhost:1313/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/">Hybrid Encryption With AES 128 Bit and RSA Using Java and Ngx_lua</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -158,13 +170,13 @@
   
   <span class="post-tags">
     
-    #<a href="http://localhost:55668/tags/aes/">AES</a>&nbsp;
+    #<a href="http://localhost:1313/tags/aes/">AES</a>&nbsp;
     
-    #<a href="http://localhost:55668/tags/rsa/">RSA</a>&nbsp;
+    #<a href="http://localhost:1313/tags/rsa/">RSA</a>&nbsp;
     
-    #<a href="http://localhost:55668/tags/ngx_lua/">ngx_lua</a>&nbsp;
+    #<a href="http://localhost:1313/tags/ngx_lua/">ngx_lua</a>&nbsp;
     
-    #<a href="http://localhost:55668/tags/encryption/">encryption</a>&nbsp;
+    #<a href="http://localhost:1313/tags/encryption/">encryption</a>&nbsp;
     
   </span>
   
@@ -380,6 +392,33 @@
       </div></div>
 
   
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h"></span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="http://localhost:1313/post/2023/07/openresty-lua-lapis-and-redis-cluster-setup-guide/">
+                <span class="button__icon">←</span>
+                <span class="button__text">OpenResty Lua Lapis and Redis Cluster Setup Guide</span>
+            </a>
+        </span>
+        
+        
+        <span class="button next">
+            <a href="http://localhost:1313/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/">
+                <span class="button__text">How to Install Apache Spark on Windows Setup PySpark</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
 
   
 
@@ -408,8 +447,8 @@
   </div>
 </footer>
 
-<script src="http://localhost:55668/assets/main.js"></script>
-<script src="http://localhost:55668/assets/prism.js"></script>
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
 
 
 

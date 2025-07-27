@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55668&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
     <title>Calculations Are Automatically Generated :: LTAN.ME</title>
   
@@ -8,26 +8,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="自动生成小学生算式题代码 自动生成100以内的2个操作数的加减运算算式，要求运算结果也在100以内 规避结果为负数，题目数量可定制，生成到excel，可以直接打印，样式如下图 感谢xkm提供代码
 代码如下，运行环境python3.x
-" />
+#author:xkm #createdate:2023/2/3 #encoding=utf-8 import random import datetime import math import xlwt style = xlwt.XFStyle()#格式信息 font = xlwt.Font()#字体基本设置 font.name = u&#39;宋体&#39; font.color = &#39;black&#39; font.height= 400 #字体大小，220就是11号字体，大概就是11*20得来的吧 style.font = font wb = xlwt.Workbook() ws = wb.add_sheet(&#34;习题集&#34;,cell_overwrite_ok=True) data = [] cell = 4 #生成excel 列数 total = 100 #生成题数 def subbb(): a=random.randint(1,9) b=random.randint(0,a - 1) ab=a*10&#43;b a1=random.randint(1,a) b1 = random.randint(0, a1) ab1=a1 * 10 &#43; b1 if ab-ab1&gt;=0: res=str(ab)&#43;&#39;-&#39;&#43;str(ab1)&#43;&#39;=( )&#39;&#43;&#34;\r\n&#34;&#43;&#34;\r\n&#34; res=res&#43;&#39; &#39;&#43;str(a)&#43;&#39; &#39;&#43;str(b)&#43;&#39; &#39;&#43;&#34;\r\n&#34; res=res&#43;&#39; - &#39;&#43;str(a1)&#43;&#39; &#39;&#43;str(b1)&#43;&#39; &#39;&#43;&#34;\r\n&#34; res=res&#43; &#39;------------&#39;&#43;&#34;\r\n&#34;&#43;&#34;\r\n&#34; data.append(res) print(res) def addbb(): a = random.randint(1, 8) b = random.randint(0, a - 1) ab = a * 10 &#43; b a1 = random.randint(1, 9 - a) b1 = random.randint(0, 10 - b) ab1 = a1 * 10 &#43; b1 res = str(ab) &#43; &#39;&#43;&#39; &#43; str(ab1) &#43; &#39;=( )&#39; &#43; &#34;\r\n&#34; &#43; &#34;\r\n&#34; res = res &#43; &#39; &#39; &#43; str(a) &#43; &#39; &#39; &#43; str(b) &#43; &#39; &#39; &#43; &#34;\r\n&#34; res = res &#43; &#39; &#43; &#39; &#43; str(a1) &#43; &#39; &#39; &#43; str(b1) &#43; &#39; &#39; &#43; &#34;\r\n&#34; res = res &#43; &#39;------------&#39; &#43; &#34;\r\n&#34; &#43; &#34;\r\n&#34; data.append(res) print(res) for m in range(500): if random.randint(0,1)==1: addbb() else: subbb() index=0 for j in range(int(total / cell)): ws.row(j).height_mismatch = True ws.row(j).height =256 * 14 for k in range(cell): ws.col(k).width = 256 * 24 if total==index: break else: ws.write(j, k, data[index],style) index=index&#43;1 version = datetime.datetime.now().strftime(&#39;%Y%m%d%H%M%S&#39;) wb.save(&#34;竖式题目生成-%d-%d-%s.xlsx&#34; % (cell,len(data),version)) " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:55668/post/2023/02/calculations-are-automatically-generated/" />
+<link rel="canonical" href="http://localhost:1313/post/2023/02/calculations-are-automatically-generated/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:55668/assets/style.css">
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:55668/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:55668/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:55668/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
 
 
 
@@ -45,12 +45,12 @@
 <meta property="og:title" content="Calculations Are Automatically Generated">
 <meta property="og:description" content="自动生成小学生算式题代码 自动生成100以内的2个操作数的加减运算算式，要求运算结果也在100以内 规避结果为负数，题目数量可定制，生成到excel，可以直接打印，样式如下图 感谢xkm提供代码
 代码如下，运行环境python3.x
-" />
-<meta property="og:url" content="http://localhost:55668/post/2023/02/calculations-are-automatically-generated/" />
+#author:xkm #createdate:2023/2/3 #encoding=utf-8 import random import datetime import math import xlwt style = xlwt.XFStyle()#格式信息 font = xlwt.Font()#字体基本设置 font.name = u&#39;宋体&#39; font.color = &#39;black&#39; font.height= 400 #字体大小，220就是11号字体，大概就是11*20得来的吧 style.font = font wb = xlwt.Workbook() ws = wb.add_sheet(&#34;习题集&#34;,cell_overwrite_ok=True) data = [] cell = 4 #生成excel 列数 total = 100 #生成题数 def subbb(): a=random.randint(1,9) b=random.randint(0,a - 1) ab=a*10&#43;b a1=random.randint(1,a) b1 = random.randint(0, a1) ab1=a1 * 10 &#43; b1 if ab-ab1&gt;=0: res=str(ab)&#43;&#39;-&#39;&#43;str(ab1)&#43;&#39;=( )&#39;&#43;&#34;\r\n&#34;&#43;&#34;\r\n&#34; res=res&#43;&#39; &#39;&#43;str(a)&#43;&#39; &#39;&#43;str(b)&#43;&#39; &#39;&#43;&#34;\r\n&#34; res=res&#43;&#39; - &#39;&#43;str(a1)&#43;&#39; &#39;&#43;str(b1)&#43;&#39; &#39;&#43;&#34;\r\n&#34; res=res&#43; &#39;------------&#39;&#43;&#34;\r\n&#34;&#43;&#34;\r\n&#34; data.append(res) print(res) def addbb(): a = random.randint(1, 8) b = random.randint(0, a - 1) ab = a * 10 &#43; b a1 = random.randint(1, 9 - a) b1 = random.randint(0, 10 - b) ab1 = a1 * 10 &#43; b1 res = str(ab) &#43; &#39;&#43;&#39; &#43; str(ab1) &#43; &#39;=( )&#39; &#43; &#34;\r\n&#34; &#43; &#34;\r\n&#34; res = res &#43; &#39; &#39; &#43; str(a) &#43; &#39; &#39; &#43; str(b) &#43; &#39; &#39; &#43; &#34;\r\n&#34; res = res &#43; &#39; &#43; &#39; &#43; str(a1) &#43; &#39; &#39; &#43; str(b1) &#43; &#39; &#39; &#43; &#34;\r\n&#34; res = res &#43; &#39;------------&#39; &#43; &#34;\r\n&#34; &#43; &#34;\r\n&#34; data.append(res) print(res) for m in range(500): if random.randint(0,1)==1: addbb() else: subbb() index=0 for j in range(int(total / cell)): ws.row(j).height_mismatch = True ws.row(j).height =256 * 14 for k in range(cell): ws.col(k).width = 256 * 24 if total==index: break else: ws.write(j, k, data[index],style) index=index&#43;1 version = datetime.datetime.now().strftime(&#39;%Y%m%d%H%M%S&#39;) wb.save(&#34;竖式题目生成-%d-%d-%s.xlsx&#34; % (cell,len(data),version)) " />
+<meta property="og:url" content="http://localhost:1313/post/2023/02/calculations-are-automatically-generated/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:55668/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -147,7 +147,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="http://localhost:55668/post/2023/02/calculations-are-automatically-generated/">Calculations Are Automatically Generated</a></h1>
+    <a href="http://localhost:1313/post/2023/02/calculations-are-automatically-generated/">Calculations Are Automatically Generated</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -160,7 +160,7 @@
   
   <span class="post-tags">
     
-    #<a href="http://localhost:55668/tags/python3/">python3</a>&nbsp;
+    #<a href="http://localhost:1313/tags/python3/">python3</a>&nbsp;
     
   </span>
   
@@ -255,6 +255,33 @@
       </div></div>
 
   
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h"></span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="http://localhost:1313/post/2023/02/armbian-boots-to-display-chinese-character-stroke-order-learning/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Armbian Boots to Display Chinese Character Stroke Order Learning</span>
+            </a>
+        </span>
+        
+        
+        <span class="button next">
+            <a href="http://localhost:1313/post/2022/11/localdatetime-to-date-format-java/">
+                <span class="button__text">Localdatetime to Date Format Java</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
 
   
 
@@ -283,8 +310,8 @@
   </div>
 </footer>
 
-<script src="http://localhost:55668/assets/main.js"></script>
-<script src="http://localhost:55668/assets/prism.js"></script>
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
 
 
 

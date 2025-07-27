@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Decryption on LTAN.ME</title>
-    <link>http://localhost:55668/tags/decryption/</link>
+    <link>http://localhost:1313/tags/decryption/</link>
     <description>Recent content in Decryption on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 07 Nov 2022 11:04:57 +0800</lastBuildDate><atom:link href="http://localhost:55668/tags/decryption/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Nov 2022 11:04:57 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/decryption/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Download Videos From WeChat</title>
-      <link>http://localhost:55668/post/2022/11/how-to-download-videos-from-wechat-video-account/</link>
+      <link>http://localhost:1313/post/2022/11/how-to-download-videos-from-wechat-video-account/</link>
       <pubDate>Mon, 07 Nov 2022 11:04:57 +0800</pubDate>
       
-      <guid>http://localhost:55668/post/2022/11/how-to-download-videos-from-wechat-video-account/</guid>
+      <guid>http://localhost:1313/post/2022/11/how-to-download-videos-from-wechat-video-account/</guid>
       <description>&lt;h1 id=&#34;how-to-downlaod-videos-from-wechat&#34;&gt;how to downlaod videos from wechat&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;code&gt;(如何下载微信里的视频)&lt;/code&gt;堂姐发来微信消息，需要帮她把过去上传到微信的视频号某视频下载下来急用
@@ -32,11 +32,11 @@
 &lt;blockquote&gt;
 &lt;p&gt;第一步，通过 &lt;code&gt;Charles&lt;/code&gt; 对微信抓包获取所有&lt;code&gt;http/https&lt;/code&gt;请求链接地址
 安装&lt;code&gt;charles&lt;/code&gt;最新版,&lt;code&gt;charles&lt;/code&gt;默认代理端口为&lt;code&gt;8888&lt;/code&gt;
-&lt;img src=&#34;http://localhost:55668/post/2022/11/how-to-download-videos-from-wechat-video-account/charles-set.png&#34; alt=&#34;charles&#34;&gt;      &lt;br&gt;
+&lt;img src=&#34;http://localhost:1313/post/2022/11/how-to-download-videos-from-wechat-video-account/charles-set.png&#34; alt=&#34;charles&#34;&gt;      &lt;br&gt;
 设置微信代理登录，这一步是告诉微信需要需要通过代理端口&lt;code&gt;8888&lt;/code&gt;才能连接微信服务器&lt;br&gt;
-&lt;img src=&#34;http://localhost:55668/post/2022/11/how-to-download-videos-from-wechat-video-account/wx-set-proxxy.png&#34; alt=&#34;charles&#34;&gt;       &lt;br&gt;
+&lt;img src=&#34;http://localhost:1313/post/2022/11/how-to-download-videos-from-wechat-video-account/wx-set-proxxy.png&#34; alt=&#34;charles&#34;&gt;       &lt;br&gt;
 打开微信聊天,图片省略，打开微信视频号播放，观察&lt;code&gt;charles&lt;/code&gt;变化，找到真实视频播放地址 &lt;br&gt;
-&lt;img src=&#34;http://localhost:55668/post/2022/11/how-to-download-videos-from-wechat-video-account/wxh_dl_video.png&#34; alt=&#34;charles&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;http://localhost:1313/post/2022/11/how-to-download-videos-from-wechat-video-account/wxh_dl_video.png&#34; alt=&#34;charles&#34;&gt;&lt;br&gt;
 比较幸运的是微信视频号并没有加密，哈哈&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;第二步，通过浏览器打开播放视频并右键另存为&lt;br&gt;
@@ -52,16 +52,16 @@
 &lt;p&gt;第一步，还是与上面一样，通过 &lt;code&gt;Charles&lt;/code&gt; 对微信抓包获取所有&lt;code&gt;http/https&lt;/code&gt;请求链接地址&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;第二步，找出真实视频链接以及解码序列(token)文件请求，将链接地址导入到idm进行批量下载
-&lt;img src=&#34;http://localhost:55668/post/2022/11/how-to-download-videos-from-wechat-video-account/dl.txt.png&#34; alt=&#34;charles&#34;&gt; &lt;br&gt;
-&lt;img src=&#34;http://localhost:55668/post/2022/11/how-to-download-videos-from-wechat-video-account/find-dl-list.png&#34; alt=&#34;charles&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;http://localhost:55668/post/2022/11/how-to-download-videos-from-wechat-video-account/import_dl_list.png&#34; alt=&#34;charles&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;http://localhost:1313/post/2022/11/how-to-download-videos-from-wechat-video-account/dl.txt.png&#34; alt=&#34;charles&#34;&gt; &lt;br&gt;
+&lt;img src=&#34;http://localhost:1313/post/2022/11/how-to-download-videos-from-wechat-video-account/find-dl-list.png&#34; alt=&#34;charles&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;http://localhost:1313/post/2022/11/how-to-download-videos-from-wechat-video-account/import_dl_list.png&#34; alt=&#34;charles&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;第三步，准备合并前视频解码配置文件及文件合并解密&lt;code&gt;key&lt;/code&gt;
 将以下文件
-&lt;img src=&#34;http://localhost:55668/post/2022/11/how-to-download-videos-from-wechat-video-account/ts-token-list.png&#34; alt=&#34;charles&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/post/2022/11/how-to-download-videos-from-wechat-video-account/ts-token-list.png&#34; alt=&#34;charles&#34;&gt;
 编辑成如下文件，需要和视频文件目录保持一致，否则无法解码
-&lt;img src=&#34;http://localhost:55668/post/2022/11/how-to-download-videos-from-wechat-video-account/megre_video.png&#34; alt=&#34;charles&#34;&gt;
-&lt;img src=&#34;http://localhost:55668/post/2022/11/how-to-download-videos-from-wechat-video-account/video_file_rename.png&#34; alt=&#34;charles&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;http://localhost:1313/post/2022/11/how-to-download-videos-from-wechat-video-account/megre_video.png&#34; alt=&#34;charles&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/post/2022/11/how-to-download-videos-from-wechat-video-account/video_file_rename.png&#34; alt=&#34;charles&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;第四步， 合并视频文件
 执行命令如下,如果没有&lt;code&gt;ffmpeg&lt;/code&gt;需要安装,合并视频很关键&lt;/p&gt;&lt;/blockquote&gt;

@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55668&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
     <title>How to Customize Load Balancing Logic Based on Openresty :: LTAN.ME</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="基于openresty 自定义tcp 请求流量转发到不同消息处理服务器 有个消息推荐项目，netty 框架技术架构，客户端采用netty client 封装的私有tcp 协议 请求消息服务器。需要一套tcp 分流处理网关来分发请求流量到不同的tcp 消息处理器，现采用openresty 基本可以满足，主要是是用到openresy balancer
+[]: https://github.com/openresty/lua-resty-balancer#name
+模块技术实现，具体请参考官方文档说明
 " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:55668/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/" />
+<link rel="canonical" href="http://localhost:1313/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:55668/assets/style.css">
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:55668/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:55668/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:55668/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
 
 
 
@@ -43,12 +45,14 @@
 <meta property="og:type" content="article" />
 <meta property="og:title" content="How to Customize Load Balancing Logic Based on Openresty">
 <meta property="og:description" content="基于openresty 自定义tcp 请求流量转发到不同消息处理服务器 有个消息推荐项目，netty 框架技术架构，客户端采用netty client 封装的私有tcp 协议 请求消息服务器。需要一套tcp 分流处理网关来分发请求流量到不同的tcp 消息处理器，现采用openresty 基本可以满足，主要是是用到openresy balancer
+[]: https://github.com/openresty/lua-resty-balancer#name
+模块技术实现，具体请参考官方文档说明
 " />
-<meta property="og:url" content="http://localhost:55668/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/" />
+<meta property="og:url" content="http://localhost:1313/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:55668/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -145,7 +149,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="http://localhost:55668/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/">How to Customize Load Balancing Logic Based on Openresty</a></h1>
+    <a href="http://localhost:1313/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/">How to Customize Load Balancing Logic Based on Openresty</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -158,13 +162,13 @@
   
   <span class="post-tags">
     
-    #<a href="http://localhost:55668/tags/openresty/">openresty</a>&nbsp;
+    #<a href="http://localhost:1313/tags/openresty/">openresty</a>&nbsp;
     
-    #<a href="http://localhost:55668/tags/balancer/">balancer</a>&nbsp;
+    #<a href="http://localhost:1313/tags/balancer/">balancer</a>&nbsp;
     
-    #<a href="http://localhost:55668/tags/lpack/">lpack</a>&nbsp;
+    #<a href="http://localhost:1313/tags/lpack/">lpack</a>&nbsp;
     
-    #<a href="http://localhost:55668/tags/netty/">netty</a>&nbsp;
+    #<a href="http://localhost:1313/tags/netty/">netty</a>&nbsp;
     
   </span>
   
@@ -258,6 +262,33 @@
       </div></div>
 
   
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h"></span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="http://localhost:1313/post/2021/05/application-based-on-lua-resty-balancer/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Application Based on lua-resty-balancer</span>
+            </a>
+        </span>
+        
+        
+        <span class="button next">
+            <a href="http://localhost:1313/post/2021/05/how-to-run-spring-boot-program-on-windows-server/">
+                <span class="button__text">How to Run Spring Boot Program on Windows Server</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
 
   
 
@@ -286,8 +317,8 @@
   </div>
 </footer>
 
-<script src="http://localhost:55668/assets/main.js"></script>
-<script src="http://localhost:55668/assets/prism.js"></script>
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
 
 
 

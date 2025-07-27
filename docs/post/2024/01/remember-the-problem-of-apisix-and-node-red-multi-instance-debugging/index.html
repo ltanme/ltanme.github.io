@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55668&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
     <title>Remember the Problem of Apisix and Node Red Multi Instance Debugging :: LTAN.ME</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Resolving Docker Compose and ApiSix Port 502 Error 在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。 然而，在这个过程中，我遇到了一个502端口访问错误。 我花了一整天的时间来解决这个问题，最终找到了问题的原因。
+问题出在我创建Node-RED实例并在ApiSix中添加upstream时。 我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：
 " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:55668/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/" />
+<link rel="canonical" href="http://localhost:1313/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:55668/assets/style.css">
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:55668/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:55668/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:55668/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
 
 
 
@@ -43,12 +44,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Remember the Problem of Apisix and Node Red Multi Instance Debugging">
 <meta property="og:description" content="Resolving Docker Compose and ApiSix Port 502 Error 在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。 然而，在这个过程中，我遇到了一个502端口访问错误。 我花了一整天的时间来解决这个问题，最终找到了问题的原因。
+问题出在我创建Node-RED实例并在ApiSix中添加upstream时。 我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：
 " />
-<meta property="og:url" content="http://localhost:55668/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/" />
+<meta property="og:url" content="http://localhost:1313/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:55668/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -145,7 +147,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="http://localhost:55668/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/">Remember the Problem of Apisix and Node Red Multi Instance Debugging</a></h1>
+    <a href="http://localhost:1313/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/">Remember the Problem of Apisix and Node Red Multi Instance Debugging</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -158,11 +160,11 @@
   
   <span class="post-tags">
     
-    #<a href="http://localhost:55668/tags/apisix/">apisix</a>&nbsp;
+    #<a href="http://localhost:1313/tags/apisix/">apisix</a>&nbsp;
     
-    #<a href="http://localhost:55668/tags/node-red/">node-red</a>&nbsp;
+    #<a href="http://localhost:1313/tags/node-red/">node-red</a>&nbsp;
     
-    #<a href="http://localhost:55668/tags/docker/">docker</a>&nbsp;
+    #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
     
   </span>
   
@@ -189,6 +191,33 @@
 <img src="/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/screenshot-20240116-205136.png" alt=""></p>
 
       </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h"></span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="http://localhost:1313/post/2024/02/record-an-error-during-node-red-deployment/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Record an Error During Node RED Deployment</span>
+            </a>
+        </span>
+        
+        
+        <span class="button next">
+            <a href="http://localhost:1313/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/">
+                <span class="button__text">Solving HTTPS Debugging Issues with SSO Integration Using Ngrok on Windows</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
 
   
 
@@ -219,8 +248,8 @@
   </div>
 </footer>
 
-<script src="http://localhost:55668/assets/main.js"></script>
-<script src="http://localhost:55668/assets/prism.js"></script>
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
 
 
 

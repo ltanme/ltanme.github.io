@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55668&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
     <title>Layui Fonts :: LTAN.ME</title>
   
@@ -9,23 +9,23 @@
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:55668/tags/layui-fonts/" />
+<link rel="canonical" href="http://localhost:1313/tags/layui-fonts/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:55668/assets/style.css">
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:55668/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:55668/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:55668/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
 
 
 
@@ -42,11 +42,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Layui Fonts">
 <meta property="og:description" content="" />
-<meta property="og:url" content="http://localhost:55668/tags/layui-fonts/" />
+<meta property="og:url" content="http://localhost:1313/tags/layui-fonts/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:55668/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -146,7 +146,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2021/05/solve-the-problem-of-maven-packaging-static-resource-coding/">Solve the Problem of Maven Packaging Static Resource Coding</a>
+          <a href="http://localhost:1313/post/2021/05/solve-the-problem-of-maven-packaging-static-resource-coding/">Solve the Problem of Maven Packaging Static Resource Coding</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -158,9 +158,9 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/layui-fonts/">layui fonts</a>&nbsp;
+            #<a href="http://localhost:1313/tags/layui-fonts/">layui fonts</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/spring-boot-maven-plugin/">spring-boot-maven-plugin</a>&nbsp;
+            #<a href="http://localhost:1313/tags/spring-boot-maven-plugin/">spring-boot-maven-plugin</a>&nbsp;
             
           </span>
         
@@ -175,6 +175,40 @@
 <p>项目做完后在打包时运行时发现浏览器显示字体损坏，导致网站icon图标不能正常显示</p>
 <h2 id="解决方法">解决方法：</h2>
 <p>在pom.xml 里找到build 区块用下面代码替换它</p>
+<pre tabindex="0"><code>    &lt;build&gt;
+        &lt;finalName&gt;ivy-admin&lt;/finalName&gt;
+        &lt;resources&gt;
+            &lt;resource&gt;
+                &lt;directory&gt;src/main/resources&lt;/directory&gt;
+                &lt;filtering&gt;true&lt;/filtering&gt;
+                &lt;excludes&gt;
+                    &lt;exclude&gt;static/layui/font/**&lt;/exclude&gt;
+                    &lt;exclude&gt;static/admin/font/**&lt;/exclude&gt;
+                    &lt;exclude&gt;static/admin/fonts/**&lt;/exclude&gt;
+                &lt;/excludes&gt;
+            &lt;/resource&gt;
+            &lt;resource&gt;
+                &lt;directory&gt;src/main/resources&lt;/directory&gt;
+                &lt;filtering&gt;false&lt;/filtering&gt;
+                &lt;includes&gt;
+                    &lt;include&gt;static/layui/font/**&lt;/include&gt;
+                    &lt;include&gt;static/admin/font/**&lt;/include&gt;
+                    &lt;include&gt;static/admin/fonts/**&lt;/include&gt;
+                &lt;/includes&gt;
+            &lt;/resource&gt;
+        &lt;/resources&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;executable&gt;true&lt;/executable&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+</code></pre><h2 id="问题原因">问题原因:</h2>
+<p>经过发现在不加上面打包代码时，不排除font 字体目录时，发现maven在打包复制时，对其font字体文件编译，导致文件被改写，编码和原来的字体文件不一样，导致打包前，打包前文件md5不一样，font 字体损坏，最终浏览器显示字体损坏</p>
           
           
         </div>
@@ -210,8 +244,8 @@
   </div>
 </footer>
 
-<script src="http://localhost:55668/assets/main.js"></script>
-<script src="http://localhost:55668/assets/prism.js"></script>
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
 
 
 

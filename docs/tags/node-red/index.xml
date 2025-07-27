@@ -2,21 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Node-Red on LTAN.ME</title>
-    <link>http://localhost:55668/tags/node-red/</link>
+    <link>http://localhost:1313/tags/node-red/</link>
     <description>Recent content in Node-Red on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 16 Jan 2024 17:22:05 +0800</lastBuildDate><atom:link href="http://localhost:55668/tags/node-red/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 Jan 2024 17:22:05 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/node-red/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Remember the Problem of Apisix and Node Red Multi Instance Debugging</title>
-      <link>http://localhost:55668/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</link>
+      <link>http://localhost:1313/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</link>
       <pubDate>Tue, 16 Jan 2024 17:22:05 +0800</pubDate>
       
-      <guid>http://localhost:55668/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</guid>
+      <guid>http://localhost:1313/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</guid>
       <description>&lt;h1 id=&#34;resolving-docker-compose-and-apisix-port-502-error&#34;&gt;Resolving Docker Compose and ApiSix Port 502 Error&lt;/h1&gt;
 &lt;p&gt;在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
 然而，在这个过程中，我遇到了一个502端口访问错误。
-我花了一整天的时间来解决这个问题，最终找到了问题的原因。&lt;/p&gt;</description>
+我花了一整天的时间来解决这个问题，最终找到了问题的原因。&lt;/p&gt;
+&lt;p&gt;问题出在我创建Node-RED实例并在ApiSix中添加upstream时。
+我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;resolving-docker-compose-and-apisix-port-502-error&#34;&gt;Resolving Docker Compose and ApiSix Port 502 Error&lt;/h1&gt;
 &lt;p&gt;在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
 然而，在这个过程中，我遇到了一个502端口访问错误。
@@ -31,7 +33,7 @@
 &lt;p&gt;为了解决问题，我将Node-RED实例的端口号设置为1880，  &lt;br&gt;
 与Docker网络中的端口一致，这样ApiSix能够正确地与Node-RED实例通信。&lt;br&gt;
 以下端口必须要填写内部的程序实际端口&lt;br&gt;
-&lt;img src=&#34;http://localhost:55668/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/screenshot-20240116-205136.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/screenshot-20240116-205136.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     

@@ -2,38 +2,51 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nodered on LTAN.ME</title>
-    <link>http://localhost:55668/tags/nodered/</link>
+    <link>http://localhost:1313/tags/nodered/</link>
     <description>Recent content in Nodered on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 08 May 2024 21:36:49 +0800</lastBuildDate><atom:link href="http://localhost:55668/tags/nodered/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 May 2024 21:36:49 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/nodered/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Smart Air Conditioning Control With ThingsBoard</title>
-      <link>http://localhost:55668/post/2024/05/smart-air-conditioning-control-with-thingsboard/</link>
+      <link>http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/</link>
       <pubDate>Wed, 08 May 2024 21:36:49 +0800</pubDate>
       
-      <guid>http://localhost:55668/post/2024/05/smart-air-conditioning-control-with-thingsboard/</guid>
+      <guid>http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/</guid>
       <description>&lt;h1 id=&#34;automating-climate-control-leveraging-dual-thermometers-for-smart-air-conditioning-via-thingsboard&#34;&gt;Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机&lt;br&gt;
-当然这并不是真实过程对接调式，只是通过模拟的方法来熟练一下thingsboard的ruleChain&lt;/p&gt;</description>
-      <content>&lt;h1 id=&#34;automating-climate-control-leveraging-dual-thermometers-for-smart-air-conditioning-via-thingsboard&#34;&gt;Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机&lt;br&gt;
 当然这并不是真实过程对接调式，只是通过模拟的方法来熟练一下thingsboard的ruleChain&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;第一步创建一个空的规则链名称就叫两个温度计控制空调的规则链&#34;&gt;第一步，创建一个空的规则链，名称就叫&lt;code&gt;两个温度计控制空调的规则链&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;第二步创建一个设备配置名称就叫两个温度计控制空调的设备配置&#34;&gt;第二步，创建一个设备配置，名称就叫&lt;code&gt;两个温度计控制空调的设备配置&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;第三步分别添加三个设备温度计1温度计2空调&#34;&gt;第三步，分别添加三个设备&lt;code&gt;温度计1&lt;/code&gt;、&lt;code&gt;温度计2&lt;/code&gt;、&lt;code&gt;空调&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;第四步给温度计1温度计2-设备添加关联关系&#34;&gt;第四步，给&lt;code&gt;温度计1&lt;/code&gt;,&lt;code&gt;温度计2&lt;/code&gt; 设备添加关联关系&lt;/h3&gt;
 &lt;p&gt;添加关系的原因是，因为&lt;code&gt;温度计1&lt;/code&gt;,&lt;code&gt;温度计2&lt;/code&gt; 的温度都满足了条件需要给&lt;code&gt;空调&lt;/code&gt;发送rpc控制消息
 才需创建关联空调的，这里可以理解是&lt;code&gt;温度计&lt;/code&gt;控制&lt;code&gt;空调&lt;/code&gt;，所以创建温度计&lt;code&gt;向外的关联&lt;/code&gt;（&lt;code&gt;from&lt;/code&gt;）的关系
 同理也可以理解，空调需要接受温度计的控制消息&lt;code&gt;向内的关联&lt;/code&gt;（&lt;code&gt;to&lt;/code&gt;）的关系，这两个关系方向都可以
 这里以from关系为例创建，但请注意，这里的&lt;code&gt;关系类型&lt;/code&gt;一定要唯一，不能一样我这里建立了两条关系分别是&lt;code&gt;relation1&lt;/code&gt;,
 &lt;code&gt;relation2&lt;/code&gt;
-&lt;img src=&#34;http://localhost:55668/post/2024/05/smart-air-conditioning-control-with-thingsboard/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;automating-climate-control-leveraging-dual-thermometers-for-smart-air-conditioning-via-thingsboard&#34;&gt;Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机&lt;br&gt;
+当然这并不是真实过程对接调式，只是通过模拟的方法来熟练一下thingsboard的ruleChain&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;第一步创建一个空的规则链名称就叫两个温度计控制空调的规则链&#34;&gt;第一步，创建一个空的规则链，名称就叫&lt;code&gt;两个温度计控制空调的规则链&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;第二步创建一个设备配置名称就叫两个温度计控制空调的设备配置&#34;&gt;第二步，创建一个设备配置，名称就叫&lt;code&gt;两个温度计控制空调的设备配置&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;第三步分别添加三个设备温度计1温度计2空调&#34;&gt;第三步，分别添加三个设备&lt;code&gt;温度计1&lt;/code&gt;、&lt;code&gt;温度计2&lt;/code&gt;、&lt;code&gt;空调&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;第四步给温度计1温度计2-设备添加关联关系&#34;&gt;第四步，给&lt;code&gt;温度计1&lt;/code&gt;,&lt;code&gt;温度计2&lt;/code&gt; 设备添加关联关系&lt;/h3&gt;
+&lt;p&gt;添加关系的原因是，因为&lt;code&gt;温度计1&lt;/code&gt;,&lt;code&gt;温度计2&lt;/code&gt; 的温度都满足了条件需要给&lt;code&gt;空调&lt;/code&gt;发送rpc控制消息
+才需创建关联空调的，这里可以理解是&lt;code&gt;温度计&lt;/code&gt;控制&lt;code&gt;空调&lt;/code&gt;，所以创建温度计&lt;code&gt;向外的关联&lt;/code&gt;（&lt;code&gt;from&lt;/code&gt;）的关系
+同理也可以理解，空调需要接受温度计的控制消息&lt;code&gt;向内的关联&lt;/code&gt;（&lt;code&gt;to&lt;/code&gt;）的关系，这两个关系方向都可以
+这里以from关系为例创建，但请注意，这里的&lt;code&gt;关系类型&lt;/code&gt;一定要唯一，不能一样我这里建立了两条关系分别是&lt;code&gt;relation1&lt;/code&gt;,
+&lt;code&gt;relation2&lt;/code&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;第五步给两个温度计控制空调的规则链这个空白的规则链编写规则链这是最核心的部分&#34;&gt;第五步，给&lt;code&gt;两个温度计控制空调的规则链&lt;/code&gt;这个空白的规则链编写规则链，这是最核心的部分&lt;/h3&gt;
 &lt;p&gt;梳理自己的流程需求，我这里的流程是前提条件，&lt;code&gt;温度计1&lt;/code&gt;、&lt;code&gt;温度计2&lt;/code&gt;、&lt;code&gt;空调&lt;/code&gt; 这三个设备已经连上了&lt;code&gt;thingsboard&lt;/code&gt; &lt;code&gt;1883&lt;/code&gt; &lt;code&gt;mqqt&lt;/code&gt; 端口
 且处理活动状态，在实体设备可以看到设备状态。
@@ -67,14 +80,14 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; {&lt;span style=&#34;color:#a6e22e&#34;&gt;msg&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;newMsg&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;metadata&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;msgType&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;msgType&lt;/span&gt;};
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;第六步debug调试&#34;&gt;第六步，debug调试&lt;/h3&gt;
 &lt;p&gt;用网页模拟成功，红色区域为打开空调
-&lt;img src=&#34;http://localhost:55668/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;
 打开调式
-&lt;img src=&#34;http://localhost:55668/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;
 点击事件，查看数据，看数据是否符合预期
-&lt;img src=&#34;http://localhost:55668/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;通过以上步骤，我们可以构建一个高效且自动化的空调控制系统，使室内环境保持在舒适的温度范围内。这不仅提高了居住或工作环境的舒适度，同时也有助于节约能源。
 希望这次介绍能够帮助你更好地理解在ThingsBoard平台上如何实现复杂的设备互动和自动化控制。如果需要进一步的信息或有其他疑问，请继续关注我的博客或提出咨询。&lt;/p&gt;
@@ -84,10 +97,10 @@
     
     <item>
       <title>Record an Error During Node RED Deployment</title>
-      <link>http://localhost:55668/post/2024/02/record-an-error-during-node-red-deployment/</link>
+      <link>http://localhost:1313/post/2024/02/record-an-error-during-node-red-deployment/</link>
       <pubDate>Thu, 22 Feb 2024 20:50:54 +0800</pubDate>
       
-      <guid>http://localhost:55668/post/2024/02/record-an-error-during-node-red-deployment/</guid>
+      <guid>http://localhost:1313/post/2024/02/record-an-error-during-node-red-deployment/</guid>
       <description>&lt;h1 id=&#34;记一次在docker-打包部署node-red-启动报错&#34;&gt;记一次在docker 打包部署node red 启动报错&lt;/h1&gt;
 &lt;p&gt;报错如下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;---------------------------------------------------------------------

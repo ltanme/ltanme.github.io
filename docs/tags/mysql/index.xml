@@ -2,22 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mysql on LTAN.ME</title>
-    <link>http://localhost:55668/tags/mysql/</link>
+    <link>http://localhost:1313/tags/mysql/</link>
     <description>Recent content in Mysql on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 11 Feb 2022 12:12:06 +0800</lastBuildDate><atom:link href="http://localhost:55668/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Feb 2022 12:12:06 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mybatis Failed to Save Data</title>
-      <link>http://localhost:55668/post/2022/02/mybatis-failed-to-save-data/</link>
+      <link>http://localhost:1313/post/2022/02/mybatis-failed-to-save-data/</link>
       <pubDate>Fri, 11 Feb 2022 12:12:06 +0800</pubDate>
       
-      <guid>http://localhost:55668/post/2022/02/mybatis-failed-to-save-data/</guid>
+      <guid>http://localhost:1313/post/2022/02/mybatis-failed-to-save-data/</guid>
       <description>&lt;h1 id=&#34;记一次遇到mybaits写入数据不成功问题&#34;&gt;记一次遇到mybaits写入数据不成功问题&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到
 mysql client 执行sql执行并没有问题，但是调用接口时，写入mysql不成功，也不报错，遇到这种问题特别
-困惑，特记录一下，&lt;/p&gt;</description>
+困惑，特记录一下，&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;找了一下午才发现问题，最怕就是程序不报错，语句执行成功，但数据库没有数据这样的问题呢
+主要问题是接口请求实体类有几个版本字段是用的Long 类型的，而mysql表对应的字段是int类型的
+在用mybatis-generate 插件生成表的 mapper.xml、dao、model时，mysql字段为int类型的生成对应的integer类型
+但是代码定义的dto 接口请求实体类，字段是long类型，入库时，存在long 转 integer 的行为，行为非法，但执行时sql不报错
+由于时间关系没有进一步查为什么不报错提示，xml生成的字段类型都是 java.lang.Integer&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;记一次遇到mybaits写入数据不成功问题&#34;&gt;记一次遇到mybaits写入数据不成功问题&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到
@@ -39,10 +45,10 @@ mysql client 执行sql执行并没有问题，但是调用接口时，写入mysq
     
     <item>
       <title>How to solve SpringBoot Mysql CLIENT_PLUGIN_AUTH Is Required error</title>
-      <link>http://localhost:55668/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</link>
+      <link>http://localhost:1313/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</link>
       <pubDate>Tue, 07 Dec 2021 09:54:05 +0800</pubDate>
       
-      <guid>http://localhost:55668/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</guid>
+      <guid>http://localhost:1313/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</guid>
       <description>&lt;h1 id=&#34;一次上线遇到的问mysql版本使用问题client_plugin_auth&#34;&gt;一次上线遇到的问mysql版本使用问题CLIENT_PLUGIN_AUTH&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;当在项目做好即将上线时，突然发现线上数据库版本太低而报如题错误，导致程序上线启动失败，现有数据库己被很多老的项目在使用着，不可能让dba去更新数据库版本，或另开服务器。&lt;/p&gt;

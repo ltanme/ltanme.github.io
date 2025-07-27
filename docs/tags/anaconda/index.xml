@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Anaconda on LTAN.ME</title>
-    <link>http://localhost:55668/tags/anaconda/</link>
+    <link>http://localhost:1313/tags/anaconda/</link>
     <description>Recent content in Anaconda on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 17 Feb 2022 20:25:31 +0800</lastBuildDate><atom:link href="http://localhost:55668/tags/anaconda/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Feb 2022 20:25:31 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/anaconda/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Pycharm Terminal Virtualenv Setting</title>
-      <link>http://localhost:55668/post/2022/02/pycharm-terminal-virtualenv-setting/</link>
+      <link>http://localhost:1313/post/2022/02/pycharm-terminal-virtualenv-setting/</link>
       <pubDate>Thu, 17 Feb 2022 20:25:31 +0800</pubDate>
       
-      <guid>http://localhost:55668/post/2022/02/pycharm-terminal-virtualenv-setting/</guid>
+      <guid>http://localhost:1313/post/2022/02/pycharm-terminal-virtualenv-setting/</guid>
       <description>&lt;h1 id=&#34;windows-环境pycharm-python-多环境开发设置&#34;&gt;windows 环境pycharm python 多环境开发设置&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在python项目开发中，很多情况每个项目采用不同的python 环境，一般常见的系统默认python 版本为
@@ -38,7 +38,7 @@ For Windows users: when using PyCharm with a virtual environment, you can use th
 &lt;blockquote&gt;
 &lt;p&gt;打开pychrm，依次点击file菜单，settings&amp;ndash;&amp;gt;tools&amp;mdash;&amp;gt;terminal&amp;ndash;&amp;gt;shell path&lt;br&gt;
 PyCharm 2016.1,2018.x&amp;hellip;: Settings, Tools, Terminal, and add &amp;ldquo;&amp;quot;/K &amp;lt;path-to-your-activate.bat&amp;gt;&amp;rdquo;&amp;quot; to Shell path and add (mind the quotes). Also add quotes around cmd.exe, resulting in:&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:55668/post/2022/02/pycharm-terminal-virtualenv-setting/pycharm-env.jpg&#34; alt=&#34;pycharm-env&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2022/02/pycharm-terminal-virtualenv-setting/pycharm-env.jpg&#34; alt=&#34;pycharm-env&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;设置pycharm Terminal窗口启动时进入Anaconda3环境&lt;br&gt;
 在&amp;quot;设置&amp;quot;&amp;gt;&amp;ldquo;终端工具&amp;rdquo;&amp;gt;，更改如下内容：Shell path&lt;br&gt;
@@ -55,10 +55,10 @@ https://pypi.tuna.tsinghua.edu.cn/simple
     
     <item>
       <title>Anaconda Modify the Domestic Mirror Ai Learning Section 1</title>
-      <link>http://localhost:55668/post/2021/07/anaconda-modify-the-domestic-mirror-ai-learning-section-1/</link>
+      <link>http://localhost:1313/post/2021/07/anaconda-modify-the-domestic-mirror-ai-learning-section-1/</link>
       <pubDate>Thu, 08 Jul 2021 20:58:37 +0800</pubDate>
       
-      <guid>http://localhost:55668/post/2021/07/anaconda-modify-the-domestic-mirror-ai-learning-section-1/</guid>
+      <guid>http://localhost:1313/post/2021/07/anaconda-modify-the-domestic-mirror-ai-learning-section-1/</guid>
       <description>&lt;h1 id=&#34;我的ai学习第一课-anaconda-修改镜像源&#34;&gt;我的AI学习第一课 Anaconda 修改镜像源&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;为什么要修改镜像源，因为初次使用anaconda 发现下载太慢了，都是从官网服务器拉取模块，需要 等很漫长时间，&lt;/p&gt;
@@ -66,7 +66,8 @@ https://pypi.tuna.tsinghua.edu.cn/simple
 &lt;p&gt;&lt;code&gt;[https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/](https://link.jianshu.com/?t=https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/)&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;大概分为三步&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;1首先找到conda安装目录&#34;&gt;1、首先找到conda安装目录&lt;/h2&gt;
-&lt;p&gt;这里我安装在&lt;code&gt;D:\anaconda3&lt;/code&gt;  然后找到&lt;code&gt;condabin&lt;/code&gt;目录&lt;/p&gt;</description>
+&lt;p&gt;这里我安装在&lt;code&gt;D:\anaconda3&lt;/code&gt;  然后找到&lt;code&gt;condabin&lt;/code&gt;目录&lt;/p&gt;
+&lt;p&gt;在地址输入 &lt;code&gt;cmd&lt;/code&gt; 命令并回车执行，在弹窗的cmd 窗口输入以下两条命令&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;我的ai学习第一课-anaconda-修改镜像源&#34;&gt;我的AI学习第一课 Anaconda 修改镜像源&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;为什么要修改镜像源，因为初次使用anaconda 发现下载太慢了，都是从官网服务器拉取模块，需要 等很漫长时间，&lt;/p&gt;

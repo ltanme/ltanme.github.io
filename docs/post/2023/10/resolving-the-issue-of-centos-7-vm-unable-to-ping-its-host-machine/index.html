@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55668&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
     <title>Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine :: LTAN.ME</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="解决因docker网络导致的网络问题，无法ping通局域网ip 背景 在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网并 ping 通外部地址，但 CentOS 7 无法 ping 通宿主机。这让我非常困惑，并最初怀疑可能是公司的网管对我的 MAC 地址进行了某种限制。
+[root@localhost ~]# route -n Kernel IP routing table Destination Gateway Genmask Flags Metric Ref Use Iface 0.0.0.0 172.22.128.1 0.0.0.0 UG 100 0 0 ens33 172.17.0.0 0.0.0.0 255.255.0.0 U 0 0 0 docker0 172.18.0.0 0.0.0.0 255.255.0.0 U 0 0 0 br-6b8659f8f886 172.19.0.0 0.0.0.0 255.255.0.0 U 0 0 0 br-89bc77a42b8a 172.20.0.0 0.0.0.0 255.255.0.0 U 0 0 0 br-b4e656893ece 172.22.128.0 0.0.0.0 255.255.240.0 U 100 0 0 ens33 172.26.0.0 0.0.0.0 255.255.0.0 U 0 0 0 br-5b7ab2df8a43 虚拟机上有多个 Docker 网络，其中一个网络（br-b4e656893ece）与宿主机的网络冲突。
+这意味着， 尝试 ping 宿主机时，数据包可能被发送到了 Docker 网络，而不是真正的物理网络。
+这是最关键的问题所在
 " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:55668/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/" />
+<link rel="canonical" href="http://localhost:1313/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:55668/assets/style.css">
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:55668/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:55668/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:55668/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
 
 
 
@@ -43,12 +46,15 @@
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine">
 <meta property="og:description" content="解决因docker网络导致的网络问题，无法ping通局域网ip 背景 在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网并 ping 通外部地址，但 CentOS 7 无法 ping 通宿主机。这让我非常困惑，并最初怀疑可能是公司的网管对我的 MAC 地址进行了某种限制。
+[root@localhost ~]# route -n Kernel IP routing table Destination Gateway Genmask Flags Metric Ref Use Iface 0.0.0.0 172.22.128.1 0.0.0.0 UG 100 0 0 ens33 172.17.0.0 0.0.0.0 255.255.0.0 U 0 0 0 docker0 172.18.0.0 0.0.0.0 255.255.0.0 U 0 0 0 br-6b8659f8f886 172.19.0.0 0.0.0.0 255.255.0.0 U 0 0 0 br-89bc77a42b8a 172.20.0.0 0.0.0.0 255.255.0.0 U 0 0 0 br-b4e656893ece 172.22.128.0 0.0.0.0 255.255.240.0 U 100 0 0 ens33 172.26.0.0 0.0.0.0 255.255.0.0 U 0 0 0 br-5b7ab2df8a43 虚拟机上有多个 Docker 网络，其中一个网络（br-b4e656893ece）与宿主机的网络冲突。
+这意味着， 尝试 ping 宿主机时，数据包可能被发送到了 Docker 网络，而不是真正的物理网络。
+这是最关键的问题所在
 " />
-<meta property="og:url" content="http://localhost:55668/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/" />
+<meta property="og:url" content="http://localhost:1313/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:55668/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -145,7 +151,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="http://localhost:55668/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/">Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine</a></h1>
+    <a href="http://localhost:1313/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/">Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -158,9 +164,9 @@
   
   <span class="post-tags">
     
-    #<a href="http://localhost:55668/tags/vmware/">vmware</a>&nbsp;
+    #<a href="http://localhost:1313/tags/vmware/">vmware</a>&nbsp;
     
-    #<a href="http://localhost:55668/tags/docker/">docker</a>&nbsp;
+    #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
     
   </span>
   
@@ -315,6 +321,33 @@
       </div></div>
 
   
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h"></span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="http://localhost:1313/guides/configure-direct-domain-in-clash/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Configure Direct Domain in Clash</span>
+            </a>
+        </span>
+        
+        
+        <span class="button next">
+            <a href="http://localhost:1313/post/2023/09/managing-multiple-git-accounts-on-windows-10/">
+                <span class="button__text">Managing Multiple Git Accounts on Windows 10</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
 
   
 
@@ -343,8 +376,8 @@
   </div>
 </footer>
 
-<script src="http://localhost:55668/assets/main.js"></script>
-<script src="http://localhost:55668/assets/prism.js"></script>
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
 
 
 

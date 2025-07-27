@@ -2,21 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java8 on LTAN.ME</title>
-    <link>http://localhost:55668/tags/java8/</link>
+    <link>http://localhost:1313/tags/java8/</link>
     <description>Recent content in Java8 on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 26 Sep 2021 21:08:19 +0800</lastBuildDate><atom:link href="http://localhost:55668/tags/java8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Sep 2021 21:08:19 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/java8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Date and LocalDatetime in Java 8</title>
-      <link>http://localhost:55668/post/2021/09/date-and-localdatetime-in-java-8/</link>
+      <link>http://localhost:1313/post/2021/09/date-and-localdatetime-in-java-8/</link>
       <pubDate>Sun, 26 Sep 2021 21:08:19 +0800</pubDate>
       
-      <guid>http://localhost:55668/post/2021/09/date-and-localdatetime-in-java-8/</guid>
+      <guid>http://localhost:1313/post/2021/09/date-and-localdatetime-in-java-8/</guid>
       <description>&lt;h1 id=&#34;java-8中的-date和localdatetime类在工作中遇到的问题&#34;&gt;Java 8中的 Date和LocalDateTime类在工作中遇到的问题&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;java 8 中的 LocalDateTime  比 date 速度快很多，而且在处理时间方法比较灵活，在日期计算方面，日期比较简单易用，而Date 要繁琐很多&lt;/p&gt;
-&lt;p&gt;我在工作中遇到一个实体类&lt;code&gt;创建时间&lt;/code&gt;字段原来为Date类型， 在ｍｙｂａｔｉｓ　时间创建数据库记录时，需要用到自动填充当前时间为创建时间，&lt;/p&gt;</description>
+&lt;p&gt;我在工作中遇到一个实体类&lt;code&gt;创建时间&lt;/code&gt;字段原来为Date类型， 在ｍｙｂａｔｉｓ　时间创建数据库记录时，需要用到自动填充当前时间为创建时间，&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@TableField&lt;/span&gt;(fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; FieldFill.&lt;span style=&#34;color:#a6e22e&#34;&gt;INSERT_UPDATE&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; Date lastUpdateTime;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;发现报错如下具体原因是因为&lt;code&gt;Date&lt;/code&gt;在转换 &lt;code&gt;LocalDateTime.now()&lt;/code&gt;出问题了，报错误不匹配&lt;/p&gt;</description>
       <content>&lt;h1 id=&#34;java-8中的-date和localdatetime类在工作中遇到的问题&#34;&gt;Java 8中的 Date和LocalDateTime类在工作中遇到的问题&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;java 8 中的 LocalDateTime  比 date 速度快很多，而且在处理时间方法比较灵活，在日期计算方面，日期比较简单易用，而Date 要繁琐很多&lt;/p&gt;

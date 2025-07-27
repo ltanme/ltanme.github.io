@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55668&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
     <title>IoT :: LTAN.ME</title>
   
@@ -9,23 +9,23 @@
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:55668/tags/iot/" />
+<link rel="canonical" href="http://localhost:1313/tags/iot/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:55668/assets/style.css">
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:55668/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:55668/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:55668/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
 
 
 
@@ -42,11 +42,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="IoT">
 <meta property="og:description" content="" />
-<meta property="og:url" content="http://localhost:55668/tags/iot/" />
+<meta property="og:url" content="http://localhost:1313/tags/iot/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:55668/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -146,7 +146,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/">Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4</a>
+          <a href="http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/">Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -158,13 +158,13 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/thingsboard/">thingsboard</a>&nbsp;
+            #<a href="http://localhost:1313/tags/thingsboard/">thingsboard</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/iot/">IoT</a>&nbsp;
+            #<a href="http://localhost:1313/tags/iot/">IoT</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/lombok/">lombok</a>&nbsp;
+            #<a href="http://localhost:1313/tags/lombok/">lombok</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/jdk17/">JDK17</a>&nbsp;
+            #<a href="http://localhost:1313/tags/jdk17/">JDK17</a>&nbsp;
             
           </span>
         
@@ -177,7 +177,23 @@
           <p>#　Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4</p>
 <blockquote>
 <p>记录<code>thingsboard3.6.4</code>在导入 <code>IntelliJ IDEA 2022.2.3</code> 编译报错的一些问题<br>
-记录 如何从<code>thingsboard3.6.4</code>弃坑到<code>thingsboard3.6.3</code>最后又回到了<code>thingsboard3.6.4</code></p>
+记录 如何从<code>thingsboard3.6.4</code>弃坑到<code>thingsboard3.6.3</code>最后又回到了<code>thingsboard3.6.4</code></p></blockquote>
+<blockquote>
+<p>导入步骤简单说一下，先从github下载thingsboard3.6.4 源码
+导入代码前提准备是环境，我的环境如下
+windows 10<br>
+maven version 3.8.1 给 IntelliJ IDEA 2022.2.3 配置好settings.xml 采用从maven官方仓库拉取依赖<br>
+IntelliJ IDEA 2022.2.3  <br>
+IntelliJ IDEA 只需要安装 protocol buffers 和 lombook 就可以了<br>
+JDK17,不是jdk11<br>
+在本地安装postgreSQL,创建好数据库名<code>thingsboard364</code><br>
+然后导入到IntelliJ IDEA 2022.2.3。<br>
+从复制sql脚本到application的<code>src/main/data/</code>目录下<br>
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img.png" alt="img.png">
+把 <strong>IntelliJ IDEA</strong> maven 设置跳过skip test,避免测试过程中遇到地域性测试，语言文本测试 导致通测试不过<br>
+<img src="/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/img_1.png" alt="img_1.png">
+最后点击 <strong>IntelliJ IDEA</strong> maven package 进行编译项目 <br>
+我遇到的问题如下：</p>
           
           
         </div>
@@ -192,7 +208,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2024/05/smart-air-conditioning-control-with-thingsboard/">Smart Air Conditioning Control With ThingsBoard</a>
+          <a href="http://localhost:1313/post/2024/05/smart-air-conditioning-control-with-thingsboard/">Smart Air Conditioning Control With ThingsBoard</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -204,13 +220,13 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/thingsboard/">thingsboard</a>&nbsp;
+            #<a href="http://localhost:1313/tags/thingsboard/">thingsboard</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/iot/">IoT</a>&nbsp;
+            #<a href="http://localhost:1313/tags/iot/">IoT</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/rulechain/">ruleChain</a>&nbsp;
+            #<a href="http://localhost:1313/tags/rulechain/">ruleChain</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/nodered/">nodered</a>&nbsp;
+            #<a href="http://localhost:1313/tags/nodered/">nodered</a>&nbsp;
             
           </span>
         
@@ -223,7 +239,20 @@
           <h1 id="automating-climate-control-leveraging-dual-thermometers-for-smart-air-conditioning-via-thingsboard">Automating Climate Control: Leveraging Dual Thermometers for Smart Air Conditioning via ThingsBoard</h1>
 <blockquote>
 <p>记录一次在thingsboard中通过同时满足两个温度计的温度条件来控制空调开关机<br>
-当然这并不是真实过程对接调式，只是通过模拟的方法来熟练一下thingsboard的ruleChain</p>
+当然这并不是真实过程对接调式，只是通过模拟的方法来熟练一下thingsboard的ruleChain</p></blockquote>
+<h3 id="第一步创建一个空的规则链名称就叫两个温度计控制空调的规则链">第一步，创建一个空的规则链，名称就叫<code>两个温度计控制空调的规则链</code></h3>
+<p><img src="/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_2.png" alt="img_2.png"></p>
+<h3 id="第二步创建一个设备配置名称就叫两个温度计控制空调的设备配置">第二步，创建一个设备配置，名称就叫<code>两个温度计控制空调的设备配置</code></h3>
+<p><img src="/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_3.png" alt="img_3.png"></p>
+<h3 id="第三步分别添加三个设备温度计1温度计2空调">第三步，分别添加三个设备<code>温度计1</code>、<code>温度计2</code>、<code>空调</code></h3>
+<p><img src="/post/2024/05/smart-air-conditioning-control-with-thingsboard/img_4.png" alt="img_4.png"></p>
+<h3 id="第四步给温度计1温度计2-设备添加关联关系">第四步，给<code>温度计1</code>,<code>温度计2</code> 设备添加关联关系</h3>
+<p>添加关系的原因是，因为<code>温度计1</code>,<code>温度计2</code> 的温度都满足了条件需要给<code>空调</code>发送rpc控制消息
+才需创建关联空调的，这里可以理解是<code>温度计</code>控制<code>空调</code>，所以创建温度计<code>向外的关联</code>（<code>from</code>）的关系
+同理也可以理解，空调需要接受温度计的控制消息<code>向内的关联</code>（<code>to</code>）的关系，这两个关系方向都可以
+这里以from关系为例创建，但请注意，这里的<code>关系类型</code>一定要唯一，不能一样我这里建立了两条关系分别是<code>relation1</code>,
+<code>relation2</code>
+<img src="/post/2024/05/smart-air-conditioning-control-with-thingsboard/img.png" alt="img.png"></p>
           
           
         </div>
@@ -259,8 +288,8 @@
   </div>
 </footer>
 
-<script src="http://localhost:55668/assets/main.js"></script>
-<script src="http://localhost:55668/assets/prism.js"></script>
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
 
 
 

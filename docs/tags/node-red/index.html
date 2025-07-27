@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55668&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
     <title>Node-Red :: LTAN.ME</title>
   
@@ -9,23 +9,23 @@
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:55668/tags/node-red/" />
+<link rel="canonical" href="http://localhost:1313/tags/node-red/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:55668/assets/style.css">
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:55668/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:55668/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:55668/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
 
 
 
@@ -42,11 +42,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Node-Red">
 <meta property="og:description" content="" />
-<meta property="og:url" content="http://localhost:55668/tags/node-red/" />
+<meta property="og:url" content="http://localhost:1313/tags/node-red/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:55668/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -146,7 +146,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/">Remember the Problem of Apisix and Node Red Multi Instance Debugging</a>
+          <a href="http://localhost:1313/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/">Remember the Problem of Apisix and Node Red Multi Instance Debugging</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -158,11 +158,11 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/apisix/">apisix</a>&nbsp;
+            #<a href="http://localhost:1313/tags/apisix/">apisix</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/node-red/">node-red</a>&nbsp;
+            #<a href="http://localhost:1313/tags/node-red/">node-red</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/docker/">docker</a>&nbsp;
+            #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
             
           </span>
         
@@ -176,6 +176,8 @@
 <p>在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
 然而，在这个过程中，我遇到了一个502端口访问错误。
 我花了一整天的时间来解决这个问题，最终找到了问题的原因。</p>
+<p>问题出在我创建Node-RED实例并在ApiSix中添加upstream时。
+我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：</p>
           
           
         </div>
@@ -211,8 +213,8 @@
   </div>
 </footer>
 
-<script src="http://localhost:55668/assets/main.js"></script>
-<script src="http://localhost:55668/assets/prism.js"></script>
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
 
 
 

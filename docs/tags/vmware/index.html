@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55668&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
     <title>Vmware :: LTAN.ME</title>
   
@@ -9,23 +9,23 @@
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:55668/tags/vmware/" />
+<link rel="canonical" href="http://localhost:1313/tags/vmware/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:55668/assets/style.css">
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:55668/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:55668/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:55668/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
 
 
 
@@ -42,11 +42,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Vmware">
 <meta property="og:description" content="" />
-<meta property="og:url" content="http://localhost:55668/tags/vmware/" />
+<meta property="og:url" content="http://localhost:1313/tags/vmware/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:55668/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -146,7 +146,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2024/06/vmware-and-ubuntu/">Vmware and Ubuntu</a>
+          <a href="http://localhost:1313/post/2024/06/vmware-and-ubuntu/">Vmware and Ubuntu</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -158,11 +158,11 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/ubuntu/">ubuntu</a>&nbsp;
+            #<a href="http://localhost:1313/tags/ubuntu/">ubuntu</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/vmware/">vmware</a>&nbsp;
+            #<a href="http://localhost:1313/tags/vmware/">vmware</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/thingsboard/">ThingsBoard</a>&nbsp;
+            #<a href="http://localhost:1313/tags/thingsboard/">ThingsBoard</a>&nbsp;
             
           </span>
         
@@ -186,6 +186,15 @@
 </li>
 <li>
 <p><strong>选择下载合适的 ISO 文件</strong>:</p>
+<ul>
+<li>找到 <code>ubuntu-20.04.6-live-server-amd64.iso</code>，这是没有桌面环境的服务器版本。</li>
+</ul>
+</li>
+</ol>
+<h3 id="创建新的虚拟机">创建新的虚拟机</h3>
+<ol>
+<li>
+<p><strong>打开 VMware Workstation 或 VMware Player</strong>:</p>
           
           
         </div>
@@ -200,7 +209,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/">Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine</a>
+          <a href="http://localhost:1313/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/">Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -212,9 +221,9 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/vmware/">vmware</a>&nbsp;
+            #<a href="http://localhost:1313/tags/vmware/">vmware</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/docker/">docker</a>&nbsp;
+            #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
             
           </span>
         
@@ -227,6 +236,20 @@
           <h1 id="解决因docker网络导致的网络问题无法ping通局域网ip">解决因docker网络导致的网络问题，无法ping通局域网ip</h1>
 <h2 id="背景">背景</h2>
 <p>在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网并 ping 通外部地址，但 CentOS 7 无法 ping 通宿主机。这让我非常困惑，并最初怀疑可能是公司的网管对我的 MAC 地址进行了某种限制。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># route -n</span>
+</span></span><span style="display:flex;"><span>Kernel IP routing table
+</span></span><span style="display:flex;"><span>Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+</span></span><span style="display:flex;"><span>0.0.0.0         172.22.128.1    0.0.0.0         UG    <span style="color:#ae81ff">100</span>    <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> ens33
+</span></span><span style="display:flex;"><span>172.17.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> docker0
+</span></span><span style="display:flex;"><span>172.18.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-6b8659f8f886
+</span></span><span style="display:flex;"><span>172.19.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-89bc77a42b8a
+</span></span><span style="display:flex;"><span>172.20.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-b4e656893ece
+</span></span><span style="display:flex;"><span>172.22.128.0    0.0.0.0         255.255.240.0   U     <span style="color:#ae81ff">100</span>    <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> ens33
+</span></span><span style="display:flex;"><span>172.26.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-5b7ab2df8a43
+</span></span></code></pre></div><blockquote>
+<p>虚拟机上有多个 Docker 网络，其中一个网络（br-b4e656893ece）与宿主机的网络冲突。<br>
+这意味着， 尝试 ping 宿主机时，数据包可能被发送到了 Docker 网络，而不是真正的物理网络。<br>
+这是最关键的问题所在</p>
           
           
         </div>
@@ -262,8 +285,8 @@
   </div>
 </footer>
 
-<script src="http://localhost:55668/assets/main.js"></script>
-<script src="http://localhost:55668/assets/prism.js"></script>
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
 
 
 

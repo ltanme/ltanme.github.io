@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55668&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
     <title>APISIX :: LTAN.ME</title>
   
@@ -9,23 +9,23 @@
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:55668/tags/apisix/" />
+<link rel="canonical" href="http://localhost:1313/tags/apisix/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:55668/assets/style.css">
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:55668/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:55668/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:55668/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
 
 
 
@@ -42,11 +42,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="APISIX">
 <meta property="og:description" content="" />
-<meta property="og:url" content="http://localhost:55668/tags/apisix/" />
+<meta property="og:url" content="http://localhost:1313/tags/apisix/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:55668/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -146,7 +146,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/">APISIX 3.9 + APM 整合全链路追踪日志</a>
+          <a href="http://localhost:1313/post/2025/05/apisix-3-9-apm-end-to-end-trace-logging/">APISIX 3.9 + APM 整合全链路追踪日志</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -158,15 +158,15 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/apisix/">APISIX</a>&nbsp;
+            #<a href="http://localhost:1313/tags/apisix/">APISIX</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/apm/">APM</a>&nbsp;
+            #<a href="http://localhost:1313/tags/apm/">APM</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/w3c-trace-context/">W3C Trace Context</a>&nbsp;
+            #<a href="http://localhost:1313/tags/w3c-trace-context/">W3C Trace Context</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/%E5%85%A8%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/">全链路追踪</a>&nbsp;
+            #<a href="http://localhost:1313/tags/%E5%85%A8%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/">全链路追踪</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/docker-compose/">Docker Compose</a>&nbsp;
+            #<a href="http://localhost:1313/tags/docker-compose/">Docker Compose</a>&nbsp;
             
           </span>
         
@@ -189,7 +189,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/">Remember the Problem of Apisix and Node Red Multi Instance Debugging</a>
+          <a href="http://localhost:1313/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/">Remember the Problem of Apisix and Node Red Multi Instance Debugging</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -201,11 +201,11 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/apisix/">apisix</a>&nbsp;
+            #<a href="http://localhost:1313/tags/apisix/">apisix</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/node-red/">node-red</a>&nbsp;
+            #<a href="http://localhost:1313/tags/node-red/">node-red</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/docker/">docker</a>&nbsp;
+            #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
             
           </span>
         
@@ -219,6 +219,8 @@
 <p>在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
 然而，在这个过程中，我遇到了一个502端口访问错误。
 我花了一整天的时间来解决这个问题，最终找到了问题的原因。</p>
+<p>问题出在我创建Node-RED实例并在ApiSix中添加upstream时。
+我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：</p>
           
           
         </div>
@@ -233,7 +235,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/">Reverse Proxy to Websocket Service Set Based on Apisix2</a>
+          <a href="http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/">Reverse Proxy to Websocket Service Set Based on Apisix2</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -245,13 +247,13 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/apisix/">apisix</a>&nbsp;
+            #<a href="http://localhost:1313/tags/apisix/">apisix</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/websocket/">websocket</a>&nbsp;
+            #<a href="http://localhost:1313/tags/websocket/">websocket</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/docker/">docker</a>&nbsp;
+            #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/openresty/">openresty</a>&nbsp;
+            #<a href="http://localhost:1313/tags/openresty/">openresty</a>&nbsp;
             
           </span>
         
@@ -265,6 +267,16 @@
 <p>问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点</p>
 <p>apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等</p>
 <p>本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟</p>
+<hr>
+<p>整体的环境说明：如下图</p>
+<p><img src="/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150518389.png" alt="image-20210511150518389"></p>
+<ul>
+<li>
+<p><input disabled="" type="checkbox"> 搭建环境</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker pull django
+</span></span></code></pre></div></li>
+<li>
+<p><input disabled="" type="checkbox"> 运行python 容器</p>
           
           
         </div>
@@ -300,8 +312,8 @@
   </div>
 </footer>
 
-<script src="http://localhost:55668/assets/main.js"></script>
-<script src="http://localhost:55668/assets/prism.js"></script>
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
 
 
 

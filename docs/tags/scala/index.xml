@@ -2,22 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Scala on LTAN.ME</title>
-    <link>http://localhost:55668/tags/scala/</link>
+    <link>http://localhost:1313/tags/scala/</link>
     <description>Recent content in Scala on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 11 May 2023 15:25:41 +0800</lastBuildDate><atom:link href="http://localhost:55668/tags/scala/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 May 2023 15:25:41 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/scala/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Install Apache Spark on Windows Setup PySpark</title>
-      <link>http://localhost:55668/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</link>
+      <link>http://localhost:1313/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</link>
       <pubDate>Thu, 11 May 2023 15:25:41 +0800</pubDate>
       
-      <guid>http://localhost:55668/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</guid>
+      <guid>http://localhost:1313/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</guid>
       <description>&lt;h2 id=&#34;为什么要在windows-10上运行scala-spark程序&#34;&gt;为什么要在Windows 10上运行Scala Spark程序&lt;/h2&gt;
 &lt;h3 id=&#34;开发环境设置简单&#34;&gt;开发环境设置简单：&lt;/h3&gt;
 &lt;p&gt;对于许多开发者来说，Windows是他们最熟悉的操作系统，
 因此在Windows上进行开发可以节省大量的环境设置和配置时间。
-此外，Windows上有IntelliJ IDEA可以方便Scala和Spark的开发。&lt;/p&gt;</description>
+此外，Windows上有IntelliJ IDEA可以方便Scala和Spark的开发。&lt;/p&gt;
+&lt;h3 id=&#34;本地测试方便&#34;&gt;本地测试方便：&lt;/h3&gt;
+&lt;p&gt;在本地Windows环境中进行开发，
+可以方便快速的进行代码的单元测试和调试。
+虽然Spark在集群中运行时的行为可能与在单个机器上有所不同，
+但对于许多常见的任务，
+本地测试通常可以提供足够的保证。&lt;/p&gt;</description>
       <content>&lt;h2 id=&#34;为什么要在windows-10上运行scala-spark程序&#34;&gt;为什么要在Windows 10上运行Scala Spark程序&lt;/h2&gt;
 &lt;h3 id=&#34;开发环境设置简单&#34;&gt;开发环境设置简单：&lt;/h3&gt;
 &lt;p&gt;对于许多开发者来说，Windows是他们最熟悉的操作系统，

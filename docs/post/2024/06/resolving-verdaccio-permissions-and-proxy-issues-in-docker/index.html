@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55668&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
     <title>Resolving Verdaccio Permissions and Proxy Issues in Docker :: LTAN.ME</title>
   
@@ -12,23 +12,23 @@
 " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:55668/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/" />
+<link rel="canonical" href="http://localhost:1313/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:55668/assets/style.css">
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:55668/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:55668/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:55668/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
 
 
 
@@ -48,11 +48,11 @@
 解决方案: 通过在 Dockerfile 中切换到 root 用户来创建目录，并设置适当的权限。然后切换回 verdaccio 用户
 # verdaccio.Dockerfile FROM harbor.example.com/cc_iot/verdaccio:latest # 设置 Verdaccio 配置 COPY ./verdaccio/config.yaml /verdaccio/conf/config.yaml COPY ./verdaccio/htpasswd /usr/rn-plugin/htpasswd # 创建存储和插件目录并设置权限 USER root RUN mkdir -p /usr/rn-plugin/storage /usr/rn-plugin/plugins &amp;&amp; \ chown -R 10001:10001 /usr/rn-plugin/storage /usr/rn-plugin/plugins &amp;&amp; \ chown 10001:10001 /usr/rn-plugin/htpasswd USER verdaccio # 设置存储和插件目录为卷 VOLUME [&#34;/usr/rn-plugin/storage&#34;, &#34;/usr/rn-plugin/plugins&#34;] # 暴露 Verdaccio 端口 EXPOSE 4873 # 设置 Verdaccio 环境变量 ENV VERDACCIO_APPDIR /verdaccio ENV VERDACCIO_USER verdaccio ENV VERDACCIO_PORT 4873 ENV VERDACCIO_PROTOCOL http ENV VERDACCIO_STORAGE /usr/rn-plugin/storage ENV VERDACCIO_PLUGINS /usr/rn-plugin/plugins ENV VERDACCIO_LOG_FORMAT pretty ENV VERDACCIO_LOG_LEVEL trace ENV VERDACCIO_PUBLIC_URL https://www.example.com/verdaccio ENTRYPOINT [&#34;/usr/local/bin/verdaccio&#34;, &#34;--config&#34;, &#34;/verdaccio/conf/config.yaml&#34;, &#34;--listen&#34;, &#34;0.0.0.0:4873&#34;] 问题 2：本地宿主机目录权限不足 问题描述： 在容器中无法写入挂载的本地目录 /root/dd/storage 和 /root/dd/plugins。
 " />
-<meta property="og:url" content="http://localhost:55668/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/" />
+<meta property="og:url" content="http://localhost:1313/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:55668/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -149,7 +149,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="http://localhost:55668/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/">Resolving Verdaccio Permissions and Proxy Issues in Docker</a></h1>
+    <a href="http://localhost:1313/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/">Resolving Verdaccio Permissions and Proxy Issues in Docker</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -162,11 +162,11 @@
   
   <span class="post-tags">
     
-    #<a href="http://localhost:55668/tags/verdaccio/">Verdaccio</a>&nbsp;
+    #<a href="http://localhost:1313/tags/verdaccio/">Verdaccio</a>&nbsp;
     
-    #<a href="http://localhost:55668/tags/docker/">Docker</a>&nbsp;
+    #<a href="http://localhost:1313/tags/docker/">Docker</a>&nbsp;
     
-    #<a href="http://localhost:55668/tags/nginx/">Nginx</a>&nbsp;
+    #<a href="http://localhost:1313/tags/nginx/">Nginx</a>&nbsp;
     
   </span>
   
@@ -337,6 +337,33 @@
       </div></div>
 
   
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h"></span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="http://localhost:1313/post/2024/06/upgrading-a-2013-macbook-air-to-a-specific-macos-version-for-microsof-rdp-client-installation/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Upgrading a 2013 MacBook Air to a Specific MacOS Version for Microsof RDP Client Installation</span>
+            </a>
+        </span>
+        
+        
+        <span class="button next">
+            <a href="http://localhost:1313/post/2024/05/records-of-problems-encountered-during-the-installation-and-initialization-of-thingsboard-3.6.4/">
+                <span class="button__text">Records of Problems Encountered During the Installation and Initialization of Thingsboard 3.6.4</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
 
   
 
@@ -365,8 +392,8 @@
   </div>
 </footer>
 
-<script src="http://localhost:55668/assets/main.js"></script>
-<script src="http://localhost:55668/assets/prism.js"></script>
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
 
 
 

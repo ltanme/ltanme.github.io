@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55668&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
     <title>Docker :: LTAN.ME</title>
   
@@ -9,23 +9,23 @@
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:55668/tags/docker/" />
+<link rel="canonical" href="http://localhost:1313/tags/docker/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:55668/assets/style.css">
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:55668/assets/green.css">
-
-
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:55668/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:55668/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
 
 
 
@@ -42,11 +42,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Docker">
 <meta property="og:description" content="" />
-<meta property="og:url" content="http://localhost:55668/tags/docker/" />
+<meta property="og:url" content="http://localhost:1313/tags/docker/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:55668/img/favicon/green.png">
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -146,7 +146,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2024/11/headscalemigrationfromcentos7toubuntu24/">Headscale Migration from CentOS 7 to Ubuntu 24</a>
+          <a href="http://localhost:1313/post/2024/11/headscalemigrationfromcentos7toubuntu24/">Headscale Migration from CentOS 7 to Ubuntu 24</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -158,15 +158,15 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/headscale/">headscale</a>&nbsp;
+            #<a href="http://localhost:1313/tags/headscale/">headscale</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/migration/">migration</a>&nbsp;
+            #<a href="http://localhost:1313/tags/migration/">migration</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/docker/">docker</a>&nbsp;
+            #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/centos/">CentOS</a>&nbsp;
+            #<a href="http://localhost:1313/tags/centos/">CentOS</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/ubuntu/">Ubuntu</a>&nbsp;
+            #<a href="http://localhost:1313/tags/ubuntu/">Ubuntu</a>&nbsp;
             
           </span>
         
@@ -187,6 +187,13 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker save -o headscale_image_backup.tar headscale/headscale:0.23.0-beta1
 </span></span></code></pre></div><h3 id="2-transfer-files-to-ubuntu-24">2. Transfer Files to Ubuntu 24</h3>
 <p>Transfer the configuration, database, and image files to the Ubuntu 24 system using <code>scp</code>, <code>rsync</code>, or another file transfer tool:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scp config.yaml db.sqlite headscale_image_backup.tar user@ubuntu-server:/path/to/backup/
+</span></span></code></pre></div><h3 id="3-import-data-on-ubuntu-24">3. Import Data on Ubuntu 24</h3>
+<h4 id="load-docker-image">Load Docker Image</h4>
+<p>On the Ubuntu system, use <code>docker load</code> to import the Docker image:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker load -i /path/to/backup/headscale_image_backup.tar
+</span></span></code></pre></div><h4 id="create-headscale-container">Create Headscale Container</h4>
+<p>Move the configuration and database files to <code>/etc/headscale/</code> and create the container:</p>
           
           
         </div>
@@ -201,7 +208,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2024/08/common-docker-issues-solutions/">Common Docker Issues Solutions</a>
+          <a href="http://localhost:1313/post/2024/08/common-docker-issues-solutions/">Common Docker Issues Solutions</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -213,7 +220,7 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/docker/">docker</a>&nbsp;
+            #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
             
           </span>
         
@@ -228,6 +235,10 @@
 <h2 id="1-docker-安装过程中网络问题">1. Docker 安装过程中网络问题</h2>
 <h3 id="问题描述">问题描述：</h3>
 <p>在国内使用 <code>apt-get</code> 安装 Docker 时，经常遇到无法连接到 Docker 官方仓库 <code>download.docker.com</code> 的问题，导致无法获取或更新 Docker 包。</p>
+<h3 id="解决方案">解决方案：</h3>
+<ul>
+<li>
+<p><strong>使用国内镜像源：</strong> 通过修改 Docker 的 APT 源配置文件，切换到国内镜像源（如清华大学、阿里云、中科大等），可以有效解决网络连接问题。</p>
           
           
         </div>
@@ -242,7 +253,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/">Resolving Verdaccio Permissions and Proxy Issues in Docker</a>
+          <a href="http://localhost:1313/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/">Resolving Verdaccio Permissions and Proxy Issues in Docker</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -254,11 +265,11 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/verdaccio/">Verdaccio</a>&nbsp;
+            #<a href="http://localhost:1313/tags/verdaccio/">Verdaccio</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/docker/">Docker</a>&nbsp;
+            #<a href="http://localhost:1313/tags/docker/">Docker</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/nginx/">Nginx</a>&nbsp;
+            #<a href="http://localhost:1313/tags/nginx/">Nginx</a>&nbsp;
             
           </span>
         
@@ -327,7 +338,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2024/04/headscale-server-setup-process/">Server setup process using Headscale with Docker.</a>
+          <a href="http://localhost:1313/post/2024/04/headscale-server-setup-process/">Server setup process using Headscale with Docker.</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -339,11 +350,11 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/tailscale/">tailscale</a>&nbsp;
+            #<a href="http://localhost:1313/tags/tailscale/">tailscale</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/headscale/">headscale</a>&nbsp;
+            #<a href="http://localhost:1313/tags/headscale/">headscale</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/docker/">docker</a>&nbsp;
+            #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
             
           </span>
         
@@ -377,7 +388,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2024/02/record-an-error-during-node-red-deployment/">Record an Error During Node RED Deployment</a>
+          <a href="http://localhost:1313/post/2024/02/record-an-error-during-node-red-deployment/">Record an Error During Node RED Deployment</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -389,11 +400,11 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/nodered/">nodered</a>&nbsp;
+            #<a href="http://localhost:1313/tags/nodered/">nodered</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/pm2/">pm2</a>&nbsp;
+            #<a href="http://localhost:1313/tags/pm2/">pm2</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/docker/">docker</a>&nbsp;
+            #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
             
           </span>
         
@@ -441,7 +452,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/">Remember the Problem of Apisix and Node Red Multi Instance Debugging</a>
+          <a href="http://localhost:1313/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/">Remember the Problem of Apisix and Node Red Multi Instance Debugging</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -453,11 +464,11 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/apisix/">apisix</a>&nbsp;
+            #<a href="http://localhost:1313/tags/apisix/">apisix</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/node-red/">node-red</a>&nbsp;
+            #<a href="http://localhost:1313/tags/node-red/">node-red</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/docker/">docker</a>&nbsp;
+            #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
             
           </span>
         
@@ -471,6 +482,8 @@
 <p>在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
 然而，在这个过程中，我遇到了一个502端口访问错误。
 我花了一整天的时间来解决这个问题，最终找到了问题的原因。</p>
+<p>问题出在我创建Node-RED实例并在ApiSix中添加upstream时。
+我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：</p>
           
           
         </div>
@@ -485,7 +498,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/">Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine</a>
+          <a href="http://localhost:1313/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/">Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -497,9 +510,9 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/vmware/">vmware</a>&nbsp;
+            #<a href="http://localhost:1313/tags/vmware/">vmware</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/docker/">docker</a>&nbsp;
+            #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
             
           </span>
         
@@ -512,6 +525,20 @@
           <h1 id="解决因docker网络导致的网络问题无法ping通局域网ip">解决因docker网络导致的网络问题，无法ping通局域网ip</h1>
 <h2 id="背景">背景</h2>
 <p>在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网并 ping 通外部地址，但 CentOS 7 无法 ping 通宿主机。这让我非常困惑，并最初怀疑可能是公司的网管对我的 MAC 地址进行了某种限制。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># route -n</span>
+</span></span><span style="display:flex;"><span>Kernel IP routing table
+</span></span><span style="display:flex;"><span>Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+</span></span><span style="display:flex;"><span>0.0.0.0         172.22.128.1    0.0.0.0         UG    <span style="color:#ae81ff">100</span>    <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> ens33
+</span></span><span style="display:flex;"><span>172.17.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> docker0
+</span></span><span style="display:flex;"><span>172.18.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-6b8659f8f886
+</span></span><span style="display:flex;"><span>172.19.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-89bc77a42b8a
+</span></span><span style="display:flex;"><span>172.20.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-b4e656893ece
+</span></span><span style="display:flex;"><span>172.22.128.0    0.0.0.0         255.255.240.0   U     <span style="color:#ae81ff">100</span>    <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> ens33
+</span></span><span style="display:flex;"><span>172.26.0.0      0.0.0.0         255.255.0.0     U     <span style="color:#ae81ff">0</span>      <span style="color:#ae81ff">0</span>        <span style="color:#ae81ff">0</span> br-5b7ab2df8a43
+</span></span></code></pre></div><blockquote>
+<p>虚拟机上有多个 Docker 网络，其中一个网络（br-b4e656893ece）与宿主机的网络冲突。<br>
+这意味着， 尝试 ping 宿主机时，数据包可能被发送到了 Docker 网络，而不是真正的物理网络。<br>
+这是最关键的问题所在</p>
           
           
         </div>
@@ -526,7 +553,7 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="http://localhost:55668/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/">Reverse Proxy to Websocket Service Set Based on Apisix2</a>
+          <a href="http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/">Reverse Proxy to Websocket Service Set Based on Apisix2</a>
         </h1>
         <div class="post-meta">
           <span class="post-date">
@@ -538,13 +565,13 @@
         
           <span class="post-tags">
             
-            #<a href="http://localhost:55668/tags/apisix/">apisix</a>&nbsp;
+            #<a href="http://localhost:1313/tags/apisix/">apisix</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/websocket/">websocket</a>&nbsp;
+            #<a href="http://localhost:1313/tags/websocket/">websocket</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/docker/">docker</a>&nbsp;
+            #<a href="http://localhost:1313/tags/docker/">docker</a>&nbsp;
             
-            #<a href="http://localhost:55668/tags/openresty/">openresty</a>&nbsp;
+            #<a href="http://localhost:1313/tags/openresty/">openresty</a>&nbsp;
             
           </span>
         
@@ -558,6 +585,16 @@
 <p>问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点</p>
 <p>apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等</p>
 <p>本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟</p>
+<hr>
+<p>整体的环境说明：如下图</p>
+<p><img src="/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150518389.png" alt="image-20210511150518389"></p>
+<ul>
+<li>
+<p><input disabled="" type="checkbox"> 搭建环境</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker pull django
+</span></span></code></pre></div></li>
+<li>
+<p><input disabled="" type="checkbox"> 运行python 容器</p>
           
           
         </div>
@@ -600,8 +637,8 @@
   </div>
 </footer>
 
-<script src="http://localhost:55668/assets/main.js"></script>
-<script src="http://localhost:55668/assets/prism.js"></script>
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
 
 
 

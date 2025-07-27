@@ -1,6 +1,6 @@
 baseurl = "https://ltan.me"
 languageCode = "en-us"
-summaryLength = 100  # 有上一段话才生效，可以自定义首页摘要数字，设置0只显示标题
+summaryLength = 150  # 设置摘要长度为150个字符
 hasCJKLanguage = "true"  # 截取正文的前70字显示在列表页面
 theme = "terminal"
 publishDir = "docs"
@@ -12,7 +12,7 @@ buildDrafts = false
 [params]
   # dir name of your main content (default is `content/posts`).
   # the list of set content will show up on your index page (baseurl).
-  contentTypeName = "orange"
+  contentTypeName = "post"
 
   # ["orange", "blue", "red", "green", "pink"]
   ThemeColor = "green"
