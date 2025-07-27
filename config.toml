@@ -42,6 +42,9 @@ buildDrafts = false
   # it's set to `true` by default
   # oneHeadingSize = false
 
+  # Read more button text
+  ReadMore = "Read more"
+
 [params.twitter]
   # set Twitter handles for Twitter cards
   # see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution
