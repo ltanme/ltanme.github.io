@@ -208,6 +208,51 @@
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="https://ltan.me/post/2024/08/common-docker-issues-solutions/">Common Docker Issues Solutions</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2024-08-15
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="docker-疑难杂症汇总">Docker 疑难杂症汇总</h1>
+<p>在使用 Docker 的过程中，可能会遇到各种各样的问题，尤其是在国内环境下，网络限制可能会导致一些操作困难。本文将汇总常见的 Docker 安装与使用过程中可能遇到的疑难杂症，并提供相应的解决方案。</p>
+<h2 id="1-docker-安装过程中网络问题">1. Docker 安装过程中网络问题</h2>
+<h3 id="问题描述">问题描述：</h3>
+<p>在国内使用 <code>apt-get</code> 安装 Docker 时，经常遇到无法连接到 Docker 官方仓库 <code>download.docker.com</code> 的问题，导致无法获取或更新 Docker 包。</p>
+<h3 id="解决方案">解决方案：</h3>
+<ul>
+<li>
+<p><strong>使用国内镜像源：</strong> 通过修改 Docker 的 APT 源配置文件，切换到国内镜像源（如清华大学、阿里云、中科大等），可以有效解决网络连接问题。</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2024/08/common-docker-issues-solutions/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="https://ltan.me/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/">Resolving Verdaccio Permissions and Proxy Issues in Docker</a>
         </h1>
         <div class="post-meta">
@@ -401,6 +446,52 @@
         <div>
           <a class="read-more button"
             href="/post/2024/02/record-an-error-during-node-red-deployment/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/">Remember the Problem of Apisix and Node Red Multi Instance Debugging</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2024-01-16
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/apisix/">apisix</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/node-red/">node-red</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="resolving-docker-compose-and-apisix-port-502-error">Resolving Docker Compose and ApiSix Port 502 Error</h1>
+<p>在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
+然而，在这个过程中，我遇到了一个502端口访问错误。
+我花了一整天的时间来解决这个问题，最终找到了问题的原因。</p>
+<p>问题出在我创建Node-RED实例并在ApiSix中添加upstream时。
+我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/">Read more →</a>
         </div>
         
       </div>

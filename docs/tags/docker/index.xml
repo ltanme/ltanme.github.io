@@ -69,6 +69,53 @@
     </item>
     
     <item>
+      <title>Common Docker Issues Solutions</title>
+      <link>https://ltan.me/post/2024/08/common-docker-issues-solutions/</link>
+      <pubDate>Thu, 15 Aug 2024 16:13:23 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/08/common-docker-issues-solutions/</guid>
+      <description>&lt;h1 id=&#34;docker-疑难杂症汇总&#34;&gt;Docker 疑难杂症汇总&lt;/h1&gt;
+&lt;p&gt;在使用 Docker 的过程中，可能会遇到各种各样的问题，尤其是在国内环境下，网络限制可能会导致一些操作困难。本文将汇总常见的 Docker 安装与使用过程中可能遇到的疑难杂症，并提供相应的解决方案。&lt;/p&gt;
+&lt;h2 id=&#34;1-docker-安装过程中网络问题&#34;&gt;1. Docker 安装过程中网络问题&lt;/h2&gt;
+&lt;h3 id=&#34;问题描述&#34;&gt;问题描述：&lt;/h3&gt;
+&lt;p&gt;在国内使用 &lt;code&gt;apt-get&lt;/code&gt; 安装 Docker 时，经常遇到无法连接到 Docker 官方仓库 &lt;code&gt;download.docker.com&lt;/code&gt; 的问题，导致无法获取或更新 Docker 包。&lt;/p&gt;
+&lt;h3 id=&#34;解决方案&#34;&gt;解决方案：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用国内镜像源：&lt;/strong&gt; 通过修改 Docker 的 APT 源配置文件，切换到国内镜像源（如清华大学、阿里云、中科大等），可以有效解决网络连接问题。&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;docker-疑难杂症汇总&#34;&gt;Docker 疑难杂症汇总&lt;/h1&gt;
+&lt;p&gt;在使用 Docker 的过程中，可能会遇到各种各样的问题，尤其是在国内环境下，网络限制可能会导致一些操作困难。本文将汇总常见的 Docker 安装与使用过程中可能遇到的疑难杂症，并提供相应的解决方案。&lt;/p&gt;
+&lt;h2 id=&#34;1-docker-安装过程中网络问题&#34;&gt;1. Docker 安装过程中网络问题&lt;/h2&gt;
+&lt;h3 id=&#34;问题描述&#34;&gt;问题描述：&lt;/h3&gt;
+&lt;p&gt;在国内使用 &lt;code&gt;apt-get&lt;/code&gt; 安装 Docker 时，经常遇到无法连接到 Docker 官方仓库 &lt;code&gt;download.docker.com&lt;/code&gt; 的问题，导致无法获取或更新 Docker 包。&lt;/p&gt;
+&lt;h3 id=&#34;解决方案&#34;&gt;解决方案：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用国内镜像源：&lt;/strong&gt; 通过修改 Docker 的 APT 源配置文件，切换到国内镜像源（如清华大学、阿里云、中科大等），可以有效解决网络连接问题。&lt;/p&gt;
+&lt;p&gt;修改 &lt;code&gt;/etc/apt/sources.list.d/docker.list&lt;/code&gt; 文件：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;deb &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;arch&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;arm64&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu jammy stable
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;添加-gpg-公钥-如果遇到-gpg-公钥无法获取的问题可以手动下载并添加公钥&#34;&gt;添加 GPG 公钥： 如果遇到 GPG 公钥无法获取的问题，可以手动下载并添加公钥：&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;更换dns或使用vpn-如果镜像源依旧无法访问可以尝试更换dns或者使用vpn绕过网络限制&#34;&gt;更换DNS或使用VPN： 如果镜像源依旧无法访问，可以尝试更换DNS，或者使用VPN绕过网络限制。&lt;/h4&gt;
+&lt;h1 id=&#34;gpg-公钥问题&#34;&gt;GPG 公钥问题&lt;/h1&gt;
+&lt;p&gt;问题描述：&lt;br&gt;
+在更新或安装 Docker 过程中，可能会出现关于 GPG 公钥的警告或错误，如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;The&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;following&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;signatures&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;couldn&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;t&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;be&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;verified&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;because&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;key&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;not&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;available&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;NO_PUBKEY&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;EA0A9C3F273FCD8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;解决方案：&lt;br&gt;
+手动添加公钥：&lt;br&gt;
+使用以下命令手动添加公钥：&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker-ustc.gpg
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;将公钥放置到正确的位置：
+确保公钥被正确地放置到 /etc/apt/keyrings/ 目录下，并更新 APT 源配置，指定 signed-by 参数。&lt;/p&gt;&lt;/blockquote&gt;
+</content>
+    </item>
+    
+    <item>
       <title>Resolving Verdaccio Permissions and Proxy Issues in Docker</title>
       <link>https://ltan.me/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/</link>
       <pubDate>Thu, 06 Jun 2024 20:55:44 +0800</pubDate>
@@ -517,6 +564,36 @@ mywin10 就表示对应需要组网的机器&lt;/p&gt;&lt;/blockquote&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;最终解决方法为&#34;&gt;最终解决方法为：&lt;/h2&gt;
 &lt;p&gt;在启动命令中去除&amp;ndash;nodesDir /data/nodes选项。官方不推荐在命令行中使用此选项，因为nodes.$$$是一个临时文件夹，起初以为是权限问题，后来发现并非如此。
 若在命令行中指定&amp;ndash;nodesDir /data/nodes，且settings.js文件中也有设置，命令行的设置会优先生效。但如果两者同时设置，可能会引起兼容性问题或其他未知问题。&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Remember the Problem of Apisix and Node Red Multi Instance Debugging</title>
+      <link>https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</link>
+      <pubDate>Tue, 16 Jan 2024 17:22:05 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</guid>
+      <description>&lt;h1 id=&#34;resolving-docker-compose-and-apisix-port-502-error&#34;&gt;Resolving Docker Compose and ApiSix Port 502 Error&lt;/h1&gt;
+&lt;p&gt;在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
+然而，在这个过程中，我遇到了一个502端口访问错误。
+我花了一整天的时间来解决这个问题，最终找到了问题的原因。&lt;/p&gt;
+&lt;p&gt;问题出在我创建Node-RED实例并在ApiSix中添加upstream时。
+我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;resolving-docker-compose-and-apisix-port-502-error&#34;&gt;Resolving Docker Compose and ApiSix Port 502 Error&lt;/h1&gt;
+&lt;p&gt;在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
+然而，在这个过程中，我遇到了一个502端口访问错误。
+我花了一整天的时间来解决这个问题，最终找到了问题的原因。&lt;/p&gt;
+&lt;p&gt;问题出在我创建Node-RED实例并在ApiSix中添加upstream时。
+我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -d --network apisix_apisix --name node-red-a -p 1880:1880 nodered/node-red:3.1.0-18
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -d --network apisix_apisix --name node-red-b -p 1881:1880 nodered/node-red:3.1.0-18
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -d --network apisix_apisix --name node-red-c -p 1882:1880 nodered/node-red:3.1.0-18
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;但实际上，Docker网络apisix_apisix并没有使用这个暴露端口，&lt;br&gt;
+而是使用了内部网络的端口。这个错误导致了我一整天的时间浪费。&lt;/p&gt;
+&lt;p&gt;为了解决问题，我将Node-RED实例的端口号设置为1880，  &lt;br&gt;
+与Docker网络中的端口一致，这样ApiSix能够正确地与Node-RED实例通信。&lt;br&gt;
+以下端口必须要填写内部的程序实际端口&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/screenshot-20240116-205136.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     

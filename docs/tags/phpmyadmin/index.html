@@ -190,6 +190,53 @@
         
       </div>
     
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2022/03/phpmyadmin-docker-install/">Phpmyadmin Docker Install</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2022-03-28
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/phpmyadmin/">phpmyadmin</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="phpmyadmin-runs-in-the-docker-environment">phpmyadmin runs in the docker environment</h1>
+<blockquote>
+<p>快速部署phpmyadmin mysql客户端管理工具，用于开发环境调用，测试用途，开源助免费<br>
+如果只是简单查询修改数据，推荐此工具 phpmyadmin mysql web管理工具<br>
+安装docker 环境后，直接运行以下命令，高级功能请查询官方文档</p></blockquote>
+<h2 id="命令">命令</h2>
+<pre tabindex="0"><code class="language-jshelllanguage" data-lang="jshelllanguage">#下载容器
+docker pull phpmyadmin/phpmyadmin
+#运行容器，PMA_ARBITRARY=1表示可以连接任意mysql数据库服务器
+docker run --name myadmin -d -e PMA_ARBITRARY=1   -p 8081:80  phpmyadmin/phpmyadmin
+</code></pre><p>##运行结果如下</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2022/03/phpmyadmin-docker-install/">Read more →</a>
+        </div>
+        
+      </div>
+    
     <div class="pagination">
   <div class="pagination__buttons">
     

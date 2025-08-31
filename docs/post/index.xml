@@ -6,7 +6,513 @@
     <description>Recent content in Posts on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 27 Jul 2025 14:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Aug 2025 17:30:00 +0800</lastBuildDate><atom:link href="https://ltan.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>整理群晖照片（第一步）：从源目录安全索引与分类到新目录</title>
+      <link>https://ltan.me/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/</link>
+      <pubDate>Sun, 31 Aug 2025 17:30:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;本文面向 &lt;strong&gt;DSM 7.0&lt;/strong&gt; 环境，系统自带 &lt;strong&gt;Python 3.8.8&lt;/strong&gt;。我们将在 &lt;strong&gt;不改动源目录&lt;/strong&gt; 的前提下，扫描 &lt;code&gt;/volume2/photo/&lt;/code&gt; 的所有子目录，把图片/视频的元数据写入 SQLite，并按“照片 / 视频 / 截图”分别复制到 &lt;code&gt;/volume2/newPhoto/&lt;/code&gt; 下的三个子目录，且&lt;strong&gt;同名不覆盖&lt;/strong&gt;、&lt;strong&gt;可重复执行&lt;/strong&gt;。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;0-目标概览&#34;&gt;0. 目标概览&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;源目录&lt;/strong&gt;（只读）：&lt;code&gt;/volume2/photo/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目标根目录&lt;/strong&gt;：&lt;code&gt;/volume2/newPhoto/&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;video/&lt;/code&gt;：保存视频&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;photo/&lt;/code&gt;：保存普通照片&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;screenshots/&lt;/code&gt;：保存手机截图（&lt;strong&gt;不靠文件名识别&lt;/strong&gt;，使用启发式检测）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数据库&lt;/strong&gt;：&lt;code&gt;/volume2/newPhoto/media.db&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;日志&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;应用日志：&lt;code&gt;/volume2/newPhoto/organize_media.log&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;后台 nohup 输出：&lt;code&gt;/volume2/newPhoto/organize_media.out&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;重跑会&lt;strong&gt;跳过已入库的源文件&lt;/strong&gt;，你也可以用 &lt;code&gt;--rescan&lt;/code&gt; 强制重新落盘并更新数据库中的目标路径与 MD5。&lt;/p&gt;</description>
+      <content>&lt;blockquote&gt;
+&lt;p&gt;本文面向 &lt;strong&gt;DSM 7.0&lt;/strong&gt; 环境，系统自带 &lt;strong&gt;Python 3.8.8&lt;/strong&gt;。我们将在 &lt;strong&gt;不改动源目录&lt;/strong&gt; 的前提下，扫描 &lt;code&gt;/volume2/photo/&lt;/code&gt; 的所有子目录，把图片/视频的元数据写入 SQLite，并按“照片 / 视频 / 截图”分别复制到 &lt;code&gt;/volume2/newPhoto/&lt;/code&gt; 下的三个子目录，且&lt;strong&gt;同名不覆盖&lt;/strong&gt;、&lt;strong&gt;可重复执行&lt;/strong&gt;。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;0-目标概览&#34;&gt;0. 目标概览&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;源目录&lt;/strong&gt;（只读）：&lt;code&gt;/volume2/photo/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目标根目录&lt;/strong&gt;：&lt;code&gt;/volume2/newPhoto/&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;video/&lt;/code&gt;：保存视频&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;photo/&lt;/code&gt;：保存普通照片&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;screenshots/&lt;/code&gt;：保存手机截图（&lt;strong&gt;不靠文件名识别&lt;/strong&gt;，使用启发式检测）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数据库&lt;/strong&gt;：&lt;code&gt;/volume2/newPhoto/media.db&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;日志&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;应用日志：&lt;code&gt;/volume2/newPhoto/organize_media.log&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;后台 nohup 输出：&lt;code&gt;/volume2/newPhoto/organize_media.out&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;重跑会&lt;strong&gt;跳过已入库的源文件&lt;/strong&gt;，你也可以用 &lt;code&gt;--rescan&lt;/code&gt; 强制重新落盘并更新数据库中的目标路径与 MD5。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;1-准备-python-虚拟环境不污染系统-python-388&#34;&gt;1. 准备 Python 虚拟环境（不污染系统 Python 3.8.8）&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 进入工具目录（建议放脚本、DB、日志于此）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir -p /volume2/newPhoto/venvs
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd /volume2/newPhoto
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 建立虚拟环境&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;python3 -m venv /volume2/newPhoto/venvs/py38
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;source /volume2/newPhoto/venvs/py38/bin/activate
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 若 venv 里没有 pip，则仅给 venv 安装（不动系统 Python）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;command -v pip &amp;gt;/dev/null 2&amp;gt;&amp;amp;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  wget -O /tmp/get-pip.py https://bootstrap.pypa.io/get-pip.py &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; curl -L https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  python /tmp/get-pip.py
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;2-安装依赖&#34;&gt;2. 安装依赖&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;最小依赖只需 &lt;code&gt;Pillow + exifread&lt;/code&gt;；推荐额外安装 &lt;code&gt;python-magic&lt;/code&gt; 以提升 MIME 判断准确性（若缺 &lt;code&gt;libmagic&lt;/code&gt; 会自动回退到 &lt;code&gt;mimetypes&lt;/code&gt;）。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;requirements.txt&lt;/code&gt;：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-txt&#34; data-lang=&#34;txt&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Pillow&amp;gt;=8.0.0,&amp;lt;10.0.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;exifread&amp;gt;=3.0.0,&amp;lt;4.0.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;python-magic&amp;gt;=0.4.24,&amp;lt;1.0.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;# 可选：以下两项当前脚本不强依赖，装不上可注释掉
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;# numpy&amp;gt;=1.19.0,&amp;lt;2.0.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;# piexif&amp;gt;=1.1.3,&amp;lt;2.0.0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;安装：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install -r requirements.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;如 &lt;code&gt;python-magic&lt;/code&gt; 因系统未装 &lt;code&gt;libmagic&lt;/code&gt; 而失败，脚本会自动回退，不影响主流程。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;3-放置脚本&#34;&gt;3. 放置脚本&lt;/h2&gt;
+&lt;p&gt;将以下完整脚本保存为：&lt;code&gt;/volume2/newPhoto/organize_media.py&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/usr/bin/env python3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# -*- coding: utf-8 -*-&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;organize_media.py  (DSM 7 / Python 3.8.8)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;- 无限级遍历源目录（只读），识别图片/视频/截图
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;- 复制到目标目录（支持 flat: 单目录；split: video/photo/screenshots 分目录）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;- 同名不覆盖：不同内容追加 __&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{md5前8位}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;- SQLite 记录：src_path、dest_path、src_md5、dest_md5、mime、media_type、尺寸、EXIF（时间/GPS/描述/设备/软件）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;- 多线程处理；所有 DB 操作用全局锁串行化（修复 sqlite 跨线程报错）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;- 日志输出 organize_media.log；可重复执行，默认按 src_path 幂等跳过；--rescan 可强制重新落盘与更新
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; argparse&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; hashlib&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; logging&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; mimetypes&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; shutil&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; sqlite3&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; sys&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; threading
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; concurrent.futures &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; ThreadPoolExecutor, as_completed
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pathlib &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; Path
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 第三方&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; magic  &lt;span style=&#34;color:#75715e&#34;&gt;# python-magic，可选&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Exception&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    magic &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; PIL &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; Image
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; exifread
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ---------------- 基本配置 ----------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;DEFAULT_SRC &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/volume2/photo&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;DEFAULT_DST &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/volume2/newPhoto&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;DEFAULT_DB  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;media.db&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;LOG_FILE    &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;organize_media.log&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CHUNK_SIZE  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1024&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1024&lt;/span&gt;   &lt;span style=&#34;color:#75715e&#34;&gt;# 8MB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;IGNORE_DIR_NAMES &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@eaDir&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;#recycle&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;#Recycle&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;venvs&amp;#34;&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;VIDEO_EXT_FALLBACK &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.mp4&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.mov&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.avi&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.mkv&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.flv&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.wmv&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.mts&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.m2ts&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.3gp&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.mpg&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.mpeg&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.rmvb&amp;#34;&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;IMAGE_EXT_FALLBACK &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.jpg&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.jpeg&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.png&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.webp&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.bmp&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.tiff&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.gif&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.heic&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.heif&amp;#34;&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;COMMON_SCREEN_SIDES &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;720&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1080&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1125&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1170&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1242&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1284&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1344&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1440&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1600&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2160&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2208&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2224&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2246&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2280&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;2316&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2340&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2400&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2460&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2560&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2688&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2732&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2796&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2840&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2960&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3088&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3120&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3200&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ---------------- 日志 ----------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;setup_logger&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    lg &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;getLogger(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;organize_media&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    lg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setLevel(logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;INFO); lg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;propagate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; lg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;handlers:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        fmt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Formatter(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%(asctime)s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; [&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%(levelname)s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;] &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%(message)s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ch &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;StreamHandler(sys&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stdout); ch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setLevel(logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;INFO); ch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setFormatter(fmt); lg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;addHandler(ch)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        fh &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;FileHandler(LOG_FILE, encoding&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;utf-8&amp;#34;&lt;/span&gt;); fh&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setLevel(logging&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;INFO); fh&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;setFormatter(fmt); lg&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;addHandler(fh)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; lg
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;log &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; setup_logger()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ---------------- DB（跨线程安全） ----------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;DB_LOCK &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; threading&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;RLock()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;SCHEMA_SQL &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;CREATE TABLE IF NOT EXISTS files(
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  id INTEGER PRIMARY KEY AUTOINCREMENT,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  src_path TEXT NOT NULL UNIQUE,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  src_md5 TEXT,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  src_size_bytes INTEGER,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  mime TEXT,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  media_type TEXT,  -- video | photo | screenshot | other
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  width INTEGER, height INTEGER,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  exif_datetime TEXT, gps_lat REAL, gps_lng REAL,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  desc TEXT, make TEXT, model TEXT, software TEXT,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  dest_path TEXT, dest_md5 TEXT,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  processed_at TEXT DEFAULT (datetime(&amp;#39;now&amp;#39;))
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;CREATE TABLE IF NOT EXISTS errors(
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  id INTEGER PRIMARY KEY AUTOINCREMENT,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  src_path TEXT, error TEXT, created_at TEXT DEFAULT (datetime(&amp;#39;now&amp;#39;))
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;CREATE INDEX IF NOT EXISTS idx_files_src_md5  ON files(src_md5);
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;CREATE INDEX IF NOT EXISTS idx_files_dest_md5 ON files(dest_md5);
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;get_db&lt;/span&gt;(db_path: Path):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    conn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sqlite3&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;connect(str(db_path), check_same_thread&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;, timeout&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;30.0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; DB_LOCK:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;execute(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PRAGMA journal_mode=WAL;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;execute(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PRAGMA synchronous=NORMAL;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;executescript(SCHEMA_SQL)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; conn
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;upsert_file_row&lt;/span&gt;(conn, row: dict):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    cols &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join(row&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;keys())
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    qs   &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;, &amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;join([&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;?&amp;#34;&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;len(row))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    sql &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;INSERT INTO files(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;cols&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;) VALUES(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;qs&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;              ON CONFLICT(src_path) DO UPDATE SET
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                src_md5=excluded.src_md5,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                src_size_bytes=excluded.src_size_bytes,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                mime=excluded.mime,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                media_type=excluded.media_type,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                width=excluded.width,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                height=excluded.height,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                exif_datetime=excluded.exif_datetime,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                gps_lat=excluded.gps_lat,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                gps_lng=excluded.gps_lng,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                desc=excluded.desc,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                make=excluded.make,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                model=excluded.model,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                software=excluded.software&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; DB_LOCK:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;execute(sql, list(row&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;values()))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;update_dest&lt;/span&gt;(conn, src_path: str, dest_path: str, dest_md5: str):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; DB_LOCK:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;execute(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UPDATE files SET dest_path=?, dest_md5=? WHERE src_path=?&amp;#34;&lt;/span&gt;, (dest_path, dest_md5, src_path))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;src_exists&lt;/span&gt;(conn, src_path: str) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; bool:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; DB_LOCK:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        cur &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;execute(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;SELECT 1 FROM files WHERE src_path=? LIMIT 1&amp;#34;&lt;/span&gt;, (src_path,))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; cur&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fetchone() &lt;span style=&#34;color:#f92672&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;insert_error&lt;/span&gt;(conn, src_path: str, err: str):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; DB_LOCK:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;execute(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;INSERT INTO errors(src_path, error) VALUES(?,?)&amp;#34;&lt;/span&gt;, (src_path, err[:&lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;]))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;db_commit&lt;/span&gt;(conn):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; DB_LOCK:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;commit()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ---------------- 工具 ----------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file_md5&lt;/span&gt;(p: Path) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; str:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; hashlib&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;md5()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rb&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; f:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; f&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read(CHUNK_SIZE)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; b: &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            h&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;update(b)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; h&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;hexdigest()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;guess_mime&lt;/span&gt;(p: Path) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; str:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; magic &lt;span style=&#34;color:#f92672&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            m &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; magic&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;from_file(str(p), mime&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; m: &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; m
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Exception&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    mt, _ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mimetypes&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;guess_type(str(p))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; mt &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;application/octet-stream&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is_video&lt;/span&gt;(mime: str, ext: str) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; bool:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (mime &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; mime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;startswith(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;video/&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; (ext &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; VIDEO_EXT_FALLBACK)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is_image&lt;/span&gt;(mime: str, ext: str) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; bool:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (mime &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; mime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;startswith(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;image/&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; (ext &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; IMAGE_EXT_FALLBACK)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;get_image_size&lt;/span&gt;(p: Path):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; Image&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open(str(p)) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; im:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; im&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;width, im&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;height, im&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Exception&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;, {}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;dms_to_deg&lt;/span&gt;(dms, ref):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        d &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; float(dms[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;num)&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;float(dms[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;den)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        m &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; float(dms[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;num)&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;float(dms[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;den)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; float(dms[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;num)&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;float(dms[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;den)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        deg &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; d &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; m&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;60.0&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; s&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3600.0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;deg &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ref &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; (&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;S&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;W&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; deg
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Exception&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;read_exif&lt;/span&gt;(p: Path):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rb&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; f:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            tags &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; exifread&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;process_file(f, details&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Exception&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; {}, {}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    get &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;lambda&lt;/span&gt; k: str(tags&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(k, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;))&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;strip()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ex &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;exif_datetime&amp;#34;&lt;/span&gt;: get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;EXIF DateTimeOriginal&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Image DateTime&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;desc&amp;#34;&lt;/span&gt;: get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Image ImageDescription&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;EXIF UserComment&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;make&amp;#34;&lt;/span&gt;: get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Image Make&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;model&amp;#34;&lt;/span&gt;: get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Image Model&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;software&amp;#34;&lt;/span&gt;: get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Image Software&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gps_lat&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gps_lng&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    lat_t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tags&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GPS GPSLatitude&amp;#34;&lt;/span&gt;);  lat_ref &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(tags&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GPS GPSLatitudeRef&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    lng_t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tags&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GPS GPSLongitude&amp;#34;&lt;/span&gt;); lng_ref &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(tags&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;GPS GPSLongitudeRef&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; lat_t &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; lng_t &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; lat_ref &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; lng_ref:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ex[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gps_lat&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dms_to_deg(lat_t&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;values, lat_ref)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ex[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gps_lng&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dms_to_deg(lng_t&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;values, lng_ref)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; tags, ex
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is_screenshot&lt;/span&gt;(mime: str, w: int, h: int, exif_sel: dict, pil_info: dict) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; bool:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; w &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; h: &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    score &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ml &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (mime &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;lower()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    soft &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (exif_sel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;software&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;lower()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ml &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; (&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;image/png&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;image/webp&amp;#34;&lt;/span&gt;): score &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; (exif_sel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;make&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; exif_sel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;model&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; exif_sel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;exif_datetime&amp;#34;&lt;/span&gt;)): score &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;screenshot&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; soft &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; (&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;screen&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; soft &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; (&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cap&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; soft &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;shot&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; soft)): score &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; w &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; COMMON_SCREEN_SIDES &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; h &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; COMMON_SCREEN_SIDES: score &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ar &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; w &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; float(h)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.6&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; ar &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2.4&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.45&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; ar &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.6&lt;/span&gt;: score &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    dpi &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pil_info&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dpi&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; isinstance(pil_info, dict) &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; dpi &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; isinstance(dpi, tuple) &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; any(x &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;72&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;96&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; dpi &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; isinstance(x,(int,float))): score &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; score &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ensure_dir&lt;/span&gt;(p: Path): p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mkdir(parents&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;, exist_ok&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;safe_copy&lt;/span&gt;(src: Path, dest_dir: Path, src_md5: str) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Path:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ensure_dir(dest_dir)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    target &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dest_dir &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; src&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;name
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; target&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;exists():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; file_md5(target) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; src_md5:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; target
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Exception&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        alt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dest_dir &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;target&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stem&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;__&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;src_md5[:&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;]&lt;span style=&#34;color:#e6db74&#34;&gt;}{&lt;/span&gt;target&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;suffix&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        shutil&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;copy2(str(src), str(alt))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; alt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    shutil&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;copy2(str(src), str(target))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; target
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;resolve_dest_dir&lt;/span&gt;(dst_root: Path, media_type: str, mode: str) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Path:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; mode &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;flat&amp;#34;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; dst_root
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    mapping &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;video&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;video&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;photo&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;photo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;screenshot&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;screenshots&amp;#34;&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    sub &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mapping&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(media_type)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; dst_root &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; sub &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; sub &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; dst_root
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ---------------- 遍历（无限级） ----------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;walk_files&lt;/span&gt;(src: Path, dst_root: Path):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    src &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; src&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;resolve(); dst_root &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; dst_root&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;resolve()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; root, dirs, files &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;walk(src, followlinks&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        root_path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Path(root)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;resolve()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; dst_root &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; root_path&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;parents &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; root_path &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; dst_root:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;continue&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Exception&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;pass&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        pruned &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; d &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; dirs:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; d &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; IGNORE_DIR_NAMES: &lt;span style=&#34;color:#66d9ef&#34;&gt;continue&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; d&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;lower() &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;@eadir&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;#recycle&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;#recycle.bin&amp;#34;&lt;/span&gt;}: &lt;span style=&#34;color:#66d9ef&#34;&gt;continue&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (root_path &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; d)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;resolve() &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; dst_root: &lt;span style=&#34;color:#66d9ef&#34;&gt;continue&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            pruned&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(d)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        dirs[:] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pruned
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; fn &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; files:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; fn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;startswith(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; fn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;endswith(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;~&amp;#34;&lt;/span&gt;): &lt;span style=&#34;color:#66d9ef&#34;&gt;continue&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;yield&lt;/span&gt; (root_path &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; fn)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ---------------- 核心处理 ----------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;process_one&lt;/span&gt;(p: Path, dst_root: Path, conn: sqlite3&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Connection, mode: str, rescan: bool):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    src_path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(p)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        st &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;stat()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        src_md5 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; file_md5(p)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        mime &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; guess_mime(p)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        ext  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;suffix&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;lower()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        media_type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;other&amp;#34;&lt;/span&gt;; w &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; h &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;; exif_sel &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {}; pil_info &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (mime &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; mime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;startswith(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;video/&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; (ext &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; VIDEO_EXT_FALLBACK):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            media_type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;video&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;elif&lt;/span&gt; (mime &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; mime&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;startswith(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;image/&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; (ext &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; IMAGE_EXT_FALLBACK):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            w,h,pil_info &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_image_size(p)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            _, exif_sel  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; read_exif(p)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            media_type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;screenshot&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; is_screenshot(mime,w,h,exif_sel,pil_info) &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;photo&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        upsert_file_row(conn, {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;src_path&amp;#34;&lt;/span&gt;: src_path,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;src_md5&amp;#34;&lt;/span&gt;: src_md5,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;src_size_bytes&amp;#34;&lt;/span&gt;: st&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;st_size,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;mime&amp;#34;&lt;/span&gt;: mime,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;media_type&amp;#34;&lt;/span&gt;: media_type,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;width&amp;#34;&lt;/span&gt;: w, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;height&amp;#34;&lt;/span&gt;: h,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;exif_datetime&amp;#34;&lt;/span&gt;: exif_sel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;exif_datetime&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gps_lat&amp;#34;&lt;/span&gt;: exif_sel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gps_lat&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gps_lng&amp;#34;&lt;/span&gt;: exif_sel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;gps_lng&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;desc&amp;#34;&lt;/span&gt;: exif_sel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;desc&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;make&amp;#34;&lt;/span&gt;: exif_sel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;make&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;model&amp;#34;&lt;/span&gt;: exif_sel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;model&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;software&amp;#34;&lt;/span&gt;: exif_sel&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;software&amp;#34;&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dest_path&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dest_md5&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        })
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; media_type &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; (&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;video&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;photo&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;screenshot&amp;#34;&lt;/span&gt;):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;not&lt;/span&gt; rescan:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; DB_LOCK:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    cur &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; conn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;execute(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;SELECT dest_path FROM files WHERE src_path=? LIMIT 1&amp;#34;&lt;/span&gt;, (src_path,))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    row &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; cur&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fetchone()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; row &lt;span style=&#34;color:#f92672&#34;&gt;and&lt;/span&gt; row[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;skip&amp;#34;&lt;/span&gt;, src_path
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            dest_dir &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; resolve_dest_dir(dst_root, media_type, mode)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            dest &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; safe_copy(p, dest_dir, src_md5)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                dest_md5 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; file_md5(dest)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Exception&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                dest_md5 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            update_dest(conn, src_path, str(dest), dest_md5)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; media_type, src_path
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;other&amp;#34;&lt;/span&gt;, src_path
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Exception&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; e:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        insert_error(conn, src_path, repr(e))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        log&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;exception(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[ERROR] &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;src_path&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;e&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;error&amp;#34;&lt;/span&gt;, src_path
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ---------------- 主程序 ----------------&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ap &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; argparse&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ArgumentParser(description&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Index photo/video to SQLite and copy into flat/split dirs.&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ap&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add_argument(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;--src&amp;#34;&lt;/span&gt;, default&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;DEFAULT_SRC, help&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;源目录（只读）&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ap&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add_argument(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;--dst&amp;#34;&lt;/span&gt;, default&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;DEFAULT_DST, help&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;目标根目录（flat时直接落在此目录；split时在其下建子目录）&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ap&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add_argument(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;--db&amp;#34;&lt;/span&gt;,  default&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;DEFAULT_DB,  help&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;SQLite 文件名（默认当前目录 media.db）&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ap&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add_argument(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;--mode&amp;#34;&lt;/span&gt;, choices&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;flat&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;split&amp;#34;&lt;/span&gt;], default&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;flat&amp;#34;&lt;/span&gt;, help&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;flat=单目录; split=video/photo/screenshots 分目录&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ap&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add_argument(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;--rescan&amp;#34;&lt;/span&gt;, action&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;store_true&amp;#34;&lt;/span&gt;, help&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;忽略已处理记录，强制重新复制并更新 dest_*&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    ap&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;add_argument(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;--workers&amp;#34;&lt;/span&gt;, type&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;int, default&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;max(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, (os&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;cpu_count() &lt;span style=&#34;color:#f92672&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;), help&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;并发线程数&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    args &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ap&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;parse_args()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    src &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Path(args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;src)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;resolve()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    dst &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Path(args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;dst)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;resolve()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    dst&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mkdir(parents&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;, exist_ok&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    conn &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_db(Path(args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;db)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;resolve())
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    log&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;=== Start === src=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;src&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; dst=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;dst&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; db=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;db&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; mode=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mode&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; rescan=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;rescan&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; workers=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;workers&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    done &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    stats &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;video&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;photo&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;screenshot&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;other&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;skip&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;error&amp;#34;&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    t0 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; time&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;time()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; ThreadPoolExecutor(max_workers&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;workers) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; ex:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        pending &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; fp &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; walk_files(src, dst):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            pending&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(ex&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;submit(process_one, fp, dst, conn, args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mode, args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;rescan))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; len(pending) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;workers &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; fut &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; as_completed(pending[:args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;workers &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;]):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    kind, _ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fut&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;result(); stats[kind]&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;stats&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(kind,&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;; done&lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; done &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                        db_commit(conn)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                        log&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;进度 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;done&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; | 统计 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;stats&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                pending &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pending[args&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;workers &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;:]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; fut &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; as_completed(pending):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            kind, _ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fut&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;result(); stats[kind]&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;stats&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(kind,&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;; done&lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        db_commit(conn)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    log&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;=== Done in &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;time&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;time()&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;t0&lt;span style=&#34;color:#e6db74&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;.1f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;s === 已处理 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;done&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; | 统计 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;stats&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; __name__ &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;__main__&amp;#34;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    main()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;若脚本不可执行：&lt;code&gt;chmod +x /volume2/newPhoto/organize_media.py&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;4-运行后台&#34;&gt;4. 运行（后台）&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;分三类存放（推荐）&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt; cd /volume2/newPhoto &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; nohup /volume2/newPhoto/venvs/py38/bin/python /volume2/newPhoto/organize_media.py &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  --src /volume2/photo --dst /volume2/newPhoto --db /volume2/newPhoto/media.db &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  --mode split --rescan --workers &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; &amp;gt; /volume2/newPhoto/organize_media.out 2&amp;gt;&amp;amp;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &amp;amp; &lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--mode split&lt;/code&gt;：落到 &lt;code&gt;video/&lt;/code&gt;、&lt;code&gt;photo/&lt;/code&gt;、&lt;code&gt;screenshots/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--rescan&lt;/code&gt;：即使已有记录也重新复制并更新 &lt;code&gt;dest_path&lt;/code&gt;/&lt;code&gt;dest_md5&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--workers 4&lt;/code&gt;：并发线程数，视 NAS 性能调整&lt;/li&gt;
+&lt;li&gt;源目录&lt;strong&gt;只读&lt;/strong&gt;，脚本使用 &lt;code&gt;copy2&lt;/code&gt; 保持时间戳与权限&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;5-查看进度与日志&#34;&gt;5. 查看进度与日志&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 实时日志&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tail -f /volume2/newPhoto/organize_media.log
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# nohup 输出&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tail -f /volume2/newPhoto/organize_media.out
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 进程检查&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pgrep -af /volume2/newPhoto/organize_media.py
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;6-验证数据库&#34;&gt;6. 验证数据库&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 每类文件的总数 &amp;amp; 已落盘数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sqlite3 /volume2/newPhoto/media.db &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;SELECT media_type, COUNT(*), SUM(dest_path IS NOT NULL) FROM files GROUP BY media_type;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 看几条映射（源/目标/MD5）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sqlite3 /volume2/newPhoto/media.db &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;SELECT substr(src_md5,1,8), substr(dest_md5,1,8), src_path, dest_path FROM files WHERE dest_path IS NOT NULL LIMIT 5;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 错误数量&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sqlite3 /volume2/newPhoto/media.db &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;SELECT COUNT(*) FROM errors;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;由于启用 &lt;strong&gt;WAL 模式&lt;/strong&gt;，数据会先写入 &lt;code&gt;media.db-wal&lt;/code&gt;；主库 &lt;code&gt;media.db&lt;/code&gt; 体积可能暂不变化，属正常行为。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;需要将 WAL 合并入主库（可选）：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sqlite3 /volume2/newPhoto/media.db &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PRAGMA wal_checkpoint(TRUNCATE); VACUUM;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;7-使用说明与特性&#34;&gt;7. 使用说明与特性&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;同名不覆盖&lt;/strong&gt;：若目标已有同名文件但内容不同，自动保存为 &lt;code&gt;原名__{md5前8位}.扩展名&lt;/code&gt;，两者都保留。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;截图识别&lt;/strong&gt;：不依赖文件名；综合 MIME、EXIF 缺失、尺寸/纵横比、DPI、软件标记等启发式。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可重复执行&lt;/strong&gt;：默认按 &lt;code&gt;src_path&lt;/code&gt; 幂等跳过；加 &lt;code&gt;--rescan&lt;/code&gt; 可强制更新。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多线程&lt;/strong&gt;：&lt;code&gt;ThreadPoolExecutor&lt;/code&gt; 并发处理；DB 访问串行化避免线程问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;安全&lt;/strong&gt;：不修改源目录内容；复制目标位于 &lt;code&gt;/volume2/newPhoto/&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;8-常见问题&#34;&gt;8. 常见问题&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Q1：数据库文件 &lt;code&gt;media.db&lt;/code&gt; 一直 4096B？&lt;/strong&gt;&lt;br&gt;
+A：WAL 模式下，数据写在 &lt;code&gt;media.db-wal&lt;/code&gt;，主库体积不会立刻变大。执行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sqlite3 /volume2/newPhoto/media.db &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PRAGMA wal_checkpoint(TRUNCATE); VACUUM;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Q2：看到 &lt;code&gt;sqlite3.ProgrammingError: SQLite objects created in a thread …&lt;/code&gt;？&lt;/strong&gt;&lt;br&gt;
+A：本教程脚本已设置 &lt;code&gt;check_same_thread=False&lt;/code&gt; 且用 &lt;code&gt;DB_LOCK&lt;/code&gt; 串行化 SQL。若仍看到，通常是&lt;strong&gt;旧进程&lt;/strong&gt;在跑：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pkill -f &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/volume2/newPhoto/organize_media.py&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 然后用上面的 nohup 命令重启&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Q3：目录权限显示一堆 &lt;code&gt;+&lt;/code&gt; 或 &lt;code&gt;---------+&lt;/code&gt; 正常吗？&lt;/strong&gt;&lt;br&gt;
+A：群晖启用 &lt;strong&gt;ACL&lt;/strong&gt; 时，&lt;code&gt;ls -l&lt;/code&gt; 的 POSIX 权限不代表最终权限。可用：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;synoacltool -get /volume2/newPhoto
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ls -le /volume2/newPhoto
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;必要时再 &lt;code&gt;chown/chmod&lt;/code&gt; 微调显示，但最终以 ACL 为准。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;9-下一步可选扩展&#34;&gt;9. 下一步（可选扩展）&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;去重策略&lt;/strong&gt;：若不同源路径 MD5 相同，可只保留目标一份并在 DB 中记录多对一映射。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;按日期分层&lt;/strong&gt;：&lt;code&gt;photo/YYYY/YYYY-MM/&lt;/code&gt; 归档。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;导出报表&lt;/strong&gt;：将 &lt;code&gt;files&lt;/code&gt; 表导出为 CSV/Markdown，便于审阅。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果你需要上述扩展，我可以提供直接可用的增量脚本与 SQL 示例。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;至此，你已完成“整理群晖照片（第一步）”：安全索引 + 分类复制 + 可追踪元数据。&lt;/strong&gt;&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>BrowserGuard - 智能浏览器监控工具，助力家长控制与学习管理</title>
       <link>https://ltan.me/post/2025/07/browserguard-parental-control-browser-monitoring-tool/</link>
@@ -1141,6 +1647,53 @@
     </item>
     
     <item>
+      <title>Common Docker Issues Solutions</title>
+      <link>https://ltan.me/post/2024/08/common-docker-issues-solutions/</link>
+      <pubDate>Thu, 15 Aug 2024 16:13:23 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/08/common-docker-issues-solutions/</guid>
+      <description>&lt;h1 id=&#34;docker-疑难杂症汇总&#34;&gt;Docker 疑难杂症汇总&lt;/h1&gt;
+&lt;p&gt;在使用 Docker 的过程中，可能会遇到各种各样的问题，尤其是在国内环境下，网络限制可能会导致一些操作困难。本文将汇总常见的 Docker 安装与使用过程中可能遇到的疑难杂症，并提供相应的解决方案。&lt;/p&gt;
+&lt;h2 id=&#34;1-docker-安装过程中网络问题&#34;&gt;1. Docker 安装过程中网络问题&lt;/h2&gt;
+&lt;h3 id=&#34;问题描述&#34;&gt;问题描述：&lt;/h3&gt;
+&lt;p&gt;在国内使用 &lt;code&gt;apt-get&lt;/code&gt; 安装 Docker 时，经常遇到无法连接到 Docker 官方仓库 &lt;code&gt;download.docker.com&lt;/code&gt; 的问题，导致无法获取或更新 Docker 包。&lt;/p&gt;
+&lt;h3 id=&#34;解决方案&#34;&gt;解决方案：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用国内镜像源：&lt;/strong&gt; 通过修改 Docker 的 APT 源配置文件，切换到国内镜像源（如清华大学、阿里云、中科大等），可以有效解决网络连接问题。&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;docker-疑难杂症汇总&#34;&gt;Docker 疑难杂症汇总&lt;/h1&gt;
+&lt;p&gt;在使用 Docker 的过程中，可能会遇到各种各样的问题，尤其是在国内环境下，网络限制可能会导致一些操作困难。本文将汇总常见的 Docker 安装与使用过程中可能遇到的疑难杂症，并提供相应的解决方案。&lt;/p&gt;
+&lt;h2 id=&#34;1-docker-安装过程中网络问题&#34;&gt;1. Docker 安装过程中网络问题&lt;/h2&gt;
+&lt;h3 id=&#34;问题描述&#34;&gt;问题描述：&lt;/h3&gt;
+&lt;p&gt;在国内使用 &lt;code&gt;apt-get&lt;/code&gt; 安装 Docker 时，经常遇到无法连接到 Docker 官方仓库 &lt;code&gt;download.docker.com&lt;/code&gt; 的问题，导致无法获取或更新 Docker 包。&lt;/p&gt;
+&lt;h3 id=&#34;解决方案&#34;&gt;解决方案：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用国内镜像源：&lt;/strong&gt; 通过修改 Docker 的 APT 源配置文件，切换到国内镜像源（如清华大学、阿里云、中科大等），可以有效解决网络连接问题。&lt;/p&gt;
+&lt;p&gt;修改 &lt;code&gt;/etc/apt/sources.list.d/docker.list&lt;/code&gt; 文件：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;deb &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;arch&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;arm64&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu jammy stable
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;添加-gpg-公钥-如果遇到-gpg-公钥无法获取的问题可以手动下载并添加公钥&#34;&gt;添加 GPG 公钥： 如果遇到 GPG 公钥无法获取的问题，可以手动下载并添加公钥：&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;更换dns或使用vpn-如果镜像源依旧无法访问可以尝试更换dns或者使用vpn绕过网络限制&#34;&gt;更换DNS或使用VPN： 如果镜像源依旧无法访问，可以尝试更换DNS，或者使用VPN绕过网络限制。&lt;/h4&gt;
+&lt;h1 id=&#34;gpg-公钥问题&#34;&gt;GPG 公钥问题&lt;/h1&gt;
+&lt;p&gt;问题描述：&lt;br&gt;
+在更新或安装 Docker 过程中，可能会出现关于 GPG 公钥的警告或错误，如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;The&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;following&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;signatures&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;couldn&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;t&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;be&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;verified&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;because&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;key&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;not&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;available&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;NO_PUBKEY&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;EA0A9C3F273FCD8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;解决方案：&lt;br&gt;
+手动添加公钥：&lt;br&gt;
+使用以下命令手动添加公钥：&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker-ustc.gpg
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;将公钥放置到正确的位置：
+确保公钥被正确地放置到 /etc/apt/keyrings/ 目录下，并更新 APT 源配置，指定 signed-by 参数。&lt;/p&gt;&lt;/blockquote&gt;
+</content>
+    </item>
+    
+    <item>
       <title>Smartdns&#43;adguardhome</title>
       <link>https://ltan.me/post/2024/08/smartdns&#43;adguardhome/</link>
       <pubDate>Wed, 07 Aug 2024 20:28:21 +0800</pubDate>
@@ -1188,6 +1741,78 @@ smartdns
 -v /overlay/upper/opt/docker/volumes/adguard2/conf:/opt/adguardhome/conf &lt;br&gt;
 &amp;ndash;network host &lt;br&gt;
 -d adguard/adguardhome:latest&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>N5105&#43;istoreos</title>
+      <link>https://ltan.me/post/2024/07/n5105&#43;istoreos/</link>
+      <pubDate>Wed, 31 Jul 2024 19:52:37 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/07/n5105&#43;istoreos/</guid>
+      <description>&lt;p&gt;以下图片vmnic0对应eth0,打x 的表示用于管理该exsi虚拟机器使用
+&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;图片ip地址设置&lt;/p&gt;
+&lt;p&gt;选择需要直通的网卡，需要排除管理网卡，点击&lt;code&gt;切换直通&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;配置istore 硬件
+&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;添加交换机后再添加端口组&#34;&gt;添加交换机后，再添加端口组&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;问题&#34;&gt;问题.&lt;/h1&gt;
+&lt;p&gt;任务
+Power On VM
+键
+haTask-5-vim.VirtualMachine.powerOn-267&lt;/p&gt;
+&lt;p&gt;描述
+打开该虚拟机电源&lt;/p&gt;
+&lt;p&gt;虚拟机
+win10
+状况
+失败 - 父资源池中的可用内存资源不足，无法执行该操作。&lt;/p&gt;
+&lt;p&gt;错误
+模块“MonitorLoop”打开电源失败。
+组 vmm.135766: 无法对 VMM 组 vmm0:win10 应用内存配置。(最小值: 1048576，最大值: -1，最小限制: -1，份额: -3，单位: pages)
+无法打开虚拟机电源: 内存资源的准入检查失败。有关资源管理设置的信息，请参见《VMware ESX 资源管理指南》。
+无法打开虚拟机电源。
+无法启动虚拟机。
+&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;</description>
+      <content>&lt;p&gt;以下图片vmnic0对应eth0,打x 的表示用于管理该exsi虚拟机器使用
+&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;图片ip地址设置&lt;/p&gt;
+&lt;p&gt;选择需要直通的网卡，需要排除管理网卡，点击&lt;code&gt;切换直通&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;配置istore 硬件
+&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_2.png&#34; alt=&#34;img_2.png&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;添加交换机后再添加端口组&#34;&gt;添加交换机后，再添加端口组&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;问题&#34;&gt;问题.&lt;/h1&gt;
+&lt;p&gt;任务
+Power On VM
+键
+haTask-5-vim.VirtualMachine.powerOn-267&lt;/p&gt;
+&lt;p&gt;描述
+打开该虚拟机电源&lt;/p&gt;
+&lt;p&gt;虚拟机
+win10
+状况
+失败 - 父资源池中的可用内存资源不足，无法执行该操作。&lt;/p&gt;
+&lt;p&gt;错误
+模块“MonitorLoop”打开电源失败。
+组 vmm.135766: 无法对 VMM 组 vmm0:win10 应用内存配置。(最小值: 1048576，最大值: -1，最小限制: -1，份额: -3，单位: pages)
+无法打开虚拟机电源: 内存资源的准入检查失败。有关资源管理设置的信息，请参见《VMware ESX 资源管理指南》。
+无法打开虚拟机电源。
+无法启动虚拟机。
+&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;实际显示
+&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_7.png&#34; alt=&#34;img_7.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;win10 的配置
+&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_8.png&#34; alt=&#34;img_8.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;istore的配置
+&lt;img src=&#34;https://ltan.me/post/2024/07/n5105&amp;#43;istoreos/img_9.png&#34; alt=&#34;img_9.png&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
@@ -3253,6 +3878,36 @@ mywin10 就表示对应需要组网的机器&lt;/p&gt;&lt;/blockquote&gt;
     </item>
     
     <item>
+      <title>Remember the Problem of Apisix and Node Red Multi Instance Debugging</title>
+      <link>https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</link>
+      <pubDate>Tue, 16 Jan 2024 17:22:05 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</guid>
+      <description>&lt;h1 id=&#34;resolving-docker-compose-and-apisix-port-502-error&#34;&gt;Resolving Docker Compose and ApiSix Port 502 Error&lt;/h1&gt;
+&lt;p&gt;在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
+然而，在这个过程中，我遇到了一个502端口访问错误。
+我花了一整天的时间来解决这个问题，最终找到了问题的原因。&lt;/p&gt;
+&lt;p&gt;问题出在我创建Node-RED实例并在ApiSix中添加upstream时。
+我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;resolving-docker-compose-and-apisix-port-502-error&#34;&gt;Resolving Docker Compose and ApiSix Port 502 Error&lt;/h1&gt;
+&lt;p&gt;在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
+然而，在这个过程中，我遇到了一个502端口访问错误。
+我花了一整天的时间来解决这个问题，最终找到了问题的原因。&lt;/p&gt;
+&lt;p&gt;问题出在我创建Node-RED实例并在ApiSix中添加upstream时。
+我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -d --network apisix_apisix --name node-red-a -p 1880:1880 nodered/node-red:3.1.0-18
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -d --network apisix_apisix --name node-red-b -p 1881:1880 nodered/node-red:3.1.0-18
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -d --network apisix_apisix --name node-red-c -p 1882:1880 nodered/node-red:3.1.0-18
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;但实际上，Docker网络apisix_apisix并没有使用这个暴露端口，&lt;br&gt;
+而是使用了内部网络的端口。这个错误导致了我一整天的时间浪费。&lt;/p&gt;
+&lt;p&gt;为了解决问题，我将Node-RED实例的端口号设置为1880，  &lt;br&gt;
+与Docker网络中的端口一致，这样ApiSix能够正确地与Node-RED实例通信。&lt;br&gt;
+以下端口必须要填写内部的程序实际端口&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/screenshot-20240116-205136.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
       <title>Solving HTTPS Debugging Issues with SSO Integration Using Ngrok on Windows</title>
       <link>https://ltan.me/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/</link>
       <pubDate>Tue, 02 Jan 2024 10:00:00 +0800</pubDate>
@@ -4164,6 +4819,53 @@ Version: &lt;code&gt;1.7&lt;/code&gt;（或您想使用的其他版本）&lt;br&
     </item>
     
     <item>
+      <title>Armbian Boots to Display Chinese Character Stroke Order Learning</title>
+      <link>https://ltan.me/post/2023/02/armbian-boots-to-display-chinese-character-stroke-order-learning/</link>
+      <pubDate>Sat, 18 Feb 2023 20:04:12 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2023/02/armbian-boots-to-display-chinese-character-stroke-order-learning/</guid>
+      <description>&lt;h1 id=&#34;家庭数字显示屏自动化小学汉字笔画拼音展示&#34;&gt;家庭数字显示屏自动化&amp;ndash;小学汉字笔画，拼音展示&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一直想折腾一个家庭数字内容显示屏，想了很久，之前做的都是打开一个播放器播放视频，内容比较单一
+今天有时间用golang语言基于goframe框架做一个汉字笔顺，笔画展示，包括拼音显示，然后通过电视屏
+和arm开发板小盒子（n1）自动化运行。运行程序系统环境 Debian Buster with Armbian Linux 5.1.15-aml-s905
+目前自动开机用到的主要硬件设备小米开关，小米电视，小米智能音箱等设备&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;家庭数字显示屏自动化小学汉字笔画拼音展示&#34;&gt;家庭数字显示屏自动化&amp;ndash;小学汉字笔画，拼音展示&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一直想折腾一个家庭数字内容显示屏，想了很久，之前做的都是打开一个播放器播放视频，内容比较单一
+今天有时间用golang语言基于goframe框架做一个汉字笔顺，笔画展示，包括拼音显示，然后通过电视屏
+和arm开发板小盒子（n1）自动化运行。运行程序系统环境 Debian Buster with Armbian Linux 5.1.15-aml-s905
+目前自动开机用到的主要硬件设备小米开关，小米电视，小米智能音箱等设备&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;内容管理系统&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;n1开机自动运行程序&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;.desktop 程序是用来控制开机自启桌面程序&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	admin@amlbian:~$ cat ~/.config/autostart/ad.desktop 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;Desktop Entry&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	Encoding&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;UTF-8
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	Version&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0.9.4
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	Type&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;Application
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	Name&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ad
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	Comment&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ad
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	&lt;span style=&#34;color:#75715e&#34;&gt;#Exec=nohup mpv --playlist=/mnt/nfs/my_list.txt --loop-playlist=inf --fullscreen=yes &amp;amp;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	Exec&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;chromium  --noerrdialogs --disable-session-crashed-bubble --disable-infobars  --kiosk http://localhost:81/characters/show
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	StartupNotify&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;false
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	Terminal&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;false
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	Hidden&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;false
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;内容控制程序
+采用supervisor做开机自启go语言编写的内容控制程序&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#75715e&#34;&gt;#/usr/bin/python /usr/local/bin/supervisord -c /etc/supervisord.conf&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;program:char&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	command&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/root/character -c /root/config.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	priority&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;-1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	autorestart&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;true
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
+    <item>
       <title>Calculations Are Automatically Generated</title>
       <link>https://ltan.me/post/2023/02/calculations-are-automatically-generated/</link>
       <pubDate>Fri, 03 Feb 2023 15:18:02 +0800</pubDate>
@@ -4332,6 +5034,59 @@ Version: &lt;code&gt;1.7&lt;/code&gt;（或您想使用的其他版本）&lt;br&
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;save(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;竖式题目生成-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;.xlsx&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (cell,len(data),version))
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
+    <item>
+      <title>Localdatetime to Date Format Java</title>
+      <link>https://ltan.me/post/2022/11/localdatetime-to-date-format-java/</link>
+      <pubDate>Mon, 28 Nov 2022 16:05:03 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2022/11/localdatetime-to-date-format-java/</guid>
+      <description>&lt;h1 id=&#34;localdatetime-to-date-format-java&#34;&gt;Localdatetime to Date Format Java&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在使用&lt;code&gt;java&lt;/code&gt;时间的&lt;code&gt;api&lt;/code&gt;个人感觉非常不方便，很多时候存在格式转换，类型转换 比如&lt;code&gt;date&lt;/code&gt; 转&lt;code&gt;localDate&lt;/code&gt;
+&lt;code&gt;localDateTime&lt;/code&gt;转换为 &lt;code&gt;Date&lt;/code&gt; 等这种操作，二者的相互转换并不是一步到位哪么简单的，所以，还是在
+这里记录一下转换的&lt;code&gt;api&lt;/code&gt;备忘一下, &lt;code&gt;localDate&lt;/code&gt;只处理&lt;code&gt;yyyyMMdd&lt;/code&gt;格式，&lt;code&gt;localTime&lt;/code&gt;只处理&lt;code&gt;HHmmss&lt;/code&gt;格式,而
+&lt;code&gt;localDateTime&lt;/code&gt; 可以处理 &lt;code&gt;yyyy-MM-dd HH:mm:ss&lt;/code&gt;&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;localdatetime-to-date-format-java&#34;&gt;Localdatetime to Date Format Java&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在使用&lt;code&gt;java&lt;/code&gt;时间的&lt;code&gt;api&lt;/code&gt;个人感觉非常不方便，很多时候存在格式转换，类型转换 比如&lt;code&gt;date&lt;/code&gt; 转&lt;code&gt;localDate&lt;/code&gt;
+&lt;code&gt;localDateTime&lt;/code&gt;转换为 &lt;code&gt;Date&lt;/code&gt; 等这种操作，二者的相互转换并不是一步到位哪么简单的，所以，还是在
+这里记录一下转换的&lt;code&gt;api&lt;/code&gt;备忘一下, &lt;code&gt;localDate&lt;/code&gt;只处理&lt;code&gt;yyyyMMdd&lt;/code&gt;格式，&lt;code&gt;localTime&lt;/code&gt;只处理&lt;code&gt;HHmmss&lt;/code&gt;格式,而
+&lt;code&gt;localDateTime&lt;/code&gt; 可以处理 &lt;code&gt;yyyy-MM-dd HH:mm:ss&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;date-to-localdatetime&#34;&gt;Date to LocalDateTime&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Date date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Date(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    LocalDateTime ldt &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; date.&lt;span style=&#34;color:#a6e22e&#34;&gt;toInstant&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            .&lt;span style=&#34;color:#a6e22e&#34;&gt;atZone&lt;/span&gt;(ZoneId.&lt;span style=&#34;color:#a6e22e&#34;&gt;systemDefault&lt;/span&gt;() )
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            .&lt;span style=&#34;color:#a6e22e&#34;&gt;toLocalDateTime&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;localdatetime-to-date&#34;&gt;LocalDateTime to Date&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   LocalDateTime date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; LocalDateTime.&lt;span style=&#34;color:#a6e22e&#34;&gt;now&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   Date date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Date.&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;( localDateTime.&lt;span style=&#34;color:#a6e22e&#34;&gt;atZone&lt;/span&gt;( ZoneId.&lt;span style=&#34;color:#a6e22e&#34;&gt;systemDefault&lt;/span&gt;()).&lt;span style=&#34;color:#a6e22e&#34;&gt;toInstant&lt;/span&gt;());
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;生成时间序列&#34;&gt;生成时间序列&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Date&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getDayList&lt;/span&gt;(String startDate, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; gap) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      String pattern &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yyyy-MM-dd HH:mm:ss&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      DateTimeFormatter dateFormat &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; DateTimeFormatter.&lt;span style=&#34;color:#a6e22e&#34;&gt;ofPattern&lt;/span&gt;(pattern); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#75715e&#34;&gt;// 生成年月日的日期序列&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Date&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; res &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArrayList&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; gap; i&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         LocalDateTime newDate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; LocalDateTime.&lt;span style=&#34;color:#a6e22e&#34;&gt;parse&lt;/span&gt;(startDate, dateFormat).&lt;span style=&#34;color:#a6e22e&#34;&gt;plusDays&lt;/span&gt;(i);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         Date date &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Date.&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;(newDate.&lt;span style=&#34;color:#a6e22e&#34;&gt;atZone&lt;/span&gt;(ZoneId.&lt;span style=&#34;color:#a6e22e&#34;&gt;systemDefault&lt;/span&gt;()).&lt;span style=&#34;color:#a6e22e&#34;&gt;toInstant&lt;/span&gt;());
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         res.&lt;span style=&#34;color:#a6e22e&#34;&gt;add&lt;/span&gt;(date);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; res;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#75715e&#34;&gt;//调用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      String startDate &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2022-11-01 01:01:11&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; gap &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 30;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Date&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; dayList &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; getDayList(startDate, gap);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      SimpleDateFormat sdf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; SimpleDateFormat(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;yyyy-MM-dd&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      dayList.&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;(item &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         String luanar &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; testLuanars(item); &lt;span style=&#34;color:#75715e&#34;&gt;//输出农历&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         String format &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sdf.&lt;span style=&#34;color:#a6e22e&#34;&gt;format&lt;/span&gt;(item);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         System.&lt;span style=&#34;color:#a6e22e&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;println&lt;/span&gt;(format &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;=======&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; luanar);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      });
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
     </item>
     
@@ -5296,6 +6051,329 @@ xbmc.log(&amp;ldquo;message&amp;rdquo;,level=xbmc.LOGNOTICE)&lt;br&gt;
     </item>
     
     <item>
+      <title>Phpmyadmin Docker Install</title>
+      <link>https://ltan.me/post/2022/03/phpmyadmin-docker-install/</link>
+      <pubDate>Mon, 28 Mar 2022 18:14:36 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2022/03/phpmyadmin-docker-install/</guid>
+      <description>&lt;h1 id=&#34;phpmyadmin-runs-in-the-docker-environment&#34;&gt;phpmyadmin runs in the docker environment&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;快速部署phpmyadmin mysql客户端管理工具，用于开发环境调用，测试用途，开源助免费&lt;br&gt;
+如果只是简单查询修改数据，推荐此工具 phpmyadmin mysql web管理工具&lt;br&gt;
+安装docker 环境后，直接运行以下命令，高级功能请查询官方文档&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;命令&#34;&gt;命令&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-jshelllanguage&#34; data-lang=&#34;jshelllanguage&#34;&gt;#下载容器
+docker pull phpmyadmin/phpmyadmin
+#运行容器，PMA_ARBITRARY=1表示可以连接任意mysql数据库服务器
+docker run --name myadmin -d -e PMA_ARBITRARY=1   -p 8081:80  phpmyadmin/phpmyadmin
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;##运行结果如下&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;phpmyadmin-runs-in-the-docker-environment&#34;&gt;phpmyadmin runs in the docker environment&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;快速部署phpmyadmin mysql客户端管理工具，用于开发环境调用，测试用途，开源助免费&lt;br&gt;
+如果只是简单查询修改数据，推荐此工具 phpmyadmin mysql web管理工具&lt;br&gt;
+安装docker 环境后，直接运行以下命令，高级功能请查询官方文档&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;命令&#34;&gt;命令&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-jshelllanguage&#34; data-lang=&#34;jshelllanguage&#34;&gt;#下载容器
+docker pull phpmyadmin/phpmyadmin
+#运行容器，PMA_ARBITRARY=1表示可以连接任意mysql数据库服务器
+docker run --name myadmin -d -e PMA_ARBITRARY=1   -p 8081:80  phpmyadmin/phpmyadmin
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;##运行结果如下&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果遇到登录不上的，请检查你的mysql端口和用户名，密码&lt;br&gt;
+需要填写mysql username or password&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/03/phpmyadmin-docker-install/phpmyadmin-docker-use-login.png&#34; alt=&#34;phpmyadmin-use&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Classpath Resource Not Found When Running as Jar</title>
+      <link>https://ltan.me/post/2022/03/classpath-resource-not-found-when-running-as-jar/</link>
+      <pubDate>Tue, 08 Mar 2022 09:45:39 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2022/03/classpath-resource-not-found-when-running-as-jar/</guid>
+      <description>&lt;h1 id=&#34;读取jar包resources目录下的groovy脚本并调用&#34;&gt;读取jar包resources目录下的groovy脚本并调用&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断
+所以采用生成groovy脚本形式来解决动态校验以及入库规则
+项目初期设计不复杂，功能简单，直接按日志项名称编写groovy脚本规则,比如wifi日志，则规则文件名为wifi.groovy
+当日志的http接口请求到wifi名称，则加载wifi.groovy规则文件并解析判断，包括入库，kafka队列等
+groovy文件放在resources/logTemplate文件夹下，遇到在jar包模式运行不能读到文件的问题
+而在idea能直接运行
+java -jar xxx.jar 运行报错如下&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;读取jar包resources目录下的groovy脚本并调用&#34;&gt;读取jar包resources目录下的groovy脚本并调用&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断
+所以采用生成groovy脚本形式来解决动态校验以及入库规则
+项目初期设计不复杂，功能简单，直接按日志项名称编写groovy脚本规则,比如wifi日志，则规则文件名为wifi.groovy
+当日志的http接口请求到wifi名称，则加载wifi.groovy规则文件并解析判断，包括入库，kafka队列等
+groovy文件放在resources/logTemplate文件夹下，遇到在jar包模式运行不能读到文件的问题
+而在idea能直接运行
+java -jar xxx.jar 运行报错如下&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; Caused by: java.&lt;span style=&#34;color:#a6e22e&#34;&gt;lang&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;IllegalArgumentException&lt;/span&gt;: URI is not hierarchical
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;解决方法通过jar包运行时不能以文件形式读取jar包里的内容参考google方法整理有如下几种方法解决&#34;&gt;解决方法，通过jar包运行时，不能以文件形式读取jar包里的内容，参考google方法整理有如下几种方法解决&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;第一种方法 Using IOUtils.toString (Apache Utils)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; IOUtils.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(inputStream, StandardCharsets.&lt;span style=&#34;color:#a6e22e&#34;&gt;UTF_8&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第二种方法 Using CharStreams (Guava)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CharStreams.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;       inputStream, Charsets.&lt;span style=&#34;color:#a6e22e&#34;&gt;UTF_8&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第三种方法 Using Scanner (JDK)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; Scanner s &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Scanner(inputStream).&lt;span style=&#34;color:#a6e22e&#34;&gt;useDelimiter&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\\A&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; s.&lt;span style=&#34;color:#a6e22e&#34;&gt;hasNext&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; s.&lt;span style=&#34;color:#a6e22e&#34;&gt;next&lt;/span&gt;() : &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第四种方法 Using Stream API (Java 8). Warning: This solution converts different line breaks (like \r\n) to \n.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader(&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(inputStream))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   .&lt;span style=&#34;color:#a6e22e&#34;&gt;lines&lt;/span&gt;().&lt;span style=&#34;color:#a6e22e&#34;&gt;collect&lt;/span&gt;(Collectors.&lt;span style=&#34;color:#a6e22e&#34;&gt;joining&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第五种方法 Using parallel Stream API (Java 8). Warning: This solution converts different line breaks (like \r\n) to \n.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader(&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(inputStream))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    .&lt;span style=&#34;color:#a6e22e&#34;&gt;lines&lt;/span&gt;().&lt;span style=&#34;color:#a6e22e&#34;&gt;parallel&lt;/span&gt;().&lt;span style=&#34;color:#a6e22e&#34;&gt;collect&lt;/span&gt;(Collectors.&lt;span style=&#34;color:#a6e22e&#34;&gt;joining&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第六种方法 Using InputStreamReader and StringBuilder (JDK)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; bufferSize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 1024;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; buffer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;bufferSize&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; StringBuilder out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringBuilder();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; Reader in &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(stream, StandardCharsets.&lt;span style=&#34;color:#a6e22e&#34;&gt;UTF_8&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; numRead; (numRead &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; in.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;(buffer, 0, buffer.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; 0; ) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     out.&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;(buffer, 0, numRead);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; out.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第七种方法 Using StringWriter and IOUtils.copy (Apache Commons)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; StringWriter writer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringWriter();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; IOUtils.&lt;span style=&#34;color:#a6e22e&#34;&gt;copy&lt;/span&gt;(inputStream, writer, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; writer.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第八种方法 Using ByteArrayOutputStream and inputStream.read (JDK)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; ByteArrayOutputStream result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ByteArrayOutputStream();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; buffer &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1024&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; length; (length &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inputStream.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;(buffer)) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1; ) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     result.&lt;span style=&#34;color:#a6e22e&#34;&gt;write&lt;/span&gt;(buffer, 0, length);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// StandardCharsets.UTF_8.name() &amp;gt; JDK 7&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; result.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第九种方法 Using ByteArrayOutputStream and inputStream.read (JDK)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; String newLine &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; System.&lt;span style=&#34;color:#a6e22e&#34;&gt;getProperty&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;line.separator&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; BufferedReader reader &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedReader(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; InputStreamReader(inputStream));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; StringBuilder result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringBuilder();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (String line; (line &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; reader.&lt;span style=&#34;color:#a6e22e&#34;&gt;readLine&lt;/span&gt;()) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;; ) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (result.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; 0) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;         result.&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;(newLine);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;     result.&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;(line);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; result.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第十种方法 Using BufferedInputStream and ByteArrayOutputStream (JDK)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;BufferedInputStream bis &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; BufferedInputStream(inputStream);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ByteArrayOutputStream buf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ByteArrayOutputStream();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bis.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;(); result &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1; result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bis.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    buf.&lt;span style=&#34;color:#a6e22e&#34;&gt;write&lt;/span&gt;((&lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;) result);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// StandardCharsets.UTF_8.name() &amp;gt; JDK 7&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; buf.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;第十一种方法 Using inputStream.read() and StringBuilder (JDK). Warning: This solution has problems with Unicode, for example with Russian text (works correctly only with non-Unicode text)&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;StringBuilder sb &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; StringBuilder();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; ch; (ch &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; inputStream.&lt;span style=&#34;color:#a6e22e&#34;&gt;read&lt;/span&gt;()) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;1; ) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    sb.&lt;span style=&#34;color:#a6e22e&#34;&gt;append&lt;/span&gt;((&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;) ch);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; sb.&lt;span style=&#34;color:#a6e22e&#34;&gt;toString&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;根据场景需求我最终选择第四种方法来解决读取jar包里的文件内容
+本文来自：https://stackoverflow.com/questions/309424/how-do-i-read-convert-an-inputstream-into-a-string-in-java&lt;/p&gt;&lt;/blockquote&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Pycharm Terminal Virtualenv Setting</title>
+      <link>https://ltan.me/post/2022/02/pycharm-terminal-virtualenv-setting/</link>
+      <pubDate>Thu, 17 Feb 2022 20:25:31 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2022/02/pycharm-terminal-virtualenv-setting/</guid>
+      <description>&lt;h1 id=&#34;windows-环境pycharm-python-多环境开发设置&#34;&gt;windows 环境pycharm python 多环境开发设置&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在python项目开发中，很多情况每个项目采用不同的python 环境，一般常见的系统默认python 版本为
+python 2.7但如果又不想破坏系统原来的python 环境，则可以安装virualenv 依赖解决多版本的问题
+virtualen 采用pip install 安装，不管是采用python3版本的pip,还是 python2版本的pip都可以安
+装这个依赖，pycharm 具体设置如下：&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;windows-环境pycharm-python-多环境开发设置&#34;&gt;windows 环境pycharm python 多环境开发设置&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在python项目开发中，很多情况每个项目采用不同的python 环境，一般常见的系统默认python 版本为
+python 2.7但如果又不想破坏系统原来的python 环境，则可以安装virualenv 依赖解决多版本的问题
+virtualen 采用pip install 安装，不管是采用python3版本的pip,还是 python2版本的pip都可以安
+装这个依赖，pycharm 具体设置如下：&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;The preferences in Settings (Preferences) | Tools | Terminal are global.
+If you use a venv for each project, remember to use current path variable and a default venv name:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;创建activate.bat文件复制如下代码,并修改自己创建的虚拟环境目录，这里我创建的虚拟环境目录为&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cmd.exe&amp;#34;&lt;/span&gt; /k &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; D:\python-env\python3\envname\Scripts\activate&amp;#34;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;/k 的含义是自动执行后面的命令,并且执行完毕后保留窗口&lt;br&gt;
+For Windows users: when using PyCharm with a virtual environment, you can use the /K parameter to cmd.exe to set the virtual environment automatically.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;PyCharm 3 or 4: Settings, Terminal, Default shell and add /K &amp;lt;path-to-your-activate.bat&amp;gt;.&lt;/p&gt;
+&lt;p&gt;PyCharm 5: Settings, Tools, Terminal, and add /K &amp;lt;path-to-your-activate.bat&amp;gt; to Shell path.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;打开pychrm，依次点击file菜单，settings&amp;ndash;&amp;gt;tools&amp;mdash;&amp;gt;terminal&amp;ndash;&amp;gt;shell path&lt;br&gt;
+PyCharm 2016.1,2018.x&amp;hellip;: Settings, Tools, Terminal, and add &amp;ldquo;&amp;quot;/K &amp;lt;path-to-your-activate.bat&amp;gt;&amp;rdquo;&amp;quot; to Shell path and add (mind the quotes). Also add quotes around cmd.exe, resulting in:&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2022/02/pycharm-terminal-virtualenv-setting/pycharm-env.jpg&#34; alt=&#34;pycharm-env&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;设置pycharm Terminal窗口启动时进入Anaconda3环境&lt;br&gt;
+在&amp;quot;设置&amp;quot;&amp;gt;&amp;ldquo;终端工具&amp;rdquo;&amp;gt;，更改如下内容：Shell path&lt;br&gt;
+C:\Users\me\Miniconda3\Scripts\activate.bat 为安装C:\Users\me\Miniconda3的目录&lt;/p&gt;&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-$xslt&#34; data-lang=&#34;$xslt&#34;&gt;cmd.exe  &amp;#34;/K&amp;#34;  &amp;#34;C:\Users\me\Miniconda3\Scripts\activate.bat&amp;#34;  &amp;#34;C:\Users\me\Miniconda3&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;遇到pip install 模块 下载不了的情况，请设置国产镜像&lt;/p&gt;&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-$xslt&#34; data-lang=&#34;$xslt&#34;&gt;https://pypi.douban.com/simple
+https://mirrors.aliyun.com/pypi/simple
+https://pypi.mirrors.ustc.edu.cn/simple
+https://pypi.tuna.tsinghua.edu.cn/simple
+&lt;/code&gt;&lt;/pre&gt;</content>
+    </item>
+    
+    <item>
+      <title>A True SSLContext Object Is Not Available</title>
+      <link>https://ltan.me/post/2022/02/a-true-sslcontext-object-is-not-available/</link>
+      <pubDate>Thu, 17 Feb 2022 19:46:19 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2022/02/a-true-sslcontext-object-is-not-available/</guid>
+      <description>&lt;h1 id=&#34;windows-下pyhon27环境pip-install-模块报错a-true-sslcontext-object-is-not-available&#34;&gt;windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7&lt;br&gt;
+具体错误代码如下：&lt;br&gt;
+SNIMissingWarning
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning
+Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning
+Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning
+Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning
+Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning
+Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning
+Could not find a version that satisfies the requirement ndg-httpsclient (from versions: )
+No matching distribution found for ndg-httpsclient
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;windows-下pyhon27环境pip-install-模块报错a-true-sslcontext-object-is-not-available&#34;&gt;windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7&lt;br&gt;
+具体错误代码如下：&lt;br&gt;
+SNIMissingWarning
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning
+Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning
+Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning
+Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning
+Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning
+Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by &amp;lsquo;ReadTimeoutError(&amp;ldquo;HTTPSConnectionPo
+ol(host=&amp;lsquo;pypi.org&amp;rsquo;, port=443): Read timed out. (read timeout=15)&amp;rdquo;,)&amp;rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning
+Could not find a version that satisfies the requirement ndg-httpsclient (from versions: )
+No matching distribution found for ndg-httpsclient
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see &lt;a href=&#34;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&#34;&gt;https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings&lt;/a&gt;
+InsecurePlatformWarning&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;解决方法如下，升级python2.7最新版本，在官网找到
+&lt;a href=&#34;https://www.python.org/downloads/&#34;&gt;https://www.python.org/downloads/&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Mybatis Failed to Save Data</title>
+      <link>https://ltan.me/post/2022/02/mybatis-failed-to-save-data/</link>
+      <pubDate>Fri, 11 Feb 2022 12:12:06 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2022/02/mybatis-failed-to-save-data/</guid>
+      <description>&lt;h1 id=&#34;记一次遇到mybaits写入数据不成功问题&#34;&gt;记一次遇到mybaits写入数据不成功问题&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到
+mysql client 执行sql执行并没有问题，但是调用接口时，写入mysql不成功，也不报错，遇到这种问题特别
+困惑，特记录一下，&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;找了一下午才发现问题，最怕就是程序不报错，语句执行成功，但数据库没有数据这样的问题呢
+主要问题是接口请求实体类有几个版本字段是用的Long 类型的，而mysql表对应的字段是int类型的
+在用mybatis-generate 插件生成表的 mapper.xml、dao、model时，mysql字段为int类型的生成对应的integer类型
+但是代码定义的dto 接口请求实体类，字段是long类型，入库时，存在long 转 integer 的行为，行为非法，但执行时sql不报错
+由于时间关系没有进一步查为什么不报错提示，xml生成的字段类型都是 java.lang.Integer&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;记一次遇到mybaits写入数据不成功问题&#34;&gt;记一次遇到mybaits写入数据不成功问题&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到
+mysql client 执行sql执行并没有问题，但是调用接口时，写入mysql不成功，也不报错，遇到这种问题特别
+困惑，特记录一下，&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;找了一下午才发现问题，最怕就是程序不报错，语句执行成功，但数据库没有数据这样的问题呢
+主要问题是接口请求实体类有几个版本字段是用的Long 类型的，而mysql表对应的字段是int类型的
+在用mybatis-generate 插件生成表的 mapper.xml、dao、model时，mysql字段为int类型的生成对应的integer类型
+但是代码定义的dto 接口请求实体类，字段是long类型，入库时，存在long 转 integer 的行为，行为非法，但执行时sql不报错
+由于时间关系没有进一步查为什么不报错提示，xml生成的字段类型都是 java.lang.Integer&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;解决方法 统一 字段类型即可&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在mysql数据库里，int类型占4个字节对应java的Integer类型，
+而mysql中的bigint 类型占用8个字节对应java的Long类型, 在mybaits xml 文件没有Long类型，只有BIGINT&lt;/p&gt;&lt;/blockquote&gt;
+</content>
+    </item>
+    
+    <item>
       <title>Front End Learning Vue Typescript 1</title>
       <link>https://ltan.me/post/2021/12/front-end-learning-vue-typescript-1/</link>
       <pubDate>Tue, 21 Dec 2021 21:53:30 +0800</pubDate>
@@ -5746,6 +6824,31 @@ public Object apiConf() {
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@TableField&lt;/span&gt;(fill &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; FieldFill.&lt;span style=&#34;color:#a6e22e&#34;&gt;INSERT_UPDATE&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; LocalDateTime lastUpdateTime;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+    </item>
+    
+    <item>
+      <title>Multi Module Project Generation Mybatis Tool by Intellij IDEA</title>
+      <link>https://ltan.me/post/2021/09/multi-module-project-generation-mybatis-tool-by-intellij-idea/</link>
+      <pubDate>Sun, 26 Sep 2021 11:14:37 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/09/multi-module-project-generation-mybatis-tool-by-intellij-idea/</guid>
+      <description>&lt;h1 id=&#34;在intellij-idea-中用mybatis-generate-tool-插件快速生成mybatis-daomodelmapper等文件&#34;&gt;在intellij idea 中用mybatis generate tool 插件快速生成mybatis dao,model,mapper等文件&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;用idea 打开一个多模块的项目, 配置database mysql 设置并连接上&lt;/p&gt;
+&lt;p&gt;打开schemas 选择一个表，右建选择mybatis-generator&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/multi-module-project-generation-mybatis-tool-by-intellij-idea/image-20210926112036871.png&#34; alt=&#34;image-20210926112036871&#34;&gt;&lt;/p&gt;
+&lt;p&gt;在弹出窗口，注意选择,以下红框中请设置好。很重要，否则生成路径不对。免得移动文件，干脆一次到位生成到对应的目录下面&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;在intellij-idea-中用mybatis-generate-tool-插件快速生成mybatis-daomodelmapper等文件&#34;&gt;在intellij idea 中用mybatis generate tool 插件快速生成mybatis dao,model,mapper等文件&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;用idea 打开一个多模块的项目, 配置database mysql 设置并连接上&lt;/p&gt;
+&lt;p&gt;打开schemas 选择一个表，右建选择mybatis-generator&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/multi-module-project-generation-mybatis-tool-by-intellij-idea/image-20210926112036871.png&#34; alt=&#34;image-20210926112036871&#34;&gt;&lt;/p&gt;
+&lt;p&gt;在弹出窗口，注意选择,以下红框中请设置好。很重要，否则生成路径不对。免得移动文件，干脆一次到位生成到对应的目录下面&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/multi-module-project-generation-mybatis-tool-by-intellij-idea/image-20210926112146002.png&#34; alt=&#34;image-20210926112146002&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;插件名字如下&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/multi-module-project-generation-mybatis-tool-by-intellij-idea/image-20210926112625009.png&#34; alt=&#34;image-20210926112625009&#34;&gt;&lt;/p&gt;
+</content>
     </item>
     
     <item>
@@ -8375,6 +9478,19 @@ This would give you back something like the following:
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;生成效果如下&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/08/mathematical-generation-for-the-third-grade-of-elementary-school/image-20210821222311793.png&#34; alt=&#34;image-20210821222311793&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/08/mathematical-generation-for-the-third-grade-of-elementary-school/image-20210821222425698.png&#34; alt=&#34;image-20210821222425698&#34;&gt;&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Vscode Hot Key</title>
+      <link>https://ltan.me/post/2021/08/vscode-hot-key/</link>
+      <pubDate>Sun, 15 Aug 2021 15:40:16 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2021/08/vscode-hot-key/</guid>
+      <description>&lt;h1 id=&#34;我的vscode-使用快捷键&#34;&gt;我的vscode 使用快捷键&lt;/h1&gt;
+&lt;p&gt;1、 输入一个&lt;code&gt;!&lt;/code&gt;  html输入模板&lt;/p&gt;</description>
+      <content>&lt;h1 id=&#34;我的vscode-使用快捷键&#34;&gt;我的vscode 使用快捷键&lt;/h1&gt;
+&lt;p&gt;1、 输入一个&lt;code&gt;!&lt;/code&gt;  html输入模板&lt;/p&gt;
 </content>
     </item>
     

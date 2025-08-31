@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>整理群晖照片（第一步）：从源目录安全索引与分类到新目录 :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="在不改动群晖原始照片目录的前提下，使用 Python &#43; SQLite 将图片/视频扫描入库，按照片、视频、截图三类复制到新目录（支持多线程、断点重跑、记录 MD5、日志追踪）。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="整理群晖照片（第一步）：从源目录安全索引与分类到新目录">
+<meta property="og:description" content="在不改动群晖原始照片目录的前提下，使用 Python &#43; SQLite 将图片/视频扫描入库，按照片、视频、截图三类复制到新目录（支持多线程、断点重跑、记录 MD5、日志追踪）。" />
+<meta property="og:url" content="https://ltan.me/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+  <meta property="article:section" content="自建服务" />
+
+  <meta property="article:section" content="多媒体管理" />
+
+
+  <meta property="article:published_time" content="2025-08-31 17:30:00 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/">整理群晖照片（第一步）：从源目录安全索引与分类到新目录</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2025-08-31 [Mod: 2025-08-31]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/synology/">Synology</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/dsm7/">DSM7</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/python/">Python</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/sqlite/">SQLite</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/exif/">EXIF</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <blockquote>
+<p>本文面向 <strong>DSM 7.0</strong> 环境，系统自带 <strong>Python 3.8.8</strong>。我们将在 <strong>不改动源目录</strong> 的前提下，扫描 <code>/volume2/photo/</code> 的所有子目录，把图片/视频的元数据写入 SQLite，并按“照片 / 视频 / 截图”分别复制到 <code>/volume2/newPhoto/</code> 下的三个子目录，且<strong>同名不覆盖</strong>、<strong>可重复执行</strong>。</p></blockquote>
+<hr>
+<h2 id="0-目标概览">0. 目标概览<a href="#0-目标概览" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><strong>源目录</strong>（只读）：<code>/volume2/photo/</code></li>
+<li><strong>目标根目录</strong>：<code>/volume2/newPhoto/</code>
+<ul>
+<li><code>video/</code>：保存视频</li>
+<li><code>photo/</code>：保存普通照片</li>
+<li><code>screenshots/</code>：保存手机截图（<strong>不靠文件名识别</strong>，使用启发式检测）</li>
+</ul>
+</li>
+<li><strong>数据库</strong>：<code>/volume2/newPhoto/media.db</code></li>
+<li><strong>日志</strong>：
+<ul>
+<li>应用日志：<code>/volume2/newPhoto/organize_media.log</code></li>
+<li>后台 nohup 输出：<code>/volume2/newPhoto/organize_media.out</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>重跑会<strong>跳过已入库的源文件</strong>，你也可以用 <code>--rescan</code> 强制重新落盘并更新数据库中的目标路径与 MD5。</p></blockquote>
+<hr>
+<h2 id="1-准备-python-虚拟环境不污染系统-python-388">1. 准备 Python 虚拟环境（不污染系统 Python 3.8.8）<a href="#1-准备-python-虚拟环境不污染系统-python-388" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 进入工具目录（建议放脚本、DB、日志于此）</span>
+</span></span><span style="display:flex;"><span>mkdir -p /volume2/newPhoto/venvs
+</span></span><span style="display:flex;"><span>cd /volume2/newPhoto
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 建立虚拟环境</span>
+</span></span><span style="display:flex;"><span>python3 -m venv /volume2/newPhoto/venvs/py38
+</span></span><span style="display:flex;"><span>source /volume2/newPhoto/venvs/py38/bin/activate
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 若 venv 里没有 pip，则仅给 venv 安装（不动系统 Python）</span>
+</span></span><span style="display:flex;"><span>command -v pip &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span> <span style="color:#f92672">||</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  wget -O /tmp/get-pip.py https://bootstrap.pypa.io/get-pip.py <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  <span style="color:#f92672">||</span> curl -L https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
+</span></span><span style="display:flex;"><span>  python /tmp/get-pip.py
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<h2 id="2-安装依赖">2. 安装依赖<a href="#2-安装依赖" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<blockquote>
+<p>最小依赖只需 <code>Pillow + exifread</code>；推荐额外安装 <code>python-magic</code> 以提升 MIME 判断准确性（若缺 <code>libmagic</code> 会自动回退到 <code>mimetypes</code>）。</p></blockquote>
+<p><strong><code>requirements.txt</code>：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>Pillow&gt;=8.0.0,&lt;10.0.0
+</span></span><span style="display:flex;"><span>exifread&gt;=3.0.0,&lt;4.0.0
+</span></span><span style="display:flex;"><span>python-magic&gt;=0.4.24,&lt;1.0.0
+</span></span><span style="display:flex;"><span># 可选：以下两项当前脚本不强依赖，装不上可注释掉
+</span></span><span style="display:flex;"><span># numpy&gt;=1.19.0,&lt;2.0.0
+</span></span><span style="display:flex;"><span># piexif&gt;=1.1.3,&lt;2.0.0
+</span></span></code></pre></div><p><strong>安装：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span></code></pre></div><blockquote>
+<p>如 <code>python-magic</code> 因系统未装 <code>libmagic</code> 而失败，脚本会自动回退，不影响主流程。</p></blockquote>
+<hr>
+<h2 id="3-放置脚本">3. 放置脚本<a href="#3-放置脚本" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>将以下完整脚本保存为：<code>/volume2/newPhoto/organize_media.py</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env python3</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">organize_media.py  (DSM 7 / Python 3.8.8)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- 无限级遍历源目录（只读），识别图片/视频/截图
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- 复制到目标目录（支持 flat: 单目录；split: video/photo/screenshots 分目录）
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- 同名不覆盖：不同内容追加 __</span><span style="color:#e6db74">{md5前8位}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- SQLite 记录：src_path、dest_path、src_md5、dest_md5、mime、media_type、尺寸、EXIF（时间/GPS/描述/设备/软件）
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- 多线程处理；所有 DB 操作用全局锁串行化（修复 sqlite 跨线程报错）
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- 日志输出 organize_media.log；可重复执行，默认按 src_path 幂等跳过；--rescan 可强制重新落盘与更新
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> argparse<span style="color:#f92672">,</span> hashlib<span style="color:#f92672">,</span> logging<span style="color:#f92672">,</span> mimetypes<span style="color:#f92672">,</span> os<span style="color:#f92672">,</span> shutil<span style="color:#f92672">,</span> sqlite3<span style="color:#f92672">,</span> sys<span style="color:#f92672">,</span> time<span style="color:#f92672">,</span> threading
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> concurrent.futures <span style="color:#f92672">import</span> ThreadPoolExecutor, as_completed
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pathlib <span style="color:#f92672">import</span> Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 第三方</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">import</span> magic  <span style="color:#75715e"># python-magic，可选</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>    magic <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> PIL <span style="color:#f92672">import</span> Image
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> exifread
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------- 基本配置 ----------------</span>
+</span></span><span style="display:flex;"><span>DEFAULT_SRC <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/volume2/photo&#34;</span>
+</span></span><span style="display:flex;"><span>DEFAULT_DST <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/volume2/newPhoto&#34;</span>
+</span></span><span style="display:flex;"><span>DEFAULT_DB  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;media.db&#34;</span>
+</span></span><span style="display:flex;"><span>LOG_FILE    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;organize_media.log&#34;</span>
+</span></span><span style="display:flex;"><span>CHUNK_SIZE  <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span>   <span style="color:#75715e"># 8MB</span>
+</span></span><span style="display:flex;"><span>IGNORE_DIR_NAMES <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;@eaDir&#34;</span>, <span style="color:#e6db74">&#34;#recycle&#34;</span>, <span style="color:#e6db74">&#34;#Recycle&#34;</span>, <span style="color:#e6db74">&#34;venvs&#34;</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>VIDEO_EXT_FALLBACK <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;.mp4&#34;</span>,<span style="color:#e6db74">&#34;.mov&#34;</span>,<span style="color:#e6db74">&#34;.avi&#34;</span>,<span style="color:#e6db74">&#34;.mkv&#34;</span>,<span style="color:#e6db74">&#34;.flv&#34;</span>,<span style="color:#e6db74">&#34;.wmv&#34;</span>,<span style="color:#e6db74">&#34;.mts&#34;</span>,<span style="color:#e6db74">&#34;.m2ts&#34;</span>,<span style="color:#e6db74">&#34;.3gp&#34;</span>,<span style="color:#e6db74">&#34;.mpg&#34;</span>,<span style="color:#e6db74">&#34;.mpeg&#34;</span>,<span style="color:#e6db74">&#34;.rmvb&#34;</span>}
+</span></span><span style="display:flex;"><span>IMAGE_EXT_FALLBACK <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;.jpg&#34;</span>,<span style="color:#e6db74">&#34;.jpeg&#34;</span>,<span style="color:#e6db74">&#34;.png&#34;</span>,<span style="color:#e6db74">&#34;.webp&#34;</span>,<span style="color:#e6db74">&#34;.bmp&#34;</span>,<span style="color:#e6db74">&#34;.tiff&#34;</span>,<span style="color:#e6db74">&#34;.gif&#34;</span>,<span style="color:#e6db74">&#34;.heic&#34;</span>,<span style="color:#e6db74">&#34;.heif&#34;</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>COMMON_SCREEN_SIDES <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">720</span>,<span style="color:#ae81ff">1080</span>,<span style="color:#ae81ff">1125</span>,<span style="color:#ae81ff">1170</span>,<span style="color:#ae81ff">1242</span>,<span style="color:#ae81ff">1284</span>,<span style="color:#ae81ff">1344</span>,<span style="color:#ae81ff">1440</span>,<span style="color:#ae81ff">1600</span>,<span style="color:#ae81ff">2160</span>,<span style="color:#ae81ff">2208</span>,<span style="color:#ae81ff">2224</span>,<span style="color:#ae81ff">2246</span>,<span style="color:#ae81ff">2280</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">2316</span>,<span style="color:#ae81ff">2340</span>,<span style="color:#ae81ff">2400</span>,<span style="color:#ae81ff">2460</span>,<span style="color:#ae81ff">2560</span>,<span style="color:#ae81ff">2688</span>,<span style="color:#ae81ff">2732</span>,<span style="color:#ae81ff">2796</span>,<span style="color:#ae81ff">2840</span>,<span style="color:#ae81ff">2960</span>,<span style="color:#ae81ff">3088</span>,<span style="color:#ae81ff">3120</span>,<span style="color:#ae81ff">3200</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------- 日志 ----------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setup_logger</span>():
+</span></span><span style="display:flex;"><span>    lg <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(<span style="color:#e6db74">&#34;organize_media&#34;</span>)
+</span></span><span style="display:flex;"><span>    lg<span style="color:#f92672">.</span>setLevel(logging<span style="color:#f92672">.</span>INFO); lg<span style="color:#f92672">.</span>propagate <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> lg<span style="color:#f92672">.</span>handlers:
+</span></span><span style="display:flex;"><span>        fmt <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>Formatter(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%(asctime)s</span><span style="color:#e6db74"> [</span><span style="color:#e6db74">%(levelname)s</span><span style="color:#e6db74">] </span><span style="color:#e6db74">%(message)s</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        ch <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>StreamHandler(sys<span style="color:#f92672">.</span>stdout); ch<span style="color:#f92672">.</span>setLevel(logging<span style="color:#f92672">.</span>INFO); ch<span style="color:#f92672">.</span>setFormatter(fmt); lg<span style="color:#f92672">.</span>addHandler(ch)
+</span></span><span style="display:flex;"><span>        fh <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>FileHandler(LOG_FILE, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>); fh<span style="color:#f92672">.</span>setLevel(logging<span style="color:#f92672">.</span>INFO); fh<span style="color:#f92672">.</span>setFormatter(fmt); lg<span style="color:#f92672">.</span>addHandler(fh)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> lg
+</span></span><span style="display:flex;"><span>log <span style="color:#f92672">=</span> setup_logger()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------- DB（跨线程安全） ----------------</span>
+</span></span><span style="display:flex;"><span>DB_LOCK <span style="color:#f92672">=</span> threading<span style="color:#f92672">.</span>RLock()
+</span></span><span style="display:flex;"><span>SCHEMA_SQL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">CREATE TABLE IF NOT EXISTS files(
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  id INTEGER PRIMARY KEY AUTOINCREMENT,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  src_path TEXT NOT NULL UNIQUE,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  src_md5 TEXT,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  src_size_bytes INTEGER,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  mime TEXT,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  media_type TEXT,  -- video | photo | screenshot | other
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  width INTEGER, height INTEGER,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  exif_datetime TEXT, gps_lat REAL, gps_lng REAL,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  desc TEXT, make TEXT, model TEXT, software TEXT,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  dest_path TEXT, dest_md5 TEXT,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  processed_at TEXT DEFAULT (datetime(&#39;now&#39;))
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">CREATE TABLE IF NOT EXISTS errors(
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  id INTEGER PRIMARY KEY AUTOINCREMENT,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  src_path TEXT, error TEXT, created_at TEXT DEFAULT (datetime(&#39;now&#39;))
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">CREATE INDEX IF NOT EXISTS idx_files_src_md5  ON files(src_md5);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">CREATE INDEX IF NOT EXISTS idx_files_dest_md5 ON files(dest_md5);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_db</span>(db_path: Path):
+</span></span><span style="display:flex;"><span>    conn <span style="color:#f92672">=</span> sqlite3<span style="color:#f92672">.</span>connect(str(db_path), check_same_thread<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">30.0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> DB_LOCK:
+</span></span><span style="display:flex;"><span>        conn<span style="color:#f92672">.</span>execute(<span style="color:#e6db74">&#34;PRAGMA journal_mode=WAL;&#34;</span>)
+</span></span><span style="display:flex;"><span>        conn<span style="color:#f92672">.</span>execute(<span style="color:#e6db74">&#34;PRAGMA synchronous=NORMAL;&#34;</span>)
+</span></span><span style="display:flex;"><span>        conn<span style="color:#f92672">.</span>executescript(SCHEMA_SQL)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> conn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">upsert_file_row</span>(conn, row: dict):
+</span></span><span style="display:flex;"><span>    cols <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;, &#34;</span><span style="color:#f92672">.</span>join(row<span style="color:#f92672">.</span>keys())
+</span></span><span style="display:flex;"><span>    qs   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;, &#34;</span><span style="color:#f92672">.</span>join([<span style="color:#e6db74">&#34;?&#34;</span>]<span style="color:#f92672">*</span>len(row))
+</span></span><span style="display:flex;"><span>    sql <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;&#34;&#34;INSERT INTO files(</span><span style="color:#e6db74">{</span>cols<span style="color:#e6db74">}</span><span style="color:#e6db74">) VALUES(</span><span style="color:#e6db74">{</span>qs<span style="color:#e6db74">}</span><span style="color:#e6db74">)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              ON CONFLICT(src_path) DO UPDATE SET
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                src_md5=excluded.src_md5,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                src_size_bytes=excluded.src_size_bytes,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                mime=excluded.mime,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                media_type=excluded.media_type,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                width=excluded.width,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                height=excluded.height,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                exif_datetime=excluded.exif_datetime,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                gps_lat=excluded.gps_lat,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                gps_lng=excluded.gps_lng,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                desc=excluded.desc,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                make=excluded.make,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                model=excluded.model,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                software=excluded.software&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> DB_LOCK:
+</span></span><span style="display:flex;"><span>        conn<span style="color:#f92672">.</span>execute(sql, list(row<span style="color:#f92672">.</span>values()))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_dest</span>(conn, src_path: str, dest_path: str, dest_md5: str):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> DB_LOCK:
+</span></span><span style="display:flex;"><span>        conn<span style="color:#f92672">.</span>execute(<span style="color:#e6db74">&#34;UPDATE files SET dest_path=?, dest_md5=? WHERE src_path=?&#34;</span>, (dest_path, dest_md5, src_path))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">src_exists</span>(conn, src_path: str) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> DB_LOCK:
+</span></span><span style="display:flex;"><span>        cur <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>execute(<span style="color:#e6db74">&#34;SELECT 1 FROM files WHERE src_path=? LIMIT 1&#34;</span>, (src_path,))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> cur<span style="color:#f92672">.</span>fetchone() <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">insert_error</span>(conn, src_path: str, err: str):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> DB_LOCK:
+</span></span><span style="display:flex;"><span>        conn<span style="color:#f92672">.</span>execute(<span style="color:#e6db74">&#34;INSERT INTO errors(src_path, error) VALUES(?,?)&#34;</span>, (src_path, err[:<span style="color:#ae81ff">1000</span>]))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">db_commit</span>(conn):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> DB_LOCK:
+</span></span><span style="display:flex;"><span>        conn<span style="color:#f92672">.</span>commit()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------- 工具 ----------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">file_md5</span>(p: Path) <span style="color:#f92672">-&gt;</span> str:
+</span></span><span style="display:flex;"><span>    h <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>md5()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> p<span style="color:#f92672">.</span>open(<span style="color:#e6db74">&#34;rb&#34;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>            b <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>read(CHUNK_SIZE)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> b: <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            h<span style="color:#f92672">.</span>update(b)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> h<span style="color:#f92672">.</span>hexdigest()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">guess_mime</span>(p: Path) <span style="color:#f92672">-&gt;</span> str:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> magic <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            m <span style="color:#f92672">=</span> magic<span style="color:#f92672">.</span>from_file(str(p), mime<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> m: <span style="color:#66d9ef">return</span> m
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>: <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>    mt, _ <span style="color:#f92672">=</span> mimetypes<span style="color:#f92672">.</span>guess_type(str(p))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> mt <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;application/octet-stream&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_video</span>(mime: str, ext: str) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (mime <span style="color:#f92672">and</span> mime<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#34;video/&#34;</span>)) <span style="color:#f92672">or</span> (ext <span style="color:#f92672">in</span> VIDEO_EXT_FALLBACK)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_image</span>(mime: str, ext: str) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (mime <span style="color:#f92672">and</span> mime<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#34;image/&#34;</span>)) <span style="color:#f92672">or</span> (ext <span style="color:#f92672">in</span> IMAGE_EXT_FALLBACK)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_image_size</span>(p: Path):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">with</span> Image<span style="color:#f92672">.</span>open(str(p)) <span style="color:#66d9ef">as</span> im:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> im<span style="color:#f92672">.</span>width, im<span style="color:#f92672">.</span>height, im<span style="color:#f92672">.</span>info
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>, {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dms_to_deg</span>(dms, ref):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        d <span style="color:#f92672">=</span> float(dms[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>num)<span style="color:#f92672">/</span>float(dms[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>den)
+</span></span><span style="display:flex;"><span>        m <span style="color:#f92672">=</span> float(dms[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>num)<span style="color:#f92672">/</span>float(dms[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>den)
+</span></span><span style="display:flex;"><span>        s <span style="color:#f92672">=</span> float(dms[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">.</span>num)<span style="color:#f92672">/</span>float(dms[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">.</span>den)
+</span></span><span style="display:flex;"><span>        deg <span style="color:#f92672">=</span> d <span style="color:#f92672">+</span> m<span style="color:#f92672">/</span><span style="color:#ae81ff">60.0</span> <span style="color:#f92672">+</span> s<span style="color:#f92672">/</span><span style="color:#ae81ff">3600.0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>deg <span style="color:#66d9ef">if</span> ref <span style="color:#f92672">in</span> (<span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;W&#34;</span>) <span style="color:#66d9ef">else</span> deg
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_exif</span>(p: Path):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">with</span> p<span style="color:#f92672">.</span>open(<span style="color:#e6db74">&#34;rb&#34;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>            tags <span style="color:#f92672">=</span> exifread<span style="color:#f92672">.</span>process_file(f, details<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {}, {}
+</span></span><span style="display:flex;"><span>    get <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> k: str(tags<span style="color:#f92672">.</span>get(k, <span style="color:#e6db74">&#34;&#34;</span>))<span style="color:#f92672">.</span>strip()
+</span></span><span style="display:flex;"><span>    ex <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;exif_datetime&#34;</span>: get(<span style="color:#e6db74">&#34;EXIF DateTimeOriginal&#34;</span>) <span style="color:#f92672">or</span> get(<span style="color:#e6db74">&#34;Image DateTime&#34;</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;desc&#34;</span>: get(<span style="color:#e6db74">&#34;Image ImageDescription&#34;</span>) <span style="color:#f92672">or</span> get(<span style="color:#e6db74">&#34;EXIF UserComment&#34;</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;make&#34;</span>: get(<span style="color:#e6db74">&#34;Image Make&#34;</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;model&#34;</span>: get(<span style="color:#e6db74">&#34;Image Model&#34;</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;software&#34;</span>: get(<span style="color:#e6db74">&#34;Image Software&#34;</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;gps_lat&#34;</span>: <span style="color:#66d9ef">None</span>, <span style="color:#e6db74">&#34;gps_lng&#34;</span>: <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    lat_t <span style="color:#f92672">=</span> tags<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;GPS GPSLatitude&#34;</span>);  lat_ref <span style="color:#f92672">=</span> str(tags<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;GPS GPSLatitudeRef&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>))
+</span></span><span style="display:flex;"><span>    lng_t <span style="color:#f92672">=</span> tags<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;GPS GPSLongitude&#34;</span>); lng_ref <span style="color:#f92672">=</span> str(tags<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;GPS GPSLongitudeRef&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> lat_t <span style="color:#f92672">and</span> lng_t <span style="color:#f92672">and</span> lat_ref <span style="color:#f92672">and</span> lng_ref:
+</span></span><span style="display:flex;"><span>        ex[<span style="color:#e6db74">&#34;gps_lat&#34;</span>] <span style="color:#f92672">=</span> dms_to_deg(lat_t<span style="color:#f92672">.</span>values, lat_ref)
+</span></span><span style="display:flex;"><span>        ex[<span style="color:#e6db74">&#34;gps_lng&#34;</span>] <span style="color:#f92672">=</span> dms_to_deg(lng_t<span style="color:#f92672">.</span>values, lng_ref)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> tags, ex
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_screenshot</span>(mime: str, w: int, h: int, exif_sel: dict, pil_info: dict) <span style="color:#f92672">-&gt;</span> bool:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> w <span style="color:#f92672">or</span> <span style="color:#f92672">not</span> h: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    score <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    ml <span style="color:#f92672">=</span> (mime <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;&#34;</span>)<span style="color:#f92672">.</span>lower()
+</span></span><span style="display:flex;"><span>    soft <span style="color:#f92672">=</span> (exif_sel<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;software&#34;</span>) <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;&#34;</span>)<span style="color:#f92672">.</span>lower()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ml <span style="color:#f92672">in</span> (<span style="color:#e6db74">&#34;image/png&#34;</span>,<span style="color:#e6db74">&#34;image/webp&#34;</span>): score <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> (exif_sel<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;make&#34;</span>) <span style="color:#f92672">or</span> exif_sel<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;model&#34;</span>) <span style="color:#f92672">or</span> exif_sel<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;exif_datetime&#34;</span>)): score <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;screenshot&#34;</span> <span style="color:#f92672">in</span> soft <span style="color:#f92672">or</span> (<span style="color:#e6db74">&#34;screen&#34;</span> <span style="color:#f92672">in</span> soft <span style="color:#f92672">and</span> (<span style="color:#e6db74">&#34;cap&#34;</span> <span style="color:#f92672">in</span> soft <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;shot&#34;</span> <span style="color:#f92672">in</span> soft)): score <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> w <span style="color:#f92672">in</span> COMMON_SCREEN_SIDES <span style="color:#f92672">or</span> h <span style="color:#f92672">in</span> COMMON_SCREEN_SIDES: score <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    ar <span style="color:#f92672">=</span> w <span style="color:#f92672">/</span> float(h)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">1.6</span> <span style="color:#f92672">&lt;=</span> ar <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2.4</span> <span style="color:#f92672">or</span> <span style="color:#ae81ff">0.45</span> <span style="color:#f92672">&lt;=</span> ar <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0.6</span>: score <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    dpi <span style="color:#f92672">=</span> pil_info<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;dpi&#34;</span>) <span style="color:#66d9ef">if</span> isinstance(pil_info, dict) <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> dpi <span style="color:#f92672">and</span> isinstance(dpi, tuple) <span style="color:#f92672">and</span> any(x <span style="color:#f92672">in</span> (<span style="color:#ae81ff">72</span>,<span style="color:#ae81ff">96</span>) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> dpi <span style="color:#66d9ef">if</span> isinstance(x,(int,float))): score <span style="color:#f92672">+=</span> <span style="color:#ae81ff">0.5</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> score <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ensure_dir</span>(p: Path): p<span style="color:#f92672">.</span>mkdir(parents<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, exist_ok<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">safe_copy</span>(src: Path, dest_dir: Path, src_md5: str) <span style="color:#f92672">-&gt;</span> Path:
+</span></span><span style="display:flex;"><span>    ensure_dir(dest_dir)
+</span></span><span style="display:flex;"><span>    target <span style="color:#f92672">=</span> dest_dir <span style="color:#f92672">/</span> src<span style="color:#f92672">.</span>name
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> target<span style="color:#f92672">.</span>exists():
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> file_md5(target) <span style="color:#f92672">==</span> src_md5:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> target
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>        alt <span style="color:#f92672">=</span> dest_dir <span style="color:#f92672">/</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>target<span style="color:#f92672">.</span>stem<span style="color:#e6db74">}</span><span style="color:#e6db74">__</span><span style="color:#e6db74">{</span>src_md5[:<span style="color:#ae81ff">8</span>]<span style="color:#e6db74">}{</span>target<span style="color:#f92672">.</span>suffix<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        shutil<span style="color:#f92672">.</span>copy2(str(src), str(alt))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> alt
+</span></span><span style="display:flex;"><span>    shutil<span style="color:#f92672">.</span>copy2(str(src), str(target))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> target
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">resolve_dest_dir</span>(dst_root: Path, media_type: str, mode: str) <span style="color:#f92672">-&gt;</span> Path:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> mode <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;flat&#34;</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> dst_root
+</span></span><span style="display:flex;"><span>    mapping <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;video&#34;</span>:<span style="color:#e6db74">&#34;video&#34;</span>, <span style="color:#e6db74">&#34;photo&#34;</span>:<span style="color:#e6db74">&#34;photo&#34;</span>, <span style="color:#e6db74">&#34;screenshot&#34;</span>:<span style="color:#e6db74">&#34;screenshots&#34;</span>}
+</span></span><span style="display:flex;"><span>    sub <span style="color:#f92672">=</span> mapping<span style="color:#f92672">.</span>get(media_type)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> dst_root <span style="color:#f92672">/</span> sub <span style="color:#66d9ef">if</span> sub <span style="color:#66d9ef">else</span> dst_root
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------- 遍历（无限级） ----------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">walk_files</span>(src: Path, dst_root: Path):
+</span></span><span style="display:flex;"><span>    src <span style="color:#f92672">=</span> src<span style="color:#f92672">.</span>resolve(); dst_root <span style="color:#f92672">=</span> dst_root<span style="color:#f92672">.</span>resolve()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> root, dirs, files <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>walk(src, followlinks<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>):
+</span></span><span style="display:flex;"><span>        root_path <span style="color:#f92672">=</span> Path(root)<span style="color:#f92672">.</span>resolve()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> dst_root <span style="color:#f92672">in</span> root_path<span style="color:#f92672">.</span>parents <span style="color:#f92672">or</span> root_path <span style="color:#f92672">==</span> dst_root:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>: <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>        pruned <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> d <span style="color:#f92672">in</span> dirs:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> d <span style="color:#f92672">in</span> IGNORE_DIR_NAMES: <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> d<span style="color:#f92672">.</span>lower() <span style="color:#f92672">in</span> {<span style="color:#e6db74">&#34;@eadir&#34;</span>,<span style="color:#e6db74">&#34;#recycle&#34;</span>,<span style="color:#e6db74">&#34;#recycle.bin&#34;</span>}: <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (root_path <span style="color:#f92672">/</span> d)<span style="color:#f92672">.</span>resolve() <span style="color:#f92672">==</span> dst_root: <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>            pruned<span style="color:#f92672">.</span>append(d)
+</span></span><span style="display:flex;"><span>        dirs[:] <span style="color:#f92672">=</span> pruned
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> fn <span style="color:#f92672">in</span> files:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> fn<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#34;.&#34;</span>) <span style="color:#f92672">or</span> fn<span style="color:#f92672">.</span>endswith(<span style="color:#e6db74">&#34;~&#34;</span>): <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">yield</span> (root_path <span style="color:#f92672">/</span> fn)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------- 核心处理 ----------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process_one</span>(p: Path, dst_root: Path, conn: sqlite3<span style="color:#f92672">.</span>Connection, mode: str, rescan: bool):
+</span></span><span style="display:flex;"><span>    src_path <span style="color:#f92672">=</span> str(p)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        st <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>stat()
+</span></span><span style="display:flex;"><span>        src_md5 <span style="color:#f92672">=</span> file_md5(p)
+</span></span><span style="display:flex;"><span>        mime <span style="color:#f92672">=</span> guess_mime(p)
+</span></span><span style="display:flex;"><span>        ext  <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>suffix<span style="color:#f92672">.</span>lower()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        media_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;other&#34;</span>; w <span style="color:#f92672">=</span> h <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>; exif_sel <span style="color:#f92672">=</span> {}; pil_info <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (mime <span style="color:#f92672">and</span> mime<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#34;video/&#34;</span>)) <span style="color:#f92672">or</span> (ext <span style="color:#f92672">in</span> VIDEO_EXT_FALLBACK):
+</span></span><span style="display:flex;"><span>            media_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;video&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> (mime <span style="color:#f92672">and</span> mime<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#34;image/&#34;</span>)) <span style="color:#f92672">or</span> (ext <span style="color:#f92672">in</span> IMAGE_EXT_FALLBACK):
+</span></span><span style="display:flex;"><span>            w,h,pil_info <span style="color:#f92672">=</span> get_image_size(p)
+</span></span><span style="display:flex;"><span>            _, exif_sel  <span style="color:#f92672">=</span> read_exif(p)
+</span></span><span style="display:flex;"><span>            media_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;screenshot&#34;</span> <span style="color:#66d9ef">if</span> is_screenshot(mime,w,h,exif_sel,pil_info) <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;photo&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        upsert_file_row(conn, {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;src_path&#34;</span>: src_path,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;src_md5&#34;</span>: src_md5,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;src_size_bytes&#34;</span>: st<span style="color:#f92672">.</span>st_size,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;mime&#34;</span>: mime,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;media_type&#34;</span>: media_type,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;width&#34;</span>: w, <span style="color:#e6db74">&#34;height&#34;</span>: h,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;exif_datetime&#34;</span>: exif_sel<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;exif_datetime&#34;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;gps_lat&#34;</span>: exif_sel<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;gps_lat&#34;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;gps_lng&#34;</span>: exif_sel<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;gps_lng&#34;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;desc&#34;</span>: exif_sel<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;desc&#34;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;make&#34;</span>: exif_sel<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;make&#34;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;model&#34;</span>: exif_sel<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;model&#34;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;software&#34;</span>: exif_sel<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;software&#34;</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;dest_path&#34;</span>: <span style="color:#66d9ef">None</span>, <span style="color:#e6db74">&#34;dest_md5&#34;</span>: <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> media_type <span style="color:#f92672">in</span> (<span style="color:#e6db74">&#34;video&#34;</span>,<span style="color:#e6db74">&#34;photo&#34;</span>,<span style="color:#e6db74">&#34;screenshot&#34;</span>):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> rescan:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">with</span> DB_LOCK:
+</span></span><span style="display:flex;"><span>                    cur <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>execute(<span style="color:#e6db74">&#34;SELECT dest_path FROM files WHERE src_path=? LIMIT 1&#34;</span>, (src_path,))
+</span></span><span style="display:flex;"><span>                    row <span style="color:#f92672">=</span> cur<span style="color:#f92672">.</span>fetchone()
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> row <span style="color:#f92672">and</span> row[<span style="color:#ae81ff">0</span>]:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;skip&#34;</span>, src_path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            dest_dir <span style="color:#f92672">=</span> resolve_dest_dir(dst_root, media_type, mode)
+</span></span><span style="display:flex;"><span>            dest <span style="color:#f92672">=</span> safe_copy(p, dest_dir, src_md5)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                dest_md5 <span style="color:#f92672">=</span> file_md5(dest)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+</span></span><span style="display:flex;"><span>                dest_md5 <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>            update_dest(conn, src_path, str(dest), dest_md5)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> media_type, src_path
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;other&#34;</span>, src_path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        insert_error(conn, src_path, repr(e))
+</span></span><span style="display:flex;"><span>        log<span style="color:#f92672">.</span>exception(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[ERROR] </span><span style="color:#e6db74">{</span>src_path<span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;error&#34;</span>, src_path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ---------------- 主程序 ----------------</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+</span></span><span style="display:flex;"><span>    ap <span style="color:#f92672">=</span> argparse<span style="color:#f92672">.</span>ArgumentParser(description<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Index photo/video to SQLite and copy into flat/split dirs.&#34;</span>)
+</span></span><span style="display:flex;"><span>    ap<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;--src&#34;</span>, default<span style="color:#f92672">=</span>DEFAULT_SRC, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;源目录（只读）&#34;</span>)
+</span></span><span style="display:flex;"><span>    ap<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;--dst&#34;</span>, default<span style="color:#f92672">=</span>DEFAULT_DST, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;目标根目录（flat时直接落在此目录；split时在其下建子目录）&#34;</span>)
+</span></span><span style="display:flex;"><span>    ap<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;--db&#34;</span>,  default<span style="color:#f92672">=</span>DEFAULT_DB,  help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;SQLite 文件名（默认当前目录 media.db）&#34;</span>)
+</span></span><span style="display:flex;"><span>    ap<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;--mode&#34;</span>, choices<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;flat&#34;</span>,<span style="color:#e6db74">&#34;split&#34;</span>], default<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;flat&#34;</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;flat=单目录; split=video/photo/screenshots 分目录&#34;</span>)
+</span></span><span style="display:flex;"><span>    ap<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;--rescan&#34;</span>, action<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;store_true&#34;</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;忽略已处理记录，强制重新复制并更新 dest_*&#34;</span>)
+</span></span><span style="display:flex;"><span>    ap<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#34;--workers&#34;</span>, type<span style="color:#f92672">=</span>int, default<span style="color:#f92672">=</span>max(<span style="color:#ae81ff">2</span>, (os<span style="color:#f92672">.</span>cpu_count() <span style="color:#f92672">or</span> <span style="color:#ae81ff">2</span>)<span style="color:#f92672">//</span><span style="color:#ae81ff">2</span>), help<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;并发线程数&#34;</span>)
+</span></span><span style="display:flex;"><span>    args <span style="color:#f92672">=</span> ap<span style="color:#f92672">.</span>parse_args()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    src <span style="color:#f92672">=</span> Path(args<span style="color:#f92672">.</span>src)<span style="color:#f92672">.</span>resolve()
+</span></span><span style="display:flex;"><span>    dst <span style="color:#f92672">=</span> Path(args<span style="color:#f92672">.</span>dst)<span style="color:#f92672">.</span>resolve()
+</span></span><span style="display:flex;"><span>    dst<span style="color:#f92672">.</span>mkdir(parents<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, exist_ok<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    conn <span style="color:#f92672">=</span> get_db(Path(args<span style="color:#f92672">.</span>db)<span style="color:#f92672">.</span>resolve())
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;=== Start === src=</span><span style="color:#e6db74">{</span>src<span style="color:#e6db74">}</span><span style="color:#e6db74"> dst=</span><span style="color:#e6db74">{</span>dst<span style="color:#e6db74">}</span><span style="color:#e6db74"> db=</span><span style="color:#e6db74">{</span>args<span style="color:#f92672">.</span>db<span style="color:#e6db74">}</span><span style="color:#e6db74"> mode=</span><span style="color:#e6db74">{</span>args<span style="color:#f92672">.</span>mode<span style="color:#e6db74">}</span><span style="color:#e6db74"> rescan=</span><span style="color:#e6db74">{</span>args<span style="color:#f92672">.</span>rescan<span style="color:#e6db74">}</span><span style="color:#e6db74"> workers=</span><span style="color:#e6db74">{</span>args<span style="color:#f92672">.</span>workers<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    done <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    stats <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;video&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#e6db74">&#34;photo&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#e6db74">&#34;screenshot&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#e6db74">&#34;other&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#e6db74">&#34;skip&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#e6db74">&#34;error&#34;</span>:<span style="color:#ae81ff">0</span>}
+</span></span><span style="display:flex;"><span>    t0 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> ThreadPoolExecutor(max_workers<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>workers) <span style="color:#66d9ef">as</span> ex:
+</span></span><span style="display:flex;"><span>        pending <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> fp <span style="color:#f92672">in</span> walk_files(src, dst):
+</span></span><span style="display:flex;"><span>            pending<span style="color:#f92672">.</span>append(ex<span style="color:#f92672">.</span>submit(process_one, fp, dst, conn, args<span style="color:#f92672">.</span>mode, args<span style="color:#f92672">.</span>rescan))
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> len(pending) <span style="color:#f92672">&gt;=</span> args<span style="color:#f92672">.</span>workers <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> fut <span style="color:#f92672">in</span> as_completed(pending[:args<span style="color:#f92672">.</span>workers <span style="color:#f92672">*</span> <span style="color:#ae81ff">200</span>]):
+</span></span><span style="display:flex;"><span>                    kind, _ <span style="color:#f92672">=</span> fut<span style="color:#f92672">.</span>result(); stats[kind]<span style="color:#f92672">=</span>stats<span style="color:#f92672">.</span>get(kind,<span style="color:#ae81ff">0</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>; done<span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> done <span style="color:#f92672">%</span> <span style="color:#ae81ff">200</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                        db_commit(conn)
+</span></span><span style="display:flex;"><span>                        log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;进度 </span><span style="color:#e6db74">{</span>done<span style="color:#e6db74">}</span><span style="color:#e6db74"> | 统计 </span><span style="color:#e6db74">{</span>stats<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>                pending <span style="color:#f92672">=</span> pending[args<span style="color:#f92672">.</span>workers <span style="color:#f92672">*</span> <span style="color:#ae81ff">200</span>:]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> fut <span style="color:#f92672">in</span> as_completed(pending):
+</span></span><span style="display:flex;"><span>            kind, _ <span style="color:#f92672">=</span> fut<span style="color:#f92672">.</span>result(); stats[kind]<span style="color:#f92672">=</span>stats<span style="color:#f92672">.</span>get(kind,<span style="color:#ae81ff">0</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>; done<span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        db_commit(conn)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;=== Done in </span><span style="color:#e6db74">{</span>time<span style="color:#f92672">.</span>time()<span style="color:#f92672">-</span>t0<span style="color:#e6db74">:</span><span style="color:#e6db74">.1f</span><span style="color:#e6db74">}</span><span style="color:#e6db74">s === 已处理 </span><span style="color:#e6db74">{</span>done<span style="color:#e6db74">}</span><span style="color:#e6db74"> | 统计 </span><span style="color:#e6db74">{</span>stats<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    main()
+</span></span></code></pre></div><blockquote>
+<p>若脚本不可执行：<code>chmod +x /volume2/newPhoto/organize_media.py</code></p></blockquote>
+<hr>
+<h2 id="4-运行后台">4. 运行（后台）<a href="#4-运行后台" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><strong>分三类存放（推荐）</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">(</span> cd /volume2/newPhoto <span style="color:#f92672">&amp;&amp;</span> nohup /volume2/newPhoto/venvs/py38/bin/python /volume2/newPhoto/organize_media.py <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --src /volume2/photo --dst /volume2/newPhoto --db /volume2/newPhoto/media.db <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --mode split --rescan --workers <span style="color:#ae81ff">4</span> &gt; /volume2/newPhoto/organize_media.out 2&gt;&amp;<span style="color:#ae81ff">1</span> &amp; <span style="color:#f92672">)</span>
+</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>--mode split</code>：落到 <code>video/</code>、<code>photo/</code>、<code>screenshots/</code></li>
+<li><code>--rescan</code>：即使已有记录也重新复制并更新 <code>dest_path</code>/<code>dest_md5</code></li>
+<li><code>--workers 4</code>：并发线程数，视 NAS 性能调整</li>
+<li>源目录<strong>只读</strong>，脚本使用 <code>copy2</code> 保持时间戳与权限</li>
+</ul></blockquote>
+<hr>
+<h2 id="5-查看进度与日志">5. 查看进度与日志<a href="#5-查看进度与日志" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 实时日志</span>
+</span></span><span style="display:flex;"><span>tail -f /volume2/newPhoto/organize_media.log
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># nohup 输出</span>
+</span></span><span style="display:flex;"><span>tail -f /volume2/newPhoto/organize_media.out
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 进程检查</span>
+</span></span><span style="display:flex;"><span>pgrep -af /volume2/newPhoto/organize_media.py
+</span></span></code></pre></div><hr>
+<h2 id="6-验证数据库">6. 验证数据库<a href="#6-验证数据库" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 每类文件的总数 &amp; 已落盘数</span>
+</span></span><span style="display:flex;"><span>sqlite3 /volume2/newPhoto/media.db <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span><span style="color:#e6db74">&#34;SELECT media_type, COUNT(*), SUM(dest_path IS NOT NULL) FROM files GROUP BY media_type;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 看几条映射（源/目标/MD5）</span>
+</span></span><span style="display:flex;"><span>sqlite3 /volume2/newPhoto/media.db <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span><span style="color:#e6db74">&#34;SELECT substr(src_md5,1,8), substr(dest_md5,1,8), src_path, dest_path FROM files WHERE dest_path IS NOT NULL LIMIT 5;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 错误数量</span>
+</span></span><span style="display:flex;"><span>sqlite3 /volume2/newPhoto/media.db <span style="color:#e6db74">&#34;SELECT COUNT(*) FROM errors;&#34;</span>
+</span></span></code></pre></div><blockquote>
+<p>由于启用 <strong>WAL 模式</strong>，数据会先写入 <code>media.db-wal</code>；主库 <code>media.db</code> 体积可能暂不变化，属正常行为。</p></blockquote>
+<p><strong>需要将 WAL 合并入主库（可选）：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlite3 /volume2/newPhoto/media.db <span style="color:#e6db74">&#34;PRAGMA wal_checkpoint(TRUNCATE); VACUUM;&#34;</span>
+</span></span></code></pre></div><hr>
+<h2 id="7-使用说明与特性">7. 使用说明与特性<a href="#7-使用说明与特性" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><strong>同名不覆盖</strong>：若目标已有同名文件但内容不同，自动保存为 <code>原名__{md5前8位}.扩展名</code>，两者都保留。</li>
+<li><strong>截图识别</strong>：不依赖文件名；综合 MIME、EXIF 缺失、尺寸/纵横比、DPI、软件标记等启发式。</li>
+<li><strong>可重复执行</strong>：默认按 <code>src_path</code> 幂等跳过；加 <code>--rescan</code> 可强制更新。</li>
+<li><strong>多线程</strong>：<code>ThreadPoolExecutor</code> 并发处理；DB 访问串行化避免线程问题。</li>
+<li><strong>安全</strong>：不修改源目录内容；复制目标位于 <code>/volume2/newPhoto/</code>。</li>
+</ul>
+<hr>
+<h2 id="8-常见问题">8. 常见问题<a href="#8-常见问题" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><strong>Q1：数据库文件 <code>media.db</code> 一直 4096B？</strong><br>
+A：WAL 模式下，数据写在 <code>media.db-wal</code>，主库体积不会立刻变大。执行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlite3 /volume2/newPhoto/media.db <span style="color:#e6db74">&#34;PRAGMA wal_checkpoint(TRUNCATE); VACUUM;&#34;</span>
+</span></span></code></pre></div><p><strong>Q2：看到 <code>sqlite3.ProgrammingError: SQLite objects created in a thread …</code>？</strong><br>
+A：本教程脚本已设置 <code>check_same_thread=False</code> 且用 <code>DB_LOCK</code> 串行化 SQL。若仍看到，通常是<strong>旧进程</strong>在跑：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pkill -f <span style="color:#e6db74">&#34;/volume2/newPhoto/organize_media.py&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 然后用上面的 nohup 命令重启</span>
+</span></span></code></pre></div><p><strong>Q3：目录权限显示一堆 <code>+</code> 或 <code>---------+</code> 正常吗？</strong><br>
+A：群晖启用 <strong>ACL</strong> 时，<code>ls -l</code> 的 POSIX 权限不代表最终权限。可用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>synoacltool -get /volume2/newPhoto
+</span></span><span style="display:flex;"><span>ls -le /volume2/newPhoto
+</span></span></code></pre></div><p>必要时再 <code>chown/chmod</code> 微调显示，但最终以 ACL 为准。</p>
+<hr>
+<h2 id="9-下一步可选扩展">9. 下一步（可选扩展）<a href="#9-下一步可选扩展" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><strong>去重策略</strong>：若不同源路径 MD5 相同，可只保留目标一份并在 DB 中记录多对一映射。</li>
+<li><strong>按日期分层</strong>：<code>photo/YYYY/YYYY-MM/</code> 归档。</li>
+<li><strong>导出报表</strong>：将 <code>files</code> 表导出为 CSV/Markdown，便于审阅。</li>
+</ul>
+<blockquote>
+<p>如果你需要上述扩展，我可以提供直接可用的增量脚本与 SQL 示例。</p></blockquote>
+<hr>
+<p><strong>至此，你已完成“整理群晖照片（第一步）”：安全索引 + 分类复制 + 可追踪元数据。</strong></p>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h"></span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://ltan.me/post/2025/07/browserguard-parental-control-browser-monitoring-tool/">
+                <span class="button__text">BrowserGuard - 智能浏览器监控工具，助力家长控制与学习管理</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4472456938595283"
+     crossorigin="anonymous"></script>
+
+
+  
+</div>
+
+</body>
+</html>

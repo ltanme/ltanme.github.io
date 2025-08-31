@@ -146,6 +146,49 @@
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="https://ltan.me/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/">整理群晖照片（第一步）：从源目录安全索引与分类到新目录</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2025-08-31
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/synology/">Synology</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/dsm7/">DSM7</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/python/">Python</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/sqlite/">SQLite</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/exif/">EXIF</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          在不改动群晖原始照片目录的前提下，使用 Python + SQLite 将图片/视频扫描入库，按照片、视频、截图三类复制到新目录（支持多线程、断点重跑、记录 MD5、日志追踪）。
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="https://ltan.me/post/2025/07/browserguard-parental-control-browser-monitoring-tool/">BrowserGuard - 智能浏览器监控工具，助力家长控制与学习管理</a>
         </h1>
         <div class="post-meta">
@@ -420,6 +463,51 @@
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="https://ltan.me/post/2024/08/common-docker-issues-solutions/">Common Docker Issues Solutions</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2024-08-15
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="docker-疑难杂症汇总">Docker 疑难杂症汇总</h1>
+<p>在使用 Docker 的过程中，可能会遇到各种各样的问题，尤其是在国内环境下，网络限制可能会导致一些操作困难。本文将汇总常见的 Docker 安装与使用过程中可能遇到的疑难杂症，并提供相应的解决方案。</p>
+<h2 id="1-docker-安装过程中网络问题">1. Docker 安装过程中网络问题</h2>
+<h3 id="问题描述">问题描述：</h3>
+<p>在国内使用 <code>apt-get</code> 安装 Docker 时，经常遇到无法连接到 Docker 官方仓库 <code>download.docker.com</code> 的问题，导致无法获取或更新 Docker 包。</p>
+<h3 id="解决方案">解决方案：</h3>
+<ul>
+<li>
+<p><strong>使用国内镜像源：</strong> 通过修改 Docker 的 APT 源配置文件，切换到国内镜像源（如清华大学、阿里云、中科大等），可以有效解决网络连接问题。</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2024/08/common-docker-issues-solutions/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="https://ltan.me/post/2024/08/smartdns&#43;adguardhome/">Smartdns+adguardhome</a>
         </h1>
         <div class="post-meta">
@@ -451,6 +539,64 @@
         <div>
           <a class="read-more button"
             href="/post/2024/08/smartdns&#43;adguardhome/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2024/07/n5105&#43;istoreos/">N5105+istoreos</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2024-07-31
+          </span>
+          
+        </div>
+
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <p>以下图片vmnic0对应eth0,打x 的表示用于管理该exsi虚拟机器使用
+<img src="/post/2024/07/n5105&#43;istoreos/img_1.png" alt="img_1.png"></p>
+<p>图片ip地址设置</p>
+<p>选择需要直通的网卡，需要排除管理网卡，点击<code>切换直通</code></p>
+<p><img src="/post/2024/07/n5105&#43;istoreos/img.png" alt="img.png"></p>
+<p>配置istore 硬件
+<img src="/post/2024/07/n5105&#43;istoreos/img_2.png" alt="img_2.png"></p>
+<h1 id="添加交换机后再添加端口组">添加交换机后，再添加端口组</h1>
+<p><img src="/post/2024/07/n5105&#43;istoreos/img_3.png" alt="img_3.png">
+<img src="/post/2024/07/n5105&#43;istoreos/img_4.png" alt="img_4.png"></p>
+<h1 id="问题">问题.</h1>
+<p>任务
+Power On VM
+键
+haTask-5-vim.VirtualMachine.powerOn-267</p>
+<p>描述
+打开该虚拟机电源</p>
+<p>虚拟机
+win10
+状况
+失败 - 父资源池中的可用内存资源不足，无法执行该操作。</p>
+<p>错误
+模块“MonitorLoop”打开电源失败。
+组 vmm.135766: 无法对 VMM 组 vmm0:win10 应用内存配置。(最小值: 1048576，最大值: -1，最小限制: -1，份额: -3，单位: pages)
+无法打开虚拟机电源: 内存资源的准入检查失败。有关资源管理设置的信息，请参见《VMware ESX 资源管理指南》。
+无法打开虚拟机电源。
+无法启动虚拟机。
+<img src="/post/2024/07/n5105&#43;istoreos/img_5.png" alt="img_5.png"></p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2024/07/n5105&#43;istoreos/">Read more →</a>
         </div>
         
       </div>
@@ -998,6 +1144,52 @@ JDK17,不是jdk11<br>
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/">Remember the Problem of Apisix and Node Red Multi Instance Debugging</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2024-01-16
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/apisix/">apisix</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/node-red/">node-red</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/docker/">docker</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="resolving-docker-compose-and-apisix-port-502-error">Resolving Docker Compose and ApiSix Port 502 Error</h1>
+<p>在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
+然而，在这个过程中，我遇到了一个502端口访问错误。
+我花了一整天的时间来解决这个问题，最终找到了问题的原因。</p>
+<p>问题出在我创建Node-RED实例并在ApiSix中添加upstream时。
+我注意到，当我运行以下命令来创建Node-RED实例时，我不小心将端口号设置为1881来进行暴露：</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="https://ltan.me/post/2024/01/solving-https-debugging-issues-with-sso-integration-using-ngrok-on-windows/">Solving HTTPS Debugging Issues with SSO Integration Using Ngrok on Windows</a>
         </h1>
         <div class="post-meta">
@@ -1369,6 +1561,42 @@ JDK17,不是jdk11<br>
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="https://ltan.me/post/2023/02/armbian-boots-to-display-chinese-character-stroke-order-learning/">Armbian Boots to Display Chinese Character Stroke Order Learning</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2023-02-18
+          </span>
+          
+        </div>
+
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="家庭数字显示屏自动化小学汉字笔画拼音展示">家庭数字显示屏自动化&ndash;小学汉字笔画，拼音展示</h1>
+<blockquote>
+<p>一直想折腾一个家庭数字内容显示屏，想了很久，之前做的都是打开一个播放器播放视频，内容比较单一
+今天有时间用golang语言基于goframe框架做一个汉字笔顺，笔画展示，包括拼音显示，然后通过电视屏
+和arm开发板小盒子（n1）自动化运行。运行程序系统环境 Debian Buster with Armbian Linux 5.1.15-aml-s905
+目前自动开机用到的主要硬件设备小米开关，小米电视，小米智能音箱等设备</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2023/02/armbian-boots-to-display-chinese-character-stroke-order-learning/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="https://ltan.me/post/2023/02/calculations-are-automatically-generated/">Calculations Are Automatically Generated</a>
         </h1>
         <div class="post-meta">
@@ -1398,6 +1626,52 @@ JDK17,不是jdk11<br>
         <div>
           <a class="read-more button"
             href="/post/2023/02/calculations-are-automatically-generated/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2022/11/localdatetime-to-date-format-java/">Localdatetime to Date Format Java</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2022-11-28
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/java/">java</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/localdatetime/">localdatetime</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/localdate/">localdate</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="localdatetime-to-date-format-java">Localdatetime to Date Format Java</h1>
+<blockquote>
+<p>在使用<code>java</code>时间的<code>api</code>个人感觉非常不方便，很多时候存在格式转换，类型转换 比如<code>date</code> 转<code>localDate</code>
+<code>localDateTime</code>转换为 <code>Date</code> 等这种操作，二者的相互转换并不是一步到位哪么简单的，所以，还是在
+这里记录一下转换的<code>api</code>备忘一下, <code>localDate</code>只处理<code>yyyyMMdd</code>格式，<code>localTime</code>只处理<code>HHmmss</code>格式,而
+<code>localDateTime</code> 可以处理 <code>yyyy-MM-dd HH:mm:ss</code></p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2022/11/localdatetime-to-date-format-java/">Read more →</a>
         </div>
         
       </div>
@@ -1540,6 +1814,284 @@ JDK17,不是jdk11<br>
         <div>
           <a class="read-more button"
             href="/post/2022/03/how-to-disk-partition-formatted-in-openwrt-system/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2022/03/phpmyadmin-docker-install/">Phpmyadmin Docker Install</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2022-03-28
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/phpmyadmin/">phpmyadmin</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="phpmyadmin-runs-in-the-docker-environment">phpmyadmin runs in the docker environment</h1>
+<blockquote>
+<p>快速部署phpmyadmin mysql客户端管理工具，用于开发环境调用，测试用途，开源助免费<br>
+如果只是简单查询修改数据，推荐此工具 phpmyadmin mysql web管理工具<br>
+安装docker 环境后，直接运行以下命令，高级功能请查询官方文档</p></blockquote>
+<h2 id="命令">命令</h2>
+<pre tabindex="0"><code class="language-jshelllanguage" data-lang="jshelllanguage">#下载容器
+docker pull phpmyadmin/phpmyadmin
+#运行容器，PMA_ARBITRARY=1表示可以连接任意mysql数据库服务器
+docker run --name myadmin -d -e PMA_ARBITRARY=1   -p 8081:80  phpmyadmin/phpmyadmin
+</code></pre><p>##运行结果如下</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2022/03/phpmyadmin-docker-install/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2022/03/classpath-resource-not-found-when-running-as-jar/">Classpath Resource Not Found When Running as Jar</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2022-03-08
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/java/">java</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/springboot/">springboot</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/groovy/">groovy</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="读取jar包resources目录下的groovy脚本并调用">读取jar包resources目录下的groovy脚本并调用</h1>
+<blockquote>
+<p>工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断
+所以采用生成groovy脚本形式来解决动态校验以及入库规则
+项目初期设计不复杂，功能简单，直接按日志项名称编写groovy脚本规则,比如wifi日志，则规则文件名为wifi.groovy
+当日志的http接口请求到wifi名称，则加载wifi.groovy规则文件并解析判断，包括入库，kafka队列等
+groovy文件放在resources/logTemplate文件夹下，遇到在jar包模式运行不能读到文件的问题
+而在idea能直接运行
+java -jar xxx.jar 运行报错如下</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2022/03/classpath-resource-not-found-when-running-as-jar/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2022/02/pycharm-terminal-virtualenv-setting/">Pycharm Terminal Virtualenv Setting</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2022-02-17
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/python2.7/">python2.7</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/pip/">pip</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/virtualenv/">virtualenv</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/anaconda/">Anaconda</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="windows-环境pycharm-python-多环境开发设置">windows 环境pycharm python 多环境开发设置</h1>
+<blockquote>
+<p>在python项目开发中，很多情况每个项目采用不同的python 环境，一般常见的系统默认python 版本为
+python 2.7但如果又不想破坏系统原来的python 环境，则可以安装virualenv 依赖解决多版本的问题
+virtualen 采用pip install 安装，不管是采用python3版本的pip,还是 python2版本的pip都可以安
+装这个依赖，pycharm 具体设置如下：</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2022/02/pycharm-terminal-virtualenv-setting/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2022/02/a-true-sslcontext-object-is-not-available/">A True SSLContext Object Is Not Available</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2022-02-17
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/python2.7/">python2.7</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/pip/">pip</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="windows-下pyhon27环境pip-install-模块报错a-true-sslcontext-object-is-not-available">windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available</h1>
+<blockquote>
+<p>因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7<br>
+具体错误代码如下：<br>
+SNIMissingWarning
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by &lsquo;ReadTimeoutError(&ldquo;HTTPSConnectionPo
+ol(host=&lsquo;pypi.org&rsquo;, port=443): Read timed out. (read timeout=15)&rdquo;,)&rsquo;: /simple/ndg-httpsclient/
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning
+Could not find a version that satisfies the requirement ndg-httpsclient (from versions: )
+No matching distribution found for ndg-httpsclient
+d:\python27\lib\site-packages\pip_vendor\urllib3\util\ssl_.py:160: InsecurePlatformWarning: A true SSLContext object is not available. This pre
+vents urllib3 from configuring SSL appropriately and may cause certain SSL connections to fail. You can upgrade to a newer version of Python to
+solve this. For more information, see <a href="https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings">https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</a>
+InsecurePlatformWarning</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2022/02/a-true-sslcontext-object-is-not-available/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2022/02/mybatis-failed-to-save-data/">Mybatis Failed to Save Data</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2022-02-11
+          </span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/java/">java</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/mysql/">mysql</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/mybatis/">mybatis</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="记一次遇到mybaits写入数据不成功问题">记一次遇到mybaits写入数据不成功问题</h1>
+<blockquote>
+<p>工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到
+mysql client 执行sql执行并没有问题，但是调用接口时，写入mysql不成功，也不报错，遇到这种问题特别
+困惑，特记录一下，</p></blockquote>
+<blockquote>
+<p>找了一下午才发现问题，最怕就是程序不报错，语句执行成功，但数据库没有数据这样的问题呢
+主要问题是接口请求实体类有几个版本字段是用的Long 类型的，而mysql表对应的字段是int类型的
+在用mybatis-generate 插件生成表的 mapper.xml、dao、model时，mysql字段为int类型的生成对应的integer类型
+但是代码定义的dto 接口请求实体类，字段是long类型，入库时，存在long 转 integer 的行为，行为非法，但执行时sql不报错
+由于时间关系没有进一步查为什么不报错提示，xml生成的字段类型都是 java.lang.Integer</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2022/02/mybatis-failed-to-save-data/">Read more →</a>
         </div>
         
       </div>
@@ -1798,6 +2350,42 @@ JDK17,不是jdk11<br>
         <div>
           <a class="read-more button"
             href="/post/2021/09/date-and-localdatetime-in-java-8/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2021/09/multi-module-project-generation-mybatis-tool-by-intellij-idea/">Multi Module Project Generation Mybatis Tool by Intellij IDEA</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-09-26
+          </span>
+          
+        </div>
+
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <h1 id="在intellij-idea-中用mybatis-generate-tool-插件快速生成mybatis-daomodelmapper等文件">在intellij idea 中用mybatis generate tool 插件快速生成mybatis dao,model,mapper等文件</h1>
+<blockquote>
+<p>用idea 打开一个多模块的项目, 配置database mysql 设置并连接上</p>
+<p>打开schemas 选择一个表，右建选择mybatis-generator</p></blockquote>
+<p><img src="/post/2021/09/multi-module-project-generation-mybatis-tool-by-intellij-idea/image-20210926112036871.png" alt="image-20210926112036871"></p>
+<p>在弹出窗口，注意选择,以下红框中请设置好。很重要，否则生成路径不对。免得移动文件，干脆一次到位生成到对应的目录下面</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2021/09/multi-module-project-generation-mybatis-tool-by-intellij-idea/">Read more →</a>
         </div>
         
       </div>
@@ -2092,6 +2680,35 @@ JDK17,不是jdk11<br>
         <div>
           <a class="read-more button"
             href="/post/2021/08/mathematical-generation-for-the-third-grade-of-elementary-school/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="https://ltan.me/post/2021/08/vscode-hot-key/">Vscode Hot Key</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-08-15
+          </span>
+          
+        </div>
+
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/post/2021/08/vscode-hot-key/">Read more →</a>
         </div>
         
       </div>
@@ -2943,6 +3560,13 @@ end
         </a>
       </span>
     
+    
+      <span class="button next">
+        <a href="/post/page/13/">
+          <span class="button__text">Older posts</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
     
   </div>
 </div>
