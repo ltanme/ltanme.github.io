@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>配置中心 on LTAN.ME</title>
-    <link>https://ltan.me/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</link>
+    <link>http://localhost:1313/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</link>
     <description>Recent content in 配置中心 on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 31 Aug 2025 17:30:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Aug 2025 17:30:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Nacos 配置迁移实战：一键把 Nacos 1.x/2.x 导出包转换为 3.0 导入包（Python Web 工具）</title>
-      <link>https://ltan.me/post/2025/12/nacos-config-migration-1x-2x-to-3x/</link>
+      <link>http://localhost:1313/post/2025/12/nacos-config-migration-1x-2x-to-3x/</link>
       <pubDate>Sun, 31 Aug 2025 17:30:00 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2025/12/nacos-config-migration-1x-2x-to-3x/</guid>
+      <guid>http://localhost:1313/post/2025/12/nacos-config-migration-1x-2x-to-3x/</guid>
       <description>&lt;hr&gt;
 &lt;blockquote&gt;
 &lt;p&gt;本文记录一个&lt;strong&gt;把 Nacos 1.x / 2.x 导出的配置包，自动转换为 Nacos 3.0 可直接导入包&lt;/strong&gt;的完整思路和工具实现。
@@ -27,7 +27,7 @@
 &lt;h2 id=&#34;0-迁移目标概览&#34;&gt;0. 迁移目标概览&lt;/h2&gt;
 &lt;p&gt;从配置中心视角，这次迁移的目标可以简化成一句话：
 操作如下图
-&lt;img src=&#34;https://ltan.me/post/2025/12/nacos-config-migration-1x-2x-to-3x/show.png&#34; alt=&#34;show.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/post/2025/12/nacos-config-migration-1x-2x-to-3x/show.png&#34; alt=&#34;show.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;把 Nacos 1.x / 2.x 导出的 zip 包，变成 Nacos 3.0 认为“官方合法”的导入包。&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;更具体一点：&lt;/p&gt;

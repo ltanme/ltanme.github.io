@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Balancer on LTAN.ME</title>
-    <link>https://ltan.me/tags/balancer/</link>
+    <link>http://localhost:1313/tags/balancer/</link>
     <description>Recent content in Balancer on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 19 May 2021 17:37:04 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/balancer/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 May 2021 17:37:04 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/balancer/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Customize Load Balancing Logic Based on Openresty</title>
-      <link>https://ltan.me/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/</link>
+      <link>http://localhost:1313/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/</link>
       <pubDate>Wed, 19 May 2021 17:37:04 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/</guid>
+      <guid>http://localhost:1313/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/</guid>
       <description>&lt;h1 id=&#34;基于openresty-自定义tcp-请求流量转发到不同消息处理服务器&#34;&gt;基于openresty 自定义tcp 请求流量转发到不同消息处理服务器&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;有个消息推荐项目，netty 框架技术架构，客户端采用netty client 封装的私有tcp 协议 请求消息服务器。需要一套tcp 分流处理网关来分发请求流量到不同的tcp 消息处理器，现采用openresty 基本可以满足，主要是是用到openresy  balancer&lt;/p&gt;
@@ -97,7 +97,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如下图，左边是设备，中间是tcp 流量转发器，  右 边是消息处理服务器，  设备需要和消息处理服务器 建立tcp长链接，并维持不间断时间心跳，总之采用openresty 来完现流量分发具有强性能，只需要在原来的netty消息层外层加个流量处理网关即可。&lt;/p&gt;
 &lt;p&gt;但我们在实际环境不推荐这样做，除非小项目，大项目还是推荐apisix 网关来处理很方便&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/image-20210519191548391.png&#34; alt=&#34;image-20210519191548391&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/how-to-customize-load-balancing-logic-based-on-openresty/image-20210519191548391.png&#34; alt=&#34;image-20210519191548391&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     

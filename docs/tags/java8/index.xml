@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java8 on LTAN.ME</title>
-    <link>https://ltan.me/tags/java8/</link>
+    <link>http://localhost:1313/tags/java8/</link>
     <description>Recent content in Java8 on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 26 Sep 2021 21:08:19 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/java8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Sep 2021 21:08:19 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/java8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Date and LocalDatetime in Java 8</title>
-      <link>https://ltan.me/post/2021/09/date-and-localdatetime-in-java-8/</link>
+      <link>http://localhost:1313/post/2021/09/date-and-localdatetime-in-java-8/</link>
       <pubDate>Sun, 26 Sep 2021 21:08:19 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/09/date-and-localdatetime-in-java-8/</guid>
+      <guid>http://localhost:1313/post/2021/09/date-and-localdatetime-in-java-8/</guid>
       <description>&lt;h1 id=&#34;java-8中的-date和localdatetime类在工作中遇到的问题&#34;&gt;Java 8中的 Date和LocalDateTime类在工作中遇到的问题&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;java 8 中的 LocalDateTime  比 date 速度快很多，而且在处理时间方法比较灵活，在日期计算方面，日期比较简单易用，而Date 要繁琐很多&lt;/p&gt;

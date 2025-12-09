@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Wireshark on LTAN.ME</title>
-    <link>https://ltan.me/tags/wireshark/</link>
+    <link>http://localhost:1313/tags/wireshark/</link>
     <description>Recent content in Wireshark on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 03 Sep 2021 11:14:53 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/wireshark/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Sep 2021 11:14:53 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/wireshark/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Artemis Origin Null Is Not Allowed to Call This Agent</title>
-      <link>https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/</link>
+      <link>http://localhost:1313/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/</link>
       <pubDate>Fri, 03 Sep 2021 11:14:53 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/</guid>
+      <guid>http://localhost:1313/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/</guid>
       <description>&lt;h1 id=&#34;artemis-origin-null-is-not-allowed-to-call-this-agent&#34;&gt;Artemis Origin Null Is Not Allowed to Call This Agent&lt;/h1&gt;
 &lt;h3 id=&#34;解决不能访问jolokia-http-interface-接口的问题访问报403-状态错误&#34;&gt;解决不能访问jolokia http interface 接口的问题，访问报403 状态错误&lt;/h3&gt;
 &lt;blockquote&gt;
@@ -46,9 +46,9 @@ This would give you back something like the following:
   &amp;#34;status&amp;#34;: 403
 
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903113004787.png&#34; alt=&#34;image-20210903113004787&#34;&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903113004787.png&#34; alt=&#34;image-20210903113004787&#34;&gt;&lt;/p&gt;
 &lt;p&gt;加上后果然访问正常了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903113348373.png&#34; alt=&#34;image-20210903113348373&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903113348373.png&#34; alt=&#34;image-20210903113348373&#34;&gt;&lt;/p&gt;
 &lt;p&gt;但在实际springboot 项目中，我们用restTemplate 这个http client 客户端，发现不行，还是403&lt;/p&gt;
 &lt;p&gt;postman 是可以的，我们在spring boot 项目中，用restTemplate 访问不行。为什么，后面我们没有绕过这个问题，没有换过库&lt;/p&gt;
 &lt;p&gt;没有使用postman 推荐的code ,以下是postman 推荐的，但没有尝试，我们还是坚持采用 restTemplate  客户端&lt;/p&gt;
@@ -60,7 +60,7 @@ This would give you back something like the following:
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  .&lt;span style=&#34;color:#a6e22e&#34;&gt;asString&lt;/span&gt;();
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;怀疑 restTemplate 并没有把orgin传过去,经过抓包 才发现&lt;/p&gt;
 &lt;p&gt;于是我们用&lt;code&gt;wireshark&lt;/code&gt; 工具抓包发现restTemplate 没有把orgin 参数传给atemis-server&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/16306405458570.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/16306405458570.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;然后在百度一下，发现以下csdn 博客解决了，增加一行配置即可&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;System.setProperty(&amp;#34;sun.net.http.allowRestrictedHeaders&amp;#34;,&amp;#34;true&amp;#34;);
 &lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
@@ -113,7 +113,7 @@ This would give you back something like the following:
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;加了后 &lt;code&gt;System.setProperty(&amp;quot;sun.net.http.allowRestrictedHeaders&amp;quot;,&amp;quot;true&amp;quot;);&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903142612594.png&#34; alt=&#34;image-20210903142612594&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903142612594.png&#34; alt=&#34;image-20210903142612594&#34;&gt;&lt;/p&gt;
 &lt;p&gt;４０３问题 最后总结一下：&lt;/p&gt;
 &lt;p&gt;有两点需要注意的，&lt;/p&gt;
 &lt;p&gt;第一，请求时，需要加用户名和密码，在ｈｅａｄｅｒ头增加ｏｒｇｉｎ参数&lt;/p&gt;

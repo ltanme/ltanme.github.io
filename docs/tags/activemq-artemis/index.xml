@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Activemq Artemis on LTAN.ME</title>
-    <link>https://ltan.me/tags/activemq-artemis/</link>
+    <link>http://localhost:1313/tags/activemq-artemis/</link>
     <description>Recent content in Activemq Artemis on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 03 Sep 2021 11:14:53 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/activemq-artemis/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Sep 2021 11:14:53 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/activemq-artemis/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Artemis Origin Null Is Not Allowed to Call This Agent</title>
-      <link>https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/</link>
+      <link>http://localhost:1313/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/</link>
       <pubDate>Fri, 03 Sep 2021 11:14:53 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/</guid>
+      <guid>http://localhost:1313/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/</guid>
       <description>&lt;h1 id=&#34;artemis-origin-null-is-not-allowed-to-call-this-agent&#34;&gt;Artemis Origin Null Is Not Allowed to Call This Agent&lt;/h1&gt;
 &lt;h3 id=&#34;解决不能访问jolokia-http-interface-接口的问题访问报403-状态错误&#34;&gt;解决不能访问jolokia http interface 接口的问题，访问报403 状态错误&lt;/h3&gt;
 &lt;blockquote&gt;
@@ -46,9 +46,9 @@ This would give you back something like the following:
   &amp;#34;status&amp;#34;: 403
 
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903113004787.png&#34; alt=&#34;image-20210903113004787&#34;&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903113004787.png&#34; alt=&#34;image-20210903113004787&#34;&gt;&lt;/p&gt;
 &lt;p&gt;加上后果然访问正常了&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903113348373.png&#34; alt=&#34;image-20210903113348373&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903113348373.png&#34; alt=&#34;image-20210903113348373&#34;&gt;&lt;/p&gt;
 &lt;p&gt;但在实际springboot 项目中，我们用restTemplate 这个http client 客户端，发现不行，还是403&lt;/p&gt;
 &lt;p&gt;postman 是可以的，我们在spring boot 项目中，用restTemplate 访问不行。为什么，后面我们没有绕过这个问题，没有换过库&lt;/p&gt;
 &lt;p&gt;没有使用postman 推荐的code ,以下是postman 推荐的，但没有尝试，我们还是坚持采用 restTemplate  客户端&lt;/p&gt;
@@ -60,7 +60,7 @@ This would give you back something like the following:
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  .&lt;span style=&#34;color:#a6e22e&#34;&gt;asString&lt;/span&gt;();
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;怀疑 restTemplate 并没有把orgin传过去,经过抓包 才发现&lt;/p&gt;
 &lt;p&gt;于是我们用&lt;code&gt;wireshark&lt;/code&gt; 工具抓包发现restTemplate 没有把orgin 参数传给atemis-server&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/16306405458570.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/16306405458570.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
 &lt;p&gt;然后在百度一下，发现以下csdn 博客解决了，增加一行配置即可&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;System.setProperty(&amp;#34;sun.net.http.allowRestrictedHeaders&amp;#34;,&amp;#34;true&amp;#34;);
 &lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
@@ -113,7 +113,7 @@ This would give you back something like the following:
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;加了后 &lt;code&gt;System.setProperty(&amp;quot;sun.net.http.allowRestrictedHeaders&amp;quot;,&amp;quot;true&amp;quot;);&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903142612594.png&#34; alt=&#34;image-20210903142612594&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/09/artemis-origin-null-is-not-allowed-to-call-this-agent/image-20210903142612594.png&#34; alt=&#34;image-20210903142612594&#34;&gt;&lt;/p&gt;
 &lt;p&gt;４０３问题 最后总结一下：&lt;/p&gt;
 &lt;p&gt;有两点需要注意的，&lt;/p&gt;
 &lt;p&gt;第一，请求时，需要加用户名和密码，在ｈｅａｄｅｒ头增加ｏｒｇｉｎ参数&lt;/p&gt;
@@ -123,10 +123,10 @@ This would give you back something like the following:
     
     <item>
       <title>How to Enable Activemq Artemis Rest Api</title>
-      <link>https://ltan.me/post/2021/08/how-to-enable-activemq-artemis-rest-api/</link>
+      <link>http://localhost:1313/post/2021/08/how-to-enable-activemq-artemis-rest-api/</link>
       <pubDate>Tue, 31 Aug 2021 19:35:49 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/08/how-to-enable-activemq-artemis-rest-api/</guid>
+      <guid>http://localhost:1313/post/2021/08/how-to-enable-activemq-artemis-rest-api/</guid>
       <description>&lt;h1 id=&#34;如何启用activemq-artemis-rest-api-特性&#34;&gt;如何启用activemq artemis rest api 特性&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在一次项目中需要使用activemq artemis mqtt 协议通信特性，需要借助rest api 功能按clientId 查询是否在线，也就是如何通过client id 查询 设备是否在线需要借助rest api 特性，默认情况artemis 不提供rest api 特性，在网搜索了一了，再借助官网的文档，需要build 一个war包 放 到web目录下即可，然后 重启程序&lt;/p&gt;</description>
@@ -159,10 +159,10 @@ This would give you back something like the following:
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;然后再执行以下命令，就是打包了&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mvn package
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/08/how-to-enable-activemq-artemis-rest-api/image-20210831195034813.png&#34; alt=&#34;image-20210831195034813&#34;&gt;&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/08/how-to-enable-activemq-artemis-rest-api/image-20210831195034813.png&#34; alt=&#34;image-20210831195034813&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;将得到的war包放到web目录下,记得一定要重命名 &lt;code&gt;activemq-rest.war&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/08/how-to-enable-activemq-artemis-rest-api/image-20210831195919395.png&#34; alt=&#34;image-20210831195919395&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/08/how-to-enable-activemq-artemis-rest-api/image-20210831195919395.png&#34; alt=&#34;image-20210831195919395&#34;&gt;&lt;/p&gt;
 &lt;p&gt;还有最关键一步如下，就是在etc目录下的bootstrap.xml 文件位置，添加 你需要启动的war包&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!-- The web server is only bound to localhost by default --&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;web&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;bind=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http://localhost:8161&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;path=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;web&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
@@ -178,10 +178,10 @@ This would give you back something like the following:
     
     <item>
       <title>Activemq Artemis Learning 2</title>
-      <link>https://ltan.me/post/2021/08/activemq-artemis-learning-2/</link>
+      <link>http://localhost:1313/post/2021/08/activemq-artemis-learning-2/</link>
       <pubDate>Sat, 28 Aug 2021 23:21:14 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/08/activemq-artemis-learning-2/</guid>
+      <guid>http://localhost:1313/post/2021/08/activemq-artemis-learning-2/</guid>
       <description>&lt;h1 id=&#34;activemq-artmis-项目所依赖模块说明整理&#34;&gt;activemq artmis 项目所依赖模块说明整理&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;artemis-boot ：项目主要的程序入口，man函数在此&lt;/p&gt;&lt;/blockquote&gt;
@@ -271,10 +271,10 @@ This would give you back something like the following:
     
     <item>
       <title>Activemq Artemis Learning 1</title>
-      <link>https://ltan.me/post/2021/08/activemq-artemis-learning-1/</link>
+      <link>http://localhost:1313/post/2021/08/activemq-artemis-learning-1/</link>
       <pubDate>Sat, 28 Aug 2021 10:22:19 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/08/activemq-artemis-learning-1/</guid>
+      <guid>http://localhost:1313/post/2021/08/activemq-artemis-learning-1/</guid>
       <description>&lt;h1 id=&#34;activemq-artemis-learning-1&#34;&gt;Activemq Artemis learning 1&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;activemq 有两个版本，过去很多人使用的activemq 经典版。 对该版本性能上面评价不是很满意，但今天官方又提供基于netty版的&lt;/p&gt;
@@ -284,7 +284,7 @@ This would give you back something like the following:
 &lt;p&gt;activemq 有两个版本，过去很多人使用的activemq 经典版。 对该版本性能上面评价不是很满意，但今天官方又提供基于netty版的&lt;/p&gt;
 &lt;p&gt;activemq artemis 这个消息中件间，将提供异步消息处理。在使用activemq好处是在于，对大多数据中小企业来说没有经历去造轮子，那么完全可以采用开源方案来完成需求，采用activemq artemis 这个消息中间件，他不仅继承原来的多协议，还大大提升了性能，着实很香的，activemq 本来就和rabbitmq, kafka,rocketmq 等三大mq不一样，还是有区别，适用不同场景。比如过去们常常使用mq kafka, rabbitmq大多数是在云服务器内网通信使用的，做服务消息解耦使用，但它只是普通的tcp 传输协议，不支持webscket 直连，http, udp 直连等特点，而activemq artemis 相反，他可以支的寺ws直连，tcp,udp直连，加上公司团队java技术栈的优势，采用先使用，熟悉如何使用activemq artemis 然后对其二次开发，也不是不错技术选型路线&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;下面就是官网提供activemq artemis 核心技术架构图&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/08/activemq-artemis-learning-1/image-20210828103628359.png&#34; alt=&#34;image-20210828103628359&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/08/activemq-artemis-learning-1/image-20210828103628359.png&#34; alt=&#34;image-20210828103628359&#34;&gt;&lt;/p&gt;
 &lt;p&gt;如果中小企业需要对activemq artemis 商用的话，就不的不考虑安全问题&lt;/p&gt;
 &lt;p&gt;比如android端 是如何链接actviemq artemis 逻辑的，在建立安全链接之前需要做一些鉴权处理&lt;/p&gt;
 &lt;p&gt;需要在activemq前 增加一nginx网关作为代理&lt;/p&gt;

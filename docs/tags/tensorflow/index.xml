@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tensorflow on LTAN.ME</title>
-    <link>https://ltan.me/tags/tensorflow/</link>
+    <link>http://localhost:1313/tags/tensorflow/</link>
     <description>Recent content in Tensorflow on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 26 Jul 2021 10:29:15 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/tensorflow/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Jul 2021 10:29:15 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/tensorflow/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tensorflow Dll Solutions for Missing Files</title>
-      <link>https://ltan.me/post/2021/07/tensorflow-dll-solutions-for-missing-files/</link>
+      <link>http://localhost:1313/post/2021/07/tensorflow-dll-solutions-for-missing-files/</link>
       <pubDate>Mon, 26 Jul 2021 10:29:15 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/07/tensorflow-dll-solutions-for-missing-files/</guid>
+      <guid>http://localhost:1313/post/2021/07/tensorflow-dll-solutions-for-missing-files/</guid>
       <description>&lt;h1 id=&#34;tensorflow-dll-solutions-for-missing-filescudnn64_8dll-not-foundcusolver64_10dll-not-found&#34;&gt;TensorFlow DLL Solutions for missing files：cudnn64_8.dll not found&amp;amp;cusolver64_10.dll not found&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;解决tensorflow在安装最新版本（2.5.0） 时，运行时报错找不到各种dll文件方法。网上有很多的原因，说有因版本太高了，不兼容&lt;/p&gt;
@@ -23,7 +23,7 @@
 &lt;p&gt;还给了什么版本对应安装包，反正是折腾了很久，作为tensorflow使用新手，主要是想用用最新版本如何。正好换了台新的笔记本联想工作本本&lt;/p&gt;
 &lt;p&gt;legion系统 r7000, 内存32G, CPU amd 4000 series ryzen，显卡nvidia  geforce gtx 1060。最初我按照网上的教程安装很多个版本都试了不行，一气之下，安装最新新版 pip install tensorflow 最新版本如何，什么需要设置pip镜像， 反正都是科学网络了，下载速度也快。&lt;/p&gt;
 &lt;p&gt;当前配置的最新的显卡驱动，最新的tensorflow框架版本2.5.0&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/07/tensorflow-dll-solutions-for-missing-files/image-20210726103856956.png&#34; alt=&#34;image-20210726103856956&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/07/tensorflow-dll-solutions-for-missing-files/image-20210726103856956.png&#34; alt=&#34;image-20210726103856956&#34;&gt;&lt;/p&gt;
 &lt;p&gt;第一步，更新nvidia 驱动程序 ，去nvidia官网更新，能更新则更新最新版本显卡驱动程序，不能更新则卸载，然后重新安装显卡驱动程序&lt;/p&gt;
 &lt;p&gt;​                 去nvidia官网下载一个GeForce_Experience 的软件，用来专门更新显卡驱动程&lt;/p&gt;
 &lt;p&gt;第二步下载最新版本的cuda开发工具sdk, 最新版，去官网下载，不要点我这个链接下载，&lt;/p&gt;
@@ -116,10 +116,10 @@ GPU: [PhysicalDevice(name=&amp;#39;/physical_device:GPU:0&amp;#39;, device_type=
 &lt;p&gt;终于看到GPU 中括号里有 信息了，说明gpu生效，安装tensorflow-gpu成功，&lt;/p&gt;
 &lt;p&gt;如果你用Anaconda Jupyter Notebook 默认是不会打印 上面日志的，也就是说看不到什么dll 文件丢失&lt;/p&gt;
 &lt;p&gt;我用的pycharm ide&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/07/tensorflow-dll-solutions-for-missing-files/image-20210726110316971.png&#34; alt=&#34;image-20210726110316971&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/07/tensorflow-dll-solutions-for-missing-files/image-20210726110316971.png&#34; alt=&#34;image-20210726110316971&#34;&gt;&lt;/p&gt;
 &lt;p&gt;我用pycharm ide 配置的环境 如下，我电脑 安装了很多的python 环境，有代码需要在pycharm 切换python 版本，才能正常跑起来，比如我的tensorflow2.5.0 是要用Python 3.8.8才能跑的。 就是如下设置&lt;/p&gt;
 &lt;p&gt;下面就是我安装的tensorflow 相关依赖包&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/07/tensorflow-dll-solutions-for-missing-files/image-20210726110516851.png&#34; alt=&#34;image-20210726110516851&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/07/tensorflow-dll-solutions-for-missing-files/image-20210726110516851.png&#34; alt=&#34;image-20210726110516851&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     

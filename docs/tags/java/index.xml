@@ -2,17 +2,263 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on LTAN.ME</title>
-    <link>https://ltan.me/tags/java/</link>
+    <link>http://localhost:1313/tags/java/</link>
     <description>Recent content in Java on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 28 Nov 2022 16:05:03 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Dec 2025 10:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>现代化 Vibe Code &#43; Git Worktree：多分支并行开发 Java 项目的优雅姿势</title>
+      <link>http://localhost:1313/post/2025/12/git-worktree-parallel-dev-with-idea/</link>
+      <pubDate>Mon, 01 Dec 2025 10:00:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/2025/12/git-worktree-parallel-dev-with-idea/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;典型场景：一个 Java 单体或多模块项目，需要同时维护 &lt;code&gt;test&lt;/code&gt;、&lt;code&gt;pre&lt;/code&gt;、&lt;code&gt;prod&lt;/code&gt; 多套环境分支，还要临时开很多 feature 分支。&lt;br&gt;
+传统做法要么频繁 &lt;code&gt;git checkout&lt;/code&gt; 切分支，要么干脆 clone 三四份仓库，既容易误操作，又浪费磁盘。&lt;br&gt;
+本文介绍一种更现代化的组合：&lt;strong&gt;Git worktree + Vibe Code Git 客户端 + IntelliJ IDEA&lt;/strong&gt;，在同一个仓库上优雅地做多分支并行开发。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;0-传统单工作区的痛点&#34;&gt;0. 传统单工作区的痛点&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2025/12/git-worktree-parallel-dev-with-idea/show.jpg&#34; alt=&#34;show.jpg&#34;&gt;
+日常开发中，我们经常同时维护：&lt;/p&gt;</description>
+      <content>&lt;blockquote&gt;
+&lt;p&gt;典型场景：一个 Java 单体或多模块项目，需要同时维护 &lt;code&gt;test&lt;/code&gt;、&lt;code&gt;pre&lt;/code&gt;、&lt;code&gt;prod&lt;/code&gt; 多套环境分支，还要临时开很多 feature 分支。&lt;br&gt;
+传统做法要么频繁 &lt;code&gt;git checkout&lt;/code&gt; 切分支，要么干脆 clone 三四份仓库，既容易误操作，又浪费磁盘。&lt;br&gt;
+本文介绍一种更现代化的组合：&lt;strong&gt;Git worktree + Vibe Code Git 客户端 + IntelliJ IDEA&lt;/strong&gt;，在同一个仓库上优雅地做多分支并行开发。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;0-传统单工作区的痛点&#34;&gt;0. 传统单工作区的痛点&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2025/12/git-worktree-parallel-dev-with-idea/show.jpg&#34; alt=&#34;show.jpg&#34;&gt;
+日常开发中，我们经常同时维护：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;develop&lt;/code&gt; / &lt;code&gt;master&lt;/code&gt; / &lt;code&gt;release-*&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;环境分支：&lt;code&gt;test&lt;/code&gt;、&lt;code&gt;pre&lt;/code&gt;、&lt;code&gt;prod&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;多个特性分支：&lt;code&gt;feature/xxx-1&lt;/code&gt;、&lt;code&gt;feature/xxx-2&lt;/code&gt;……&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果只用一个本地目录 + &lt;code&gt;git checkout&lt;/code&gt;，会遇到很多问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;频繁切分支&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;忘了 stash / commit，本地改动被带到了另一个分支；&lt;/li&gt;
+&lt;li&gt;正在 debug test 分支，产品同事让你马上修一个 pre 的 bug，又得切回去。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多 clone 占磁盘&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;为了并行开发，只能 &lt;code&gt;git clone&lt;/code&gt; 多份，&lt;code&gt;.git&lt;/code&gt; 目录重复占空间；&lt;/li&gt;
+&lt;li&gt;同一个仓库更新要 &lt;code&gt;git pull&lt;/code&gt; N 次。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;IDE 配置混乱&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;同一目录下的 &lt;code&gt;.idea&lt;/code&gt;、&lt;code&gt;run configuration&lt;/code&gt; 容易互相覆盖，尤其 Java 多模块项目时更烦。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些问题，本质都来自一个事实：&lt;strong&gt;工作目录和分支是强绑定关系&lt;/strong&gt;，一次只能服务一个分支。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;1-git-worktree一个仓库多套工作目录&#34;&gt;1. Git Worktree：一个仓库，多套工作目录&lt;/h2&gt;
+&lt;p&gt;Git 官方早就给了更优解：&lt;code&gt;git worktree&lt;/code&gt;。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;简单理解：&lt;br&gt;
+你只有&lt;strong&gt;一个真正的仓库（只有一份 .git）&lt;/strong&gt;，但可以为不同分支创建&lt;strong&gt;多个工作目录&lt;/strong&gt;，每个目录看起来就像一个独立 clone，好处是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.git&lt;/code&gt; 共享 → &lt;strong&gt;节省磁盘&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;fetch&lt;/code&gt; 一次 → 所有工作区都能用&lt;/li&gt;
+&lt;li&gt;各工作区的代码、IDE 配置互不影响&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;p&gt;假设我们已经在 &lt;code&gt;~/Project/aim_main&lt;/code&gt; 下有主仓库：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd ~/Project
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone git@gitlab.example.com:team/aim.git aim_main
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd aim_main
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;现在我们希望：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;~/Project/aim_test&lt;/code&gt; → 对应 &lt;code&gt;test&lt;/code&gt; 分支&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;~/Project/aim_pre&lt;/code&gt;  → 对应 &lt;code&gt;pre&lt;/code&gt; 分支&lt;/li&gt;
+&lt;li&gt;以后还要有一些临时 feature 工作树&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;11-为-test-分支创建一个-worktree&#34;&gt;1.1 为 test 分支创建一个 worktree&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd ~/Project/aim_main
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 确保本地有 test 分支&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git fetch origin
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git branch test origin/test
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 为 test 创建独立工作目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git worktree add ../aim_test test
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;目录结构大致变成：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;~/Project/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ├── aim_main   # 主仓库，默认分支比如 develop
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ├── aim_test   # worktree，绑定 test 分支
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  └── ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;aim_test&lt;/code&gt; 目录看起来就像一个普通项目目录，可以单独用 Vibe Code / IDEA 打开。&lt;/p&gt;
+&lt;h3 id=&#34;12-为-pre-分支再来一个&#34;&gt;1.2 为 pre 分支再来一个&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd ~/Project/aim_main
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git branch pre origin/pre
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git worktree add ../aim_pre pre
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;现在：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;~/Project/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ├── aim_main   # develop
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ├── aim_test   # test
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  └── aim_pre    # pre
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;每个目录的代码互不影响，你可以在 &lt;code&gt;aim_test&lt;/code&gt; 里放心改动、提交、跑测试，同时 &lt;code&gt;aim_pre&lt;/code&gt; 也可以挂着一个不同版本在跑。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2-搭配-vibe-code直观管理多工作树和分支&#34;&gt;2. 搭配 Vibe Code：直观管理多工作树和分支&lt;/h2&gt;
+&lt;p&gt;Vibe Code 这类 Git 客户端，对多仓库 / 多目录的支持通常都很好。结合 worktree，使用方式大致是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;把 &lt;code&gt;aim_test&lt;/code&gt; 当成一个独立项目打开；&lt;/li&gt;
+&lt;li&gt;再把 &lt;code&gt;aim_pre&lt;/code&gt; 作为另一个项目打开；&lt;/li&gt;
+&lt;li&gt;顶部 project 切换，可快速在多个环境之间切换视图。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这种用法的好处：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;一眼看出自己正在操作哪个环境&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;标题栏 / tab 上直接看到 &lt;code&gt;aim_test [test]&lt;/code&gt;、&lt;code&gt;aim_pre [pre]&lt;/code&gt; 这种视觉信息；&lt;/li&gt;
+&lt;li&gt;减少 “在 pre 分支误改了 test 配置” 的概率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Commit / Merge Request 视图更聚焦&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个 worktree 的提交历史就是单一分支的历史；&lt;/li&gt;
+&lt;li&gt;在 Vibe Code 中直接从该目录发起 MR，减少误选分支、误选 target 的风险。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;结构视图清晰&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;像 screenshot 中那样，一个项目窗格只对应一个目标分支；&lt;/li&gt;
+&lt;li&gt;多模块 Java 项目也能用树状结构快速定位模块。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;换句话说，&lt;strong&gt;worktree 把“逻辑分支”的概念，在工具层面具体成了“不同的物理目录”&lt;/strong&gt;，而 Vibe Code 则负责给这些目录提供更可视化的 Git 操作入口。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;3-搭配-intellij-ideajava-项目多环境并行调试&#34;&gt;3. 搭配 IntelliJ IDEA：Java 项目多环境并行调试&lt;/h2&gt;
+&lt;p&gt;对 Java 项目来说，IDEA 是生产力核心。把 worktree + IDEA 结合起来，有几个非常现实的优势。&lt;/p&gt;
+&lt;h3 id=&#34;31-每个分支一个-idea-project&#34;&gt;3.1 每个分支一个 IDEA Project&lt;/h3&gt;
+&lt;p&gt;比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用 IDEA 打开 &lt;code&gt;~/Project/aim_test&lt;/code&gt; → 配置 test 环境的 Run/Debug 配置；&lt;/li&gt;
+&lt;li&gt;再打开 &lt;code&gt;~/Project/aim_pre&lt;/code&gt; → 配置 pre 环境的 Run/Debug 配置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这样：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;test、pre 两个环境&lt;strong&gt;可以同时起服务&lt;/strong&gt;，甚至绑定不同端口 / 不同 profile：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;aim_test&lt;/code&gt;：&lt;code&gt;--spring.profiles.active=test&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;aim_pre&lt;/code&gt;：&lt;code&gt;--spring.profiles.active=pre&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;各自 &lt;code&gt;.idea&lt;/code&gt; 目录独立，Run Configuration 不会互相覆盖；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;不同分支的依赖变更（比如升级 Spring Boot 版本）也不会影响另一边的索引与缓存。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;32-多模块--微服务场景的体验&#34;&gt;3.2 多模块 / 微服务场景的体验&lt;/h3&gt;
+&lt;p&gt;在一个多模块 / 微服务的 Java 仓库中（类似 screenshot 里的 &lt;code&gt;aim-gateway&lt;/code&gt;、&lt;code&gt;aim-model&lt;/code&gt;、&lt;code&gt;aim-service-*&lt;/code&gt;）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;你可以在 &lt;code&gt;aim_test&lt;/code&gt; 中专门配置与测试环境联调相关的模块；&lt;/li&gt;
+&lt;li&gt;在 &lt;code&gt;aim_pre&lt;/code&gt; 中则配置预发场景使用的网关和核心服务；&lt;/li&gt;
+&lt;li&gt;IDEA 的 &lt;code&gt;Maven&lt;/code&gt; / &lt;code&gt;Gradle&lt;/code&gt; 工具窗口都是基于当前目录的 &lt;code&gt;pom.xml&lt;/code&gt; / &lt;code&gt;build.gradle&lt;/code&gt;，不会混在一起。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;配合 IDEA 的 &lt;strong&gt;多窗口&lt;/strong&gt; 功能，你甚至可以：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;左边窗口是 &lt;code&gt;aim_test&lt;/code&gt; 的代码和日志；&lt;/li&gt;
+&lt;li&gt;右边窗口是 &lt;code&gt;aim_pre&lt;/code&gt; 的代码和日志；&lt;/li&gt;
+&lt;li&gt;中间再放一个 Vibe Code 窗口看 MR 状态。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这比单目录反复切分支、重新导入项目不知道高到哪里去了。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;4-使用-worktree-的几个常用命令&#34;&gt;4. 使用 worktree 的几个常用命令&lt;/h2&gt;
+&lt;h3 id=&#34;41-创建-feature-分支工作树&#34;&gt;4.1 创建 feature 分支工作树&lt;/h3&gt;
+&lt;p&gt;从 &lt;code&gt;develop&lt;/code&gt; 拉一条特性分支，并给它单独一个目录：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd ~/Project/aim_main
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git fetch origin
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git worktree add ../aim_feature_x origin/develop -b feature/user-xxx
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;完成开发和合并 MR 后，可以删掉这个工作树：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 删除工作树目录（不会删分支本身）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git worktree remove ../aim_feature_x
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 若分支已合并，可顺带删分支&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git branch -d feature/user-xxx
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;42-查看当前所有-worktree&#34;&gt;4.2 查看当前所有 worktree&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd ~/Project/aim_main
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git worktree list
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;输出类似：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/Users/you/Project/aim_main  abcdef1 [develop]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/Users/you/Project/aim_test  1234567 [test]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/Users/you/Project/aim_pre   89abcde [pre]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;很方便整体掌握当前本地有哪些“环境”。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;5-与多次-git-clone的对比&#34;&gt;5. 与“多次 git clone”的对比&lt;/h2&gt;
+&lt;p&gt;很多同学会问：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“我之前就是 clone 三份目录，test / pre / prod 各一个，这跟 worktree 有什么本质区别？”&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;简单对比一下：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;方案&lt;/th&gt;
+          &lt;th&gt;.git 是否多份&lt;/th&gt;
+          &lt;th&gt;空间占用&lt;/th&gt;
+          &lt;th&gt;fetch 更新&lt;/th&gt;
+          &lt;th&gt;配置共享&lt;/th&gt;
+          &lt;th&gt;清理成本&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;多次 &lt;code&gt;git clone&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;多份&lt;/td&gt;
+          &lt;td&gt;大&lt;/td&gt;
+          &lt;td&gt;每个目录都要拉&lt;/td&gt;
+          &lt;td&gt;remote、hook 各自一套&lt;/td&gt;
+          &lt;td&gt;要自己记得删&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;git worktree&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;只有主仓库一份&lt;/td&gt;
+          &lt;td&gt;小（只多工作区文件）&lt;/td&gt;
+          &lt;td&gt;主仓库拉一次，全局可用&lt;/td&gt;
+          &lt;td&gt;统一 remote/hook/alias&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;git worktree remove&lt;/code&gt; 一条命令&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;从长期维护角度看：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;磁盘&lt;/strong&gt;：worktree 只多工作区里的源码和编译产物，&lt;code&gt;.git&lt;/code&gt; 只一份；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;一致性&lt;/strong&gt;：remote、hook、Git config 都是主仓库那一套，避免环境不一致；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;操作心智&lt;/strong&gt;：所有分支都“属于同一个仓库”，只是挂在不同工作树上。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;6-小结&#34;&gt;6. 小结&lt;/h2&gt;
+&lt;p&gt;使用 &lt;strong&gt;Git worktree + Vibe Code + IntelliJ IDEA&lt;/strong&gt; 做多分支并行开发，大致可以归纳为几个关键优势：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;目录级别区分环境&lt;/strong&gt;：test / pre / feature 分支各有独立工作目录，误操作概率极低。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;磁盘与网络友好&lt;/strong&gt;：只保留一份 &lt;code&gt;.git&lt;/code&gt;，fetch 一次，全局生效。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;IDE 体验更好&lt;/strong&gt;：每个分支一个 IDEA Project；多环境可同时起服务、分别调试。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Git 可视化管理自然贴合&lt;/strong&gt;：Vibe Code 中，一个窗口对应一个 worktree，commit / MR 视图清爽明了。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;扩展性强&lt;/strong&gt;：随时为某个紧急 hotfix 或 feature 新增一个临时工作树，用完即删。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;如果你现在还习惯在一个目录里疯狂 &lt;code&gt;git checkout&lt;/code&gt; 切分支，或者 clone 了三四份同一个仓库，不妨尝试一下这种组合。
+通常只需要一两个迭代，你就会再也不想回到过去那种“切分支式开发”了。&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Localdatetime to Date Format Java</title>
-      <link>https://ltan.me/post/2022/11/localdatetime-to-date-format-java/</link>
+      <link>http://localhost:1313/post/2022/11/localdatetime-to-date-format-java/</link>
       <pubDate>Mon, 28 Nov 2022 16:05:03 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2022/11/localdatetime-to-date-format-java/</guid>
+      <guid>http://localhost:1313/post/2022/11/localdatetime-to-date-format-java/</guid>
       <description>&lt;h1 id=&#34;localdatetime-to-date-format-java&#34;&gt;Localdatetime to Date Format Java&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在使用&lt;code&gt;java&lt;/code&gt;时间的&lt;code&gt;api&lt;/code&gt;个人感觉非常不方便，很多时候存在格式转换，类型转换 比如&lt;code&gt;date&lt;/code&gt; 转&lt;code&gt;localDate&lt;/code&gt;
@@ -62,10 +308,10 @@
     
     <item>
       <title>Classpath Resource Not Found When Running as Jar</title>
-      <link>https://ltan.me/post/2022/03/classpath-resource-not-found-when-running-as-jar/</link>
+      <link>http://localhost:1313/post/2022/03/classpath-resource-not-found-when-running-as-jar/</link>
       <pubDate>Tue, 08 Mar 2022 09:45:39 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2022/03/classpath-resource-not-found-when-running-as-jar/</guid>
+      <guid>http://localhost:1313/post/2022/03/classpath-resource-not-found-when-running-as-jar/</guid>
       <description>&lt;h1 id=&#34;读取jar包resources目录下的groovy脚本并调用&#34;&gt;读取jar包resources目录下的groovy脚本并调用&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;工作需要，需要采集不同的日志项，每个日志项的参数不一样，判断验证需要根据业务需求判断
@@ -166,10 +412,10 @@ java -jar xxx.jar 运行报错如下&lt;/p&gt;&lt;/blockquote&gt;
     
     <item>
       <title>Mybatis Failed to Save Data</title>
-      <link>https://ltan.me/post/2022/02/mybatis-failed-to-save-data/</link>
+      <link>http://localhost:1313/post/2022/02/mybatis-failed-to-save-data/</link>
       <pubDate>Fri, 11 Feb 2022 12:12:06 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2022/02/mybatis-failed-to-save-data/</guid>
+      <guid>http://localhost:1313/post/2022/02/mybatis-failed-to-save-data/</guid>
       <description>&lt;h1 id=&#34;记一次遇到mybaits写入数据不成功问题&#34;&gt;记一次遇到mybaits写入数据不成功问题&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到
@@ -202,10 +448,10 @@ mysql client 执行sql执行并没有问题，但是调用接口时，写入mysq
     
     <item>
       <title>How to solve SpringBoot Mysql CLIENT_PLUGIN_AUTH Is Required error</title>
-      <link>https://ltan.me/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</link>
+      <link>http://localhost:1313/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</link>
       <pubDate>Tue, 07 Dec 2021 09:54:05 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</guid>
+      <guid>http://localhost:1313/post/2021/12/springboot-mysql-client_plugin_auth-is-required/</guid>
       <description>&lt;h1 id=&#34;一次上线遇到的问mysql版本使用问题client_plugin_auth&#34;&gt;一次上线遇到的问mysql版本使用问题CLIENT_PLUGIN_AUTH&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;当在项目做好即将上线时，突然发现线上数据库版本太低而报如题错误，导致程序上线启动失败，现有数据库己被很多老的项目在使用着，不可能让dba去更新数据库版本，或另开服务器。&lt;/p&gt;
@@ -230,10 +476,10 @@ mysql client 执行sql执行并没有问题，但是调用接口时，写入mysq
     
     <item>
       <title>Enumeration Class Used in Java</title>
-      <link>https://ltan.me/post/2021/10/enumeration-class-used-in-java/</link>
+      <link>http://localhost:1313/post/2021/10/enumeration-class-used-in-java/</link>
       <pubDate>Thu, 14 Oct 2021 10:45:23 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/10/enumeration-class-used-in-java/</guid>
+      <guid>http://localhost:1313/post/2021/10/enumeration-class-used-in-java/</guid>
       <description>&lt;h1 id=&#34;枚举类在java中使用方法之一&#34;&gt;枚举类在java中使用方法之一&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在后数据中台中，有些数据不需要放在数据库当中，只需要一个枚举类即可，比如web ui select 选择器下拉数据，&lt;code&gt;男&lt;/code&gt;，&lt;code&gt;女&lt;/code&gt; 这种，还比如&lt;code&gt;省市&lt;/code&gt; 下拉数据，而这些数据可以不需要数据库来保存，也不需要用配置文件来保存，只需要一个枚举类即可，使用方法如下&lt;/p&gt;&lt;/blockquote&gt;
@@ -342,18 +588,18 @@ public Object apiConf() {
 	&amp;#34;3&amp;#34;: &amp;#34;升级命令&amp;#34;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用到web前端效果&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/10/enumeration-class-used-in-java/image-20211014110500057.png&#34; alt=&#34;image-20211014110500057&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/10/enumeration-class-used-in-java/image-20211014110500057.png&#34; alt=&#34;image-20211014110500057&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在业务代码使用枚举类时，还有中文提示，这个比常量好使很多呢&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/10/enumeration-class-used-in-java/image-20211014110845695.png&#34; alt=&#34;image-20211014110845695&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/10/enumeration-class-used-in-java/image-20211014110845695.png&#34; alt=&#34;image-20211014110845695&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
     <item>
       <title>Mybaits Plus Comes With Paging VS Com.github.pagehelper Paging Plug In</title>
-      <link>https://ltan.me/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</link>
+      <link>http://localhost:1313/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</link>
       <pubDate>Mon, 27 Sep 2021 16:49:31 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</guid>
+      <guid>http://localhost:1313/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/</guid>
       <description>&lt;h1 id=&#34;mybatis-plus-自带分页-和-comgithubpagehelper工具使用对比&#34;&gt;mybatis-plus 自带分页 和 com.github.pagehelper工具使用对比&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;对经常写中台列表数据管理接口的同学来说，需要经常使用到分页插件来提升自己的工作效率，通常我用过最多的两款插件如标题所示，这两款插件在写文章之前，我一直搞不清，浮躁，混为一谈，需要总结整理&lt;/p&gt;
@@ -409,7 +655,7 @@ public Object apiConf() {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;navigateLastPage&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;web前端对接时看到有 prePage，nextPage 实现太香，不要不要的&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/image-20210927173234110.png&#34; alt=&#34;image-20210927173234110&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/image-20210927173234110.png&#34; alt=&#34;image-20210927173234110&#34;&gt;&lt;/p&gt;
 &lt;p&gt;代码使用：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; @GetMapping(&amp;#34;/list&amp;#34;)
    public Object pageList(@RequestParam(defaultValue = &amp;#34;1&amp;#34;) Integer pageNum,
@@ -426,10 +672,10 @@ public Object apiConf() {
     
     <item>
       <title>How to Do Not Release Resources After Uploading the Zip Package in Java</title>
-      <link>https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</link>
+      <link>http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</link>
       <pubDate>Wed, 12 May 2021 19:36:48 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</guid>
+      <guid>http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/</guid>
       <description>&lt;h1 id=&#34;在windows系统中检验一个上传文件程序是否有bug另一种姿势&#34;&gt;在windows系统中检验一个上传文件程序是否有bug另一种姿势&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;某一天在公司对一个文件上传项目进行bug修改，不料查到另一个bug 也顺带解决，在此记录一下解决过程&lt;/p&gt;
@@ -445,12 +691,12 @@ public Object apiConf() {
 &lt;p&gt;在windows 调试过程重新删除了己上传的文件，但发现不能删除的，这个问题也找了很久。&lt;/p&gt;
 &lt;p&gt;于是就重新梳理一下上传的流程。&lt;/p&gt;
 &lt;p&gt;发现以下问题&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194748766.png&#34; alt=&#34;image-20210512194748766&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194748766.png&#34; alt=&#34;image-20210512194748766&#34;&gt;&lt;/p&gt;
 &lt;p&gt;来调试代码&lt;/p&gt;
 &lt;p&gt;下面这段代码，上传zip后先保存到本地&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194834905.png&#34; alt=&#34;image-20210512194834905&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194834905.png&#34; alt=&#34;image-20210512194834905&#34;&gt;&lt;/p&gt;
 &lt;p&gt;接下来是解压zip&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194951003.png&#34; alt=&#34;image-20210512194951003&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/how-to-do-not-release-resources-after-uploading-the-zip-package-in-java/image-20210512194951003.png&#34; alt=&#34;image-20210512194951003&#34;&gt;&lt;/p&gt;
 &lt;p&gt;最后增加zipFile.close() 解决，增加in.close() 解决&lt;/p&gt;
 &lt;p&gt;问题总结：&lt;/p&gt;
 &lt;p&gt;​    论代码review 重要性，前期需要多多测试。&lt;/p&gt;

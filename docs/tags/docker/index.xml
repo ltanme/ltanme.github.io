@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker on LTAN.ME</title>
-    <link>https://ltan.me/tags/docker/</link>
+    <link>http://localhost:1313/tags/docker/</link>
     <description>Recent content in Docker on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Nov 2024 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Nov 2024 10:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Headscale Migration from CentOS 7 to Ubuntu 24</title>
-      <link>https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/</link>
+      <link>http://localhost:1313/post/2024/11/headscalemigrationfromcentos7toubuntu24/</link>
       <pubDate>Mon, 04 Nov 2024 10:00:00 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/</guid>
+      <guid>http://localhost:1313/post/2024/11/headscalemigrationfromcentos7toubuntu24/</guid>
       <description>&lt;p&gt;This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.&lt;/p&gt;
 &lt;h3 id=&#34;1-export-data-and-image-on-centos-7&#34;&gt;1. Export Data and Image on CentOS 7&lt;/h3&gt;
 &lt;h4 id=&#34;export-configuration-and-database&#34;&gt;Export Configuration and Database&lt;/h4&gt;
@@ -70,10 +70,10 @@
     
     <item>
       <title>Common Docker Issues Solutions</title>
-      <link>https://ltan.me/post/2024/08/common-docker-issues-solutions/</link>
+      <link>http://localhost:1313/post/2024/08/common-docker-issues-solutions/</link>
       <pubDate>Thu, 15 Aug 2024 16:13:23 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2024/08/common-docker-issues-solutions/</guid>
+      <guid>http://localhost:1313/post/2024/08/common-docker-issues-solutions/</guid>
       <description>&lt;h1 id=&#34;docker-疑难杂症汇总&#34;&gt;Docker 疑难杂症汇总&lt;/h1&gt;
 &lt;p&gt;在使用 Docker 的过程中，可能会遇到各种各样的问题，尤其是在国内环境下，网络限制可能会导致一些操作困难。本文将汇总常见的 Docker 安装与使用过程中可能遇到的疑难杂症，并提供相应的解决方案。&lt;/p&gt;
 &lt;h2 id=&#34;1-docker-安装过程中网络问题&#34;&gt;1. Docker 安装过程中网络问题&lt;/h2&gt;
@@ -117,10 +117,10 @@
     
     <item>
       <title>Resolving Verdaccio Permissions and Proxy Issues in Docker</title>
-      <link>https://ltan.me/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/</link>
+      <link>http://localhost:1313/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/</link>
       <pubDate>Thu, 06 Jun 2024 20:55:44 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/</guid>
+      <guid>http://localhost:1313/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/</guid>
       <description>&lt;h1 id=&#34;resolving-verdaccio-permissions-and-proxy-issues-in-docker&#34;&gt;Resolving Verdaccio Permissions and Proxy Issues in Docker&lt;/h1&gt;
 &lt;h1 id=&#34;问题-1无法在-docker-容器中创建目录&#34;&gt;问题 1：无法在 Docker 容器中创建目录&lt;/h1&gt;
 &lt;h2 id=&#34;问题描述&#34;&gt;问题描述：&lt;/h2&gt;
@@ -328,10 +328,10 @@
     
     <item>
       <title>Server setup process using Headscale with Docker.</title>
-      <link>https://ltan.me/post/2024/04/headscale-server-setup-process/</link>
+      <link>http://localhost:1313/post/2024/04/headscale-server-setup-process/</link>
       <pubDate>Mon, 15 Apr 2024 21:21:29 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2024/04/headscale-server-setup-process/</guid>
+      <guid>http://localhost:1313/post/2024/04/headscale-server-setup-process/</guid>
       <description>&lt;h1 id=&#34;server-setup-process-using-headscale-with-docker&#34;&gt;Server setup process using Headscale with Docker.&lt;/h1&gt;
 &lt;h2 id=&#34;记录采用headscale--docker-异地组网过程&#34;&gt;记录采用headscale &amp;amp; docker 异地组网过程&lt;/h2&gt;
 &lt;h2 id=&#34;需求背景&#34;&gt;需求背景&lt;/h2&gt;
@@ -359,7 +359,7 @@
 3,申请好域名,准备&lt;code&gt;https&lt;/code&gt;证书 推荐&lt;code&gt;cf&lt;/code&gt;,并解析到自己的服务器&lt;br&gt;
 &lt;code&gt;ssl_certificate&lt;/code&gt; 和 &lt;code&gt;ssl_certificate_key&lt;/code&gt; 为自己申请的域名证书从cf导出来的文件&lt;br&gt;
 4,安装好&lt;code&gt;nginx&lt;/code&gt;,&lt;code&gt;nginx&lt;/code&gt;配置如下,打码地方为自己的域名，箭头处需要开启&lt;code&gt;websocket&lt;/code&gt;&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;准备headscale-配置文件&#34;&gt;准备&lt;code&gt;headscale&lt;/code&gt; 配置文件&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;创建目录&lt;/p&gt;&lt;/blockquote&gt;
@@ -386,7 +386,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;在windows或客户端安装tailscale官网下载并安装好&#34;&gt;在windows或客户端安装tailscale(官网下载并安装好)&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;以win10 为例 直接采用命令行登录&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;br&gt;
 会得到以下地址:&lt;br&gt;
 https://你的域名:443/register/mkey:23234kflasdjf&amp;hellip;..
 mkey 后面请复制一下
@@ -407,16 +407,16 @@ mywin10 就表示对应需要组网的机器&lt;/p&gt;&lt;/blockquote&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Node desktop-mms156b registered
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;接下来就看到以下成功信息&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;tailscale 客户端自动显示当前状态&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;接下来就可以远程登录我的win10了，我要从100.64.0.2 的机器远程登录100.64.0.7的机器  &lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;远程登录win10 速度很赞，几乎和本地一样操作流畅，而且无需科学&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;解决以上需要在每一台电脑上都要安装tailscale 客户端的问题
 利用群晖做数据转发，只需要在群晖上安装tailscale客户端即可&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;群晖子网路由subnet-router设置&#34;&gt;群晖子网路由（Subnet Router）设置&lt;/h2&gt;
@@ -486,7 +486,7 @@ mywin10 就表示对应需要组网的机器&lt;/p&gt;&lt;/blockquote&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 在群晖上检查Tailscale状态&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tailscale status
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;成功配置后，任何连接到你的Tailscale网络的设备都可以直接访问家庭内网的所有设备，而无需在每台设备上安装Tailscale客户端。
 这大大简化了网络管理，并允许访问那些无法安装Tailscale的设备（如智能家居设备、打印机等）。&lt;/p&gt;&lt;/blockquote&gt;
@@ -495,10 +495,10 @@ mywin10 就表示对应需要组网的机器&lt;/p&gt;&lt;/blockquote&gt;
     
     <item>
       <title>Record an Error During Node RED Deployment</title>
-      <link>https://ltan.me/post/2024/02/record-an-error-during-node-red-deployment/</link>
+      <link>http://localhost:1313/post/2024/02/record-an-error-during-node-red-deployment/</link>
       <pubDate>Thu, 22 Feb 2024 20:50:54 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2024/02/record-an-error-during-node-red-deployment/</guid>
+      <guid>http://localhost:1313/post/2024/02/record-an-error-during-node-red-deployment/</guid>
       <description>&lt;h1 id=&#34;记一次在docker-打包部署node-red-启动报错&#34;&gt;记一次在docker 打包部署node red 启动报错&lt;/h1&gt;
 &lt;p&gt;报错如下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;---------------------------------------------------------------------
@@ -569,10 +569,10 @@ mywin10 就表示对应需要组网的机器&lt;/p&gt;&lt;/blockquote&gt;
     
     <item>
       <title>Remember the Problem of Apisix and Node Red Multi Instance Debugging</title>
-      <link>https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</link>
+      <link>http://localhost:1313/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</link>
       <pubDate>Tue, 16 Jan 2024 17:22:05 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</guid>
+      <guid>http://localhost:1313/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/</guid>
       <description>&lt;h1 id=&#34;resolving-docker-compose-and-apisix-port-502-error&#34;&gt;Resolving Docker Compose and ApiSix Port 502 Error&lt;/h1&gt;
 &lt;p&gt;在工作中，我尝试部署Saas应用程序，使用了Docker Compose、ApiSix和Node-RED。
 然而，在这个过程中，我遇到了一个502端口访问错误。
@@ -593,16 +593,16 @@ mywin10 就表示对应需要组网的机器&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;为了解决问题，我将Node-RED实例的端口号设置为1880，  &lt;br&gt;
 与Docker网络中的端口一致，这样ApiSix能够正确地与Node-RED实例通信。&lt;br&gt;
 以下端口必须要填写内部的程序实际端口&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/screenshot-20240116-205136.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/01/remember-the-problem-of-apisix-and-node-red-multi-instance-debugging/screenshot-20240116-205136.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
     <item>
       <title>Resolving the Issue of Centos 7 Vm Unable to Ping Its Host Machine</title>
-      <link>https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</link>
+      <link>http://localhost:1313/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</link>
       <pubDate>Sun, 08 Oct 2023 19:16:07 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</guid>
+      <guid>http://localhost:1313/post/2023/10/resolving-the-issue-of-centos-7-vm-unable-to-ping-its-host-machine/</guid>
       <description>&lt;h1 id=&#34;解决因docker网络导致的网络问题无法ping通局域网ip&#34;&gt;解决因docker网络导致的网络问题，无法ping通局域网ip&lt;/h1&gt;
 &lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
 &lt;p&gt;在我的办公室网络环境中，我有一个 Windows 10 宿主机，上面安装了 VMware，并在 VMware 中运行了一个 CentOS 7 虚拟机。虽然宿主机和 CentOS 7 虚拟机都可以正常上网并 ping 通外部地址，但 CentOS 7 无法 ping 通宿主机。这让我非常困惑，并最初怀疑可能是公司的网管对我的 MAC 地址进行了某种限制。&lt;/p&gt;
@@ -766,17 +766,17 @@ mywin10 就表示对应需要组网的机器&lt;/p&gt;&lt;/blockquote&gt;
     
     <item>
       <title>Reverse Proxy to Websocket Service Set Based on Apisix2</title>
-      <link>https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</link>
+      <link>http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</link>
       <pubDate>Tue, 11 May 2021 15:39:09 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</guid>
+      <guid>http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/</guid>
       <description>&lt;h1 id=&#34;基于apisix24网关反向代理到websocket服务集节点&#34;&gt;基于apisix2.4网关反向代理到websocket服务集节点&lt;/h1&gt;
 &lt;p&gt;问题背景，主要是解决远程控制通信服务端单点问题，借助openresty强劲的性能，可定制化的负载均衡设计特点&lt;/p&gt;
 &lt;p&gt;apisix就是基于openresty开发分布式网关集群平台，优势现阶段轻量，易维护等&lt;/p&gt;
 &lt;p&gt;本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;整体的环境说明：如下图&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150518389.png&#34; alt=&#34;image-20210511150518389&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150518389.png&#34; alt=&#34;image-20210511150518389&#34;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 搭建环境&lt;/p&gt;
@@ -790,7 +790,7 @@ mywin10 就表示对应需要组网的机器&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;本为搭建环境，模拟集群环境，在我windows 电脑 采用docker 模拟&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;整体的环境说明：如下图&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150518389.png&#34; alt=&#34;image-20210511150518389&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150518389.png&#34; alt=&#34;image-20210511150518389&#34;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 搭建环境&lt;/p&gt;
@@ -805,7 +805,7 @@ mywin10 就表示对应需要组网的机器&lt;/p&gt;&lt;/blockquote&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-shel&#34; data-lang=&#34;shel&#34;&gt;docker exec -it  c5d2369adde2 /bin/bash
 
 docker exec -it 58e1c95fea73 /bin/sh
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150600898.png&#34; alt=&#34;image-20210511150600898&#34;&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150600898.png&#34; alt=&#34;image-20210511150600898&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 安装websocket&lt;/p&gt;
@@ -829,7 +829,7 @@ docker exec -it 58e1c95fea73 /bin/sh
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 配置apisix&lt;/p&gt;
 &lt;p&gt;路由代理，配置上游&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150841820.png&#34; alt=&#34;image-20210511150841820&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511150841820.png&#34; alt=&#34;image-20210511150841820&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 编写python 脚本测试代码&lt;/p&gt;
@@ -858,8 +858,8 @@ if __name__ == &amp;#34;__main__&amp;#34;:
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 最终运行效果&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511151138269.png&#34; alt=&#34;image-20210511151138269&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511151206802.png&#34; alt=&#34;image-20210511151206802&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511151138269.png&#34; alt=&#34;image-20210511151138269&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/05/reverse-proxy-to-websocket-service-set-based-on-apisix2.4-gateway/image-20210511151206802.png&#34; alt=&#34;image-20210511151206802&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 </content>

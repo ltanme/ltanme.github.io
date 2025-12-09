@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+    <title>现代化 Vibe Code &#43; Git Worktree：多分支并行开发 Java 项目的优雅姿势 :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="对比传统单工作区切分支的方式，结合 Git worktree &#43; Vibe Code &#43; IntelliJ IDEA，在同一仓库上为不同分支创建独立工作目录，实现测试环境、预发环境、特性开发分支的并行开发与调试。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/post/2025/12/git-worktree-parallel-dev-with-idea/" />
+
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
+
+  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="现代化 Vibe Code &#43; Git Worktree：多分支并行开发 Java 项目的优雅姿势">
+<meta property="og:description" content="对比传统单工作区切分支的方式，结合 Git worktree &#43; Vibe Code &#43; IntelliJ IDEA，在同一仓库上为不同分支创建独立工作目录，实现测试环境、预发环境、特性开发分支的并行开发与调试。" />
+<meta property="og:url" content="http://localhost:1313/post/2025/12/git-worktree-parallel-dev-with-idea/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+  <meta property="article:section" content="开发流程" />
+
+  <meta property="article:section" content="工具实践" />
+
+
+  <meta property="article:published_time" content="2025-12-01 10:00:00 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="http://localhost:1313/post/2025/12/git-worktree-parallel-dev-with-idea/">现代化 Vibe Code + Git Worktree：多分支并行开发 Java 项目的优雅姿势</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2025-12-01 [Mod: 2025-12-01]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="http://localhost:1313/tags/git/">Git</a>&nbsp;
+    
+    #<a href="http://localhost:1313/tags/git-worktree/">Git Worktree</a>&nbsp;
+    
+    #<a href="http://localhost:1313/tags/vibe-code/">Vibe Code</a>&nbsp;
+    
+    #<a href="http://localhost:1313/tags/intellij-idea/">IntelliJ IDEA</a>&nbsp;
+    
+    #<a href="http://localhost:1313/tags/java/">Java</a>&nbsp;
+    
+    #<a href="http://localhost:1313/tags/%E5%A4%9A%E5%88%86%E6%94%AF%E5%BC%80%E5%8F%91/">多分支开发</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <blockquote>
+<p>典型场景：一个 Java 单体或多模块项目，需要同时维护 <code>test</code>、<code>pre</code>、<code>prod</code> 多套环境分支，还要临时开很多 feature 分支。<br>
+传统做法要么频繁 <code>git checkout</code> 切分支，要么干脆 clone 三四份仓库，既容易误操作，又浪费磁盘。<br>
+本文介绍一种更现代化的组合：<strong>Git worktree + Vibe Code Git 客户端 + IntelliJ IDEA</strong>，在同一个仓库上优雅地做多分支并行开发。</p></blockquote>
+<hr>
+<h2 id="0-传统单工作区的痛点">0. 传统单工作区的痛点<a href="#0-传统单工作区的痛点" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><img src="/post/2025/12/git-worktree-parallel-dev-with-idea/show.jpg" alt="show.jpg">
+日常开发中，我们经常同时维护：</p>
+<ul>
+<li><code>develop</code> / <code>master</code> / <code>release-*</code></li>
+<li>环境分支：<code>test</code>、<code>pre</code>、<code>prod</code></li>
+<li>多个特性分支：<code>feature/xxx-1</code>、<code>feature/xxx-2</code>……</li>
+</ul>
+<p>如果只用一个本地目录 + <code>git checkout</code>，会遇到很多问题：</p>
+<ul>
+<li><strong>频繁切分支</strong>
+<ul>
+<li>忘了 stash / commit，本地改动被带到了另一个分支；</li>
+<li>正在 debug test 分支，产品同事让你马上修一个 pre 的 bug，又得切回去。</li>
+</ul>
+</li>
+<li><strong>多 clone 占磁盘</strong>
+<ul>
+<li>为了并行开发，只能 <code>git clone</code> 多份，<code>.git</code> 目录重复占空间；</li>
+<li>同一个仓库更新要 <code>git pull</code> N 次。</li>
+</ul>
+</li>
+<li><strong>IDE 配置混乱</strong>
+<ul>
+<li>同一目录下的 <code>.idea</code>、<code>run configuration</code> 容易互相覆盖，尤其 Java 多模块项目时更烦。</li>
+</ul>
+</li>
+</ul>
+<p>这些问题，本质都来自一个事实：<strong>工作目录和分支是强绑定关系</strong>，一次只能服务一个分支。</p>
+<hr>
+<h2 id="1-git-worktree一个仓库多套工作目录">1. Git Worktree：一个仓库，多套工作目录<a href="#1-git-worktree一个仓库多套工作目录" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Git 官方早就给了更优解：<code>git worktree</code>。</p>
+<blockquote>
+<p>简单理解：<br>
+你只有<strong>一个真正的仓库（只有一份 .git）</strong>，但可以为不同分支创建<strong>多个工作目录</strong>，每个目录看起来就像一个独立 clone，好处是：</p>
+<ul>
+<li><code>.git</code> 共享 → <strong>节省磁盘</strong></li>
+<li><code>fetch</code> 一次 → 所有工作区都能用</li>
+<li>各工作区的代码、IDE 配置互不影响</li>
+</ul></blockquote>
+<p>假设我们已经在 <code>~/Project/aim_main</code> 下有主仓库：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/Project
+</span></span><span style="display:flex;"><span>git clone git@gitlab.example.com:team/aim.git aim_main
+</span></span><span style="display:flex;"><span>cd aim_main
+</span></span></code></pre></div><p>现在我们希望：</p>
+<ul>
+<li><code>~/Project/aim_test</code> → 对应 <code>test</code> 分支</li>
+<li><code>~/Project/aim_pre</code>  → 对应 <code>pre</code> 分支</li>
+<li>以后还要有一些临时 feature 工作树</li>
+</ul>
+<h3 id="11-为-test-分支创建一个-worktree">1.1 为 test 分支创建一个 worktree<a href="#11-为-test-分支创建一个-worktree" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/Project/aim_main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 确保本地有 test 分支</span>
+</span></span><span style="display:flex;"><span>git fetch origin
+</span></span><span style="display:flex;"><span>git branch test origin/test
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 为 test 创建独立工作目录</span>
+</span></span><span style="display:flex;"><span>git worktree add ../aim_test test
+</span></span></code></pre></div><p>目录结构大致变成：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>~/Project/
+</span></span><span style="display:flex;"><span>  ├── aim_main   # 主仓库，默认分支比如 develop
+</span></span><span style="display:flex;"><span>  ├── aim_test   # worktree，绑定 test 分支
+</span></span><span style="display:flex;"><span>  └── ...
+</span></span></code></pre></div><p><code>aim_test</code> 目录看起来就像一个普通项目目录，可以单独用 Vibe Code / IDEA 打开。</p>
+<h3 id="12-为-pre-分支再来一个">1.2 为 pre 分支再来一个<a href="#12-为-pre-分支再来一个" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/Project/aim_main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>git branch pre origin/pre
+</span></span><span style="display:flex;"><span>git worktree add ../aim_pre pre
+</span></span></code></pre></div><p>现在：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>~/Project/
+</span></span><span style="display:flex;"><span>  ├── aim_main   # develop
+</span></span><span style="display:flex;"><span>  ├── aim_test   # test
+</span></span><span style="display:flex;"><span>  └── aim_pre    # pre
+</span></span></code></pre></div><p>每个目录的代码互不影响，你可以在 <code>aim_test</code> 里放心改动、提交、跑测试，同时 <code>aim_pre</code> 也可以挂着一个不同版本在跑。</p>
+<hr>
+<h2 id="2-搭配-vibe-code直观管理多工作树和分支">2. 搭配 Vibe Code：直观管理多工作树和分支<a href="#2-搭配-vibe-code直观管理多工作树和分支" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Vibe Code 这类 Git 客户端，对多仓库 / 多目录的支持通常都很好。结合 worktree，使用方式大致是：</p>
+<ul>
+<li>把 <code>aim_test</code> 当成一个独立项目打开；</li>
+<li>再把 <code>aim_pre</code> 作为另一个项目打开；</li>
+<li>顶部 project 切换，可快速在多个环境之间切换视图。</li>
+</ul>
+<p>这种用法的好处：</p>
+<ol>
+<li>
+<p><strong>一眼看出自己正在操作哪个环境</strong></p>
+<ul>
+<li>标题栏 / tab 上直接看到 <code>aim_test [test]</code>、<code>aim_pre [pre]</code> 这种视觉信息；</li>
+<li>减少 “在 pre 分支误改了 test 配置” 的概率。</li>
+</ul>
+</li>
+<li>
+<p><strong>Commit / Merge Request 视图更聚焦</strong></p>
+<ul>
+<li>每个 worktree 的提交历史就是单一分支的历史；</li>
+<li>在 Vibe Code 中直接从该目录发起 MR，减少误选分支、误选 target 的风险。</li>
+</ul>
+</li>
+<li>
+<p><strong>结构视图清晰</strong></p>
+<ul>
+<li>像 screenshot 中那样，一个项目窗格只对应一个目标分支；</li>
+<li>多模块 Java 项目也能用树状结构快速定位模块。</li>
+</ul>
+</li>
+</ol>
+<p>换句话说，<strong>worktree 把“逻辑分支”的概念，在工具层面具体成了“不同的物理目录”</strong>，而 Vibe Code 则负责给这些目录提供更可视化的 Git 操作入口。</p>
+<hr>
+<h2 id="3-搭配-intellij-ideajava-项目多环境并行调试">3. 搭配 IntelliJ IDEA：Java 项目多环境并行调试<a href="#3-搭配-intellij-ideajava-项目多环境并行调试" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>对 Java 项目来说，IDEA 是生产力核心。把 worktree + IDEA 结合起来，有几个非常现实的优势。</p>
+<h3 id="31-每个分支一个-idea-project">3.1 每个分支一个 IDEA Project<a href="#31-每个分支一个-idea-project" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>比如：</p>
+<ul>
+<li>用 IDEA 打开 <code>~/Project/aim_test</code> → 配置 test 环境的 Run/Debug 配置；</li>
+<li>再打开 <code>~/Project/aim_pre</code> → 配置 pre 环境的 Run/Debug 配置。</li>
+</ul>
+<p>这样：</p>
+<ul>
+<li>
+<p>test、pre 两个环境<strong>可以同时起服务</strong>，甚至绑定不同端口 / 不同 profile：</p>
+<ul>
+<li><code>aim_test</code>：<code>--spring.profiles.active=test</code></li>
+<li><code>aim_pre</code>：<code>--spring.profiles.active=pre</code></li>
+</ul>
+</li>
+<li>
+<p>各自 <code>.idea</code> 目录独立，Run Configuration 不会互相覆盖；</p>
+</li>
+<li>
+<p>不同分支的依赖变更（比如升级 Spring Boot 版本）也不会影响另一边的索引与缓存。</p>
+</li>
+</ul>
+<h3 id="32-多模块--微服务场景的体验">3.2 多模块 / 微服务场景的体验<a href="#32-多模块--微服务场景的体验" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>在一个多模块 / 微服务的 Java 仓库中（类似 screenshot 里的 <code>aim-gateway</code>、<code>aim-model</code>、<code>aim-service-*</code>）：</p>
+<ul>
+<li>你可以在 <code>aim_test</code> 中专门配置与测试环境联调相关的模块；</li>
+<li>在 <code>aim_pre</code> 中则配置预发场景使用的网关和核心服务；</li>
+<li>IDEA 的 <code>Maven</code> / <code>Gradle</code> 工具窗口都是基于当前目录的 <code>pom.xml</code> / <code>build.gradle</code>，不会混在一起。</li>
+</ul>
+<p>配合 IDEA 的 <strong>多窗口</strong> 功能，你甚至可以：</p>
+<ul>
+<li>左边窗口是 <code>aim_test</code> 的代码和日志；</li>
+<li>右边窗口是 <code>aim_pre</code> 的代码和日志；</li>
+<li>中间再放一个 Vibe Code 窗口看 MR 状态。</li>
+</ul>
+<p>这比单目录反复切分支、重新导入项目不知道高到哪里去了。</p>
+<hr>
+<h2 id="4-使用-worktree-的几个常用命令">4. 使用 worktree 的几个常用命令<a href="#4-使用-worktree-的几个常用命令" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="41-创建-feature-分支工作树">4.1 创建 feature 分支工作树<a href="#41-创建-feature-分支工作树" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>从 <code>develop</code> 拉一条特性分支，并给它单独一个目录：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/Project/aim_main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>git fetch origin
+</span></span><span style="display:flex;"><span>git worktree add ../aim_feature_x origin/develop -b feature/user-xxx
+</span></span></code></pre></div><p>完成开发和合并 MR 后，可以删掉这个工作树：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 删除工作树目录（不会删分支本身）</span>
+</span></span><span style="display:flex;"><span>git worktree remove ../aim_feature_x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 若分支已合并，可顺带删分支</span>
+</span></span><span style="display:flex;"><span>git branch -d feature/user-xxx
+</span></span></code></pre></div><h3 id="42-查看当前所有-worktree">4.2 查看当前所有 worktree<a href="#42-查看当前所有-worktree" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/Project/aim_main
+</span></span><span style="display:flex;"><span>git worktree list
+</span></span></code></pre></div><p>输出类似：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>/Users/you/Project/aim_main  abcdef1 [develop]
+</span></span><span style="display:flex;"><span>/Users/you/Project/aim_test  1234567 [test]
+</span></span><span style="display:flex;"><span>/Users/you/Project/aim_pre   89abcde [pre]
+</span></span></code></pre></div><p>很方便整体掌握当前本地有哪些“环境”。</p>
+<hr>
+<h2 id="5-与多次-git-clone的对比">5. 与“多次 git clone”的对比<a href="#5-与多次-git-clone的对比" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>很多同学会问：</p>
+<blockquote>
+<p>“我之前就是 clone 三份目录，test / pre / prod 各一个，这跟 worktree 有什么本质区别？”</p></blockquote>
+<p>简单对比一下：</p>
+<table>
+  <thead>
+      <tr>
+          <th>方案</th>
+          <th>.git 是否多份</th>
+          <th>空间占用</th>
+          <th>fetch 更新</th>
+          <th>配置共享</th>
+          <th>清理成本</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>多次 <code>git clone</code></td>
+          <td>多份</td>
+          <td>大</td>
+          <td>每个目录都要拉</td>
+          <td>remote、hook 各自一套</td>
+          <td>要自己记得删</td>
+      </tr>
+      <tr>
+          <td><code>git worktree</code></td>
+          <td>只有主仓库一份</td>
+          <td>小（只多工作区文件）</td>
+          <td>主仓库拉一次，全局可用</td>
+          <td>统一 remote/hook/alias</td>
+          <td><code>git worktree remove</code> 一条命令</td>
+      </tr>
+  </tbody>
+</table>
+<p>从长期维护角度看：</p>
+<ul>
+<li><strong>磁盘</strong>：worktree 只多工作区里的源码和编译产物，<code>.git</code> 只一份；</li>
+<li><strong>一致性</strong>：remote、hook、Git config 都是主仓库那一套，避免环境不一致；</li>
+<li><strong>操作心智</strong>：所有分支都“属于同一个仓库”，只是挂在不同工作树上。</li>
+</ul>
+<hr>
+<h2 id="6-小结">6. 小结<a href="#6-小结" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>使用 <strong>Git worktree + Vibe Code + IntelliJ IDEA</strong> 做多分支并行开发，大致可以归纳为几个关键优势：</p>
+<ol>
+<li><strong>目录级别区分环境</strong>：test / pre / feature 分支各有独立工作目录，误操作概率极低。</li>
+<li><strong>磁盘与网络友好</strong>：只保留一份 <code>.git</code>，fetch 一次，全局生效。</li>
+<li><strong>IDE 体验更好</strong>：每个分支一个 IDEA Project；多环境可同时起服务、分别调试。</li>
+<li><strong>Git 可视化管理自然贴合</strong>：Vibe Code 中，一个窗口对应一个 worktree，commit / MR 视图清爽明了。</li>
+<li><strong>扩展性强</strong>：随时为某个紧急 hotfix 或 feature 新增一个临时工作树，用完即删。</li>
+</ol>
+<p>如果你现在还习惯在一个目录里疯狂 <code>git checkout</code> 切分支，或者 clone 了三四份同一个仓库，不妨尝试一下这种组合。
+通常只需要一两个迭代，你就会再也不想回到过去那种“切分支式开发”了。</p>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h"></span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="http://localhost:1313/post/2025/12/nacos-config-migration-1x-2x-to-3x/">
+                <span class="button__text">Nacos 配置迁移实战：一键把 Nacos 1.x/2.x 导出包转换为 3.0 导入包（Python Web 工具）</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
+
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4472456938595283"
+     crossorigin="anonymous"></script>
+
+
+  
+</div>
+
+</body>
+</html>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Scala on LTAN.ME</title>
-    <link>https://ltan.me/tags/scala/</link>
+    <link>http://localhost:1313/tags/scala/</link>
     <description>Recent content in Scala on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 11 May 2023 15:25:41 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/scala/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 May 2023 15:25:41 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/scala/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Install Apache Spark on Windows Setup PySpark</title>
-      <link>https://ltan.me/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</link>
+      <link>http://localhost:1313/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</link>
       <pubDate>Thu, 11 May 2023 15:25:41 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</guid>
+      <guid>http://localhost:1313/post/2023/05/how-to-install-apache-spark-on-windows-setup-pyspark/</guid>
       <description>&lt;h2 id=&#34;为什么要在windows-10上运行scala-spark程序&#34;&gt;为什么要在Windows 10上运行Scala Spark程序&lt;/h2&gt;
 &lt;h3 id=&#34;开发环境设置简单&#34;&gt;开发环境设置简单：&lt;/h3&gt;
 &lt;p&gt;对于许多开发者来说，Windows是他们最熟悉的操作系统，
