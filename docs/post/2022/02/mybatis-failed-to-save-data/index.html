@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   
     <title>Mybatis Failed to Save Data :: LTAN.ME</title>
   
@@ -11,23 +11,23 @@
 " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:1313/post/2022/02/mybatis-failed-to-save-data/" />
+<link rel="canonical" href="https://ltan.me/post/2022/02/mybatis-failed-to-save-data/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
-
-
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
 
 
 
@@ -46,11 +46,11 @@
 <meta property="og:description" content="记一次遇到mybaits写入数据不成功问题 工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到 mysql client 执行sql执行并没有问题，但是调用接口时，写入mysql不成功，也不报错，遇到这种问题特别 困惑，特记录一下，
 找了一下午才发现问题，最怕就是程序不报错，语句执行成功，但数据库没有数据这样的问题呢 主要问题是接口请求实体类有几个版本字段是用的Long 类型的，而mysql表对应的字段是int类型的 在用mybatis-generate 插件生成表的 mapper.xml、dao、model时，mysql字段为int类型的生成对应的integer类型 但是代码定义的dto 接口请求实体类，字段是long类型，入库时，存在long 转 integer 的行为，行为非法，但执行时sql不报错 由于时间关系没有进一步查为什么不报错提示，xml生成的字段类型都是 java.lang.Integer
 " />
-<meta property="og:url" content="http://localhost:1313/post/2022/02/mybatis-failed-to-save-data/" />
+<meta property="og:url" content="https://ltan.me/post/2022/02/mybatis-failed-to-save-data/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -147,7 +147,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="http://localhost:1313/post/2022/02/mybatis-failed-to-save-data/">Mybatis Failed to Save Data</a></h1>
+    <a href="https://ltan.me/post/2022/02/mybatis-failed-to-save-data/">Mybatis Failed to Save Data</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -160,11 +160,11 @@
   
   <span class="post-tags">
     
-    #<a href="http://localhost:1313/tags/java/">java</a>&nbsp;
+    #<a href="https://ltan.me/tags/java/">java</a>&nbsp;
     
-    #<a href="http://localhost:1313/tags/mysql/">mysql</a>&nbsp;
+    #<a href="https://ltan.me/tags/mysql/">mysql</a>&nbsp;
     
-    #<a href="http://localhost:1313/tags/mybatis/">mybatis</a>&nbsp;
+    #<a href="https://ltan.me/tags/mybatis/">mybatis</a>&nbsp;
     
   </span>
   
@@ -203,7 +203,7 @@ mysql client 执行sql执行并没有问题，但是调用接口时，写入mysq
     <div class="pagination__buttons">
         
         <span class="button previous">
-            <a href="http://localhost:1313/post/2022/02/a-true-sslcontext-object-is-not-available/">
+            <a href="https://ltan.me/post/2022/02/a-true-sslcontext-object-is-not-available/">
                 <span class="button__icon">←</span>
                 <span class="button__text">A True SSLContext Object Is Not Available</span>
             </a>
@@ -211,7 +211,7 @@ mysql client 执行sql执行并没有问题，但是调用接口时，写入mysq
         
         
         <span class="button next">
-            <a href="http://localhost:1313/post/2021/12/front-end-learning-vue-typescript-1/">
+            <a href="https://ltan.me/post/2021/12/front-end-learning-vue-typescript-1/">
                 <span class="button__text">Front End Learning Vue Typescript 1</span>
                 <span class="button__icon">→</span>
             </a>
@@ -249,8 +249,8 @@ mysql client 执行sql执行并没有问题，但是调用接口时，写入mysq
   </div>
 </footer>
 
-<script src="http://localhost:1313/assets/main.js"></script>
-<script src="http://localhost:1313/assets/prism.js"></script>
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
 
 
 

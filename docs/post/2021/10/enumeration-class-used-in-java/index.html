@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head>
   
     <title>Enumeration Class Used in Java :: LTAN.ME</title>
   
@@ -11,23 +11,23 @@ public enum AppCmdEnum { APP_INSTALL(1, &#34;安装命令&#34;), APP_UNINSTALL(2
 " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://localhost:1313/post/2021/10/enumeration-class-used-in-java/" />
+<link rel="canonical" href="https://ltan.me/post/2021/10/enumeration-class-used-in-java/" />
 
 
 
 
-<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
-  <link rel="stylesheet" href="http://localhost:1313/assets/green.css">
-
-
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
 
 
 
 
-<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/green.png">
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
 
 
 
@@ -46,11 +46,11 @@ public enum AppCmdEnum { APP_INSTALL(1, &#34;安装命令&#34;), APP_UNINSTALL(2
 <meta property="og:description" content="枚举类在java中使用方法之一 在后数据中台中，有些数据不需要放在数据库当中，只需要一个枚举类即可，比如web ui select 选择器下拉数据，男，女 这种，还比如省市 下拉数据，而这些数据可以不需要数据库来保存，也不需要用配置文件来保存，只需要一个枚举类即可，使用方法如下
 public enum AppCmdEnum { APP_INSTALL(1, &#34;安装命令&#34;), APP_UNINSTALL(2, &#34;卸载命令&#34;), APP_UPGRADE(3, &#34;升级命令&#34;); Integer code; String name; private static Map&lt;Integer, String&gt; KEYS_MAP = new HashMap&lt;&gt;(); private static Map&lt;String, String&gt; KEYS_MAP_SS = new HashMap&lt;&gt;(); //初始化枚举类资源类型数据返回， static { for (AppCmdEnum item : AppCmdEnum.values()) { KEYS_MAP.put(item.code, item.name); KEYS_MAP_SS.put(item.code.toString(), item.name); } } public static Map&lt;Integer, String&gt; getKeysMap() { return KEYS_MAP; } public static Map&lt;String, String&gt; getKeysMapSS() { return KEYS_MAP_SS; } //增加一个构造函数，丰富描述该枚举类的作用，和功能，字段含义 //根据业务需求可以，可以增加很多的属性字段，扩展非常灵活 AppCmdEnum(Integer code, String name) { this.code = code; this.name = name; } public Integer getCode() { return this.code; } public String getName() { return this.name; } } 在spring boot项目调用方法
 " />
-<meta property="og:url" content="http://localhost:1313/post/2021/10/enumeration-class-used-in-java/" />
+<meta property="og:url" content="https://ltan.me/post/2021/10/enumeration-class-used-in-java/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="http://localhost:1313/img/favicon/green.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -147,7 +147,7 @@ public enum AppCmdEnum { APP_INSTALL(1, &#34;安装命令&#34;), APP_UNINSTALL(2
     
 <div class="post">
   <h1 class="post-title">
-    <a href="http://localhost:1313/post/2021/10/enumeration-class-used-in-java/">Enumeration Class Used in Java</a></h1>
+    <a href="https://ltan.me/post/2021/10/enumeration-class-used-in-java/">Enumeration Class Used in Java</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -160,7 +160,7 @@ public enum AppCmdEnum { APP_INSTALL(1, &#34;安装命令&#34;), APP_UNINSTALL(2
   
   <span class="post-tags">
     
-    #<a href="http://localhost:1313/tags/java/">java</a>&nbsp;
+    #<a href="https://ltan.me/tags/java/">java</a>&nbsp;
     
   </span>
   
@@ -246,7 +246,7 @@ public Object apiConf() {
     <div class="pagination__buttons">
         
         <span class="button previous">
-            <a href="http://localhost:1313/post/2021/12/springboot-mysql-client_plugin_auth-is-required/">
+            <a href="https://ltan.me/post/2021/12/springboot-mysql-client_plugin_auth-is-required/">
                 <span class="button__icon">←</span>
                 <span class="button__text">How to solve SpringBoot Mysql CLIENT_PLUGIN_AUTH Is Required error</span>
             </a>
@@ -254,7 +254,7 @@ public Object apiConf() {
         
         
         <span class="button next">
-            <a href="http://localhost:1313/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/">
+            <a href="https://ltan.me/post/2021/09/mybaits-plus-comes-with-paging-vs-com.github.pagehelper-paging-plug-in/">
                 <span class="button__text">Mybaits Plus Comes With Paging VS Com.github.pagehelper Paging Plug In</span>
                 <span class="button__icon">→</span>
             </a>
@@ -292,8 +292,8 @@ public Object apiConf() {
   </div>
 </footer>
 
-<script src="http://localhost:1313/assets/main.js"></script>
-<script src="http://localhost:1313/assets/prism.js"></script>
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
 
 
 

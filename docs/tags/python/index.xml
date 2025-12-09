@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on LTAN.ME</title>
-    <link>http://localhost:1313/tags/python/</link>
+    <link>https://ltan.me/tags/python/</link>
     <description>Recent content in Python on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 31 Aug 2025 17:30:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Aug 2025 17:30:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Nacos 配置迁移实战：一键把 Nacos 1.x/2.x 导出包转换为 3.0 导入包（Python Web 工具）</title>
-      <link>http://localhost:1313/post/2025/12/nacos-config-migration-1x-2x-to-3x/</link>
+      <link>https://ltan.me/post/2025/12/nacos-config-migration-1x-2x-to-3x/</link>
       <pubDate>Sun, 31 Aug 2025 17:30:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2025/12/nacos-config-migration-1x-2x-to-3x/</guid>
+      <guid>https://ltan.me/post/2025/12/nacos-config-migration-1x-2x-to-3x/</guid>
       <description>&lt;hr&gt;
 &lt;blockquote&gt;
 &lt;p&gt;本文记录一个&lt;strong&gt;把 Nacos 1.x / 2.x 导出的配置包，自动转换为 Nacos 3.0 可直接导入包&lt;/strong&gt;的完整思路和工具实现。
@@ -27,7 +27,7 @@
 &lt;h2 id=&#34;0-迁移目标概览&#34;&gt;0. 迁移目标概览&lt;/h2&gt;
 &lt;p&gt;从配置中心视角，这次迁移的目标可以简化成一句话：
 操作如下图
-&lt;img src=&#34;http://localhost:1313/post/2025/12/nacos-config-migration-1x-2x-to-3x/show.png&#34; alt=&#34;show.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ltan.me/post/2025/12/nacos-config-migration-1x-2x-to-3x/show.png&#34; alt=&#34;show.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;把 Nacos 1.x / 2.x 导出的 zip 包，变成 Nacos 3.0 认为“官方合法”的导入包。&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;更具体一点：&lt;/p&gt;
@@ -528,10 +528,10 @@
     
     <item>
       <title>整理群晖照片（第一步）：从源目录安全索引与分类到新目录</title>
-      <link>http://localhost:1313/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/</link>
+      <link>https://ltan.me/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/</link>
       <pubDate>Sun, 31 Aug 2025 17:30:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/</guid>
+      <guid>https://ltan.me/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;本文面向 &lt;strong&gt;DSM 7.0&lt;/strong&gt; 环境，系统自带 &lt;strong&gt;Python 3.8.8&lt;/strong&gt;。我们将在 &lt;strong&gt;不改动源目录&lt;/strong&gt; 的前提下，扫描 &lt;code&gt;/volume2/photo/&lt;/code&gt; 的所有子目录，把图片/视频的元数据写入 SQLite，并按“照片 / 视频 / 截图”分别复制到 &lt;code&gt;/volume2/newPhoto/&lt;/code&gt; 下的三个子目录，且&lt;strong&gt;同名不覆盖&lt;/strong&gt;、&lt;strong&gt;可重复执行&lt;/strong&gt;。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
@@ -1034,10 +1034,10 @@ A：群晖启用 &lt;strong&gt;ACL&lt;/strong&gt; 时，&lt;code&gt;ls -l&lt;/co
     
     <item>
       <title>Export Command Data from PhpMyAdmin</title>
-      <link>http://localhost:1313/post/2024/11/exportcommanddatafromphpmyadmin/</link>
+      <link>https://ltan.me/post/2024/11/exportcommanddatafromphpmyadmin/</link>
       <pubDate>Mon, 04 Nov 2024 12:00:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2024/11/exportcommanddatafromphpmyadmin/</guid>
+      <guid>https://ltan.me/post/2024/11/exportcommanddatafromphpmyadmin/</guid>
       <description>&lt;p&gt;在使用 PhpMyAdmin 时，您可能会遇到一个问题：当某些字段内容较长时，界面无法完整显示这些字段内容，只能看到部分数据。这种情况下，PhpMyAdmin 默认的导出功能可能无法满足需求，因为网页导出的数据也会被截断，手动复制粘贴又非常耗时且容易出错。&lt;/p&gt;
 &lt;p&gt;因此，我们可以通过编写 Python 脚本直接调用 PhpMyAdmin 的接口，自动化获取完整数据并保存为 Excel 文件。这样做的主要原因包括：&lt;/p&gt;</description>
       <content>&lt;p&gt;在使用 PhpMyAdmin 时，您可能会遇到一个问题：当某些字段内容较长时，界面无法完整显示这些字段内容，只能看到部分数据。这种情况下，PhpMyAdmin 默认的导出功能可能无法满足需求，因为网页导出的数据也会被截断，手动复制粘贴又非常耗时且容易出错。&lt;/p&gt;

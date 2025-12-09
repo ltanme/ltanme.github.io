@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>IntelliJ IDEA on LTAN.ME</title>
-    <link>http://localhost:1313/tags/intellij-idea/</link>
+    <link>https://ltan.me/tags/intellij-idea/</link>
     <description>Recent content in IntelliJ IDEA on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 01 Dec 2025 10:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/intellij-idea/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Dec 2025 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/intellij-idea/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>现代化 Vibe Code &#43; Git Worktree：多分支并行开发 Java 项目的优雅姿势</title>
-      <link>http://localhost:1313/post/2025/12/git-worktree-parallel-dev-with-idea/</link>
+      <link>https://ltan.me/post/2025/12/git-worktree-parallel-dev-with-idea/</link>
       <pubDate>Mon, 01 Dec 2025 10:00:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2025/12/git-worktree-parallel-dev-with-idea/</guid>
+      <guid>https://ltan.me/post/2025/12/git-worktree-parallel-dev-with-idea/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;典型场景：一个 Java 单体或多模块项目，需要同时维护 &lt;code&gt;test&lt;/code&gt;、&lt;code&gt;pre&lt;/code&gt;、&lt;code&gt;prod&lt;/code&gt; 多套环境分支，还要临时开很多 feature 分支。&lt;br&gt;
 传统做法要么频繁 &lt;code&gt;git checkout&lt;/code&gt; 切分支，要么干脆 clone 三四份仓库，既容易误操作，又浪费磁盘。&lt;br&gt;
 本文介绍一种更现代化的组合：&lt;strong&gt;Git worktree + Vibe Code Git 客户端 + IntelliJ IDEA&lt;/strong&gt;，在同一个仓库上优雅地做多分支并行开发。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;0-传统单工作区的痛点&#34;&gt;0. 传统单工作区的痛点&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2025/12/git-worktree-parallel-dev-with-idea/show.jpg&#34; alt=&#34;show.jpg&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/12/git-worktree-parallel-dev-with-idea/show.jpg&#34; alt=&#34;show.jpg&#34;&gt;
 日常开发中，我们经常同时维护：&lt;/p&gt;</description>
       <content>&lt;blockquote&gt;
 &lt;p&gt;典型场景：一个 Java 单体或多模块项目，需要同时维护 &lt;code&gt;test&lt;/code&gt;、&lt;code&gt;pre&lt;/code&gt;、&lt;code&gt;prod&lt;/code&gt; 多套环境分支，还要临时开很多 feature 分支。&lt;br&gt;
@@ -27,7 +27,7 @@
 本文介绍一种更现代化的组合：&lt;strong&gt;Git worktree + Vibe Code Git 客户端 + IntelliJ IDEA&lt;/strong&gt;，在同一个仓库上优雅地做多分支并行开发。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;0-传统单工作区的痛点&#34;&gt;0. 传统单工作区的痛点&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2025/12/git-worktree-parallel-dev-with-idea/show.jpg&#34; alt=&#34;show.jpg&#34;&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/12/git-worktree-parallel-dev-with-idea/show.jpg&#34; alt=&#34;show.jpg&#34;&gt;
 日常开发中，我们经常同时维护：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;develop&lt;/code&gt; / &lt;code&gt;master&lt;/code&gt; / &lt;code&gt;release-*&lt;/code&gt;&lt;/li&gt;

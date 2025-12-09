@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python2.7 on LTAN.ME</title>
-    <link>http://localhost:1313/tags/python2.7/</link>
+    <link>https://ltan.me/tags/python2.7/</link>
     <description>Recent content in Python2.7 on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 16 Jun 2022 20:56:27 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/python2.7/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Jun 2022 20:56:27 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/python2.7/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Get Started With Developing Kodi Plugins</title>
-      <link>http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/</link>
+      <link>https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/</link>
       <pubDate>Thu, 16 Jun 2022 20:56:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/</guid>
+      <guid>https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/</guid>
       <description>&lt;h1 id=&#34;how-to-get-started-with-developing-kodi-plugins&#34;&gt;how to get started with developing kodi plugins&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;开发kodi插件如何入门，通过学习kodi插件开发，你可以实现自己的想要自动化播放音影服务
@@ -31,26 +31,26 @@
 &lt;p&gt;1 利用vmware安装libreELEC 系统，libreELEC 就是一个阉割版本的Linux+kodi整合而成
 安装libreELEC，首先是去官网下载libreELEC OVA文件&lt;br&gt;
 官网：https://libreelec.tv/downloads/generic/&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/libreELEC-OVA.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/libreELEC-OVA.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;2 用vmware打开下载好的libreELEC OVA 文件即可运行&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/vmware-open-libreelec-ova.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/vmware-open-libreelec-ova.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
 启动后，启用ssh 设置ssh密码，启用smb服务&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;3 设置windows10 与 libreELEC 网络互通，并且还要让libreelec 访问外网，vmware需要设置桥接模式 或者 nat网络模式，让libreelec 可以访问网外网，
 我这边设置NAT模式，需要知道vmware nat 的ip 范围，一般nat模式，vmware会自动分配一个ip给libreelec的，我这里设置静态，不然ip会变动
 影响后面开发&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/kodi-set-static-ip.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/kodi-set-static-ip.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
 4 配置libreELEC 系统文件共享给windows 10访问，ip为libreELEC系统的刚设置的ip&lt;br&gt;
 只要下图片窗口能正常打开，即网络能访问通&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/map-drive-ip-sharefile.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/map-drive-ip-sharefile.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
 映射windows盘符,这步很重要，不然会影响后面代码开发&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/map-drive-x.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/map-drive-x.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
 5 进入libreELEC系统，安装hellworld模块&lt;br&gt;
 下载hellworld模块，下载地址如下&lt;br&gt;
 &lt;a href=&#34;https://github.com/zag2me/script.hello.world/archive/master.zip&#34;&gt;https://github.com/zag2me/script.hello.world/archive/master.zip&lt;/a&gt;&lt;br&gt;
 选择安装从zip 文件 安装插件，安装前提是需要设置安装来源允许 未知来源&lt;code&gt;unkown&lt;/code&gt;安装&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/kodi-install-from-zip.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/kodi-install-from-zip.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
 6 用命令行工具登录libreELEC系统并进入到&lt;code&gt;/storage/.kodi/userdata/&lt;/code&gt; 创建&lt;code&gt;project&lt;/code&gt;，移动&lt;code&gt;script.hello.world&lt;/code&gt;插件目录到&lt;code&gt;/storage/.kodi/userdata/&lt;/code&gt;共享目录下
 并做好script.hello.world软链接，这一步需要把插件目录移动共享目录让windows10可见能访问，原来的libreELEC插件目录做好软链接&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      cd /storage/.kodi/userdata/   
@@ -63,21 +63,21 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;7 上一步成功后，应该可以用pycharm 打开&lt;code&gt;script.hello.world&lt;/code&gt; 项目了&lt;br&gt;
 windows 10 打开可以看到如下结果&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/script.hello.world-project-dir.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/pycharm-open-helloworld.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/script.hello.world-project-dir.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/pycharm-open-helloworld.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
 8 安装pycharm 插件，该插件用于pycharm python 代码自动提示&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/kodi-pugin-install-pycharm.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/kodi-pugin-install-pycharm.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
 9 修改kodi helloworld插件代码并运行&lt;br&gt;
 addon.py为主要执行文件，插件入口文件，&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/helloworld-code.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/run-code.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/run-kodi-code1.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/helloworld-code.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/run-code.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/run-kodi-code1.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
 再次修改代码，再次运行
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/kodi-code2.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/run-kodi-code2.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/kodi-code2.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/run-kodi-code2.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
 日志查看&lt;br&gt;
 tail -f  /storage/.kodi/temp/kodi.log &lt;br&gt;
-&lt;img src=&#34;http://localhost:1313/post/2022/06/how-to-get-started-with-developing-kodi-plugins/tail--f-log.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://ltan.me/post/2022/06/how-to-get-started-with-developing-kodi-plugins/tail--f-log.png&#34; alt=&#34;libreELEC&#34;&gt;&lt;br&gt;
 xbmc打开窗口，并显示音乐播放列表&lt;br&gt;
 xbmc.executebuiltin(&amp;ldquo;ActivateWindow(Music,special:/storage/ad/bj.m3u)&amp;rdquo;)&lt;br&gt;
 xbmc打印日志&lt;br&gt;
@@ -90,10 +90,10 @@ xbmc.log(&amp;ldquo;message&amp;rdquo;,level=xbmc.LOGNOTICE)&lt;br&gt;
     
     <item>
       <title>Pycharm Terminal Virtualenv Setting</title>
-      <link>http://localhost:1313/post/2022/02/pycharm-terminal-virtualenv-setting/</link>
+      <link>https://ltan.me/post/2022/02/pycharm-terminal-virtualenv-setting/</link>
       <pubDate>Thu, 17 Feb 2022 20:25:31 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2022/02/pycharm-terminal-virtualenv-setting/</guid>
+      <guid>https://ltan.me/post/2022/02/pycharm-terminal-virtualenv-setting/</guid>
       <description>&lt;h1 id=&#34;windows-环境pycharm-python-多环境开发设置&#34;&gt;windows 环境pycharm python 多环境开发设置&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在python项目开发中，很多情况每个项目采用不同的python 环境，一般常见的系统默认python 版本为
@@ -119,7 +119,7 @@ For Windows users: when using PyCharm with a virtual environment, you can use th
 &lt;blockquote&gt;
 &lt;p&gt;打开pychrm，依次点击file菜单，settings&amp;ndash;&amp;gt;tools&amp;mdash;&amp;gt;terminal&amp;ndash;&amp;gt;shell path&lt;br&gt;
 PyCharm 2016.1,2018.x&amp;hellip;: Settings, Tools, Terminal, and add &amp;ldquo;&amp;quot;/K &amp;lt;path-to-your-activate.bat&amp;gt;&amp;rdquo;&amp;quot; to Shell path and add (mind the quotes). Also add quotes around cmd.exe, resulting in:&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2022/02/pycharm-terminal-virtualenv-setting/pycharm-env.jpg&#34; alt=&#34;pycharm-env&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2022/02/pycharm-terminal-virtualenv-setting/pycharm-env.jpg&#34; alt=&#34;pycharm-env&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;设置pycharm Terminal窗口启动时进入Anaconda3环境&lt;br&gt;
 在&amp;quot;设置&amp;quot;&amp;gt;&amp;ldquo;终端工具&amp;rdquo;&amp;gt;，更改如下内容：Shell path&lt;br&gt;
@@ -136,10 +136,10 @@ https://pypi.tuna.tsinghua.edu.cn/simple
     
     <item>
       <title>A True SSLContext Object Is Not Available</title>
-      <link>http://localhost:1313/post/2022/02/a-true-sslcontext-object-is-not-available/</link>
+      <link>https://ltan.me/post/2022/02/a-true-sslcontext-object-is-not-available/</link>
       <pubDate>Thu, 17 Feb 2022 19:46:19 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2022/02/a-true-sslcontext-object-is-not-available/</guid>
+      <guid>https://ltan.me/post/2022/02/a-true-sslcontext-object-is-not-available/</guid>
       <description>&lt;h1 id=&#34;windows-下pyhon27环境pip-install-模块报错a-true-sslcontext-object-is-not-available&#34;&gt;windows 下pyhon2.7环境pip install 模块报错A true SSLContext object is not available&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;因为python版本2.7太低，涉及ssl不兼容，需要升级到最新版本的python2.7&lt;br&gt;
@@ -238,10 +238,10 @@ InsecurePlatformWarning&lt;/p&gt;&lt;/blockquote&gt;
     
     <item>
       <title>My Python2.7 Notes</title>
-      <link>http://localhost:1313/post/2021/07/my-python2.7-notes/</link>
+      <link>https://ltan.me/post/2021/07/my-python2.7-notes/</link>
       <pubDate>Wed, 21 Jul 2021 20:43:52 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/07/my-python2.7-notes/</guid>
+      <guid>https://ltan.me/post/2021/07/my-python2.7-notes/</guid>
       <description>&lt;h1 id=&#34;python-日常笔记&#34;&gt;python 日常笔记&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;记录工作要用的python 使用工具，或者常用的代码片段。 Python 是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于PHP和Perl语言。Python 是交互式语言： 这意味着，您可以在一个 Python 提示符 &amp;raquo;&amp;gt; 后直接执行代码。Python 是面向对象语言: 这意味着Python支持面向对象的风格或代码封装在对象的编程技术。Python 是初学者的语言：Python 对初级程序员而言，是一种伟大的语言，它支持广泛的应用程序开发，从简单的文字处理到 WWW 浏览器再到游戏。&lt;/p&gt;</description>
@@ -306,10 +306,10 @@ InsecurePlatformWarning&lt;/p&gt;&lt;/blockquote&gt;
     
     <item>
       <title>Abacus Mental Arithmetic Problem Generation</title>
-      <link>http://localhost:1313/post/2021/06/abacus-mental-arithmetic-problem-generation/</link>
+      <link>https://ltan.me/post/2021/06/abacus-mental-arithmetic-problem-generation/</link>
       <pubDate>Tue, 01 Jun 2021 09:33:32 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/06/abacus-mental-arithmetic-problem-generation/</guid>
+      <guid>https://ltan.me/post/2021/06/abacus-mental-arithmetic-problem-generation/</guid>
       <description>&lt;h1 id=&#34;珠心算二笔三笔五笔十笔一位加减混合计算题自动生成&#34;&gt;珠心算二笔、三笔、五笔、十笔一位加减混合计算题自动生成&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;珠算是以算盘为工具，数学理论为基础，运用手指拨珠，进行运算的一门计算技术，它是我国古代劳动人民重要的发明创造之一，千百年来这一技术不断扩散，传播到世界各国，推进着人类文明的发展历程。&lt;/p&gt;
@@ -318,7 +318,7 @@ InsecurePlatformWarning&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;珠算是以算盘为工具，数学理论为基础，运用手指拨珠，进行运算的一门计算技术，它是我国古代劳动人民重要的发明创造之一，千百年来这一技术不断扩散，传播到世界各国，推进着人类文明的发展历程。&lt;/p&gt;
 &lt;p&gt;珠心算只有三个符号即1、5和0;数学有10个符号，即0、1、2、3、4、5、6、7、8、9。可见珠心算运算的简捷性。珠心算的直观模型作用能培养小孩子的数学概念能力，珠心算的分析模型作用能帮助小孩子理解应用题的结构关系和数量关系，提高解题能力。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/06/abacus-mental-arithmetic-problem-generation/zhuxinsuanpang.jpg&#34; alt=&#34;珠心算盘&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/06/abacus-mental-arithmetic-problem-generation/zhuxinsuanpang.jpg&#34; alt=&#34;珠心算盘&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;这几天看到娃娘，在用办公软件excel 给5岁娃出题，一页一页的打印出来, 很费劲&lt;/p&gt;
 &lt;p&gt;我说这个可以写个程序自动生成出来，更快。不用这么幸苦&lt;/p&gt;
@@ -436,7 +436,7 @@ InsecurePlatformWarning&lt;/p&gt;&lt;/blockquote&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;save(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;珠心算题目生成-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;.xlsx&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (cell,len(data),version))
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最终生成效果如下，请自行调整打印格式&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/06/abacus-mental-arithmetic-problem-generation/image-20210601102211603.png&#34; alt=&#34;image-20210601102211603&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/06/abacus-mental-arithmetic-problem-generation/image-20210601102211603.png&#34; alt=&#34;image-20210601102211603&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
