@@ -25,7 +25,9 @@
 配套工具使用 &lt;strong&gt;Python 3 + Flask&lt;/strong&gt;，通过浏览器上传旧 zip，自动生成 &lt;code&gt;nacos3.0.zip&lt;/code&gt; 下载，适合日常运维和批量迁移配置时使用。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;0-迁移目标概览&#34;&gt;0. 迁移目标概览&lt;/h2&gt;
-&lt;p&gt;从配置中心视角，这次迁移的目标可以简化成一句话：&lt;/p&gt;
+&lt;p&gt;从配置中心视角，这次迁移的目标可以简化成一句话：
+操作如下图
+&lt;img src=&#34;https://ltan.me/post/2025/12/nacos-config-migration-1x-2x-to-3x/show.png&#34; alt=&#34;show.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;把 Nacos 1.x / 2.x 导出的 zip 包，变成 Nacos 3.0 认为“官方合法”的导入包。&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;更具体一点：&lt;/p&gt;
