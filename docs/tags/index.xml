@@ -28,11 +28,41 @@
     </item>
     
     <item>
+      <title>Flask</title>
+      <link>https://ltan.me/tags/flask/</link>
+      <pubDate>Sun, 31 Aug 2025 17:30:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/flask/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>Nacos</title>
+      <link>https://ltan.me/tags/nacos/</link>
+      <pubDate>Sun, 31 Aug 2025 17:30:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/nacos/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
       <title>Python</title>
       <link>https://ltan.me/tags/python/</link>
       <pubDate>Sun, 31 Aug 2025 17:30:00 +0800</pubDate>
       
       <guid>https://ltan.me/tags/python/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>Spring Cloud</title>
+      <link>https://ltan.me/tags/spring-cloud/</link>
+      <pubDate>Sun, 31 Aug 2025 17:30:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/spring-cloud/</guid>
       <description></description>
       <content></content>
     </item>
@@ -53,6 +83,16 @@
       <pubDate>Sun, 31 Aug 2025 17:30:00 +0800</pubDate>
       
       <guid>https://ltan.me/tags/synology/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>配置中心</title>
+      <link>https://ltan.me/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</link>
+      <pubDate>Sun, 31 Aug 2025 17:30:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</guid>
       <description></description>
       <content></content>
     </item>
