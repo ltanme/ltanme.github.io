@@ -12,10 +12,9 @@ description: "把 Cursor 拉来帮 IntelliJ 读 Controller，再让 Bruno 自动
 下面给你一篇**口水话风格、轻松好读、实操清晰**的 Blog，主题就是你刚才定的那条：Cursor + Bruno + IntelliJ IDEA 2025.1.2 自动生成接口请求并一键运行。
 你只要把本文贴进 Hugo 的 `index.md` 就能直接发文。
 废话少说，先上图
-![bruno.png](bruno.png)
->
 ![cursor.png](cursor.png)
-
+>
+![bruno.png](bruno.png)
 
 ---
 
