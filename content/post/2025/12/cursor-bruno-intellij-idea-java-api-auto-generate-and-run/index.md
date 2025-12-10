@@ -2,6 +2,7 @@
 title: "Cursor + Bruno + IntelliJ IDEA 2025：自动扫 Controller、生成接口请求、一键运行的爽感工作流"
 date: 2025-12-10T10:00:00+08:00
 draft: false
+featured: true
 tags: ["Cursor", "Bruno", "IntelliJ IDEA", "Java", "API 自动化", "开发提效"]
 categories: ["工具实践", "开发流程"]
 description: "把 Cursor 拉来帮 IntelliJ 读 Controller，再让 Bruno 自动接收生成的接口请求文件，最终实现 Java 后端接口从代码到调试的一整套自动化流程。写完就能跑，完全不用手工敲请求，爽到飞起。"
@@ -12,6 +13,7 @@ description: "把 Cursor 拉来帮 IntelliJ 读 Controller，再让 Bruno 自动
 你只要把本文贴进 Hugo 的 `index.md` 就能直接发文。
 废话少说，先上图
 ![bruno.png](bruno.png)
+>
 ![cursor.png](cursor.png)
 
 

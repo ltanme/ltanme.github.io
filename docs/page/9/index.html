@@ -147,6 +147,51 @@
     
     <div class="post on-list">
         <h1 class="post-title">
+            <a href="https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/">Cursor + Bruno + IntelliJ IDEA 2025：自动扫 Controller、生成接口请求、一键运行的爽感工作流</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2025-12-10
+          </span>
+            
+        </div>
+
+        
+        <span class="post-tags">
+            
+            #<a href="https://ltan.me/tags/cursor/">Cursor</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/bruno/">Bruno</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/intellij-idea/">IntelliJ IDEA</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/java/">Java</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/api-%E8%87%AA%E5%8A%A8%E5%8C%96/">API 自动化</a>&nbsp;
+            
+            #<a href="https://ltan.me/tags/%E5%BC%80%E5%8F%91%E6%8F%90%E6%95%88/">开发提效</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+            
+            把 Cursor 拉来帮 IntelliJ 读 Controller，再让 Bruno 自动接收生成的接口请求文件，最终实现 Java 后端接口从代码到调试的一整套自动化流程。写完就能跑，完全不用手工敲请求，爽到飞起。
+            
+        </div>
+
+        
+        <div>
+            <a class="read-more button"
+               href="/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/">Read more →</a>
+        </div>
+        
+    </div>
+    
+    <div class="post on-list">
+        <h1 class="post-title">
             <a href="https://ltan.me/post/2024/07/summary-of-configuring-multiple-data-sources-with-spring-boot-2.7.10-&#43;-jpa-and-troubleshooting/">Summary of Configuring Multiple Data Sources With Spring Boot 2.7.10 + JPA and Troubleshooting</a>
         </h1>
         <div class="post-meta">
@@ -596,59 +641,6 @@ JDK17,不是jdk11<br>
         <div>
             <a class="read-more button"
                href="/post/2023/07/openresty-lua-lapis-and-redis-cluster-setup-guide/">Read more →</a>
-        </div>
-        
-    </div>
-    
-    <div class="post on-list">
-        <h1 class="post-title">
-            <a href="https://ltan.me/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/">Hybrid Encryption With AES 128 Bit and RSA Using Java and Ngx_lua</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2023-06-08
-          </span>
-            
-        </div>
-
-        
-        <span class="post-tags">
-            
-            #<a href="https://ltan.me/tags/aes/">AES</a>&nbsp;
-            
-            #<a href="https://ltan.me/tags/rsa/">RSA</a>&nbsp;
-            
-            #<a href="https://ltan.me/tags/ngx_lua/">ngx_lua</a>&nbsp;
-            
-            #<a href="https://ltan.me/tags/encryption/">encryption</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-            
-            <h2 id="一种-aes128位rsa混合加密iv为前16个0字符使用java和ngxlua编写的加解密方法">一种 AES（128位）+RSA混合加密，iv为前16个0字符，使用java和ngx.lua编写的加解密方法</h2>
-<p>使用 openresty 和 ngx_lua 编写的服务端 HTTP 接口，旨在提供给 Android 设备提交加密数据上报、日志采集等功能。<br>
-主要流流程如下
-<img src="/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/swim-road-flow.PNG" alt="aes&#43;rsa混合常见流程"></p>
-<blockquote>
-<p><code>local enable_padding = true</code>：定义一个布尔变量<code> enable_padding</code> 并赋值为 <code>true</code>，用于启用填充功能。
-<code>local aes_128_cbc_with_padding = aes:new(key, nil, aes.cipher(128,&quot;cbc&quot;), {iv = string.rep('\0', 16)}, nil, nil, enable_padding)</code>：
-<code>aes:new()</code> 是创建 <code>AES</code> 加密算法实例的函数。<br>
-<code>key</code> 是用于加密和解密的密钥。<br>
-<code>nil</code> 表示没有额外的选项参数。<br>
-<code>aes.cipher(128, &quot;cbc&quot;)</code> 指定使用<code>AES-128</code> 位密钥和 <code>CBC (Cipher Block Chaining)</code> 模式进行加密。<br>
-<code>{iv = string.rep('\0', 16)}</code> 是初始化向量 <code>(IV)</code>，其中 <code>string.rep('\0', 16)</code> 创建了一个由 <code>16</code> 个空字符组成的字符串作为 <code>IV</code>。<br>
-最后一个参数 <code>enable_padding</code> 是用于启用填充功能的布尔变量。</p>
-            
-        </div>
-
-        
-        <div>
-            <a class="read-more button"
-               href="/post/2023/06/hybrid-encryption-with-aes-128-bit-and-rsa-using-java-and-ngx_lua/">Read more →</a>
         </div>
         
     </div>

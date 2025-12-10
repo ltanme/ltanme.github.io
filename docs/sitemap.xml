@@ -2,25 +2,40 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ltan.me/tags/api-%E8%87%AA%E5%8A%A8%E5%8C%96/</loc>
+    <lastmod>2025-12-10T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/bruno/</loc>
+    <lastmod>2025-12-10T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/cursor/</loc>
+    <lastmod>2025-12-10T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/</loc>
+    <lastmod>2025-12-10T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/intellij-idea/</loc>
+    <lastmod>2025-12-10T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/java/</loc>
+    <lastmod>2025-12-10T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/</loc>
+    <lastmod>2025-12-10T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/post/</loc>
+    <lastmod>2025-12-10T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/</loc>
+    <lastmod>2025-12-10T10:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://ltan.me/tags/%E5%BC%80%E5%8F%91%E6%8F%90%E6%95%88/</loc>
+    <lastmod>2025-12-10T10:00:00+08:00</lastmod>
+  </url><url>
     <loc>https://ltan.me/tags/git/</loc>
     <lastmod>2025-12-01T10:00:00+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/git-worktree/</loc>
-    <lastmod>2025-12-01T10:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/intellij-idea/</loc>
-    <lastmod>2025-12-01T10:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/java/</loc>
-    <lastmod>2025-12-01T10:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/</loc>
-    <lastmod>2025-12-01T10:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/post/</loc>
-    <lastmod>2025-12-01T10:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://ltan.me/tags/</loc>
     <lastmod>2025-12-01T10:00:00+08:00</lastmod>
   </url><url>
     <loc>https://ltan.me/tags/vibe-code/</loc>

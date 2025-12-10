@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Cursor &#43; Bruno &#43; IntelliJ IDEA 2025：自动扫 Controller、生成接口请求、一键运行的爽感工作流 :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="把 Cursor 拉来帮 IntelliJ 读 Controller，再让 Bruno 自动接收生成的接口请求文件，最终实现 Java 后端接口从代码到调试的一整套自动化流程。写完就能跑，完全不用手工敲请求，爽到飞起。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Cursor &#43; Bruno &#43; IntelliJ IDEA 2025：自动扫 Controller、生成接口请求、一键运行的爽感工作流">
+<meta property="og:description" content="把 Cursor 拉来帮 IntelliJ 读 Controller，再让 Bruno 自动接收生成的接口请求文件，最终实现 Java 后端接口从代码到调试的一整套自动化流程。写完就能跑，完全不用手工敲请求，爽到飞起。" />
+<meta property="og:url" content="https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+  <meta property="article:section" content="工具实践" />
+
+  <meta property="article:section" content="开发流程" />
+
+
+  <meta property="article:published_time" content="2025-12-10 10:00:00 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/">Cursor + Bruno + IntelliJ IDEA 2025：自动扫 Controller、生成接口请求、一键运行的爽感工作流</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2025-12-10 [Mod: 2025-12-10]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/cursor/">Cursor</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/bruno/">Bruno</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/intellij-idea/">IntelliJ IDEA</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/java/">Java</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/api-%E8%87%AA%E5%8A%A8%E5%8C%96/">API 自动化</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/%E5%BC%80%E5%8F%91%E6%8F%90%E6%95%88/">开发提效</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>下面给你一篇<strong>口水话风格、轻松好读、实操清晰</strong>的 Blog，主题就是你刚才定的那条：Cursor + Bruno + IntelliJ IDEA 2025.1.2 自动生成接口请求并一键运行。
+你只要把本文贴进 Hugo 的 <code>index.md</code> 就能直接发文。
+废话少说，先上图
+<img src="/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/bruno.png" alt="bruno.png"></p>
+<blockquote>
+</blockquote>
+<p><img src="/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/cursor.png" alt="cursor.png"></p>
+<hr>
+<h1 id="借助-cursor-与-bruno从-intellij-idea-202512-java-controller-自动生成接口请求并一键运行"><strong>借助 Cursor 与 Bruno：从 IntelliJ IDEA 2025.1.2 Java Controller 自动生成接口请求并一键运行</strong><a href="#借助-cursor-与-bruno从-intellij-idea-202512-java-controller-自动生成接口请求并一键运行" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>最近搞 Java 接口开发的时候，越写越觉得：
+<strong>能不能让我写完接口之后，不用手动去 Postman / Bruno 里一个个敲接口、拼参数、调试半天？</strong></p>
+<p>然后我就开始折腾 Cursor，再把 Bruno 拉进来，结果还真把这一套自动化流程搞顺了。
+现在就是：</p>
+<p>✨ <strong>写完 Controller → Cursor 自动读取接口 → 自动生成 .bru 文件 → Bruno 里一键运行</strong></p>
+<p>舒服，真的舒服得不行。</p>
+<p>下面我就来分享一下我这套“偷懒工作流”，反正我自己用了之后已经回不去了。</p>
+<hr>
+<h2 id="-使用的工具">🛠 使用的工具<a href="#-使用的工具" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="1-intellij-idea-202512-ultimate"><strong>1. IntelliJ IDEA 2025.1.2 Ultimate</strong><a href="#1-intellij-idea-202512-ultimate" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>平时写 Java 后端 Controller 的家伙式，主要就是提供 URL 和参数的信息来源。</p>
+<h3 id="2-cursor"><strong>2. Cursor</strong><a href="#2-cursor" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>这玩意简直就是高级码农小弟，让它去读代码、找 Controller、提取 URL、识别参数，都很稳。
+还可以顺手把 <code>.bru</code> 文件写好存到 Bruno 目录。</p>
+<h3 id="3-bruno"><strong>3. Bruno</strong><a href="#3-bruno" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>一个基于文件系统的接口调试工具，特别适合跟 Cursor 搭配，因为
+<strong>Cursor 直接能往 Bruno 的文件夹里生成 .bru 接口文件</strong>
+你只要点一下就能运行，简直像外挂。</p>
+<hr>
+<h2 id="-整体流程长这样">🧩 整体流程长这样<a href="#-整体流程长这样" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ol>
+<li>
+<p><strong>在 IntelliJ 写好 Java Controller</strong></p>
+</li>
+<li>
+<p>用 Cursor 对项目说一句类似：</p>
+<blockquote>
+<p>帮我扫描 controller 包，提取所有 @RequestMapping / @GetMapping / @PostMapping 的接口</p></blockquote>
+</li>
+<li>
+<p>Cursor 自动生成 <code>.bru</code> 文件</p>
+</li>
+<li>
+<p>Cursor 把这些 <code>.bru</code> 文件扔到 Bruno 的接口目录（比如 <code>/bruno/api</code>）</p>
+</li>
+<li>
+<p>我打开 Bruno，接口全都躺在那里</p>
+</li>
+<li>
+<p>点一下就能跑</p>
+</li>
+</ol>
+<hr>
+<h2 id="-我示例用的-java-controller">🔥 我示例用的 Java Controller<a href="#-我示例用的-java-controller" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>为了方便展示，我就放一个简单的例子：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequestMapping</span>(<span style="color:#e6db74">&#34;/api/user&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserController</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@GetMapping</span>(<span style="color:#e6db74">&#34;/info&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> UserInfo <span style="color:#a6e22e">getUserInfo</span>(<span style="color:#a6e22e">@RequestParam</span> String userId) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> UserInfo(userId, <span style="color:#e6db74">&#34;Tom&#34;</span>, 25);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@PostMapping</span>(<span style="color:#e6db74">&#34;/create&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Result <span style="color:#a6e22e">createUser</span>(<span style="color:#a6e22e">@RequestBody</span> CreateUserRequest req) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Result(<span style="color:#e6db74">&#34;ok&#34;</span>, req.<span style="color:#a6e22e">getName</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Cursor 就是读取这种代码，自动提取：</p>
+<ul>
+<li>URL：<code>/api/user/info</code></li>
+<li>参数：<code>userId</code></li>
+<li>method：GET
+等等信息。</li>
+</ul>
+<hr>
+<h2 id="-cursor-帮我生成的-bru-示例">🧪 Cursor 帮我生成的 <code>.bru</code> 示例<a href="#-cursor-帮我生成的-bru-示例" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>下面给你看 Cursor 自动生成的 Bruno 文件大概长啥样。</p>
+<h3 id="user-infobru"><code>user-info.bru</code><a href="#user-infobru" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<pre tabindex="0"><code>meta {
+  name: &#34;Get User Info&#34;
+  type: http
+}
+
+request {
+  method: GET
+  url: http://localhost:8080/api/user/info
+  params {
+    userId: &#34;123&#34;
+  }
+}
+</code></pre><h3 id="user-createbru"><code>user-create.bru</code><a href="#user-createbru" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<pre tabindex="0"><code>meta {
+  name: &#34;Create User&#34;
+  type: http
+}
+
+request {
+  method: POST
+  url: http://localhost:8080/api/user/create
+  body: json({
+    &#34;name&#34;: &#34;Tom&#34;,
+    &#34;age&#34;: 25
+  })
+}
+</code></pre><p>然后 Cursor 会自动把它们写到：</p>
+<pre tabindex="0"><code>/bruno/api/user-info.bru
+/bruno/api/user-create.bru
+</code></pre><p>打开 Bruno 左边就能看到两个接口，点运行即可。</p>
+<hr>
+<h2 id="-cursor-prompt你可以直接用">🎯 Cursor Prompt（你可以直接用）<a href="#-cursor-prompt你可以直接用" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>给 Cursor 一句话，它就能帮你自动扫 Controller + 自动生成 bru 文件：</p>
+<pre tabindex="0"><code>帮我扫描 src/main/java 下所有 Controller 类，读取 @RequestMapping、@GetMapping、@PostMapping，并生成对应的 Bruno .bru 文件。
+
+规则：
+- 文件名采用 {controller-name}-{method-name}.bru
+- GET 用 params
+- POST/PUT 用 json body
+- 自动生成基础示例参数
+- 输出到项目根目录的 /bruno/api/
+</code></pre><p>Cursor 会乖乖照做。</p>
+<hr>
+<h2 id="-用下来是什么体验">🍺 用下来是什么体验？<a href="#-用下来是什么体验" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>一句话：
+<strong>爽到飞起。</strong></p>
+<p>以前写接口要开工具 → 手动补 URL → 补参数 → 补 body → 保存 → 运行……
+现在写完 Controller 一句话让 Cursor 帮我生成，Bruno 里自动出现接口，点一下就能跑。</p>
+<p>而且文件式接口存储真的太适合自动化了。</p>
+<hr>
+<h2 id="-bruno-目录结构我现在是这样">📁 Bruno 目录结构（我现在是这样）<a href="#-bruno-目录结构我现在是这样" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<pre tabindex="0"><code>bruno/
+ └── api/
+      ├── user-info.bru
+      ├── user-create.bru
+      └── ...
+</code></pre><p>只要 Cursor 往这里丢文件，Bruno 就能自动识别。</p>
+<hr>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h"></span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://ltan.me/post/2025/12/git-worktree-parallel-dev-with-idea/">
+                <span class="button__text">现代化 Vibe Code &#43; Git Worktree：多分支并行开发 Java 项目的优雅姿势</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4472456938595283"
+     crossorigin="anonymous"></script>
+
+
+  
+</div>
+
+</body>
+</html>

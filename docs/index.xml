@@ -6,7 +6,164 @@
     <description>Recent content on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 01 Dec 2025 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 Dec 2025 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cursor &#43; Bruno &#43; IntelliJ IDEA 2025：自动扫 Controller、生成接口请求、一键运行的爽感工作流</title>
+      <link>https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/</link>
+      <pubDate>Wed, 10 Dec 2025 10:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/</guid>
+      <description>&lt;p&gt;下面给你一篇&lt;strong&gt;口水话风格、轻松好读、实操清晰&lt;/strong&gt;的 Blog，主题就是你刚才定的那条：Cursor + Bruno + IntelliJ IDEA 2025.1.2 自动生成接口请求并一键运行。
+你只要把本文贴进 Hugo 的 &lt;code&gt;index.md&lt;/code&gt; 就能直接发文。
+废话少说，先上图
+&lt;img src=&#34;https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/bruno.png&#34; alt=&#34;bruno.png&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/cursor.png&#34; alt=&#34;cursor.png&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;借助-cursor-与-bruno从-intellij-idea-202512-java-controller-自动生成接口请求并一键运行&#34;&gt;&lt;strong&gt;借助 Cursor 与 Bruno：从 IntelliJ IDEA 2025.1.2 Java Controller 自动生成接口请求并一键运行&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;最近搞 Java 接口开发的时候，越写越觉得：
+&lt;strong&gt;能不能让我写完接口之后，不用手动去 Postman / Bruno 里一个个敲接口、拼参数、调试半天？&lt;/strong&gt;&lt;/p&gt;</description>
+      <content>&lt;p&gt;下面给你一篇&lt;strong&gt;口水话风格、轻松好读、实操清晰&lt;/strong&gt;的 Blog，主题就是你刚才定的那条：Cursor + Bruno + IntelliJ IDEA 2025.1.2 自动生成接口请求并一键运行。
+你只要把本文贴进 Hugo 的 &lt;code&gt;index.md&lt;/code&gt; 就能直接发文。
+废话少说，先上图
+&lt;img src=&#34;https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/bruno.png&#34; alt=&#34;bruno.png&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/cursor.png&#34; alt=&#34;cursor.png&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;借助-cursor-与-bruno从-intellij-idea-202512-java-controller-自动生成接口请求并一键运行&#34;&gt;&lt;strong&gt;借助 Cursor 与 Bruno：从 IntelliJ IDEA 2025.1.2 Java Controller 自动生成接口请求并一键运行&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;最近搞 Java 接口开发的时候，越写越觉得：
+&lt;strong&gt;能不能让我写完接口之后，不用手动去 Postman / Bruno 里一个个敲接口、拼参数、调试半天？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;然后我就开始折腾 Cursor，再把 Bruno 拉进来，结果还真把这一套自动化流程搞顺了。
+现在就是：&lt;/p&gt;
+&lt;p&gt;✨ &lt;strong&gt;写完 Controller → Cursor 自动读取接口 → 自动生成 .bru 文件 → Bruno 里一键运行&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;舒服，真的舒服得不行。&lt;/p&gt;
+&lt;p&gt;下面我就来分享一下我这套“偷懒工作流”，反正我自己用了之后已经回不去了。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-使用的工具&#34;&gt;🛠 使用的工具&lt;/h2&gt;
+&lt;h3 id=&#34;1-intellij-idea-202512-ultimate&#34;&gt;&lt;strong&gt;1. IntelliJ IDEA 2025.1.2 Ultimate&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;平时写 Java 后端 Controller 的家伙式，主要就是提供 URL 和参数的信息来源。&lt;/p&gt;
+&lt;h3 id=&#34;2-cursor&#34;&gt;&lt;strong&gt;2. Cursor&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;这玩意简直就是高级码农小弟，让它去读代码、找 Controller、提取 URL、识别参数，都很稳。
+还可以顺手把 &lt;code&gt;.bru&lt;/code&gt; 文件写好存到 Bruno 目录。&lt;/p&gt;
+&lt;h3 id=&#34;3-bruno&#34;&gt;&lt;strong&gt;3. Bruno&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;一个基于文件系统的接口调试工具，特别适合跟 Cursor 搭配，因为
+&lt;strong&gt;Cursor 直接能往 Bruno 的文件夹里生成 .bru 接口文件&lt;/strong&gt;
+你只要点一下就能运行，简直像外挂。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-整体流程长这样&#34;&gt;🧩 整体流程长这样&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在 IntelliJ 写好 Java Controller&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用 Cursor 对项目说一句类似：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;帮我扫描 controller 包，提取所有 @RequestMapping / @GetMapping / @PostMapping 的接口&lt;/p&gt;&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Cursor 自动生成 &lt;code&gt;.bru&lt;/code&gt; 文件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Cursor 把这些 &lt;code&gt;.bru&lt;/code&gt; 文件扔到 Bruno 的接口目录（比如 &lt;code&gt;/bruno/api&lt;/code&gt;）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;我打开 Bruno，接口全都躺在那里&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;点一下就能跑&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-我示例用的-java-controller&#34;&gt;🔥 我示例用的 Java Controller&lt;/h2&gt;
+&lt;p&gt;为了方便展示，我就放一个简单的例子：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@RestController&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@RequestMapping&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/api/user&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;UserController&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;@GetMapping&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/info&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; UserInfo &lt;span style=&#34;color:#a6e22e&#34;&gt;getUserInfo&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;@RequestParam&lt;/span&gt; String userId) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; UserInfo(userId, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Tom&amp;#34;&lt;/span&gt;, 25);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;@PostMapping&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/create&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; Result &lt;span style=&#34;color:#a6e22e&#34;&gt;createUser&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;@RequestBody&lt;/span&gt; CreateUserRequest req) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Result(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ok&amp;#34;&lt;/span&gt;, req.&lt;span style=&#34;color:#a6e22e&#34;&gt;getName&lt;/span&gt;());
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Cursor 就是读取这种代码，自动提取：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;URL：&lt;code&gt;/api/user/info&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;参数：&lt;code&gt;userId&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;method：GET
+等等信息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-cursor-帮我生成的-bru-示例&#34;&gt;🧪 Cursor 帮我生成的 &lt;code&gt;.bru&lt;/code&gt; 示例&lt;/h2&gt;
+&lt;p&gt;下面给你看 Cursor 自动生成的 Bruno 文件大概长啥样。&lt;/p&gt;
+&lt;h3 id=&#34;user-infobru&#34;&gt;&lt;code&gt;user-info.bru&lt;/code&gt;&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;meta {
+  name: &amp;#34;Get User Info&amp;#34;
+  type: http
+}
+
+request {
+  method: GET
+  url: http://localhost:8080/api/user/info
+  params {
+    userId: &amp;#34;123&amp;#34;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;user-createbru&#34;&gt;&lt;code&gt;user-create.bru&lt;/code&gt;&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;meta {
+  name: &amp;#34;Create User&amp;#34;
+  type: http
+}
+
+request {
+  method: POST
+  url: http://localhost:8080/api/user/create
+  body: json({
+    &amp;#34;name&amp;#34;: &amp;#34;Tom&amp;#34;,
+    &amp;#34;age&amp;#34;: 25
+  })
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后 Cursor 会自动把它们写到：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;/bruno/api/user-info.bru
+/bruno/api/user-create.bru
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;打开 Bruno 左边就能看到两个接口，点运行即可。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-cursor-prompt你可以直接用&#34;&gt;🎯 Cursor Prompt（你可以直接用）&lt;/h2&gt;
+&lt;p&gt;给 Cursor 一句话，它就能帮你自动扫 Controller + 自动生成 bru 文件：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;帮我扫描 src/main/java 下所有 Controller 类，读取 @RequestMapping、@GetMapping、@PostMapping，并生成对应的 Bruno .bru 文件。
+
+规则：
+- 文件名采用 {controller-name}-{method-name}.bru
+- GET 用 params
+- POST/PUT 用 json body
+- 自动生成基础示例参数
+- 输出到项目根目录的 /bruno/api/
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Cursor 会乖乖照做。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-用下来是什么体验&#34;&gt;🍺 用下来是什么体验？&lt;/h2&gt;
+&lt;p&gt;一句话：
+&lt;strong&gt;爽到飞起。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;以前写接口要开工具 → 手动补 URL → 补参数 → 补 body → 保存 → 运行……
+现在写完 Controller 一句话让 Cursor 帮我生成，Bruno 里自动出现接口，点一下就能跑。&lt;/p&gt;
+&lt;p&gt;而且文件式接口存储真的太适合自动化了。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-bruno-目录结构我现在是这样&#34;&gt;📁 Bruno 目录结构（我现在是这样）&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;bruno/
+ └── api/
+      ├── user-info.bru
+      ├── user-create.bru
+      └── ...
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;只要 Cursor 往这里丢文件，Bruno 就能自动识别。&lt;/p&gt;
+&lt;hr&gt;
+</content>
+    </item>
+    
     <item>
       <title>现代化 Vibe Code &#43; Git Worktree：多分支并行开发 Java 项目的优雅姿势</title>
       <link>https://ltan.me/post/2025/12/git-worktree-parallel-dev-with-idea/</link>

@@ -6,7 +6,67 @@
     <description>Recent content in Tags on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 01 Dec 2025 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 Dec 2025 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>API 自动化</title>
+      <link>https://ltan.me/tags/api-%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
+      <pubDate>Wed, 10 Dec 2025 10:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/api-%E8%87%AA%E5%8A%A8%E5%8C%96/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>Bruno</title>
+      <link>https://ltan.me/tags/bruno/</link>
+      <pubDate>Wed, 10 Dec 2025 10:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/bruno/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>Cursor</title>
+      <link>https://ltan.me/tags/cursor/</link>
+      <pubDate>Wed, 10 Dec 2025 10:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/cursor/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>IntelliJ IDEA</title>
+      <link>https://ltan.me/tags/intellij-idea/</link>
+      <pubDate>Wed, 10 Dec 2025 10:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/intellij-idea/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>https://ltan.me/tags/java/</link>
+      <pubDate>Wed, 10 Dec 2025 10:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/java/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>开发提效</title>
+      <link>https://ltan.me/tags/%E5%BC%80%E5%8F%91%E6%8F%90%E6%95%88/</link>
+      <pubDate>Wed, 10 Dec 2025 10:00:00 +0800</pubDate>
+      
+      <guid>https://ltan.me/tags/%E5%BC%80%E5%8F%91%E6%8F%90%E6%95%88/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
     <item>
       <title>Git</title>
       <link>https://ltan.me/tags/git/</link>
@@ -23,26 +83,6 @@
       <pubDate>Mon, 01 Dec 2025 10:00:00 +0800</pubDate>
       
       <guid>https://ltan.me/tags/git-worktree/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    
-    <item>
-      <title>IntelliJ IDEA</title>
-      <link>https://ltan.me/tags/intellij-idea/</link>
-      <pubDate>Mon, 01 Dec 2025 10:00:00 +0800</pubDate>
-      
-      <guid>https://ltan.me/tags/intellij-idea/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    
-    <item>
-      <title>Java</title>
-      <link>https://ltan.me/tags/java/</link>
-      <pubDate>Mon, 01 Dec 2025 10:00:00 +0800</pubDate>
-      
-      <guid>https://ltan.me/tags/java/</guid>
       <description></description>
       <content></content>
     </item>
