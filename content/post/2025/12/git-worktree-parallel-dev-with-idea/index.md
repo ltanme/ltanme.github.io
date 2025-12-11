@@ -1,16 +1,16 @@
 ---
-title: "现代化 Vibe Code + Git Worktree：多分支并行开发 Java 项目的优雅姿势"
+title: "现代化 Vibe Coding + Git Worktree：多分支并行开发 Java 项目的优雅姿势"
 date: 2025-12-01T10:00:00+08:00
 draft: false
-tags: ["Git", "Git Worktree", "Vibe Code", "IntelliJ IDEA", "Java", "多分支开发"]
+tags: ["Git", "Git Worktree", "Vibe Coding", "IntelliJ IDEA", "Java", "多分支开发"]
 categories: ["开发流程", "工具实践"]
-description: "对比传统单工作区切分支的方式，结合 Git worktree + Vibe Code + IntelliJ IDEA，在同一仓库上为不同分支创建独立工作目录，实现测试环境、预发环境、特性开发分支的并行开发与调试。"
+description: "对比传统单工作区切分支的方式，结合 Git worktree + Vibe Coding + IntelliJ IDEA，在同一仓库上为不同分支创建独立工作目录，实现测试环境、预发环境、特性开发分支的并行开发与调试。"
 ---
 
 
 > 典型场景：一个 Java 单体或多模块项目，需要同时维护 `test`、`pre`、`prod` 多套环境分支，还要临时开很多 feature 分支。  
 > 传统做法要么频繁 `git checkout` 切分支，要么干脆 clone 三四份仓库，既容易误操作，又浪费磁盘。  
-> 本文介绍一种更现代化的组合：**Git worktree + Vibe Code Git 客户端 + IntelliJ IDEA**，在同一个仓库上优雅地做多分支并行开发。
+> 本文介绍一种更现代化的组合：**Git worktree + Vibe Coding Git 客户端 + IntelliJ IDEA**，在同一个仓库上优雅地做多分支并行开发。
 
 ---
 
@@ -84,7 +84,7 @@ git worktree add ../aim_test test
   └── ...
 ```
 
-`aim_test` 目录看起来就像一个普通项目目录，可以单独用 Vibe Code / IDEA 打开。
+`aim_test` 目录看起来就像一个普通项目目录，可以单独用 Vibe Coding / IDEA 打开。
 
 ### 1.2 为 pre 分支再来一个
 
@@ -108,9 +108,9 @@ git worktree add ../aim_pre pre
 
 ---
 
-## 2. 搭配 Vibe Code：直观管理多工作树和分支
+## 2. 搭配 Vibe Coding：直观管理多工作树和分支
 
-Vibe Code 这类 Git 客户端，对多仓库 / 多目录的支持通常都很好。结合 worktree，使用方式大致是：
+Vibe Coding 这类 Git 客户端，对多仓库 / 多目录的支持通常都很好。结合 worktree，使用方式大致是：
 
 * 把 `aim_test` 当成一个独立项目打开；
 * 再把 `aim_pre` 作为另一个项目打开；
@@ -125,13 +125,13 @@ Vibe Code 这类 Git 客户端，对多仓库 / 多目录的支持通常都很�
 2. **Commit / Merge Request 视图更聚焦**
 
     * 每个 worktree 的提交历史就是单一分支的历史；
-    * 在 Vibe Code 中直接从该目录发起 MR，减少误选分支、误选 target 的风险。
+    * 在 Vibe Coding 中直接从该目录发起 MR，减少误选分支、误选 target 的风险。
 3. **结构视图清晰**
 
     * 像 screenshot 中那样，一个项目窗格只对应一个目标分支；
     * 多模块 Java 项目也能用树状结构快速定位模块。
 
-换句话说，**worktree 把“逻辑分支”的概念，在工具层面具体成了“不同的物理目录”**，而 Vibe Code 则负责给这些目录提供更可视化的 Git 操作入口。
+换句话说，**worktree 把“逻辑分支”的概念，在工具层面具体成了“不同的物理目录”**，而 Vibe Coding 则负责给这些目录提供更可视化的 Git 操作入口。
 
 ---
 
@@ -167,7 +167,7 @@ Vibe Code 这类 Git 客户端，对多仓库 / 多目录的支持通常都很�
 
 * 左边窗口是 `aim_test` 的代码和日志；
 * 右边窗口是 `aim_pre` 的代码和日志；
-* 中间再放一个 Vibe Code 窗口看 MR 状态。
+* 中间再放一个 Vibe Coding 窗口看 MR 状态。
 
 这比单目录反复切分支、重新导入项目不知道高到哪里去了。
 
@@ -238,12 +238,12 @@ git worktree list
 
 ## 6. 小结
 
-使用 **Git worktree + Vibe Code + IntelliJ IDEA** 做多分支并行开发，大致可以归纳为几个关键优势：
+使用 **Git worktree + Vibe Coding + IntelliJ IDEA** 做多分支并行开发，大致可以归纳为几个关键优势：
 
 1. **目录级别区分环境**：test / pre / feature 分支各有独立工作目录，误操作概率极低。
 2. **磁盘与网络友好**：只保留一份 `.git`，fetch 一次，全局生效。
 3. **IDE 体验更好**：每个分支一个 IDEA Project；多环境可同时起服务、分别调试。
-4. **Git 可视化管理自然贴合**：Vibe Code 中，一个窗口对应一个 worktree，commit / MR 视图清爽明了。
+4. **Git 可视化管理自然贴合**：Vibe Coding 中，一个窗口对应一个 worktree，commit / MR 视图清爽明了。
 5. **扩展性强**：随时为某个紧急 hotfix 或 feature 新增一个临时工作树，用完即删。
 
 如果你现在还习惯在一个目录里疯狂 `git checkout` 切分支，或者 clone 了三四份同一个仓库，不妨尝试一下这种组合。
