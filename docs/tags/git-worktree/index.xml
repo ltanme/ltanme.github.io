@@ -8,7 +8,7 @@
     <language>en</language>
     <lastBuildDate>Mon, 01 Dec 2025 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/git-worktree/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>现代化 Vibe Code &#43; Git Worktree：多分支并行开发 Java 项目的优雅姿势</title>
+      <title>现代化 Vibe Coding &#43; Git Worktree：多分支并行开发 Java 项目的优雅姿势</title>
       <link>https://ltan.me/post/2025/12/git-worktree-parallel-dev-with-idea/</link>
       <pubDate>Mon, 01 Dec 2025 10:00:00 +0800</pubDate>
       
@@ -16,7 +16,7 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt;典型场景：一个 Java 单体或多模块项目，需要同时维护 &lt;code&gt;test&lt;/code&gt;、&lt;code&gt;pre&lt;/code&gt;、&lt;code&gt;prod&lt;/code&gt; 多套环境分支，还要临时开很多 feature 分支。&lt;br&gt;
 传统做法要么频繁 &lt;code&gt;git checkout&lt;/code&gt; 切分支，要么干脆 clone 三四份仓库，既容易误操作，又浪费磁盘。&lt;br&gt;
-本文介绍一种更现代化的组合：&lt;strong&gt;Git worktree + Vibe Code Git 客户端 + IntelliJ IDEA&lt;/strong&gt;，在同一个仓库上优雅地做多分支并行开发。&lt;/p&gt;&lt;/blockquote&gt;
+本文介绍一种更现代化的组合：&lt;strong&gt;Git worktree + Vibe Coding Git 客户端 + IntelliJ IDEA&lt;/strong&gt;，在同一个仓库上优雅地做多分支并行开发。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;0-传统单工作区的痛点&#34;&gt;0. 传统单工作区的痛点&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/12/git-worktree-parallel-dev-with-idea/show.jpg&#34; alt=&#34;show.jpg&#34;&gt;
@@ -24,7 +24,7 @@
       <content>&lt;blockquote&gt;
 &lt;p&gt;典型场景：一个 Java 单体或多模块项目，需要同时维护 &lt;code&gt;test&lt;/code&gt;、&lt;code&gt;pre&lt;/code&gt;、&lt;code&gt;prod&lt;/code&gt; 多套环境分支，还要临时开很多 feature 分支。&lt;br&gt;
 传统做法要么频繁 &lt;code&gt;git checkout&lt;/code&gt; 切分支，要么干脆 clone 三四份仓库，既容易误操作，又浪费磁盘。&lt;br&gt;
-本文介绍一种更现代化的组合：&lt;strong&gt;Git worktree + Vibe Code Git 客户端 + IntelliJ IDEA&lt;/strong&gt;，在同一个仓库上优雅地做多分支并行开发。&lt;/p&gt;&lt;/blockquote&gt;
+本文介绍一种更现代化的组合：&lt;strong&gt;Git worktree + Vibe Coding Git 客户端 + IntelliJ IDEA&lt;/strong&gt;，在同一个仓库上优雅地做多分支并行开发。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;0-传统单工作区的痛点&#34;&gt;0. 传统单工作区的痛点&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/12/git-worktree-parallel-dev-with-idea/show.jpg&#34; alt=&#34;show.jpg&#34;&gt;
@@ -90,7 +90,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ├── aim_main   # 主仓库，默认分支比如 develop
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ├── aim_test   # worktree，绑定 test 分支
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  └── ...
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;aim_test&lt;/code&gt; 目录看起来就像一个普通项目目录，可以单独用 Vibe Code / IDEA 打开。&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;aim_test&lt;/code&gt; 目录看起来就像一个普通项目目录，可以单独用 Vibe Coding / IDEA 打开。&lt;/p&gt;
 &lt;h3 id=&#34;12-为-pre-分支再来一个&#34;&gt;1.2 为 pre 分支再来一个&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd ~/Project/aim_main
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
@@ -103,8 +103,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  └── aim_pre    # pre
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;每个目录的代码互不影响，你可以在 &lt;code&gt;aim_test&lt;/code&gt; 里放心改动、提交、跑测试，同时 &lt;code&gt;aim_pre&lt;/code&gt; 也可以挂着一个不同版本在跑。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;2-搭配-vibe-code直观管理多工作树和分支&#34;&gt;2. 搭配 Vibe Code：直观管理多工作树和分支&lt;/h2&gt;
-&lt;p&gt;Vibe Code 这类 Git 客户端，对多仓库 / 多目录的支持通常都很好。结合 worktree，使用方式大致是：&lt;/p&gt;
+&lt;h2 id=&#34;2-搭配-vibe-coding直观管理多工作树和分支&#34;&gt;2. 搭配 Vibe Coding：直观管理多工作树和分支&lt;/h2&gt;
+&lt;p&gt;Vibe Coding 这类 Git 客户端，对多仓库 / 多目录的支持通常都很好。结合 worktree，使用方式大致是：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;把 &lt;code&gt;aim_test&lt;/code&gt; 当成一个独立项目打开；&lt;/li&gt;
 &lt;li&gt;再把 &lt;code&gt;aim_pre&lt;/code&gt; 作为另一个项目打开；&lt;/li&gt;
@@ -123,7 +123,7 @@
 &lt;p&gt;&lt;strong&gt;Commit / Merge Request 视图更聚焦&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;每个 worktree 的提交历史就是单一分支的历史；&lt;/li&gt;
-&lt;li&gt;在 Vibe Code 中直接从该目录发起 MR，减少误选分支、误选 target 的风险。&lt;/li&gt;
+&lt;li&gt;在 Vibe Coding 中直接从该目录发起 MR，减少误选分支、误选 target 的风险。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -134,7 +134,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;换句话说，&lt;strong&gt;worktree 把“逻辑分支”的概念，在工具层面具体成了“不同的物理目录”&lt;/strong&gt;，而 Vibe Code 则负责给这些目录提供更可视化的 Git 操作入口。&lt;/p&gt;
+&lt;p&gt;换句话说，&lt;strong&gt;worktree 把“逻辑分支”的概念，在工具层面具体成了“不同的物理目录”&lt;/strong&gt;，而 Vibe Coding 则负责给这些目录提供更可视化的 Git 操作入口。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;3-搭配-intellij-ideajava-项目多环境并行调试&#34;&gt;3. 搭配 IntelliJ IDEA：Java 项目多环境并行调试&lt;/h2&gt;
 &lt;p&gt;对 Java 项目来说，IDEA 是生产力核心。把 worktree + IDEA 结合起来，有几个非常现实的优势。&lt;/p&gt;
@@ -171,7 +171,7 @@
 &lt;ul&gt;
 &lt;li&gt;左边窗口是 &lt;code&gt;aim_test&lt;/code&gt; 的代码和日志；&lt;/li&gt;
 &lt;li&gt;右边窗口是 &lt;code&gt;aim_pre&lt;/code&gt; 的代码和日志；&lt;/li&gt;
-&lt;li&gt;中间再放一个 Vibe Code 窗口看 MR 状态。&lt;/li&gt;
+&lt;li&gt;中间再放一个 Vibe Coding 窗口看 MR 状态。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;这比单目录反复切分支、重新导入项目不知道高到哪里去了。&lt;/p&gt;
 &lt;hr&gt;
@@ -240,12 +240,12 @@
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;6-小结&#34;&gt;6. 小结&lt;/h2&gt;
-&lt;p&gt;使用 &lt;strong&gt;Git worktree + Vibe Code + IntelliJ IDEA&lt;/strong&gt; 做多分支并行开发，大致可以归纳为几个关键优势：&lt;/p&gt;
+&lt;p&gt;使用 &lt;strong&gt;Git worktree + Vibe Coding + IntelliJ IDEA&lt;/strong&gt; 做多分支并行开发，大致可以归纳为几个关键优势：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;目录级别区分环境&lt;/strong&gt;：test / pre / feature 分支各有独立工作目录，误操作概率极低。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;磁盘与网络友好&lt;/strong&gt;：只保留一份 &lt;code&gt;.git&lt;/code&gt;，fetch 一次，全局生效。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;IDE 体验更好&lt;/strong&gt;：每个分支一个 IDEA Project；多环境可同时起服务、分别调试。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Git 可视化管理自然贴合&lt;/strong&gt;：Vibe Code 中，一个窗口对应一个 worktree，commit / MR 视图清爽明了。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Git 可视化管理自然贴合&lt;/strong&gt;：Vibe Coding 中，一个窗口对应一个 worktree，commit / MR 视图清爽明了。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;扩展性强&lt;/strong&gt;：随时为某个紧急 hotfix 或 feature 新增一个临时工作树，用完即删。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;如果你现在还习惯在一个目录里疯狂 &lt;code&gt;git checkout&lt;/code&gt; 切分支，或者 clone 了三四份同一个仓库，不妨尝试一下这种组合。

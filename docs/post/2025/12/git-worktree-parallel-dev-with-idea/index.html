@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   
-    <title>现代化 Vibe Code &#43; Git Worktree：多分支并行开发 Java 项目的优雅姿势 :: LTAN.ME</title>
+    <title>现代化 Vibe Coding &#43; Git Worktree：多分支并行开发 Java 项目的优雅姿势 :: LTAN.ME</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="对比传统单工作区切分支的方式，结合 Git worktree &#43; Vibe Code &#43; IntelliJ IDEA，在同一仓库上为不同分支创建独立工作目录，实现测试环境、预发环境、特性开发分支的并行开发与调试。" />
+<meta name="description" content="对比传统单工作区切分支的方式，结合 Git worktree &#43; Vibe Coding &#43; IntelliJ IDEA，在同一仓库上为不同分支创建独立工作目录，实现测试环境、预发环境、特性开发分支的并行开发与调试。" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://ltan.me/post/2025/12/git-worktree-parallel-dev-with-idea/" />
@@ -38,8 +38,8 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="现代化 Vibe Code &#43; Git Worktree：多分支并行开发 Java 项目的优雅姿势">
-<meta property="og:description" content="对比传统单工作区切分支的方式，结合 Git worktree &#43; Vibe Code &#43; IntelliJ IDEA，在同一仓库上为不同分支创建独立工作目录，实现测试环境、预发环境、特性开发分支的并行开发与调试。" />
+<meta property="og:title" content="现代化 Vibe Coding &#43; Git Worktree：多分支并行开发 Java 项目的优雅姿势">
+<meta property="og:description" content="对比传统单工作区切分支的方式，结合 Git worktree &#43; Vibe Coding &#43; IntelliJ IDEA，在同一仓库上为不同分支创建独立工作目录，实现测试环境、预发环境、特性开发分支的并行开发与调试。" />
 <meta property="og:url" content="https://ltan.me/post/2025/12/git-worktree-parallel-dev-with-idea/" />
 <meta property="og:site_name" content="LTAN.ME" />
 
@@ -145,7 +145,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="https://ltan.me/post/2025/12/git-worktree-parallel-dev-with-idea/">现代化 Vibe Code + Git Worktree：多分支并行开发 Java 项目的优雅姿势</a></h1>
+    <a href="https://ltan.me/post/2025/12/git-worktree-parallel-dev-with-idea/">现代化 Vibe Coding + Git Worktree：多分支并行开发 Java 项目的优雅姿势</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
@@ -162,7 +162,7 @@
     
     #<a href="https://ltan.me/tags/git-worktree/">Git Worktree</a>&nbsp;
     
-    #<a href="https://ltan.me/tags/vibe-code/">Vibe Code</a>&nbsp;
+    #<a href="https://ltan.me/tags/vibe-coding/">Vibe Coding</a>&nbsp;
     
     #<a href="https://ltan.me/tags/intellij-idea/">IntelliJ IDEA</a>&nbsp;
     
@@ -181,7 +181,7 @@
         <blockquote>
 <p>典型场景：一个 Java 单体或多模块项目，需要同时维护 <code>test</code>、<code>pre</code>、<code>prod</code> 多套环境分支，还要临时开很多 feature 分支。<br>
 传统做法要么频繁 <code>git checkout</code> 切分支，要么干脆 clone 三四份仓库，既容易误操作，又浪费磁盘。<br>
-本文介绍一种更现代化的组合：<strong>Git worktree + Vibe Code Git 客户端 + IntelliJ IDEA</strong>，在同一个仓库上优雅地做多分支并行开发。</p></blockquote>
+本文介绍一种更现代化的组合：<strong>Git worktree + Vibe Coding Git 客户端 + IntelliJ IDEA</strong>，在同一个仓库上优雅地做多分支并行开发。</p></blockquote>
 <hr>
 <h2 id="0-传统单工作区的痛点">0. 传统单工作区的痛点<a href="#0-传统单工作区的痛点" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p><img src="/post/2025/12/git-worktree-parallel-dev-with-idea/show.jpg" alt="show.jpg">
@@ -247,7 +247,7 @@
 </span></span><span style="display:flex;"><span>  ├── aim_main   # 主仓库，默认分支比如 develop
 </span></span><span style="display:flex;"><span>  ├── aim_test   # worktree，绑定 test 分支
 </span></span><span style="display:flex;"><span>  └── ...
-</span></span></code></pre></div><p><code>aim_test</code> 目录看起来就像一个普通项目目录，可以单独用 Vibe Code / IDEA 打开。</p>
+</span></span></code></pre></div><p><code>aim_test</code> 目录看起来就像一个普通项目目录，可以单独用 Vibe Coding / IDEA 打开。</p>
 <h3 id="12-为-pre-分支再来一个">1.2 为 pre 分支再来一个<a href="#12-为-pre-分支再来一个" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/Project/aim_main
 </span></span><span style="display:flex;"><span>
@@ -260,8 +260,8 @@
 </span></span><span style="display:flex;"><span>  └── aim_pre    # pre
 </span></span></code></pre></div><p>每个目录的代码互不影响，你可以在 <code>aim_test</code> 里放心改动、提交、跑测试，同时 <code>aim_pre</code> 也可以挂着一个不同版本在跑。</p>
 <hr>
-<h2 id="2-搭配-vibe-code直观管理多工作树和分支">2. 搭配 Vibe Code：直观管理多工作树和分支<a href="#2-搭配-vibe-code直观管理多工作树和分支" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>Vibe Code 这类 Git 客户端，对多仓库 / 多目录的支持通常都很好。结合 worktree，使用方式大致是：</p>
+<h2 id="2-搭配-vibe-coding直观管理多工作树和分支">2. 搭配 Vibe Coding：直观管理多工作树和分支<a href="#2-搭配-vibe-coding直观管理多工作树和分支" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Vibe Coding 这类 Git 客户端，对多仓库 / 多目录的支持通常都很好。结合 worktree，使用方式大致是：</p>
 <ul>
 <li>把 <code>aim_test</code> 当成一个独立项目打开；</li>
 <li>再把 <code>aim_pre</code> 作为另一个项目打开；</li>
@@ -280,7 +280,7 @@
 <p><strong>Commit / Merge Request 视图更聚焦</strong></p>
 <ul>
 <li>每个 worktree 的提交历史就是单一分支的历史；</li>
-<li>在 Vibe Code 中直接从该目录发起 MR，减少误选分支、误选 target 的风险。</li>
+<li>在 Vibe Coding 中直接从该目录发起 MR，减少误选分支、误选 target 的风险。</li>
 </ul>
 </li>
 <li>
@@ -291,7 +291,7 @@
 </ul>
 </li>
 </ol>
-<p>换句话说，<strong>worktree 把“逻辑分支”的概念，在工具层面具体成了“不同的物理目录”</strong>，而 Vibe Code 则负责给这些目录提供更可视化的 Git 操作入口。</p>
+<p>换句话说，<strong>worktree 把“逻辑分支”的概念，在工具层面具体成了“不同的物理目录”</strong>，而 Vibe Coding 则负责给这些目录提供更可视化的 Git 操作入口。</p>
 <hr>
 <h2 id="3-搭配-intellij-ideajava-项目多环境并行调试">3. 搭配 IntelliJ IDEA：Java 项目多环境并行调试<a href="#3-搭配-intellij-ideajava-项目多环境并行调试" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>对 Java 项目来说，IDEA 是生产力核心。把 worktree + IDEA 结合起来，有几个非常现实的优势。</p>
@@ -328,7 +328,7 @@
 <ul>
 <li>左边窗口是 <code>aim_test</code> 的代码和日志；</li>
 <li>右边窗口是 <code>aim_pre</code> 的代码和日志；</li>
-<li>中间再放一个 Vibe Code 窗口看 MR 状态。</li>
+<li>中间再放一个 Vibe Coding 窗口看 MR 状态。</li>
 </ul>
 <p>这比单目录反复切分支、重新导入项目不知道高到哪里去了。</p>
 <hr>
@@ -397,12 +397,12 @@
 </ul>
 <hr>
 <h2 id="6-小结">6. 小结<a href="#6-小结" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>使用 <strong>Git worktree + Vibe Code + IntelliJ IDEA</strong> 做多分支并行开发，大致可以归纳为几个关键优势：</p>
+<p>使用 <strong>Git worktree + Vibe Coding + IntelliJ IDEA</strong> 做多分支并行开发，大致可以归纳为几个关键优势：</p>
 <ol>
 <li><strong>目录级别区分环境</strong>：test / pre / feature 分支各有独立工作目录，误操作概率极低。</li>
 <li><strong>磁盘与网络友好</strong>：只保留一份 <code>.git</code>，fetch 一次，全局生效。</li>
 <li><strong>IDE 体验更好</strong>：每个分支一个 IDEA Project；多环境可同时起服务、分别调试。</li>
-<li><strong>Git 可视化管理自然贴合</strong>：Vibe Code 中，一个窗口对应一个 worktree，commit / MR 视图清爽明了。</li>
+<li><strong>Git 可视化管理自然贴合</strong>：Vibe Coding 中，一个窗口对应一个 worktree，commit / MR 视图清爽明了。</li>
 <li><strong>扩展性强</strong>：随时为某个紧急 hotfix 或 feature 新增一个临时工作树，用完即删。</li>
 </ol>
 <p>如果你现在还习惯在一个目录里疯狂 <code>git checkout</code> 切分支，或者 clone 了三四份同一个仓库，不妨尝试一下这种组合。
