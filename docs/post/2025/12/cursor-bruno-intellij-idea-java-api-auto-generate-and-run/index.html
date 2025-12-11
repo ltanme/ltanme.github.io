@@ -178,17 +178,15 @@
   
 
   <div class="post-content"><div>
-        <p>下面给你一篇<strong>口水话风格、轻松好读、实操清晰</strong>的 Blog，主题就是你刚才定的那条：Cursor + Bruno + IntelliJ IDEA 2025.1.2 自动生成接口请求并一键运行。
-你只要把本文贴进 Hugo 的 <code>index.md</code> 就能直接发文。
-废话少说，先上图
+        <hr>
+<h1 id="借助-cursor-与-bruno从-intellij-idea-202512-java-controller-自动生成接口请求并一键运行"><strong>借助 Cursor 与 Bruno：从 IntelliJ IDEA 2025.1.2 Java Controller 自动生成接口请求并一键运行</strong><a href="#借助-cursor-与-bruno从-intellij-idea-202512-java-controller-自动生成接口请求并一键运行" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>最近搞 Java 接口开发的时候，越写越觉得：
+<strong>能不能让我写完接口之后，不用手动去 Postman / Bruno 里一个个敲接口、拼参数、调试半天？</strong></p>
+<p>废话少说，先上图
 <img src="/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/cursor.png" alt="cursor.png"></p>
 <blockquote>
 </blockquote>
 <p><img src="/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/bruno.png" alt="bruno.png"></p>
-<hr>
-<h1 id="借助-cursor-与-bruno从-intellij-idea-202512-java-controller-自动生成接口请求并一键运行"><strong>借助 Cursor 与 Bruno：从 IntelliJ IDEA 2025.1.2 Java Controller 自动生成接口请求并一键运行</strong><a href="#借助-cursor-与-bruno从-intellij-idea-202512-java-controller-自动生成接口请求并一键运行" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
-<p>最近搞 Java 接口开发的时候，越写越觉得：
-<strong>能不能让我写完接口之后，不用手动去 Postman / Bruno 里一个个敲接口、拼参数、调试半天？</strong></p>
 <p>然后我就开始折腾 Cursor，再把 Bruno 拉进来，结果还真把这一套自动化流程搞顺了。
 现在就是：</p>
 <p>✨ <strong>写完 Controller → Cursor 自动读取接口 → 自动生成 .bru 文件 → Bruno 里一键运行</strong></p>

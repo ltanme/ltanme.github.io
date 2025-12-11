@@ -13,28 +13,27 @@
       <pubDate>Wed, 10 Dec 2025 10:00:00 +0800</pubDate>
       
       <guid>https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/</guid>
-      <description>&lt;p&gt;下面给你一篇&lt;strong&gt;口水话风格、轻松好读、实操清晰&lt;/strong&gt;的 Blog，主题就是你刚才定的那条：Cursor + Bruno + IntelliJ IDEA 2025.1.2 自动生成接口请求并一键运行。
-你只要把本文贴进 Hugo 的 &lt;code&gt;index.md&lt;/code&gt; 就能直接发文。
-废话少说，先上图
-&lt;img src=&#34;https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/cursor.png&#34; alt=&#34;cursor.png&#34;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/bruno.png&#34; alt=&#34;bruno.png&#34;&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;借助-cursor-与-bruno从-intellij-idea-202512-java-controller-自动生成接口请求并一键运行&#34;&gt;&lt;strong&gt;借助 Cursor 与 Bruno：从 IntelliJ IDEA 2025.1.2 Java Controller 自动生成接口请求并一键运行&lt;/strong&gt;&lt;/h1&gt;
-&lt;p&gt;最近搞 Java 接口开发的时候，越写越觉得：
-&lt;strong&gt;能不能让我写完接口之后，不用手动去 Postman / Bruno 里一个个敲接口、拼参数、调试半天？&lt;/strong&gt;&lt;/p&gt;</description>
-      <content>&lt;p&gt;下面给你一篇&lt;strong&gt;口水话风格、轻松好读、实操清晰&lt;/strong&gt;的 Blog，主题就是你刚才定的那条：Cursor + Bruno + IntelliJ IDEA 2025.1.2 自动生成接口请求并一键运行。
-你只要把本文贴进 Hugo 的 &lt;code&gt;index.md&lt;/code&gt; 就能直接发文。
-废话少说，先上图
-&lt;img src=&#34;https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/cursor.png&#34; alt=&#34;cursor.png&#34;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/bruno.png&#34; alt=&#34;bruno.png&#34;&gt;&lt;/p&gt;
-&lt;hr&gt;
+      <description>&lt;hr&gt;
 &lt;h1 id=&#34;借助-cursor-与-bruno从-intellij-idea-202512-java-controller-自动生成接口请求并一键运行&#34;&gt;&lt;strong&gt;借助 Cursor 与 Bruno：从 IntelliJ IDEA 2025.1.2 Java Controller 自动生成接口请求并一键运行&lt;/strong&gt;&lt;/h1&gt;
 &lt;p&gt;最近搞 Java 接口开发的时候，越写越觉得：
 &lt;strong&gt;能不能让我写完接口之后，不用手动去 Postman / Bruno 里一个个敲接口、拼参数、调试半天？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;废话少说，先上图
+&lt;img src=&#34;https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/cursor.png&#34; alt=&#34;cursor.png&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/bruno.png&#34; alt=&#34;bruno.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;然后我就开始折腾 Cursor，再把 Bruno 拉进来，结果还真把这一套自动化流程搞顺了。
+现在就是：&lt;/p&gt;
+&lt;p&gt;✨ &lt;strong&gt;写完 Controller → Cursor 自动读取接口 → 自动生成 .bru 文件 → Bruno 里一键运行&lt;/strong&gt;&lt;/p&gt;</description>
+      <content>&lt;hr&gt;
+&lt;h1 id=&#34;借助-cursor-与-bruno从-intellij-idea-202512-java-controller-自动生成接口请求并一键运行&#34;&gt;&lt;strong&gt;借助 Cursor 与 Bruno：从 IntelliJ IDEA 2025.1.2 Java Controller 自动生成接口请求并一键运行&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;最近搞 Java 接口开发的时候，越写越觉得：
+&lt;strong&gt;能不能让我写完接口之后，不用手动去 Postman / Bruno 里一个个敲接口、拼参数、调试半天？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;废话少说，先上图
+&lt;img src=&#34;https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/cursor.png&#34; alt=&#34;cursor.png&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/bruno.png&#34; alt=&#34;bruno.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;然后我就开始折腾 Cursor，再把 Bruno 拉进来，结果还真把这一套自动化流程搞顺了。
 现在就是：&lt;/p&gt;
 &lt;p&gt;✨ &lt;strong&gt;写完 Controller → Cursor 自动读取接口 → 自动生成 .bru 文件 → Bruno 里一键运行&lt;/strong&gt;&lt;/p&gt;

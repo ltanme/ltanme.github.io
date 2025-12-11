@@ -9,19 +9,18 @@ description: "把 Cursor 拉来帮 IntelliJ 读 Controller，再让 Bruno 自动
 ---
 
 
-下面给你一篇**口水话风格、轻松好读、实操清晰**的 Blog，主题就是你刚才定的那条：Cursor + Bruno + IntelliJ IDEA 2025.1.2 自动生成接口请求并一键运行。
-你只要把本文贴进 Hugo 的 `index.md` 就能直接发文。
-废话少说，先上图
-![cursor.png](cursor.png)
->
-![bruno.png](bruno.png)
-
 ---
 
 # **借助 Cursor 与 Bruno：从 IntelliJ IDEA 2025.1.2 Java Controller 自动生成接口请求并一键运行**
 
 最近搞 Java 接口开发的时候，越写越觉得：
 **能不能让我写完接口之后，不用手动去 Postman / Bruno 里一个个敲接口、拼参数、调试半天？**
+
+废话少说，先上图
+![cursor.png](cursor.png)
+>
+![bruno.png](bruno.png)
+
 
 然后我就开始折腾 Cursor，再把 Bruno 拉进来，结果还真把这一套自动化流程搞顺了。
 现在就是：
