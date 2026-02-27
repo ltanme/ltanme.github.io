@@ -16,6 +16,8 @@
 
 <link rel="stylesheet" href="https://ltan.me/assets/style.css">
 
+  <link rel="stylesheet" href="https://ltan.me/assets/blue.css">
+
 
 
 
@@ -23,7 +25,7 @@
 
 <link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
 
-  <link rel="shortcut icon" href="https://ltan.me/img/favicon/orange.png">
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/blue.png">
 
 
 
@@ -44,7 +46,7 @@
 <meta property="og:site_name" content="LTAN.ME" />
 
   
-    <meta property="og:image" content="https://ltan.me/img/favicon/orange.png">
+    <meta property="og:image" content="https://ltan.me/img/favicon/blue.png">
   
 
 <meta property="og:image:width" content="2048">
@@ -67,7 +69,7 @@
 
 
 </head>
-<body class="orange">
+<body class="blue">
 
 
 <div class="container center headings--one-size">
@@ -146,57 +148,6 @@
     
       <div class="post on-list">
         <h1 class="post-title">
-          <a href="https://ltan.me/post/2022/02/mybatis-failed-to-save-data/">Mybatis Failed to Save Data</a>
-        </h1>
-        <div class="post-meta">
-          <span class="post-date">
-            2022-02-11
-          </span>
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="https://ltan.me/tags/java/">java</a>&nbsp;
-            
-            #<a href="https://ltan.me/tags/mysql/">mysql</a>&nbsp;
-            
-            #<a href="https://ltan.me/tags/mybatis/">mybatis</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-        <div class="post-content">
-          
-          
-          <h1 id="记一次遇到mybaits写入数据不成功问题">记一次遇到mybaits写入数据不成功问题</h1>
-<blockquote>
-<p>工作中在作日志采集接口时，遇到写入mysql数据不成功时，当时sql是正常的，采用sp6y sql显示粘贴复制到
-mysql client 执行sql执行并没有问题，但是调用接口时，写入mysql不成功，也不报错，遇到这种问题特别
-困惑，特记录一下，</p></blockquote>
-<blockquote>
-<p>找了一下午才发现问题，最怕就是程序不报错，语句执行成功，但数据库没有数据这样的问题呢
-主要问题是接口请求实体类有几个版本字段是用的Long 类型的，而mysql表对应的字段是int类型的
-在用mybatis-generate 插件生成表的 mapper.xml、dao、model时，mysql字段为int类型的生成对应的integer类型
-但是代码定义的dto 接口请求实体类，字段是long类型，入库时，存在long 转 integer 的行为，行为非法，但执行时sql不报错
-由于时间关系没有进一步查为什么不报错提示，xml生成的字段类型都是 java.lang.Integer</p>
-          
-          
-        </div>
-
-        
-        <div>
-          <a class="read-more button"
-            href="/post/2022/02/mybatis-failed-to-save-data/">Read more →</a>
-        </div>
-        
-      </div>
-    
-      <div class="post on-list">
-        <h1 class="post-title">
           <a href="https://ltan.me/post/2021/12/springboot-mysql-client_plugin_auth-is-required/">How to solve SpringBoot Mysql CLIENT_PLUGIN_AUTH Is Required error</a>
         </h1>
         <div class="post-meta">
@@ -253,7 +204,7 @@ mysql client 执行sql执行并没有问题，但是调用接口时，写入mysq
   <div class="footer__inner">
     
       <div class="copyright">
-        <span>© 2025 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>© 2026 Powered by <a href="http://gohugo.io">Hugo</a></span>
     
         <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
       </div>
