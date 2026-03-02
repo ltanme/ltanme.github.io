@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>我的第一个 OpenClaw Skill：给电视调试做个 tv-adb :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="记录我第一次给 OpenClaw 做自定义 skill 的过程：把 Android TV 常用 adb 命令整理成 tv-adb，踩过的坑包括镜像缺 adb、技能目录放置、旧会话技能快照不刷新等。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2026/03/openclaw-first-skill-tv-adb/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/blue.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="我的第一个 OpenClaw Skill：给电视调试做个 tv-adb">
+<meta property="og:description" content="记录我第一次给 OpenClaw 做自定义 skill 的过程：把 Android TV 常用 adb 命令整理成 tv-adb，踩过的坑包括镜像缺 adb、技能目录放置、旧会话技能快照不刷新等。" />
+<meta property="og:url" content="https://ltan.me/post/2026/03/openclaw-first-skill-tv-adb/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/blue.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+  <meta property="article:section" content="AI 工具" />
+
+  <meta property="article:section" content="折腾记录" />
+
+
+  <meta property="article:published_time" content="2026-03-02 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9298421042303631"
+     crossorigin="anonymous"></script>
+
+
+</head>
+<body class="blue">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2026/03/openclaw-first-skill-tv-adb/">我的第一个 OpenClaw Skill：给电视调试做个 tv-adb</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2026-03-02 [Mod: 2026-03-02]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/openclaw/">OpenClaw</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/skill/">Skill</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/adb/">ADB</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/android-tv/">Android TV</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/docker/">Docker</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>最近把 OpenClaw 跑顺之后，手就开始痒了。光让它聊天没什么意思，真正有用的是把自己天天会敲的命令收进去，变成一套能复用的技能。</p>
+<p>我第一个下手的对象，就是电视调试。</p>
+<p>平时这类 Android TV 设备，最常用的操作其实都差不多：<code>adb connect</code>、切测试环境、装 APK、看 <code>logcat</code>、查包版本、强杀进程。命令不复杂，但特别碎，久了就会散在聊天记录、备忘录、终端历史里。每次要用的时候，还得重新翻。</p>
+<p>所以这次我给 OpenClaw 做了一个自己的 skill，名字就叫 <code>tv-adb</code>。</p>
+<h2 id="为什么要单独做一个-skill">为什么要单独做一个 skill<a href="#为什么要单独做一个-skill" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>一开始我也想过，直接把这些命令塞进 prompt 里是不是就够了。</p>
+<p>后来发现不行。</p>
+<p>原因很简单：</p>
+<ul>
+<li>命令太碎，临时贴进去不方便维护</li>
+<li>有些操作是有副作用的，比如 <code>pm clear</code>、<code>pm uninstall</code>、<code>setprop</code></li>
+<li>有些流程是重复动作，适合写成脚本，不适合每次现场拼</li>
+<li>以后不只是我要用，OpenClaw 自己也应该知道“遇到电视调试任务时该先做什么，再做什么”</li>
+</ul>
+<p>按 OpenClaw 现在的机制，最稳的做法还是做成一个正式 skill。</p>
+<h2 id="最开始的判断不要装在运行中的容器里">最开始的判断：不要装在运行中的容器里<a href="#最开始的判断不要装在运行中的容器里" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>这一步其实挺关键。</p>
+<p>我原本是想直接进 sandbox 容器里装 <code>adb</code>，后来翻了 OpenClaw 的代码和文档，结论很明确：这种装法没意义。</p>
+<p>运行中装进去的东西，容器一重建就没了。</p>
+<p>所以正确路线只有一条：</p>
+<ol>
+<li><code>adb</code> 装进 sandbox 镜像</li>
+<li>skill 放进 OpenClaw 的 skill 目录</li>
+<li>重建容器</li>
+<li>再让 OpenClaw 去使用</li>
+</ol>
+<p>也就是说，二进制和 skill 是两回事：</p>
+<ul>
+<li><code>adb</code> 是运行依赖，应该进镜像</li>
+<li><code>tv-adb</code> 是使用说明和操作流程，应该进 skill</li>
+</ul>
+<h2 id="镜像该改哪一层">镜像该改哪一层<a href="#镜像该改哪一层" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>我现在用的是自己定制过的 sandbox 镜像，不是官方默认那套。</p>
+<p>运行中的容器是这两个：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker ps
+</span></span></code></pre></div><p>里面能看到：</p>
+<ul>
+<li><code>openclaw-sandbox-custom:bookworm-slim</code></li>
+<li><code>openclaw-sandbox-browser-custom:bookworm-slim</code></li>
+</ul>
+<p>这两个名字一看就知道，浏览器容器是基于我自己的基础镜像继续做的。所以 <code>adb</code> 最适合加在基础镜像里，也就是：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span>Dockerfile.sandbox-custom<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>我最后就是在这个 Dockerfile 的 apt 包列表里加了：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span>adb<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>然后重建两张镜像，再把当前的 sandbox 容器 recreate 一次。</p>
+<p>验证结果没问题：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>adb version
+</span></span></code></pre></div><p>容器里已经能直接跑：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Android Debug Bridge version 1.0.41
+</span></span><span style="display:flex;"><span>Version 29.0.6-debian
+</span></span></code></pre></div><p>这一步做完，后面 skill 才有意义。否则 skill 写得再漂亮，底层没 <code>adb</code> 也只是纸上谈兵。</p>
+<h2 id="skill-放哪比较对">skill 放哪比较对<a href="#skill-放哪比较对" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>这也是这次踩到的一个点。</p>
+<p>OpenClaw 的 skill 不是随便丢个 Markdown 文件就行，它有自己的发现机制。按现在这套结构，最适合我的不是放到某个单独项目里，而是放到共享 skill 目录：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~/.openclaw/skills/tv-adb/
+</span></span></code></pre></div><p>因为电视调试不是某个 repo 私有能力，而是我长期都要用的通用能力。放共享目录，以后不管在哪个 workspace 里，都能调出来。</p>
+<p>最后我把它拆成了这个结构：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>tv-adb/
+</span></span><span style="display:flex;"><span>├── SKILL.md
+</span></span><span style="display:flex;"><span>├── references/
+</span></span><span style="display:flex;"><span>│   ├── commands.md
+</span></span><span style="display:flex;"><span>│   ├── environments.md
+</span></span><span style="display:flex;"><span>│   ├── packages.md
+</span></span><span style="display:flex;"><span>│   └── troubleshooting.md
+</span></span><span style="display:flex;"><span>├── scripts/
+</span></span><span style="display:flex;"><span>│   ├── adb-connect.sh
+</span></span><span style="display:flex;"><span>│   ├── tv-env.sh
+</span></span><span style="display:flex;"><span>│   ├── tv-install.sh
+</span></span><span style="display:flex;"><span>│   └── tv-logcat.sh
+</span></span><span style="display:flex;"><span>└── agents/
+</span></span><span style="display:flex;"><span>    └── openai.yaml
+</span></span></code></pre></div><p>这样拆有个好处：主 skill 文件不用写得太肿。</p>
+<p><code>SKILL.md</code> 里只放规则和流程，比如：</p>
+<ul>
+<li>先 <code>adb devices</code></li>
+<li>多设备必须指定 <code>-s</code></li>
+<li>有副作用的命令先提示风险</li>
+<li>装包前先看当前版本</li>
+</ul>
+<p>具体命令表放到 <code>references/</code>，高频操作则直接固化进 <code>scripts/</code>。</p>
+<h2 id="真正开始写的时候碰到的第一个坑是-frontmatter">真正开始写的时候，碰到的第一个坑是 frontmatter<a href="#真正开始写的时候碰到的第一个坑是-frontmatter" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>我第一次把 <code>SKILL.md</code> 写完后，OpenClaw 没认出来。</p>
+<p>原因不是目录不对，也不是文件名不对，而是 frontmatter 写得太随意了。</p>
+<p>我在 <code>description</code> 里用了带冒号的长句，YAML 直接炸了，生成 <code>openai.yaml</code> 时就报 frontmatter 解析错误。</p>
+<p>最后还是老老实实把 description 用引号包起来，才正常。</p>
+<p>这种问题不大，但特别耽误时间，因为表面上看像是“skill 没生效”，实际上只是元数据没过解析。</p>
+<h2 id="第二个坑skill-明明装好了telegram-里却说没有">第二个坑：skill 明明装好了，Telegram 里却说没有<a href="#第二个坑skill-明明装好了telegram-里却说没有" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>这个坑最迷惑。</p>
+<p>我把 <code>tv-adb</code> 建好以后，本地命令行已经能看到它了：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>node openclaw.mjs skills check
+</span></span><span style="display:flex;"><span>node openclaw.mjs skills info tv-adb
+</span></span></code></pre></div><p>输出里都能确认它是 <code>Ready</code>。</p>
+<p>结果我转头去 Telegram 问 OpenClaw：“你现在有哪些 skill？”</p>
+<p>它回答我只有 6 个可用技能，里面没有 <code>tv-adb</code>。</p>
+<p>第一反应当然是怀疑模型犯傻。</p>
+<p>后来去翻会话文件和 OpenClaw 的代码，才发现锅不在模型本身，而在会话快照。</p>
+<p>OpenClaw 不会每一轮都重新全量扫描 skill。它会把当前会话可用的 skill 列表做成一个 <code>skillsSnapshot</code>，后续优先复用这个快照。</p>
+<p>问题就出在这里：</p>
+<ul>
+<li><code>tv-adb</code> 是我后加进去的</li>
+<li>Telegram 那条会话已经存在了</li>
+<li>这条旧会话里缓存的 skill 快照还是旧的</li>
+</ul>
+<p>所以模型看到的，真的是旧列表，不是它瞎编。</p>
+<p>最后最简单的处理办法反而很土：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>/new
+</span></span></code></pre></div><p>新开一个会话之后，再问 skill 列表，<code>tv-adb</code> 就出来了。</p>
+<p>这类问题以后我估计还会碰到。表面上像是“模型没学会”，实际往往是上下文没刷新。</p>
+<h2 id="脚本化之后顺手多了">脚本化之后，顺手多了<a href="#脚本化之后顺手多了" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>这次我没有只做文档，也顺手把几个最常用的动作做成了脚本：</p>
+<ul>
+<li><code>adb-connect.sh</code></li>
+<li><code>tv-env.sh</code></li>
+<li><code>tv-install.sh</code></li>
+<li><code>tv-logcat.sh</code></li>
+</ul>
+<p>这样以后就不用每次临时拼命令了。</p>
+<p>比如连电视：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~/.openclaw/skills/tv-adb/scripts/adb-connect.sh 172.20.130.245:5555
+</span></span></code></pre></div><p>切预发布环境：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~/.openclaw/skills/tv-adb/scripts/tv-env.sh --serial 172.20.130.245:5555 --profile pre-release
+</span></span></code></pre></div><p>装 APK：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~/.openclaw/skills/tv-adb/scripts/tv-install.sh <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --serial 172.20.130.245:5555 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --apk sample-tv-app-release.apk <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --package com.vendor.tv.launcher
+</span></span></code></pre></div><p>看日志：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~/.openclaw/skills/tv-adb/scripts/tv-logcat.sh <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --serial 172.20.130.245:5555 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --preset image-definition
+</span></span></code></pre></div><p>真正开始用起来后，感觉这才像一个“能干活的 skill”，而不是一个大号备忘录。</p>
+<h2 id="这次做完之后我对-openclaw-的感觉也变了">这次做完之后，我对 OpenClaw 的感觉也变了<a href="#这次做完之后我对-openclaw-的感觉也变了" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>之前我把 OpenClaw 当成一个能聊天、能跑命令的 agent。</p>
+<p>这次自己做完第一个 skill，感觉它更像一个能不断长工具的壳。</p>
+<p>你把常用命令、规矩、脚本、依赖都塞进去之后，它就不只是“会调用模型”，而是真的开始长出自己的工作习惯。</p>
+<p><code>tv-adb</code> 只是第一步，后面我大概率还会继续往里塞别的东西，比如设备别名、批量信息采集、电视环境一键切换之类的。</p>
+<p>至少现在，Android TV 这套常用操作终于不用再到处翻聊天记录了。</p>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h"></span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://ltan.me/post/2026/03/openclaw-setup-experience/">
+                <span class="button__text">OpenClaw 部署踩坑记录：从装起来到跑通</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2026 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4472456938595283"
+     crossorigin="anonymous"></script>
+
+
+  
+</div>
+
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>OpenClaw 部署踩坑记录：从装起来到跑通 :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="记录 OpenClaw 部署和使用过程中的实际问题：依赖安装、配置文件、代理连接、端口冲突和模型配置不一致，并附可直接复用的解决命令。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ltan.me/post/2026/03/openclaw-setup-experience/" />
+
+
+
+
+<link rel="stylesheet" href="https://ltan.me/assets/style.css">
+
+  <link rel="stylesheet" href="https://ltan.me/assets/blue.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://ltan.me/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://ltan.me/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="OpenClaw 部署踩坑记录：从装起来到跑通">
+<meta property="og:description" content="记录 OpenClaw 部署和使用过程中的实际问题：依赖安装、配置文件、代理连接、端口冲突和模型配置不一致，并附可直接复用的解决命令。" />
+<meta property="og:url" content="https://ltan.me/post/2026/03/openclaw-setup-experience/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="https://ltan.me/img/favicon/blue.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+  <meta property="article:section" content="AI 工具" />
+
+  <meta property="article:section" content="部署记录" />
+
+
+  <meta property="article:published_time" content="2026-03-01 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9298421042303631"
+     crossorigin="anonymous"></script>
+
+
+</head>
+<body class="blue">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://ltan.me/post/2026/03/openclaw-setup-experience/">OpenClaw 部署踩坑记录：从装起来到跑通</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2026-03-01 [Mod: 2026-03-01]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://ltan.me/tags/openclaw/">OpenClaw</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/docker/">Docker</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/ollama/">Ollama</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/%E4%BB%A3%E7%90%86/">代理</a>&nbsp;
+    
+    #<a href="https://ltan.me/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/">故障排查</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>这篇是纯排错笔记，按我实际踩坑顺序记，省得下次重装再走一遍。</p>
+<h2 id="环境">环境<a href="#环境" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>Ubuntu 22.04</li>
+<li>Docker 26.x + Docker Compose v2</li>
+<li>Python 3.11</li>
+<li>Ollama 0.6.x</li>
+</ul>
+<h2 id="依赖安装直接炸了tokenizers-编译失败">依赖安装直接炸了：<code>tokenizers</code> 编译失败<a href="#依赖安装直接炸了tokenizers-编译失败" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>第一次装依赖就报错：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>error: subprocess-exited-with-error
+</span></span><span style="display:flex;"><span>× Building wheel for tokenizers (pyproject.toml) did not run successfully.
+</span></span><span style="display:flex;"><span>error: can&#39;t find Rust compiler
+</span></span></code></pre></div><p>问题很直接，机器里没 Rust 工具链，<code>tokenizers</code> 需要编译。</p>
+<p>解决：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get update
+</span></span><span style="display:flex;"><span>sudo apt-get install -y build-essential python3-dev rustc cargo
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>python3 -m venv .venv
+</span></span><span style="display:flex;"><span>source .venv/bin/activate
+</span></span><span style="display:flex;"><span>pip install -U pip setuptools wheel
+</span></span><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span></code></pre></div><p><img src="dependency-error.png" alt="依赖安装报错截图"></p>
+<h2 id="配置文件路径不对启动就-filenotfounderror">配置文件路径不对：启动就 <code>FileNotFoundError</code><a href="#配置文件路径不对启动就-filenotfounderror" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>服务启动后马上退出：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>FileNotFoundError: [Errno 2] No such file or directory: &#39;./config/config.yaml&#39;
+</span></span></code></pre></div><p>我最开始是从项目根目录外面调用启动脚本，导致相对路径全错。</p>
+<p>处理方式：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp config/config.example.yaml config/config.yaml
+</span></span><span style="display:flex;"><span>export OPENCLAW_CONFIG<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>/config/config.yaml
+</span></span><span style="display:flex;"><span>python app.py
+</span></span></code></pre></div><p>如果是 systemd 跑，建议写死环境变量，别吃当前目录：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#a6e22e">Environment</span><span style="color:#f92672">=</span><span style="color:#e6db74">OPENCLAW_CONFIG=/opt/openclaw/config/config.yaml</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">WorkingDirectory</span><span style="color:#f92672">=</span><span style="color:#e6db74">/opt/openclaw</span>
+</span></span></code></pre></div><h2 id="网络代理没配干净模型下载一直超时">网络代理没配干净：模型下载一直超时<a href="#网络代理没配干净模型下载一直超时" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>报错长这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>requests.exceptions.ConnectTimeout:
+</span></span><span style="display:flex;"><span>HTTPSConnectionPool(host=&#39;huggingface.co&#39;, port=443): Max retries exceeded
+</span></span></code></pre></div><p>只配了 <code>HTTP_PROXY</code> 不够，<code>HTTPS_PROXY</code> 和 <code>NO_PROXY</code> 也要一起配，不然内网地址也会被代理走，接口偶发超时。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export HTTP_PROXY<span style="color:#f92672">=</span>http://127.0.0.1:7890
+</span></span><span style="display:flex;"><span>export HTTPS_PROXY<span style="color:#f92672">=</span>http://127.0.0.1:7890
+</span></span><span style="display:flex;"><span>export NO_PROXY<span style="color:#f92672">=</span>localhost,127.0.0.1,::1,ollama,redis,postgres
+</span></span></code></pre></div><p>另外国内网络下我加了 HF 镜像，不然拉模型很慢：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export HF_ENDPOINT<span style="color:#f92672">=</span>https://hf-mirror.com
+</span></span></code></pre></div><p><img src="network-timeout.png" alt="网络超时截图"></p>
+<h2 id="docker-端口冲突port-is-already-allocated">Docker 端口冲突：<code>port is already allocated</code><a href="#docker-端口冲突port-is-already-allocated" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><code>docker compose up -d</code> 直接失败：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Error response from daemon:
+</span></span><span style="display:flex;"><span>driver failed programming external connectivity on endpoint openclaw-web
+</span></span><span style="display:flex;"><span>Bind for 0.0.0.0:3000 failed: port is already allocated
+</span></span></code></pre></div><p>查了一下是本机另一个前端服务占了 <code>3000</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo lsof -i :3000
+</span></span></code></pre></div><p>我这里直接改 compose 映射，避免互相抢端口：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">web</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;3300:3000&#34;</span>
+</span></span></code></pre></div><p>改完重建：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker compose down
+</span></span><span style="display:flex;"><span>docker compose up -d --build
+</span></span></code></pre></div><h2 id="模型配置写错openclaw-调不到-ollama-模型">模型配置写错：OpenClaw 调不到 Ollama 模型<a href="#模型配置写错openclaw-调不到-ollama-模型" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>调用时报错：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>404 model &#34;qwen2.5:14b-instruct&#34; not found, try pulling it first
+</span></span></code></pre></div><p>原因是 <code>config.yaml</code> 里写的模型名和 <code>ollama list</code> 里的实际 tag 不一致。</p>
+<p>先看本地模型：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ollama list
+</span></span></code></pre></div><p>没有就拉：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ollama pull qwen2.5:14b
+</span></span></code></pre></div><p>然后把 OpenClaw 配置改成一致的名字：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">llm</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">provider</span>: <span style="color:#ae81ff">ollama</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">base_url</span>: <span style="color:#ae81ff">http://ollama:11434</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">model</span>: <span style="color:#ae81ff">qwen2.5:14b</span>
+</span></span></code></pre></div><p>这一步改完，接口就能正常返回了。</p>
+<p><img src="model-config.png" alt="模型配置截图"></p>
+<h2 id="一个省事的自检清单">一个省事的自检清单<a href="#一个省事的自检清单" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>每次部署前我现在都跑下面这几条，能省很多时间：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python -V
+</span></span><span style="display:flex;"><span>docker compose ps
+</span></span><span style="display:flex;"><span>ollama list
+</span></span><span style="display:flex;"><span>curl -s http://127.0.0.1:11434/api/tags | jq <span style="color:#e6db74">&#39;.models[].name&#39;</span>
+</span></span><span style="display:flex;"><span>env | grep -Ei <span style="color:#e6db74">&#39;proxy|hf_endpoint|openclaw_config&#39;</span>
+</span></span></code></pre></div><p>如果你也在折腾 OpenClaw，优先检查三件事：配置路径、代理变量、模型名。十次里有八次是这三个地方出问题。</p>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h"></span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="https://ltan.me/post/2026/03/openclaw-first-skill-tv-adb/">
+                <span class="button__icon">←</span>
+                <span class="button__text">我的第一个 OpenClaw Skill：给电视调试做个 tv-adb</span>
+            </a>
+        </span>
+        
+        
+        <span class="button next">
+            <a href="https://ltan.me/post/2025/12/cursor-bruno-intellij-idea-java-api-auto-generate-and-run/">
+                <span class="button__text">Cursor &#43; Bruno &#43; IntelliJ IDEA 2025：自动扫 Controller、生成接口请求、一键运行的爽感工作流</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2026 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://ltan.me/assets/main.js"></script>
+<script src="https://ltan.me/assets/prism.js"></script>
+
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4472456938595283"
+     crossorigin="anonymous"></script>
+
+
+  
+</div>
+
+</body>
+</html>
