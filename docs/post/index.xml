@@ -146,7 +146,8 @@
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;~/.openclaw/skills/tv-adb/scripts/tv-logcat.sh &lt;span style=&#34;color:#ae81ff&#34;&gt;\
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  --serial 172.20.130.245:5555 &lt;span style=&#34;color:#ae81ff&#34;&gt;\
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  --preset image-definition
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;真正开始用起来后，感觉这才像一个“能干活的 skill”，而不是一个大号备忘录。&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;真正开始用起来后，感觉这才像一个“能干活的 skill”，而不是一个大号备忘录。
+&lt;img src=&#34;https://ltan.me/post/2026/03/openclaw-first-skill-tv-adb/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;这次做完之后我对-openclaw-的感觉也变了&#34;&gt;这次做完之后，我对 OpenClaw 的感觉也变了&lt;/h2&gt;
 &lt;p&gt;之前我把 OpenClaw 当成一个能聊天、能跑命令的 agent。&lt;/p&gt;
 &lt;p&gt;这次自己做完第一个 skill，感觉它更像一个能不断长工具的壳。&lt;/p&gt;
