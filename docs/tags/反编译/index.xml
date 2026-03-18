@@ -65,6 +65,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;所以模拟器里的代理要这么设：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;adb -s emulator-5554 shell settings put global http_proxy 10.0.2.2:9090
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;adb -s emulator-5554 shell settings get global http_proxy
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 取消代理&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;adb -s 172.20.130.185:5555 shell settings put global http_proxy :0
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我当时专门验证了三件事：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;模拟器能 &lt;code&gt;ping 10.0.2.2&lt;/code&gt;&lt;/li&gt;
@@ -157,7 +159,10 @@
 &lt;li&gt;&lt;code&gt;logcat&lt;/code&gt; 用来判断代理阶段卡在哪&lt;/li&gt;
 &lt;li&gt;清数据用来保证时序可信&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;把这些顺序理顺之后，登录链路其实没有想象中那么玄学。难的不是工具本身，而是别在错误的样本上做判断。&lt;/p&gt;
+&lt;p&gt;把这些顺序理顺之后，登录链路其实没有想象中那么玄学。难的不是工具本身，而是别在错误的样本上做判断。
+&lt;img src=&#34;http://localhost:1313/post/2026/03/anonymized-app-login-trace/proxyman.png&#34; alt=&#34;proxyman.png&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ps: 对于https 需要安装proxyman证书才能解密（如果是抓包设备应该把proxy证书安装在设备上），对于http明文可以看到&lt;/p&gt;&lt;/blockquote&gt;
 </content>
     </item>
     

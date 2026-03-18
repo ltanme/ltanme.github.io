@@ -222,6 +222,8 @@
 </span></span></code></pre></div><p>所以模拟器里的代理要这么设：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>adb -s emulator-5554 shell settings put global http_proxy 10.0.2.2:9090
 </span></span><span style="display:flex;"><span>adb -s emulator-5554 shell settings get global http_proxy
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 取消代理</span>
+</span></span><span style="display:flex;"><span>adb -s 172.20.130.185:5555 shell settings put global http_proxy :0
 </span></span></code></pre></div><p>我当时专门验证了三件事：</p>
 <ul>
 <li>模拟器能 <code>ping 10.0.2.2</code></li>
@@ -314,7 +316,10 @@
 <li><code>logcat</code> 用来判断代理阶段卡在哪</li>
 <li>清数据用来保证时序可信</li>
 </ul>
-<p>把这些顺序理顺之后，登录链路其实没有想象中那么玄学。难的不是工具本身，而是别在错误的样本上做判断。</p>
+<p>把这些顺序理顺之后，登录链路其实没有想象中那么玄学。难的不是工具本身，而是别在错误的样本上做判断。
+<img src="/post/2026/03/anonymized-app-login-trace/proxyman.png" alt="proxyman.png"></p>
+<blockquote>
+<p>ps: 对于https 需要安装proxyman证书才能解密（如果是抓包设备应该把proxy证书安装在设备上），对于http明文可以看到</p></blockquote>
 
       </div></div>
 

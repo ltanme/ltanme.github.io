@@ -71,6 +71,8 @@ Android 模拟器访问宿主机，不该填 `127.0.0.1`，而是：
 ```bash
 adb -s emulator-5554 shell settings put global http_proxy 10.0.2.2:9090
 adb -s emulator-5554 shell settings get global http_proxy
+# 取消代理
+adb -s 172.20.130.185:5555 shell settings put global http_proxy :0
 ```
 
 我当时专门验证了三件事：
@@ -203,3 +205,5 @@ adb -s emulator-5554 shell monkey -p 某.app.package -c android.intent.category.
 - 清数据用来保证时序可信
 
 把这些顺序理顺之后，登录链路其实没有想象中那么玄学。难的不是工具本身，而是别在错误的样本上做判断。
+![proxyman.png](proxyman.png)
+> ps: 对于https 需要安装proxyman证书才能解密（如果是抓包设备应该把proxy证书安装在设备上），对于http明文可以看到
