@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Android TV on LTAN.ME</title>
-    <link>https://ltan.me/tags/android-tv/</link>
+    <link>http://localhost:1313/tags/android-tv/</link>
     <description>Recent content in Android TV on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 02 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://ltan.me/tags/android-tv/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/android-tv/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>我的第一个 OpenClaw Skill：给电视调试做个 tv-adb</title>
-      <link>https://ltan.me/post/2026/03/openclaw-first-skill-tv-adb/</link>
+      <link>http://localhost:1313/post/2026/03/openclaw-first-skill-tv-adb/</link>
       <pubDate>Mon, 02 Mar 2026 00:00:00 +0000</pubDate>
       
-      <guid>https://ltan.me/post/2026/03/openclaw-first-skill-tv-adb/</guid>
+      <guid>http://localhost:1313/post/2026/03/openclaw-first-skill-tv-adb/</guid>
       <description>&lt;p&gt;最近把 OpenClaw 跑顺之后，手就开始痒了。光让它聊天没什么意思，真正有用的是把自己天天会敲的命令收进去，变成一套能复用的技能。&lt;/p&gt;
 &lt;p&gt;我第一个下手的对象，就是电视调试。&lt;/p&gt;
 &lt;p&gt;平时这类 Android TV 设备，最常用的操作其实都差不多：&lt;code&gt;adb connect&lt;/code&gt;、切测试环境、装 APK、看 &lt;code&gt;logcat&lt;/code&gt;、查包版本、强杀进程。命令不复杂，但特别碎，久了就会散在聊天记录、备忘录、终端历史里。每次要用的时候，还得重新翻。&lt;/p&gt;</description>
@@ -147,7 +147,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  --serial 172.20.130.245:5555 &lt;span style=&#34;color:#ae81ff&#34;&gt;\
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  --preset image-definition
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;真正开始用起来后，感觉这才像一个“能干活的 skill”，而不是一个大号备忘录。
-&lt;img src=&#34;https://ltan.me/post/2026/03/openclaw-first-skill-tv-adb/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/post/2026/03/openclaw-first-skill-tv-adb/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;这次做完之后我对-openclaw-的感觉也变了&#34;&gt;这次做完之后，我对 OpenClaw 的感觉也变了&lt;/h2&gt;
 &lt;p&gt;之前我把 OpenClaw 当成一个能聊天、能跑命令的 agent。&lt;/p&gt;
 &lt;p&gt;这次自己做完第一个 skill，感觉它更像一个能不断长工具的壳。&lt;/p&gt;

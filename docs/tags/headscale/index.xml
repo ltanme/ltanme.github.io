@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Headscale on LTAN.ME</title>
-    <link>https://ltan.me/tags/headscale/</link>
+    <link>http://localhost:1313/tags/headscale/</link>
     <description>Recent content in Headscale on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Nov 2024 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/headscale/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Nov 2024 10:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/headscale/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Headscale Migration from CentOS 7 to Ubuntu 24</title>
-      <link>https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/</link>
+      <link>http://localhost:1313/post/2024/11/headscalemigrationfromcentos7toubuntu24/</link>
       <pubDate>Mon, 04 Nov 2024 10:00:00 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/</guid>
+      <guid>http://localhost:1313/post/2024/11/headscalemigrationfromcentos7toubuntu24/</guid>
       <description>&lt;p&gt;This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.&lt;/p&gt;
 &lt;h3 id=&#34;1-export-data-and-image-on-centos-7&#34;&gt;1. Export Data and Image on CentOS 7&lt;/h3&gt;
 &lt;h4 id=&#34;export-configuration-and-database&#34;&gt;Export Configuration and Database&lt;/h4&gt;
@@ -70,10 +70,10 @@
     
     <item>
       <title>Server setup process using Headscale with Docker.</title>
-      <link>https://ltan.me/post/2024/04/headscale-server-setup-process/</link>
+      <link>http://localhost:1313/post/2024/04/headscale-server-setup-process/</link>
       <pubDate>Mon, 15 Apr 2024 21:21:29 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2024/04/headscale-server-setup-process/</guid>
+      <guid>http://localhost:1313/post/2024/04/headscale-server-setup-process/</guid>
       <description>&lt;h1 id=&#34;server-setup-process-using-headscale-with-docker&#34;&gt;Server setup process using Headscale with Docker.&lt;/h1&gt;
 &lt;h2 id=&#34;记录采用headscale--docker-异地组网过程&#34;&gt;记录采用headscale &amp;amp; docker 异地组网过程&lt;/h2&gt;
 &lt;h2 id=&#34;需求背景&#34;&gt;需求背景&lt;/h2&gt;
@@ -101,7 +101,7 @@
 3,申请好域名,准备&lt;code&gt;https&lt;/code&gt;证书 推荐&lt;code&gt;cf&lt;/code&gt;,并解析到自己的服务器&lt;br&gt;
 &lt;code&gt;ssl_certificate&lt;/code&gt; 和 &lt;code&gt;ssl_certificate_key&lt;/code&gt; 为自己申请的域名证书从cf导出来的文件&lt;br&gt;
 4,安装好&lt;code&gt;nginx&lt;/code&gt;,&lt;code&gt;nginx&lt;/code&gt;配置如下,打码地方为自己的域名，箭头处需要开启&lt;code&gt;websocket&lt;/code&gt;&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;准备headscale-配置文件&#34;&gt;准备&lt;code&gt;headscale&lt;/code&gt; 配置文件&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;创建目录&lt;/p&gt;&lt;/blockquote&gt;
@@ -128,7 +128,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;在windows或客户端安装tailscale官网下载并安装好&#34;&gt;在windows或客户端安装tailscale(官网下载并安装好)&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;以win10 为例 直接采用命令行登录&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;br&gt;
 会得到以下地址:&lt;br&gt;
 https://你的域名:443/register/mkey:23234kflasdjf&amp;hellip;..
 mkey 后面请复制一下
@@ -149,16 +149,16 @@ mywin10 就表示对应需要组网的机器&lt;/p&gt;&lt;/blockquote&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Node desktop-mms156b registered
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;接下来就看到以下成功信息&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img_1.png&#34; alt=&#34;img_1.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;tailscale 客户端自动显示当前状态&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img_3.png&#34; alt=&#34;img_3.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;接下来就可以远程登录我的win10了，我要从100.64.0.2 的机器远程登录100.64.0.7的机器  &lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img_4.png&#34; alt=&#34;img_4.png&#34;&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;远程登录win10 速度很赞，几乎和本地一样操作流畅，而且无需科学&lt;br&gt;
-&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img_5.png&#34; alt=&#34;img_5.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;解决以上需要在每一台电脑上都要安装tailscale 客户端的问题
 利用群晖做数据转发，只需要在群晖上安装tailscale客户端即可&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;群晖子网路由subnet-router设置&#34;&gt;群晖子网路由（Subnet Router）设置&lt;/h2&gt;
@@ -228,7 +228,7 @@ mywin10 就表示对应需要组网的机器&lt;/p&gt;&lt;/blockquote&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 在群晖上检查Tailscale状态&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tailscale status
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2024/04/headscale-server-setup-process/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2024/04/headscale-server-setup-process/img_6.png&#34; alt=&#34;img_6.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;成功配置后，任何连接到你的Tailscale网络的设备都可以直接访问家庭内网的所有设备，而无需在每台设备上安装Tailscale客户端。
 这大大简化了网络管理，并允许访问那些无法安装Tailscale的设备（如智能家居设备、打印机等）。&lt;/p&gt;&lt;/blockquote&gt;

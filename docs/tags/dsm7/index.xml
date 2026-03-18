@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>DSM7 on LTAN.ME</title>
-    <link>https://ltan.me/tags/dsm7/</link>
+    <link>http://localhost:1313/tags/dsm7/</link>
     <description>Recent content in DSM7 on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 31 Aug 2025 17:30:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/dsm7/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Aug 2025 17:30:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/dsm7/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>整理群晖照片（第一步）：从源目录安全索引与分类到新目录</title>
-      <link>https://ltan.me/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/</link>
+      <link>http://localhost:1313/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/</link>
       <pubDate>Sun, 31 Aug 2025 17:30:00 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/</guid>
+      <guid>http://localhost:1313/post/2025/08/organize-synology-photos-step-one-safe-indexing-and-categorizing-into-new-directory/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;本文面向 &lt;strong&gt;DSM 7.0&lt;/strong&gt; 环境，系统自带 &lt;strong&gt;Python 3.8.8&lt;/strong&gt;。我们将在 &lt;strong&gt;不改动源目录&lt;/strong&gt; 的前提下，扫描 &lt;code&gt;/volume2/photo/&lt;/code&gt; 的所有子目录，把图片/视频的元数据写入 SQLite，并按“照片 / 视频 / 截图”分别复制到 &lt;code&gt;/volume2/newPhoto/&lt;/code&gt; 下的三个子目录，且&lt;strong&gt;同名不覆盖&lt;/strong&gt;、&lt;strong&gt;可重复执行&lt;/strong&gt;。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;

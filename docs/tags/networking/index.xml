@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Networking on LTAN.ME</title>
-    <link>https://ltan.me/tags/networking/</link>
+    <link>http://localhost:1313/tags/networking/</link>
     <description>Recent content in Networking on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 28 Feb 2025 17:03:23 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/networking/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Feb 2025 17:03:23 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/networking/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Controlling Internet Access with OpenWRT Firewall: Blocking Websites and Disabling Internet</title>
-      <link>https://ltan.me/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/</link>
+      <link>http://localhost:1313/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/</link>
       <pubDate>Fri, 28 Feb 2025 17:03:23 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/</guid>
+      <guid>http://localhost:1313/post/2025/02/controlling_internet_access_with_openwrt_firewall_blocking_websites_and_disabling_internet/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;In today&amp;rsquo;s connected world, managing internet access within a home or small office network has become increasingly important. Whether you&amp;rsquo;re implementing parental controls, limiting non-productive internet usage during specific hours, or securing access to network resources, OpenWRT provides powerful tools to accomplish these tasks.&lt;/p&gt;
 &lt;p&gt;This article demonstrates several practical scripts for controlling internet access using an OpenWRT router. We&amp;rsquo;ll cover:&lt;/p&gt;

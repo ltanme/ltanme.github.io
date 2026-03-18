@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+    <title>一次某 App 登录链路排查记录：反编译 &#43; Proxyman &#43; Android 模拟器 :: LTAN.ME</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="记录一次某 App 登录链路排查过程：先做静态分析，再在 macOS 上用 Android 模拟器和 Proxyman 抓运行时流量，最后拿到真实请求参数。文中已对包名、域名、接口和业务背景做脱敏。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/post/2026/03/anonymized-app-login-trace/" />
+
+
+
+
+<link rel="stylesheet" href="http://localhost:1313/assets/style.css">
+
+  <link rel="stylesheet" href="http://localhost:1313/assets/blue.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="一次某 App 登录链路排查记录：反编译 &#43; Proxyman &#43; Android 模拟器">
+<meta property="og:description" content="记录一次某 App 登录链路排查过程：先做静态分析，再在 macOS 上用 Android 模拟器和 Proxyman 抓运行时流量，最后拿到真实请求参数。文中已对包名、域名、接口和业务背景做脱敏。" />
+<meta property="og:url" content="http://localhost:1313/post/2026/03/anonymized-app-login-trace/" />
+<meta property="og:site_name" content="LTAN.ME" />
+
+  
+    <meta property="og:image" content="http://localhost:1313/img/favicon/blue.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+  <meta property="article:section" content="Android 调试" />
+
+  <meta property="article:section" content="排查记录" />
+
+
+  <meta property="article:published_time" content="2026-03-18 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9298421042303631"
+     crossorigin="anonymous"></script>
+
+
+</head>
+<body class="blue">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    LTAN.ME
+  </div>
+</a>
+
+    </div>
+    
+    <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+  <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/">Home</a></li>
+        
+      
+        
+          <li><a href="/post/">Archives</a></li>
+        
+      
+        
+          <li><a href="/tags/">Tags</a></li>
+        
+      
+        
+          <li><a href="/about/">About</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/">Home</a></li>
+      
+    
+      
+        <li><a href="/post/">Archives</a></li>
+      
+    
+      
+        <li><a href="/tags/">Tags</a></li>
+      
+    
+      
+        <li><a href="/about/">About</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="http://localhost:1313/post/2026/03/anonymized-app-login-trace/">一次某 App 登录链路排查记录：反编译 + Proxyman + Android 模拟器</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2026-03-18 [Mod: 2026-03-18]
+      </span>
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="http://localhost:1313/tags/android/">Android</a>&nbsp;
+    
+    #<a href="http://localhost:1313/tags/%E5%8F%8D%E7%BC%96%E8%AF%91/">反编译</a>&nbsp;
+    
+    #<a href="http://localhost:1313/tags/proxyman/">Proxyman</a>&nbsp;
+    
+    #<a href="http://localhost:1313/tags/adb/">ADB</a>&nbsp;
+    
+    #<a href="http://localhost:1313/tags/%E6%8A%93%E5%8C%85/">抓包</a>&nbsp;
+    
+    #<a href="http://localhost:1313/tags/macos/">macOS</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>这篇是一次匿名化的排查记录，只保留方法和判断过程。真实包名、域名、接口路径和业务背景都做了脱敏，统一记成某 App、某网关、登录接口。</p>
+<p>我这次的目标很简单：不是研究整个 APK，而是把某 App 的手机号登录链路摸清楚，最后拿到真实请求参数，方便和后台联调。</p>
+<h2 id="环境先定死不然后面会一直怀疑链路">环境先定死，不然后面会一直怀疑链路<a href="#环境先定死不然后面会一直怀疑链路" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>我这次用的是：</p>
+<ul>
+<li>macOS</li>
+<li>Android Studio 自带模拟器，机型是 Pixel 8a</li>
+<li><code>adb</code></li>
+<li>Proxyman</li>
+<li>一份 APK 安装包</li>
+</ul>
+<p>先把 APK 装进模拟器，确认 App 至少能正常拉起：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>adb -s emulator-5554 install -r base.apk
+</span></span><span style="display:flex;"><span>adb -s emulator-5554 shell monkey -p 某.app.package -c android.intent.category.LAUNCHER <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>这一步看着没技术含量，但很关键。后面如果抓不到流量，得先排除是不是 APK 根本没跑起来，或者其实还停留在 splash / 隐私页 / 历史登录态。</p>
+<h2 id="第一轮先做静态分析但不要太相信静态结果">第一轮先做静态分析，但不要太相信静态结果<a href="#第一轮先做静态分析但不要太相信静态结果" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>我一开始先把 APK 反编译了一遍，主要看三类东西：</p>
+<ul>
+<li>包名、版本号、启动页</li>
+<li>Retrofit / OkHttp 这类网络定义</li>
+<li>dex 里的接口路径和动作名字符串</li>
+</ul>
+<p>静态分析的价值主要有两个：</p>
+<ol>
+<li>先知道它大概打向哪些后端</li>
+<li>先知道它是 REST 风格，还是网关风格</li>
+</ol>
+<p>我这次遇到的就是典型网关风格。URL 本身信息很少，真正的业务动作不在路径里，而是在请求体里的两个字段里：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>A=业务动作
+</span></span><span style="display:flex;"><span>P=业务参数
+</span></span></code></pre></div><p>也就是说，哪怕你在抓包工具里看到几十条长得一模一样的 <code>POST</code>，它们也可能分别对应“发验证码”“登录”“拉用户信息”“拉首页数据”。</p>
+<p>静态分析里我还看到过一套看起来像旧登录服务的定义，一开始差点以为那就是登录入口。后来事实证明，这种判断很容易错。包里存在，不等于现在运行真的走它。</p>
+<h2 id="第二轮开始抓运行时流量先踩的坑不是证书是代理根本没进">第二轮开始抓运行时流量，先踩的坑不是证书，是代理根本没进<a href="#第二轮开始抓运行时流量先踩的坑不是证书是代理根本没进" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>我本机最开始开的是别的代理工具，模拟器里也把全局代理指过去了，但流量面板完全没有记录。</p>
+<p>后来换成 Proxyman，问题开始清楚了。</p>
+<p>Android 模拟器访问宿主机，不该填 <code>127.0.0.1</code>，而是：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>10.0.2.2
+</span></span></code></pre></div><p>所以模拟器里的代理要这么设：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>adb -s emulator-5554 shell settings put global http_proxy 10.0.2.2:9090
+</span></span><span style="display:flex;"><span>adb -s emulator-5554 shell settings get global http_proxy
+</span></span></code></pre></div><p>我当时专门验证了三件事：</p>
+<ul>
+<li>模拟器能 <code>ping 10.0.2.2</code></li>
+<li>宿主机上的 Proxyman 确实监听了 <code>9090</code></li>
+<li>模拟器能直接和 <code>10.0.2.2:9090</code> 建立 TCP 连接</li>
+</ul>
+<p>这一步非常重要。很多时候你以为是 App 绕过了代理，结果实际上是模拟器根本没打到宿主机代理端口。</p>
+<h2 id="浏览器能走代理只说明链路通不代表-app-一定会老实走">浏览器能走代理，只说明链路通，不代表 App 一定会老实走<a href="#浏览器能走代理只说明链路通不代表-app-一定会老实走" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>我排查代理是否生效时，用了一个很土但很有效的方法：先不碰 App，直接让模拟器浏览器访问一个纯 HTTP 页面。</p>
+<p>如果浏览器请求能在 Proxyman 里看到，说明至少这条链路是通的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>模拟器 -&gt; 10.0.2.2:代理端口 -&gt; Proxyman
+</span></span></code></pre></div><p>这一步只解决了“代理通不通”，没有解决“某 App 会不会按系统代理走”的问题。</p>
+<p>两者不是一回事。</p>
+<p>有些 App 会老老实实走系统代理，有些不会。有些即使走了代理，到了 HTTPS 阶段还会因为证书校验、TLS 握手或更严格的校验策略直接失败。</p>
+<h2 id="日志里出现握手失败不等于前面的判断全白做了">日志里出现握手失败，不等于前面的判断全白做了<a href="#日志里出现握手失败不等于前面的判断全白做了" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>我当时在 <code>logcat</code> 里能看到明显的 TLS 相关调用栈，比如：</p>
+<ul>
+<li><code>startHandshake</code></li>
+<li><code>connectTls</code></li>
+<li><code>getOutputStream</code></li>
+</ul>
+<p>这说明有部分网络请求确实已经走到了 HTTPS 连接阶段，只是后面没有顺利完成。</p>
+<p>这类现象很容易把人带偏，误以为“代理完全没生效”。其实不一定。</p>
+<p>更准确的理解应该是：</p>
+<ul>
+<li>代理链路可能是通的</li>
+<li>请求也可能已经发起了</li>
+<li>但某些 HTTPS 流量在客户端校验阶段被拦下来了</li>
+</ul>
+<p>所以这一步我没有再继续怀疑代理端口，而是转头去看另一件更关键的事：这次抓到的流量，到底是不是登录时刻的流量。</p>
+<h2 id="第一次导出的-csv-看着很多其实没法直接定位登录请求">第一次导出的 CSV 看着很多，其实没法直接定位登录请求<a href="#第一次导出的-csv-看着很多其实没法直接定位登录请求" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>我后面导出过一份 CSV，请求数量并不少，但问题也很明显：</p>
+<ul>
+<li>能看到某统计域名</li>
+<li>能看到某网关入口被多次调用</li>
+<li>能看到若干初始化接口</li>
+<li>但看不到 <code>POST body</code></li>
+</ul>
+<p>这就导致一个典型误判：表面上像“没抓到登录接口”，其实更可能只是导出格式不对。</p>
+<p>因为这个 App 的关键数据根本不在 URL 上，而是在 body 里。例如同样是某个统一网关入口：</p>
+<ul>
+<li>一条可能是发验证码</li>
+<li>一条可能是提交手机号和密码</li>
+<li>一条可能是登录成功后拉用户信息</li>
+</ul>
+<p>只看 CSV 里的路径和状态码，根本分不出来。</p>
+<p>后来我回头看那份导出，还能发现一个反证：请求里已经带上了登录后才常见的一些上下文字段。这说明那次抓到的不是“第一次登录动作”，而是已经进首页之后的初始化流量。</p>
+<h2 id="清数据重新进一次才有资格谈登录链路">清数据重新进一次，才有资格谈登录链路<a href="#清数据重新进一次才有资格谈登录链路" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>这次排查里最容易被忽略的一步，就是清空 App 数据。</p>
+<p>如果模拟器里残留了历史状态，App 很可能：</p>
+<ul>
+<li>直接跳过登录页</li>
+<li>先落到主页</li>
+<li>再补发一堆首页初始化请求</li>
+</ul>
+<p>这样抓出来的数据再多，也不是你要的那条登录链路。</p>
+<p>所以我后面每次重新验证前，都会先做：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>adb -s emulator-5554 shell pm clear 某.app.package
+</span></span><span style="display:flex;"><span>adb -s emulator-5554 shell monkey -p 某.app.package -c android.intent.category.LAUNCHER <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>只有保证自己从冷启动、未登录状态进 App，后面看到的验证码请求、登录请求、登录后请求，时间顺序才可信。</p>
+<h2 id="真正有用的结论不是抓到了一个-url而是确认了它的调用模型">真正有用的结论，不是“抓到了一个 URL”，而是确认了它的调用模型<a href="#真正有用的结论不是抓到了一个-url而是确认了它的调用模型" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>最后把静态分析和运行时抓包对起来，最有价值的不是某一条具体路径，而是下面这几个判断被坐实了：</p>
+<ol>
+<li>这个 App 的主业务请求走统一网关，不是每个功能一个独立 URL。</li>
+<li>真实业务动作藏在 body 里的 <code>A</code> 和 <code>P</code>，不是藏在 path 里。</li>
+<li>静态分析里看到的某些旧接口定义，和当前实际登录链路不是一回事。</li>
+<li>只导出 CSV 摘要不够，必须能看到 request body，才能判断哪一条是登录。</li>
+<li>如果不先清数据，抓到的大概率是首页初始化流量，不是登录流量。</li>
+</ol>
+<p>也正是因为这几个判断明确了，后面我才能在代理工具里缩小范围，最终拿到真实的登录请求参数。</p>
+<h2 id="这次排查里最值钱的其实是三个经验">这次排查里最值钱的其实是三个经验<a href="#这次排查里最值钱的其实是三个经验" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="1-静态分析负责缩小范围动态抓包负责确认事实">1. 静态分析负责缩小范围，动态抓包负责确认事实<a href="#1-静态分析负责缩小范围动态抓包负责确认事实" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>只看静态分析，很容易被包里的历史代码误导。只看动态抓包，如果没有上下文，又容易把网关型请求看成一堆无意义的重复调用。</p>
+<p>两者一定要结合着看。</p>
+<h3 id="2-模拟器代理最容易错在宿主机地址">2. 模拟器代理最容易错在宿主机地址<a href="#2-模拟器代理最容易错在宿主机地址" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>只要是 Android Emulator，访问宿主机代理，先想 <code>10.0.2.2</code>，别先想 <code>127.0.0.1</code>。</p>
+<h3 id="3-导出格式决定你能不能定位登录动作">3. 导出格式决定你能不能定位登录动作<a href="#3-导出格式决定你能不能定位登录动作" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>如果导出的只是 URL、状态码、请求体大小，那基本只能做流量概览。真正要定位登录，至少要能看到：</p>
+<ul>
+<li>请求时间顺序</li>
+<li>Request Body</li>
+<li>Response Body</li>
+</ul>
+<p>否则你只能看到“网关被调用了”，看不到“登录到底怎么调的”。</p>
+<h2 id="收尾">收尾<a href="#收尾" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>这次过程看起来像是在折腾反编译、代理、模拟器和日志，其实最后真正解决问题的，是把每一层的职责分清楚：</p>
+<ul>
+<li>反编译用来判断请求模型</li>
+<li>代理用来拿运行时真实参数</li>
+<li><code>logcat</code> 用来判断代理阶段卡在哪</li>
+<li>清数据用来保证时序可信</li>
+</ul>
+<p>把这些顺序理顺之后，登录链路其实没有想象中那么玄学。难的不是工具本身，而是别在错误的样本上做判断。</p>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h"></span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="http://localhost:1313/post/2026/03/openclaw-first-skill-tv-adb/">
+                <span class="button__text">我的第一个 OpenClaw Skill：给电视调试做个 tv-adb</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+
+<script src="https://utteranc.es/client.js"
+        repo="ltanme/ltanme.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2026 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="http://localhost:1313/assets/main.js"></script>
+<script src="http://localhost:1313/assets/prism.js"></script>
+
+
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M6YN54PT6M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M6YN54PT6M');
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4472456938595283"
+     crossorigin="anonymous"></script>
+
+
+  
+</div>
+
+</body>
+</html>

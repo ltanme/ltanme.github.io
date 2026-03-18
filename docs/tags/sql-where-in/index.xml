@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sql Where In on LTAN.ME</title>
-    <link>https://ltan.me/tags/sql-where-in/</link>
+    <link>http://localhost:1313/tags/sql-where-in/</link>
     <description>Recent content in Sql Where In on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 21 Jul 2021 20:43:52 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/sql-where-in/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Jul 2021 20:43:52 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/sql-where-in/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My Python2.7 Notes</title>
-      <link>https://ltan.me/post/2021/07/my-python2.7-notes/</link>
+      <link>http://localhost:1313/post/2021/07/my-python2.7-notes/</link>
       <pubDate>Wed, 21 Jul 2021 20:43:52 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2021/07/my-python2.7-notes/</guid>
+      <guid>http://localhost:1313/post/2021/07/my-python2.7-notes/</guid>
       <description>&lt;h1 id=&#34;python-日常笔记&#34;&gt;python 日常笔记&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;记录工作要用的python 使用工具，或者常用的代码片段。 Python 是一种解释型语言： 这意味着开发过程中没有了编译这个环节。类似于PHP和Perl语言。Python 是交互式语言： 这意味着，您可以在一个 Python 提示符 &amp;raquo;&amp;gt; 后直接执行代码。Python 是面向对象语言: 这意味着Python支持面向对象的风格或代码封装在对象的编程技术。Python 是初学者的语言：Python 对初级程序员而言，是一种伟大的语言，它支持广泛的应用程序开发，从简单的文字处理到 WWW 浏览器再到游戏。&lt;/p&gt;</description>

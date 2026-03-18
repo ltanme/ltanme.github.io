@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CentOS on LTAN.ME</title>
-    <link>https://ltan.me/tags/centos/</link>
+    <link>http://localhost:1313/tags/centos/</link>
     <description>Recent content in CentOS on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Nov 2024 10:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/centos/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Nov 2024 10:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/centos/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Headscale Migration from CentOS 7 to Ubuntu 24</title>
-      <link>https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/</link>
+      <link>http://localhost:1313/post/2024/11/headscalemigrationfromcentos7toubuntu24/</link>
       <pubDate>Mon, 04 Nov 2024 10:00:00 +0800</pubDate>
       
-      <guid>https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/</guid>
+      <guid>http://localhost:1313/post/2024/11/headscalemigrationfromcentos7toubuntu24/</guid>
       <description>&lt;p&gt;This guide covers the process of migrating a Headscale setup from a CentOS 7 system to Ubuntu 24, including steps for exporting configurations, database, and Docker images, as well as importing them on the new system.&lt;/p&gt;
 &lt;h3 id=&#34;1-export-data-and-image-on-centos-7&#34;&gt;1. Export Data and Image on CentOS 7&lt;/h3&gt;
 &lt;h4 id=&#34;export-configuration-and-database&#34;&gt;Export Configuration and Database&lt;/h4&gt;
