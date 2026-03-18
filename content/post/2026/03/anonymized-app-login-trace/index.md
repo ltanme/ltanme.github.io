@@ -2,7 +2,7 @@
 title: "一次某 App 登录链路排查记录：反编译 + Proxyman + Android 模拟器"
 date: 2026-03-18
 draft: false
-tags: ["Android", "反编译", "Proxyman", "ADB", "抓包", "macOS"]
+tags: ["Android", "反编译", "Proxyman", "ADB", "抓包", "macOS","逆向工程"]
 categories: ["Android 调试", "排查记录"]
 description: "记录一次某 App 登录链路排查过程：先做静态分析，再在 macOS 上用 Android 模拟器和 Proxyman 抓运行时流量，最后拿到真实请求参数。文中已对包名、域名、接口和业务背景做脱敏。"
 ---
