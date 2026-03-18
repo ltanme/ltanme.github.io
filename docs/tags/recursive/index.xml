@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Recursive on LTAN.ME</title>
-    <link>http://localhost:1313/tags/recursive/</link>
+    <link>https://ltan.me/tags/recursive/</link>
     <description>Recent content in Recursive on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 01 Jun 2021 09:33:32 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/recursive/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Jun 2021 09:33:32 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/recursive/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Abacus Mental Arithmetic Problem Generation</title>
-      <link>http://localhost:1313/post/2021/06/abacus-mental-arithmetic-problem-generation/</link>
+      <link>https://ltan.me/post/2021/06/abacus-mental-arithmetic-problem-generation/</link>
       <pubDate>Tue, 01 Jun 2021 09:33:32 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2021/06/abacus-mental-arithmetic-problem-generation/</guid>
+      <guid>https://ltan.me/post/2021/06/abacus-mental-arithmetic-problem-generation/</guid>
       <description>&lt;h1 id=&#34;珠心算二笔三笔五笔十笔一位加减混合计算题自动生成&#34;&gt;珠心算二笔、三笔、五笔、十笔一位加减混合计算题自动生成&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;珠算是以算盘为工具，数学理论为基础，运用手指拨珠，进行运算的一门计算技术，它是我国古代劳动人民重要的发明创造之一，千百年来这一技术不断扩散，传播到世界各国，推进着人类文明的发展历程。&lt;/p&gt;
@@ -21,7 +21,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;珠算是以算盘为工具，数学理论为基础，运用手指拨珠，进行运算的一门计算技术，它是我国古代劳动人民重要的发明创造之一，千百年来这一技术不断扩散，传播到世界各国，推进着人类文明的发展历程。&lt;/p&gt;
 &lt;p&gt;珠心算只有三个符号即1、5和0;数学有10个符号，即0、1、2、3、4、5、6、7、8、9。可见珠心算运算的简捷性。珠心算的直观模型作用能培养小孩子的数学概念能力，珠心算的分析模型作用能帮助小孩子理解应用题的结构关系和数量关系，提高解题能力。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/06/abacus-mental-arithmetic-problem-generation/zhuxinsuanpang.jpg&#34; alt=&#34;珠心算盘&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/06/abacus-mental-arithmetic-problem-generation/zhuxinsuanpang.jpg&#34; alt=&#34;珠心算盘&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;这几天看到娃娘，在用办公软件excel 给5岁娃出题，一页一页的打印出来, 很费劲&lt;/p&gt;
 &lt;p&gt;我说这个可以写个程序自动生成出来，更快。不用这么幸苦&lt;/p&gt;
@@ -139,7 +139,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;save(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;珠心算题目生成-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;.xlsx&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; (cell,len(data),version))
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wb&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最终生成效果如下，请自行调整打印格式&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/2021/06/abacus-mental-arithmetic-problem-generation/image-20210601102211603.png&#34; alt=&#34;image-20210601102211603&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ltan.me/post/2021/06/abacus-mental-arithmetic-problem-generation/image-20210601102211603.png&#34; alt=&#34;image-20210601102211603&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Browser Monitoring on LTAN.ME</title>
-    <link>http://localhost:1313/tags/browser-monitoring/</link>
+    <link>https://ltan.me/tags/browser-monitoring/</link>
     <description>Recent content in Browser Monitoring on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 27 Jul 2025 14:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/browser-monitoring/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Jul 2025 14:00:00 +0800</lastBuildDate><atom:link href="https://ltan.me/tags/browser-monitoring/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>BrowserGuard - 智能浏览器监控工具，助力家长控制与学习管理</title>
-      <link>http://localhost:1313/post/2025/07/browserguard-parental-control-browser-monitoring-tool/</link>
+      <link>https://ltan.me/post/2025/07/browserguard-parental-control-browser-monitoring-tool/</link>
       <pubDate>Sun, 27 Jul 2025 14:00:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/2025/07/browserguard-parental-control-browser-monitoring-tool/</guid>
+      <guid>https://ltan.me/post/2025/07/browserguard-parental-control-browser-monitoring-tool/</guid>
       <description>&lt;h2 id=&#34;项目概述&#34;&gt;项目概述&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/ltanme/BrowserGuard&#34;&gt;BrowserGuard&lt;/a&gt; 是一款专为家庭电脑学习管理设计的智能浏览器监控工具。基于 Electron + React + TypeScript 技术栈开发，支持 macOS 和 Windows 双平台，通过实时监控浏览器访问行为，帮助家长和孩子建立健康的上网习惯。&lt;/p&gt;
 &lt;h2 id=&#34;核心功能特性&#34;&gt;核心功能特性&lt;/h2&gt;

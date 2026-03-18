@@ -1,5 +1,5 @@
 ---
-baseurl: "https://ltan.me"
+baseURL: "https://ltan.me"
 DefaultContentLanguage: "zh-cn"
 hasCJKLanguage: true
 languageCode: "en-us"

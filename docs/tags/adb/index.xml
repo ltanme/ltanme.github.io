@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ADB on LTAN.ME</title>
-    <link>http://localhost:1313/tags/adb/</link>
+    <link>https://ltan.me/tags/adb/</link>
     <description>Recent content in ADB on LTAN.ME</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 18 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/adb/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://ltan.me/tags/adb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>一次某 App 登录链路排查记录：反编译 &#43; Proxyman &#43; Android 模拟器</title>
-      <link>http://localhost:1313/post/2026/03/anonymized-app-login-trace/</link>
+      <link>https://ltan.me/post/2026/03/anonymized-app-login-trace/</link>
       <pubDate>Wed, 18 Mar 2026 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2026/03/anonymized-app-login-trace/</guid>
+      <guid>https://ltan.me/post/2026/03/anonymized-app-login-trace/</guid>
       <description>&lt;p&gt;这篇是一次匿名化的排查记录，只保留方法和判断过程。真实包名、域名、接口路径和业务背景都做了脱敏，统一记成某 App、某网关、登录接口。&lt;/p&gt;
 &lt;p&gt;我这次的目标很简单：不是研究整个 APK，而是把某 App 的手机号登录链路摸清楚，最后拿到真实请求参数，方便和后台联调。&lt;/p&gt;
 &lt;h2 id=&#34;环境先定死不然后面会一直怀疑链路&#34;&gt;环境先定死，不然后面会一直怀疑链路&lt;/h2&gt;
@@ -160,7 +160,7 @@
 &lt;li&gt;清数据用来保证时序可信&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;把这些顺序理顺之后，登录链路其实没有想象中那么玄学。难的不是工具本身，而是别在错误的样本上做判断。
-&lt;img src=&#34;http://localhost:1313/post/2026/03/anonymized-app-login-trace/proxyman.png&#34; alt=&#34;proxyman.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ltan.me/post/2026/03/anonymized-app-login-trace/proxyman.png&#34; alt=&#34;proxyman.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;ps: 对于https 需要安装proxyman证书才能解密（如果是抓包设备应该把proxy证书安装在设备上），对于http明文可以看到&lt;/p&gt;&lt;/blockquote&gt;
 </content>
@@ -168,10 +168,10 @@
     
     <item>
       <title>我的第一个 OpenClaw Skill：给电视调试做个 tv-adb</title>
-      <link>http://localhost:1313/post/2026/03/openclaw-first-skill-tv-adb/</link>
+      <link>https://ltan.me/post/2026/03/openclaw-first-skill-tv-adb/</link>
       <pubDate>Mon, 02 Mar 2026 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2026/03/openclaw-first-skill-tv-adb/</guid>
+      <guid>https://ltan.me/post/2026/03/openclaw-first-skill-tv-adb/</guid>
       <description>&lt;p&gt;最近把 OpenClaw 跑顺之后，手就开始痒了。光让它聊天没什么意思，真正有用的是把自己天天会敲的命令收进去，变成一套能复用的技能。&lt;/p&gt;
 &lt;p&gt;我第一个下手的对象，就是电视调试。&lt;/p&gt;
 &lt;p&gt;平时这类 Android TV 设备，最常用的操作其实都差不多：&lt;code&gt;adb connect&lt;/code&gt;、切测试环境、装 APK、看 &lt;code&gt;logcat&lt;/code&gt;、查包版本、强杀进程。命令不复杂，但特别碎，久了就会散在聊天记录、备忘录、终端历史里。每次要用的时候，还得重新翻。&lt;/p&gt;</description>
@@ -306,7 +306,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  --serial 172.20.130.245:5555 &lt;span style=&#34;color:#ae81ff&#34;&gt;\
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;  --preset image-definition
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;真正开始用起来后，感觉这才像一个“能干活的 skill”，而不是一个大号备忘录。
-&lt;img src=&#34;http://localhost:1313/post/2026/03/openclaw-first-skill-tv-adb/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ltan.me/post/2026/03/openclaw-first-skill-tv-adb/img.png&#34; alt=&#34;img.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;这次做完之后我对-openclaw-的感觉也变了&#34;&gt;这次做完之后，我对 OpenClaw 的感觉也变了&lt;/h2&gt;
 &lt;p&gt;之前我把 OpenClaw 当成一个能聊天、能跑命令的 agent。&lt;/p&gt;
 &lt;p&gt;这次自己做完第一个 skill，感觉它更像一个能不断长工具的壳。&lt;/p&gt;
